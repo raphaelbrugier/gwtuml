@@ -34,7 +34,9 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
         
         canvas.setSize(width + "px", height + "px");
         DOM.setStyleAttribute(canvas.getElement(), "backgroundColor",
-				new Color(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), backgroundColor.getAlpha()).toHex());
+				new Color(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue()
+						/*, backgroundColor.getAlpha() Disabled to ensure *#@&~#! IE compatibility */,0
+						).toHex());
 
  
         return canvas;

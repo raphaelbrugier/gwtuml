@@ -37,7 +37,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		// Default values :
 	    canvas.setLineWidth(1);
 	    canvas.setStrokeStyle(Color.BLUEVIOLET);
-	    canvas.setBackgroundColor(new Color(backgroundColor.getRed(), backgroundColor.getBlue(), backgroundColor.getGreen(), backgroundColor.getAlpha()));
+	    canvas.setBackgroundColor(new Color(backgroundColor.getRed(), backgroundColor.getBlue(), backgroundColor.getGreen()
+	    		/*, backgroundColor.getAlpha() Disabled to ensure *#@&~#! IE compatibility */
+	    		));
 	    canvas.clear();
 		return canvas;
 	}

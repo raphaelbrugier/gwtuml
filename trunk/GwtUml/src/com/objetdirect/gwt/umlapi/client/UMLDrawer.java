@@ -53,8 +53,8 @@ public class UMLDrawer implements EntryPoint {
 								themeListBox.getItemText(themeListBox.getSelectedIndex())
 						)
 				);
-
-				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()) ==  "Tatami Gfx")
+				
+				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase("Tatami Gfx"))
 					GfxManager.setInstance(new TatamiGfxPlatfrom());
 				else
 					GfxManager.setInstance(new IncubatorGfxPlatform());
@@ -70,7 +70,7 @@ public class UMLDrawer implements EntryPoint {
 						)
 				);
 
-				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()) ==  "Tatami Gfx")
+				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase("Tatami Gfx"))
 					GfxManager.setInstance(new TatamiGfxPlatfrom());
 				else
 					GfxManager.setInstance(new IncubatorGfxPlatform());
@@ -101,7 +101,7 @@ public class UMLDrawer implements EntryPoint {
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
-		hPanel.setSpacing(10);
+		//hPanel.setSpacing(10);
 		RootPanel.get().add(hPanel, 10, 10);
 
 		final UMLCanvas gc = new UMLCanvas(800, 600);

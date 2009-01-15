@@ -17,5 +17,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.GWTShell"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www com.objetdirect.gwt.umlapi.UMLDrawer/UMLDrawer.html"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="GwtUml"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx256M"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms1024m -Xmx1024m"/>
 </launchConfiguration>
