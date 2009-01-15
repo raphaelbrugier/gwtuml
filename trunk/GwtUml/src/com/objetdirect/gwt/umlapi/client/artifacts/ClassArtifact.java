@@ -13,6 +13,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 
 public class ClassArtifact extends BoxArtifact {
 
@@ -447,7 +448,43 @@ public class ClassArtifact extends BoxArtifact {
             };
         }
     }
-
+    
+    @Override
+	public GfxObject getOutline() {
+		GfxPlatform gPlatform = GfxManager.getInstance();
+		GfxObject vg = gPlatform.buildVirtualGroup();
+		
+		GfxObject line1 = gPlatform.buildLine(0, 0, getWidth(), 0);
+		GfxObject line2 = gPlatform.buildLine(getWidth(), 0, getWidth(), getHeight());
+		GfxObject line3 = gPlatform.buildLine(getWidth(), getHeight(), 0, getHeight());
+		GfxObject line4 = gPlatform.buildLine(0, getHeight(), 0, 0);
+		
+		GfxObject line5 = gPlatform.buildLine(0, getClassNameHeight(), getWidth(), getClassNameHeight());
+		GfxObject line6 = gPlatform.buildLine(0, getClassNameHeight() + getAttrHeight(), getWidth(), getClassNameHeight() + getAttrHeight());
+		
+		gPlatform.setStrokeStyle(line1, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(line2, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(line3, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(line4, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(line5, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(line6, GfxStyle.DASH);
+		
+		GfxManager.getInstance().setStroke(line1, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getInstance().setStroke(line2, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getInstance().setStroke(line3, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getInstance().setStroke(line4, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getInstance().setStroke(line5, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getInstance().setStroke(line6, ThemeManager.getHighlightedForegroundColor(), 1);
+		
+		gPlatform.addToVirtualGroup(vg, line1);
+		gPlatform.addToVirtualGroup(vg, line2);
+		gPlatform.addToVirtualGroup(vg, line3);
+		gPlatform.addToVirtualGroup(vg, line4);
+		gPlatform.addToVirtualGroup(vg, line5);
+		gPlatform.addToVirtualGroup(vg, line6);
+		return vg;
+	}
+	
     String className;
     List<Attribute> attributes = new ArrayList<Attribute>();
     List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();

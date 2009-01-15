@@ -78,9 +78,9 @@ public class UMLDrawer implements EntryPoint {
 				createDemoDrawer();
 			}
 		});
-
-		gfxEngineListBox.addItem("Incubator GWTCanvas Gfx");
 		gfxEngineListBox.addItem("Tatami Gfx");
+		gfxEngineListBox.addItem("Incubator GWTCanvas Gfx");
+
 		for(Theme theme : Theme.values())
 		{
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
