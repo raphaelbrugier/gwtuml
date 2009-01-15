@@ -89,9 +89,10 @@ public class UMLDrawer implements EntryPoint {
 		startPanel.add(startDemo);
 		startPanel.add(gfxEngineListBox);
 		startPanel.add(themeListBox);
+		
 		Log.getDivLogger().moveTo(0, startPanel.getAbsoluteTop() + startPanel.getOffsetHeight() + 50);
-
-
+		Log.getDivLogger().setSize("100%", "400px");
+		
 
 	}
 

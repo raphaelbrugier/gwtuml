@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import com.objetdirect.gwt.umlapi.client.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;

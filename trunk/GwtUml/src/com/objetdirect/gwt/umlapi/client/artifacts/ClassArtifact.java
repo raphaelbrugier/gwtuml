@@ -9,7 +9,6 @@ import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
 import com.objetdirect.gwt.umlapi.client.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
