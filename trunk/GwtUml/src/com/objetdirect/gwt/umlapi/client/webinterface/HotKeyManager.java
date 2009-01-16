@@ -3,6 +3,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowCloseListener;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
@@ -55,8 +56,17 @@ public final class HotKeyManager {
 		case 'N':
 			activeCanvas.addNewNote();
 			break;
-		case 'L':
-			activeCanvas.addNewLink();
+		case 'D':
+			activeCanvas.addNewLink(Link.SIMPLE);
+			break;
+		case 'I':
+			activeCanvas.addNewLink(Link.IMPLEMENTATION);
+			break;
+		case 'E':
+			activeCanvas.addNewLink(Link.EXTENSION);
+			break;
+		case 'R':
+			activeCanvas.addNewLink(Link.RELATIONSHIP);
 			break;
 		default:
 			break;

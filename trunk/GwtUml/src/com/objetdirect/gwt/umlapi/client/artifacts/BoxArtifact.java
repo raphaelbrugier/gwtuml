@@ -9,6 +9,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public abstract class BoxArtifact extends UMLArtifact{
 
+    public static final int DEFAULT_WIDTH = 50;
+    
 	public void setLocation(int x, int y) {
 		GfxManager.getInstance().translate(getGfxObject(), x-this.x, y-this.y);
 		this.x = x;
@@ -81,10 +83,10 @@ public abstract class BoxArtifact extends UMLArtifact{
 		gPlatform.setStrokeStyle(line3, GfxStyle.DASH);
 		gPlatform.setStrokeStyle(line4, GfxStyle.DASH);
 		
-		GfxManager.getInstance().setStroke(line1, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line2, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line3, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line4, ThemeManager.getHighlightedForegroundColor(), 1);
+		gPlatform.setStroke(line1, ThemeManager.getHighlightedForegroundColor(), 1);
+		gPlatform.setStroke(line2, ThemeManager.getHighlightedForegroundColor(), 1);
+		gPlatform.setStroke(line3, ThemeManager.getHighlightedForegroundColor(), 1);
+		gPlatform.setStroke(line4, ThemeManager.getHighlightedForegroundColor(), 1);
 		
 		gPlatform.addToVirtualGroup(vg, line1);
 		gPlatform.addToVirtualGroup(vg, line2);

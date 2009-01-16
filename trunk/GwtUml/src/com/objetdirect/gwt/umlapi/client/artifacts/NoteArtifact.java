@@ -6,6 +6,7 @@ import java.util.List;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 
@@ -14,6 +15,8 @@ public class NoteArtifact extends BoxArtifact {
 	protected static int TEXT_OFFSET = 25;
 	protected static int TEXT_MARGIN = 8;
 	
+	public static final int DEFAULT_HEIGHT = 50;
+	 
 	public NoteArtifact() {
 	}
 	
@@ -80,11 +83,13 @@ public class NoteArtifact extends BoxArtifact {
 	}
 
 	public int getWidth() {
-		return TEXT_OFFSET+(int)GfxManager.getInstance().getWidthFor(contentText)/4*3+TEXT_MARGIN;
+		int width = TEXT_OFFSET+(int)GfxManager.getInstance().getWidthFor(contentText)/4*3+TEXT_MARGIN; 
+		return width > DEFAULT_WIDTH ? width : DEFAULT_WIDTH;
 	}
 
 	public int getHeight() {
-		return TEXT_OFFSET+(int)GfxManager.getInstance().getHeightFor(contentText)+TEXT_MARGIN;
+		int height = TEXT_OFFSET+(int)GfxManager.getInstance().getHeightFor(contentText)+TEXT_MARGIN;
+		return height > DEFAULT_HEIGHT ? height : DEFAULT_HEIGHT;
 	}
 
 	public List<GfxObject> getComponents() {
@@ -118,6 +123,22 @@ public class NoteArtifact extends BoxArtifact {
 		return null;
 	}
 	
+    @Override
+	public GfxObject getOutline() {    	
+    	
+    	GfxPlatform gPlatform = GfxManager.getInstance();
+    	GfxObject vg = gPlatform.buildVirtualGroup();
+    	GfxObject outlineBorderPath = getBorderPath();
+    	GfxObject outlineCornerPath = getCornerPath();
+		gPlatform.addToVirtualGroup(vg, outlineBorderPath);
+		gPlatform.addToVirtualGroup(vg, outlineCornerPath);
+		gPlatform.setStrokeStyle(outlineBorderPath, GfxStyle.DASH);
+		gPlatform.setStrokeStyle(outlineCornerPath, GfxStyle.DASH);
+		gPlatform.setStroke(outlineBorderPath, ThemeManager.getHighlightedForegroundColor(), 1);
+		gPlatform.setStroke(outlineCornerPath, ThemeManager.getHighlightedForegroundColor(), 1);
+		return vg;
+    }
+    
 	String content="";
 	GfxObject contentText = null;
 	GfxObject borderPath = null;

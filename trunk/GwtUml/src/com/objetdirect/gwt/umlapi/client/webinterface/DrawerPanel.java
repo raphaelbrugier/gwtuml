@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.ClassDiagramAnimator;
 import com.objetdirect.gwt.umlapi.client.engine.StandardClassEditor;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 public class DrawerPanel extends HorizontalPanel{
 
@@ -38,11 +39,18 @@ public class DrawerPanel extends HorizontalPanel{
 
 		Button addClass = new Button("Add Class (C)");
 		Button addNote = new Button("Add Note (N)");
-		Button makeLink = new Button("Make Link (L)");
-
+		Button addSimpleClassDependency = new Button("Add Simple Class Dependency (D)");
+		Button addImplementationClassDependency = new Button("Add Implementation Class Dependency (I)");
+		Button addExtensionClassDependency = new Button("Add Extension Class Dependency (E)");		
+		Button addRelationship = new Button("Add Relationship (R)");
+		
 		addClass.setPixelSize(128, 64);
 		addNote.setPixelSize(128, 64);
-		makeLink.setPixelSize(128, 64);
+		addSimpleClassDependency.setPixelSize(128, 64);
+		addImplementationClassDependency.setPixelSize(128, 64);
+		addExtensionClassDependency.setPixelSize(128, 64);
+		addRelationship.setPixelSize(128, 64);
+		
 
 		addClass.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
@@ -56,16 +64,33 @@ public class DrawerPanel extends HorizontalPanel{
 			}
 		});
 
-		makeLink.addClickListener(new ClickListener() {
+		addSimpleClassDependency.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
-				gc.addNewLink();
+				gc.addNewLink(Link.SIMPLE);
 			}
 		});
-
+		addImplementationClassDependency.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				gc.addNewLink(Link.IMPLEMENTATION);
+			}
+		});
+		addExtensionClassDependency.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				gc.addNewLink(Link.EXTENSION);
+			}
+		});
+		addRelationship.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				gc.addNewLink(Link.RELATIONSHIP);
+			}
+		});
 		sidePanel.add(addClass);
 		sidePanel.add(addNote);
-		sidePanel.add(makeLink);
-
+		sidePanel.add(addSimpleClassDependency);
+		sidePanel.add(addImplementationClassDependency);
+		sidePanel.add(addExtensionClassDependency);
+		sidePanel.add(addRelationship);
+		
 		this.add(sidePanel);
 
 		Log.info("Init end");

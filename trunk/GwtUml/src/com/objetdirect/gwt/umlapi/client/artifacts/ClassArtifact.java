@@ -17,7 +17,6 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class ClassArtifact extends BoxArtifact {
 
-    public static final int DEFAULT_WIDTH = 50;
     public static final int TEXT_MARGIN = 8;
     public static final Object NAME = new Object();
     public static final Object NEW_ATTRIBUTE = new Object();

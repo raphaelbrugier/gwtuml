@@ -10,3 +10,17 @@
 #pc-template-img {
   margin-top: 20px;
 }
+
+.globalMoveCursor *, .globalMoveCursor .absolutelyPositioned {
+    cursor: move;
+
+} 
+
+.globalHandCursor *, .globalHandCursor .absolutelyPositioned {
+    cursor: pointer;
+
+} 
+.globalNormalCursor *, .globalNormalCursor .absolutelyPositioned {
+    cursor: default;
+
+} 

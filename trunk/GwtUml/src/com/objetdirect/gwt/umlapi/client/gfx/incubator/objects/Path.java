@@ -66,7 +66,15 @@ public class Path extends IncubatorGfxObject {
 
 
 	public boolean isPointed(int x, int y) {
-		return false;
+		double minx = Double.MAX_VALUE , miny = Double.MAX_VALUE , maxx = Double.MIN_VALUE, maxy = Double.MIN_VALUE;
+    	for (Point point : pathPoints) {
+			minx = minx > point.x ? point.x : minx;
+			miny = miny > point.y ? point.y : miny;
+			maxx = maxx < point.x ? point.x : maxx;
+			maxy = maxy < point.y ? point.y : maxy;
+		}
+		
+		return (x > minx) && (x < maxx) && (y > miny) && (y < maxy);
 	}
 
 	public double getHeight() {
