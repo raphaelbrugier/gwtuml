@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.Geometry;
-import com.objetdirect.gwt.umlapi.client.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 
 public class NoteLinkArtifact implements UMLElement {

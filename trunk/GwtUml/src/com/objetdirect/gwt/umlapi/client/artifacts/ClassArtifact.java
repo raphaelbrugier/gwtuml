@@ -7,18 +7,18 @@ import java.util.List;
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
-import com.objetdirect.gwt.umlapi.client.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class ClassArtifact extends BoxArtifact {
 
-    static final int DEFAULT_WIDTH = 50;
-    static final int TEXT_MARGIN = 8;
+    public static final int DEFAULT_WIDTH = 50;
+    public static final int TEXT_MARGIN = 8;
     public static final Object NAME = new Object();
     public static final Object NEW_ATTRIBUTE = new Object();
     public static final Object NEW_METHOD = new Object();

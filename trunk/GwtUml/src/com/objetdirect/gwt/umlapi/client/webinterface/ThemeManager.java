@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 

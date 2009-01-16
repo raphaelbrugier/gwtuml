@@ -3,10 +3,10 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 
 public class NoteArtifact extends BoxArtifact {

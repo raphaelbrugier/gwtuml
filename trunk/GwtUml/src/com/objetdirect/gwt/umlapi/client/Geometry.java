@@ -4,6 +4,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class Geometry {
 

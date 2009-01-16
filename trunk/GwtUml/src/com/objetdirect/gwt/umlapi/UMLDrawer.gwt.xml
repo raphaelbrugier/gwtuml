@@ -13,6 +13,7 @@
       <!-- Other module inherits                                      -->
         <inherits name="com.objetdirect.tatami.Tatami"/>
 	    <inherits name='com.google.gwt.widgetideas.GWTCanvas'/>
+   	    <inherits name="com.google.gwt.widgetideas.GlassPanel"/>
         <!-- Add gwt-log support -->
           <inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" />
           

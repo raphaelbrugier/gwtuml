@@ -1,10 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 
 public abstract class BoxArtifact extends UMLArtifact{

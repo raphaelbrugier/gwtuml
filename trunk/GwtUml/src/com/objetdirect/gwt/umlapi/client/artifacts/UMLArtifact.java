@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public abstract class UMLArtifact implements UMLElement {
 
