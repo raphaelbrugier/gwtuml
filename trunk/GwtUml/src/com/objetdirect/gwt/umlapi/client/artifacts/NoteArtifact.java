@@ -57,13 +57,13 @@ public class NoteArtifact extends BoxArtifact {
 	protected GfxObject getBorderPath() {
 		GfxPlatform gPlatform = GfxManager.getInstance();
 		GfxObject path = gPlatform.buildPath();
-		
-		gPlatform.moveTo(path, TEXT_OFFSET-TEXT_MARGIN, 0);
-		gPlatform.lineTo(path, getWidth(), 0);
+		int dc = TEXT_OFFSET-TEXT_MARGIN; // Corner size
+		gPlatform.moveTo(path, 0, 0);
+		gPlatform.lineTo(path, getWidth()-dc, 0);
+		gPlatform.lineTo(path, getWidth(), dc);
 		gPlatform.lineTo(path, getWidth(), getHeight());
 		gPlatform.lineTo(path, 0, getHeight());
-		gPlatform.lineTo(path, 0, TEXT_OFFSET-TEXT_MARGIN);
-		gPlatform.lineTo(path, TEXT_OFFSET-TEXT_MARGIN, 0);
+		gPlatform.lineTo(path, 0, 0);
 		gPlatform.setFillColor(path, ThemeManager.getBackgroundColor());
 		gPlatform.setStroke(path, ThemeManager.getForegroundColor(), 1);
 		return path;
@@ -72,11 +72,10 @@ public class NoteArtifact extends BoxArtifact {
 	protected GfxObject getCornerPath() {
 		GfxPlatform gPlatform = GfxManager.getInstance();
 		GfxObject path = gPlatform.buildPath();
-		
-		gPlatform.moveTo(path, TEXT_OFFSET-TEXT_MARGIN, 0);
-		gPlatform.lineTo(path, TEXT_OFFSET-TEXT_MARGIN, TEXT_OFFSET-TEXT_MARGIN);
-		gPlatform.lineTo(path, 0, TEXT_OFFSET-TEXT_MARGIN);
-		gPlatform.lineTo(path, TEXT_OFFSET-TEXT_MARGIN, 0);
+		int dc = TEXT_OFFSET-TEXT_MARGIN; // Corner size
+		gPlatform.moveTo(path, getWidth() - dc, 0);
+		gPlatform.lineTo(path, getWidth() -  dc, dc);
+		gPlatform.lineTo(path, getWidth(), dc);		
 		gPlatform.setFillColor(path, ThemeManager.getBackgroundColor());
 		gPlatform.setStroke(path, ThemeManager.getForegroundColor(), 1);
 		return path;

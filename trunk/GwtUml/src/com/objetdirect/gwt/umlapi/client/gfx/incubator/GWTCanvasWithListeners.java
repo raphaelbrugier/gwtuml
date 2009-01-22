@@ -30,8 +30,8 @@ public class GWTCanvasWithListeners extends GWTCanvas {
     super.onBrowserEvent(event);
     if ((clickListeners != null && clickListeners.size() > 0) ||
         (mouseListeners != null && mouseListeners.size() > 0)) {
-      int x = event.getClientX() - getAbsoluteLeft() + RootPanel.getBodyElement().getScrollLeft();
-      int y = event.getClientY() -getAbsoluteTop() + RootPanel.getBodyElement().getScrollTop();
+      int x = event.getClientX();
+      int y = event.getClientY();
       
       switch (DOM.eventGetType(event)) {
         case Event.ONCLICK:

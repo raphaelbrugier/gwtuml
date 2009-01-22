@@ -27,7 +27,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 
 public class UMLCanvas extends AbsolutePanel {
 
-	private final static int FAR_AWAY = -1000;
+	private final static int FAR_AWAY = 1000;
 
 	public UMLCanvas() {
 		canvas = GfxManager.getInstance().makeCanvas();
@@ -50,8 +50,9 @@ public class UMLCanvas extends AbsolutePanel {
 		add(newClass);	
 		if (selected!=null)
 			selected.unselect();
-		selected = newClass;
-		selected.select();		
+		select(newClass.getGfxObject());
+		//selected = newClass;
+		//selected.select();		
 		take(FAR_AWAY+ClassArtifact.DEFAULT_WIDTH/2, FAR_AWAY);
 		dragOn = true;
 	}
@@ -62,8 +63,9 @@ public class UMLCanvas extends AbsolutePanel {
 		add(newNote);		
 		if (selected!=null)
 			selected.unselect();
-		selected = newNote;
-		selected.select();		
+		select(newNote.getGfxObject());
+		//selected = newNote;
+		//selected.select();		
 		take(FAR_AWAY+NoteArtifact.DEFAULT_WIDTH/2, FAR_AWAY);
 		dragOn = true;
 
@@ -114,7 +116,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	void select(GfxObject gfxObject) {
 		UMLElement newSelected = getUMLElement(gfxObject);
-		Log.trace("Selecting : " + newSelected);
+		Log.debug("Selecting : " + newSelected);
 		// if it's the same nothing is to be done
 		if (newSelected != selected) {
 
@@ -126,14 +128,12 @@ public class UMLCanvas extends AbsolutePanel {
 
 			if (selected!=null) {
 				if(activeLinking != Link.NONE) {
-					if((selected.getClass() == NoteArtifact.class) &&
-							(newSelected.getClass() != NoteArtifact.class)) {
-						add(new NoteLinkArtifact((NoteArtifact) selected, (UMLArtifact) newSelected));
+					if((selected.getClass() == NoteArtifact.class) ||
+							(newSelected.getClass() == NoteArtifact.class)) {
+						if(newSelected.getClass() == NoteArtifact.class)
+								add(new NoteLinkArtifact((NoteArtifact) newSelected, (UMLArtifact) selected));
+						else add(new NoteLinkArtifact((NoteArtifact) selected, (UMLArtifact) newSelected));
 					}
-					else if((newSelected.getClass() == NoteArtifact.class) &&
-							(selected.getClass() != NoteArtifact.class)) {
-						add(new NoteLinkArtifact((NoteArtifact) newSelected, (UMLArtifact) selected));
-					}	
 					else switch (activeLinking) {
 					case SIMPLE:
 						add(new ClassDependencyArtifact.Simple((ClassArtifact) selected,(ClassArtifact) newSelected));
@@ -155,7 +155,7 @@ public class UMLCanvas extends AbsolutePanel {
 					RootPanel.get().removeStyleName("globalCrosshairCursor");
 					RootPanel.get().addStyleName("globalNormalCursor");
 				}
-				Log.trace("UnSelecting : " + selected);
+				Log.debug("UnSelecting : " + selected);
 				selected.unselect();
 			}
 
@@ -163,7 +163,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 			if (selected!=null) {
 				selected.select();
-				Log.trace("Selecting really : " + selected);
+				Log.debug("Selecting really : " + selected);
 			}
 		}
 	}
@@ -175,9 +175,11 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	void take(int x, int y) {
+		Log.debug("Take at " + x + "," + y);
 		if (selected!=null && selected.isDraggable()) {
 			dx = x-selected.getX();
 			dy = y-selected.getY();
+			Log.debug("... with " + dx + "," + dy + " for " + selected);
 		}		
 	}
 
@@ -186,19 +188,27 @@ public class UMLCanvas extends AbsolutePanel {
 			if (outline==null) {
 				outline = selected.getOutline();
 				GfxManager.getInstance().addToCanvas(canvas, outline, 0, 0);
+				Log.debug("Adding outline for " + selected);
 			}
-			GfxManager.getInstance().translate(outline, x-dx-(int)GfxManager.getInstance().getXFor(outline), y-dy-(int)GfxManager.getInstance().getYFor(outline));
+			int tx = x-dx-(int)GfxManager.getInstance().getXFor(outline);
+			int ty = y-dy-(int)GfxManager.getInstance().getYFor(outline);
+			Log.debug("Translating " + tx + "," + ty);
+			GfxManager.getInstance().translate(outline, tx, ty);
 		}
 	}
 
 	void drop(int x, int y) {
 		if (selected!=null && selected.isDraggable()) {
+			
 			if (outline!=null) { 
 				GfxManager.getInstance().removeFromCanvas(canvas, outline);
 				outline=null;
 			}
 			if (x-dx!=selected.getX() || y-dy!=selected.getY()) {
-				selected.setLocation(x-dx, y-dy);
+				int fx = x-dx;
+				int fy = y-dy;
+				Log.debug("Dropping at " + fx + "," + fy + " for " + selected);
+				selected.setLocation(fx, fy);
 				selected.adjusted();
 			}
 		}
@@ -206,8 +216,10 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	void editItem(GfxObject o, int x, int y) {
+		Log.debug("Edit request on " + o);
 		UMLElement elem = getUMLElement(o);
 		if (elem!=null) {
+			Log.debug("Edit started on " + elem);
 			Iterator<UMLElementListener> it = listeners.iterator();
 			while (it.hasNext()) {
 				UMLElementListener lst = it.next();
@@ -222,15 +234,21 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 
 		public void mouseDblClicked(GfxObject gfxObject, int x, int y) {
+			x = convertToRealX(x);
+			y = convertToRealY(y);
 			editItem(gfxObject, x, y);
 		}
 
 		public void mouseMoved(int x, int y) {
+			x = convertToRealX(x);
+			y = convertToRealY(y);
 			if (dragOn)
 				drag(x, y);
 		}
 
 		public void mousePressed(GfxObject gfxObject, int x, int y) {
+			x = convertToRealX(x);
+			y = convertToRealY(y);
 			if (outline==null) {
 				select(gfxObject);
 				if (selected!=null && selected.isDraggable()) {
@@ -241,6 +259,8 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 
 		public void mouseReleased(GfxObject gfxObject, int x, int y) {
+			x = convertToRealX(x);
+			y = convertToRealY(y);
 			if (dragOn)
 				drop(x, y);
 			dragOn = false;
@@ -249,6 +269,13 @@ public class UMLCanvas extends AbsolutePanel {
 
 	};
 
+	private int convertToRealX(int x) {
+		return x + RootPanel.getBodyElement().getScrollLeft() - getAbsoluteLeft();
+	}
+	private int convertToRealY(int y) {
+		return y + RootPanel.getBodyElement().getScrollTop() - getAbsoluteTop();
+	}
+	
 	GfxObject outline=null; 	// Outline is used for drawing while drag and drop
 	int dx, dy;						// Represent the offset between object coordinates and mouse hotspot  
 	UMLElement selected = null;		// Represent the current UMLElement selected
