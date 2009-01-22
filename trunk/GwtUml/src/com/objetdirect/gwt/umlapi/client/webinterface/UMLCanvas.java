@@ -23,7 +23,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 
 public class UMLCanvas extends AbsolutePanel {
@@ -72,7 +71,7 @@ public class UMLCanvas extends AbsolutePanel {
 	public void addNewLink(Link linkType) {
 		activeLinking = linkType;
 		RootPanel.get().removeStyleName("globalNormalCursor"); 
-		RootPanel.get().addStyleName("globalHandCursor");
+		RootPanel.get().addStyleName("globalCrosshairCursor");
 	}
 
 	public void add(UMLElement element) {
@@ -121,7 +120,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 			if(newSelected == null) {
 				activeLinking = Link.NONE;
-				RootPanel.get().removeStyleName("globalHandCursor");
+				RootPanel.get().removeStyleName("globalCrosshairCursor");
 				RootPanel.get().addStyleName("globalNormalCursor"); 
 			}
 
@@ -153,7 +152,7 @@ public class UMLCanvas extends AbsolutePanel {
 					}
 
 					activeLinking = Link.NONE;
-					RootPanel.get().removeStyleName("globalHandCursor");
+					RootPanel.get().removeStyleName("globalCrosshairCursor");
 					RootPanel.get().addStyleName("globalNormalCursor");
 				}
 				Log.trace("UnSelecting : " + selected);

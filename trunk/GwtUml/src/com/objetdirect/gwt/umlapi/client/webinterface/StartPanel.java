@@ -3,7 +3,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -37,7 +36,7 @@ public class StartPanel extends VerticalPanel{
 		this.setSpacing(10);
 
 		Button start = new Button("Start New Uml Class Diagram");
-		Button startDemo = new Button("Start Class Diagram Demo");
+		Button startDemo = new Button("Load Class Diagram Demo");
 		final ListBox gfxEngineListBox = new ListBox();
 		final ListBox themeListBox = new ListBox();
 		start.addClickListener(new ClickListener() {
@@ -63,16 +62,13 @@ public class StartPanel extends VerticalPanel{
 						if (historyToken.equals("Drawer")) {
 							UMLDrawer.clearAppRootPanel();
 							loadingScreen.show();	
-							current_Panel = new DrawerPanel();	
-							UMLDrawer.hideLog();
+							current_Panel = new DrawerPanel();
 							loadingScreen.hide();		
 							UMLDrawer.addtoAppRootPanel(current_Panel);
 						}
 					}
 
 				});
-
-				UMLDrawer.hideLog();
 				loadingScreen.hide();		
 				UMLDrawer.addtoAppRootPanel(current_Panel);
 			}
@@ -100,7 +96,6 @@ public class StartPanel extends VerticalPanel{
 							UMLDrawer.clearAppRootPanel();
 							loadingScreen.show();		
 							current_Panel = new DemoPanel();
-							UMLDrawer.hideLog();
 							loadingScreen.hide();
 							UMLDrawer.addtoAppRootPanel(current_Panel);
 						}}
@@ -108,7 +103,6 @@ public class StartPanel extends VerticalPanel{
 
 				});
 
-				UMLDrawer.hideLog();
 				loadingScreen.hide();
 				UMLDrawer.addtoAppRootPanel(current_Panel);
 			}

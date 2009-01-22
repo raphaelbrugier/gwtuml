@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -44,12 +43,12 @@ public class DrawerPanel extends HorizontalPanel{
 		Button addExtensionClassDependency = new Button("Add Extension Class Dependency (E)");		
 		Button addRelationship = new Button("Add Relationship (R)");
 		
-		addClass.setPixelSize(128, 64);
-		addNote.setPixelSize(128, 64);
-		addSimpleClassDependency.setPixelSize(128, 64);
-		addImplementationClassDependency.setPixelSize(128, 64);
-		addExtensionClassDependency.setPixelSize(128, 64);
-		addRelationship.setPixelSize(128, 64);
+		addClass.setStylePrimaryName("drawer-button");
+		addNote.setStylePrimaryName("drawer-button");
+		addSimpleClassDependency.setStylePrimaryName("drawer-button");
+		addImplementationClassDependency.setStylePrimaryName("drawer-button");
+		addExtensionClassDependency.setStylePrimaryName("drawer-button");
+		addRelationship.setStylePrimaryName("drawer-button");
 		
 
 		addClass.addClickListener(new ClickListener() {
