@@ -2,6 +2,7 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
@@ -18,7 +19,6 @@ public class DemoPanel extends HorizontalPanel{
 
 	public DemoPanel() {
 		Log.info("Creating demodrawer");
-
 		final UMLCanvas gc = new UMLCanvas(1000, 600);
 		
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");

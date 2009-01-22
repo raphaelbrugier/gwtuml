@@ -2,6 +2,7 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -16,7 +17,6 @@ public class DrawerPanel extends HorizontalPanel{
 
 	public DrawerPanel() {
 		Log.info("Creating drawer");
-
 
 		this.setWidth("100%");
 

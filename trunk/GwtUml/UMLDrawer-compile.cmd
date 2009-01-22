@@ -1,1 +1,6 @@
-@java -Xmx256M -cp "%~dp0\src;%~dp0\bin;C:/Documents and Settings/fmounier/Bureau/gwt-windows-1.5.3/gwt-user.jar;C:/Documents and Settings/fmounier/Bureau/gwt-windows-1.5.3/gwt-dev-windows.jar" com.google.gwt.dev.GWTCompiler -out "%~dp0\www" %* com.objetdirect.gwt.umlapi.UMLDrawer
+java ^
+-Xms1024m -Xmx1024m ^
+-cp "%~dp0\src;%~dp0\bin;C:/gwt/gwt-user.jar;C:/gwt/gwt-dev-windows.jar;C:/gwt-tatami/tatami-1.3.jar;C:/gwt-incubator/gwt-incubator.jar;C:/gwt-log/gwt-log-2.5.3.jar" ^
+com.google.gwt.dev.GWTCompiler ^
+-out "%~dp0\www" %* com.objetdirect.gwt.umlapi.UMLDrawer
+xcopy www\com.objetdirect.gwt.umlapi.UMLDrawer latest_build \s 

@@ -1,9 +1,12 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -17,12 +20,13 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 public class StartPanel extends VerticalPanel{
 	static StartPanel instance = null;
 	private LoadingScreen loadingScreen;
+	private HorizontalPanel current_Panel;
 
 	public StartPanel() {
-		if (instance == null) instance = this;
-		else return;
+		instance = this;
 		loadingScreen = new LoadingScreen();
 		loadingScreen.show();
+
 
 		Log.info("Starting App");
 
@@ -33,7 +37,7 @@ public class StartPanel extends VerticalPanel{
 		this.setSpacing(10);
 
 		Button start = new Button("Start New Uml Class Diagram");
-		Button startDemo = new Button("Start Demo");
+		Button startDemo = new Button("Start Class Diagram Demo");
 		final ListBox gfxEngineListBox = new ListBox();
 		final ListBox themeListBox = new ListBox();
 		start.addClickListener(new ClickListener() {
@@ -48,13 +52,29 @@ public class StartPanel extends VerticalPanel{
 					GfxManager.setInstance(new TatamiGfxPlatfrom());
 				else
 					GfxManager.setInstance(new IncubatorGfxPlatform());
-				
+
 				instance.removeFromParent();
 				loadingScreen.show();	
-		    	DrawerPanel drawerPanel = new DrawerPanel();				
+				current_Panel = new DrawerPanel();	
+				History.newItem("Drawer");
+				History.addHistoryListener(new HistoryListener() {
+
+					public void onHistoryChanged(String historyToken) {
+						if (historyToken.equals("Drawer")) {
+							UMLDrawer.clearAppRootPanel();
+							loadingScreen.show();	
+							current_Panel = new DrawerPanel();	
+							UMLDrawer.hideLog();
+							loadingScreen.hide();		
+							UMLDrawer.addtoAppRootPanel(current_Panel);
+						}
+					}
+
+				});
+
 				UMLDrawer.hideLog();
 				loadingScreen.hide();		
-				UMLDrawer.addtoAppRootPanel(drawerPanel);
+				UMLDrawer.addtoAppRootPanel(current_Panel);
 			}
 		});
 		startDemo.addClickListener(new ClickListener() {
@@ -71,10 +91,26 @@ public class StartPanel extends VerticalPanel{
 					GfxManager.setInstance(new IncubatorGfxPlatform());
 				instance.removeFromParent();
 				loadingScreen.show();		
-				DemoPanel demo = new DemoPanel();
+				current_Panel = new DemoPanel();
+				History.newItem("Demo");
+				History.addHistoryListener(new HistoryListener() {
+
+					public void onHistoryChanged(String historyToken) {
+						if (historyToken.equals("Demo")) {
+							UMLDrawer.clearAppRootPanel();
+							loadingScreen.show();		
+							current_Panel = new DemoPanel();
+							UMLDrawer.hideLog();
+							loadingScreen.hide();
+							UMLDrawer.addtoAppRootPanel(current_Panel);
+						}}
+
+
+				});
+
 				UMLDrawer.hideLog();
 				loadingScreen.hide();
-				UMLDrawer.addtoAppRootPanel(demo);
+				UMLDrawer.addtoAppRootPanel(current_Panel);
 			}
 		});
 		gfxEngineListBox.addItem("Tatami Gfx");
@@ -92,7 +128,7 @@ public class StartPanel extends VerticalPanel{
 
 		loadingScreen.hide();
 		RootPanel.get().add(this);
-		
+
 
 
 	}
