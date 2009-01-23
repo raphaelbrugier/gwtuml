@@ -19,4 +19,5 @@ public interface UMLElement {
 	UMLCanvas getCanvas();
 	void setCanvas(UMLCanvas canvas);
 	void adjusted();
+	void edit(GfxObject gfxObject, int x, int y);
 }

@@ -3,8 +3,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -92,6 +92,10 @@ public class NoteLinkArtifact implements UMLElement {
 		adjusted();
 	}
 	
+	public void edit(GfxObject gfxObject, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 	UMLCanvas canvas;
 	GfxObject gfxObject =  null;
 	GfxObject line = null;

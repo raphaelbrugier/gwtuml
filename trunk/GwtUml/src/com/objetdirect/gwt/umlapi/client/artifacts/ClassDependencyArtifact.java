@@ -54,6 +54,11 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		return null;
 	}
 	
+	public void edit(GfxObject gfxObject, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	protected abstract GfxObject buildLine(float[] lineBounds);
 	
 	protected abstract GfxObject buildArrow(float[] lineBounds);

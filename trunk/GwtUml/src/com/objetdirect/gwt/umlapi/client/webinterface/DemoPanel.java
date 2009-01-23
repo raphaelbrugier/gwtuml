@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
@@ -11,8 +10,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.ClassDiagramAnimator;
-import com.objetdirect.gwt.umlapi.client.engine.StandardClassEditor;
 
 public class DemoPanel extends HorizontalPanel{
 
@@ -80,10 +77,6 @@ public class DemoPanel extends HorizontalPanel{
 		NoteLinkArtifact notePaymentLink = new NoteLinkArtifact(note, paymentClass);
 		NoteLinkArtifact noteRelationshipLink = new NoteLinkArtifact(note, relClientProduct);
 		NoteLinkArtifact noteDependencyLink = new NoteLinkArtifact(note, clientDataManager);
-		
-		gc.addUMLElementListener(new ClassDiagramAnimator().
-				setClassEditor(new StandardClassEditor())
-		);
 		
 		gc.add(clientClass);
 		gc.add(dataManagerClass);

@@ -7,6 +7,8 @@ import java.util.List;
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.editors.ClassEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -21,6 +23,7 @@ public class ClassArtifact extends BoxArtifact {
     public static final Object NAME = new Object();
     public static final Object NEW_ATTRIBUTE = new Object();
     public static final Object NEW_METHOD = new Object();
+	
 
     // interface
 
@@ -30,6 +33,7 @@ public class ClassArtifact extends BoxArtifact {
 
     public ClassArtifact(String className) {
         this.className = className;
+        this.editor = new ClassEditor(this);
     }
 
     public void setClassName(String className) {
@@ -187,21 +191,7 @@ public class ClassArtifact extends BoxArtifact {
         return height;
     }
 
-    public Object getSubPart(GfxObject o) {
-        if (o==classNameText[0])
-            return NAME;
-        if (o==attrDivRect)
-            return NEW_ATTRIBUTE;
-        if (o==methodDivRect)
-            return NEW_METHOD;
-        int i = indexOf(attrTexts, o); 
-        if (i!=-1)
-            return attributes.get(i);
-        i = indexOf(methodTexts, o); 
-        if (i!=-1)
-            return methods.get(i);
-        return null;
-    }
+
 
     public String getClassName() {
         return className;
@@ -361,7 +351,7 @@ public class ClassArtifact extends BoxArtifact {
 
 
     int updateWidth(int width, int widthEl) {
-        widthEl=widthEl+TEXT_MARGIN+TEXT_MARGIN;
+        widthEl=TEXT_MARGIN + widthEl+ TEXT_MARGIN;
         return width>widthEl ? width : widthEl;
     }
 
@@ -370,17 +360,17 @@ public class ClassArtifact extends BoxArtifact {
     }
 
     int getClassNameHeight() {
-        return TEXT_MARGIN+getLineHeight()+TEXT_MARGIN;
+        return TEXT_MARGIN + getLineHeight() + TEXT_MARGIN;
     }
 
     int getAttrHeight() {
         int size = getSize(attrTexts);
-        return TEXT_MARGIN+((size+2)/3)*3*(getLineHeight()+TEXT_MARGIN);
+        return TEXT_MARGIN + ((size+2)/3)*3*(getLineHeight() + TEXT_MARGIN);
     }
 
     int getMethodHeight() {
         int size = getSize(methodTexts);
-        return TEXT_MARGIN+((size+2)/3)*3*(getLineHeight()+TEXT_MARGIN);
+        return TEXT_MARGIN + ((size+2)/3)*3*(getLineHeight() + TEXT_MARGIN);
     }
 
     int getSize(List<GfxObject[]> list) {
@@ -448,6 +438,40 @@ public class ClassArtifact extends BoxArtifact {
         }
     }
     
+    public Object getSubPart(GfxObject o) {
+        if (o==classNameText[0])
+            return NAME;
+        if (o==attrDivRect)
+            return NEW_ATTRIBUTE;
+        if (o==methodDivRect)
+            return NEW_METHOD;
+        int i = indexOf(attrTexts, o); 
+        if (i!=-1)
+            return attributes.get(i);
+        i = indexOf(methodTexts, o); 
+        if (i!=-1)
+            return methods.get(i);
+        return null;
+    }
+    
+	public void edit(GfxObject gfxObject, int x, int y) {
+		Object subPart = getSubPart(gfxObject);
+		if (subPart==null)
+			return;
+		else if (subPart==ClassArtifact.NAME)
+			editor.editName();
+		else if (subPart==ClassArtifact.NEW_ATTRIBUTE)
+			editor.editNewAttribute();
+		else if (subPart instanceof Attribute)
+			editor.editAttribute((Attribute)subPart);
+		else if (subPart==ClassArtifact.NEW_METHOD)
+			editor.editNewMethod();
+		else if (subPart instanceof Method)
+			editor.editMethod((Method)subPart);
+		else
+			throw new UMLDrawerException("Invalid class subpart : "+subPart);
+	}
+	
     @Override
 	public GfxObject getOutline() {
 		GfxPlatform gPlatform = GfxManager.getInstance();
@@ -497,5 +521,6 @@ public class ClassArtifact extends BoxArtifact {
     List<GfxObject[]> attrTexts = null;
     GfxObject methodDivRect;
     List<GfxObject[]> methodTexts = null;
-    GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.LIGHTER);
+       
+    private ClassEditor editor;
 }

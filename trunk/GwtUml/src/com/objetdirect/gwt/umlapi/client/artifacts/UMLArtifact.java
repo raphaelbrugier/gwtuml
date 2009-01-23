@@ -52,8 +52,6 @@ public abstract class UMLArtifact implements UMLElement {
 		this.canvas = canvas;
 	}
 	
-	public abstract Object getSubPart(GfxObject o);
-	
 	public abstract int getX();
 	
 	public abstract int getY();

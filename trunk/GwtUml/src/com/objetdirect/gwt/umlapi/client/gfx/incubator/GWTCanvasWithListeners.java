@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.MouseListenerCollection;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 public class GWTCanvasWithListeners extends GWTCanvas {

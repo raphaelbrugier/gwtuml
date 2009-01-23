@@ -1,15 +1,12 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.ClassDiagramAnimator;
-import com.objetdirect.gwt.umlapi.client.engine.StandardClassEditor;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 public class DrawerPanel extends HorizontalPanel{
@@ -31,9 +28,7 @@ public class DrawerPanel extends HorizontalPanel{
 		defaultclass.setLocation(400, 300);
 		
 		gc.setStylePrimaryName("canvas");
-		gc.addUMLElementListener(new ClassDiagramAnimator().
-				setClassEditor(new StandardClassEditor())
-		);
+
 		gc.add(defaultclass);
 
 		Log.info("Init class end\nBegin sidebar");

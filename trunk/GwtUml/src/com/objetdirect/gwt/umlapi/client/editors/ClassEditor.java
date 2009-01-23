@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client.engine;
+package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
@@ -13,55 +13,57 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
 import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyser;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 
-public class StandardClassEditor extends ClassEditor {
+public class ClassEditor {
 
 	public static final int FIELD_XMARGIN= 8;
 	public static final int FIELD_YMARGIN= -4;
 	public static final int FIELD_HEIGHT = 18;
+	private ClassArtifact editedClass = null;
 	
-	protected void editName(ClassArtifact elem) {
-		this.elem = elem;
+	public ClassEditor(ClassArtifact editedClass) {
+		this.editedClass = editedClass;
+	}
+
+	public void editName() {
 		this.subpart = ClassArtifact.NAME;
-		editField = getEditField(elem.getClassName(), elem.getWidth());
-		elem.getCanvas().add(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+elem.getNameY()+FIELD_YMARGIN);
+		editField = getEditField(editedClass.getClassName(), editedClass.getWidth());
+		editedClass.getCanvas().add(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+editedClass.getNameY()+FIELD_YMARGIN);
 		editField.selectAll();
 		editField.setFocus(true);
 	}
 
-	protected void editAttribute(ClassArtifact elem, Attribute attribute) {
-		this.elem = elem;
+	public void editAttribute(Attribute attribute) {
 		this.subpart = attribute;
-		editField = getEditField(attribute.toString(), elem.getWidth());
-		elem.getCanvas().add(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+elem.getAttributeY(attribute)+FIELD_YMARGIN);
+		editField = getEditField(attribute.toString(), editedClass.getWidth());
+		editedClass.getCanvas().add(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+editedClass.getAttributeY(attribute)+FIELD_YMARGIN);
 		editField.selectAll();
 		editField.setFocus(true);
 	}
 	
 	
-	protected void editNewAttribute(ClassArtifact elem) {
+	public void editNewAttribute() {
 		Attribute attr = new Attribute("type", "name");
 		attr.setValidated(false);
-		elem.addAttribute(attr);
+		editedClass.addAttribute(attr);
 		subpart = attr;
-		editAttribute(elem, attr);
+		editAttribute(attr);
 	}
 
-	protected void editMethod(ClassArtifact elem, Method method) {
-		this.elem = elem;
+	public void editMethod(Method method) {
 		this.subpart = method;
-		editField = getEditField(method.toString(), elem.getWidth());
-		elem.getCanvas().add(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+elem.getMethodY(method)+FIELD_YMARGIN);
+		editField = getEditField(method.toString(), editedClass.getWidth());
+		editedClass.getCanvas().add(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+editedClass.getMethodY(method)+FIELD_YMARGIN);
 		editField.selectAll();
 		editField.setFocus(true);
 	}
 	
 	
-	protected void editNewMethod(ClassArtifact elem) {
+	public void editNewMethod() {
 		Method method = new Method("type", "name", null);
 		method.setValidated(false);
-		elem.addMethod(method);
+		editedClass.addMethod(method);
 		subpart = method;
-		editMethod(elem, method);
+		editMethod(method);
 	}
 
 	protected void validate() {
@@ -70,15 +72,15 @@ public class StandardClassEditor extends ClassEditor {
 		try {			
 			validationInProcess = true;
 			if (subpart==ClassArtifact.NAME) {
-				elem.setClassName(editField.getText());
+				editedClass.setClassName(editField.getText());
 			}
 			else if (subpart instanceof Attribute) {
-				updateAttribute(elem, (Attribute)subpart, editField.getText());
+				updateAttribute(editedClass, (Attribute)subpart, editField.getText());
 			}
 			else if (subpart instanceof Method) {
-				updateMethod(elem, (Method)subpart, editField.getText());
+				updateMethod(editedClass, (Method)subpart, editField.getText());
 			}
-			elem.getCanvas().remove(editField);
+			editedClass.getCanvas().remove(editField);
 			editField = null;
 		}
 		finally {
@@ -90,101 +92,101 @@ public class StandardClassEditor extends ClassEditor {
 	protected void goDown() {
 		if (subpart==ClassArtifact.NAME) {
 			validate();
-			if (elem.getAttributes().size()>0)
-				editAttribute(elem, (Attribute)elem.getAttributes().get(0));
+			if (editedClass.getAttributes().size()>0)
+				editAttribute((Attribute)editedClass.getAttributes().get(0));
 		}
 		else if (subpart instanceof Attribute) {
-			int i = elem.getAttributes().indexOf(subpart);
+			int i = editedClass.getAttributes().indexOf(subpart);
 			Attribute nextAttr = null;
-			if (elem.getAttributes().size()>i+1)
-				nextAttr = (Attribute)elem.getAttributes().get(i+1);
+			if (editedClass.getAttributes().size()>i+1)
+				nextAttr = (Attribute)editedClass.getAttributes().get(i+1);
 			if (nextAttr!=null) {	
 				validate();
-				editAttribute(elem, nextAttr);
-			} else if (elem.getMethods().size()>0) {
+				editAttribute(nextAttr);
+			} else if (editedClass.getMethods().size()>0) {
 				validate();
-				editMethod(elem, (Method)elem.getMethods().get(0));
+				editMethod((Method)editedClass.getMethods().get(0));
 			}
 		}
 		else if (subpart instanceof Method) {
-			int i = elem.getMethods().indexOf(subpart);
+			int i = editedClass.getMethods().indexOf(subpart);
 			Method nextMethod = null;
-			if (elem.getMethods().size()>i+1)
-				nextMethod = (Method)elem.getMethods().get(i+1);
+			if (editedClass.getMethods().size()>i+1)
+				nextMethod = (Method)editedClass.getMethods().get(i+1);
 			if (nextMethod!=null) {	
 				validate();
-				editMethod(elem, nextMethod);
+				editMethod(nextMethod);
 			}
 		}
 	}
 
 	protected void goUp() {
 		if (subpart instanceof Attribute) {
-			int i = elem.getAttributes().indexOf(subpart);
+			int i = editedClass.getAttributes().indexOf(subpart);
 			Attribute prevAttr = null;
 			if (i>0)
-				prevAttr = (Attribute)elem.getAttributes().get(i-1);
+				prevAttr = (Attribute)editedClass.getAttributes().get(i-1);
 			validate();
 			if (prevAttr!=null)	
-				editAttribute(elem, prevAttr);
+				editAttribute(prevAttr);
 			else
-				editName(elem);
+				editName();
 		}
 		else if (subpart instanceof Method) {
-			int i = elem.getMethods().indexOf(subpart);
+			int i = editedClass.getMethods().indexOf(subpart);
 			Method prevMethod = null;
 			if (i>0)
-				prevMethod = (Method)elem.getMethods().get(i-1);
+				prevMethod = (Method)editedClass.getMethods().get(i-1);
 			validate();
 			if (prevMethod!=null)	
-				editMethod(elem, prevMethod);
-			else if (elem.getAttributes().size()>0) {
-				Attribute attr = (Attribute)elem.getAttributes().get(elem.getAttributes().size()-1);
-				editAttribute(elem, attr);
+				editMethod(prevMethod);
+			else if (editedClass.getAttributes().size()>0) {
+				Attribute attr = (Attribute)editedClass.getAttributes().get(editedClass.getAttributes().size()-1);
+				editAttribute(attr);
 			}
 			else
-				editName(elem);
+				editName();
 		}
 	}
 
 	protected void moveUp() {
 		if (subpart instanceof Attribute) {
-			int i = elem.getAttributes().indexOf(subpart);
+			int i = editedClass.getAttributes().indexOf(subpart);
 			if (i>0) {
-				Attribute attr = (Attribute)elem.getAttributes().get(i-1);
-				elem.exchangeAttribute((Attribute)subpart, attr);
-				int y = elem.getAttributeY((Attribute)subpart);
-				elem.getCanvas().setWidgetPosition(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+y+FIELD_YMARGIN);
+				Attribute attr = (Attribute)editedClass.getAttributes().get(i-1);
+				editedClass.exchangeAttribute((Attribute)subpart, attr);
+				int y = editedClass.getAttributeY((Attribute)subpart);
+				editedClass.getCanvas().setWidgetPosition(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+y+FIELD_YMARGIN);
 			}
 		}
 		else if (subpart instanceof Method) {
-			int i = elem.getMethods().indexOf(subpart);
+			int i = editedClass.getMethods().indexOf(subpart);
 			if (i>0) {
-				Method method = (Method)elem.getMethods().get(i-1);
-				elem.exchangeMethod((Method)subpart, method);
-				int y = elem.getMethodY((Method)subpart);
-				elem.getCanvas().setWidgetPosition(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+y+FIELD_YMARGIN);
+				Method method = (Method)editedClass.getMethods().get(i-1);
+				editedClass.exchangeMethod((Method)subpart, method);
+				int y = editedClass.getMethodY((Method)subpart);
+				editedClass.getCanvas().setWidgetPosition(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+y+FIELD_YMARGIN);
 			}
 		}
 	}
 	
 	protected void moveDown() {
 		if (subpart instanceof Attribute) {
-			int i = elem.getAttributes().indexOf(subpart);
-			if (i<elem.getAttributes().size()-1) {
-				Attribute attr = (Attribute)elem.getAttributes().get(i+1);
-				elem.exchangeAttribute((Attribute)subpart, attr);
-				int y = elem.getAttributeY((Attribute)subpart);
-				elem.getCanvas().setWidgetPosition(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+y+FIELD_YMARGIN);
+			int i = editedClass.getAttributes().indexOf(subpart);
+			if (i<editedClass.getAttributes().size()-1) {
+				Attribute attr = (Attribute)editedClass.getAttributes().get(i+1);
+				editedClass.exchangeAttribute((Attribute)subpart, attr);
+				int y = editedClass.getAttributeY((Attribute)subpart);
+				editedClass.getCanvas().setWidgetPosition(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+y+FIELD_YMARGIN);
 			}
 		}
 		else if (subpart instanceof Method) {
-			int i = elem.getMethods().indexOf(subpart);
-			if (i<elem.getAttributes().size()-1) {
-				Method method = (Method)elem.getMethods().get(i+1);
-				elem.exchangeMethod((Method)subpart, method);
-				int y = elem.getMethodY((Method)subpart);
-				elem.getCanvas().setWidgetPosition(editField, elem.getX()+FIELD_XMARGIN, elem.getY()+y+FIELD_YMARGIN);
+			int i = editedClass.getMethods().indexOf(subpart);
+			if (i<editedClass.getAttributes().size()-1) {
+				Method method = (Method)editedClass.getMethods().get(i+1);
+				editedClass.exchangeMethod((Method)subpart, method);
+				int y = editedClass.getMethodY((Method)subpart);
+				editedClass.getCanvas().setWidgetPosition(editField, editedClass.getX()+FIELD_XMARGIN, editedClass.getY()+y+FIELD_YMARGIN);
 			}
 		}
 	}
@@ -192,61 +194,61 @@ public class StandardClassEditor extends ClassEditor {
 	protected void goNextLine() {
 		if (subpart==ClassArtifact.NAME) {
 			validate();
-			if (elem.getAttributes().size()>0)
-				editAttribute(elem, (Attribute)elem.getAttributes().get(0));
+			if (editedClass.getAttributes().size()>0)
+				editAttribute((Attribute)editedClass.getAttributes().get(0));
 		}
 		else if (subpart instanceof Attribute) {
-			int i = elem.getAttributes().indexOf(subpart);
+			int i = editedClass.getAttributes().indexOf(subpart);
 			Attribute nextAttr = null;
-			if (elem.getAttributes().size()>i+1)
-				nextAttr = (Attribute)elem.getAttributes().get(i+1);
+			if (editedClass.getAttributes().size()>i+1)
+				nextAttr = (Attribute)editedClass.getAttributes().get(i+1);
 			validate();
 			if (nextAttr!=null)	
-				editAttribute(elem, nextAttr);
+				editAttribute(nextAttr);
 			else 
-				editNewAttribute(elem);
+				editNewAttribute();
 		}
 		else if (subpart instanceof Method) {
-			int i = elem.getMethods().indexOf(subpart);
+			int i = editedClass.getMethods().indexOf(subpart);
 			Method nextMethod = null;
-			if (elem.getMethods().size()>i+1)
-				nextMethod = (Method)elem.getMethods().get(i+1);
+			if (editedClass.getMethods().size()>i+1)
+				nextMethod = (Method)editedClass.getMethods().get(i+1);
 			validate();
 			if (nextMethod!=null)	
-				editMethod(elem, nextMethod);
+				editMethod(nextMethod);
 			else 
-				editNewMethod(elem);
+				editNewMethod();
 		}
 	}
 	
 	protected void goNextBox() {
 		if (subpart==ClassArtifact.NAME) {
 			validate();
-			if (elem.getAttributes().size()>0)
-				editAttribute(elem, (Attribute)elem.getAttributes().get(0));
+			if (editedClass.getAttributes().size()>0)
+				editAttribute((Attribute)editedClass.getAttributes().get(0));
 			else
-				editNewAttribute(elem);
+				editNewAttribute();
 		}
 		else if (subpart instanceof Attribute) {
 			validate();
-			if (elem.getMethods().size()>0)
-				editMethod(elem, (Method)elem.getMethods().get(0));
+			if (editedClass.getMethods().size()>0)
+				editMethod((Method)editedClass.getMethods().get(0));
 			else
-				editNewMethod(elem);
+				editNewMethod();
 		}
 	}
 
 	protected void goPrevBox() {
 		if (subpart instanceof Attribute) {
 			validate();
-			editName(elem);
+			editName();
 		}
 		else if (subpart instanceof Attribute) {
 			validate();
-			if (elem.getAttributes().size()>0)
-				editAttribute(elem, (Attribute)elem.getAttributes().get(0));
+			if (editedClass.getAttributes().size()>0)
+				editAttribute((Attribute)editedClass.getAttributes().get(0));
 			else
-				editNewAttribute(elem);
+				editNewAttribute();
 		}
 	}
 
@@ -256,14 +258,14 @@ public class StandardClassEditor extends ClassEditor {
 			if (subpart instanceof Attribute) {
 				Attribute attr = (Attribute)subpart;
 				if (!attr.isValidated())
-					removeAttribute(elem, attr);
+					removeAttribute(editedClass, attr);
 			}
 			if (subpart instanceof Method) {
 				Method method = (Method)subpart;
 				if (!method.isValidated())
-					removeMethod(elem, method);
+					removeMethod(editedClass, method);
 			}
-			elem.getCanvas().remove(editField);
+			editedClass.getCanvas().remove(editField);
 			editField = null;
 		}
 		finally {
@@ -271,18 +273,18 @@ public class StandardClassEditor extends ClassEditor {
 		}		
 	}
 	
-	void updateAttribute(ClassArtifact elem, Attribute attr, String text) {
+	void updateAttribute(ClassArtifact editedClass, Attribute attr, String text) {
 		if (text.trim().length()==0)
-			removeAttribute(elem, attr);
+			removeAttribute(editedClass, attr);
 		else
-			replaceAttribute(elem, attr, text);
+			replaceAttribute(editedClass, attr, text);
 	}
 	
-	void removeAttribute(ClassArtifact elem, Attribute attr) {
-		elem.removeAttribute(attr);
+	void removeAttribute(ClassArtifact editedClass, Attribute attr) {
+		editedClass.removeAttribute(attr);
 	}
 	
-	void replaceAttribute(ClassArtifact elem, Attribute attr, String text) {
+	void replaceAttribute(ClassArtifact editedClass, Attribute attr, String text) {
 		LexicalAnalyser lex = new LexicalAnalyser(text);
 		try {
 			String type = null;
@@ -300,31 +302,31 @@ public class StandardClassEditor extends ClassEditor {
 					throw new UMLDrawerException("invalid format : must match 'identifier:type'");
 				type = tk.getContent();
 			}
-			elem.setAttribute(attr, new Attribute(type, name));
+			editedClass.setAttribute(attr, new Attribute(type, name));
 			attr.setValidated(true);
 		} catch (UMLDrawerException e) {
 			Window.alert(e.getMessage());
 		}
 	}
 	
-	void updateMethod(ClassArtifact elem, Method method, String text) {
+	void updateMethod(ClassArtifact editedClass, Method method, String text) {
 		if (text.trim().length()==0)
-			removeMethod(elem, method);
+			removeMethod(editedClass, method);
 		else
-			replaceMethod(elem, method, text);
+			replaceMethod(editedClass, method, text);
 	}
 	
-	void removeMethod(ClassArtifact elem, Method method) {
-		elem.removeMethod(method);
+	void removeMethod(ClassArtifact editedClass, Method method) {
+		editedClass.removeMethod(method);
 	}
 	
-	void replaceMethod(ClassArtifact elem, Method method, String text) {
+	void replaceMethod(ClassArtifact editedClass, Method method, String text) {
 		LexicalAnalyser lex = new LexicalAnalyser(text);
 		try {
 			MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
 			ma.process(lex, null);
 			Method newMethod = ma.getMethod();
-			elem.setMethod(method, newMethod);
+			editedClass.setMethod(method, newMethod);
 			method.setValidated(true);
 		} catch (UMLDrawerException e) {
 			Window.alert(e.getMessage());
@@ -383,6 +385,5 @@ public class StandardClassEditor extends ClassEditor {
 	
 	boolean validationInProcess = false;
 	TextBox editField = null;
-	ClassArtifact elem;
 	Object subpart;
 }

@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
@@ -97,5 +98,5 @@ public abstract class BoxArtifact extends UMLArtifact{
 
 	int x = 0;
 	int y = 0;
-	
+	 GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.LIGHTER);
 }

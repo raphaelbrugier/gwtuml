@@ -46,30 +46,33 @@ public final class HotKeyManager {
 	public static void setActiveCanvas(UMLCanvas canvas) { 
 		activeCanvas = canvas;
 	};
-	
+
 	private static void onKeyDown(Event event) { 
 		char keyCode = (char) DOM.eventGetKeyCode(event); 
-		switch (keyCode) {
-		case 'C':
-			activeCanvas.addNewClass();
-			break;
-		case 'N':
-			activeCanvas.addNewNote();
-			break;
-		case 'D':
-			activeCanvas.addNewLink(Link.SIMPLE);
-			break;
-		case 'I':
-			activeCanvas.addNewLink(Link.IMPLEMENTATION);
-			break;
-		case 'E':
-			activeCanvas.addNewLink(Link.EXTENSION);
-			break;
-		case 'R':
-			activeCanvas.addNewLink(Link.RELATIONSHIP);
-			break;
-		default:
-			break;
+		if(DOM.eventGetCtrlKey(event))
+		{
+			switch (keyCode) {
+			case 'C':
+				activeCanvas.addNewClass();
+				break;
+			case 'N':
+				activeCanvas.addNewNote();
+				break;
+			case 'D':
+				activeCanvas.addNewLink(Link.SIMPLE);
+				break;
+			case 'I':
+				activeCanvas.addNewLink(Link.IMPLEMENTATION);
+				break;
+			case 'E':
+				activeCanvas.addNewLink(Link.EXTENSION);
+				break;
+			case 'R':
+				activeCanvas.addNewLink(Link.RELATIONSHIP);
+				break;
+			default:
+				break;
+			}
 		}
 
 	}
@@ -82,9 +85,9 @@ public final class HotKeyManager {
 	private static void onKeyUp(Event event) { 
 		char keyCode = (char) DOM.eventGetKeyCode(event);
 	}	
-	
+
 	private static UMLCanvas activeCanvas;
-	
+
 
 	/** * Prevent instantiation. */
 	private HotKeyManager() { } 

@@ -40,7 +40,7 @@ public class ThemeManager {
 	private static Theme current_theme = Theme.NORMAL;
 
 	public static String getThemeName(Theme theme) {
-		return current_theme.getThemeName();
+		return theme.getThemeName();
 	}
 
 	public static Theme getThemeFromName(String themeName) {

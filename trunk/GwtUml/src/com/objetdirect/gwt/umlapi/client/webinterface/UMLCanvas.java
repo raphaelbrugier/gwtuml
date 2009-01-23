@@ -1,11 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -18,7 +15,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLElement;
-import com.objetdirect.gwt.umlapi.client.engine.UMLElementListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
@@ -73,13 +69,14 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	public void add(UMLElement element) {
+		element.setCanvas(this);
 		GfxManager.getInstance().addToCanvas(canvas, element.getGfxObject(), 0, 0);
 		register(element.getGfxObject(), element);
 		List<GfxObject> elems = element.getComponents();
 		for (int i = 0; i<elems.size(); i++) {
 			register(elems.get(i), element);
 		}
-		element.setCanvas(this);
+		
 	}
 
 	public void remove(UMLElement element) {
@@ -100,14 +97,6 @@ public class UMLCanvas extends AbsolutePanel {
 
 	public void unregister(GfxObject go) {
 		objects.remove(go);
-	}
-
-	public void addUMLElementListener(UMLElementListener lst) {
-		listeners.add(lst);
-	}
-
-	public void removeUMLElementListener(UMLElementListener lst) {
-		listeners.remove(lst);
 	}
 
 	void select(GfxObject gfxObject) {
@@ -212,16 +201,12 @@ public class UMLCanvas extends AbsolutePanel {
 
 	}
 
-	void editItem(GfxObject o, int x, int y) {
-		Log.debug("Edit request on " + o);
-		UMLElement elem = getUMLElement(o);
+	void editItem(GfxObject gfxObject, int x, int y) {
+		Log.debug("Edit request on " + gfxObject);
+		UMLElement elem = getUMLElement(gfxObject);
 		if (elem!=null) {
 			Log.debug("Edit started on " + elem);
-			Iterator<UMLElementListener> it = listeners.iterator();
-			while (it.hasNext()) {
-				UMLElementListener lst = it.next();
-				lst.itemEdited(elem, o);
-			}
+			elem.edit(gfxObject, x, y);
 		}
 	}
 
@@ -279,7 +264,6 @@ public class UMLCanvas extends AbsolutePanel {
 	boolean dragOn = false;			// Represent the dragging state
 	Widget canvas;			// Drawing canvas
 	Map<GfxObject, UMLElement> objects = new HashMap<GfxObject, UMLElement>();	// Map of UMLElement with their Graphical objects 
-	Set<UMLElementListener> listeners = new HashSet<UMLElementListener>();				// Set of UMLElement listeners
 	public enum Link {NONE, SIMPLE, IMPLEMENTATION, EXTENSION, RELATIONSHIP};	
 	private Link activeLinking  = Link.NONE;
 }
