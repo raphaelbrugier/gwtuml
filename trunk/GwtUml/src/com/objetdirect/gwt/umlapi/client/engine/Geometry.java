@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umlapi.client.engine;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;

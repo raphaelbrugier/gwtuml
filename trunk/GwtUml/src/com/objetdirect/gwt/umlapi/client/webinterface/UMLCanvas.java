@@ -23,6 +23,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
+import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
 
 public class UMLCanvas extends AbsolutePanel {
@@ -50,9 +51,7 @@ public class UMLCanvas extends AbsolutePanel {
 		add(newClass);	
 		if (selected!=null)
 			selected.unselect();
-		select(newClass.getGfxObject());
-		//selected = newClass;
-		//selected.select();		
+		select(newClass.getGfxObject());	
 		take(FAR_AWAY+ClassArtifact.DEFAULT_WIDTH/2, FAR_AWAY);
 		dragOn = true;
 	}
@@ -64,34 +63,31 @@ public class UMLCanvas extends AbsolutePanel {
 		if (selected!=null)
 			selected.unselect();
 		select(newNote.getGfxObject());
-		//selected = newNote;
-		//selected.select();		
 		take(FAR_AWAY+NoteArtifact.DEFAULT_WIDTH/2, FAR_AWAY);
 		dragOn = true;
 
 	}
 	public void addNewLink(Link linkType) {
 		activeLinking = linkType;
-		RootPanel.get().removeStyleName("globalNormalCursor"); 
-		RootPanel.get().addStyleName("globalCrosshairCursor");
+		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
 	}
 
 	public void add(UMLElement element) {
 		GfxManager.getInstance().addToCanvas(canvas, element.getGfxObject(), 0, 0);
-		objects.put(element.getGfxObject(), element);
+		register(element.getGfxObject(), element);
 		List<GfxObject> elems = element.getComponents();
 		for (int i = 0; i<elems.size(); i++) {
-			objects.put(elems.get(i), element);
+			register(elems.get(i), element);
 		}
 		element.setCanvas(this);
 	}
 
 	public void remove(UMLElement element) {
 		GfxManager.getInstance().removeFromCanvas(canvas, element.getGfxObject());
-		objects.remove(element.getGfxObject());
+		unregister(element.getGfxObject());
 		List<GfxObject> elems = element.getComponents();
 		for (int i = 0; i<elems.size(); i++) {
-			objects.remove(elems.get(i));
+			unregister(elems.get(i));
 		}
 		element.setCanvas(null);
 		if (element==selected)
@@ -122,8 +118,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 			if(newSelected == null) {
 				activeLinking = Link.NONE;
-				RootPanel.get().removeStyleName("globalCrosshairCursor");
-				RootPanel.get().addStyleName("globalNormalCursor"); 
+				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 			}
 
 			if (selected!=null) {
@@ -152,8 +147,7 @@ public class UMLCanvas extends AbsolutePanel {
 					}
 
 					activeLinking = Link.NONE;
-					RootPanel.get().removeStyleName("globalCrosshairCursor");
-					RootPanel.get().addStyleName("globalNormalCursor");
+					CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 				}
 				Log.debug("UnSelecting : " + selected);
 				selected.unselect();
@@ -180,6 +174,7 @@ public class UMLCanvas extends AbsolutePanel {
 			dx = x-selected.getX();
 			dy = y-selected.getY();
 			Log.debug("... with " + dx + "," + dy + " for " + selected);
+			
 		}		
 	}
 
@@ -189,6 +184,7 @@ public class UMLCanvas extends AbsolutePanel {
 				outline = selected.getOutline();
 				GfxManager.getInstance().addToCanvas(canvas, outline, 0, 0);
 				Log.debug("Adding outline for " + selected);
+				CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 			}
 			int tx = x-dx-(int)GfxManager.getInstance().getXFor(outline);
 			int ty = y-dy-(int)GfxManager.getInstance().getYFor(outline);
@@ -208,6 +204,7 @@ public class UMLCanvas extends AbsolutePanel {
 				int fx = x-dx;
 				int fy = y-dy;
 				Log.debug("Dropping at " + fx + "," + fy + " for " + selected);
+				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 				selected.setLocation(fx, fy);
 				selected.adjusted();
 			}

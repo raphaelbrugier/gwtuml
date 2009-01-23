@@ -29,13 +29,15 @@ public class DrawerPanel extends HorizontalPanel{
 
 		ClassArtifact defaultclass = new ClassArtifact("Class");
 		defaultclass.setLocation(400, 300);
+		
 		gc.setStylePrimaryName("canvas");
-		gc.add(defaultclass);
-
 		gc.addUMLElementListener(new ClassDiagramAnimator().
 				setClassEditor(new StandardClassEditor())
 		);
+		gc.add(defaultclass);
+
 		Log.info("Init class end\nBegin sidebar");
+		
 		VerticalPanel sidePanel = new VerticalPanel();
 		sidePanel.setSpacing(5);
 

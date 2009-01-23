@@ -110,8 +110,7 @@ public class StartPanel extends VerticalPanel{
 		gfxEngineListBox.addItem("Tatami Gfx");
 		gfxEngineListBox.addItem("Incubator GWTCanvas Gfx");
 
-		for(Theme theme : Theme.values())
-		{
+		for(Theme theme : Theme.values()) {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 		this.add(start);

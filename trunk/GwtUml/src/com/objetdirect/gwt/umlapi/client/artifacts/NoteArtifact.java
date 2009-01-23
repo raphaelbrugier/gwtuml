@@ -29,12 +29,13 @@ public class NoteArtifact extends BoxArtifact {
 	}
 	
 	public float[] getOpaque() {
+		int dc = TEXT_OFFSET-TEXT_MARGIN; // Corner size
 		float[] opaque = new float[] {
-				getX()+TEXT_OFFSET-TEXT_MARGIN, getY(),
-				getX(), getY()+TEXT_OFFSET-TEXT_MARGIN,
+				getX(), getY(),
 				getX(), getY()+getHeight(),
 				getX()+getWidth(), getY()+getHeight(),
-				getX()+getWidth(), getY()
+				getX()+getWidth(), getY() + dc,
+				getX()+getWidth() - dc, getY(),
 		};
 		return opaque;
 	}

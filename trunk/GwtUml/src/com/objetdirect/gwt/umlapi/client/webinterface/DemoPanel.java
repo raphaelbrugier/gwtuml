@@ -19,6 +19,7 @@ public class DemoPanel extends HorizontalPanel{
 	public DemoPanel() {
 		Log.info("Creating demodrawer");
 		final UMLCanvas gc = new UMLCanvas(1000, 600);
+		gc.setStylePrimaryName("canvas");
 		
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 		dataManagerClass.setLocation(500, 100);
@@ -79,7 +80,11 @@ public class DemoPanel extends HorizontalPanel{
 		NoteLinkArtifact notePaymentLink = new NoteLinkArtifact(note, paymentClass);
 		NoteLinkArtifact noteRelationshipLink = new NoteLinkArtifact(note, relClientProduct);
 		NoteLinkArtifact noteDependencyLink = new NoteLinkArtifact(note, clientDataManager);
-
+		
+		gc.addUMLElementListener(new ClassDiagramAnimator().
+				setClassEditor(new StandardClassEditor())
+		);
+		
 		gc.add(clientClass);
 		gc.add(dataManagerClass);
 		gc.add(clientDataManager);
@@ -99,11 +104,8 @@ public class DemoPanel extends HorizontalPanel{
 		gc.add(notePaymentLink);
 		gc.add(noteRelationshipLink);
 		gc.add(noteDependencyLink);
-		DOM.setStyleAttribute(gc.getElement(), "border", "2px solid black");
 
-		gc.addUMLElementListener(new ClassDiagramAnimator().
-				setClassEditor(new StandardClassEditor())
-		);
+		
 
 		Log.info("Init demodrawer end");
 		this.add(gc);
