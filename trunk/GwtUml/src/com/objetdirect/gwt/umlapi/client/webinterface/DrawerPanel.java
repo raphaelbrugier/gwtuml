@@ -11,18 +11,19 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 public class DrawerPanel extends HorizontalPanel{
 
-	public DrawerPanel() {
+	public DrawerPanel(int w, int h) {
 		Log.info("Creating drawer");
 
 		this.setWidth("100%");
 
-		final UMLCanvas gc = new UMLCanvas(800, 600);
+		final UMLCanvas gc = new UMLCanvas(w, h);
 		this.add(gc);
 		
 		//TODO : under chrome redraw doesn't work if the canvas is at a different point than (0,0) tatami ? dojo ? chrome ?
 		//example : this.setSpacing(50);
 		
 		HotKeyManager.setActiveCanvas(gc);
+		
 
 		ClassArtifact defaultclass = new ClassArtifact("Class");
 		defaultclass.setLocation(400, 300);

@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="C:/gwt-log/gwt-log-2.5.3.jar"/>
 	<classpathentry kind="lib" path="C:/gwt-mosaic/gwt-mosaic-0.1.7.jar"/>
 	<classpathentry kind="lib" path="C:/gwt-incubator/gwt-incubator_1-5_Dec_28.jar"/>
+	<classpathentry kind="lib" path="C:/gwt-dnd/gwt-dnd-2.5.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

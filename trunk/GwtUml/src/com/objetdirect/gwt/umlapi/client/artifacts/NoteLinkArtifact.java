@@ -1,8 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -96,6 +98,7 @@ public class NoteLinkArtifact implements UMLElement {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	UMLCanvas canvas;
 	GfxObject gfxObject =  null;
 	GfxObject line = null;
@@ -103,4 +106,19 @@ public class NoteLinkArtifact implements UMLElement {
 	int x1, y1, x2, y2;
 	NoteArtifact note;
 	UMLArtifact target;
+	public LinkedHashMap <String, Command> getRightMenu() {
+		
+		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+		
+		Command doNothing = new Command() { 
+			public void execute() {
+			}
+
+		};	
+		rightMenu.put("Note link", doNothing);
+		rightMenu.put("-", null);
+		rightMenu.put("> Delete", doNothing);
+		return rightMenu;
+	}
+
 }

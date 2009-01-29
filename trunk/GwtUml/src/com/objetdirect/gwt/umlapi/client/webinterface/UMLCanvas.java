@@ -5,13 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
@@ -25,12 +21,10 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
-import org.gwt.mosaic.ui.client.PopupMenu;
-
 public class UMLCanvas extends AbsolutePanel {
 
 	private final static int FAR_AWAY = 1000;
-
+	private ContextMenuManager contextMenuManager; 
 	public UMLCanvas() {
 		canvas = GfxManager.getInstance().makeCanvas();
 		this.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
@@ -44,31 +38,11 @@ public class UMLCanvas extends AbsolutePanel {
 		initCanvas();
 	}
 	
-	Command cmd = new Command()
-	{
-
-		public void execute() {			
-			
-		}
-		
-	};
-	
-	private PopupMenu contextMenu;
 	  
 	private void initCanvas() {
 		GfxManager.getInstance().addObjectListenerToCanvas(canvas, gfxObjectListener);
 		add(canvas, 0, 0);
-
-	      contextMenu = new PopupMenu();
-
-	      contextMenu.addItem("MenuItem 1", cmd);
-	      contextMenu.addItem("MenuItem 2", cmd);
-
-	      contextMenu.addSeparator();
-
-	      contextMenu.addItem("MenuItem 3", cmd);
-	      contextMenu.addItem("MenuItem 4", cmd);
-
+		contextMenuManager = new ContextMenuManager(this);
 	}
 
 
@@ -243,18 +217,12 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 	}
 
-	private void dropRightMenu(GfxObject gfxObject, final int x, final int y) {
+	private void dropRightMenu(GfxObject gfxObject, int x, int y) {
 		select(gfxObject);
 		UMLElement elem = getUMLElement(gfxObject);
-		contextMenu.setPopupPositionAndShow(new PositionCallback() {
-		      public void setPosition(int offsetWidth, int offsetHeight) {
-		        contextMenu.setPopupPosition(x, y);
-		      }
-		    });
-		if (elem!=null) {
-			//elem.getRightMenu();
-			 
-		}
+		if (elem!=null) contextMenuManager.makeMenu(elem.getRightMenu());
+		else contextMenuManager.makeMenu();
+		contextMenuManager.show(x, y);
 	}		 
 	
 

@@ -2,15 +2,16 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.editors.ClassEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
@@ -523,4 +524,23 @@ public class ClassArtifact extends BoxArtifact {
     List<GfxObject[]> methodTexts = null;
        
     private ClassEditor editor;
+
+
+	public LinkedHashMap <String, Command> getRightMenu() {
+		
+		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+		
+		Command doNothing = new Command() { 
+			public void execute() {
+			}
+
+		};	
+		rightMenu.put("Class " + className, doNothing);
+		rightMenu.put("-", null);
+		rightMenu.put("> Rename", doNothing);
+		rightMenu.put("> Edit attribute", doNothing);
+		rightMenu.put("> Edit method", doNothing);
+		rightMenu.put("> Delete", doNothing);
+		return rightMenu;
+	}
 }

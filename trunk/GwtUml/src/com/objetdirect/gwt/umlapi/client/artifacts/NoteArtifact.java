@@ -1,9 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.editors.ClassEditor;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.NoteEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -168,4 +169,20 @@ public class NoteArtifact extends BoxArtifact {
 	GfxObject cornerPath = null;
 	List<NoteLinkArtifact> dependencies = new ArrayList<NoteLinkArtifact>();
 	GfxObject vg;
+
+	public LinkedHashMap <String, Command> getRightMenu() {
+		
+		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+		
+		Command doNothing = new Command() { 
+			public void execute() {
+			}
+
+		};	
+		rightMenu.put("Note", doNothing);
+		rightMenu.put("-", null);
+		rightMenu.put("> Edit", doNothing);
+		rightMenu.put("> Delete", doNothing);
+		return rightMenu;
+	}
 }

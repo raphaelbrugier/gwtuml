@@ -1,12 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.Attribute;
-import com.objetdirect.gwt.umlapi.client.Method;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.editors.NoteEditor;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.RelationshipEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -319,7 +317,7 @@ public class RelationshipArtifact extends LineArtifact {
 		int x1 = relationShipArtifactPart.isLeft() ? getX1() : getX2();
 		int y1 = relationShipArtifactPart.isLeft() ? getY1() : getY2();
 		int x2 = relationShipArtifactPart.isLeft() ? getX2() : getX1();
-		int y2 = relationShipArtifactPart.isLeft() ? getY2() : getY1();
+		//int y2 = relationShipArtifactPart.isLeft() ? getY2() : getY1();
 		
 		if(text == null) return 0;
 		if(relationShipArtifactPart == RelationShipArtifactPart.NAME) {
@@ -351,7 +349,7 @@ public class RelationshipArtifact extends LineArtifact {
 	{
 		int x1 = relationShipArtifactPart.isLeft() ? getX1() : getX2();
 		int y1 = relationShipArtifactPart.isLeft() ? getY1() : getY2();
-		int x2 = relationShipArtifactPart.isLeft() ? getX2() : getX1();
+		//int x2 = relationShipArtifactPart.isLeft() ? getX2() : getX1();
 		int y2 = relationShipArtifactPart.isLeft() ? getY2() : getY1();
 		GfxPlatform gPlatform = GfxManager.getInstance();
 		if(text == null) return 0;
@@ -596,8 +594,23 @@ public class RelationshipArtifact extends LineArtifact {
 		public boolean isLeft() {
 			return this.isLeft;
 		}
+	}
 
+	public LinkedHashMap <String, Command> getRightMenu() {
+		
+		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+		
+		Command doNothing = new Command() { 
+			public void execute() {
+			}
 
-	};
-
+		};	
+		rightMenu.put("RelationShip " + leftClass.className + " <-> " + rightClass.className, doNothing);
+		rightMenu.put("-", null);
+		rightMenu.put("> Edit", doNothing);
+		rightMenu.put("> Reverse", doNothing);
+		rightMenu.put("> Delete", doNothing);
+		
+		return rightMenu;
+	}
 }

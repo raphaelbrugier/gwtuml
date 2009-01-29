@@ -47,6 +47,7 @@ public final class HotKeyManager {
 		activeCanvas = canvas;
 	};
 
+	@SuppressWarnings("unused")
 	private static void onKeyDown(Event event) { 
 		char keyCode = (char) DOM.eventGetKeyCode(event); 
 		if(DOM.eventGetCtrlKey(event))
@@ -77,13 +78,15 @@ public final class HotKeyManager {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void onKeyPress(Event event) { 
-		char keyCode = (char) DOM.eventGetKeyCode(event); 
+		//char keyCode = (char) DOM.eventGetKeyCode(event); 
 	}
 
 
+	@SuppressWarnings("unused")
 	private static void onKeyUp(Event event) { 
-		char keyCode = (char) DOM.eventGetKeyCode(event);
+		//char keyCode = (char) DOM.eventGetKeyCode(event);
 	}	
 
 	private static UMLCanvas activeCanvas;

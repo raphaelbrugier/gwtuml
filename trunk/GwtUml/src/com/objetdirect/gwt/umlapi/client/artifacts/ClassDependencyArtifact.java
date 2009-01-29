@@ -1,8 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -87,6 +89,23 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			return Geometry.buildArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
 		}
 		
+		public LinkedHashMap <String, Command> getRightMenu() {
+			
+			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+			
+			Command doNothing = new Command() { 
+				public void execute() {
+				}
+
+			};	
+			rightMenu.put("Simple", doNothing);
+			rightMenu.put("-", null);
+			rightMenu.put("Change to extension", doNothing);
+			rightMenu.put("Change to implementation", doNothing);
+			rightMenu.put("Reverse", doNothing);
+			rightMenu.put("Delete", doNothing);
+			return rightMenu;
+		}
 	}
 	
 	public static class Extension extends ClassDependencyArtifact {
@@ -105,6 +124,24 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		
 		protected GfxObject buildArrow(float[] lineBounds) {
 			return Geometry.buildFilledArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
+		}
+
+		public LinkedHashMap <String, Command> getRightMenu() {
+			
+			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+			
+			Command doNothing = new Command() { 
+				public void execute() {
+				}
+
+			};	
+			rightMenu.put("Extension", doNothing);
+			rightMenu.put("-", null);
+			rightMenu.put("Change to simple", doNothing);
+			rightMenu.put("Change to implementation", doNothing);
+			rightMenu.put("Reverse", doNothing);
+			rightMenu.put("Delete", doNothing);
+			return rightMenu;
 		}
 		
 	}
@@ -125,6 +162,24 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		
 		protected GfxObject buildArrow(float[] lineBounds) {
 			return Geometry.buildFilledArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
+		}
+
+		public LinkedHashMap <String, Command> getRightMenu() {
+			
+			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
+			
+			Command doNothing = new Command() { 
+				public void execute() {
+				}
+
+			};	
+			rightMenu.put("Implementation", doNothing);
+			rightMenu.put("-", null);
+			rightMenu.put("> Change to simple", doNothing);
+			rightMenu.put("> Change to extension", doNothing);
+			rightMenu.put("> Reverse", doNothing);
+			rightMenu.put("> Delete", doNothing);
+			return rightMenu;
 		}
 		
 	}
