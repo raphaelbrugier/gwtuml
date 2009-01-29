@@ -113,11 +113,15 @@ public class NoteLinkArtifact implements UMLElement {
 		Command doNothing = new Command() { 
 			public void execute() {
 			}
-
 		};	
+		Command remove = new Command() {
+			public void execute() {
+				getCanvas().removeSelected();
+			}
+		};
 		rightMenu.put("Note link", doNothing);
 		rightMenu.put("-", null);
-		rightMenu.put("> Delete", doNothing);
+		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
 

@@ -603,13 +603,17 @@ public class RelationshipArtifact extends LineArtifact {
 		Command doNothing = new Command() { 
 			public void execute() {
 			}
-
 		};	
+		Command remove = new Command() {
+			public void execute() {
+				getCanvas().removeSelected();
+			}
+		};
 		rightMenu.put("RelationShip " + leftClass.className + " <-> " + rightClass.className, doNothing);
 		rightMenu.put("-", null);
 		rightMenu.put("> Edit", doNothing);
 		rightMenu.put("> Reverse", doNothing);
-		rightMenu.put("> Delete", doNothing);
+		rightMenu.put("> Delete", remove);
 		
 		return rightMenu;
 	}

@@ -23,7 +23,8 @@ public class CursorIconManager {
 		W_RESIZE("globalW_ResizeCursor"),
 		TEXT("globalTextCursor"),
 		WAIT("globalWaitCursor"),
-		HELP("globalHelpCursor");
+		HELP("globalHelpCursor"),
+		NOT_ALLOWED("globalNotAllowedCursor");
 		
 		private final String cssName;		
 		

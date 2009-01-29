@@ -25,7 +25,7 @@ public class DrawerPanel extends HorizontalPanel{
 		HotKeyManager.setActiveCanvas(gc);
 		
 
-		ClassArtifact defaultclass = new ClassArtifact("Class");
+		ClassArtifact defaultclass = new ClassArtifact("Main");
 		defaultclass.setLocation(400, 300);
 		
 		gc.setStylePrimaryName("canvas");
@@ -43,6 +43,7 @@ public class DrawerPanel extends HorizontalPanel{
 		Button addImplementationClassDependency = new Button("Add Implementation Class Dependency (I)");
 		Button addExtensionClassDependency = new Button("Add Extension Class Dependency (E)");		
 		Button addRelationship = new Button("Add Relationship (R)");
+		Button delete = new Button("Delete (S)");
 		
 		addClass.setStylePrimaryName("drawer-button");
 		addNote.setStylePrimaryName("drawer-button");
@@ -50,7 +51,7 @@ public class DrawerPanel extends HorizontalPanel{
 		addImplementationClassDependency.setStylePrimaryName("drawer-button");
 		addExtensionClassDependency.setStylePrimaryName("drawer-button");
 		addRelationship.setStylePrimaryName("drawer-button");
-		
+		delete.setStylePrimaryName("drawer-button");
 
 		addClass.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
@@ -84,12 +85,18 @@ public class DrawerPanel extends HorizontalPanel{
 				gc.addNewLink(Link.RELATIONSHIP);
 			}
 		});
+		delete.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				gc.setDeleteMode();
+			}
+		});
 		sidePanel.add(addClass);
 		sidePanel.add(addNote);
 		sidePanel.add(addSimpleClassDependency);
 		sidePanel.add(addImplementationClassDependency);
 		sidePanel.add(addExtensionClassDependency);
 		sidePanel.add(addRelationship);
+		sidePanel.add(delete);
 		
 		this.add(sidePanel);
 

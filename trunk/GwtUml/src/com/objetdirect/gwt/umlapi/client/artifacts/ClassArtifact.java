@@ -257,6 +257,7 @@ public class ClassArtifact extends BoxArtifact {
             gPlatform.addToVirtualGroup(vg, attrTexts.get(i)[0]);
         for (int i=0; i<methodTexts.size(); i++)
             gPlatform.addToVirtualGroup(vg, methodTexts.get(i)[0]);
+        Log.trace("GfxObject is " + vg);
         return vg;
     }
 
@@ -440,11 +441,11 @@ public class ClassArtifact extends BoxArtifact {
     }
     
     public Object getSubPart(GfxObject o) {
-        if (o==classNameText[0])
+        if (o.equals(classNameText[0]))
             return NAME;
-        if (o==attrDivRect)
+        if (o.equals(attrDivRect))
             return NEW_ATTRIBUTE;
-        if (o==methodDivRect)
+        if (o.equals(methodDivRect))
             return NEW_METHOD;
         int i = indexOf(attrTexts, o); 
         if (i!=-1)
@@ -457,8 +458,10 @@ public class ClassArtifact extends BoxArtifact {
     
 	public void edit(GfxObject gfxObject, int x, int y) {
 		Object subPart = getSubPart(gfxObject);
-		if (subPart==null)
+		if (subPart==null) {			
+			Log.debug("No subpart found");
 			return;
+		}
 		else if (subPart==ClassArtifact.NAME)
 			editor.editName();
 		else if (subPart==ClassArtifact.NEW_ATTRIBUTE)
@@ -533,14 +536,18 @@ public class ClassArtifact extends BoxArtifact {
 		Command doNothing = new Command() { 
 			public void execute() {
 			}
-
 		};	
+		Command remove = new Command() {
+			public void execute() {
+				getCanvas().removeSelected();
+			}
+		};
 		rightMenu.put("Class " + className, doNothing);
 		rightMenu.put("-", null);
 		rightMenu.put("> Rename", doNothing);
 		rightMenu.put("> Edit attribute", doNothing);
 		rightMenu.put("> Edit method", doNothing);
-		rightMenu.put("> Delete", doNothing);
+		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
 }

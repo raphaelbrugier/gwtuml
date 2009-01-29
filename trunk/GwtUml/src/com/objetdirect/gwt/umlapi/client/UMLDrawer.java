@@ -27,7 +27,7 @@ public class UMLDrawer implements EntryPoint {
 	public final static DockPanel appRootPanel = new DockPanel();
 
 	public static void addtoAppRootPanel(Widget w) {
-		Log.info("History : adding " + w);
+		Log.info("History : adding center");
 		appRootPanel.add(w, DockPanel.CENTER);
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 	}
@@ -41,7 +41,6 @@ public class UMLDrawer implements EntryPoint {
 
 	public void onModuleLoad() {
 		Log.setUncaughtExceptionHandler();
-
 		DeferredCommand.addCommand(new Command() {
 			public void execute() {
 				gwt_main();
@@ -60,7 +59,6 @@ public class UMLDrawer implements EntryPoint {
 
 		History.newItem("Start");
 		History.addHistoryListener(new HistoryListener() {
-
 			public void onHistoryChanged(String historyToken) {
 				if (historyToken.equals("Start")) {
 
@@ -68,10 +66,7 @@ public class UMLDrawer implements EntryPoint {
 					startPanel = new StartPanel(true);
 					appRootPanel.add(startPanel, DockPanel.CENTER);
 				}
-
 			}
-
-
 		});
 
 		log = new Button("ToggleLog");
@@ -92,7 +87,4 @@ public class UMLDrawer implements EntryPoint {
 		appRootPanel.add(log, DockPanel.SOUTH);	
 		RootPanel.get().add(appRootPanel);
 	}
-
-
-
 }

@@ -96,14 +96,18 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			Command doNothing = new Command() { 
 				public void execute() {
 				}
-
 			};	
+			Command remove = new Command() {
+				public void execute() {
+					getCanvas().removeSelected();
+				}
+			};
 			rightMenu.put("Simple", doNothing);
 			rightMenu.put("-", null);
 			rightMenu.put("Change to extension", doNothing);
 			rightMenu.put("Change to implementation", doNothing);
 			rightMenu.put("Reverse", doNothing);
-			rightMenu.put("Delete", doNothing);
+			rightMenu.put("Delete", remove);
 			return rightMenu;
 		}
 	}
@@ -133,14 +137,18 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			Command doNothing = new Command() { 
 				public void execute() {
 				}
-
 			};	
+			Command remove = new Command() {
+				public void execute() {
+					getCanvas().removeSelected();
+				}
+			};
 			rightMenu.put("Extension", doNothing);
 			rightMenu.put("-", null);
 			rightMenu.put("Change to simple", doNothing);
 			rightMenu.put("Change to implementation", doNothing);
 			rightMenu.put("Reverse", doNothing);
-			rightMenu.put("Delete", doNothing);
+			rightMenu.put("Delete", remove);
 			return rightMenu;
 		}
 		
@@ -171,14 +179,18 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			Command doNothing = new Command() { 
 				public void execute() {
 				}
-
 			};	
+			Command remove = new Command() {
+				public void execute() {
+					getCanvas().removeSelected();
+				}
+			};
 			rightMenu.put("Implementation", doNothing);
 			rightMenu.put("-", null);
 			rightMenu.put("> Change to simple", doNothing);
 			rightMenu.put("> Change to extension", doNothing);
 			rightMenu.put("> Reverse", doNothing);
-			rightMenu.put("> Delete", doNothing);
+			rightMenu.put("> Delete", remove);
 			return rightMenu;
 		}
 		

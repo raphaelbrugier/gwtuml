@@ -3,6 +3,7 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
 public class LoadingScreen {
 
@@ -20,10 +21,12 @@ public class LoadingScreen {
 	}
 
 	public void show() {
+		CursorIconManager.setCursorIcon(PointerStyle.WAIT);
 		loadingPanel.setVisible(true);
 	}
 
 	public void hide() {
+		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 		loadingPanel.setVisible(false);
 	}
 

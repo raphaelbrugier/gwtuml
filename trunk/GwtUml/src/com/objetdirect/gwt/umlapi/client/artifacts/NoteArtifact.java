@@ -179,10 +179,15 @@ public class NoteArtifact extends BoxArtifact {
 			}
 
 		};	
+		Command remove = new Command() {
+			public void execute() {
+				getCanvas().removeSelected();
+			}
+		};
 		rightMenu.put("Note", doNothing);
 		rightMenu.put("-", null);
 		rightMenu.put("> Edit", doNothing);
-		rightMenu.put("> Delete", doNothing);
+		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
 }

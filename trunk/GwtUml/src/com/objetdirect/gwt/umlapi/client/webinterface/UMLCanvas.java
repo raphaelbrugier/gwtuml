@@ -58,6 +58,7 @@ public class UMLCanvas extends AbsolutePanel {
 		take(FAR_AWAY+ClassArtifact.DEFAULT_WIDTH/2, FAR_AWAY);
 		dragOn = true;
 	}
+	
 	public void addNewNote() {
 		if(dragOn) return;
 		NoteArtifact newNote = new NoteArtifact();
@@ -73,6 +74,14 @@ public class UMLCanvas extends AbsolutePanel {
 	public void addNewLink(Link linkType) {
 		activeLinking = linkType;
 		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
+	}
+	public void setDeleteMode() {
+		isDeleting = true;
+		CursorIconManager.setCursorIcon(PointerStyle.NOT_ALLOWED);
+	}
+	
+	public void removeSelected() {
+		if(selected != null) remove(selected);
 	}
 
 	public void add(UMLElement element) {
@@ -108,12 +117,19 @@ public class UMLCanvas extends AbsolutePanel {
 
 	void select(GfxObject gfxObject) {
 		UMLElement newSelected = getUMLElement(gfxObject);
-		Log.debug("Selecting : " + newSelected);
+		Log.debug("Selecting : " + newSelected + " (" + gfxObject + ")");
+		if(isDeleting && newSelected != null) {
+			remove(newSelected);
+			isDeleting = false;
+			CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+			return;
+		}
 		// if it's the same nothing is to be done
-		if (newSelected != selected) {
+		if (newSelected != selected || isDeleting) {
 
 			if(newSelected == null) {
 				activeLinking = Link.NONE;
+				isDeleting = false;
 				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 			}
 
@@ -289,4 +305,5 @@ public class UMLCanvas extends AbsolutePanel {
 	Map<GfxObject, UMLElement> objects = new HashMap<GfxObject, UMLElement>();	// Map of UMLElement with their Graphical objects 
 	public enum Link {NONE, SIMPLE, IMPLEMENTATION, EXTENSION, RELATIONSHIP};	
 	private Link activeLinking  = Link.NONE;
+	private boolean isDeleting = false;
 }

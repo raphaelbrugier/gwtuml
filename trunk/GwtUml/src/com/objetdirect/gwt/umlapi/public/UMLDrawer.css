@@ -62,3 +62,6 @@
 .globalHelpCursor *, .globalHelpCursor .absolutelyPositioned {
     cursor: help;
 }
+.globalNotAllowedCursor *, .globalNotAllowedCursor .absolutelyPositioned {
+    cursor: not-allowed;
+}
