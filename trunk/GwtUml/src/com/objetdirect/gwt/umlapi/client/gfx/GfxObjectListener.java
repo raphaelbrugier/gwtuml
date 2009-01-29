@@ -5,8 +5,10 @@ public interface GfxObjectListener {
 
 	void mouseClicked();
 
-	void mousePressed(GfxObject graphicObject, int x, int y);
-
+	void mouseLeftClickPressed(GfxObject graphicObject, int x, int y);
+	
+	void mouseRightClickPressed(GfxObject graphicObject, int x, int y);
+	
 	void mouseMoved(int x, int y);
 	
 	void mouseReleased(GfxObject graphicObject, int x, int y);

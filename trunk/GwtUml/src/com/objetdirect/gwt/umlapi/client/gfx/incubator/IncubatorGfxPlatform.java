@@ -169,7 +169,10 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		MouseListener mouseListener = new MouseListener() {
 
 			public void onMouseDown(Widget sender, int x, int y) {
-				gfxObjectListener.mousePressed(IncubatorGfxObjectContainer.getPointedObject(x, y), x, y);
+				if(x < 0)
+					gfxObjectListener.mouseRightClickPressed(IncubatorGfxObjectContainer.getPointedObject(-x, -y), -x, -y);
+				else	
+					gfxObjectListener.mouseLeftClickPressed(IncubatorGfxObjectContainer.getPointedObject(x, y), x, y);
 
 			}
 

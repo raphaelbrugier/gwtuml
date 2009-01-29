@@ -46,7 +46,10 @@ public class GWTCanvasWithListeners extends GWTCanvas {
             break;
         case Event.ONMOUSEDOWN:
           if (mouseListeners != null) {
-            mouseListeners.fireMouseDown(this, x, y);
+        	if(event.getButton() == Event.BUTTON_RIGHT)
+        		mouseListeners.fireMouseDown(this, -x, -y); //TODO ; Fix this hacky hack
+        	else
+        		mouseListeners.fireMouseDown(this, x, y);
           }
           break;
         case Event.ONMOUSEMOVE:

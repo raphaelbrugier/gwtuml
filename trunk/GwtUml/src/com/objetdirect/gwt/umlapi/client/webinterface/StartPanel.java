@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;

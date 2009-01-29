@@ -187,7 +187,10 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			}
 
 			public void mousePressed(GraphicObject graphicObject, Event e) {
-				gfxObjectListener.mousePressed(TatamiGfxObjectContainer.getContainerOf(graphicObject), DOM.eventGetClientX(e), DOM.eventGetClientY(e));
+				if(e.getButton() == Event.BUTTON_RIGHT)
+					gfxObjectListener.mouseRightClickPressed(TatamiGfxObjectContainer.getContainerOf(graphicObject), DOM.eventGetClientX(e), DOM.eventGetClientY(e));
+				else		
+					gfxObjectListener.mouseLeftClickPressed(TatamiGfxObjectContainer.getContainerOf(graphicObject), DOM.eventGetClientX(e), DOM.eventGetClientY(e));
 			}
 
 			public void mouseReleased(GraphicObject graphicObject, Event e) {
