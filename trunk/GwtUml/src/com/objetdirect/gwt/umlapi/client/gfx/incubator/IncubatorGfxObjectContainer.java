@@ -46,6 +46,7 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 		return incubatorGfxObject;
 	}
 
+	@Override
 	public String toString() {
 		return UMLDrawerHelper.getShortName(this) + " containing "
 				+ UMLDrawerHelper.getShortName(incubatorGfxObject);

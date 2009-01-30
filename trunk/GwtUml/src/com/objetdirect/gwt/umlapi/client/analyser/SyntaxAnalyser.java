@@ -7,6 +7,8 @@ public abstract class SyntaxAnalyser {
 	public static final int BEGIN = 0;
 	public static final int FINISHED = -1;
 
+	private int status = BEGIN;
+
 	public LexicalAnalyser.Token process(LexicalAnalyser lex,
 			LexicalAnalyser.Token tk) {
 		while (getStatus() != FINISHED) {
@@ -15,25 +17,23 @@ public abstract class SyntaxAnalyser {
 		return tk;
 	}
 
-	protected abstract LexicalAnalyser.Token processToken(LexicalAnalyser lex,
-			LexicalAnalyser.Token tk);
-
-	protected void throwUnexpectedEOF() {
-		throw new UMLDrawerException("Unexpected EOF");
-	}
-
-	protected void throwSyntaxError(LexicalAnalyser.Token tk) {
-		throw new UMLDrawerException("Syntax error : " + tk);
+	int getStatus() {
+		return status;
 	}
 
 	void setStatus(int status) {
 		this.status = status;
 	}
 
-	int getStatus() {
-		return status;
+	protected abstract LexicalAnalyser.Token processToken(LexicalAnalyser lex,
+			LexicalAnalyser.Token tk);
+
+	protected void throwSyntaxError(LexicalAnalyser.Token tk) {
+		throw new UMLDrawerException("Syntax error : " + tk);
 	}
 
-	private int status = BEGIN;
+	protected void throwUnexpectedEOF() {
+		throw new UMLDrawerException("Unexpected EOF");
+	}
 
 }

@@ -24,24 +24,47 @@ import com.objetdirect.tatami.client.gfx.VirtualGroup;
 
 public class TatamiGfxPlatfrom implements GfxPlatform {
 
-	public Widget makeCanvas() {
-		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT,
-				GfxColor.WHITE);
-	}
+	public void addObjectListenerToCanvas(Widget canvas,
+			final GfxObjectListener gfxObjectListener) {
 
-	public Widget makeCanvas(int width, int height, GfxColor backgroundColor) {
-		GraphicCanvas canvas = new GraphicCanvas();
+		GraphicObjectListener graphicObjectListener = new GraphicObjectListener() {
 
-		canvas.setSize(width + "px", height + "px");
-		DOM.setStyleAttribute(canvas.getElement(), "backgroundColor",
-				new Color(backgroundColor.getRed(), backgroundColor.getGreen(),
-						backgroundColor.getBlue()
-						/*
-						 * , backgroundColor.getAlpha() Disabled to ensure#@&~#!
-						 * IE compatibility
-						 */, 0).toHex());
+			public void mouseClicked(GraphicObject graphicObject, Event e) {
+				gfxObjectListener.mouseClicked();
+			}
 
-		return canvas;
+			public void mouseDblClicked(GraphicObject graphicObject, Event e) {
+				gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
+						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
+						DOM.eventGetClientY(e));
+			}
+
+			public void mouseMoved(GraphicObject graphicObject, Event e) {
+				gfxObjectListener.mouseMoved(DOM.eventGetClientX(e), DOM
+						.eventGetClientY(e));
+			}
+
+			public void mousePressed(GraphicObject graphicObject, Event e) {
+				if (e.getButton() == Event.BUTTON_RIGHT)
+					gfxObjectListener
+							.mouseRightClickPressed(TatamiGfxObjectContainer
+									.getContainerOf(graphicObject), DOM
+									.eventGetClientX(e), DOM.eventGetClientY(e));
+				else
+					gfxObjectListener
+							.mouseLeftClickPressed(TatamiGfxObjectContainer
+									.getContainerOf(graphicObject), DOM
+									.eventGetClientX(e), DOM.eventGetClientY(e));
+			}
+
+			public void mouseReleased(GraphicObject graphicObject, Event e) {
+				gfxObjectListener.mouseReleased(TatamiGfxObjectContainer
+						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
+						DOM.eventGetClientY(e));
+			}
+		};
+		((GraphicCanvas) canvas)
+				.addGraphicObjectListener(graphicObjectListener);
 	}
 
 	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {
@@ -107,6 +130,26 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).lineTo(x, y);
 	}
 
+	public Widget makeCanvas() {
+		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT,
+				GfxColor.WHITE);
+	}
+
+	public Widget makeCanvas(int width, int height, GfxColor backgroundColor) {
+		GraphicCanvas canvas = new GraphicCanvas();
+
+		canvas.setSize(width + "px", height + "px");
+		DOM.setStyleAttribute(canvas.getElement(), "backgroundColor",
+				new Color(backgroundColor.getRed(), backgroundColor.getGreen(),
+						backgroundColor.getBlue()
+						/*
+						 * , backgroundColor.getAlpha() Disabled to ensure#@&~#!
+						 * IE compatibility
+						 */, 0).toHex());
+
+		return canvas;
+	}
+
 	public void moveTo(GfxObject gfxO, double x, double y) {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
 
@@ -152,10 +195,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		getTatamiGraphicalObjectFrom(gfxO).translate(x, y);
 	}
 
-	private GraphicObject getTatamiGraphicalObjectFrom(GfxObject gfxO) {
-		return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
-	}
-
 	private Color convertColor(GfxColor gfxColor) {
 		return new Color(gfxColor.getRed(), gfxColor.getGreen(), gfxColor
 				.getBlue(), gfxColor.getAlpha());
@@ -166,47 +205,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 				.getStyle(), gfxFont.getVariant(), gfxFont.getWeight());
 	}
 
-	public void addObjectListenerToCanvas(Widget canvas,
-			final GfxObjectListener gfxObjectListener) {
-
-		GraphicObjectListener graphicObjectListener = new GraphicObjectListener() {
-
-			public void mouseClicked(GraphicObject graphicObject, Event e) {
-				gfxObjectListener.mouseClicked();
-			}
-
-			public void mouseDblClicked(GraphicObject graphicObject, Event e) {
-				gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
-						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
-						DOM.eventGetClientY(e));
-			}
-
-			public void mouseMoved(GraphicObject graphicObject, Event e) {
-				gfxObjectListener.mouseMoved(DOM.eventGetClientX(e), DOM
-						.eventGetClientY(e));
-			}
-
-			public void mousePressed(GraphicObject graphicObject, Event e) {
-				if (e.getButton() == Event.BUTTON_RIGHT)
-					gfxObjectListener
-							.mouseRightClickPressed(TatamiGfxObjectContainer
-									.getContainerOf(graphicObject), DOM
-									.eventGetClientX(e), DOM.eventGetClientY(e));
-				else
-					gfxObjectListener
-							.mouseLeftClickPressed(TatamiGfxObjectContainer
-									.getContainerOf(graphicObject), DOM
-									.eventGetClientX(e), DOM.eventGetClientY(e));
-			}
-
-			public void mouseReleased(GraphicObject graphicObject, Event e) {
-				gfxObjectListener.mouseReleased(TatamiGfxObjectContainer
-						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
-						DOM.eventGetClientY(e));
-			}
-		};
-		((GraphicCanvas) canvas)
-				.addGraphicObjectListener(graphicObjectListener);
+	private GraphicObject getTatamiGraphicalObjectFrom(GfxObject gfxO) {
+		return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
 	}
 
 }

@@ -6,6 +6,7 @@ import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -21,8 +22,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 public class StartPanel extends VerticalPanel {
 	static StartPanel instance = null;
-	private LoadingScreen loadingScreen;
 	private HorizontalPanel current_Panel;
+	private LoadingScreen loadingScreen;
 
 	public StartPanel(boolean isFromHistory) {
 		instance = this;
@@ -34,7 +35,7 @@ public class StartPanel extends VerticalPanel {
 		HotKeyManager.forceStaticInit();
 
 		this.setWidth("100%");
-		this.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.setSpacing(10);
 
 		final Button startBtn = new Button("Start New Uml Class Diagram");

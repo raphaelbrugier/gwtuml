@@ -8,6 +8,13 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 
 	public static final int BEGIN_TYPE = 1;
 
+	Parameter param = new Parameter(null, null);
+
+	public Parameter getParameter() {
+		return param;
+	}
+
+	@Override
 	protected Token processToken(LexicalAnalyser lex, Token tk) {
 		if (tk == null)
 			tk = lex.getToken();
@@ -36,10 +43,4 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		}
 		throw new UMLDrawerException("Invalid syntax status : " + getStatus());
 	}
-
-	public Parameter getParameter() {
-		return param;
-	}
-
-	Parameter param = new Parameter(null, null);
 }

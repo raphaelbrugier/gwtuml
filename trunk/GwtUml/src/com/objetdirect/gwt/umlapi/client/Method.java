@@ -2,13 +2,13 @@ package com.objetdirect.gwt.umlapi.client;
 
 public class Method extends ClassMember {
 
-	public Parameter[] getParameters() {
-		return parameters;
-	}
+	String name;
 
-	public void setParameters(Parameter[] parameters) {
-		this.parameters = parameters;
-	}
+	Parameter[] parameters;
+
+	String returnType;
+
+	boolean validated = true;
 
 	public Method(String returnType, String name, Parameter[] parameters) {
 		super();
@@ -21,18 +21,32 @@ public class Method extends ClassMember {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Parameter[] getParameters() {
+		return parameters;
 	}
 
 	public String getReturnType() {
 		return returnType;
 	}
 
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setParameters(Parameter[] parameters) {
+		this.parameters = parameters;
+	}
 	public void setReturnType(String returnType) {
 		this.returnType = returnType;
 	}
-
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+	@Override
 	public String toString() {
 		StringBuffer f = new StringBuffer();
 		f.append(this.name);
@@ -54,18 +68,5 @@ public class Method extends ClassMember {
 		}
 		return f.toString();
 	}
-
-	public boolean isValidated() {
-		return validated;
-	}
-
-	public void setValidated(boolean validated) {
-		this.validated = validated;
-	}
-
-	boolean validated = true;
-	Parameter[] parameters;
-	String returnType;
-	String name;
 
 }

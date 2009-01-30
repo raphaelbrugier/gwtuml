@@ -10,60 +10,26 @@ public abstract class BoxArtifact extends UMLArtifact {
 
 	public static final int DEFAULT_WIDTH = 50;
 
-	public void setLocation(int x, int y) {
-		GfxManager.getPlatform().translate(getGfxObject(), x - this.x,
-				y - this.y);
-		this.x = x;
-		this.y = y;
-	}
+	GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL,
+			GfxFont.LIGHTER);
 
+	int x = 0;
+
+	int y = 0;
+
+	@Override
 	public void adjust() {
 		super.adjust();
 		if (getCanvas() != null)
 			GfxManager.getPlatform().translate(getGfxObject(), getX(), getY());
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
+	@Override
 	public float[] getOpaque() {
 		float[] opaque = new float[] { getX(), getY(), getX(),
 				getY() + getHeight(), getX() + getWidth(),
 				getY() + getHeight(), getX() + getWidth(), getY() };
 		return opaque;
-	}
-
-	public boolean isDraggable() {
-		return true;
-	}
-
-	protected boolean set(GfxObject[] slot, GfxObject text) {
-		int oldWidth = getWidth();
-		int oldHeight = getHeight();
-		if (slot[0] != null) {
-			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
-					slot[0], false);
-			if (getCanvas() != null)
-				getCanvas().unregister(slot[0]);
-		}
-		slot[0] = text;
-		if (slot[0] != null) {
-			GfxManager.getPlatform().addToVirtualGroup(getGfxObject(), slot[0]);
-			if (getCanvas() != null)
-				getCanvas().register(slot[0], this);
-		}
-		int newWidth = getWidth();
-		int newHeight = getHeight();
-		if (oldWidth != newWidth || oldHeight != newHeight) {
-			adjust();
-			return true;
-		} else
-			return false;
 	}
 
 	public GfxObject getOutline() {
@@ -100,8 +66,46 @@ public abstract class BoxArtifact extends UMLArtifact {
 		return vg;
 	}
 
-	int x = 0;
-	int y = 0;
-	GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL,
-			GfxFont.LIGHTER);
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	public boolean isDraggable() {
+		return true;
+	}
+	public void setLocation(int x, int y) {
+		GfxManager.getPlatform().translate(getGfxObject(), x - this.x,
+				y - this.y);
+		this.x = x;
+		this.y = y;
+	}
+	protected boolean set(GfxObject[] slot, GfxObject text) {
+		int oldWidth = getWidth();
+		int oldHeight = getHeight();
+		if (slot[0] != null) {
+			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
+					slot[0], false);
+			if (getCanvas() != null)
+				getCanvas().unregister(slot[0]);
+		}
+		slot[0] = text;
+		if (slot[0] != null) {
+			GfxManager.getPlatform().addToVirtualGroup(getGfxObject(), slot[0]);
+			if (getCanvas() != null)
+				getCanvas().register(slot[0], this);
+		}
+		int newWidth = getWidth();
+		int newHeight = getHeight();
+		if (oldWidth != newWidth || oldHeight != newHeight) {
+			adjust();
+			return true;
+		} else
+			return false;
+	}
 }

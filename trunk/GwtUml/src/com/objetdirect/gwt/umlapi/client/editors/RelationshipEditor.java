@@ -10,9 +10,15 @@ import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact.Relation
 
 public class RelationshipEditor {
 
+	public static final int FIELD_HEIGHT = 18;
 	public static final int FIELD_XMARGIN = 8;
 	public static final int FIELD_YMARGIN = -4;
-	public static final int FIELD_HEIGHT = 18;
+	TextBox editField = null;
+
+	RelationShipArtifactPart subpart;
+
+	boolean validationInProcess = false;
+
 	private RelationshipArtifact editedRelationship = null;
 
 	public RelationshipEditor(RelationshipArtifact editedRelationship) {
@@ -30,51 +36,6 @@ public class RelationshipEditor {
 						- editedRelationship.getHeight(subpart) / 2);
 		editField.selectAll();
 		editField.setFocus(true);
-	}
-
-	protected void validate() {
-		if (validationInProcess)
-			return;
-		try {
-			validationInProcess = true;
-			switch (subpart) {
-			case NAME:
-				editedRelationship.setName(editField.getText());
-				break;
-			case LEFT_CARDINALITY:
-				editedRelationship.setLeftCardinality(editField.getText());
-				break;
-			case RIGHT_CARDINALITY:
-				editedRelationship.setRightCardinality(editField.getText());
-				break;
-			case LEFT_ROLE:
-				editedRelationship.setLeftRole(editField.getText());
-				break;
-			case RIGHT_ROLE:
-				editedRelationship.setRightRole(editField.getText());
-				break;
-			case LEFT_CONSTRAINT:
-				editedRelationship.setLeftConstraint(editField.getText());
-				break;
-			case RIGHT_CONSTRAINT:
-				editedRelationship.setRightConstraint(editField.getText());
-				break;
-			}
-			editedRelationship.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
-	}
-
-	protected void cancel() {
-		validationInProcess = true;
-		try {
-			editedRelationship.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
 	}
 
 	TextBox getEditField(String value, int width) {
@@ -117,9 +78,48 @@ public class RelationshipEditor {
 		editField.addFocusListener(focusLst);
 		editField.addKeyboardListener(keybLst);
 	}
-
-	boolean validationInProcess = false;
-	TextBox editField = null;
-	RelationShipArtifactPart subpart;
+	protected void cancel() {
+		validationInProcess = true;
+		try {
+			editedRelationship.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
+	protected void validate() {
+		if (validationInProcess)
+			return;
+		try {
+			validationInProcess = true;
+			switch (subpart) {
+			case NAME:
+				editedRelationship.setName(editField.getText());
+				break;
+			case LEFT_CARDINALITY:
+				editedRelationship.setLeftCardinality(editField.getText());
+				break;
+			case RIGHT_CARDINALITY:
+				editedRelationship.setRightCardinality(editField.getText());
+				break;
+			case LEFT_ROLE:
+				editedRelationship.setLeftRole(editField.getText());
+				break;
+			case RIGHT_ROLE:
+				editedRelationship.setRightRole(editField.getText());
+				break;
+			case LEFT_CONSTRAINT:
+				editedRelationship.setLeftConstraint(editField.getText());
+				break;
+			case RIGHT_CONSTRAINT:
+				editedRelationship.setRightConstraint(editField.getText());
+				break;
+			}
+			editedRelationship.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
 
 }

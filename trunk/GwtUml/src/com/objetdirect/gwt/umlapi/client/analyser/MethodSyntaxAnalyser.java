@@ -8,12 +8,27 @@ import com.objetdirect.gwt.umlapi.client.Parameter;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
-	public static final int OPEN_PARENTHESIS_EXPECTED = 1;
 	public static final int BEGIN_PARAMETER = 2;
-	public static final int PARAMETER_EXPECTED = 3;
-	public static final int END_PARAMETER = 4;
 	public static final int BEGIN_RETURN_TYPE = 5;
+	public static final int END_PARAMETER = 4;
+	public static final int OPEN_PARENTHESIS_EXPECTED = 1;
+	public static final int PARAMETER_EXPECTED = 3;
 
+	Method method = new Method(null, null, null);
+
+	List<Parameter> parameters = new ArrayList<Parameter>();
+
+	public Method getMethod() {
+		return method;
+	}
+
+	void setParameters() {
+		Parameter[] params = new Parameter[parameters.size()];
+		for (int i = 0; i < params.length; i++)
+			params[i] = parameters.get(i);
+		method.setParameters(params);
+	}
+	@Override
 	protected LexicalAnalyser.Token processToken(LexicalAnalyser lex,
 			LexicalAnalyser.Token tk) {
 		if (tk == null)
@@ -90,18 +105,4 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		}
 		throw new UMLDrawerException("Invalid syntax status : " + getStatus());
 	}
-
-	void setParameters() {
-		Parameter[] params = new Parameter[parameters.size()];
-		for (int i = 0; i < params.length; i++)
-			params[i] = parameters.get(i);
-		method.setParameters(params);
-	}
-
-	public Method getMethod() {
-		return method;
-	}
-
-	Method method = new Method(null, null, null);
-	List<Parameter> parameters = new ArrayList<Parameter>();
 }

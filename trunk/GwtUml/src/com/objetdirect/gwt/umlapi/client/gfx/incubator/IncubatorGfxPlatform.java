@@ -27,33 +27,57 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	private GWTCanvasWithListeners canvas;
 	private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
 
-	public Widget makeCanvas() {
-		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT,
-				GfxColor.WHITE);
-	}
+	public void addObjectListenerToCanvas(Widget canvas,
+			final GfxObjectListener gfxObjectListener) {
 
-	public Widget makeCanvas(int width, int height, GfxColor backgroundColor) {
-		canvas = new GWTCanvasWithListeners(width, height);
-		// Default values :
-		canvas.setLineWidth(1);
-		canvas.setStrokeStyle(Color.BLUEVIOLET);
-		canvas.setBackgroundColor(new Color(backgroundColor.getRed(),
-				backgroundColor.getBlue(), backgroundColor.getGreen()
-		/*
-		 * , backgroundColor.getAlpha() Disabled to ensure#@&~#! IE
-		 * compatibility
-		 */
-		));
-		canvas.clear();
-		return canvas;
-	}
+		MouseListener mouseListener = new MouseListener() {
 
-	public void redraw() {
-		Log.trace("{incubator} Redraw");
-		canvas.clear();
-		for (GfxObject gfxO : canvasObjects) {
-			getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
-		}
+			public void onMouseDown(Widget sender, int x, int y) {
+				if (x < 0)
+					gfxObjectListener.mouseRightClickPressed(
+							IncubatorGfxObjectContainer
+									.getPointedObject(-x, -y), -x, -y);
+				else
+					gfxObjectListener.mouseLeftClickPressed(
+							IncubatorGfxObjectContainer.getPointedObject(x, y),
+							x, y);
+
+			}
+
+			public void onMouseEnter(Widget sender) {
+			}
+
+			public void onMouseLeave(Widget sender) {
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				gfxObjectListener.mouseMoved(x, y);
+
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO fix this hack :
+				if (x < 0)
+					gfxObjectListener.mouseDblClicked(
+							IncubatorGfxObjectContainer
+									.getPointedObject(-x, -y), -x, -y);
+				else
+					gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer
+							.getPointedObject(x, y), x, y);
+
+			}
+
+		};
+
+		ClickListener clickListener = new ClickListener() {
+
+			public void onClick(Widget sender) {
+				gfxObjectListener.mouseClicked();
+			}
+
+		};
+		((GWTCanvasWithListeners) canvas).addMouseListener(mouseListener);
+		((GWTCanvasWithListeners) canvas).addClickListener(clickListener);
 	}
 
 	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {
@@ -119,8 +143,37 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 	}
 
+	public Widget makeCanvas() {
+		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT,
+				GfxColor.WHITE);
+	}
+
+	public Widget makeCanvas(int width, int height, GfxColor backgroundColor) {
+		canvas = new GWTCanvasWithListeners(width, height);
+		// Default values :
+		canvas.setLineWidth(1);
+		canvas.setStrokeStyle(Color.BLUEVIOLET);
+		canvas.setBackgroundColor(new Color(backgroundColor.getRed(),
+				backgroundColor.getBlue(), backgroundColor.getGreen()
+		/*
+		 * , backgroundColor.getAlpha() Disabled to ensure#@&~#! IE
+		 * compatibility
+		 */
+		));
+		canvas.clear();
+		return canvas;
+	}
+
 	public void moveTo(GfxObject gfxO, double x, double y) {
 		((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(x, y);
+	}
+
+	public void redraw() {
+		Log.trace("{incubator} Redraw");
+		canvas.clear();
+		for (GfxObject gfxO : canvasObjects) {
+			getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
+		}
 	}
 
 	public void removeFromCanvas(Widget canvas, GfxObject gfxO) {
@@ -167,59 +220,6 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
 		redraw();
 
-	}
-
-	public void addObjectListenerToCanvas(Widget canvas,
-			final GfxObjectListener gfxObjectListener) {
-
-		MouseListener mouseListener = new MouseListener() {
-
-			public void onMouseDown(Widget sender, int x, int y) {
-				if (x < 0)
-					gfxObjectListener.mouseRightClickPressed(
-							IncubatorGfxObjectContainer
-									.getPointedObject(-x, -y), -x, -y);
-				else
-					gfxObjectListener.mouseLeftClickPressed(
-							IncubatorGfxObjectContainer.getPointedObject(x, y),
-							x, y);
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-			}
-
-			public void onMouseLeave(Widget sender) {
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				gfxObjectListener.mouseMoved(x, y);
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO fix this hack :
-				if (x < 0)
-					gfxObjectListener.mouseDblClicked(
-							IncubatorGfxObjectContainer
-									.getPointedObject(-x, -y), -x, -y);
-				else
-					gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer
-							.getPointedObject(x, y), x, y);
-
-			}
-
-		};
-
-		ClickListener clickListener = new ClickListener() {
-
-			public void onClick(Widget sender) {
-				gfxObjectListener.mouseClicked();
-			}
-
-		};
-		((GWTCanvasWithListeners) canvas).addMouseListener(mouseListener);
-		((GWTCanvasWithListeners) canvas).addClickListener(clickListener);
 	}
 
 	private IncubatorGfxObject getIncubatorGraphicalObjectFrom(GfxObject gfxO) {

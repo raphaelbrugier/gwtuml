@@ -5,12 +5,19 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 
 public class TypeAnalyser extends SyntaxAnalyser {
 
+	public static final int BEGIN_OPEN_BRACKET = 4;
 	public static final int BEGIN_TYPE_PARAMETER = 1;
+	public static final int CLOSE_BRACKET_EXPECTED = 5;
 	public static final int END_TYPE_PARAMETER = 2;
 	public static final int TYPE_PARAMETER_EXPECTED = 3;
-	public static final int BEGIN_OPEN_BRACKET = 4;
-	public static final int CLOSE_BRACKET_EXPECTED = 5;
 
+	String type = "";
+
+	public String getType() {
+		return type;
+	}
+
+	@Override
 	protected Token processToken(LexicalAnalyser lex, Token tk) {
 		if (tk == null)
 			tk = lex.getToken();
@@ -90,10 +97,4 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		}
 		throw new UMLDrawerException("Invalid syntax status : " + getStatus());
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	String type = "";
 }

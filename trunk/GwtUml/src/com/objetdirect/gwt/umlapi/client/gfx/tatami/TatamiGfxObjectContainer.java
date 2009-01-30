@@ -46,6 +46,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 		return graphicObject;
 	}
 
+	@Override
 	public String toString() {
 		return UMLDrawerHelper.getShortName(this) + " containing "
 				+ UMLDrawerHelper.getShortName(graphicObject);

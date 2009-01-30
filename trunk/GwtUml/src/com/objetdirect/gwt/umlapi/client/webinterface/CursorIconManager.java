@@ -4,20 +4,18 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class CursorIconManager {
 
-	private static PointerStyle currentIconStyle = PointerStyle.AUTO;
-
 	// To see which type of cursor it is, check :
 	// http://www.w3schools.com/CSS/tryit.asp?filename=trycss_cursor
 	public enum PointerStyle {
 		AUTO("globalAutoCursor"), CROSSHAIR("globalCrosshairCursor"), DEFAULT(
-				"globalDefaultCursor"), POINTER("globalPointerCursor"), MOVE(
-				"globalMoveCursor"), E_RESIZE("globalE_ResizeCursor"), NE_RESIZE(
-				"globalNE_ResizeCursor"), NW_RESIZE("globalNW_ResizeCursor"), N_RESIZE(
-				"globalN_ResizeCursor"), SE_RESIZE("globalSE_ResizeCursor"), SW_RESIZE(
-				"globalSW_ResizeCursor"), S_RESIZE("globalS_ResizeCursor"), W_RESIZE(
-				"globalW_ResizeCursor"), TEXT("globalTextCursor"), WAIT(
-				"globalWaitCursor"), HELP("globalHelpCursor"), NOT_ALLOWED(
-				"globalNotAllowedCursor");
+				"globalDefaultCursor"), E_RESIZE("globalE_ResizeCursor"), HELP("globalHelpCursor"), MOVE(
+				"globalMoveCursor"), N_RESIZE(
+				"globalN_ResizeCursor"), NE_RESIZE(
+				"globalNE_ResizeCursor"), NOT_ALLOWED(
+				"globalNotAllowedCursor"), NW_RESIZE("globalNW_ResizeCursor"), POINTER("globalPointerCursor"), S_RESIZE("globalS_ResizeCursor"), SE_RESIZE("globalSE_ResizeCursor"), SW_RESIZE(
+				"globalSW_ResizeCursor"), TEXT("globalTextCursor"), W_RESIZE(
+				"globalW_ResizeCursor"), WAIT(
+				"globalWaitCursor");
 
 		private final String cssName;
 
@@ -29,7 +27,9 @@ public class CursorIconManager {
 			return this.cssName;
 		}
 
-	};
+	}
+
+	private static PointerStyle currentIconStyle = PointerStyle.AUTO;;
 
 	public static void setCursorIcon(PointerStyle pStyle) {
 		RootPanel.get().removeStyleName(currentIconStyle.getCssName());

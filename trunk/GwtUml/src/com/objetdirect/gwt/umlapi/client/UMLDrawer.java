@@ -21,10 +21,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
  */
 public class UMLDrawer implements EntryPoint {
 
-	private StartPanel startPanel;
-	private static Button log;
-
 	public final static DockPanel appRootPanel = new DockPanel();
+	private static Button log;
 
 	public static void addtoAppRootPanel(Widget w) {
 		Log.trace("History : adding center");
@@ -41,14 +39,7 @@ public class UMLDrawer implements EntryPoint {
 				"display", "none");
 	}
 
-	public void onModuleLoad() {
-		Log.setUncaughtExceptionHandler();
-		DeferredCommand.addCommand(new Command() {
-			public void execute() {
-				gwt_main();
-			}
-		});
-	}
+	private StartPanel startPanel;
 
 	public void gwt_main() {
 
@@ -91,5 +82,14 @@ public class UMLDrawer implements EntryPoint {
 		RootPanel.get().add(appRootPanel);
 		Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
 				log.getAbsoluteTop() + log.getOffsetHeight() + 10);
+	}
+
+	public void onModuleLoad() {
+		Log.setUncaughtExceptionHandler();
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				gwt_main();
+			}
+		});
 	}
 }

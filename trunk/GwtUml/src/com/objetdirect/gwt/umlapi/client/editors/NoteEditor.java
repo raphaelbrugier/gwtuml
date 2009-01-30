@@ -9,9 +9,13 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 
 public class NoteEditor {
 
+	public static final int FIELD_HEIGHT = 18;
 	public static final int FIELD_XMARGIN = 8;
 	public static final int FIELD_YMARGIN = 8;
-	public static final int FIELD_HEIGHT = 18;
+	TextBox editField = null;
+
+	boolean validationInProcess = false;
+
 	private NoteArtifact editedNote = null;
 
 	public NoteEditor(NoteArtifact editedNote) {
@@ -25,41 +29,6 @@ public class NoteEditor {
 				editedNote.getY() + FIELD_YMARGIN);
 		editField.selectAll();
 		editField.setFocus(true);
-	}
-
-	protected void validate() {
-		if (validationInProcess)
-			return;
-		try {
-			validationInProcess = true;
-			editedNote.setContent(editField.getText());
-			editedNote.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
-	}
-
-	protected void goDown() {
-		validate();
-	}
-
-	protected void goNextLine() {
-		validate();
-	}
-
-	protected void goNextBox() {
-		validate();
-	}
-
-	protected void cancel() {
-		validationInProcess = true;
-		try {
-			editedNote.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
 	}
 
 	TextBox getEditField(String value, int width) {
@@ -115,6 +84,37 @@ public class NoteEditor {
 		editField.addKeyboardListener(keybLst);
 	}
 
-	boolean validationInProcess = false;
-	TextBox editField = null;
+	protected void cancel() {
+		validationInProcess = true;
+		try {
+			editedNote.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
+
+	protected void goDown() {
+		validate();
+	}
+
+	protected void goNextBox() {
+		validate();
+	}
+
+	protected void goNextLine() {
+		validate();
+	}
+	protected void validate() {
+		if (validationInProcess)
+			return;
+		try {
+			validationInProcess = true;
+			editedNote.setContent(editField.getText());
+			editedNote.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
 }

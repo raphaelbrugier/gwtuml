@@ -6,49 +6,50 @@ package com.objetdirect.gwt.umlapi.client.gfx;
  */
 public class GfxFont {
 
+	/** use for the weight attribute */
+	public static final String BOLD = "bold";
+
+	/** use for the weight attribute */
+	public static final String BOLDER = "bolder";
+	
+	/**
+	 * use for variant, style, weight attributes
+	 */
+	public static final String NORMAL = "normal";
+	
+	/** the default font used (serif 10) */
+	public static final GfxFont DEFAULT_FONT = new GfxFont("monospace", 10,
+			NORMAL, NORMAL, NORMAL);
+
+	/** use for style */
+	public static final String ITALIC = "italic";
+
+	/** use for the weight attribute */
+	public static final String LIGHTER = "lighter";
+
+
+	/** use for style */
+	public static final String OBLIQUE = "oblique";
+
 	/**
 	 * use for variant attribute : In a small-caps font the lower case letters
 	 * look similar to the uppercase ones, but in a smaller size and with
 	 * slightly different proportions.
 	 **/
 	public static final String SMALL_CAPS = "small-caps";
-
-	/**
-	 * use for variant, style, weight attributes
-	 */
-	public static final String NORMAL = "normal";
-
-	/** use for the weight attribute */
-	public static final String BOLD = "bold";
-
-	/** use for the weight attribute */
-	public static final String BOLDER = "bolder";
-
-	/** use for the weight attribute */
-	public static final String LIGHTER = "lighter";
-
-	/** use for style */
-	public static final String OBLIQUE = "oblique";
-
-	/** use for style */
-	public static final String ITALIC = "italic";
-
 	/** the family of the font */
 	private String family;
+	/** the size of the font */
+	private int size;
 	/**
 	 * the style of the font
 	 */
 	private String style;
-	/** the size of the font */
-	private int size;
 	/** the variant of the font */
 	private String variant;
+
 	/** the weight of the font */
 	private String weight;
-
-	/** the default font used (serif 10) */
-	public static final GfxFont DEFAULT_FONT = new GfxFont("monospace", 10,
-			NORMAL, NORMAL, NORMAL);
 
 	/**
 	 * Creates a Font object for text object
@@ -84,6 +85,42 @@ public class GfxFont {
 	}
 
 	/**
+	 * Returns the size of the font
+	 * 
+	 * @return the size of the font
+	 */
+	public int getSize() {
+		return size;
+	}
+
+	/**
+	 * Returns the style used by the font
+	 * 
+	 * @return style used by the font
+	 */
+	public String getStyle() {
+		return style;
+	}
+
+	/**
+	 * Returns the variant of the font
+	 * 
+	 * @return the variant of the font
+	 */
+	public String getVariant() {
+		return variant;
+	}
+
+	/**
+	 * Returns the weight of the font
+	 * 
+	 * @return the weight of the font
+	 */
+	public String getWeight() {
+		return weight;
+	}
+
+	/**
 	 * Sets the family of the font
 	 * 
 	 * @param family
@@ -91,15 +128,6 @@ public class GfxFont {
 	 */
 	public void setFamily(String family) {
 		this.family = family;
-	}
-
-	/**
-	 * Returns the size of the font
-	 * 
-	 * @return the size of the font
-	 */
-	public int getSize() {
-		return size;
 	}
 
 	/**
@@ -113,15 +141,6 @@ public class GfxFont {
 	}
 
 	/**
-	 * Returns the style used by the font
-	 * 
-	 * @return style used by the font
-	 */
-	public String getStyle() {
-		return style;
-	}
-
-	/**
 	 * sets the style for the font
 	 * 
 	 * @param style
@@ -129,15 +148,6 @@ public class GfxFont {
 	 */
 	public void setStyle(String style) {
 		this.style = style;
-	}
-
-	/**
-	 * Returns the variant of the font
-	 * 
-	 * @return the variant of the font
-	 */
-	public String getVariant() {
-		return variant;
 	}
 
 	/**
@@ -150,15 +160,6 @@ public class GfxFont {
 	 */
 	public void setVariant(String variant) {
 		this.variant = variant;
-	}
-
-	/**
-	 * Returns the weight of the font
-	 * 
-	 * @return the weight of the font
-	 */
-	public String getWeight() {
-		return weight;
 	}
 
 	/**

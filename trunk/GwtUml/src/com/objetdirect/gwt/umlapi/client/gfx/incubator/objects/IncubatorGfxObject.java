@@ -7,32 +7,26 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 
 public abstract class IncubatorGfxObject {
 
-	protected boolean isVisible = false;
-
-	protected int x = 0;
-	protected int y = 0;
-
 	protected Color fillColor;
+
+	protected boolean isVisible = false;
 	protected Color strokeColor;
+
 	protected int strokeWidth = 0;
 	protected GfxStyle style;
-
-	public abstract void draw(GWTCanvas canvas);
-
-	public abstract boolean isPointed(int x, int y);
-
-	public abstract double getHeight();
-
-	public abstract double getWidth();
+	protected int x = 0;
+	protected int y = 0;
 
 	public void addOnCanvasAt(int dx, int dy) {
 		isVisible = true;
 		translate(dx, dy);
 	}
 
-	public void removeFromCanvas() {
-		isVisible = false;
-	}
+	public abstract void draw(GWTCanvas canvas);
+
+	public abstract double getHeight();
+
+	public abstract double getWidth();
 
 	public int getX() {
 		return x;
@@ -42,9 +36,10 @@ public abstract class IncubatorGfxObject {
 		return y;
 	}
 
-	public void translate(int dx, int dy) {
-		x += dx;
-		y += dy;
+	public abstract boolean isPointed(int x, int y);
+
+	public void removeFromCanvas() {
+		isVisible = false;
 	}
 
 	public void setFillColor(GfxColor gfxColor) {
@@ -63,6 +58,11 @@ public abstract class IncubatorGfxObject {
 
 	public void setStyle(GfxStyle style) {
 		this.style = style;
+	}
+
+	public void translate(int dx, int dy) {
+		x += dx;
+		y += dy;
 	}
 
 }

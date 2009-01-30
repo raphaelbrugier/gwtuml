@@ -2,6 +2,10 @@ package com.objetdirect.gwt.umlapi.client;
 
 public class Parameter {
 
+	String name;
+
+	String type;
+
 	public Parameter(String type, String name) {
 		super();
 		this.type = type;
@@ -12,18 +16,18 @@ public class Parameter {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getType() {
 		return type;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	@Override
 	public String toString() {
 		StringBuffer f = new StringBuffer();
 		f.append(this.name);
@@ -33,8 +37,5 @@ public class Parameter {
 		}
 		return f.toString();
 	}
-
-	String type;
-	String name;
 
 }

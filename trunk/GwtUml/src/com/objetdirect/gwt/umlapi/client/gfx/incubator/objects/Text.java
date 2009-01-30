@@ -11,6 +11,7 @@ public class Text extends IncubatorGfxObject {
 		this.text = text;
 	}
 
+	@Override
 	public void draw(GWTCanvas canvas) {
 		if (!isVisible)
 			return;
@@ -31,15 +32,18 @@ public class Text extends IncubatorGfxObject {
 		canvas.restoreContext();
 	}
 
-	public boolean isPointed(int x, int y) {
-		return false;
-	}
-
+	@Override
 	public double getHeight() {
 		return 8;
 	}
 
+	@Override
 	public double getWidth() {
 		return text.length() * 10;
+	}
+
+	@Override
+	public boolean isPointed(int x, int y) {
+		return false;
 	}
 }

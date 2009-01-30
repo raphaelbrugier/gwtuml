@@ -9,6 +9,12 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 public class Scheduler {
 
 	public static abstract class Task extends Timer {
+		boolean done = false;
+
+		Task next;
+
+		Object subject;
+
 		public Task() {
 			this(null);
 		}
@@ -17,19 +23,33 @@ public class Scheduler {
 			this.subject = subject;
 			Scheduler.register(this);
 		}
-
 		public abstract void process();
-
+		@Override
 		public void run() {
 			process();
 			Scheduler.done(this);
 		}
-
-		boolean done = false;
-		Task next;
-		Object subject;
 	}
 
+	static Task first = null;
+
+	static Task last = null;
+
+	static Map<Object, Task> objects = new HashMap<Object, Task>();
+
+	static public void done(Task t) {
+		if (t != first)
+			throw new UMLDrawerException("Wrong task");
+		else {
+			if (t.subject != null)
+				objects.remove(t.subject);
+			first = t.next;
+			if (first == null)
+				last = null;
+			else
+				execute(first);
+		}
+	}
 	static public void register(Task t) {
 		if (t.subject != null) {
 			Task old = objects.get(t.subject);
@@ -46,29 +66,10 @@ public class Scheduler {
 			last = t;
 		}
 	}
-
 	private static void execute(Task t) {
 		if (t.done)
 			done(t);
 		else
 			t.schedule(5);
 	}
-
-	static public void done(Task t) {
-		if (t != first)
-			throw new UMLDrawerException("Wrong task");
-		else {
-			if (t.subject != null)
-				objects.remove(t.subject);
-			first = t.next;
-			if (first == null)
-				last = null;
-			else
-				execute(first);
-		}
-	}
-
-	static Task first = null;
-	static Task last = null;
-	static Map<Object, Task> objects = new HashMap<Object, Task>();
 }

@@ -15,77 +15,24 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public class NoteLinkArtifact implements UMLElement {
 
+	UMLCanvas canvas;
+
+	GfxObject gfxObject = null;
+
+	GfxObject line = null;
+
+	NoteArtifact note;
+
+	UMLArtifact target;
+
+	int x1, y1, x2, y2;
+
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
 		this.note = note;
 		this.note.addDependency(this);
 		this.target = target;
 		this.target.addNoteLink(this);
 
-	}
-
-	public GfxObject getGfxObject() {
-		if (gfxObject == null) {
-			gfxObject = buildGfxObject();
-		}
-		return gfxObject;
-	}
-
-	public GfxObject buildGfxObject() {
-		float[] lineBounds = Geometry.computeLineBounds(note, target);
-		line = GfxManager.getPlatform().buildLine((int) lineBounds[0],
-				(int) lineBounds[1], (int) lineBounds[2], (int) lineBounds[3]);
-		GfxManager.getPlatform().setStroke(line,
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-		return line;
-	}
-
-	public int getX() {
-		return x1 < x2 ? x1 : x2;
-	}
-
-	public int getY() {
-		return y1 < y2 ? y1 : y2;
-	}
-
-	public List<GfxObject> getComponents() {
-		List<GfxObject> comps = new ArrayList<GfxObject>();
-		comps.add(line);
-		return comps;
-	}
-
-	public boolean isDraggable() {
-		return false;
-	}
-
-	public GfxObject getOutline() {
-		return null;
-	}
-
-	public void select() {
-		GfxManager.getPlatform().setStroke(line,
-				ThemeManager.getHighlightedForegroundColor(), 2);
-	}
-
-	public void unselect() {
-		GfxManager.getPlatform().setStroke(line,
-				ThemeManager.getForegroundColor(), 1);
-	}
-
-	public void setLocation(int x, int y) {
-		throw new UMLDrawerException(
-				"invalid operation : setLocation on a line");
-	}
-
-	public UMLCanvas getCanvas() {
-		return canvas;
-	}
-
-	public void setCanvas(UMLCanvas canvas) {
-		this.canvas = canvas;
-	}
-
-	public void adjusted() {
 	}
 
 	public void adjust() {
@@ -98,18 +45,44 @@ public class NoteLinkArtifact implements UMLElement {
 		adjusted();
 	}
 
+	public void adjusted() {
+	}
+
+	public GfxObject buildGfxObject() {
+		float[] lineBounds = Geometry.computeLineBounds(note, target);
+		line = GfxManager.getPlatform().buildLine((int) lineBounds[0],
+				(int) lineBounds[1], (int) lineBounds[2], (int) lineBounds[3]);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
+		return line;
+	}
+
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	UMLCanvas canvas;
-	GfxObject gfxObject = null;
-	GfxObject line = null;
+	public UMLCanvas getCanvas() {
+		return canvas;
+	}
 
-	int x1, y1, x2, y2;
-	NoteArtifact note;
-	UMLArtifact target;
+	public List<GfxObject> getComponents() {
+		List<GfxObject> comps = new ArrayList<GfxObject>();
+		comps.add(line);
+		return comps;
+	}
+
+	public GfxObject getGfxObject() {
+		if (gfxObject == null) {
+			gfxObject = buildGfxObject();
+		}
+		return gfxObject;
+	}
+
+	public GfxObject getOutline() {
+		return null;
+	}
 
 	public LinkedHashMap<String, Command> getRightMenu() {
 
@@ -128,6 +101,33 @@ public class NoteLinkArtifact implements UMLElement {
 		rightMenu.put("-", null);
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
+	}
+
+	public int getX() {
+		return x1 < x2 ? x1 : x2;
+	}
+	public int getY() {
+		return y1 < y2 ? y1 : y2;
+	}
+	public boolean isDraggable() {
+		return false;
+	}
+
+	public void select() {
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+	}
+	public void setCanvas(UMLCanvas canvas) {
+		this.canvas = canvas;
+	}
+	public void setLocation(int x, int y) {
+		throw new UMLDrawerException(
+				"invalid operation : setLocation on a line");
+	}
+
+	public void unselect() {
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
 	}
 
 }

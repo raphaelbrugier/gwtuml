@@ -10,6 +10,10 @@ public class VirtualGroup extends IncubatorGfxObject {
 
 	private Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
 
+	public void add(IncubatorGfxObject incubatorGfxObject) {
+		incubatorGfxObjectSet.add(incubatorGfxObject);
+	}
+
 	@Override
 	public void addOnCanvasAt(int dx, int dy) {
 		super.addOnCanvasAt(dx, dy);
@@ -19,8 +23,33 @@ public class VirtualGroup extends IncubatorGfxObject {
 
 	}
 
-	public void add(IncubatorGfxObject incubatorGfxObject) {
-		incubatorGfxObjectSet.add(incubatorGfxObject);
+	@Override
+	public void draw(GWTCanvas canvas) {
+		if (!isVisible)
+			return;
+		Log.trace("{Incubator} Starting drawing " + this);
+		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
+			incubatorGfxObject.draw(canvas);
+		}
+		Log.trace("{Incubator} Ending drawing " + this);
+
+	}
+
+	@Override
+	public double getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isPointed(int x, int y) {
+		return false;
 	}
 
 	public void remove(IncubatorGfxObject incubatorGfxObject) {
@@ -33,31 +62,6 @@ public class VirtualGroup extends IncubatorGfxObject {
 		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
 			incubatorGfxObject.translate(dx, dy);
 		}
-	}
-
-	public void draw(GWTCanvas canvas) {
-		if (!isVisible)
-			return;
-		Log.trace("{Incubator} Starting drawing " + this);
-		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.draw(canvas);
-		}
-		Log.trace("{Incubator} Ending drawing " + this);
-
-	}
-
-	public boolean isPointed(int x, int y) {
-		return false;
-	}
-
-	public double getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

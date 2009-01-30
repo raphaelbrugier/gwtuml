@@ -35,11 +35,13 @@ public final class HotKeyManager {
 			}-*/;
 	}
 
+	private static UMLCanvas activeCanvas;
+
 	static {
 		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl();
 		Window.addWindowCloseListener(closeListener);
 		closeListener.init();
-	}
+	};
 
 	/**
 	 * * Can be called from your code to force installation of * the event
@@ -50,7 +52,7 @@ public final class HotKeyManager {
 
 	public static void setActiveCanvas(UMLCanvas canvas) {
 		activeCanvas = canvas;
-	};
+	}
 
 	@SuppressWarnings("unused")
 	private static void onKeyDown(Event event) {
@@ -91,8 +93,6 @@ public final class HotKeyManager {
 	private static void onKeyUp(Event event) {
 		// char keyCode = (char) DOM.eventGetKeyCode(event);
 	}
-
-	private static UMLCanvas activeCanvas;
 
 	/** * Prevent instantiation. */
 	private HotKeyManager() {

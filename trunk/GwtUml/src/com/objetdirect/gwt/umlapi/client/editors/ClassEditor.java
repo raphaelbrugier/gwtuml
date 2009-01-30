@@ -16,23 +16,19 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact.ClassArtifactPa
 
 public class ClassEditor {
 
+	public static final int FIELD_HEIGHT = 18;
 	public static final int FIELD_XMARGIN = 8;
 	public static final int FIELD_YMARGIN = -4;
-	public static final int FIELD_HEIGHT = 18;
+	TextBox editField = null;
+
+	ClassArtifactPart subPart;
+
+	boolean validationInProcess = false;
+
 	private ClassArtifact editedClass = null;
 
 	public ClassEditor(ClassArtifact editedClass) {
 		this.editedClass = editedClass;
-	}
-
-	public void editName() {
-		editField = getEditField(editedClass.getClassName(), editedClass
-				.getWidth());
-		editedClass.getCanvas().add(editField,
-				editedClass.getX() + FIELD_XMARGIN,
-				editedClass.getY() + editedClass.getNameY() + FIELD_YMARGIN);
-		editField.selectAll();
-		editField.setFocus(true);
 	}
 
 	public void editAttribute(Attribute attribute) {
@@ -46,13 +42,6 @@ public class ClassEditor {
 		editField.setFocus(true);
 	}
 
-	public void editNewAttribute() {
-		Attribute attr = new Attribute("type", "name");
-		attr.setValidated(false);
-		editedClass.addAttribute(attr);
-		editAttribute(attr);
-	}
-
 	public void editMethod(Method method) {
 		editField = getEditField(method.toString(), editedClass.getWidth());
 		editedClass.getCanvas().add(
@@ -64,6 +53,23 @@ public class ClassEditor {
 		editField.setFocus(true);
 	}
 
+	public void editName() {
+		editField = getEditField(editedClass.getClassName(), editedClass
+				.getWidth());
+		editedClass.getCanvas().add(editField,
+				editedClass.getX() + FIELD_XMARGIN,
+				editedClass.getY() + editedClass.getNameY() + FIELD_YMARGIN);
+		editField.selectAll();
+		editField.setFocus(true);
+	}
+
+	public void editNewAttribute() {
+		Attribute attr = new Attribute("type", "name");
+		attr.setValidated(false);
+		editedClass.addAttribute(attr);
+		editAttribute(attr);
+	}
+
 	public void editNewMethod() {
 		Method method = new Method("type", "name", null);
 		method.setValidated(false);
@@ -71,298 +77,8 @@ public class ClassEditor {
 		editMethod(method);
 	}
 
-	protected void validate() {
-		if (validationInProcess)
-			return;
-		try {
-			validationInProcess = true;
-			switch (subPart) {
-			case NAME:
-				editedClass.setClassName(editField.getText());
-				break;
-			case ATTRIBUTE:
-				updateAttribute(editedClass, subPart.getSlotIndex(), editField
-						.getText());
-				break;
-			case METHOD:
-				updateMethod(editedClass, subPart.getSlotIndex(), editField
-						.getText());
-				break;
-			}
-			editedClass.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
-	}
-
-	protected void goDown() {
-		switch (subPart) {
-		case NAME:
-			validate();
-			if (editedClass.getAttributes().size() > 0)
-				editAttribute((Attribute) editedClass.getAttributes().get(0));
-			break;
-		case ATTRIBUTE:
-			Attribute nextAttr = null;
-			if (editedClass.getAttributes().size() > subPart.getSlotIndex() + 1)
-				nextAttr = (Attribute) editedClass.getAttributes().get(
-						subPart.getSlotIndex() + 1);
-			if (nextAttr != null) {
-				validate();
-				editAttribute(nextAttr);
-			} else if (editedClass.getMethods().size() > 0) {
-				validate();
-				editMethod((Method) editedClass.getMethods().get(0));
-			}
-			break;
-		case METHOD:
-			Method nextMethod = null;
-			if (editedClass.getMethods().size() > subPart.getSlotIndex() + 1)
-				nextMethod = (Method) editedClass.getMethods().get(
-						subPart.getSlotIndex() + 1);
-			if (nextMethod != null) {
-				validate();
-				editMethod(nextMethod);
-			}
-			break;
-		}
-	}
-
-	protected void goUp() {
-		switch (subPart) {
-		case ATTRIBUTE:
-			Attribute prevAttr = null;
-			if (subPart.getSlotIndex() > 0)
-				prevAttr = (Attribute) editedClass.getAttributes().get(
-						subPart.getSlotIndex() - 1);
-			validate();
-			if (prevAttr != null)
-				editAttribute(prevAttr);
-			else
-				editName();
-			break;
-
-		case METHOD:
-			Method prevMethod = null;
-			if (subPart.getSlotIndex() > 0)
-				prevMethod = (Method) editedClass.getMethods().get(
-						subPart.getSlotIndex() - 1);
-			validate();
-			if (prevMethod != null)
-				editMethod(prevMethod);
-			else if (editedClass.getAttributes().size() > 0) {
-				Attribute attr = (Attribute) editedClass.getAttributes().get(
-						editedClass.getAttributes().size() - 1);
-				editAttribute(attr);
-			} else
-				editName();
-			break;
-		}
-	}
-
-	protected void moveUp() {
-		switch (subPart) {
-		case ATTRIBUTE:
-			if (subPart.getSlotIndex() > 0) {
-				editedClass.exchangeAttribute(subPart.getSlotIndex(), subPart
-						.getSlotIndex() - 1);
-				int y = editedClass.getAttributeY(subPart.getSlotIndex());
-				editedClass.getCanvas().setWidgetPosition(editField,
-						editedClass.getX() + FIELD_XMARGIN,
-						editedClass.getY() + y + FIELD_YMARGIN);
-			}
-
-			break;
-		case METHOD:
-			if (subPart.getSlotIndex() > 0) {
-				editedClass.exchangeMethod(subPart.getSlotIndex(), subPart
-						.getSlotIndex() - 1);
-				int y = editedClass.getMethodY(subPart.getSlotIndex());
-				editedClass.getCanvas().setWidgetPosition(editField,
-						editedClass.getX() + FIELD_XMARGIN,
-						editedClass.getY() + y + FIELD_YMARGIN);
-			}
-			break;
-		}
-	}
-
-	protected void moveDown() {
-		switch (subPart) {
-		case ATTRIBUTE:
-			if (subPart.getSlotIndex() < editedClass.getAttributes().size() - 1) {
-				editedClass.exchangeAttribute(subPart.getSlotIndex(), subPart
-						.getSlotIndex() + 1);
-				int y = editedClass.getAttributeY(subPart.getSlotIndex());
-				editedClass.getCanvas().setWidgetPosition(editField,
-						editedClass.getX() + FIELD_XMARGIN,
-						editedClass.getY() + y + FIELD_YMARGIN);
-			}
-			break;
-		case METHOD:
-			if (subPart.getSlotIndex() < editedClass.getAttributes().size() - 1) {
-				editedClass.exchangeMethod(subPart.getSlotIndex(), subPart
-						.getSlotIndex() + 1);
-				int y = editedClass.getMethodY(subPart.getSlotIndex());
-				editedClass.getCanvas().setWidgetPosition(editField,
-						editedClass.getX() + FIELD_XMARGIN,
-						editedClass.getY() + y + FIELD_YMARGIN);
-			}
-			break;
-		}
-	}
-
-	protected void goNextLine() {
-		switch (subPart) {
-		case NAME:
-			validate();
-			if (editedClass.getAttributes().size() > 0)
-				editAttribute((Attribute) editedClass.getAttributes().get(0));
-			break;
-		case ATTRIBUTE:
-			Attribute nextAttr = null;
-			if (editedClass.getAttributes().size() > +1)
-				nextAttr = (Attribute) editedClass.getAttributes().get(
-						subPart.getSlotIndex() + 1);
-			validate();
-			if (nextAttr != null)
-				editAttribute(nextAttr);
-			else
-				editNewAttribute();
-			break;
-		case METHOD:
-			Method nextMethod = null;
-			if (editedClass.getMethods().size() > subPart.getSlotIndex() + 1)
-				nextMethod = (Method) editedClass.getMethods().get(
-						subPart.getSlotIndex() + 1);
-			validate();
-			if (nextMethod != null)
-				editMethod(nextMethod);
-			else
-				editNewMethod();
-			break;
-		}
-	}
-
-	protected void goNextBox() {
-		switch (subPart) {
-		case NAME:
-			validate();
-			if (editedClass.getAttributes().size() > 0)
-				editAttribute((Attribute) editedClass.getAttributes().get(0));
-			else
-				editNewAttribute();
-			break;
-		case ATTRIBUTE:
-			validate();
-			if (editedClass.getMethods().size() > 0)
-				editMethod((Method) editedClass.getMethods().get(0));
-			else
-				editNewMethod();
-			break;
-		}
-	}
-
-	protected void goPrevBox() {
-		switch (subPart) {
-		case ATTRIBUTE:
-			validate();
-			editName();
-			break;
-		case METHOD:
-			validate();
-			if (editedClass.getAttributes().size() > 0)
-				editAttribute((Attribute) editedClass.getAttributes().get(0));
-			else
-				editNewAttribute();
-			break;
-		}
-	}
-
-	protected void cancel() {
-		validationInProcess = true;
-		try {
-
-			switch (subPart) {
-			case ATTRIBUTE:
-
-				if (!editedClass.isAttributeValidated(subPart.getSlotIndex()))
-					removeAttribute(editedClass, subPart.getSlotIndex());
-				break;
-			case METHOD:
-				if (!editedClass.isMethodValidated(subPart.getSlotIndex()))
-					removeMethod(editedClass, subPart.getSlotIndex());
-				break;
-			}
-			editedClass.getCanvas().remove(editField);
-			editField = null;
-		} finally {
-			validationInProcess = false;
-		}
-	}
-
-	void updateAttribute(ClassArtifact editedClass, int attrSlot, String text) {
-		if (text.trim().length() == 0)
-			removeAttribute(editedClass, attrSlot);
-		else
-			replaceAttribute(editedClass, attrSlot, text);
-	}
-
-	void removeAttribute(ClassArtifact editedClass, int attrSlot) {
-		editedClass.removeAttribute(attrSlot);
-	}
-
-	void replaceAttribute(ClassArtifact editedClass, int attrSlot, String text) {
-		LexicalAnalyser lex = new LexicalAnalyser(text);
-		try {
-			String type = null;
-			String name = null;
-			LexicalAnalyser.Token tk = lex.getToken();
-			if (tk.getType() != LexicalAnalyser.IDENTIFIER)
-				throw new UMLDrawerException(
-						"invalid format : must match 'identifier:type'");
-			name = tk.getContent();
-			tk = lex.getToken();
-			if (tk != null) {
-				if (tk.getType() != LexicalAnalyser.SIGN
-						|| !tk.getContent().equals(":"))
-					throw new UMLDrawerException(
-							"invalid format : must match 'identifier:type'");
-				tk = lex.getToken();
-				if (tk == null || tk.getType() != LexicalAnalyser.IDENTIFIER)
-					throw new UMLDrawerException(
-							"invalid format : must match 'identifier:type'");
-				type = tk.getContent();
-			}
-			editedClass.setAttribute(attrSlot, new Attribute(type, name));
-			editedClass.setAttributeValidated(attrSlot);
-		} catch (UMLDrawerException e) {
-			Window.alert(e.getMessage());
-		}
-	}
-
-	void updateMethod(ClassArtifact editedClass, int methodSlot, String text) {
-		if (text.trim().length() == 0)
-			removeMethod(editedClass, methodSlot);
-		else
-			replaceMethod(editedClass, methodSlot, text);
-	}
-
-	void removeMethod(ClassArtifact editedClass, int methodSlot) {
-		editedClass.removeMethod(methodSlot);
-	}
-
-	void replaceMethod(ClassArtifact editedClass, int methodSlot, String text) {
-		LexicalAnalyser lex = new LexicalAnalyser(text);
-		try {
-			MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
-			ma.process(lex, null);
-			Method newMethod = ma.getMethod();
-			editedClass.setMethod(methodSlot, newMethod);
-			editedClass.setMethodValidated(methodSlot);
-		} catch (UMLDrawerException e) {
-			Window.alert(e.getMessage());
-		}
+	public void setSubPart(ClassArtifactPart subPart) {
+		this.subPart = subPart;
 	}
 
 	TextBox getEditField(String value, int width) {
@@ -420,12 +136,296 @@ public class ClassEditor {
 		editField.addKeyboardListener(keybLst);
 	}
 
-	public void setSubPart(ClassArtifactPart subPart) {
-		this.subPart = subPart;
+	void removeAttribute(ClassArtifact editedClass, int attrSlot) {
+		editedClass.removeAttribute(attrSlot);
 	}
 
-	boolean validationInProcess = false;
-	TextBox editField = null;
-	ClassArtifactPart subPart;
+	void removeMethod(ClassArtifact editedClass, int methodSlot) {
+		editedClass.removeMethod(methodSlot);
+	}
+
+	void replaceAttribute(ClassArtifact editedClass, int attrSlot, String text) {
+		LexicalAnalyser lex = new LexicalAnalyser(text);
+		try {
+			String type = null;
+			String name = null;
+			LexicalAnalyser.Token tk = lex.getToken();
+			if (tk.getType() != LexicalAnalyser.IDENTIFIER)
+				throw new UMLDrawerException(
+						"invalid format : must match 'identifier:type'");
+			name = tk.getContent();
+			tk = lex.getToken();
+			if (tk != null) {
+				if (tk.getType() != LexicalAnalyser.SIGN
+						|| !tk.getContent().equals(":"))
+					throw new UMLDrawerException(
+							"invalid format : must match 'identifier:type'");
+				tk = lex.getToken();
+				if (tk == null || tk.getType() != LexicalAnalyser.IDENTIFIER)
+					throw new UMLDrawerException(
+							"invalid format : must match 'identifier:type'");
+				type = tk.getContent();
+			}
+			editedClass.setAttribute(attrSlot, new Attribute(type, name));
+			editedClass.setAttributeValidated(attrSlot);
+		} catch (UMLDrawerException e) {
+			Window.alert(e.getMessage());
+		}
+	}
+
+	void replaceMethod(ClassArtifact editedClass, int methodSlot, String text) {
+		LexicalAnalyser lex = new LexicalAnalyser(text);
+		try {
+			MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
+			ma.process(lex, null);
+			Method newMethod = ma.getMethod();
+			editedClass.setMethod(methodSlot, newMethod);
+			editedClass.setMethodValidated(methodSlot);
+		} catch (UMLDrawerException e) {
+			Window.alert(e.getMessage());
+		}
+	}
+
+	void updateAttribute(ClassArtifact editedClass, int attrSlot, String text) {
+		if (text.trim().length() == 0)
+			removeAttribute(editedClass, attrSlot);
+		else
+			replaceAttribute(editedClass, attrSlot, text);
+	}
+
+	void updateMethod(ClassArtifact editedClass, int methodSlot, String text) {
+		if (text.trim().length() == 0)
+			removeMethod(editedClass, methodSlot);
+		else
+			replaceMethod(editedClass, methodSlot, text);
+	}
+
+	protected void cancel() {
+		validationInProcess = true;
+		try {
+
+			switch (subPart) {
+			case ATTRIBUTE:
+
+				if (!editedClass.isAttributeValidated(subPart.getSlotIndex()))
+					removeAttribute(editedClass, subPart.getSlotIndex());
+				break;
+			case METHOD:
+				if (!editedClass.isMethodValidated(subPart.getSlotIndex()))
+					removeMethod(editedClass, subPart.getSlotIndex());
+				break;
+			}
+			editedClass.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
+
+	protected void goDown() {
+		switch (subPart) {
+		case NAME:
+			validate();
+			if (editedClass.getAttributes().size() > 0)
+				editAttribute(editedClass.getAttributes().get(0));
+			break;
+		case ATTRIBUTE:
+			Attribute nextAttr = null;
+			if (editedClass.getAttributes().size() > subPart.getSlotIndex() + 1)
+				nextAttr = editedClass.getAttributes().get(
+						subPart.getSlotIndex() + 1);
+			if (nextAttr != null) {
+				validate();
+				editAttribute(nextAttr);
+			} else if (editedClass.getMethods().size() > 0) {
+				validate();
+				editMethod(editedClass.getMethods().get(0));
+			}
+			break;
+		case METHOD:
+			Method nextMethod = null;
+			if (editedClass.getMethods().size() > subPart.getSlotIndex() + 1)
+				nextMethod = editedClass.getMethods().get(
+						subPart.getSlotIndex() + 1);
+			if (nextMethod != null) {
+				validate();
+				editMethod(nextMethod);
+			}
+			break;
+		}
+	}
+
+	protected void goNextBox() {
+		switch (subPart) {
+		case NAME:
+			validate();
+			if (editedClass.getAttributes().size() > 0)
+				editAttribute(editedClass.getAttributes().get(0));
+			else
+				editNewAttribute();
+			break;
+		case ATTRIBUTE:
+			validate();
+			if (editedClass.getMethods().size() > 0)
+				editMethod(editedClass.getMethods().get(0));
+			else
+				editNewMethod();
+			break;
+		}
+	}
+
+	protected void goNextLine() {
+		switch (subPart) {
+		case NAME:
+			validate();
+			if (editedClass.getAttributes().size() > 0)
+				editAttribute(editedClass.getAttributes().get(0));
+			break;
+		case ATTRIBUTE:
+			Attribute nextAttr = null;
+			if (editedClass.getAttributes().size() > +1)
+				nextAttr = editedClass.getAttributes().get(
+						subPart.getSlotIndex() + 1);
+			validate();
+			if (nextAttr != null)
+				editAttribute(nextAttr);
+			else
+				editNewAttribute();
+			break;
+		case METHOD:
+			Method nextMethod = null;
+			if (editedClass.getMethods().size() > subPart.getSlotIndex() + 1)
+				nextMethod = editedClass.getMethods().get(
+						subPart.getSlotIndex() + 1);
+			validate();
+			if (nextMethod != null)
+				editMethod(nextMethod);
+			else
+				editNewMethod();
+			break;
+		}
+	}
+
+	protected void goPrevBox() {
+		switch (subPart) {
+		case ATTRIBUTE:
+			validate();
+			editName();
+			break;
+		case METHOD:
+			validate();
+			if (editedClass.getAttributes().size() > 0)
+				editAttribute(editedClass.getAttributes().get(0));
+			else
+				editNewAttribute();
+			break;
+		}
+	}
+
+	protected void goUp() {
+		switch (subPart) {
+		case ATTRIBUTE:
+			Attribute prevAttr = null;
+			if (subPart.getSlotIndex() > 0)
+				prevAttr = editedClass.getAttributes().get(
+						subPart.getSlotIndex() - 1);
+			validate();
+			if (prevAttr != null)
+				editAttribute(prevAttr);
+			else
+				editName();
+			break;
+
+		case METHOD:
+			Method prevMethod = null;
+			if (subPart.getSlotIndex() > 0)
+				prevMethod = editedClass.getMethods().get(
+						subPart.getSlotIndex() - 1);
+			validate();
+			if (prevMethod != null)
+				editMethod(prevMethod);
+			else if (editedClass.getAttributes().size() > 0) {
+				Attribute attr = editedClass.getAttributes().get(
+						editedClass.getAttributes().size() - 1);
+				editAttribute(attr);
+			} else
+				editName();
+			break;
+		}
+	}
+
+	protected void moveDown() {
+		switch (subPart) {
+		case ATTRIBUTE:
+			if (subPart.getSlotIndex() < editedClass.getAttributes().size() - 1) {
+				editedClass.exchangeAttribute(subPart.getSlotIndex(), subPart
+						.getSlotIndex() + 1);
+				int y = editedClass.getAttributeY(subPart.getSlotIndex());
+				editedClass.getCanvas().setWidgetPosition(editField,
+						editedClass.getX() + FIELD_XMARGIN,
+						editedClass.getY() + y + FIELD_YMARGIN);
+			}
+			break;
+		case METHOD:
+			if (subPart.getSlotIndex() < editedClass.getAttributes().size() - 1) {
+				editedClass.exchangeMethod(subPart.getSlotIndex(), subPart
+						.getSlotIndex() + 1);
+				int y = editedClass.getMethodY(subPart.getSlotIndex());
+				editedClass.getCanvas().setWidgetPosition(editField,
+						editedClass.getX() + FIELD_XMARGIN,
+						editedClass.getY() + y + FIELD_YMARGIN);
+			}
+			break;
+		}
+	}
+	protected void moveUp() {
+		switch (subPart) {
+		case ATTRIBUTE:
+			if (subPart.getSlotIndex() > 0) {
+				editedClass.exchangeAttribute(subPart.getSlotIndex(), subPart
+						.getSlotIndex() - 1);
+				int y = editedClass.getAttributeY(subPart.getSlotIndex());
+				editedClass.getCanvas().setWidgetPosition(editField,
+						editedClass.getX() + FIELD_XMARGIN,
+						editedClass.getY() + y + FIELD_YMARGIN);
+			}
+
+			break;
+		case METHOD:
+			if (subPart.getSlotIndex() > 0) {
+				editedClass.exchangeMethod(subPart.getSlotIndex(), subPart
+						.getSlotIndex() - 1);
+				int y = editedClass.getMethodY(subPart.getSlotIndex());
+				editedClass.getCanvas().setWidgetPosition(editField,
+						editedClass.getX() + FIELD_XMARGIN,
+						editedClass.getY() + y + FIELD_YMARGIN);
+			}
+			break;
+		}
+	}
+	protected void validate() {
+		if (validationInProcess)
+			return;
+		try {
+			validationInProcess = true;
+			switch (subPart) {
+			case NAME:
+				editedClass.setClassName(editField.getText());
+				break;
+			case ATTRIBUTE:
+				updateAttribute(editedClass, subPart.getSlotIndex(), editField
+						.getText());
+				break;
+			case METHOD:
+				updateMethod(editedClass, subPart.getSlotIndex(), editField
+						.getText());
+				break;
+			}
+			editedClass.getCanvas().remove(editField);
+			editField = null;
+		} finally {
+			validationInProcess = false;
+		}
+	}
 
 }

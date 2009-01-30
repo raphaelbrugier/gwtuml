@@ -13,134 +13,10 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public abstract class ClassDependencyArtifact extends LineArtifact {
 
-	public ClassDependencyArtifact(ClassArtifact left, ClassArtifact right) {
-		this.left = left;
-		left.addClassDependency(this);
-		this.right = right;
-		right.addClassDependency(this);
-	}
-
-	protected GfxObject buildGfxObject() {
-
-		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		float[] lineBounds = Geometry.computeLineBounds(left, right);
-		setBounds((int) lineBounds[0], (int) lineBounds[1],
-				(int) lineBounds[2], (int) lineBounds[3]);
-		line = buildLine(lineBounds);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line);
-		arrow = buildArrow(lineBounds);
-		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
-		return vg;
-	}
-
-	public List<GfxObject> getComponents() {
-		List<GfxObject> comps = new ArrayList<GfxObject>();
-		comps.add(line);
-		comps.add(arrow);
-		return comps;
-	}
-
-	public void select() {
-		GfxManager.getPlatform().setStroke(line,
-				ThemeManager.getHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(arrow,
-				ThemeManager.getHighlightedForegroundColor(), 2);
-	}
-
-	public void unselect() {
-		GfxManager.getPlatform().setStroke(line,
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(arrow,
-				ThemeManager.getForegroundColor(), 1);
-	}
-
-	public Object getSubPart(GfxObject o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void edit(GfxObject gfxObject, int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	protected abstract GfxObject buildLine(float[] lineBounds);
-
-	protected abstract GfxObject buildArrow(float[] lineBounds);
-
-	ClassArtifact left;
-	ClassArtifact right;
-	GfxObject line = null;
-	GfxObject arrow = null;
-
-	public static class Simple extends ClassDependencyArtifact {
-
-		public Simple(ClassArtifact left, ClassArtifact right) {
-			super(left, right);
-		}
-
-		protected GfxObject buildLine(float[] lineBounds) {
-
-			GfxObject line = GfxManager.getPlatform().buildLine(
-					(int) lineBounds[0], (int) lineBounds[1],
-					(int) lineBounds[2], (int) lineBounds[3]);
-			GfxManager.getPlatform().setStroke(line,
-					ThemeManager.getForegroundColor(), 1);
-			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-
-			return line;
-		}
-
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
-		}
-
-		public LinkedHashMap<String, Command> getRightMenu() {
-
-			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
-			Command doNothing = new Command() {
-				public void execute() {
-				}
-			};
-			Command remove = new Command() {
-				public void execute() {
-					getCanvas().removeSelected();
-				}
-			};
-			rightMenu.put("Simple", doNothing);
-			rightMenu.put("-", null);
-			rightMenu.put("Change to extension", doNothing);
-			rightMenu.put("Change to implementation", doNothing);
-			rightMenu.put("Reverse", doNothing);
-			rightMenu.put("Delete", remove);
-			return rightMenu;
-		}
-	}
-
 	public static class Extension extends ClassDependencyArtifact {
 
 		public Extension(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
-		}
-
-		protected GfxObject buildLine(float[] lineBounds) {
-
-			GfxObject line = GfxManager.getPlatform().buildLine(
-					(int) lineBounds[0], (int) lineBounds[1],
-					(int) lineBounds[2], (int) lineBounds[3]);
-			GfxManager.getPlatform().setStroke(line,
-					ThemeManager.getForegroundColor(), 1);
-			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
-			return line;
-		}
-
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
 		}
 
 		public LinkedHashMap<String, Command> getRightMenu() {
@@ -165,14 +41,14 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 			return rightMenu;
 		}
 
-	}
-
-	public static class Implementation extends ClassDependencyArtifact {
-
-		public Implementation(ClassArtifact left, ClassArtifact right) {
-			super(left, right);
+		@Override
+		protected GfxObject buildArrow(float[] lineBounds) {
+			return Geometry.buildFilledArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
 		}
 
+		@Override
 		protected GfxObject buildLine(float[] lineBounds) {
 
 			GfxObject line = GfxManager.getPlatform().buildLine(
@@ -180,14 +56,16 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 					(int) lineBounds[2], (int) lineBounds[3]);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
-			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
 			return line;
 		}
 
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
+	}
+
+	public static class Implementation extends ClassDependencyArtifact {
+
+		public Implementation(ClassArtifact left, ClassArtifact right) {
+			super(left, right);
 		}
 
 		public LinkedHashMap<String, Command> getRightMenu() {
@@ -212,5 +90,134 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 			return rightMenu;
 		}
 
+		@Override
+		protected GfxObject buildArrow(float[] lineBounds) {
+			return Geometry.buildFilledArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
+		}
+
+		@Override
+		protected GfxObject buildLine(float[] lineBounds) {
+
+			GfxObject line = GfxManager.getPlatform().buildLine(
+					(int) lineBounds[0], (int) lineBounds[1],
+					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxManager.getPlatform().setStroke(line,
+					ThemeManager.getForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
+			return line;
+		}
+
 	}
+
+	public static class Simple extends ClassDependencyArtifact {
+
+		public Simple(ClassArtifact left, ClassArtifact right) {
+			super(left, right);
+		}
+
+		public LinkedHashMap<String, Command> getRightMenu() {
+
+			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+			Command doNothing = new Command() {
+				public void execute() {
+				}
+			};
+			Command remove = new Command() {
+				public void execute() {
+					getCanvas().removeSelected();
+				}
+			};
+			rightMenu.put("Simple", doNothing);
+			rightMenu.put("-", null);
+			rightMenu.put("Change to extension", doNothing);
+			rightMenu.put("Change to implementation", doNothing);
+			rightMenu.put("Reverse", doNothing);
+			rightMenu.put("Delete", remove);
+			return rightMenu;
+		}
+
+		@Override
+		protected GfxObject buildArrow(float[] lineBounds) {
+			return Geometry.buildArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
+		}
+
+		@Override
+		protected GfxObject buildLine(float[] lineBounds) {
+
+			GfxObject line = GfxManager.getPlatform().buildLine(
+					(int) lineBounds[0], (int) lineBounds[1],
+					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxManager.getPlatform().setStroke(line,
+					ThemeManager.getForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
+
+			return line;
+		}
+	}
+
+	GfxObject arrow = null;
+
+	ClassArtifact left;
+
+	GfxObject line = null;
+
+	ClassArtifact right;
+
+	public ClassDependencyArtifact(ClassArtifact left, ClassArtifact right) {
+		this.left = left;
+		left.addClassDependency(this);
+		this.right = right;
+		right.addClassDependency(this);
+	}
+
+	public void edit(GfxObject gfxObject, int x, int y) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public List<GfxObject> getComponents() {
+		List<GfxObject> comps = new ArrayList<GfxObject>();
+		comps.add(line);
+		comps.add(arrow);
+		return comps;
+	}
+	public Object getSubPart(GfxObject o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void select() {
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(arrow,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+	}
+	public void unselect() {
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(arrow,
+				ThemeManager.getForegroundColor(), 1);
+	}
+
+	protected abstract GfxObject buildArrow(float[] lineBounds);
+
+	@Override
+	protected GfxObject buildGfxObject() {
+
+		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+		float[] lineBounds = Geometry.computeLineBounds(left, right);
+		setBounds((int) lineBounds[0], (int) lineBounds[1],
+				(int) lineBounds[2], (int) lineBounds[3]);
+		line = buildLine(lineBounds);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line);
+		arrow = buildArrow(lineBounds);
+		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
+		return vg;
+	}
+
+	protected abstract GfxObject buildLine(float[] lineBounds);
 }

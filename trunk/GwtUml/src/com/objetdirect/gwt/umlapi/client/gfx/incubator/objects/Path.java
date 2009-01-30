@@ -27,14 +27,6 @@ public class Path extends IncubatorGfxObject {
 	}
 
 	@Override
-	public void translate(int dx, int dy) {
-		super.translate(dx, dy);
-		for (Point point : pathPoints) {
-			point.x += dx;
-			point.y += dy;
-		}
-	}
-
 	public void draw(GWTCanvas canvas) {
 		if (!isVisible)
 			return;
@@ -56,16 +48,19 @@ public class Path extends IncubatorGfxObject {
 		canvas.restoreContext();
 	}
 
-	public void lineTo(double x, double y) {
-		pathPoints.add(new Point(x, y));
+	@Override
+	public double getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public void moveTo(double x, double y) {
-		this.x = (int) x;
-		this.y = (int) y;
-
+	@Override
+	public double getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
+	@Override
 	public boolean isPointed(int x, int y) {
 		double minx = Double.MAX_VALUE, miny = Double.MAX_VALUE, maxx = Double.MIN_VALUE, maxy = Double.MIN_VALUE;
 		for (Point point : pathPoints) {
@@ -78,13 +73,22 @@ public class Path extends IncubatorGfxObject {
 		return (x > minx) && (x < maxx) && (y > miny) && (y < maxy);
 	}
 
-	public double getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void lineTo(double x, double y) {
+		pathPoints.add(new Point(x, y));
 	}
 
-	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void moveTo(double x, double y) {
+		this.x = (int) x;
+		this.y = (int) y;
+
+	}
+
+	@Override
+	public void translate(int dx, int dy) {
+		super.translate(dx, dy);
+		for (Point point : pathPoints) {
+			point.x += dx;
+			point.y += dy;
+		}
 	}
 }

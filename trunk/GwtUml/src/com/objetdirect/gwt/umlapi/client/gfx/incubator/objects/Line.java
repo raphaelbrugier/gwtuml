@@ -14,6 +14,7 @@ public class Line extends IncubatorGfxObject {
 		this.h = y2 - y1;
 	}
 
+	@Override
 	public void draw(GWTCanvas canvas) {
 		if (!isVisible)
 			return;
@@ -33,17 +34,20 @@ public class Line extends IncubatorGfxObject {
 		canvas.restoreContext();
 	}
 
-	public boolean isPointed(int x, int y) {
-		return false;
-	}
-
+	@Override
 	public double getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
 	public double getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isPointed(int x, int y) {
+		return false;
 	}
 }

@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.MouseListenerCollection;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 public class GWTCanvasWithListeners extends GWTCanvas {
-	private MouseListenerCollection mouseListeners;
 	private ClickListenerCollection clickListeners;
+	private MouseListenerCollection mouseListeners;
 
 	public GWTCanvasWithListeners() {
 		super();
@@ -22,6 +22,22 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 
 	public GWTCanvasWithListeners(int coordX, int coordY, int pixelX, int pixelY) {
 		super(coordX, coordY, pixelX, pixelY);
+	}
+
+	public void addClickListener(ClickListener listener) {
+		if (clickListeners == null) {
+			clickListeners = new ClickListenerCollection();
+			sinkEvents(Event.ONCLICK + Event.ONDBLCLICK);
+		}
+		clickListeners.add(listener);
+	}
+
+	public void addMouseListener(MouseListener listener) {
+		if (mouseListeners == null) {
+			mouseListeners = new MouseListenerCollection();
+			sinkEvents(Event.MOUSEEVENTS);
+		}
+		mouseListeners.add(listener);
 	}
 
 	@Override
@@ -67,22 +83,6 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 				break;
 			}
 		}
-	}
-
-	public void addClickListener(ClickListener listener) {
-		if (clickListeners == null) {
-			clickListeners = new ClickListenerCollection();
-			sinkEvents(Event.ONCLICK + Event.ONDBLCLICK);
-		}
-		clickListeners.add(listener);
-	}
-
-	public void addMouseListener(MouseListener listener) {
-		if (mouseListeners == null) {
-			mouseListeners = new MouseListenerCollection();
-			sinkEvents(Event.MOUSEEVENTS);
-		}
-		mouseListeners.add(listener);
 	}
 
 	public void removeClickListener(ClickListener listener) {

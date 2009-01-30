@@ -10,8 +10,18 @@ import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 public class ContextMenuManager {
-	private PopupMenu contextMenu;
-	private UMLCanvas canvas;
+	private final Command addExtensionClassDependency = new Command() {
+		public void execute() {
+			canvas.addNewLink(Link.EXTENSION);
+		}
+
+	};
+	private final Command addImplementationClassDependency = new Command() {
+		public void execute() {
+			canvas.addNewLink(Link.IMPLEMENTATION);
+		}
+
+	};
 
 	private final Command addNewClass = new Command() {
 		public void execute() {
@@ -25,30 +35,20 @@ public class ContextMenuManager {
 		}
 
 	};
-	private final Command addSimpleClassDependency = new Command() {
-		public void execute() {
-			canvas.addNewLink(Link.SIMPLE);
-		}
-
-	};
-	private final Command addImplementationClassDependency = new Command() {
-		public void execute() {
-			canvas.addNewLink(Link.IMPLEMENTATION);
-		}
-
-	};
-	private final Command addExtensionClassDependency = new Command() {
-		public void execute() {
-			canvas.addNewLink(Link.EXTENSION);
-		}
-
-	};
 	private final Command addRelationship = new Command() {
 		public void execute() {
 			canvas.addNewLink(Link.RELATIONSHIP);
 		}
 
 	};
+	private final Command addSimpleClassDependency = new Command() {
+		public void execute() {
+			canvas.addNewLink(Link.SIMPLE);
+		}
+
+	};
+	private UMLCanvas canvas;
+	private PopupMenu contextMenu;
 
 	public ContextMenuManager(UMLCanvas UMLcanvas) {
 		canvas = UMLcanvas;
@@ -56,19 +56,6 @@ public class ContextMenuManager {
 
 	public void makeMenu() {
 		makeMenu(true);
-	}
-
-	private void makeMenu(boolean withInitialisation) {
-		if (withInitialisation)
-			contextMenu = new PopupMenu();
-		contextMenu.addItem("Add new class", addNewClass);
-		contextMenu.addItem("Add new note", addNewNote);
-		contextMenu.addItem("Add new dependency", addSimpleClassDependency);
-		contextMenu.addItem("Add new extension dependency",
-				addExtensionClassDependency);
-		contextMenu.addItem("Add new implementation dependency",
-				addImplementationClassDependency);
-		contextMenu.addItem("Add new relationship", addRelationship);
 	}
 
 	public void makeMenu(LinkedHashMap<String, Command> specificRightMenu) {
@@ -90,6 +77,19 @@ public class ContextMenuManager {
 				contextMenu.setPopupPosition(x, y);
 			}
 		});
+	}
+
+	private void makeMenu(boolean withInitialisation) {
+		if (withInitialisation)
+			contextMenu = new PopupMenu();
+		contextMenu.addItem("Add new class", addNewClass);
+		contextMenu.addItem("Add new note", addNewNote);
+		contextMenu.addItem("Add new dependency", addSimpleClassDependency);
+		contextMenu.addItem("Add new extension dependency",
+				addExtensionClassDependency);
+		contextMenu.addItem("Add new implementation dependency",
+				addImplementationClassDependency);
+		contextMenu.addItem("Add new relationship", addRelationship);
 	}
 
 }

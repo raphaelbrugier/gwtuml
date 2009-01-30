@@ -4,6 +4,52 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
 public class LexicalAnalyser {
 
+	public static class Token {
+		String content;
+
+		int type;
+
+		public Token(int type, String content) {
+			this.type = type;
+			this.content = content;
+		}
+
+		public String getContent() {
+			return content;
+		}
+		public int getType() {
+			return type;
+		}
+	}
+
+	public static final int CHAR = 12;
+
+	public static final int FLOAT = 17;
+	public static final int IDENTIFIER = 1;
+	public static final int INTEGER = 16;
+	public static final int SIGN = 15;
+	public static final int SIGN_CONTINUED = 16;
+	public static final int STRING = 10;
+	static final int CHAR_DEFINED = 14;
+	static final int DECIMAL = 5;
+	static final int DOT_OR_DECIMAL = 4;
+	static final int ESCAPED_CHAR = 13;
+	static final int ESCAPED_STRING = 11;
+	static final int EXPONENT = 9;
+	static final int NUMERIC = 2;
+	static final int SIGN_OR_NUMERIC = 3;
+	static final int SIGNED_EXPONENT = 7;
+	static final int START_DECIMAL = 6;
+	static final int START_EXPONENT = 8;
+	static final int UNDEFINED = 0;
+	int ptr;
+
+	int status = UNDEFINED;
+
+	String text;
+
+	StringBuffer token = new StringBuffer();
+
 	public LexicalAnalyser(String text) {
 		this.text = text;
 		this.ptr = 0;
@@ -27,25 +73,50 @@ public class LexicalAnalyser {
 		return token;
 	}
 
-	static final int UNDEFINED = 0;
-	public static final int IDENTIFIER = 1;
-	static final int NUMERIC = 2;
-	static final int SIGN_OR_NUMERIC = 3;
-	static final int DOT_OR_DECIMAL = 4;
-	static final int DECIMAL = 5;
-	static final int START_DECIMAL = 6;
-	static final int SIGNED_EXPONENT = 7;
-	static final int START_EXPONENT = 8;
-	static final int EXPONENT = 9;
-	public static final int STRING = 10;
-	static final int ESCAPED_STRING = 11;
-	public static final int CHAR = 12;
-	static final int ESCAPED_CHAR = 13;
-	static final int CHAR_DEFINED = 14;
-	public static final int SIGN = 15;
-	public static final int SIGN_CONTINUED = 16;
-	public static final int INTEGER = 16;
-	public static final int FLOAT = 17;
+	Token consume(int status, char c) {
+		this.token.append(c);
+		this.ptr++;
+		String content = this.token.toString();
+		this.token = new StringBuffer();
+		this.status = UNDEFINED;
+		return new Token(status, content);
+	}
+
+	Token ignore() {
+		this.ptr++;
+		return null;
+	}
+	Token inject(int status) {
+		String content = this.token.toString();
+		this.token = new StringBuffer();
+		this.status = UNDEFINED;
+		return new Token(status, content);
+	}
+	Token process(int status, char c) {
+		this.token.append(c);
+		this.ptr++;
+		this.status = status;
+		return null;
+	}
+	Token processEOF() {
+		switch (status) {
+		case IDENTIFIER:
+			return inject(IDENTIFIER);
+		case SIGN_OR_NUMERIC:
+			return inject(SIGN);
+		case DOT_OR_DECIMAL:
+			return inject(SIGN);
+		case NUMERIC:
+			return inject(INTEGER);
+		case DECIMAL:
+			return inject(FLOAT);
+		case EXPONENT:
+			return inject(FLOAT);
+		case SIGN_CONTINUED:
+			return inject(SIGN);
+		}
+		return null;
+	}
 
 	Token processNextChar() {
 		char c = text.charAt(this.ptr);
@@ -150,76 +221,5 @@ public class LexicalAnalyser {
 				return inject(FLOAT);
 		}
 		throw new UMLDrawerException("Invalid status : " + status);
-	}
-
-	Token process(int status, char c) {
-		this.token.append(c);
-		this.ptr++;
-		this.status = status;
-		return null;
-	}
-
-	Token ignore() {
-		this.ptr++;
-		return null;
-	}
-
-	Token consume(int status, char c) {
-		this.token.append(c);
-		this.ptr++;
-		String content = this.token.toString();
-		this.token = new StringBuffer();
-		this.status = UNDEFINED;
-		return new Token(status, content);
-	}
-
-	Token inject(int status) {
-		String content = this.token.toString();
-		this.token = new StringBuffer();
-		this.status = UNDEFINED;
-		return new Token(status, content);
-	}
-
-	Token processEOF() {
-		switch (status) {
-		case IDENTIFIER:
-			return inject(IDENTIFIER);
-		case SIGN_OR_NUMERIC:
-			return inject(SIGN);
-		case DOT_OR_DECIMAL:
-			return inject(SIGN);
-		case NUMERIC:
-			return inject(INTEGER);
-		case DECIMAL:
-			return inject(FLOAT);
-		case EXPONENT:
-			return inject(FLOAT);
-		case SIGN_CONTINUED:
-			return inject(SIGN);
-		}
-		return null;
-	}
-
-	String text;
-	int ptr;
-	int status = UNDEFINED;
-	StringBuffer token = new StringBuffer();
-
-	public static class Token {
-		public Token(int type, String content) {
-			this.type = type;
-			this.content = content;
-		}
-
-		public int getType() {
-			return type;
-		}
-
-		public String getContent() {
-			return content;
-		}
-
-		int type;
-		String content;
 	}
 }

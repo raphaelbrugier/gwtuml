@@ -4,14 +4,15 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 public class Rect extends IncubatorGfxObject {
-	private int w = 0;
 	private int h = 0;
+	private int w = 0;
 
 	public Rect(int w, int h) {
 		this.w = w;
 		this.h = h;
 	}
 
+	@Override
 	public void draw(GWTCanvas canvas) {
 		if (!isVisible)
 			return;
@@ -27,19 +28,22 @@ public class Rect extends IncubatorGfxObject {
 		canvas.restoreContext();
 	}
 
-	public boolean isPointed(int x, int y) {
-		return (x > this.x) && (x < this.x + w) && (y > this.y)
-				&& (y < this.y + h);
-	}
-
+	@Override
 	public double getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
 	public double getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isPointed(int x, int y) {
+		return (x > this.x) && (x < this.x + w) && (y > this.y)
+				&& (y < this.y + h);
 	}
 
 }
