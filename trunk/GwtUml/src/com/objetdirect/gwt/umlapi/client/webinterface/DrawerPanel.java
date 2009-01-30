@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
-public class DrawerPanel extends HorizontalPanel{
+public class DrawerPanel extends HorizontalPanel {
 
 	public DrawerPanel(int w, int h) {
 		Log.info("Creating drawer");
@@ -17,34 +17,36 @@ public class DrawerPanel extends HorizontalPanel{
 		this.setWidth("100%");
 
 		final UMLCanvas gc = new UMLCanvas(w, h);
-		this.add(gc);
-		
-		//TODO : under chrome redraw doesn't work if the canvas is at a different point than (0,0) tatami ? dojo ? chrome ?
-		//example : this.setSpacing(50);
-		
+
+		// TODO : under chrome redraw doesn't work if the canvas is at a
+		// different point than (0,0) tatami ? dojo ? chrome ?
+		// example : this.setSpacing(50);
+
 		HotKeyManager.setActiveCanvas(gc);
-		
 
 		ClassArtifact defaultclass = new ClassArtifact("Main");
 		defaultclass.setLocation(400, 300);
-		
+
 		gc.setStylePrimaryName("canvas");
 
 		gc.add(defaultclass);
 
 		Log.info("Init class end\nBegin sidebar");
-		
+
 		VerticalPanel sidePanel = new VerticalPanel();
 		sidePanel.setSpacing(5);
 
 		Button addClass = new Button("Add Class (C)");
 		Button addNote = new Button("Add Note (N)");
-		Button addSimpleClassDependency = new Button("Add Simple Class Dependency (D)");
-		Button addImplementationClassDependency = new Button("Add Implementation Class Dependency (I)");
-		Button addExtensionClassDependency = new Button("Add Extension Class Dependency (E)");		
+		Button addSimpleClassDependency = new Button(
+				"Add Simple Class Dependency (D)");
+		Button addImplementationClassDependency = new Button(
+				"Add Implementation Class Dependency (I)");
+		Button addExtensionClassDependency = new Button(
+				"Add Extension Class Dependency (E)");
 		Button addRelationship = new Button("Add Relationship (R)");
 		Button delete = new Button("Delete (S)");
-		
+
 		addClass.setStylePrimaryName("drawer-button");
 		addNote.setStylePrimaryName("drawer-button");
 		addSimpleClassDependency.setStylePrimaryName("drawer-button");
@@ -55,7 +57,7 @@ public class DrawerPanel extends HorizontalPanel{
 
 		addClass.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
-				gc.addNewClass();	        	
+				gc.addNewClass();
 			}
 		});
 
@@ -97,7 +99,8 @@ public class DrawerPanel extends HorizontalPanel{
 		sidePanel.add(addExtensionClassDependency);
 		sidePanel.add(addRelationship);
 		sidePanel.add(delete);
-		
+
+		this.add(gc);
 		this.add(sidePanel);
 
 		Log.info("Init end");

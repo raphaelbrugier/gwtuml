@@ -8,25 +8,25 @@ public class LexicalAnalyser {
 		this.text = text;
 		this.ptr = 0;
 	}
-	
+
 	public Token getToken() {
 		Token token = null;
-		while (token==null) {
-			if (this.ptr>=text.length()) {
-				if (this.token.length()>0) {
+		while (token == null) {
+			if (this.ptr >= text.length()) {
+				if (this.token.length() > 0) {
 					token = processEOF();
-					if (token!=null)
+					if (token != null)
 						return token;
 					else
 						throw new UMLDrawerException("Unexpected EOF");
 				} else
 					return null;
 			}
-			token = processNextChar(); 
+			token = processNextChar();
 		}
 		return token;
 	}
-	
+
 	static final int UNDEFINED = 0;
 	public static final int IDENTIFIER = 1;
 	static final int NUMERIC = 2;
@@ -46,121 +46,124 @@ public class LexicalAnalyser {
 	public static final int SIGN_CONTINUED = 16;
 	public static final int INTEGER = 16;
 	public static final int FLOAT = 17;
-	
+
 	Token processNextChar() {
 		char c = text.charAt(this.ptr);
 		switch (status) {
 		case UNDEFINED:
-			if (c==' ') return ignore();
-			else if (c>='a' && c<='z' || c>='A' && c<='Z' || c=='_')
+			if (c == ' ')
+				return ignore();
+			else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
 				return process(IDENTIFIER, c);
-			else if (c=='#' || c=='(' || c==')' || c==',' || c=='{' || c=='}' || c==':' || c=='[' || c==']')
+			else if (c == '#' || c == '(' || c == ')' || c == ',' || c == '{'
+					|| c == '}' || c == ':' || c == '[' || c == ']')
 				return consume(SIGN, c);
-			else if (c=='<' || c=='>')
+			else if (c == '<' || c == '>')
 				return process(SIGN_CONTINUED, c);
-			else if (c=='+' || c=='-')
+			else if (c == '+' || c == '-')
 				return process(SIGN_OR_NUMERIC, c);
-			else if (c=='.')
+			else if (c == '.')
 				return process(DOT_OR_DECIMAL, c);
-			else if (c=='\'')
+			else if (c == '\'')
 				return process(CHAR, c);
-			else if (c=='"')
+			else if (c == '"')
 				return process(STRING, c);
-			else if (c>='0' && c<='9')
+			else if (c >= '0' && c <= '9')
 				return process(NUMERIC, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case IDENTIFIER:
-			if (c>='a' && c<='z' || c>='A' && c<='Z' || c=='_' || c>='0' && c<='9')
+			if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_'
+					|| c >= '0' && c <= '9')
 				return process(IDENTIFIER, c);
 			else
 				return inject(IDENTIFIER);
 		case SIGN_OR_NUMERIC:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(NUMERIC, c);
-			else if (c=='.')
+			else if (c == '.')
 				return process(DECIMAL, c);
 			else
 				return inject(SIGN);
 		case SIGN_CONTINUED:
-			if (c=='=')
+			if (c == '=')
 				return consume(SIGN, c);
 			else
 				return inject(SIGN);
 		case DOT_OR_DECIMAL:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(START_DECIMAL, c);
 			else
 				return inject(SIGN);
 		case STRING:
-			if (c=='\\')
+			if (c == '\\')
 				return process(ESCAPED_STRING, c);
-			else if (c=='"')
+			else if (c == '"')
 				return consume(STRING, c);
 		case ESCAPED_STRING:
 			return process(STRING, c);
 		case CHAR:
-			if (c=='\\')
+			if (c == '\\')
 				return process(ESCAPED_CHAR, c);
-			else if (c!='\'')
+			else if (c != '\'')
 				return process(CHAR_DEFINED, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case ESCAPED_CHAR:
 			return process(CHAR_DEFINED, c);
 		case CHAR_DEFINED:
-			if (c=='\'')
+			if (c == '\'')
 				return consume(CHAR, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case NUMERIC:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(NUMERIC, c);
-			else if (c=='.')
+			else if (c == '.')
 				return process(DECIMAL, c);
-			else if (c=='e' || c=='E')
+			else if (c == 'e' || c == 'E')
 				return process(SIGNED_EXPONENT, c);
 			else
 				return consume(INTEGER, c);
 		case START_DECIMAL:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(DECIMAL, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case DECIMAL:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(DECIMAL, c);
-			else if (c=='e' || c=='E')
+			else if (c == 'e' || c == 'E')
 				return process(SIGNED_EXPONENT, c);
 			else
 				return inject(FLOAT);
 		case SIGNED_EXPONENT:
-			if (c=='+' || c=='-')
+			if (c == '+' || c == '-')
 				return process(START_EXPONENT, c);
-			else if (c>='0' && c<='9')
+			else if (c >= '0' && c <= '9')
 				return process(EXPONENT, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case START_EXPONENT:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(EXPONENT, c);
-			throw new UMLDrawerException("Invalid character : "+c);
+			throw new UMLDrawerException("Invalid character : " + c);
 		case EXPONENT:
-			if (c>='0' && c<='9')
+			if (c >= '0' && c <= '9')
 				return process(EXPONENT, c);
 			else
 				return inject(FLOAT);
 		}
-		throw new UMLDrawerException("Invalid status : "+status);
+		throw new UMLDrawerException("Invalid status : " + status);
 	}
-	
+
 	Token process(int status, char c) {
 		this.token.append(c);
 		this.ptr++;
 		this.status = status;
 		return null;
 	}
-	
+
 	Token ignore() {
 		this.ptr++;
 		return null;
 	}
-	
+
 	Token consume(int status, char c) {
 		this.token.append(c);
 		this.ptr++;
@@ -169,7 +172,7 @@ public class LexicalAnalyser {
 		this.status = UNDEFINED;
 		return new Token(status, content);
 	}
-	
+
 	Token inject(int status) {
 		String content = this.token.toString();
 		this.token = new StringBuffer();
@@ -196,26 +199,26 @@ public class LexicalAnalyser {
 		}
 		return null;
 	}
-	
+
 	String text;
 	int ptr;
 	int status = UNDEFINED;
 	StringBuffer token = new StringBuffer();
-	
+
 	public static class Token {
 		public Token(int type, String content) {
 			this.type = type;
 			this.content = content;
 		}
-		
+
 		public int getType() {
 			return type;
 		}
-		
+
 		public String getContent() {
 			return content;
 		}
-		
+
 		int type;
 		String content;
 	}

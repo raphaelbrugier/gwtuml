@@ -11,16 +11,13 @@
       <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
       <!-- Other module inherits                                      -->
-        <inherits name="com.objetdirect.tatami.Tatami"/>
+        <inherits name="com.objetdirect.tatami.Tatami_DojoGFX"/>
 	    <inherits name='com.google.gwt.widgetideas.GWTCanvas'/>
-   	    <inherits name="com.google.gwt.widgetideas.GlassPanel"/>
    	    <inherits name='org.gwt.mosaic.Mosaic' />
-
         <stylesheet src="gwt/standard/Mosaic.css" />
 
-
         <!-- Add gwt-log support -->
-          <inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" />
+        <inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" />
           
       <!-- Specify the app entry point class.                         -->
       <entry-point class='com.objetdirect.gwt.umlapi.client.UMLDrawer'/>

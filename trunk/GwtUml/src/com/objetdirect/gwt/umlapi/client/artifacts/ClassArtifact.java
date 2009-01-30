@@ -9,534 +9,627 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.Attribute;
 import com.objetdirect.gwt.umlapi.client.Method;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.ClassEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class ClassArtifact extends BoxArtifact {
 
-    public static final int TEXT_MARGIN = 8;
-    public static final Object NAME = new Object();
-    public static final Object NEW_ATTRIBUTE = new Object();
-    public static final Object NEW_METHOD = new Object();
-	
+	public static final int TEXT_MARGIN = 8;
 
-    // interface
+	// interface
 
-    public ClassArtifact() {
-        this("");
-    }
+	public ClassArtifact() {
+		this("");
+	}
 
-    public ClassArtifact(String className) {
-        this.className = className;
-        this.editor = new ClassEditor(this);
-    }
+	public ClassArtifact(String className) {
+		this.className = className;
+		this.editor = new ClassEditor(this);
+	}
 
-    public void setClassName(String className) {
-        this.className = className;
-        set(this.classNameText, createClassNameText());
-    }
+	public void setClassName(String className) {
+		this.className = className;
+		set(this.classNameText, createClassNameText());
+	}
 
-    public void setAttribute(Attribute attr, Attribute newAttr) {
-        attr.setName(newAttr.getName());
-        attr.setType(newAttr.getType());
-        if (attrTexts!=null) {
-            int i = attributes.indexOf(attr);
-            GfxObject[] slot = attrTexts.get(i);
-            set(slot, createAttrText(attr, getAttributeY(attr)));
-        }
-    }
+	public void setAttribute(int attrSlot, Attribute newAttr) {
+		Attribute attr = attributes.get(attrSlot);
+		attr.setName(newAttr.getName());
+		attr.setType(newAttr.getType());
+		if (attrTexts != null) {
+			int i = attributes.indexOf(attr);
+			GfxObject[] slot = attrTexts.get(i);
+			set(slot, createAttrText(attr, getAttributeY(attr)));
+		}
+	}
 
-    public void addAttribute(Attribute attr) {
-        this.attributes.add(attr);
-        if (attrTexts!=null) {
-            GfxObject[] slot = new GfxObject[1];
-            attrTexts.add(slot);
-            set(slot, createAttrText(attr, getAttributeY(attr)));
-        }
-    }
+	public void addAttribute(Attribute attr) {
+		this.attributes.add(attr);
+		if (attrTexts != null) {
+			GfxObject[] slot = new GfxObject[1];
+			attrTexts.add(slot);
+			set(slot, createAttrText(attr, getAttributeY(attr)));
+		}
+	}
 
-    public void exchangeAttribute(Attribute attr1, Attribute attr2) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        int i1 = this.attributes.indexOf(attr1);
-        int i2 = this.attributes.indexOf(attr2);
-        this.attributes.set(i1, attr2);
-        this.attributes.set(i2, attr1);
-        if (attrTexts!=null) {
-            GfxObject[] slot1 = attrTexts.get(i1);
-            GfxObject[] slot2 = attrTexts.get(i2);
-            int y1 = (int) gPlatform.getYFor(slot1[0]);
-            int y2 = (int) gPlatform.getYFor(slot2[0]);
-            gPlatform.translate(slot1[0], 0, y2-y1);
-            gPlatform.translate(slot2[0], 0, y1-y2);
-            GfxObject t = slot1[0];
-            slot1[0]=slot2[0];
-            slot2[0]=t;
-        }
-    }
+	public void exchangeAttribute(int attribute1Slot, int attribute2Slot) {
 
-    public void exchangeMethod(Method method1, Method method2) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        int i1 = this.methods.indexOf(method1);
-        int i2 = this.methods.indexOf(method2);
-        this.methods.set(i1, method2);
-        this.methods.set(i2, method1);
-        if (methodTexts!=null) {
-            GfxObject[] slot1 = methodTexts.get(i1);
-            GfxObject[] slot2 = methodTexts.get(i2);
-            int y1 = (int) gPlatform.getYFor(slot1[0]);
-            int y2 = (int) gPlatform.getYFor(slot2[0]);
-            gPlatform.translate(slot1[0], 0, y2-y1);
-            gPlatform.translate(slot2[0], 0, y1-y2);
-            GfxObject t = slot1[0];
-            slot1[0]=slot2[0];
-            slot2[0]=t;
-        }
-    }
+		Attribute attribute1 = attributes.get(attribute1Slot);
+		Attribute attribute2 = attributes.get(attribute2Slot);
+		this.attributes.set(attribute2Slot, attribute1);
+		this.attributes.set(attribute1Slot, attribute2);
+		if (attrTexts != null) {
+			GfxObject[] slot1 = attrTexts.get(attribute1Slot);
+			GfxObject[] slot2 = attrTexts.get(attribute2Slot);
+			int y1 = (int) GfxManager.getPlatform().getYFor(slot1[0]);
+			int y2 = (int) GfxManager.getPlatform().getYFor(slot2[0]);
+			GfxManager.getPlatform().translate(slot1[0], 0, y2 - y1);
+			GfxManager.getPlatform().translate(slot2[0], 0, y1 - y2);
+			GfxObject t = slot1[0];
+			slot1[0] = slot2[0];
+			slot2[0] = t;
+		}
+	}
 
-    public boolean removeAttribute(Attribute attr) {
-        int i = attributes.indexOf(attr);
-        boolean result = attributes.remove(attr);
-        if (attrTexts!=null) {
-            if (i!=-1) {
-                GfxObject[] slot = attrTexts.get(i);
-                if (!set(slot, null)) {
-                    for (int j=i+1; j<attrTexts.size(); j++) {
-                        GfxObject[] slot2 = attrTexts.get(j);
-                        GfxManager.getInstance().translate(slot2[0], 0,  -getAttributeHeight());
-                    }
-                }
-                attrTexts.remove(slot);
-            }
-        }
-        return result;
-    }
+	public void exchangeMethod(int method1Slot, int method2Slot) {
+		Method method1 = methods.get(method1Slot);
+		Method method2 = methods.get(method2Slot);
+		this.methods.set(method1Slot, method2);
+		this.methods.set(method2Slot, method1);
+		if (methodTexts != null) {
+			GfxObject[] slot1 = methodTexts.get(method1Slot);
+			GfxObject[] slot2 = methodTexts.get(method2Slot);
+			int y1 = (int) GfxManager.getPlatform().getYFor(slot1[0]);
+			int y2 = (int) GfxManager.getPlatform().getYFor(slot2[0]);
+			GfxManager.getPlatform().translate(slot1[0], 0, y2 - y1);
+			GfxManager.getPlatform().translate(slot2[0], 0, y1 - y2);
+			GfxObject t = slot1[0];
+			slot1[0] = slot2[0];
+			slot2[0] = t;
+		}
+	}
 
-    public void setMethod(Method method, Method newMethod) {
-        method.setName(newMethod.getName());
-        method.setReturnType(newMethod.getReturnType());
-        method.setParameters(newMethod.getParameters());
-        if (methodTexts!=null) {
-            int i = methods.indexOf(method);
-            GfxObject[] slot = methodTexts.get(i);
-            set(slot, createMethodText(method, getMethodY(method)));
-        }
-    }
+	public void removeAttribute(int attrSlot) {
+		attributes.remove(attrSlot);
+		if (attrTexts != null) {
+			if (attrSlot != -1) {
+				GfxObject[] slot = attrTexts.get(attrSlot);
+				if (!set(slot, null)) {
+					for (int j = attrSlot + 1; j < attrTexts.size(); j++) {
+						GfxObject[] slot2 = attrTexts.get(j);
+						GfxManager.getPlatform().translate(slot2[0], 0,
+								-getAttributeHeight());
+					}
+				}
+				attrTexts.remove(slot);
+			}
+		}
+	}
 
-    public void addMethod(Method method) {
-        this.methods.add(method);
-        if (methodTexts!=null) {
-            GfxObject[] slot = new GfxObject[1];
-            methodTexts.add(slot);
-            set(slot, createMethodText(method, getMethodY(method)));
-        }
-    }
+	public void setMethod(int methodSlot, Method newMethod) {
+		Method method = methods.get(methodSlot);
+		method.setName(newMethod.getName());
+		method.setReturnType(newMethod.getReturnType());
+		method.setParameters(newMethod.getParameters());
+		if (methodTexts != null) {
+			int i = methods.indexOf(method);
+			GfxObject[] slot = methodTexts.get(i);
+			set(slot, createMethodText(method, getMethodY(method)));
+		}
+	}
 
-    public boolean removeMethod(Method method) {
-        int i = methods.indexOf(method);
-        boolean result = methods.remove(method);
-        if (methodTexts!=null) {
-            if (i!=-1) {
-                GfxObject[] slot = methodTexts.get(i);
-                if (!set(slot, null)) {
-                    for (int j=i+1; j<methodTexts.size(); j++) {
-                        GfxObject[] slot2 = methodTexts.get(j);
-                        GfxManager.getInstance().translate(slot2[0], 0,  -getMethHeight());
-                    }
-                }
-                methodTexts.remove(slot);
-            }
-        }
-        return result;
-    }
+	public void addMethod(Method method) {
+		this.methods.add(method);
+		if (methodTexts != null) {
+			GfxObject[] slot = new GfxObject[1];
+			methodTexts.add(slot);
+			set(slot, createMethodText(method, getMethodY(method)));
+		}
+	}
 
-    public void addRelationship(RelationshipArtifact relationship) {
-        this.relationships.add(relationship);
-    }
+	public void removeMethod(int methodSlot) {
 
-    public Iterator<RelationshipArtifact> relationships() {
-        return relationships.iterator();
-    }
+		methods.remove(methodSlot);
+		if (methodTexts != null) {
+			if (methodSlot != -1) {
+				GfxObject[] slot = methodTexts.get(methodSlot);
+				if (!set(slot, null)) {
+					for (int j = methodSlot + 1; j < methodTexts.size(); j++) {
+						GfxObject[] slot2 = methodTexts.get(j);
+						GfxManager.getPlatform().translate(slot2[0], 0,
+								-getMethHeight());
+					}
+				}
+				methodTexts.remove(slot);
+			}
+		}
+	}
 
-    public boolean removeRelationship(RelationshipArtifact relationship) {
-        return relationships.remove(relationship);
-    }
+	public void addRelationship(RelationshipArtifact relationship) {
+		this.relationships.add(relationship);
+	}
 
-    public void addRelationshipDependency(RelationshipArtifact relationship) {
-        relationshipDependencies.add(relationship);
-    }
+	public Iterator<RelationshipArtifact> relationships() {
+		return relationships.iterator();
+	}
 
-    public boolean removeRelationshipDependency(RelationshipArtifact relationship) {
-        return relationshipDependencies.remove(relationship);
-    }
+	public boolean removeRelationship(RelationshipArtifact relationship) {
+		return relationships.remove(relationship);
+	}
 
-    public void addClassDependency(ClassDependencyArtifact clazz) {
-        classDependencies.add(clazz);
-    }
+	public void addRelationshipDependency(RelationshipArtifact relationship) {
+		relationshipDependencies.add(relationship);
+	}
 
-    public boolean removeClassDependency(ClassDependencyArtifact clazz) {
-        return classDependencies.remove(clazz);
-    }
+	public boolean removeRelationshipDependency(
+			RelationshipArtifact relationship) {
+		return relationshipDependencies.remove(relationship);
+	}
 
-    public int getWidth() {
-        return computeWidth();
-    }
+	public void addClassDependency(ClassDependencyArtifact clazz) {
+		classDependencies.add(clazz);
+	}
 
-    public int getHeight() {
-        int height = getClassNameHeight()+getAttrHeight()+getMethodHeight();
-        return height;
-    }
+	public boolean removeClassDependency(ClassDependencyArtifact clazz) {
+		return classDependencies.remove(clazz);
+	}
 
+	public int getWidth() {
+		return computeWidth();
+	}
 
+	public int getHeight() {
+		int height = getClassNameHeight() + getAttrHeight() + getMethodHeight();
+		return height;
+	}
 
-    public String getClassName() {
-        return className;
-    }
+	public String getClassName() {
+		return className;
+	}
 
-    public int getNameY() {
-        return TEXT_MARGIN;
-    }
+	public int getNameY() {
+		return TEXT_MARGIN;
+	}
 
-    public int getAttributeHeight() {
-        return getLineHeight()+TEXT_MARGIN;
-    }
+	public int getAttributeHeight() {
+		return getLineHeight() + TEXT_MARGIN;
+	}
 
-    public int getAttributeY(Attribute attribute) {
-        return getClassNameHeight()+TEXT_MARGIN+attributes.indexOf(attribute)*getAttributeHeight();	
-    }
+	public int getAttributeY(Attribute attribute) {
+		return getClassNameHeight() + TEXT_MARGIN
+				+ attributes.indexOf(attribute) * getAttributeHeight();
+	}
 
-    public List<Attribute> getAttributes() {
-        return attributes;
-    }
+	public int getAttributeY(int attributeSlot) {
+		return getClassNameHeight() + TEXT_MARGIN + attributeSlot
+				* getAttributeHeight();
+	}
 
-    public int getMethHeight() {
-        return getLineHeight()+TEXT_MARGIN;
-    }
+	public List<Attribute> getAttributes() {
+		return attributes;
+	}
 
-    public int getMethodY(Method method) {
-        return getClassNameHeight()+getAttrHeight()+TEXT_MARGIN+methods.indexOf(method)*getMethHeight();	
-    }
+	public int getMethHeight() {
+		return getLineHeight() + TEXT_MARGIN;
+	}
 
-    public List<Method> getMethods() {
-        return methods;
-    }
+	public int getMethodY(Method method) {
+		return getClassNameHeight() + getAttrHeight() + TEXT_MARGIN
+				+ methods.indexOf(method) * getMethHeight();
+	}
 
-    // implementation
+	public int getMethodY(int methodSlot) {
+		return getClassNameHeight() + getAttrHeight() + TEXT_MARGIN
+				+ methodSlot * getMethHeight();
+	}
 
-    int indexOf(List<GfxObject[]> texts, GfxObject text) {
-        for (int i=0; i<texts.size(); i++) {
-            GfxObject[] slot = texts.get(i);
-            if (slot[0]==text)
-                return i;
-        }
-        return -1;
-    }
+	public List<Method> getMethods() {
+		return methods;
+	}
 
-    protected GfxObject buildGfxObject() {
-    	Log.trace("Building GfxObject for " + this);
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        GfxObject vg = gPlatform.buildVirtualGroup();
-        classNameText[0]=createClassNameText();
-        createAttrTexts();
-        createMethodTexts();
-        int width = computeWidth();
-        createClassDiv(width);
-        createAttrDiv(width);
-        createMethodDiv(width);
-        gPlatform.addToVirtualGroup(vg, attrDivRect);
-        gPlatform.addToVirtualGroup(vg, classDivRect);
-        gPlatform.addToVirtualGroup(vg, methodDivRect);
-        gPlatform.addToVirtualGroup(vg, classNameText[0]);
+	// implementation
 
-        for (int i=0; i<attrTexts.size(); i++)
-            gPlatform.addToVirtualGroup(vg, attrTexts.get(i)[0]);
-        for (int i=0; i<methodTexts.size(); i++)
-            gPlatform.addToVirtualGroup(vg, methodTexts.get(i)[0]);
-        Log.trace("GfxObject is " + vg);
-        return vg;
-    }
+	int indexOf(List<GfxObject[]> texts, GfxObject text) {
+		for (int i = 0; i < texts.size(); i++) {
+			GfxObject[] slot = texts.get(i);
+			if (slot[0] == text)
+				return i;
+		}
+		return -1;
+	}
 
-    void createClassDiv(int width) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        classDivRect = gPlatform.buildRect(width, getClassNameHeight());
-        gPlatform.setFillColor(classDivRect, ThemeManager.getBackgroundColor());
-        gPlatform.setStroke(classDivRect, ThemeManager.getForegroundColor(), 1);
-    }
-    
-    void createAttrDiv(int width) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        attrDivRect = gPlatform.buildRect(width, getAttrHeight());
-        gPlatform.setFillColor(attrDivRect, ThemeManager.getBackgroundColor());
-        gPlatform.setStroke(attrDivRect, ThemeManager.getForegroundColor(), 1);
-        gPlatform.translate(attrDivRect, 0, getClassNameHeight());
+	protected GfxObject buildGfxObject() {
+		Log.trace("Building GfxObject for "
+				+ UMLDrawerHelper.getShortName(this));
 
-    }
+		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+		classNameText[0] = createClassNameText();
+		createAttrTexts();
+		createMethodTexts();
+		int width = computeWidth();
+		createClassDiv(width);
+		createAttrDiv(width);
+		createMethodDiv(width);
 
-    void createMethodDiv(int width) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        methodDivRect = gPlatform.buildRect(width, getMethodHeight());
-        gPlatform.setFillColor(methodDivRect, ThemeManager.getBackgroundColor());
-        gPlatform.setStroke(methodDivRect, ThemeManager.getForegroundColor(), 1);
-        gPlatform.translate(methodDivRect, 0, getClassNameHeight()+getAttrHeight());
-    }
-    
-    GfxObject createClassNameText() {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        GfxObject classNameText = gPlatform.buildText(className);
-        gPlatform.setFont(classNameText, font);
-        gPlatform.setFillColor(classNameText, ThemeManager.getForegroundColor());
-        gPlatform.translate(classNameText, TEXT_MARGIN, getNameY()+getLineHeight());
-        return classNameText;
-    }
-    
-    void createAttrTexts() {
-        attrTexts = new ArrayList<GfxObject[]>();
-        for (int i=0; i<attributes.size(); i++) {
-            GfxObject[] attrText = new GfxObject[1];
-            Attribute attr = attributes.get(i);
-            attrText[0] = createAttrText(attr, getAttributeY(attr)); 
-            attrTexts.add(attrText);
-        }
-    }
+		GfxManager.getPlatform().addToVirtualGroup(vg, attrDivRect);
+		GfxManager.getPlatform().addToVirtualGroup(vg, classDivRect);
+		GfxManager.getPlatform().addToVirtualGroup(vg, methodDivRect);
+		GfxManager.getPlatform().addToVirtualGroup(vg, classNameText[0]);
 
-    GfxObject createAttrText(Attribute attr, int height) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        GfxObject attrText = gPlatform.buildText(attr.toString());
-        gPlatform.setFont(attrText, font);
-        gPlatform.setFillColor(attrText, ThemeManager.getForegroundColor());
-        gPlatform.translate(attrText, TEXT_MARGIN, height+getLineHeight());
-        return attrText;
-    }
+		for (int i = 0; i < attrTexts.size(); i++)
+			GfxManager.getPlatform().addToVirtualGroup(vg, attrTexts.get(i)[0]);
+		for (int i = 0; i < methodTexts.size(); i++)
+			GfxManager.getPlatform().addToVirtualGroup(vg,
+					methodTexts.get(i)[0]);
 
-    void createMethodTexts() {
-        methodTexts = new ArrayList<GfxObject[]>();
-        for (int i=0; i<methods.size(); i++) {
-            GfxObject[] methodText = new GfxObject[1];
-            Method method = methods.get(i);
-            methodText[0] = createMethodText(method, getMethodY(method)); 
-            methodTexts.add(methodText);
-        }
-    }
+		Log.trace("GfxObject is " + vg);
+		return vg;
+	}
 
-    GfxObject createMethodText(Method method, int height) {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        GfxObject methodText = gPlatform.buildText(method.toString());
-        gPlatform.setFont(methodText, font);
-        gPlatform.setFillColor(methodText, ThemeManager.getForegroundColor());
-        gPlatform.translate(methodText, TEXT_MARGIN, height+getLineHeight());
-        return methodText;
-    }
+	void createClassDiv(int width) {
 
-    
-    int computeWidth() {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        int width = DEFAULT_WIDTH;
-        width = updateWidth(width, (int)gPlatform.getWidthFor(classNameText[0]));
-        for (int i=0; i<attributes.size(); i++) {
-            GfxObject attrText = attrTexts.get(i)[0];
-            if (attrText!=null)
-                width = updateWidth(width, (int)gPlatform.getWidthFor(attrText));
-        }
-        for (int i=0; i<methods.size(); i++) {
-            GfxObject methodText = methodTexts.get(i)[0];
-            if (methodText!=null)
-                width = updateWidth(width, (int)gPlatform.getWidthFor(methodText));
-        }
-        return width;
-    }
+		classDivRect = GfxManager.getPlatform().buildRect(width,
+				getClassNameHeight());
+		GfxManager.getPlatform().setFillColor(classDivRect,
+				ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().setStroke(classDivRect,
+				ThemeManager.getForegroundColor(), 1);
+	}
 
+	void createAttrDiv(int width) {
 
+		attrDivRect = GfxManager.getPlatform()
+				.buildRect(width, getAttrHeight());
+		GfxManager.getPlatform().setFillColor(attrDivRect,
+				ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().setStroke(attrDivRect,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform()
+				.translate(attrDivRect, 0, getClassNameHeight());
 
-    int updateWidth(int width, int widthEl) {
-        widthEl=TEXT_MARGIN + widthEl+ TEXT_MARGIN;
-        return width>widthEl ? width : widthEl;
-    }
+	}
 
-    int getLineHeight() {
-        return font.getSize();
-    }
+	void createMethodDiv(int width) {
 
-    int getClassNameHeight() {
-        return TEXT_MARGIN + getLineHeight() + TEXT_MARGIN;
-    }
+		methodDivRect = GfxManager.getPlatform().buildRect(width,
+				getMethodHeight());
+		GfxManager.getPlatform().setFillColor(methodDivRect,
+				ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().setStroke(methodDivRect,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().translate(methodDivRect, 0,
+				getClassNameHeight() + getAttrHeight());
+	}
 
-    int getAttrHeight() {
-        int size = getSize(attrTexts);
-        return TEXT_MARGIN + ((size+2)/3)*3*(getLineHeight() + TEXT_MARGIN);
-    }
+	GfxObject createClassNameText() {
 
-    int getMethodHeight() {
-        int size = getSize(methodTexts);
-        return TEXT_MARGIN + ((size+2)/3)*3*(getLineHeight() + TEXT_MARGIN);
-    }
+		GfxObject classNameText = GfxManager.getPlatform().buildText(className);
+		GfxManager.getPlatform().setFont(classNameText, font);
+		GfxManager.getPlatform().setFillColor(classNameText,
+				ThemeManager.getForegroundColor());
+		GfxManager.getPlatform().translate(classNameText, TEXT_MARGIN,
+				getNameY() + getLineHeight());
+		return classNameText;
+	}
 
-    int getSize(List<GfxObject[]> list) {
-        int size = 0;
-        for (int i=0; i<list.size(); i++) {
-            GfxObject[] slot = list.get(i);
-            if (slot[0]!=null)
-                size++;
-        }
-        return size;
-    }
+	void createAttrTexts() {
+		attrTexts = new ArrayList<GfxObject[]>();
+		for (int i = 0; i < attributes.size(); i++) {
+			GfxObject[] attrText = new GfxObject[1];
+			Attribute attr = attributes.get(i);
+			attrText[0] = createAttrText(attr, getAttributeY(attr));
+			attrTexts.add(attrText);
+		}
+	}
 
-    public List<GfxObject> getComponents() {
-        List<GfxObject> comps = new ArrayList<GfxObject>();
-        comps.add(classDivRect);
-        comps.add(classNameText[0]);
-        comps.add(attrDivRect);
-        for (int i=0; i<attrTexts.size(); i++)
-            comps.add(attrTexts.get(i)[0]);
-        comps.add(methodDivRect);
-        for (int i=0; i<methodTexts.size(); i++)
-            comps.add(methodTexts.get(i)[0]);
-        return comps;
-    }
+	GfxObject createAttrText(Attribute attr, int height) {
 
-    public void select() {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        gPlatform.setStroke(classDivRect, ThemeManager.getHighlightedForegroundColor(), 2);
-        gPlatform.setStroke(attrDivRect, ThemeManager.getHighlightedForegroundColor(), 2);
-        gPlatform.setStroke(methodDivRect, ThemeManager.getHighlightedForegroundColor(), 2);
-    }
+		GfxObject attrText = GfxManager.getPlatform()
+				.buildText(attr.toString());
+		GfxManager.getPlatform().setFont(attrText, font);
+		GfxManager.getPlatform().setFillColor(attrText,
+				ThemeManager.getForegroundColor());
+		GfxManager.getPlatform().translate(attrText, TEXT_MARGIN,
+				height + getLineHeight());
+		return attrText;
+	}
 
-    public void unselect() {
-        GfxPlatform gPlatform = GfxManager.getInstance();
-        gPlatform.setStroke(classDivRect, ThemeManager.getForegroundColor(), 1);
-        gPlatform.setStroke(attrDivRect, ThemeManager.getForegroundColor(), 1);
-        gPlatform.setStroke(methodDivRect, ThemeManager.getForegroundColor(), 1);  
-    }
+	void createMethodTexts() {
+		methodTexts = new ArrayList<GfxObject[]>();
+		for (int i = 0; i < methods.size(); i++) {
+			GfxObject[] methodText = new GfxObject[1];
+			Method method = methods.get(i);
+			methodText[0] = createMethodText(method, getMethodY(method));
+			methodTexts.add(methodText);
+		}
+	}
 
-    public void adjusted() {	
-        super.adjusted();
-        for (int i=0; i<relationshipDependencies.size(); i++) {
-            final RelationshipArtifact element = relationshipDependencies.get(i);
-            new Scheduler.Task(element) {
-                public void process() {
-                    element.adjust();
-                }
-            };
-        }
-        for (int i=0; i<relationships.size(); i++) {
-            final RelationshipArtifact element = relationships.get(i);
-            new Scheduler.Task(element) {
-                public void process() {
-                    element.adjust();
-                }
-            };
-        }
-        for (int i=0; i<classDependencies.size(); i++) {
-            final ClassDependencyArtifact element = classDependencies.get(i);
-            new Scheduler.Task(element) {
-                public void process() {
-                    element.adjust();
-                }
-            };
-        }
-    }
-    
-    public Object getSubPart(GfxObject o) {
-        if (o.equals(classNameText[0]))
-            return NAME;
-        if (o.equals(attrDivRect))
-            return NEW_ATTRIBUTE;
-        if (o.equals(methodDivRect))
-            return NEW_METHOD;
-        int i = indexOf(attrTexts, o); 
-        if (i!=-1)
-            return attributes.get(i);
-        i = indexOf(methodTexts, o); 
-        if (i!=-1)
-            return methods.get(i);
-        return null;
-    }
-    
+	GfxObject createMethodText(Method method, int height) {
+
+		GfxObject methodText = GfxManager.getPlatform().buildText(
+				method.toString());
+		GfxManager.getPlatform().setFont(methodText, font);
+		GfxManager.getPlatform().setFillColor(methodText,
+				ThemeManager.getForegroundColor());
+		GfxManager.getPlatform().translate(methodText, TEXT_MARGIN,
+				height + getLineHeight());
+		return methodText;
+	}
+
+	int computeWidth() {
+
+		int width = DEFAULT_WIDTH;
+		width = updateWidth(width, (int) GfxManager.getPlatform().getWidthFor(
+				classNameText[0]));
+		for (int i = 0; i < attributes.size(); i++) {
+			GfxObject attrText = attrTexts.get(i)[0];
+			if (attrText != null)
+				width = updateWidth(width, (int) GfxManager.getPlatform()
+						.getWidthFor(attrText));
+		}
+		for (int i = 0; i < methods.size(); i++) {
+			GfxObject methodText = methodTexts.get(i)[0];
+			if (methodText != null)
+				width = updateWidth(width, (int) GfxManager.getPlatform()
+						.getWidthFor(methodText));
+		}
+		return width;
+	}
+
+	int updateWidth(int width, int widthEl) {
+		widthEl = TEXT_MARGIN + widthEl + TEXT_MARGIN;
+		return width > widthEl ? width : widthEl;
+	}
+
+	int getLineHeight() {
+		return font.getSize();
+	}
+
+	int getClassNameHeight() {
+		return TEXT_MARGIN + getLineHeight() + TEXT_MARGIN;
+	}
+
+	int getAttrHeight() {
+		int size = getSize(attrTexts);
+		return TEXT_MARGIN + ((size + 2) / 3) * 3
+				* (getLineHeight() + TEXT_MARGIN);
+	}
+
+	int getMethodHeight() {
+		int size = getSize(methodTexts);
+		return TEXT_MARGIN + ((size + 2) / 3) * 3
+				* (getLineHeight() + TEXT_MARGIN);
+	}
+
+	int getSize(List<GfxObject[]> list) {
+		int size = 0;
+		for (int i = 0; i < list.size(); i++) {
+			GfxObject[] slot = list.get(i);
+			if (slot[0] != null)
+				size++;
+		}
+		return size;
+	}
+
+	public List<GfxObject> getComponents() {
+		List<GfxObject> comps = new ArrayList<GfxObject>();
+		comps.add(classDivRect);
+		comps.add(classNameText[0]);
+		comps.add(attrDivRect);
+		for (int i = 0; i < attrTexts.size(); i++)
+			comps.add(attrTexts.get(i)[0]);
+		comps.add(methodDivRect);
+		for (int i = 0; i < methodTexts.size(); i++)
+			comps.add(methodTexts.get(i)[0]);
+		return comps;
+	}
+
+	public void select() {
+
+		GfxManager.getPlatform().setStroke(classDivRect,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(attrDivRect,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(methodDivRect,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+	}
+
+	public void unselect() {
+
+		GfxManager.getPlatform().setStroke(classDivRect,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(attrDivRect,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(methodDivRect,
+				ThemeManager.getForegroundColor(), 1);
+	}
+
+	public void adjusted() {
+		super.adjusted();
+		for (int i = 0; i < relationshipDependencies.size(); i++) {
+			final RelationshipArtifact element = relationshipDependencies
+					.get(i);
+			new Scheduler.Task(element) {
+				public void process() {
+					element.adjust();
+				}
+			};
+		}
+		for (int i = 0; i < relationships.size(); i++) {
+			final RelationshipArtifact element = relationships.get(i);
+			new Scheduler.Task(element) {
+				public void process() {
+					element.adjust();
+				}
+			};
+		}
+		for (int i = 0; i < classDependencies.size(); i++) {
+			final ClassDependencyArtifact element = classDependencies.get(i);
+			new Scheduler.Task(element) {
+				public void process() {
+					element.adjust();
+				}
+			};
+		}
+	}
+
+	public ClassArtifactPart getSubPart(GfxObject o) {
+		Log.trace("Trying to find subpart of " + o + "\n\tname is "
+				+ classNameText[0] + "\n\tattr is " + attrDivRect
+				+ "\n\t method is " + methodDivRect);
+
+		if (o.equals(classNameText[0]) || o.equals(classDivRect))
+			return ClassArtifactPart.NAME;
+
+		if (o.equals(attrDivRect))
+			return ClassArtifactPart.NEW_ATTRIBUTE;
+
+		if (o.equals(methodDivRect))
+			return ClassArtifactPart.NEW_METHOD;
+
+		if (o.equals(getGfxObject()))
+			return ClassArtifactPart.NAME;
+
+		int attrTextIndex = indexOf(attrTexts, o);
+		if (attrTextIndex != -1) {
+			ClassArtifactPart classArtifactPart = ClassArtifactPart.ATTRIBUTE;
+			classArtifactPart.setSlotIndex(attrTextIndex);
+			return classArtifactPart;
+		}
+
+		int methodTextIndex = indexOf(methodTexts, o);
+		if (methodTextIndex != -1) {
+			ClassArtifactPart classArtifactPart = ClassArtifactPart.METHOD;
+			classArtifactPart.setSlotIndex(methodTextIndex);
+			return classArtifactPart;
+		}
+
+		return ClassArtifactPart.NONE;
+	}
+
 	public void edit(GfxObject gfxObject, int x, int y) {
-		Object subPart = getSubPart(gfxObject);
-		if (subPart==null) {			
+		ClassArtifactPart subPart = getSubPart(gfxObject);
+		if (subPart == null) {
 			Log.debug("No subpart found");
 			return;
 		}
-		else if (subPart==ClassArtifact.NAME)
+		editor.setSubPart(subPart);
+		switch (subPart) {
+		case NONE:
+		case NAME:
 			editor.editName();
-		else if (subPart==ClassArtifact.NEW_ATTRIBUTE)
+			break;
+		case NEW_ATTRIBUTE:
 			editor.editNewAttribute();
-		else if (subPart instanceof Attribute)
-			editor.editAttribute((Attribute)subPart);
-		else if (subPart==ClassArtifact.NEW_METHOD)
+			break;
+		case NEW_METHOD:
 			editor.editNewMethod();
-		else if (subPart instanceof Method)
-			editor.editMethod((Method)subPart);
-		else
-			throw new UMLDrawerException("Invalid class subpart : "+subPart);
+			break;
+		case ATTRIBUTE:
+			editor.editAttribute(attributes.get(subPart.getSlotIndex()));
+			break;
+		case METHOD:
+			editor.editMethod(methods.get(subPart.getSlotIndex()));
+			break;
+		}
 	}
-	
-    @Override
+
+	@Override
 	public GfxObject getOutline() {
-		GfxPlatform gPlatform = GfxManager.getInstance();
-		GfxObject vg = gPlatform.buildVirtualGroup();
-		
-		GfxObject line1 = gPlatform.buildLine(0, 0, getWidth(), 0);
-		GfxObject line2 = gPlatform.buildLine(getWidth(), 0, getWidth(), getHeight());
-		GfxObject line3 = gPlatform.buildLine(getWidth(), getHeight(), 0, getHeight());
-		GfxObject line4 = gPlatform.buildLine(0, getHeight(), 0, 0);
-		
-		GfxObject line5 = gPlatform.buildLine(0, getClassNameHeight(), getWidth(), getClassNameHeight());
-		GfxObject line6 = gPlatform.buildLine(0, getClassNameHeight() + getAttrHeight(), getWidth(), getClassNameHeight() + getAttrHeight());
-		
-		gPlatform.setStrokeStyle(line1, GfxStyle.DASH);
-		gPlatform.setStrokeStyle(line2, GfxStyle.DASH);
-		gPlatform.setStrokeStyle(line3, GfxStyle.DASH);
-		gPlatform.setStrokeStyle(line4, GfxStyle.DASH);
-		gPlatform.setStrokeStyle(line5, GfxStyle.DASH);
-		gPlatform.setStrokeStyle(line6, GfxStyle.DASH);
-		
-		GfxManager.getInstance().setStroke(line1, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line2, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line3, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line4, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line5, ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(line6, ThemeManager.getHighlightedForegroundColor(), 1);
-		
-		gPlatform.addToVirtualGroup(vg, line1);
-		gPlatform.addToVirtualGroup(vg, line2);
-		gPlatform.addToVirtualGroup(vg, line3);
-		gPlatform.addToVirtualGroup(vg, line4);
-		gPlatform.addToVirtualGroup(vg, line5);
-		gPlatform.addToVirtualGroup(vg, line6);
+
+		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+
+		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(),
+				0);
+		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,
+				getWidth(), getHeight());
+		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(),
+				getHeight(), 0, getHeight());
+		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,
+				0);
+
+		GfxObject line5 = GfxManager.getPlatform().buildLine(0,
+				getClassNameHeight(), getWidth(), getClassNameHeight());
+		GfxObject line6 = GfxManager.getPlatform().buildLine(0,
+				getClassNameHeight() + getAttrHeight(), getWidth(),
+				getClassNameHeight() + getAttrHeight());
+
+		GfxManager.getPlatform().setStrokeStyle(line1, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line2, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line3, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line4, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line5, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line6, GfxStyle.DASH);
+
+		GfxManager.getPlatform().setStroke(line1,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line2,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line3,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line4,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line5,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line6,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+
+		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line5);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line6);
 		return vg;
 	}
-	
-    String className;
-    List<Attribute> attributes = new ArrayList<Attribute>();
-    List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();
-    List<Method> methods = new ArrayList<Method>();
-    List<RelationshipArtifact> relationshipDependencies = new ArrayList<RelationshipArtifact>();
-    List<ClassDependencyArtifact> classDependencies = new ArrayList<ClassDependencyArtifact>();
 
-    GfxObject classDivRect;
-    GfxObject[] classNameText = new GfxObject[1];
-    GfxObject attrDivRect;
-    List<GfxObject[]> attrTexts = null;
-    GfxObject methodDivRect;
-    List<GfxObject[]> methodTexts = null;
-       
-    private ClassEditor editor;
+	String className;
+	List<Attribute> attributes = new ArrayList<Attribute>();
+	List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();
+	List<Method> methods = new ArrayList<Method>();
+	List<RelationshipArtifact> relationshipDependencies = new ArrayList<RelationshipArtifact>();
+	List<ClassDependencyArtifact> classDependencies = new ArrayList<ClassDependencyArtifact>();
 
+	GfxObject classDivRect;
+	GfxObject[] classNameText = new GfxObject[1];
+	GfxObject attrDivRect;
+	List<GfxObject[]> attrTexts = null;
+	GfxObject methodDivRect;
+	List<GfxObject[]> methodTexts = null;
 
-	public LinkedHashMap <String, Command> getRightMenu() {
-		
-		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
-		
-		Command doNothing = new Command() { 
+	public enum ClassArtifactPart {
+		NAME, NEW_ATTRIBUTE, NEW_METHOD, ATTRIBUTE, METHOD, NONE;
+
+		private int slotIndex;
+
+		private ClassArtifactPart() {
+			this.slotIndex = -2;
+		}
+
+		public void setSlotIndex(int slotIndex) {
+			this.slotIndex = slotIndex;
+		}
+
+		public int getSlotIndex() {
+			return slotIndex;
+		}
+	}
+
+	private ClassEditor editor;
+
+	public LinkedHashMap<String, Command> getRightMenu() {
+
+		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+		Command doNothing = new Command() {
 			public void execute() {
 			}
-		};	
+		};
 		Command remove = new Command() {
 			public void execute() {
 				getCanvas().removeSelected();
@@ -549,5 +642,21 @@ public class ClassArtifact extends BoxArtifact {
 		rightMenu.put("> Edit method", doNothing);
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
+	}
+
+	public void setMethodValidated(int slotIndex) {
+		methods.get(slotIndex).setValidated(true);
+	}
+
+	public void setAttributeValidated(int slotIndex) {
+		attributes.get(slotIndex).setValidated(true);
+	}
+
+	public boolean isAttributeValidated(int slotIndex) {
+		return attributes.get(slotIndex).isValidated();
+	}
+
+	public boolean isMethodValidated(int slotIndex) {
+		return methods.get(slotIndex).isValidated();
 	}
 }

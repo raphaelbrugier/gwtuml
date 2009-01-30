@@ -19,7 +19,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
-public class StartPanel extends VerticalPanel{
+public class StartPanel extends VerticalPanel {
 	static StartPanel instance = null;
 	private LoadingScreen loadingScreen;
 	private HorizontalPanel current_Panel;
@@ -28,7 +28,6 @@ public class StartPanel extends VerticalPanel{
 		instance = this;
 		loadingScreen = new LoadingScreen();
 		loadingScreen.show();
-
 
 		Log.info("Starting App");
 
@@ -53,81 +52,81 @@ public class StartPanel extends VerticalPanel{
 		final TextBox widthTxtBox = new TextBox();
 		startBtn.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
-				ThemeManager.setCurrentTheme(
-						ThemeManager.getThemeFromName(
-								themeListBox.getItemText(themeListBox.getSelectedIndex())
-						)
-				);
+				ThemeManager.setCurrentTheme(ThemeManager
+						.getThemeFromName(themeListBox.getItemText(themeListBox
+								.getSelectedIndex())));
 
-				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase("Tatami Gfx"))
-					GfxManager.setInstance(new TatamiGfxPlatfrom());
+				if (gfxEngineListBox.getItemText(
+						gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
+						"Tatami Gfx"))
+					GfxManager.setPlatform(new TatamiGfxPlatfrom());
 				else
-					GfxManager.setInstance(new IncubatorGfxPlatform());
+					GfxManager.setPlatform(new IncubatorGfxPlatform());
 
 				instance.removeFromParent();
-				loadingScreen.show();	
+				loadingScreen.show();
 				int w;
 				int h;
 				try {
 					w = Integer.parseInt(widthTxtBox.getText());
 					h = Integer.parseInt(heightTxtBox.getText());
-				} 
-				catch(Exception ex) {
-					Log.warn("Unreadable resolution " + widthTxtBox.getText() + "x" +  heightTxtBox.getText() + "!");
+				} catch (Exception ex) {
+					Log.warn("Unreadable resolution " + widthTxtBox.getText()
+							+ "x" + heightTxtBox.getText() + "!");
 					w = 800;
 					h = 600;
 				}
-				
-				current_Panel = new DrawerPanel(w, h);	
+
+				current_Panel = new DrawerPanel(w, h);
 				History.newItem("Drawer", false);
-				
-				loadingScreen.hide();		
-				UMLDrawer.addtoAppRootPanel(current_Panel);
-			}
-		});
-		
 
-		startDemoBtn.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
-				ThemeManager.setCurrentTheme(
-						ThemeManager.getThemeFromName(
-								themeListBox.getItemText(themeListBox.getSelectedIndex())
-						)
-				);
-
-				if(gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase("Tatami Gfx"))
-					GfxManager.setInstance(new TatamiGfxPlatfrom());
-				else
-					GfxManager.setInstance(new IncubatorGfxPlatform());
-				instance.removeFromParent();
-				loadingScreen.show();		
-				current_Panel = new DemoPanel();
-				History.newItem("Demo", false);
-				
 				loadingScreen.hide();
 				UMLDrawer.addtoAppRootPanel(current_Panel);
 			}
 		});
-		
+
+		startDemoBtn.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				ThemeManager.setCurrentTheme(ThemeManager
+						.getThemeFromName(themeListBox.getItemText(themeListBox
+								.getSelectedIndex())));
+
+				if (gfxEngineListBox.getItemText(
+						gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
+						"Tatami Gfx"))
+					GfxManager.setPlatform(new TatamiGfxPlatfrom());
+				else
+					GfxManager.setPlatform(new IncubatorGfxPlatform());
+				instance.removeFromParent();
+				loadingScreen.show();
+				current_Panel = new DemoPanel();
+				History.newItem("Demo", false);
+
+				loadingScreen.hide();
+				UMLDrawer.addtoAppRootPanel(current_Panel);
+			}
+		});
+
 		History.addHistoryListener(new HistoryListener() {
 			public void onHistoryChanged(String historyToken) {
 				if (historyToken.equals("Drawer")) {
 					UMLDrawer.clearAppRootPanel();
-					loadingScreen.show();	
+					loadingScreen.show();
 					int w;
 					int h;
 					try {
 						w = Integer.parseInt(widthTxtBox.getText());
 						h = Integer.parseInt(heightTxtBox.getText());
-					} 
-					catch(Exception ex) {
-						Log.warn("Unreadable resolution " + widthTxtBox.getText() + "x" +  heightTxtBox.getText() + "! (Hist)");
+					} catch (Exception ex) {
+						Log.warn("Unreadable resolution "
+								+ widthTxtBox.getText() + "x"
+								+ heightTxtBox.getText() + "! (Hist)");
 						w = 800;
 						h = 600;
 					}
-					
+
 					current_Panel = new DrawerPanel(w, h);
-					loadingScreen.hide();		
+					loadingScreen.hide();
 					UMLDrawer.addtoAppRootPanel(current_Panel);
 				}
 			}
@@ -137,12 +136,12 @@ public class StartPanel extends VerticalPanel{
 			public void onHistoryChanged(String historyToken) {
 				if (historyToken.equals("Demo")) {
 					UMLDrawer.clearAppRootPanel();
-					loadingScreen.show();		
+					loadingScreen.show();
 					current_Panel = new DemoPanel();
 					loadingScreen.hide();
 					UMLDrawer.addtoAppRootPanel(current_Panel);
-				}}
-
+				}
+			}
 
 		});
 		gfxEnginePanel.setSpacing(5);
@@ -151,16 +150,15 @@ public class StartPanel extends VerticalPanel{
 		gfxEngineListBox.addItem("Tatami Gfx");
 		gfxEngineListBox.addItem("Incubator GWTCanvas Gfx");
 
-		for(Theme theme : Theme.values()) {
+		for (Theme theme : Theme.values()) {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
-		
+
 		widthTxtBox.setText("" + Window.getClientWidth());
-		heightTxtBox.setText("" + (Window.getClientHeight()-20));
+		heightTxtBox.setText("" + (Window.getClientHeight() - 20));
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
-		
-		
+
 		this.add(startBtn);
 		this.add(startDemoBtn);
 		gfxEnginePanel.add(gfxEngineLbl);
@@ -174,11 +172,9 @@ public class StartPanel extends VerticalPanel{
 		resolutionPanel.add(crossLbl);
 		resolutionPanel.add(heightTxtBox);
 		this.add(resolutionPanel);
-		
+
 		loadingScreen.hide();
 		RootPanel.get().add(this);
-
-
 
 	}
 }

@@ -1,17 +1,15 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 public class GfxManager {
-	
-	
+
 	private static GfxPlatform instance;
-	
-	public static void setInstance(GfxPlatform gp)
-	{
+
+	public static void setPlatform(GfxPlatform gp) {
 		instance = gp;
 	}
-	public static GfxPlatform getInstance()
-	{
+
+	public static GfxPlatform getPlatform() {
 		return instance;
 	}
-	
+
 }

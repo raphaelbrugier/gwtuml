@@ -13,7 +13,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
-
 public class NoteLinkArtifact implements UMLElement {
 
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
@@ -21,9 +20,9 @@ public class NoteLinkArtifact implements UMLElement {
 		this.note.addDependency(this);
 		this.target = target;
 		this.target.addNoteLink(this);
-		
+
 	}
-	
+
 	public GfxObject getGfxObject() {
 		if (gfxObject == null) {
 			gfxObject = buildGfxObject();
@@ -33,18 +32,20 @@ public class NoteLinkArtifact implements UMLElement {
 
 	public GfxObject buildGfxObject() {
 		float[] lineBounds = Geometry.computeLineBounds(note, target);
-		line = GfxManager.getInstance().buildLine((int) lineBounds[0], (int)lineBounds[1], (int)lineBounds[2], (int)lineBounds[3]);
-		GfxManager.getInstance().setStroke(line, ThemeManager.getForegroundColor(), 1);
-		GfxManager.getInstance().setStrokeStyle(line, GfxStyle.DASH);
+		line = GfxManager.getPlatform().buildLine((int) lineBounds[0],
+				(int) lineBounds[1], (int) lineBounds[2], (int) lineBounds[3]);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
 		return line;
 	}
-	
+
 	public int getX() {
-		return x1<x2 ? x1 : x2;
+		return x1 < x2 ? x1 : x2;
 	}
-	
+
 	public int getY() {
-		return y1<y2 ? y1 : y2;
+		return y1 < y2 ? y1 : y2;
 	}
 
 	public List<GfxObject> getComponents() {
@@ -56,64 +57,68 @@ public class NoteLinkArtifact implements UMLElement {
 	public boolean isDraggable() {
 		return false;
 	}
-	
+
 	public GfxObject getOutline() {
 		return null;
 	}
-	
+
 	public void select() {
-		GfxManager.getInstance().setStroke(line, ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getHighlightedForegroundColor(), 2);
 	}
 
 	public void unselect() {
-		GfxManager.getInstance().setStroke(line, ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
 	}
-	
+
 	public void setLocation(int x, int y) {
-		throw new UMLDrawerException("invalid operation : setLocation on a line");
+		throw new UMLDrawerException(
+				"invalid operation : setLocation on a line");
 	}
-	
+
 	public UMLCanvas getCanvas() {
 		return canvas;
 	}
-	
+
 	public void setCanvas(UMLCanvas canvas) {
 		this.canvas = canvas;
 	}
-	
-	public void adjusted() {	
+
+	public void adjusted() {
 	}
 
 	public void adjust() {
 		UMLCanvas cnv = canvas;
-		if (cnv!=null)
+		if (cnv != null)
 			cnv.remove(this);
 		gfxObject = buildGfxObject();
-		if (cnv!=null)
+		if (cnv != null)
 			cnv.add(this);
 		adjusted();
 	}
-	
+
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	UMLCanvas canvas;
-	GfxObject gfxObject =  null;
+	GfxObject gfxObject = null;
 	GfxObject line = null;
 
 	int x1, y1, x2, y2;
 	NoteArtifact note;
 	UMLArtifact target;
-	public LinkedHashMap <String, Command> getRightMenu() {
-		
-		LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
-		
-		Command doNothing = new Command() { 
+
+	public LinkedHashMap<String, Command> getRightMenu() {
+
+		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+		Command doNothing = new Command() {
 			public void execute() {
 			}
-		};	
+		};
 		Command remove = new Command() {
 			public void execute() {
 				getCanvas().removeSelected();

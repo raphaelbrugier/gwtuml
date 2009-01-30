@@ -8,12 +8,10 @@ import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
-
-public abstract class ClassDependencyArtifact extends LineArtifact  {
+public abstract class ClassDependencyArtifact extends LineArtifact {
 
 	public ClassDependencyArtifact(ClassArtifact left, ClassArtifact right) {
 		this.left = left;
@@ -21,16 +19,17 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		this.right = right;
 		right.addClassDependency(this);
 	}
-	
+
 	protected GfxObject buildGfxObject() {
-		GfxPlatform gPlatform = GfxManager.getInstance();
-		GfxObject vg = gPlatform.buildVirtualGroup();
+
+		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		float[] lineBounds = Geometry.computeLineBounds(left, right);
-		setBounds((int)lineBounds[0], (int)lineBounds[1], (int)lineBounds[2], (int)lineBounds[3]);
+		setBounds((int) lineBounds[0], (int) lineBounds[1],
+				(int) lineBounds[2], (int) lineBounds[3]);
 		line = buildLine(lineBounds);
-		gPlatform.addToVirtualGroup(vg, line);
-		arrow = buildArrow(lineBounds); 
-		gPlatform.addToVirtualGroup(vg, arrow);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line);
+		arrow = buildArrow(lineBounds);
+		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
 		return vg;
 	}
 
@@ -40,29 +39,33 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		comps.add(arrow);
 		return comps;
 	}
-	
+
 	public void select() {
-		GfxManager.getInstance().setStroke(line, ThemeManager.getHighlightedForegroundColor(), 2);
-		GfxManager.getInstance().setStroke(arrow, ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(arrow,
+				ThemeManager.getHighlightedForegroundColor(), 2);
 	}
 
 	public void unselect() {
-		GfxManager.getInstance().setStroke(line, ThemeManager.getForegroundColor(), 1);
-		GfxManager.getInstance().setStroke(arrow, ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line,
+				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(arrow,
+				ThemeManager.getForegroundColor(), 1);
 	}
 
 	public Object getSubPart(GfxObject o) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	protected abstract GfxObject buildLine(float[] lineBounds);
-	
+
 	protected abstract GfxObject buildArrow(float[] lineBounds);
 
 	ClassArtifact left;
@@ -77,26 +80,31 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		}
 
 		protected GfxObject buildLine(float[] lineBounds) {
-			GfxPlatform gPlatform = GfxManager.getInstance();
-			GfxObject line = gPlatform.buildLine((int)lineBounds[0],(int)lineBounds[1],(int)lineBounds[2],(int)lineBounds[3]);
-			gPlatform.setStroke(line, ThemeManager.getForegroundColor(), 1);
-			gPlatform.setStrokeStyle(line, GfxStyle.DASH);
+
+			GfxObject line = GfxManager.getPlatform().buildLine(
+					(int) lineBounds[0], (int) lineBounds[1],
+					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxManager.getPlatform().setStroke(line,
+					ThemeManager.getForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
 
 			return line;
 		}
-		
+
 		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
+			return Geometry.buildArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
 		}
-		
-		public LinkedHashMap <String, Command> getRightMenu() {
-			
-			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
-			
-			Command doNothing = new Command() { 
+
+		public LinkedHashMap<String, Command> getRightMenu() {
+
+			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+			Command doNothing = new Command() {
 				public void execute() {
 				}
-			};	
+			};
 			Command remove = new Command() {
 				public void execute() {
 					getCanvas().removeSelected();
@@ -111,7 +119,7 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			return rightMenu;
 		}
 	}
-	
+
 	public static class Extension extends ClassDependencyArtifact {
 
 		public Extension(ClassArtifact left, ClassArtifact right) {
@@ -119,25 +127,30 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		}
 
 		protected GfxObject buildLine(float[] lineBounds) {
-			GfxPlatform gPlatform = GfxManager.getInstance();
-			GfxObject line = gPlatform.buildLine((int)lineBounds[0],(int)lineBounds[1],(int)lineBounds[2],(int)lineBounds[3]);
-			gPlatform.setStroke(line, ThemeManager.getForegroundColor(), 1);
-			gPlatform.setStrokeStyle(line, GfxStyle.SOLID);
+
+			GfxObject line = GfxManager.getPlatform().buildLine(
+					(int) lineBounds[0], (int) lineBounds[1],
+					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxManager.getPlatform().setStroke(line,
+					ThemeManager.getForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
 			return line;
 		}
-		
+
 		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
+			return Geometry.buildFilledArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
 		}
 
-		public LinkedHashMap <String, Command> getRightMenu() {
-			
-			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
-			
-			Command doNothing = new Command() { 
+		public LinkedHashMap<String, Command> getRightMenu() {
+
+			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+			Command doNothing = new Command() {
 				public void execute() {
 				}
-			};	
+			};
 			Command remove = new Command() {
 				public void execute() {
 					getCanvas().removeSelected();
@@ -151,7 +164,7 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			rightMenu.put("Delete", remove);
 			return rightMenu;
 		}
-		
+
 	}
 
 	public static class Implementation extends ClassDependencyArtifact {
@@ -161,25 +174,30 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 		}
 
 		protected GfxObject buildLine(float[] lineBounds) {
-			GfxPlatform gPlatform = GfxManager.getInstance();
-			GfxObject line = gPlatform.buildLine((int)lineBounds[0],(int)lineBounds[1],(int)lineBounds[2],(int)lineBounds[3]);
-			gPlatform.setStroke(line, ThemeManager.getForegroundColor(), 1);
-			gPlatform.setStrokeStyle(line, GfxStyle.DASH);
+
+			GfxObject line = GfxManager.getPlatform().buildLine(
+					(int) lineBounds[0], (int) lineBounds[1],
+					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxManager.getPlatform().setStroke(line,
+					ThemeManager.getForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
 			return line;
 		}
-		
+
 		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int)lineBounds[2],(int)lineBounds[3],(int)lineBounds[0],(int)lineBounds[1]);
+			return Geometry.buildFilledArrow((int) lineBounds[2],
+					(int) lineBounds[3], (int) lineBounds[0],
+					(int) lineBounds[1]);
 		}
 
-		public LinkedHashMap <String, Command> getRightMenu() {
-			
-			LinkedHashMap <String, Command> rightMenu = new LinkedHashMap<String, Command>();
-			
-			Command doNothing = new Command() { 
+		public LinkedHashMap<String, Command> getRightMenu() {
+
+			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+
+			Command doNothing = new Command() {
 				public void execute() {
 				}
-			};	
+			};
 			Command remove = new Command() {
 				public void execute() {
 					getCanvas().removeSelected();
@@ -193,6 +211,6 @@ public abstract class ClassDependencyArtifact extends LineArtifact  {
 			rightMenu.put("> Delete", remove);
 			return rightMenu;
 		}
-		
+
 	}
 }

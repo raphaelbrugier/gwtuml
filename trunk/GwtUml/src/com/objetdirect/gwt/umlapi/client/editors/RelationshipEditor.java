@@ -10,19 +10,24 @@ import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact.Relation
 
 public class RelationshipEditor {
 
-	public static final int FIELD_XMARGIN= 8;
-	public static final int FIELD_YMARGIN= -4;
+	public static final int FIELD_XMARGIN = 8;
+	public static final int FIELD_YMARGIN = -4;
 	public static final int FIELD_HEIGHT = 18;
 	private RelationshipArtifact editedRelationship = null;
-	
+
 	public RelationshipEditor(RelationshipArtifact editedRelationship) {
 		this.editedRelationship = editedRelationship;
 	}
 
 	public void editPart(RelationShipArtifactPart subpart) {
 		this.subpart = subpart;
-		editField = getEditField(editedRelationship.getStringForPart(subpart), editedRelationship.getWidth(subpart));
-		editedRelationship.getCanvas().add(editField, editedRelationship.getTextX(subpart), editedRelationship.getTextY(subpart) - editedRelationship.getHeight(subpart)/2);
+		editField = getEditField(editedRelationship.getStringForPart(subpart),
+				editedRelationship.getWidth(subpart));
+		editedRelationship.getCanvas().add(
+				editField,
+				editedRelationship.getTextX(subpart),
+				editedRelationship.getTextY(subpart)
+						- editedRelationship.getHeight(subpart) / 2);
 		editField.selectAll();
 		editField.setFocus(true);
 	}
@@ -30,9 +35,9 @@ public class RelationshipEditor {
 	protected void validate() {
 		if (validationInProcess)
 			return;
-		try {			
+		try {
 			validationInProcess = true;
-			switch(subpart) {
+			switch (subpart) {
 			case NAME:
 				editedRelationship.setName(editField.getText());
 				break;
@@ -54,33 +59,33 @@ public class RelationshipEditor {
 			case RIGHT_CONSTRAINT:
 				editedRelationship.setRightConstraint(editField.getText());
 				break;
-			}			
+			}
 			editedRelationship.getCanvas().remove(editField);
 			editField = null;
-		}
-		finally {
+		} finally {
 			validationInProcess = false;
 		}
 	}
-	
+
 	protected void cancel() {
 		validationInProcess = true;
 		try {
 			editedRelationship.getCanvas().remove(editField);
 			editField = null;
-		}
-		finally {
+		} finally {
 			validationInProcess = false;
-		}		
+		}
 	}
-	
-	
+
 	TextBox getEditField(String value, int width) {
 		TextBox editField = new TextBox();
 		editField.setText(value);
-		DOM.setStyleAttribute(editField.getElement(), "border", "1px solid blue");
-		DOM.setStyleAttribute(editField.getElement(), "height", FIELD_HEIGHT+"px");
-		DOM.setStyleAttribute(editField.getElement(), "width", (width-FIELD_XMARGIN*2)+"px");
+		DOM.setStyleAttribute(editField.getElement(), "border",
+				"1px solid blue");
+		DOM.setStyleAttribute(editField.getElement(), "height", FIELD_HEIGHT
+				+ "px");
+		DOM.setStyleAttribute(editField.getElement(), "width",
+				(width - FIELD_XMARGIN * 2) + "px");
 		prepareEditField(editField);
 		return editField;
 	}
@@ -89,6 +94,7 @@ public class RelationshipEditor {
 		FocusListener focusLst = new FocusListener() {
 			public void onFocus(Widget sender) {
 			}
+
 			public void onLostFocus(Widget sender) {
 				validate();
 			}
@@ -96,25 +102,24 @@ public class RelationshipEditor {
 		KeyboardListener keybLst = new KeyboardListener() {
 			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
 			}
+
 			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
 			}
+
 			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
-				if (keyCode==KEY_ENTER)
+				if (keyCode == KEY_ENTER)
 					validate();
 
-				else if (keyCode==KEY_ESCAPE)
+				else if (keyCode == KEY_ESCAPE)
 					cancel();
 			}
 		};
 		editField.addFocusListener(focusLst);
 		editField.addKeyboardListener(keybLst);
 	}
-	
+
 	boolean validationInProcess = false;
 	TextBox editField = null;
 	RelationShipArtifactPart subpart;
 
-
-
-	
 }

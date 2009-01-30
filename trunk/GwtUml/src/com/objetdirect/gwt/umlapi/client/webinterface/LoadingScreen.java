@@ -14,7 +14,7 @@ public class LoadingScreen {
 		loadingPanel = new HorizontalPanel();
 		loadingPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
 		loadingPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
-		loadingPanel.setSize("100%", "100%");	
+		loadingPanel.setSize("100%", "100%");
 		loadingPanel.add(loader);
 		loadingPanel.setVisible(false);
 		RootPanel.get().add(loadingPanel, 0, 0);

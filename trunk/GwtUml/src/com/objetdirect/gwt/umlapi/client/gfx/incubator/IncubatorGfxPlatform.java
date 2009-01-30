@@ -22,14 +22,14 @@ import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.Rect;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.Text;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.VirtualGroup;
 
-
 public class IncubatorGfxPlatform implements GfxPlatform {
 
 	private GWTCanvasWithListeners canvas;
 	private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
 
 	public Widget makeCanvas() {
-		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT, GfxColor.WHITE);
+		return makeCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT,
+				GfxColor.WHITE);
 	}
 
 	public Widget makeCanvas(int width, int height, GfxColor backgroundColor) {
@@ -37,8 +37,12 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		// Default values :
 		canvas.setLineWidth(1);
 		canvas.setStrokeStyle(Color.BLUEVIOLET);
-		canvas.setBackgroundColor(new Color(backgroundColor.getRed(), backgroundColor.getBlue(), backgroundColor.getGreen()
-				/*, backgroundColor.getAlpha() Disabled to ensure *#@&~#! IE compatibility */
+		canvas.setBackgroundColor(new Color(backgroundColor.getRed(),
+				backgroundColor.getBlue(), backgroundColor.getGreen()
+		/*
+		 * , backgroundColor.getAlpha() Disabled to ensure#@&~#! IE
+		 * compatibility
+		 */
 		));
 		canvas.clear();
 		return canvas;
@@ -52,7 +56,6 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		}
 	}
 
-
 	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {
 		getIncubatorGraphicalObjectFrom(gfxO).addOnCanvasAt(x, y);
 		canvasObjects.add(gfxO);
@@ -60,11 +63,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	}
 
 	public void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO) {
-		((VirtualGroup) getIncubatorGraphicalObjectFrom(gfxOGroup)).add(getIncubatorGraphicalObjectFrom(gfxO));
+		((VirtualGroup) getIncubatorGraphicalObjectFrom(gfxOGroup))
+				.add(getIncubatorGraphicalObjectFrom(gfxO));
 	}
 
 	public GfxObject buildLine(double x1, double y1, double x2, double y2) {
-		return new IncubatorGfxObjectContainer(new Line((int) x1, (int) y1, (int) x2, (int) y2));
+		return new IncubatorGfxObjectContainer(new Line((int) x1, (int) y1,
+				(int) x2, (int) y2));
 	}
 
 	public GfxObject buildPath() {
@@ -72,7 +77,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	}
 
 	public GfxObject buildRect(double width, double height) {
-		return new IncubatorGfxObjectContainer(new Rect((int) width, (int) height));
+		return new IncubatorGfxObjectContainer(new Rect((int) width,
+				(int) height));
 	}
 
 	public GfxObject buildText(String text) {
@@ -85,36 +91,36 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	}
 
 	public double getHeightFor(GfxObject gfxO) {
-		if(gfxO != null)
+		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getHeight();
 		return 0;
 	}
 
 	public double getWidthFor(GfxObject gfxO) {
-		if(gfxO != null)
+		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getWidth();
 		return 0;
 	}
 
 	public double getXFor(GfxObject gfxO) {
-		if(gfxO != null)
+		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getX();
 		return 0;
 	}
 
 	public double getYFor(GfxObject gfxO) {
-		if(gfxO != null)
+		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getY();
 		return 0;
 	}
 
 	public void lineTo(GfxObject gfxO, double x, double y) {
-		((Path) getIncubatorGraphicalObjectFrom(gfxO)).lineTo(x,y);
+		((Path) getIncubatorGraphicalObjectFrom(gfxO)).lineTo(x, y);
 
 	}
 
 	public void moveTo(GfxObject gfxO, double x, double y) {
-		((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(x,y);
+		((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(x, y);
 	}
 
 	public void removeFromCanvas(Widget canvas, GfxObject gfxO) {
@@ -125,7 +131,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 	public void removeFromVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO,
 			boolean isSilent) {
-		((VirtualGroup) getIncubatorGraphicalObjectFrom(gfxOGroup)).remove(getIncubatorGraphicalObjectFrom(gfxO));
+		((VirtualGroup) getIncubatorGraphicalObjectFrom(gfxOGroup))
+				.remove(getIncubatorGraphicalObjectFrom(gfxO));
 		redraw();
 
 	}
@@ -145,13 +152,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		getIncubatorGraphicalObjectFrom(gfxO).setStrokeColor(color);
 		getIncubatorGraphicalObjectFrom(gfxO).setStrokeWidth(width);
 		getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
-		//redraw();
+		// redraw();
 	}
 
 	public void setStrokeStyle(GfxObject gfxO, GfxStyle style) {
 		getIncubatorGraphicalObjectFrom(gfxO).setStyle(style);
 		getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
-		//redraw();
+		// redraw();
 
 	}
 
@@ -165,21 +172,24 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	public void addObjectListenerToCanvas(Widget canvas,
 			final GfxObjectListener gfxObjectListener) {
 
-
 		MouseListener mouseListener = new MouseListener() {
 
 			public void onMouseDown(Widget sender, int x, int y) {
-				if(x < 0)
-					gfxObjectListener.mouseRightClickPressed(IncubatorGfxObjectContainer.getPointedObject(-x, -y), -x, -y);
-				else	
-					gfxObjectListener.mouseLeftClickPressed(IncubatorGfxObjectContainer.getPointedObject(x, y), x, y);
+				if (x < 0)
+					gfxObjectListener.mouseRightClickPressed(
+							IncubatorGfxObjectContainer
+									.getPointedObject(-x, -y), -x, -y);
+				else
+					gfxObjectListener.mouseLeftClickPressed(
+							IncubatorGfxObjectContainer.getPointedObject(x, y),
+							x, y);
 
 			}
 
 			public void onMouseEnter(Widget sender) {
 			}
 
-			public void onMouseLeave(Widget sender) {				
+			public void onMouseLeave(Widget sender) {
 			}
 
 			public void onMouseMove(Widget sender, int x, int y) {
@@ -188,22 +198,23 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
-				//TODO fix this hack :
+				// TODO fix this hack :
 				if (x < 0)
-					gfxObjectListener.mouseDblClicked(IncubatorGfxObjectContainer.getPointedObject(-x, -y), -x, -y);
-				else 
-					gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer.getPointedObject(x, y), x, y);
+					gfxObjectListener.mouseDblClicked(
+							IncubatorGfxObjectContainer
+									.getPointedObject(-x, -y), -x, -y);
+				else
+					gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer
+							.getPointedObject(x, y), x, y);
 
 			}
 
 		};
 
-
-
 		ClickListener clickListener = new ClickListener() {
 
 			public void onClick(Widget sender) {
-				gfxObjectListener.mouseClicked(); 
+				gfxObjectListener.mouseClicked();
 			}
 
 		};
@@ -211,12 +222,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		((GWTCanvasWithListeners) canvas).addClickListener(clickListener);
 	}
 
-
-
-	private IncubatorGfxObject getIncubatorGraphicalObjectFrom(GfxObject gfxO)
-	{
+	private IncubatorGfxObject getIncubatorGraphicalObjectFrom(GfxObject gfxO) {
 		return ((IncubatorGfxObjectContainer) gfxO).getGraphicObject();
 	}
-
 
 }

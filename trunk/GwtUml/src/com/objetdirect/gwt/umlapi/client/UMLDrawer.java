@@ -27,17 +27,19 @@ public class UMLDrawer implements EntryPoint {
 	public final static DockPanel appRootPanel = new DockPanel();
 
 	public static void addtoAppRootPanel(Widget w) {
-		Log.info("History : adding center");
+		Log.trace("History : adding center");
 		appRootPanel.add(w, DockPanel.CENTER);
-		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
-	}
-	public static void clearAppRootPanel() {
-		Log.info("History : clearing panel");
-		appRootPanel.clear();
-		appRootPanel.add(log, DockPanel.SOUTH);
-		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
+				"display", "none");
 	}
 
+	public static void clearAppRootPanel() {
+		Log.trace("History : clearing panel");
+		appRootPanel.clear();
+		appRootPanel.add(log, DockPanel.SOUTH);
+		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
+				"display", "none");
+	}
 
 	public void onModuleLoad() {
 		Log.setUncaughtExceptionHandler();
@@ -47,11 +49,12 @@ public class UMLDrawer implements EntryPoint {
 			}
 		});
 	}
+
 	public void gwt_main() {
 
 		Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
-		Log.getDivLogger().moveTo(-1000, -1000);
-		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
+				"display", "none");
 
 		appRootPanel.setSize("100%", "100%");
 
@@ -78,13 +81,15 @@ public class UMLDrawer implements EntryPoint {
 				String p = DOM.getStyleAttribute(e, "display");
 				String v = ("none".equals(p)) ? "" : "none";
 				DOM.setStyleAttribute(e, "display", v);
-				Log.getDivLogger().moveTo(log.getAbsoluteLeft() , log.getAbsoluteTop() + log.getOffsetHeight() + 10);
+				Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
+						log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 			}
 		});
 
-
 		appRootPanel.add(startPanel, DockPanel.CENTER);
-		appRootPanel.add(log, DockPanel.SOUTH);	
+		appRootPanel.add(log, DockPanel.SOUTH);
 		RootPanel.get().add(appRootPanel);
+		Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
+				log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	}
 }

@@ -13,19 +13,23 @@ public class Rect extends IncubatorGfxObject {
 	}
 
 	public void draw(GWTCanvas canvas) {
-		if(!isVisible) return;
+		if (!isVisible)
+			return;
 		Log.trace("{Incubator} Drawing " + this);
 		canvas.saveContext();
-		if(fillColor != null) canvas.setFillStyle(fillColor);
-		if(strokeColor != null) canvas.setStrokeStyle(strokeColor);
-		if(strokeWidth != 0) canvas.setLineWidth(strokeWidth);
+		if (fillColor != null)
+			canvas.setFillStyle(fillColor);
+		if (strokeColor != null)
+			canvas.setStrokeStyle(strokeColor);
+		if (strokeWidth != 0)
+			canvas.setLineWidth(strokeWidth);
 		canvas.strokeRect(x, y, w, h);
 		canvas.restoreContext();
 	}
 
-
-	public boolean isPointed(int x, int y) {	
-		return (x > this.x) && (x < this.x + w) && (y > this.y) && (y < this.y + h);
+	public boolean isPointed(int x, int y) {
+		return (x > this.x) && (x < this.x + w) && (y > this.y)
+				&& (y < this.y + h);
 	}
 
 	public double getHeight() {

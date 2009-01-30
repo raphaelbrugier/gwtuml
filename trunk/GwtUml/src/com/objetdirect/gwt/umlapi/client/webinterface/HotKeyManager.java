@@ -1,4 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
+
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
@@ -8,50 +9,53 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
-public final class HotKeyManager { 
-	private static final class WindowCloseListenerImpl implements WindowCloseListener { 
+public final class HotKeyManager {
+	private static final class WindowCloseListenerImpl implements
+			WindowCloseListener {
 		public native void onWindowClosed() /*-{ 
-		$doc.onkeydown = null; 
-		$doc.onkeypress = null; 
-		$doc.onkeyup = null; 
-		}-*/;
+			$doc.onkeydown = null; 
+			$doc.onkeypress = null; 
+			$doc.onkeyup = null; 
+			}-*/;
 
-
-		public String onWindowClosing() { 
+		public String onWindowClosing() {
 			return null;
 		}
 
 		private native void init() /*-{ 
-			$doc.onkeydown = function(evt) { 
-				@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
-			} 
-			$doc.onkeypress = function(evt) { 
-				@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
-			} 
-			$doc.onkeyup = function(evt) { 
-				@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
-			} 
-		}-*/;
+				$doc.onkeydown = function(evt) { 
+					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+				} 
+				$doc.onkeypress = function(evt) { 
+					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+				} 
+				$doc.onkeyup = function(evt) { 
+					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+				} 
+			}-*/;
 	}
 
-	static { 
-		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl(); 
-		Window.addWindowCloseListener(closeListener); 
-		closeListener.init(); 
+	static {
+		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl();
+		Window.addWindowCloseListener(closeListener);
+		closeListener.init();
 	}
 
-	/** * Can be called from your code to force installation of * the event handling hooks. */ 
-	public static void forceStaticInit() { };
+	/**
+	 * * Can be called from your code to force installation of * the event
+	 * handling hooks.
+	 */
+	public static void forceStaticInit() {
+	};
 
-	public static void setActiveCanvas(UMLCanvas canvas) { 
+	public static void setActiveCanvas(UMLCanvas canvas) {
 		activeCanvas = canvas;
 	};
 
 	@SuppressWarnings("unused")
-	private static void onKeyDown(Event event) { 
-		char keyCode = (char) DOM.eventGetKeyCode(event); 
-		if(DOM.eventGetCtrlKey(event))
-		{
+	private static void onKeyDown(Event event) {
+		char keyCode = (char) DOM.eventGetKeyCode(event);
+		if (DOM.eventGetCtrlKey(event)) {
 			switch (keyCode) {
 			case 'C':
 				activeCanvas.addNewClass();
@@ -79,19 +83,18 @@ public final class HotKeyManager {
 	}
 
 	@SuppressWarnings("unused")
-	private static void onKeyPress(Event event) { 
-		//char keyCode = (char) DOM.eventGetKeyCode(event); 
+	private static void onKeyPress(Event event) {
+		// char keyCode = (char) DOM.eventGetKeyCode(event);
 	}
 
-
 	@SuppressWarnings("unused")
-	private static void onKeyUp(Event event) { 
-		//char keyCode = (char) DOM.eventGetKeyCode(event);
-	}	
+	private static void onKeyUp(Event event) {
+		// char keyCode = (char) DOM.eventGetKeyCode(event);
+	}
 
 	private static UMLCanvas activeCanvas;
 
-
 	/** * Prevent instantiation. */
-	private HotKeyManager() { } 
-} 
+	private HotKeyManager() {
+	}
+}

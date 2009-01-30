@@ -10,18 +10,31 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 public interface UMLElement {
 
 	GfxObject getGfxObject();
+
 	List<GfxObject> getComponents();
+
 	void select();
+
 	void unselect();
+
 	boolean isDraggable();
+
 	GfxObject getOutline();
+
 	void setLocation(int x, int y);
+
 	int getX();
+
 	int getY();
+
 	UMLCanvas getCanvas();
+
 	void setCanvas(UMLCanvas canvas);
+
 	void adjusted();
+
 	void edit(GfxObject gfxObject, int x, int y);
+
 	LinkedHashMap<String, Command> getRightMenu();
-	
+
 }
