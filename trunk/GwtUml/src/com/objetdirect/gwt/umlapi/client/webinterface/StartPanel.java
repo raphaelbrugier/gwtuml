@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -37,7 +38,7 @@ public class StartPanel extends VerticalPanel {
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.setSpacing(10);
-
+		final Image logoImg = new Image("gwtumllogo.png");
 		final Button startBtn = new Button("Start New Uml Class Diagram");
 		final Button startDemoBtn = new Button("Load Class Diagram Demo");
 		final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
@@ -160,6 +161,7 @@ public class StartPanel extends VerticalPanel {
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
 
+		this.add(logoImg);
 		this.add(startBtn);
 		this.add(startDemoBtn);
 		gfxEnginePanel.add(gfxEngineLbl);
