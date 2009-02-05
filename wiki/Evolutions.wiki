@@ -4,21 +4,21 @@
  * ...
 
 ==01/09==
- * _01/30/08_ Big code clean up and reorganization
- * _01/30/08_ Improvement on edition 
- * _01/29/08_ Added object removal
- * _01/29/08_ Visual interface has now a context menu on right click and canvas auto size
- * _01/23/09_ Rewritten dynamic edition 
- * _01/23/09_ Improved visual interface with theme manager now
- * _01/22/09_ Added script to commit each revision demo
- * _01/16/09_ Visual interface for linking UML objects
- * _01/16/09_ Extracted visual interface code
- * _01/15/09_ Added ajax like loading screen
- * _01/09/09_ Project moved to Google Code 
- * _01/08/09_ Outline of visual interface
+ * *01/30/08* Big code clean up and reorganization
+ * *01/30/08* Improvement on edition 
+ * *01/29/08* Added object removal
+ * *01/29/08* Visual interface has now a context menu on right click and canvas auto size
+ * *01/23/09* Rewritten dynamic edition 
+ * *01/23/09* Improved visual interface with theme manager now
+ * *01/22/09* Added script to commit each revision demo
+ * *01/16/09* Visual interface for linking UML objects
+ * *01/16/09* Extracted visual interface code
+ * *01/15/09* Added ajax like loading screen
+ * *01/09/09* Project moved to Google Code 
+ * *01/08/09* Outline of visual interface
 
 ==12/08==
- * _12/19/08_ Integration of GWT Incubator graphics engine
- * _12/12/08_ Project packages reorganization
- * _12/12/08_ Abstraction of graphical engine
- * _12/05/08_ Project started by Florian Mounier based on Henri Darmet prototype.
+ * *12/19/08* Integration of GWT Incubator graphics engine
+ * *12/12/08* Project packages reorganization
+ * *12/12/08* Abstraction of graphical engine
+ * *12/05/08* Project started by Florian Mounier based on Henri Darmet prototype.
