@@ -1,0 +1,12 @@
+#summary Project perspective
+
+This table describe what will be implemented _or not_ in the future :
+
+|| *Severity* || *Description* || *Estimated work load* ||
+|| *Critical* || Code javadoc  || _5 days_ ||
+|| *Major* || Unit tests || _5 days_ ||
+|| *Major* || Visual interface enhancements and code rewrite || _15 days_ ||
+|| *Normal* || Saving diagram in xml like format || _4-6 days_  ||
+|| *Normal* || Adding code generation || _15+ days_  ||
+|| *Minor* || Setting a server side to save diagrams like documents in google docs ? || _10+ days_ ||
+|| *Minor* || Adding other UML diagrams || _20+ days_ ||
