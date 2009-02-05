@@ -7,4 +7,5 @@ gwtuml is a gwt application to easily draw UML diagrams. It aims to implement au
 
 = Details =
 
+See [Evolutions] for project achievements.
 See [Perspective] for project planning.
