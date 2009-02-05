@@ -16,7 +16,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 
 public class ClassEditor {
 
-	public static final int FIELD_HEIGHT = 18;
+/*	public static final int FIELD_HEIGHT = 18;
 	public static final int FIELD_XMARGIN = 8;
 	public static final int FIELD_YMARGIN = -4;
 	TextBox editField = null;
@@ -426,6 +426,6 @@ public class ClassEditor {
 		} finally {
 			validationInProcess = false;
 		}
-	}
+	}*/
 
 }

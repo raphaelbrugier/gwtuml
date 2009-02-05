@@ -1,5 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.util.List;
+
 /**
  * This class represent a method in a class
  * @author hdarmet
@@ -9,7 +11,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 public class Method extends ClassMember {
 
 	private String name;
-	private Parameter[] parameters;
+	private List<Parameter>  parameters;
 	private String returnType;
 	private boolean validated = true;
 
@@ -19,7 +21,7 @@ public class Method extends ClassMember {
 	 * @param name The name of the method
 	 * @param parameters The parameters list of this method
 	 */
-	public Method(String returnType, String name, Parameter[] parameters) {
+	public Method(String returnType, String name, List<Parameter> parameters) {
 		super();
 		this.returnType = returnType;
 		this.name = name;
@@ -37,7 +39,7 @@ public class Method extends ClassMember {
 	 * Getter for the parameters list
 	 * @return the parameters list
 	 */
-	public Parameter[] getParameters() {
+	public List<Parameter>  getParameters() {
 		return parameters;
 	}
 	
@@ -69,7 +71,7 @@ public class Method extends ClassMember {
 	 * Setter for the parameters list
 	 * @param parameters list to be set
 	 */
-	public void setParameters(Parameter[] parameters) {
+	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
 	}
 	
@@ -99,14 +101,14 @@ public class Method extends ClassMember {
 		StringBuffer f = new StringBuffer();
 		f.append(this.name);
 		f.append("(");
-		if (parameters != null && parameters.length > 0) {
+		if (parameters != null && parameters.size() > 0) {
 			boolean first = true;
-			for (int i = 0; i < parameters.length; i++) {
+			for (Parameter parameter : parameters) {
 				if (!first)
 					f.append(", ");
 				else
 					first = false;
-				f.append(parameters[i].toString());
+				f.append(parameter.toString());	
 			}
 		}
 		f.append(")");

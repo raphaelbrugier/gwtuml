@@ -179,7 +179,7 @@ public class RelationshipArtifact extends LineArtifact {
 				getCanvas().removeSelected();
 			}
 		};
-		rightMenu.put("RelationShip " + leftClass.className + " <-> "
+		rightMenu.put("RelationShip " + leftClass.className.getClassName() + " <-> "
 				+ rightClass.className, doNothing);
 		rightMenu.put("-", null);
 		rightMenu.put("> Edit", doNothing);

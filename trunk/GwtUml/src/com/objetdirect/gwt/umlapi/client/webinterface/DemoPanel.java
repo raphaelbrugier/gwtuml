@@ -1,5 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -28,12 +32,17 @@ public class DemoPanel extends HorizontalPanel {
 		ClassArtifact clientClass = new ClassArtifact("Client");
 		clientClass.addAttribute(new Attribute("String", "firstName"));
 		clientClass.addAttribute(new Attribute("String", "lastName"));
-		clientClass.addMethod(new Method(null, "Client", new Parameter[] {
-				new Parameter("String", "firstName"),
-				new Parameter("String", "lastName") }));
-		clientClass.addMethod(new Method("void", "addProduct", new Parameter[] {
-				new Parameter("Product", "product"),
-				new Parameter("Date", "when") }));
+		
+		List<Parameter> clientParameters = new ArrayList<Parameter>();
+		clientParameters.add(new Parameter("String", "firstName"));
+		clientParameters.add(new Parameter("String", "lastName"));
+		
+		clientClass.addMethod(new Method(null, "Client", clientParameters));
+		List<Parameter> addProductParameters = new ArrayList<Parameter>();
+		addProductParameters.add(new Parameter("Product", "product"));
+		addProductParameters.add(new Parameter("Date", "when"));
+		
+		clientClass.addMethod(new Method("void", "addProduct", addProductParameters));
 		clientClass.setLocation(300, 300);
 
 		ClassDependencyArtifact clientDataManager = new ClassDependencyArtifact.Simple(

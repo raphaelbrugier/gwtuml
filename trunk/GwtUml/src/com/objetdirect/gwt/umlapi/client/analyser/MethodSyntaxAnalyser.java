@@ -26,7 +26,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		Parameter[] params = new Parameter[parameters.size()];
 		for (int i = 0; i < params.length; i++)
 			params[i] = parameters.get(i);
-		method.setParameters(params);
+		//TODO method.setParameters(params);
 	}
 	@Override
 	protected LexicalAnalyser.Token processToken(LexicalAnalyser lex,
