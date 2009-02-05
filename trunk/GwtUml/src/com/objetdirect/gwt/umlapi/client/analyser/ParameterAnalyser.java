@@ -1,8 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 
-import com.objetdirect.gwt.umlapi.client.Parameter;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
 public class ParameterAnalyser extends SyntaxAnalyser {
 

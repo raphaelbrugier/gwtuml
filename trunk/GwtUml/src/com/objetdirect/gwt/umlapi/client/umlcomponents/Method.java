@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 public class Method extends ClassMember {
 

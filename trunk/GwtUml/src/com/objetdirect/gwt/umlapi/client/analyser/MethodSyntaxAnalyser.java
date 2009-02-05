@@ -3,9 +3,9 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.Method;
-import com.objetdirect.gwt.umlapi.client.Parameter;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	public static final int BEGIN_PARAMETER = 2;

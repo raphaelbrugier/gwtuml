@@ -17,13 +17,25 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ * Main class for gwtuml application.
+ * This class does some initialization and calls the start panel.
+ * 
+ * @author hdarmet
+ * @author fmounier
  */
+
 public class UMLDrawer implements EntryPoint {
 
-	public final static DockPanel appRootPanel = new DockPanel();
+	private final static DockPanel appRootPanel = new DockPanel();
 	private static Button log;
-
+	private StartPanel startPanel;
+	
+	
+	/**
+	 * Add a widget to the center of the application root DockPanel
+	 * Only one panel must be in the center panel 
+	 * @param w The widget to be added
+	 */
 	public static void addtoAppRootPanel(Widget w) {
 		Log.trace("History : adding center");
 		appRootPanel.add(w, DockPanel.CENTER);
@@ -31,16 +43,21 @@ public class UMLDrawer implements EntryPoint {
 				"display", "none");
 	}
 
+	/**
+	 * Clear the application root DockPanel from any added widget
+	 */
 	public static void clearAppRootPanel() {
 		Log.trace("History : clearing panel");
 		appRootPanel.clear();
 		appRootPanel.add(log, DockPanel.SOUTH);
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
-	}
+	}	
 
-	private StartPanel startPanel;
-
+	/**
+	 * Entry point of the application
+	 * This class make a @see StartPanel and manage the history for it
+	 */
 	public void gwt_main() {
 
 		Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
@@ -84,6 +101,9 @@ public class UMLDrawer implements EntryPoint {
 				log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+	 */
 	public void onModuleLoad() {
 		Log.setUncaughtExceptionHandler();
 		DeferredCommand.addCommand(new Command() {

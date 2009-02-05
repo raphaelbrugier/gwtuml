@@ -2,14 +2,14 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.objetdirect.gwt.umlapi.client.Attribute;
-import com.objetdirect.gwt.umlapi.client.Method;
-import com.objetdirect.gwt.umlapi.client.Parameter;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
 public class DemoPanel extends HorizontalPanel {
 
