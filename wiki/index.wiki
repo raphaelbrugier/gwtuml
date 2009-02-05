@@ -4,7 +4,7 @@
 
 gwtuml is a gwt application to easily draw UML diagrams. It aims to implement auto code generation.
 
-http://code.google.com/p/gwtuml/source/browse/wiki/r30screenshot.PNG
+http://gwtuml.googlecode.com/svn/wiki/r30screenshot.PNG
 
 
 = Details =
