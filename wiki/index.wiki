@@ -11,3 +11,4 @@ http://gwtuml.googlecode.com/svn/wiki/r30screenshot.PNG
 
  * See [Evolutions] for project achievements.
  * See [Perspective] for project planning.
+ * See [About] for more.
