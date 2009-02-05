@@ -1,7 +1,9 @@
 #summary About this project
 
 This project was initiated by Henri Darmet
-This project is currently developed by Florian Mounier 
+
+This project is currently developed by Florian Mounier
+
 This project is made for : [http://www.objetdirect.com Objet Direct]
 
 
