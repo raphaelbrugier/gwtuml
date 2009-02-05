@@ -1,0 +1,10 @@
+#summary Home of gwtuml wiki
+
+= Introduction =
+
+gwtuml is a gwt application to easily draw UML diagrams. It aims to implement auto code generation.
+
+
+= Details =
+
+See [Perspective] for project planning.
