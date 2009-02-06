@@ -24,7 +24,8 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
 		attributes.add(new Attribute("String", "Attribute"));
-		
+		height = 50;
+		width = 50;
 	}
 	
 	public void add(Attribute attribute) {
@@ -48,7 +49,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
 			GfxManager.getPlatform().setFont(attributeText, font);
 			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
-			GfxManager.getPlatform().translate(attributeText, 0, 0);
+			GfxManager.getPlatform().translate(attributeText, 10, 10);
 			GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeText);
 		}
 		return gfxObject;

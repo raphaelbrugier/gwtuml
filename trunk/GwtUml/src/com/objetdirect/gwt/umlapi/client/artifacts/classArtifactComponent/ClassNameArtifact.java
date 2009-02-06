@@ -20,6 +20,8 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	
 	public ClassNameArtifact(String className) {
 		this.className = className;		
+		height = 50;
+		width = 50;
 	}
 
 	public String getClassName() {
@@ -41,7 +43,7 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		GfxObject nameText = GfxManager.getPlatform().buildText(className);
 		GfxManager.getPlatform().setFont(nameText, font);
 		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
-		GfxManager.getPlatform().translate(nameText, 0, 0/*TEXT_MARGIN, getNameY() + getLineHeight()*/);
+		GfxManager.getPlatform().translate(nameText, 10, 10/*TEXT_MARGIN, getNameY() + getLineHeight()*/);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameText);
 		return gfxObject;
 	}

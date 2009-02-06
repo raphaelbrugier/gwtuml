@@ -23,6 +23,8 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 		List<Parameter> methodParameters = new ArrayList<Parameter>();
 		methodParameters.add(new Parameter("String", "parameter1"));
 		methods.add(new Method("void","method", methodParameters));
+		height = 50;
+		width = 50;
 	}
 	
 	public void add(Method method) {
@@ -50,7 +52,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 			GfxObject methodText = GfxManager.getPlatform().buildText(method.toString());
 			GfxManager.getPlatform().setFont(methodText, font);
 			GfxManager.getPlatform().setFillColor(methodText, ThemeManager.getForegroundColor());
-			GfxManager.getPlatform().translate(methodText, 0, 0);//TEXT_MARGIN,	height + getLineHeight());
+			GfxManager.getPlatform().translate(methodText, 10, 10);//TEXT_MARGIN,	height + getLineHeight());
 			GfxManager.getPlatform().addToVirtualGroup(gfxObject, methodText);
 		}
 		return gfxObject;
