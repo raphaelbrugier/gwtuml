@@ -17,7 +17,9 @@ public class DrawerPanel extends HorizontalPanel {
 		this.setWidth("100%");
 
 		final UMLCanvas gc = new UMLCanvas(w, h);
-
+		gc.setStylePrimaryName("canvas");
+		this.add(gc);
+		
 		// TODO : under chrome redraw doesn't work if the canvas is at a
 		// different point than (0,0) tatami ? dojo ? chrome ?
 		// example : this.setSpacing(50);
@@ -25,11 +27,12 @@ public class DrawerPanel extends HorizontalPanel {
 		HotKeyManager.setActiveCanvas(gc);
 
 		ClassArtifact defaultclass = new ClassArtifact("Main");
+		gc.add(defaultclass);
 		defaultclass.setLocation(400, 300);
 
-		gc.setStylePrimaryName("canvas");
+		
 
-		gc.add(defaultclass);
+		
 
 		Log.info("Init class end\nBegin sidebar");
 
@@ -100,7 +103,7 @@ public class DrawerPanel extends HorizontalPanel {
 		sidePanel.add(addRelationship);
 		sidePanel.add(delete);
 
-		this.add(gc);
+		
 		this.add(sidePanel);
 
 		Log.info("Init end");

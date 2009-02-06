@@ -6,10 +6,12 @@ package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
@@ -23,9 +25,9 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
-		attributes.add(new Attribute("String", "Attribute"));
-		height = 50;
-		width = 50;
+		attributes.add(new Attribute("String", "attribute"));
+		height = 0;
+		width = 0;
 	}
 	
 	public void add(Attribute attribute) {
@@ -37,34 +39,19 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	}
 	
 	@Override
-	public GfxObject buildGfxObject() {
-		
-		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
-		GfxObject attributeRect = GfxManager.getPlatform().buildRect(width, height);
+	public void buildGfxObject() {
+		if(textVirtualGroup == null) computeBounds();		
+		GfxObject attributeRect = GfxManager.getPlatform().buildRect(classWidth, height);
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeRect);	
 		GfxManager.getPlatform().setFillColor(attributeRect,	ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeRect);
-
-		for (Attribute attribute : attributes) {
-			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
-			GfxManager.getPlatform().setFont(attributeText, font);
-			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
-			GfxManager.getPlatform().translate(attributeText, 10, 10);
-			GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeText);
-		}
-		return gfxObject;
+		GfxManager.getPlatform().moveToFront(textVirtualGroup);
 	}
 
 	public List<Attribute> getList() {
 		return attributes;
 	}
-	
-	@Override
-	public GfxObject getGfxObject() {
-		if(gfxObject == null)
-			return buildGfxObject();
-		return gfxObject;
-	}
+
 
 	@Override
 	public int getHeight() {
@@ -85,5 +72,33 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
+	@Override
+	public void computeBounds() {
+		height = 0;
+		width = 0;
+		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+		for (Attribute attribute : attributes) {
+			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
+			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, attributeText);
+			GfxManager.getPlatform().setFont(attributeText, font);
+			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
+			int thisAttributeWidth = (int) (OptionsManager.getXPadding() + GfxManager.getPlatform().getWidthFor(attributeText) + OptionsManager.getXPadding());
+			int thisAttributeHeight = (int) (OptionsManager.getYPadding() + GfxManager.getPlatform().getHeightFor(attributeText) + OptionsManager.getYPadding());
+			GfxManager.getPlatform().translate(attributeText, OptionsManager.getXPadding(), OptionsManager.getYPadding() + height + (thisAttributeHeight / 2));
+			width  = thisAttributeWidth > width ? thisAttributeWidth : width;
+			height += thisAttributeHeight;			
+		}
+		
+		
+		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
+	}
+
+	@Override
+	public void setClassWidth(int width) {
+		this.classWidth = width;
+	}
+
 
 }

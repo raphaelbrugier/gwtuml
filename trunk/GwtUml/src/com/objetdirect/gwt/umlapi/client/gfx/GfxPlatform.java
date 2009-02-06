@@ -47,7 +47,9 @@ public interface GfxPlatform {
 
 	void removeFromVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO,
 			boolean isSilent);
-
+	
+	void clearVirtualGroup(GfxObject gfxOGroup);
+	
 	void setFillColor(GfxObject gfxO, GfxColor color);
 
 	void setFont(GfxObject gfxO, GfxFont gfxF);
@@ -57,5 +59,9 @@ public interface GfxPlatform {
 	void setStrokeStyle(GfxObject gfxO, GfxStyle style);
 
 	void translate(GfxObject gfxO, int x, int y);
+	
+	void moveToFront(GfxObject gfxO);
+	
+	void moveToBack(GfxObject gfxO);
 
 }

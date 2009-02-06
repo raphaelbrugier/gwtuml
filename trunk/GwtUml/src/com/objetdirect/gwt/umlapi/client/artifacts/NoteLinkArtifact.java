@@ -130,4 +130,9 @@ public class NoteLinkArtifact implements UMLElement {
 				ThemeManager.getForegroundColor(), 1);
 	}
 
+	public GfxObject initializeGfxObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

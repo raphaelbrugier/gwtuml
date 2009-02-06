@@ -1,18 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.FocusListener;
-import com.google.gwt.user.client.ui.KeyboardListener;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
-import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyser;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact.ClassArtifactPart;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 
 public class ClassEditor {
 

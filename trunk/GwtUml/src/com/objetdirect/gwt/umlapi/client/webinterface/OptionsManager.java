@@ -7,7 +7,10 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
  */
 public class OptionsManager {
 
-	public static int getPadding() {
+	public static int getXPadding() {
+		return 5;
+	}
+	public static int getYPadding() {
 		return 5;
 	}
 }

@@ -189,7 +189,10 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		redraw();
 
 	}
-
+	public void clearVirtualGroup(GfxObject gfxOGroup) {
+		((VirtualGroup) getIncubatorGraphicalObjectFrom(gfxOGroup))
+		.clear();
+	}
 	public void setFillColor(GfxObject gfxO, GfxColor color) {
 		getIncubatorGraphicalObjectFrom(gfxO).setFillColor(color);
 		getIncubatorGraphicalObjectFrom(gfxO).draw(canvas);
@@ -224,6 +227,16 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 	private IncubatorGfxObject getIncubatorGraphicalObjectFrom(GfxObject gfxO) {
 		return ((IncubatorGfxObjectContainer) gfxO).getGraphicObject();
+	}
+
+	public void moveToBack(GfxObject gfxO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void moveToFront(GfxObject gfxO) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

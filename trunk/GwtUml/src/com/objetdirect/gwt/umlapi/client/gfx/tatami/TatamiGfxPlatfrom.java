@@ -34,6 +34,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			}
 
 			public void mouseDblClicked(GraphicObject graphicObject, Event e) {
+				Log.fatal(""+graphicObject);
+				graphicObject.moveToBack();
 				gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
 						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
 						DOM.eventGetClientY(e));
@@ -110,7 +112,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 
 	public double getWidthFor(GfxObject gfxO) {
 		if (gfxO != null)
-			return (4 * ((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth()) / 3;
+			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth();
 		return 0;
 	}
 
@@ -168,6 +170,10 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		((VirtualGroup) getTatamiGraphicalObjectFrom(gfxOGroup)).remove(
 				getTatamiGraphicalObjectFrom(gfxO), isSilent);
 
+	}	
+	public void clearVirtualGroup(GfxObject gfxOGroup) {
+		((VirtualGroup) getTatamiGraphicalObjectFrom(gfxOGroup)).clear();
+
 	}
 
 	public void setFillColor(GfxObject gfxO, GfxColor color) {
@@ -207,6 +213,16 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 
 	private GraphicObject getTatamiGraphicalObjectFrom(GfxObject gfxO) {
 		return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
+	}
+
+	public void moveToBack(GfxObject gfxO) {
+		getTatamiGraphicalObjectFrom(gfxO).moveToBack();
+		
+	}
+
+	public void moveToFront(GfxObject gfxO) {
+		getTatamiGraphicalObjectFrom(gfxO).moveToFront();
+		
 	}
 
 }

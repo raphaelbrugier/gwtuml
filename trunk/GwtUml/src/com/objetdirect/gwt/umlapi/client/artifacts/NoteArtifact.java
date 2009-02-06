@@ -9,6 +9,7 @@ import com.objetdirect.gwt.umlapi.client.editors.NoteEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class NoteArtifact extends BoxArtifact {
@@ -17,22 +18,18 @@ public class NoteArtifact extends BoxArtifact {
 	public final static int TEXT_XMARGIN = 8;
 	public final static int TEXT_YMARGIN = 20;
 
+	private Note note;
 	GfxObject borderPath = null;
-
-	String content = "";
-
 	GfxObject[] contentText = new GfxObject[1];
-
 	GfxObject cornerPath = null;
-
 	List<NoteLinkArtifact> dependencies = new ArrayList<NoteLinkArtifact>();
-
-	GfxObject vg;
-
 	private NoteEditor editor;
+	
 
 	public NoteArtifact() {
+		note = new Note("Note");
 		this.editor = new NoteEditor(this);
+		
 	}
 
 	public void addDependency(NoteLinkArtifact dependency) {
@@ -61,7 +58,7 @@ public class NoteArtifact extends BoxArtifact {
 	}
 
 	public String getContent() {
-		return content;
+		return note.getText();
 	}
 
 	@Override
@@ -142,7 +139,7 @@ public class NoteArtifact extends BoxArtifact {
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		note.setText(content);
 		set(contentText, createNoteText());
 	}
 
@@ -154,7 +151,7 @@ public class NoteArtifact extends BoxArtifact {
 	}
 	GfxObject createNoteText() {
 
-		GfxObject contentText = GfxManager.getPlatform().buildText(content);
+		GfxObject contentText = GfxManager.getPlatform().buildText(note.getText());
 		GfxManager.getPlatform().setFont(contentText, font);
 		GfxManager.getPlatform().setFillColor(contentText,
 				ThemeManager.getForegroundColor());
@@ -163,16 +160,13 @@ public class NoteArtifact extends BoxArtifact {
 		return contentText;
 	}
 	@Override
-	protected GfxObject buildGfxObject() {
-
-		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+	protected void buildGfxObject() {
 		contentText[0] = createNoteText();
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, contentText[0]);
 		borderPath = getBorderPath();
-		cornerPath = getCornerPath();
-		GfxManager.getPlatform().addToVirtualGroup(vg, borderPath);
-		GfxManager.getPlatform().addToVirtualGroup(vg, contentText[0]);
-		GfxManager.getPlatform().addToVirtualGroup(vg, cornerPath);
-		return vg;
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, borderPath);
+		cornerPath = getCornerPath();		
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, cornerPath);
 	}
 	protected GfxObject getBorderPath() {
 

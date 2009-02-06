@@ -117,8 +117,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	public void add(UMLElement element) {
 		element.setCanvas(this);
-		GfxManager.getPlatform().addToCanvas(canvas, element.getGfxObject(), 0,
-				0);
+		GfxManager.getPlatform().addToCanvas(canvas, element.initializeGfxObject(), 0, 0);
 		register(element.getGfxObject(), element);
 		List<GfxObject> elems = element.getComponents();
 		for (int i = 0; i < elems.size(); i++) {
@@ -131,8 +130,9 @@ public class UMLCanvas extends AbsolutePanel {
 		if (dragOn)
 			return;
 		ClassArtifact newClass = new ClassArtifact("Class");
-		newClass.setLocation(FAR_AWAY, FAR_AWAY);
 		add(newClass);
+		newClass.setLocation(FAR_AWAY, FAR_AWAY);
+		
 		if (selected != null)
 			selected.unselect();
 		select(newClass.getGfxObject());
@@ -149,8 +149,9 @@ public class UMLCanvas extends AbsolutePanel {
 		if (dragOn)
 			return;
 		NoteArtifact newNote = new NoteArtifact();
-		newNote.setLocation(FAR_AWAY, FAR_AWAY);
 		add(newNote);
+		newNote.setLocation(FAR_AWAY, FAR_AWAY);
+		
 		if (selected != null)
 			selected.unselect();
 		select(newNote.getGfxObject());
@@ -335,9 +336,9 @@ public class UMLCanvas extends AbsolutePanel {
 		contextMenuManager.show(x, y);
 	}
 	private void initCanvas() {
-		GfxManager.getPlatform().addObjectListenerToCanvas(canvas,
-				gfxObjectListener);
 		add(canvas, 0, 0);
+		GfxManager.getPlatform().addObjectListenerToCanvas(canvas,
+				gfxObjectListener);		
 		contextMenuManager = new ContextMenuManager(this);
 	}
 }

@@ -1,5 +1,7 @@
 package com.objetdirect.gwt.umlapi.client;
 
+import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
@@ -26,5 +28,13 @@ public class UMLDrawerHelper {
 			Log.warn("Cannot split " + objectName + " <=" + lastIndex);
 			return "" + o;
 		}
+	}
+	
+	public static int getMaxOf(List<Integer> list) {
+		int max = 0;
+		for (int i : list) {
+			max = i > max ? i : max;	
+		}
+		return max;
 	}
 }

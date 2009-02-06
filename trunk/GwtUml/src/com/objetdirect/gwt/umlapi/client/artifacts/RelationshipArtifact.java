@@ -528,9 +528,7 @@ public class RelationshipArtifact extends LineArtifact {
 		}
 	}
 	@Override
-	protected GfxObject buildGfxObject() {
-
-		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+	protected void buildGfxObject() {
 
 		float[] lineBounds = Geometry.computeLineBounds(leftClass, rightClass);
 		setBounds(Math.round(lineBounds[0]), Math
@@ -540,59 +538,58 @@ public class RelationshipArtifact extends LineArtifact {
 				getY2());
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line);
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 
 		if (relationClass != null)
-			relationLink = buildRelationLink(vg, getX1(), getY1(), getX2(),
+			relationLink = buildRelationLink(gfxObject, getX1(), getY1(), getX2(),
 					getY2(), relationClass);
 
 		if (name != null) {
 			nameText = createNameText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, nameText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameText);
 		}
 
 		if (arrowOnLeft) {
 			leftArrow = Geometry.buildArrow(getX1(), getY1(), getX2(), getY2());
-			GfxManager.getPlatform().addToVirtualGroup(vg, leftArrow);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, leftArrow);
 		}
 		if (arrowOnRight) {
 			rightArrow = Geometry
 					.buildArrow(getX2(), getY2(), getX1(), getY1());
-			GfxManager.getPlatform().addToVirtualGroup(vg, rightArrow);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, rightArrow);
 		}
 
 		if (leftCardinality != null) {
 			leftCardinalityText = createLeftCardinalityText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, leftCardinalityText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, leftCardinalityText);
 		}
 
 		if (rightCardinality != null) {
 			rightCardinalityText = createRightCardinalityText();
 			GfxManager.getPlatform()
-					.addToVirtualGroup(vg, rightCardinalityText);
+					.addToVirtualGroup(gfxObject, rightCardinalityText);
 		}
 
 		if (leftConstraint != null) {
 			leftConstraintText = createLeftConstraintText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, leftConstraintText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, leftConstraintText);
 		}
 
 		if (rightConstraint != null) {
 			rightConstraintText = createRightConstraintText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, rightConstraintText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, rightConstraintText);
 		}
 
 		if (leftRole != null) {
 			leftRoleText = createLeftRoleText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, leftRoleText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, leftRoleText);
 		}
 
 		if (rightRole != null) {
 			rightRoleText = createRightRoleText();
-			GfxManager.getPlatform().addToVirtualGroup(vg, rightRoleText);
+			GfxManager.getPlatform().addToVirtualGroup(gfxObject, rightRoleText);
 		}
 
-		return vg;
 	}
 	private GfxObject createLeftCardinalityText() {
 		GfxObject leftCardinalityText = GfxManager.getPlatform().buildText(

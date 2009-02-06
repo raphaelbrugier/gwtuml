@@ -64,4 +64,9 @@ public class VirtualGroup extends IncubatorGfxObject {
 		}
 	}
 
+	public void clear() {
+		incubatorGfxObjectSet.clear();
+		
+	}
+
 }

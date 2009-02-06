@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -44,10 +43,10 @@ public class ClassArtifact extends BoxArtifact {
 	private ClassAttributesArtifact classAttributes;
 	private ClassMethodsArtifact classMethods;
 	private ClassEditor editor;
-
 	private List<ClassDependencyArtifact> classDependencies = new ArrayList<ClassDependencyArtifact>();
 	private List<RelationshipArtifact> relationshipDependencies = new ArrayList<RelationshipArtifact>();
 	private List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();
+	private int width;
 	
 	public ClassArtifact() {
 		this("");
@@ -62,20 +61,13 @@ public class ClassArtifact extends BoxArtifact {
 	
 	public void addAttribute(Attribute attribute) {
 		classAttributes.add(attribute);
-		/*if (attrTexts != null) {
-			GfxObject[] slot = new GfxObject[1];
-			attrTexts.add(slot);
-			set(slot, createAttrText(attribute, getAttributeY(attribute)));
-		}*/
 	}
+	
+	
 	public void addMethod(Method method) {
 		classMethods.add(method);
-		/*if (attrTexts != null) {
-			GfxObject[] slot = new GfxObject[1];
-			attrTexts.add(slot);
-			set(slot, createAttrText(attribute, getAttributeY(attribute)));
-		}*/
 	}
+	
 	public void addClassDependency(ClassDependencyArtifact clazz) {
 		classDependencies.add(clazz);
 	}
@@ -120,8 +112,7 @@ public class ClassArtifact extends BoxArtifact {
 			};
 		}
 	}
-	
-	
+
 	public List<Attribute> getAttributes() {
 		return classAttributes.getList();
 	}
@@ -147,24 +138,84 @@ public class ClassArtifact extends BoxArtifact {
 		return classMethods.getList();
 	}
 	
-	protected GfxObject buildGfxObject() {
+	protected void buildGfxObject() {
 		Log.trace("Building GfxObject for "	+ UMLDrawerHelper.getShortName(this));
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, className.initializeGfxObject());
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, classAttributes.initializeGfxObject());
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, classMethods.initializeGfxObject());
+		//Computing text bounds :
+		className.computeBounds();
+		classAttributes.computeBounds();
+		classMethods.computeBounds();
+		//Searching largest width :
+		List<Integer> widthList = new ArrayList<Integer>();
+		widthList.add(className.getWidth());
+		widthList.add(classAttributes.getWidth());
+		widthList.add(classMethods.getWidth());
+		int maxWidth = UMLDrawerHelper.getMaxOf(widthList);
+		this.width = maxWidth;
+		className.setClassWidth(maxWidth);
+		classAttributes.setClassWidth(maxWidth);
+		classMethods.setClassWidth(maxWidth);
+		
+		//GfxObject namePart = className.getGfxObject();		
+		GfxObject attributesPart = classAttributes.getGfxObject();		
+		GfxObject methodsPart = classMethods.getGfxObject();		
+
+		GfxManager.getPlatform().translate(attributesPart, 0, className.getHeight());
+		GfxManager.getPlatform().translate(methodsPart, 0, className.getHeight() + classAttributes.getHeight());
+
+	
+
+		Log.trace("GfxObject is " + gfxObject);
+	}
+	
+	@Override
+	public GfxObject getOutline() {
 
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		
-		GfxObject namePart = className.getGfxObject();
-		GfxObject attributesPart = classAttributes.getGfxObject();
-		GfxObject methodsPart = classMethods.getGfxObject();
 
-		GfxManager.getPlatform().translate(attributesPart, className.getWidth(), className.getHeight());
-		GfxManager.getPlatform().translate(methodsPart, className.getWidth() + classAttributes.getWidth(), className.getHeight() + classAttributes.getHeight());
+		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(),
+				0);
+		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,
+				getWidth(), getHeight());
+		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(),
+				getHeight(), 0, getHeight());
+		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,
+				0);
 
-		GfxManager.getPlatform().addToVirtualGroup(vg, namePart);
-		GfxManager.getPlatform().addToVirtualGroup(vg, attributesPart);
-		GfxManager.getPlatform().addToVirtualGroup(vg, methodsPart);
+		GfxObject line5 = GfxManager.getPlatform().buildLine(0,
+				className.getHeight(), getWidth(), className.getHeight());
+		GfxObject line6 = GfxManager.getPlatform().buildLine(0,
+				className.getHeight() + classAttributes.getHeight(), getWidth(),
+				className.getHeight() + classAttributes.getHeight());
 
-		Log.trace("GfxObject is " + vg);
-		
+		GfxManager.getPlatform().setStrokeStyle(line1, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line2, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line3, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line4, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line5, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(line6, GfxStyle.DASH);
+
+		GfxManager.getPlatform().setStroke(line1,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line2,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line3,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line4,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line5,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(line6,
+				ThemeManager.getHighlightedForegroundColor(), 1);
+
+		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line5);
+		GfxManager.getPlatform().addToVirtualGroup(vg, line6);
 		return vg;
 	}
 	
@@ -181,10 +232,9 @@ public class ClassArtifact extends BoxArtifact {
 		return classDependencies.remove(clazz);
 	}
 
-
 	@Override
-	public int getWidth() {		
-		return className.getWidth() + classAttributes.getWidth() + classMethods.getWidth();
+	public int getWidth() {
+		return width;
 	}
 	
 	public ClassArtifactPart getSubPart(GfxObject o) {
@@ -430,54 +480,7 @@ public class ClassArtifact extends BoxArtifact {
 		return TEXT_MARGIN;
 	}
 
-	@Override
-	public GfxObject getOutline() {
 
-		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-
-		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(),
-				0);
-		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,
-				getWidth(), getHeight());
-		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(),
-				getHeight(), 0, getHeight());
-		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,
-				0);
-
-		GfxObject line5 = GfxManager.getPlatform().buildLine(0,
-				getClassNameHeight(), getWidth(), getClassNameHeight());
-		GfxObject line6 = GfxManager.getPlatform().buildLine(0,
-				getClassNameHeight() + getAttrHeight(), getWidth(),
-				getClassNameHeight() + getAttrHeight());
-
-		GfxManager.getPlatform().setStrokeStyle(line1, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line2, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line3, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line4, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line5, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line6, GfxStyle.DASH);
-
-		GfxManager.getPlatform().setStroke(line1,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line2,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line3,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line4,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line5,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line6,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-
-		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line5);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line6);
-		return vg;
-	}
 
 
 

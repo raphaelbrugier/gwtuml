@@ -3,7 +3,9 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
@@ -15,17 +17,18 @@ public abstract class UMLArtifact implements UMLElement {
 
 	List<NoteLinkArtifact> notes = new ArrayList<NoteLinkArtifact>();
 
+	private boolean isInitialized = false;
+
 	public void addNoteLink(NoteLinkArtifact noteLink) {
 		notes.add(noteLink);
 	}
 
-	public void adjust() {
-		UMLCanvas cnv = canvas;
-		if (cnv != null)
-			cnv.remove(this);
-		gfxObject = buildGfxObject();
-		if (cnv != null)
-			cnv.add(this);
+	public void adjust() {		
+		if (canvas != null)
+			canvas.remove(this);
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
+		if (canvas != null)
+			canvas.add(this);
 		adjusted();
 	}
 
@@ -48,9 +51,18 @@ public abstract class UMLArtifact implements UMLElement {
 		return getY() + getHeight() / 2;
 	}
 
+	public GfxObject initializeGfxObject() {
+		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
+		return gfxObject;
+	}
+
 	public GfxObject getGfxObject() {
 		if (gfxObject == null) {
-			gfxObject = buildGfxObject();
+			throw new UMLDrawerException("Must Initialize before getting gfxObjects");	
+		}
+		if(!isInitialized) {
+			buildGfxObject();
+			isInitialized = true;
 		}
 		return gfxObject;
 	}
@@ -72,5 +84,5 @@ public abstract class UMLArtifact implements UMLElement {
 	public String toString() {
 		return UMLDrawerHelper.getShortName(this);
 	}
-	protected abstract GfxObject buildGfxObject();
+	protected abstract void buildGfxObject();
 }

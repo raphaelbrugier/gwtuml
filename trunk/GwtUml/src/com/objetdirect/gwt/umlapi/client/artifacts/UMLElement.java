@@ -16,9 +16,10 @@ public interface UMLElement {
 	UMLCanvas getCanvas();
 
 	List<GfxObject> getComponents();
-
+	
+	public GfxObject initializeGfxObject();
 	GfxObject getGfxObject();
-
+	
 	GfxObject getOutline();
 
 	LinkedHashMap<String, Command> getRightMenu();

@@ -1,13 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import com.google.gwt.user.client.Command;
-import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
+import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
@@ -20,8 +17,8 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	
 	public ClassNameArtifact(String className) {
 		this.className = className;		
-		height = 50;
-		width = 50;
+		height = 0;
+		width = 0;
 	}
 
 	public String getClassName() {
@@ -33,26 +30,16 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	}
 	
 	@Override
-	public GfxObject buildGfxObject() {
-		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
-		GfxObject nameRect = GfxManager.getPlatform().buildRect(width, height);
+	public void buildGfxObject() {
+		if(textVirtualGroup == null) computeBounds();	
+		GfxObject nameRect = GfxManager.getPlatform().buildRect(classWidth, height);
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameRect);
 		GfxManager.getPlatform().setFillColor(nameRect,	ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(nameRect, ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameRect);
-
-		GfxObject nameText = GfxManager.getPlatform().buildText(className);
-		GfxManager.getPlatform().setFont(nameText, font);
-		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
-		GfxManager.getPlatform().translate(nameText, 10, 10/*TEXT_MARGIN, getNameY() + getLineHeight()*/);
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameText);
-		return gfxObject;
-	}
-
-	@Override
-	public GfxObject getGfxObject() {
-		if(gfxObject == null)
-			return buildGfxObject();
-		return gfxObject;
+				
+		//Centering name class :
+		GfxManager.getPlatform().translate(textVirtualGroup, (classWidth-width)/2, 0);
+		GfxManager.getPlatform().moveToFront(textVirtualGroup);
 	}
 
 	@Override
@@ -73,6 +60,29 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	@Override
 	public void setWidth(int width) {
 		this.width = width;
+	}
+
+	@Override
+	public void computeBounds() {
+		height = 0;
+		width = 0;
+		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+		GfxObject nameText = GfxManager.getPlatform().buildText(className);
+		GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, nameText);
+		
+		GfxManager.getPlatform().setFont(nameText, font);
+		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
+		width  = (int) (OptionsManager.getXPadding() + GfxManager.getPlatform().getWidthFor(nameText) + OptionsManager.getXPadding());
+		height = (int) (OptionsManager.getYPadding() + GfxManager.getPlatform().getHeightFor(nameText) + OptionsManager.getYPadding());
+		GfxManager.getPlatform().translate(nameText, OptionsManager.getXPadding(), OptionsManager.getYPadding() + (height / 2));
+		
+		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
+	}
+
+	@Override
+	public void setClassWidth(int width) {
+		this.classWidth = width;
 	}
 
 

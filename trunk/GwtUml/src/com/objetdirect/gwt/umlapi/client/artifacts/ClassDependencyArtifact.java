@@ -206,9 +206,11 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 	protected abstract GfxObject buildArrow(float[] lineBounds);
 
 	@Override
-	protected GfxObject buildGfxObject() {
+	protected void buildGfxObject() {
 
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, vg);
+		
 		float[] lineBounds = Geometry.computeLineBounds(left, right);
 		setBounds((int) lineBounds[0], (int) lineBounds[1],
 				(int) lineBounds[2], (int) lineBounds[3]);
@@ -216,7 +218,6 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 		GfxManager.getPlatform().addToVirtualGroup(vg, line);
 		arrow = buildArrow(lineBounds);
 		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
-		return vg;
 	}
 
 	protected abstract GfxObject buildLine(float[] lineBounds);

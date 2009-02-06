@@ -80,10 +80,11 @@ public class StartPanel extends VerticalPanel {
 				}
 
 				current_Panel = new DrawerPanel(w, h);
+				UMLDrawer.addtoAppRootPanel(current_Panel);
 				History.newItem("Drawer", false);
 
 				loadingScreen.hide();
-				UMLDrawer.addtoAppRootPanel(current_Panel);
+				
 			}
 		});
 
