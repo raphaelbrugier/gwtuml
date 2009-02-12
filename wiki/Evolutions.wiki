@@ -1,6 +1,8 @@
 #summary Evolution of gwtuml
 
 ==02/09==
+ * *02/06/08* Rewrite of class artifact component 
+ * *02/06/08* Workaround with not selectable class part
  * *02/05/08* Writing this wiki
 
 ==01/09==
