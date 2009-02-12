@@ -79,26 +79,31 @@ public abstract class BoxArtifact extends UMLArtifact {
 	public boolean isDraggable() {
 		return true;
 	}
-	public void setLocation(int x, int y) {
+	
+	
+	
+	public void moveTo(int x, int y) {
 		GfxManager.getPlatform().translate(getGfxObject(), x - this.x,
 				y - this.y);
 		this.x = x;
 		this.y = y;
 	}
+	
+	public void setLocation2(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	protected boolean set(GfxObject[] slot, GfxObject text) {
 		int oldWidth = getWidth();
 		int oldHeight = getHeight();
 		if (slot[0] != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					slot[0], false);
-			if (getCanvas() != null)
-				getCanvas().unregister(slot[0]);
 		}
 		slot[0] = text;
 		if (slot[0] != null) {
 			GfxManager.getPlatform().addToVirtualGroup(getGfxObject(), slot[0]);
-			if (getCanvas() != null)
-				getCanvas().register(slot[0], this);
 		}
 		int newWidth = getWidth();
 		int newHeight = getHeight();

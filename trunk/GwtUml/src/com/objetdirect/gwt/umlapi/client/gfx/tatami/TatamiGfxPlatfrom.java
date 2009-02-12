@@ -34,8 +34,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			}
 
 			public void mouseDblClicked(GraphicObject graphicObject, Event e) {
-				Log.fatal(""+graphicObject);
-				graphicObject.moveToBack();
+				Log.warn(""+graphicObject);
 				gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
 						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
 						DOM.eventGetClientY(e));
@@ -78,6 +77,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	}
 
 	public void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO) {
+		Log.trace("Adding " + gfxO + " to " + gfxOGroup);
 		((VirtualGroup) getTatamiGraphicalObjectFrom(gfxOGroup))
 				.add(getTatamiGraphicalObjectFrom(gfxO));
 
@@ -101,7 +101,9 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	}
 
 	public GfxObject buildVirtualGroup() {
-		return new TatamiGfxObjectContainer(new VirtualGroup());
+		GfxObject vg = new TatamiGfxObjectContainer(new VirtualGroup());
+		Log.trace("Creating " + vg);
+		return vg;
 	}
 
 	public double getHeightFor(GfxObject gfxO) {
@@ -219,7 +221,11 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		getTatamiGraphicalObjectFrom(gfxO).moveToBack();
 		
 	}
-
+	
+	public GfxObject getGroup(GfxObject gfxO) {
+		return TatamiGfxObjectContainer.getContainerOf(getTatamiGraphicalObjectFrom(gfxO).getGroup());
+		
+	}
 	public void moveToFront(GfxObject gfxO) {
 		getTatamiGraphicalObjectFrom(gfxO).moveToFront();
 		

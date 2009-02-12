@@ -66,9 +66,13 @@ public abstract class LineArtifact extends UMLArtifact {
 		this.x2 = x2;
 		this.y2 = y2;
 	}
-	public void setLocation(int x, int y) {
+	public void setLocation2(int x, int y) {
 		throw new UMLDrawerException(
-				"invalid operation : setLocation on a line");
+		"invalid operation : setLocation on a line");
+	}
+	public void moveTo(int x, int y) {
+		throw new UMLDrawerException(
+		"invalid operation : setLocation on a line");
 	}
 
 }

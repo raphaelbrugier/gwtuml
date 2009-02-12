@@ -60,6 +60,8 @@ public interface GfxPlatform {
 
 	void translate(GfxObject gfxO, int x, int y);
 	
+	GfxObject getGroup(GfxObject gfxO);
+	
 	void moveToFront(GfxObject gfxO);
 	
 	void moveToBack(GfxObject gfxO);

@@ -24,15 +24,15 @@ public class DemoPanel extends HorizontalPanel {
 		
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 		gc.add(dataManagerClass);
-		dataManagerClass.setLocation(500, 100);
+		dataManagerClass.setLocation2(500, 100);
 		
 		ClassArtifact businessObjectClass = new ClassArtifact("BusinessObject");
 		gc.add(businessObjectClass);
-		businessObjectClass.setLocation(650, 100);
+		businessObjectClass.setLocation2(650, 100);
 		
 		ClassArtifact serializableClass = new ClassArtifact("Serializable");
 		gc.add(serializableClass);
-		serializableClass.setLocation(700, 200);
+		serializableClass.setLocation2(700, 200);
 
 		ClassArtifact clientClass = new ClassArtifact("Client");
 		gc.add(clientClass);
@@ -52,7 +52,7 @@ public class DemoPanel extends HorizontalPanel {
 		
 		clientClass.addMethod(new Method("void", "addProduct", addProductParameters));
 		
-		clientClass.setLocation(300, 300);
+		clientClass.setLocation2(300, 300);
 
 		ClassDependencyArtifact clientDataManager = new ClassDependencyArtifact.Simple(
 				clientClass, dataManagerClass);
@@ -68,7 +68,7 @@ public class DemoPanel extends HorizontalPanel {
 		
 		ClassArtifact eventClass = new ClassArtifact("Event");
 		gc.add(eventClass);
-		eventClass.setLocation(250, 150);
+		eventClass.setLocation2(250, 150);
 		
 		RelationshipArtifact relClientEvent = new RelationshipArtifact(
 				clientClass, eventClass);
@@ -83,7 +83,7 @@ public class DemoPanel extends HorizontalPanel {
 
 		ClassArtifact addressClass = new ClassArtifact("Address");
 		gc.add(addressClass);
-		addressClass.setLocation(50, 250);
+		addressClass.setLocation2(50, 250);
 		
 		RelationshipArtifact relClientAddress = new RelationshipArtifact(
 				clientClass, addressClass);
@@ -95,11 +95,11 @@ public class DemoPanel extends HorizontalPanel {
 
 		ClassArtifact productClass = new ClassArtifact("Product");
 		gc.add(productClass);
-		productClass.setLocation(50, 450);
+		productClass.setLocation2(50, 450);
 		
 		ClassArtifact paymentClass = new ClassArtifact("Payment");
 		gc.add(paymentClass);
-		paymentClass.setLocation(150, 550);
+		paymentClass.setLocation2(150, 550);
 		
 		RelationshipArtifact relClientProduct = new RelationshipArtifact(
 				clientClass, productClass);
@@ -113,7 +113,7 @@ public class DemoPanel extends HorizontalPanel {
 		NoteArtifact note = new NoteArtifact();
 		gc.add(note);
 		note.setContent("Ceci est une note\nconcernant le client");
-		note.setLocation(400, 500);
+		note.setLocation2(400, 500);
 		
 		NoteLinkArtifact noteClientLink = new NoteLinkArtifact(note,
 				clientClass);

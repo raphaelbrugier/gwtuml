@@ -49,13 +49,13 @@ public class NoteArtifact extends BoxArtifact {
 		editor.editContent();
 	}
 
-	public List<GfxObject> getComponents() {
+	/*public List<GfxObject> getComponents() {
 		List<GfxObject> comps = new ArrayList<GfxObject>();
 		comps.add(contentText[0]);
 		comps.add(borderPath);
 		comps.add(cornerPath);
 		return comps;
-	}
+	}*/
 
 	public String getContent() {
 		return note.getText();
@@ -132,6 +132,7 @@ public class NoteArtifact extends BoxArtifact {
 	}
 
 	public void select() {
+		GfxManager.getPlatform().moveToFront(gfxObject);
 		GfxManager.getPlatform().setStroke(borderPath,
 				ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(cornerPath,
@@ -140,7 +141,7 @@ public class NoteArtifact extends BoxArtifact {
 
 	public void setContent(String content) {
 		note.setText(content);
-		set(contentText, createNoteText());
+		//set(contentText, createNoteText());
 	}
 
 	public void unselect() {

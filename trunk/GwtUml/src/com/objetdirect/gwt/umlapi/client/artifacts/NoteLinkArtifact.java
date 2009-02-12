@@ -13,11 +13,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
-public class NoteLinkArtifact implements UMLElement {
-
-	UMLCanvas canvas;
-
-	GfxObject gfxObject = null;
+public class NoteLinkArtifact extends LineArtifact {
 
 	GfxObject line = null;
 
@@ -25,7 +21,6 @@ public class NoteLinkArtifact implements UMLElement {
 
 	UMLArtifact target;
 
-	int x1, y1, x2, y2;
 
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
 		this.note = note;
@@ -35,27 +30,15 @@ public class NoteLinkArtifact implements UMLElement {
 
 	}
 
-	public void adjust() {
-		UMLCanvas cnv = canvas;
-		if (cnv != null)
-			cnv.remove(this);
-		gfxObject = buildGfxObject();
-		if (cnv != null)
-			cnv.add(this);
-		adjusted();
-	}
-
-	public void adjusted() {
-	}
-
-	public GfxObject buildGfxObject() {
+	public void buildGfxObject() {		
 		float[] lineBounds = Geometry.computeLineBounds(note, target);
 		line = GfxManager.getPlatform().buildLine((int) lineBounds[0],
 				(int) lineBounds[1], (int) lineBounds[2], (int) lineBounds[3]);
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-		return line;
+		
 	}
 
 	public void edit(GfxObject gfxObject, int x, int y) {
@@ -63,26 +46,6 @@ public class NoteLinkArtifact implements UMLElement {
 
 	}
 
-	public UMLCanvas getCanvas() {
-		return canvas;
-	}
-
-	public List<GfxObject> getComponents() {
-		List<GfxObject> comps = new ArrayList<GfxObject>();
-		comps.add(line);
-		return comps;
-	}
-
-	public GfxObject getGfxObject() {
-		if (gfxObject == null) {
-			gfxObject = buildGfxObject();
-		}
-		return gfxObject;
-	}
-
-	public GfxObject getOutline() {
-		return null;
-	}
 
 	public LinkedHashMap<String, Command> getRightMenu() {
 
@@ -120,19 +83,18 @@ public class NoteLinkArtifact implements UMLElement {
 	public void setCanvas(UMLCanvas canvas) {
 		this.canvas = canvas;
 	}
-	public void setLocation(int x, int y) {
+	public void setLocation2(int x, int y) {
 		throw new UMLDrawerException(
-				"invalid operation : setLocation on a line");
+		"invalid operation : setLocation on a line");
+	}
+	public void moveTo(int x, int y) {
+		throw new UMLDrawerException(
+		"invalid operation : setLocation on a line");
 	}
 
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
-	}
-
-	public GfxObject initializeGfxObject() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

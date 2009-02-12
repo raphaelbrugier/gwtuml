@@ -15,7 +15,7 @@ public interface UMLElement {
 
 	UMLCanvas getCanvas();
 
-	List<GfxObject> getComponents();
+	/*List<GfxObject> getComponents();*/
 	
 	public GfxObject initializeGfxObject();
 	GfxObject getGfxObject();
@@ -34,8 +34,10 @@ public interface UMLElement {
 
 	void setCanvas(UMLCanvas canvas);
 
-	void setLocation(int x, int y);
-
+	void moveTo(int x, int y);
+	
+	void setLocation2(int x, int y);
+	
 	void unselect();
 
 }

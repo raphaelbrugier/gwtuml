@@ -239,4 +239,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		
 	}
 
+	public GfxObject getGroup(GfxObject gfxO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

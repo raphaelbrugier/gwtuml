@@ -101,7 +101,7 @@ public class RelationshipArtifact extends LineArtifact {
 		editor.editPart(subPart);
 	}
 
-	public List<GfxObject> getComponents() {
+	/*public List<GfxObject> getComponents() {
 		List<GfxObject> comps = new ArrayList<GfxObject>();
 		comps.add(line);
 		if (relationLink != null)
@@ -125,7 +125,7 @@ public class RelationshipArtifact extends LineArtifact {
 		if (rightRoleText != null)
 			comps.add(rightRoleText);
 		return comps;
-	}
+	}*/
 
 	public int getHeight(RelationShipArtifactPart relationShipArtifactPart) {
 		GfxObject text = getTextForPart(relationShipArtifactPart);
@@ -289,12 +289,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (leftCardinalityText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					leftCardinalityText, false);
-			getCanvas().unregister(leftCardinalityText);
 			leftCardinalityText = null;
 
 			if (leftCardinality != "") {
 				leftCardinalityText = createLeftCardinalityText();
-				getCanvas().register(leftCardinalityText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						leftCardinalityText);
 			}
@@ -305,12 +303,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (leftConstraintText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					leftConstraintText, false);
-			getCanvas().unregister(leftConstraintText);
 			leftConstraintText = null;
 
 			if (leftConstraint != "") {
 				leftConstraintText = createLeftConstraintText();
-				getCanvas().register(leftConstraintText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						leftConstraintText);
 			}
@@ -321,12 +317,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (leftRoleText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					leftRoleText, false);
-			getCanvas().unregister(leftRoleText);
 			leftRoleText = null;
 
 			if (leftRole != "") {
 				leftRoleText = createLeftRoleText();
-				getCanvas().register(leftRoleText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						leftRoleText);
 			}
@@ -337,12 +331,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (nameText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					nameText, false);
-			getCanvas().unregister(nameText);
 			nameText = null;
 
 			if (name != "") {
 				nameText = createNameText();
-				getCanvas().register(nameText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						nameText);
 			}
@@ -363,12 +355,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (rightCardinalityText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					rightCardinalityText, false);
-			getCanvas().unregister(leftCardinalityText);
 			rightCardinalityText = null;
 
 			if (rightCardinality != "") {
 				rightCardinalityText = createRightCardinalityText();
-				getCanvas().register(rightCardinalityText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						rightCardinalityText);
 			}
@@ -379,12 +369,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (rightConstraintText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					rightConstraintText, false);
-			getCanvas().unregister(rightConstraintText);
 			rightConstraintText = null;
 
 			if (rightConstraint != "") {
 				rightConstraintText = createRightConstraintText();
-				getCanvas().register(rightConstraintText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						rightConstraintText);
 			}
@@ -395,12 +383,10 @@ public class RelationshipArtifact extends LineArtifact {
 		if (rightRoleText != null) {
 			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
 					rightRoleText, false);
-			getCanvas().unregister(rightRoleText);
 			rightRoleText = null;
 
 			if (rightRole != "") {
 				rightRoleText = createRightRoleText();
-				getCanvas().register(rightRoleText, this);
 				GfxManager.getPlatform().addToVirtualGroup(getGfxObject(),
 						rightRoleText);
 			}

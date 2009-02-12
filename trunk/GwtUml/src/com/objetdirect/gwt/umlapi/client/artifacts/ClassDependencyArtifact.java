@@ -180,12 +180,12 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 
 	}
 
-	public List<GfxObject> getComponents() {
+	/*public List<GfxObject> getComponents() {
 		List<GfxObject> comps = new ArrayList<GfxObject>();
 		comps.add(line);
 		comps.add(arrow);
 		return comps;
-	}
+	}*/
 	public Object getSubPart(GfxObject o) {
 		// TODO Auto-generated method stub
 		return null;

@@ -28,8 +28,7 @@ public class DrawerPanel extends HorizontalPanel {
 
 		ClassArtifact defaultclass = new ClassArtifact("Main");
 		gc.add(defaultclass);
-		defaultclass.setLocation(400, 300);
-
+		defaultclass.setLocation2(400, 300);
 		
 
 		
@@ -107,6 +106,7 @@ public class DrawerPanel extends HorizontalPanel {
 		this.add(sidePanel);
 
 		Log.info("Init end");
+
 	}
 
 }
