@@ -4,5 +4,6 @@ java ^
 com.google.gwt.dev.GWTCompiler ^
 -out "%~dp0\www" %* com.objetdirect.gwt.umlapi.UMLDrawer
 cd %~dp0
-xcopy www\com.objetdirect.gwt.umlapi.UMLDrawer latest_build /m /s /e /v /y
+rm latest_build\*
+xcopy www\com.objetdirect.gwt.umlapi.UMLDrawer latest_build /m /v /y
 pause

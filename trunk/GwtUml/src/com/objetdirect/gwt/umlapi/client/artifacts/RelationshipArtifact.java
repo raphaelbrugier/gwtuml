@@ -49,41 +49,39 @@ public class RelationshipArtifact extends LineArtifact {
 
 	GfxObject leftArrow = null;
 
-	String leftCardinality = "lc"; // null;
+	String leftCardinality = "0..*";
 
 	GfxObject leftCardinalityText = null;
 
 	ClassArtifact leftClass;
 
-	String leftConstraint = "lct"; // null;
+	String leftConstraint = null;
 
 	GfxObject leftConstraintText = null;
 
-	String leftRole = "lr"; // null;
+	String leftRole = null;
 
 	GfxObject leftRoleText = null;
 
 	GfxObject line = null;
 
-	String name = "name";// null;
+	String name = "link";
 
 	GfxObject nameText = null;
 
 	ClassArtifact relationClass = null;
 
-	// implementation
-
 	GfxObject relationLink = null;
 
 	GfxObject rightArrow = null;
-	String rightCardinality = "rc"; // null;
+	String rightCardinality = "0..*";
 	GfxObject rightCardinalityText = null;
 	ClassArtifact rightClass;
-	String rightConstraint = "rct"; // null;
+	String rightConstraint = null;
 
 	GfxObject rightConstraintText = null;
 
-	String rightRole = "rr"; // null;
+	String rightRole = null;
 
 	GfxObject rightRoleText = null;
 

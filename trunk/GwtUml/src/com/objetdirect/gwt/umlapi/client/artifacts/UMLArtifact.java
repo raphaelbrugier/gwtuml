@@ -17,18 +17,14 @@ public abstract class UMLArtifact implements UMLElement {
 
 	List<NoteLinkArtifact> notes = new ArrayList<NoteLinkArtifact>();
 
-	private boolean isInitialized = false;
+	private boolean isBuilt = false;
 
 	public void addNoteLink(NoteLinkArtifact noteLink) {
 		notes.add(noteLink);
 	}
 
 	public void adjust() {		
-		if (canvas != null)
-			canvas.remove(this);
-		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
-		if (canvas != null)
-			canvas.add(this);
+		this.rebuildGfxObject();
 		adjusted();
 	}
 
@@ -53,6 +49,7 @@ public abstract class UMLArtifact implements UMLElement {
 
 	public GfxObject initializeGfxObject() {
 		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
+		isBuilt = false;
 		return gfxObject;
 	}
 
@@ -60,9 +57,9 @@ public abstract class UMLArtifact implements UMLElement {
 		if (gfxObject == null) {
 			throw new UMLDrawerException("Must Initialize before getting gfxObjects");	
 		}
-		if(!isInitialized) {
+		if(!isBuilt) {
 			buildGfxObject();
-			isInitialized = true;
+			isBuilt = true;
 		}
 		return gfxObject;
 	}
@@ -85,4 +82,10 @@ public abstract class UMLArtifact implements UMLElement {
 		return UMLDrawerHelper.getShortName(this);
 	}
 	protected abstract void buildGfxObject();
+
+	public void rebuildGfxObject() {
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
+		buildGfxObject();
+		return;
+	}
 }

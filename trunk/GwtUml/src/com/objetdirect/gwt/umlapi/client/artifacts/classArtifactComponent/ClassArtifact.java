@@ -319,7 +319,7 @@ public class ClassArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(),
 				ThemeManager.getForegroundColor(), 1);
 	}
-
+	@Override
 	public void rebuildGfxObject() {
 		GfxManager.getPlatform().clearVirtualGroup(className.getGfxObject());
 		GfxManager.getPlatform().clearVirtualGroup(classAttributes.getGfxObject());
