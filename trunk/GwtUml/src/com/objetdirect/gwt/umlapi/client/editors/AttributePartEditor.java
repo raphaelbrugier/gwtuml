@@ -30,7 +30,7 @@ public class AttributePartEditor extends FieldEditor {
 	@Override
 	protected void updateClass(String newContent) {
 		attributeToChange.setName(newContent);
-		artifact.getClassArtifact().rebuildGfxObject();
+		((ClassAttributesArtifact) artifact).getClassArtifact().rebuildGfxObject();
 		
 	}
 }

@@ -15,12 +15,12 @@ public abstract class FieldEditor {
 
 	protected UMLCanvas canvas;
 	protected TextBox editField;
-	protected ClassPartArtifact artifact;
+	protected Object artifact;
 	protected String content;
 	//protected boolean validationInProcess = false;
 	protected abstract void updateClass(String newContent);
 	
-	public FieldEditor(UMLCanvas canvas, ClassPartArtifact artifact) {
+	public FieldEditor(UMLCanvas canvas, Object artifact) {
 		this.canvas = canvas;
 		this.artifact = artifact;
 	}

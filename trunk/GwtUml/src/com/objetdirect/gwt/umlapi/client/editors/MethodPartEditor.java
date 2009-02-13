@@ -32,7 +32,7 @@ public class MethodPartEditor extends FieldEditor {
 	@Override
 	protected void updateClass(String newContent) {
 		methodToChange.setName(newContent);
-		artifact.getClassArtifact().rebuildGfxObject();
+		((ClassMethodsArtifact) artifact).getClassArtifact().rebuildGfxObject();
 		
 	}
 }
