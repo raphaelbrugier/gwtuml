@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
 public class DrawerPanel extends HorizontalPanel {
@@ -28,7 +28,7 @@ public class DrawerPanel extends HorizontalPanel {
 
 		ClassArtifact defaultclass = new ClassArtifact("Main");
 		gc.add(defaultclass);
-		defaultclass.setLocation2(400, 300);
+		defaultclass.setLocation(400, 300);
 		
 
 		

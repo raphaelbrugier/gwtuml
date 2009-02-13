@@ -83,7 +83,7 @@ public class NoteLinkArtifact extends LineArtifact {
 	public void setCanvas(UMLCanvas canvas) {
 		this.canvas = canvas;
 	}
-	public void setLocation2(int x, int y) {
+	public void setLocation(int x, int y) {
 		throw new UMLDrawerException(
 		"invalid operation : setLocation on a line");
 	}

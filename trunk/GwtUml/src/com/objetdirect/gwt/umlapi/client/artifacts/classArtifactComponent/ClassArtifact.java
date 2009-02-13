@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -7,10 +7,9 @@ import java.util.List;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassAttributesArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassMethodsArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassNameArtifact;
-import com.objetdirect.gwt.umlapi.client.editors.ClassEditor;
+import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -18,6 +17,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public class ClassArtifact extends BoxArtifact {
 
@@ -39,15 +39,14 @@ public class ClassArtifact extends BoxArtifact {
 		}
 	}
 
-	public ClassNameArtifact className;
-	private ClassAttributesArtifact classAttributes;
-	private ClassMethodsArtifact classMethods;
-	private ClassEditor editor;
+	ClassNameArtifact className;
+	ClassAttributesArtifact classAttributes;
+	ClassMethodsArtifact classMethods;
 	private List<ClassDependencyArtifact> classDependencies = new ArrayList<ClassDependencyArtifact>();
 	private List<RelationshipArtifact> relationshipDependencies = new ArrayList<RelationshipArtifact>();
 	private List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();
 	private int width;
-	
+
 	public ClassArtifact() {
 		this("");
 	}
@@ -56,22 +55,33 @@ public class ClassArtifact extends BoxArtifact {
 		this.className = new ClassNameArtifact(className);
 		this.classAttributes = new ClassAttributesArtifact();
 		this.classMethods = new ClassMethodsArtifact();
+		
+		this.className.setClassArtifact(this);
+		this.classAttributes.setClassArtifact(this);
+		this.classMethods.setClassArtifact(this);
 		//this.editor = new ClassEditor(this);
+	}
+	@Override
+	public void setCanvas(UMLCanvas canvas) {
+		this.canvas = canvas;
+		this.className.setCanvas(canvas);
+		this.classAttributes.setCanvas(canvas);
+		this.classMethods.setCanvas(canvas);
 	}
 	
 	public void addAttribute(Attribute attribute) {
 		classAttributes.add(attribute);
 	}
-	
-	
+
+
 	public void addMethod(Method method) {
 		classMethods.add(method);
 	}
-	
+
 	public void addClassDependency(ClassDependencyArtifact clazz) {
 		classDependencies.add(clazz);
 	}
-	
+
 	public void addRelationship(RelationshipArtifact relationship) {
 		this.relationships.add(relationship);
 	}
@@ -79,13 +89,13 @@ public class ClassArtifact extends BoxArtifact {
 	public void addRelationshipDependency(RelationshipArtifact relationship) {
 		relationshipDependencies.add(relationship);
 	}
-	
+
 	@Override
 	public void adjusted() {
 		super.adjusted();
 		for (int i = 0; i < relationshipDependencies.size(); i++) {
 			final RelationshipArtifact element = relationshipDependencies
-					.get(i);
+			.get(i);
 			new Scheduler.Task(element) {
 				@Override
 				public void process() {
@@ -120,16 +130,16 @@ public class ClassArtifact extends BoxArtifact {
 	public String getClassName() {
 		return className.getClassName();
 	}
-	
+
 	@Override
 	public int getHeight() {
 		return className.getHeight() + classAttributes.getHeight() + classMethods.getHeight();
 	}
-	
+
 	public List<Method> getMethods() {
 		return classMethods.getList();
 	}
-	
+
 	protected void buildGfxObject() {
 		Log.trace("Building GfxObject for "	+ UMLDrawerHelper.getShortName(this));
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, className.initializeGfxObject());
@@ -149,19 +159,19 @@ public class ClassArtifact extends BoxArtifact {
 		className.setClassWidth(maxWidth);
 		classAttributes.setClassWidth(maxWidth);
 		classMethods.setClassWidth(maxWidth);
-		
-		GfxObject namePart = className.getGfxObject();		
+
+		className.getGfxObject();		
 		GfxObject attributesPart = classAttributes.getGfxObject();		
 		GfxObject methodsPart = classMethods.getGfxObject();		
 
 		GfxManager.getPlatform().translate(attributesPart, 0, className.getHeight());
 		GfxManager.getPlatform().translate(methodsPart, 0, className.getHeight() + classAttributes.getHeight());
 
-	
+
 
 		Log.trace("GfxObject is " + gfxObject);
 	}
-	
+
 	@Override
 	public GfxObject getOutline() {
 
@@ -169,19 +179,19 @@ public class ClassArtifact extends BoxArtifact {
 
 		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(), 0);
 		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
-		
+
 		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,	getWidth(), getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
-		
+
 		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(), getHeight(), 0, getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
-		
+
 		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,	0);
 		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
 
 		GfxObject line5 = GfxManager.getPlatform().buildLine(0,	className.getHeight(), getWidth(), className.getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line5);
-		
+
 		GfxObject line6 = GfxManager.getPlatform().buildLine(0,	className.getHeight() + classAttributes.getHeight(), getWidth(), className.getHeight() + classAttributes.getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line6);
 
@@ -207,7 +217,7 @@ public class ClassArtifact extends BoxArtifact {
 
 		return vg;
 	}
-	
+
 	public boolean removeRelationship(RelationshipArtifact relationship) {
 		return relationships.remove(relationship);
 	}
@@ -225,66 +235,50 @@ public class ClassArtifact extends BoxArtifact {
 	public int getWidth() {
 		return width;
 	}
-	
-	public ClassArtifactPart getSubPart(GfxObject o) {
-		Log.trace("Trying to find subpart of " + o + "\n\tname is "
-				+ className.getClassName() + "\n\tattr is " + classAttributes.getGfxObject()
-				+ "\n\t method is " + classMethods.getGfxObject());
 
-		if (o.equals(className.getGfxObject()))
-			return ClassArtifactPart.NAME;
-
-		if (o.equals(classAttributes.getGfxObject()))
-			return ClassArtifactPart.NEW_ATTRIBUTE;
-
-		if (o.equals(classMethods.getGfxObject()))
-			return ClassArtifactPart.NEW_METHOD;
-
-		if (o.equals(getGfxObject()))
-			return ClassArtifactPart.NAME;
-/*
-		int attrTextIndex = indexOf(attrTexts, o);
-		if (attrTextIndex != -1) {
-			ClassArtifactPart classArtifactPart = ClassArtifactPart.ATTRIBUTE;
-			classArtifactPart.setSlotIndex(attrTextIndex);
-			return classArtifactPart;
-		}
-
-		int methodTextIndex = indexOf(methodTexts, o);
-		if (methodTextIndex != -1) {
-			ClassArtifactPart classArtifactPart = ClassArtifactPart.METHOD;
-			classArtifactPart.setSlotIndex(methodTextIndex);
-			return classArtifactPart;
-		}*/
-
-		return ClassArtifactPart.NONE;
-	}
-	
 	public void edit(GfxObject gfxObject, int x, int y) {
-		/*ClassArtifactPart subPart = getSubPart(gfxObject);
-		if (subPart == null) {
-			Log.debug("No subpart found");
-			return;
+
+		if (gfxObject.equals(className.getGfxObject())) {
+			Log.warn("Selecting a virtual group : this should not happen !");
+			className.edit();
+		} else if (gfxObject.equals(classAttributes.getGfxObject())) {
+			Log.warn("Selecting a virtual group : this should not happen !");
+			classAttributes.edit();
+		} else if (gfxObject.equals(classMethods.getGfxObject())) {
+			Log.warn("Selecting a virtual group : this should not happen !");
+			classMethods.edit(gfxObject);
+		} else if (gfxObject.equals(getGfxObject())) {
+			Log.warn("Selecting a virtual group : this should not happen !");
+			className.edit();
+		} else {
+
+			GfxObject gfxObjectGroup = GfxManager.getPlatform().getGroup(gfxObject);
+			if(gfxObjectGroup != null)
+			{				
+				if (gfxObjectGroup.equals(className.getGfxObject())) {
+					className.edit();
+				} else if (gfxObjectGroup.equals(classAttributes.getGfxObject())) {
+					classAttributes.edit();
+				} else if (gfxObjectGroup.equals(classMethods.getGfxObject())) {
+					classMethods.edit();
+				} else {			
+					gfxObjectGroup = GfxManager.getPlatform().getGroup(gfxObjectGroup);
+					if(gfxObjectGroup != null)
+					{
+						if (gfxObjectGroup.equals(className.getGfxObject())) {
+							className.edit();
+						} else if (gfxObjectGroup.equals(classAttributes.getGfxObject())) {
+							classAttributes.edit(gfxObject);
+						} else if (gfxObjectGroup.equals(classMethods.getGfxObject())) {
+							classMethods.edit(gfxObject);
+						} else if (gfxObjectGroup.equals(getGfxObject())) {
+							Log.warn("Selecting the master virtual group : this should NOT happen !");
+							className.edit();
+						} else Log.warn("No editable part found");
+					} else Log.warn("No editable part found");
+				}
+			}
 		}
-		editor.setSubPart(subPart);
-		switch (subPart) {
-		case NONE:
-		case NAME:
-			editor.editName();
-			break;
-		case NEW_ATTRIBUTE:
-			editor.editNewAttribute();
-			break;
-		case NEW_METHOD:
-			editor.editNewMethod();
-			break;
-		case ATTRIBUTE:
-			editor.editAttribute(attributes.get(subPart.getSlotIndex()));
-			break;
-		case METHOD:
-			editor.editMethod(methods.get(subPart.getSlotIndex()));
-			break;
-		}*/
 	}
 
 	public LinkedHashMap<String, Command> getRightMenu() {
@@ -314,7 +308,7 @@ public class ClassArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setStroke(className.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(classAttributes.getGfxObject(),	ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
-		
+
 	}
 
 	public void unselect() {
@@ -324,6 +318,15 @@ public class ClassArtifact extends BoxArtifact {
 				ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(),
 				ThemeManager.getForegroundColor(), 1);
+	}
+
+	public void rebuildGfxObject() {
+		GfxManager.getPlatform().clearVirtualGroup(className.getGfxObject());
+		GfxManager.getPlatform().clearVirtualGroup(classAttributes.getGfxObject());
+		GfxManager.getPlatform().clearVirtualGroup(classMethods.getGfxObject());
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
+		buildGfxObject();
+		
 	}
 
 }

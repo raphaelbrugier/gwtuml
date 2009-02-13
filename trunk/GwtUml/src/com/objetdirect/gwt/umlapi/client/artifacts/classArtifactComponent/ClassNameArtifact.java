@@ -2,10 +2,13 @@ package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
+import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
  * @author fmounier
@@ -14,9 +17,10 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 public class ClassNameArtifact extends ClassPartArtifact {
 
 	private String className;
+	private GfxObject nameText;
 	
 	public ClassNameArtifact(String className) {
-		this.className = className;		
+		this.className = className;
 		height = 0;
 		width = 0;
 	}
@@ -38,7 +42,7 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		GfxManager.getPlatform().setStroke(nameRect, ThemeManager.getForegroundColor(), 1);
 				
 		//Centering name class :
-		GfxManager.getPlatform().translate(textVirtualGroup, (classWidth-width)/2, 0);
+		GfxManager.getPlatform().translate(textVirtualGroup, OptionsManager.getRectangleLeftPadding() + (classWidth-width)/2, OptionsManager.getRectangleTopPadding());
 		GfxManager.getPlatform().moveToFront(textVirtualGroup);
 	}
 
@@ -68,22 +72,42 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
-		GfxObject nameText = GfxManager.getPlatform().buildText(className);
+		nameText = GfxManager.getPlatform().buildText(className);
 		GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, nameText);
 		
-		GfxManager.getPlatform().setFont(nameText, font);
+		GfxManager.getPlatform().setFont(nameText, OptionsManager.getSmallCapsFont());
 		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
-		width  = (int) (OptionsManager.getXPadding() + GfxManager.getPlatform().getWidthFor(nameText) + OptionsManager.getXPadding());
-		height = (int) (OptionsManager.getYPadding() + GfxManager.getPlatform().getHeightFor(nameText) + OptionsManager.getYPadding());
-		GfxManager.getPlatform().translate(nameText, OptionsManager.getXPadding(), OptionsManager.getYPadding() + (height / 2));
+		width  = (int) GfxManager.getPlatform().getWidthFor(nameText);
+		height = (int) GfxManager.getPlatform().getHeightFor(nameText);
+		GfxManager.getPlatform().translate(nameText, 0, height);
+		GfxManager.getPlatform().translate(nameText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding());
+			
+		width += OptionsManager.getTextXTotalPadding();
+		height += OptionsManager.getTextYTotalPadding();
 		
-		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
+		width += OptionsManager.getRectangleXTotalPadding();
+		height += OptionsManager.getRectangleYTotalPadding();
+		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);	
 	}
 
 	@Override
 	public void setClassWidth(int width) {
 		this.classWidth = width;
 	}
+
+	@Override
+	public void edit() {
+		NamePartFieldEditor editor = new NamePartFieldEditor(canvas, this);
+		editor.startEdition(className, (int) (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
+				(int) (classArtifact.getY() + OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
+				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
+	}	
+	
+	@Override
+	public void edit(GfxObject gfxObject) {
+		edit();
+	}
+
 
 
 }

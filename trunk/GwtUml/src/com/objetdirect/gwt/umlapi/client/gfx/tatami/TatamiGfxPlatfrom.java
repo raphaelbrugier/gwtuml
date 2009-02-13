@@ -97,6 +97,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	}
 
 	public GfxObject buildText(String text) {
+		
 		return new TatamiGfxObjectContainer(new Text(text));
 	}
 
@@ -108,13 +109,15 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 
 	public double getHeightFor(GfxObject gfxO) {
 		if (gfxO != null)
-			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getHeight();
+			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getHeight() * 4 / 5; // Converting point to pixel
 		return 0;
 	}
 
 	public double getWidthFor(GfxObject gfxO) {
-		if (gfxO != null)
-			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth();
+		if (gfxO != null) {
+			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth() * 4 / 5; // Converting point to pixel	
+		}
+		
 		return 0;
 	}
 

@@ -59,8 +59,11 @@ public class UMLDrawer implements EntryPoint {
 	 * This class make a @see StartPanel and manage the history for it
 	 */
 	public void gwt_main() {
-
+		
+		DOM.setInnerHTML(RootPanel.get("loading-screen").getElement(), "");
+		
 		Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
+		
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 

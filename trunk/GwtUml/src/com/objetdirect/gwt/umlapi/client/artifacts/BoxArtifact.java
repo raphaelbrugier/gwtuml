@@ -8,10 +8,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public abstract class BoxArtifact extends UMLArtifact {
 
-	public static final int DEFAULT_WIDTH = 50;
 
-	GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL,
-			GfxFont.LIGHTER);
+
 
 	int x = 0;
 
@@ -89,7 +87,7 @@ public abstract class BoxArtifact extends UMLArtifact {
 		this.y = y;
 	}
 	
-	public void setLocation2(int x, int y) {
+	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

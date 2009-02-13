@@ -36,7 +36,7 @@ public interface UMLElement {
 
 	void moveTo(int x, int y);
 	
-	void setLocation2(int x, int y);
+	void setLocation(int x, int y);
 	
 	void unselect();
 

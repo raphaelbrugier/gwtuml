@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.google.gwt.user.client.Command;
+import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.editors.RelationshipEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -179,8 +180,8 @@ public class RelationshipArtifact extends LineArtifact {
 				getCanvas().removeSelected();
 			}
 		};
-		rightMenu.put("RelationShip " + leftClass.className.getClassName() + " <-> "
-				+ rightClass.className, doNothing);
+		rightMenu.put("RelationShip " + leftClass.getClassName() + " <-> "
+				+ rightClass.getClassName(), doNothing);
 		rightMenu.put("-", null);
 		rightMenu.put("> Edit", doNothing);
 		rightMenu.put("> Reverse", doNothing);

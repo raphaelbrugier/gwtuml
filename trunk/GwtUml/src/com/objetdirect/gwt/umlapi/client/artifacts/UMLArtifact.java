@@ -11,9 +11,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public abstract class UMLArtifact implements UMLElement {
 
-	UMLCanvas canvas;
+	protected UMLCanvas canvas;
 
-	GfxObject gfxObject;
+	protected GfxObject gfxObject;
 
 	List<NoteLinkArtifact> notes = new ArrayList<NoteLinkArtifact>();
 

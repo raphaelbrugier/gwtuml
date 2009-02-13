@@ -11,13 +11,13 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLElement;
+import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
@@ -128,7 +128,7 @@ public class UMLCanvas extends AbsolutePanel {
 		if (selected != null)
 			selected.unselect();
 		select(newClass.getGfxObject());
-		take(FAR_AWAY + BoxArtifact.DEFAULT_WIDTH / 2, FAR_AWAY);
+		take(FAR_AWAY, FAR_AWAY);
 		dragOn = true;
 	}
 
@@ -147,7 +147,7 @@ public class UMLCanvas extends AbsolutePanel {
 		if (selected != null)
 			selected.unselect();
 		select(newNote.getGfxObject());
-		take(FAR_AWAY + BoxArtifact.DEFAULT_WIDTH / 2, FAR_AWAY);
+		take(FAR_AWAY, FAR_AWAY);
 		dragOn = true;
 
 	}

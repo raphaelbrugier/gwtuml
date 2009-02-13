@@ -4,5 +4,7 @@ java ^
 com.google.gwt.dev.GWTCompiler ^
 -out "%~dp0\www" %* com.objetdirect.gwt.umlapi.UMLDrawer
 cd %~dp0
+rm latest_build\*
 xcopy www\com.objetdirect.gwt.umlapi.UMLDrawer latest_build /m /s /e /v /y
+c:\svn\bin\svn.exe add --force latest_build\*
 pause

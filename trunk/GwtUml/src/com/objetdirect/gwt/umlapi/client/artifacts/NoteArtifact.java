@@ -10,6 +10,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public class NoteArtifact extends BoxArtifact {
@@ -128,7 +129,7 @@ public class NoteArtifact extends BoxArtifact {
 		int width = TEXT_XMARGIN
 				+ (int) GfxManager.getPlatform().getWidthFor(contentText[0])
 				+ TEXT_XMARGIN;
-		return width > DEFAULT_WIDTH ? width : DEFAULT_WIDTH;
+		return width;
 	}
 
 	public void select() {
@@ -153,7 +154,7 @@ public class NoteArtifact extends BoxArtifact {
 	GfxObject createNoteText() {
 
 		GfxObject contentText = GfxManager.getPlatform().buildText(note.getText());
-		GfxManager.getPlatform().setFont(contentText, font);
+		GfxManager.getPlatform().setFont(contentText, OptionsManager.getFont());
 		GfxManager.getPlatform().setFillColor(contentText,
 				ThemeManager.getForegroundColor());
 		GfxManager.getPlatform().translate(contentText, TEXT_XMARGIN,

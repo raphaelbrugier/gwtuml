@@ -6,6 +6,9 @@
 	background: #eee;
 	width: 100%;
 }
+.editor-field {
+	border: 1px solid #0f0;
+}
 
 .canvas {
 	border: 3px solid black;
