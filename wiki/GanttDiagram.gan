@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Untitled Gantt Project" company="" webLink="http://" view-date="2008-12-29" view-index="0" gantt-divider-location="448" resource-divider-location="301" version="2.0">
+<project name="Untitled Gantt Project" company="" webLink="http://" view-date="2008-12-01" view-index="0" gantt-divider-location="569" resource-divider-location="301" version="2.0">
     <description/>
-    <view zooming-state="default:3" id="gantt-chart"/>
+    <view zooming-state="default:4" id="gantt-chart"/>
     <view id="resource-table">
         <field id="0" name="Nom" width="55" order="0"/>
         <field id="1" name="Rôle par défaut" width="44" order="1"/>
@@ -72,7 +72,7 @@
         <date year="2009" month="3" date="24"/>
         <date year="2009" month="3" date="25"/>
     </calendars>
-    <tasks>
+    <tasks color="#8cb6ce">
         <taskproperties>
             <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
             <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
@@ -88,46 +88,87 @@
         <task id="6" name="Prototype" meeting="false" start="2008-12-04" duration="1" complete="100" priority="1" expand="true">
             <notes><![CDATA[Non mesuré]]></notes>
             <depend id="0" type="2" difference="0" hardness="Strong"/>
+            <depend id="37" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="13" name="Project Management" meeting="false" start="2008-12-05" duration="91" complete="12" priority="1" expand="true">
-            <task id="0" name="Project Setup" color="#8cb6ce" meeting="false" start="2008-12-05" duration="3" complete="100" priority="1" expand="true">
-                <task id="1" name="Platform setup" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true"/>
-                <task id="2" name="Code Reorganization" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true"/>
-                <task id="9" name="Setting up a temporary svn" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true"/>
+        <task id="37" name="Internship (PFE)" color="#8cb6ce" meeting="false" start="2008-12-05" duration="92" complete="0" priority="1" expand="true">
+            <task id="38" name="Dual Education (Alternance)" color="#8cb6ce" meeting="false" start="2008-12-05" duration="27" complete="0" priority="1" expand="true">
+                <depend id="39" type="2" difference="0" hardness="Strong"/>
             </task>
+            <task id="39" name="Full Time" color="#8cb6ce" meeting="false" start="2009-03-30" duration="65" complete="0" priority="1" expand="true"/>
+        </task>
+        <task id="13" name="Project Management" meeting="false" start="2008-12-05" duration="92" complete="12" priority="1" expand="false">
+            <task id="0" name="Project Setup" color="#8cb6ce" meeting="false" start="2008-12-05" duration="3" complete="100" priority="1" expand="false">
+                <task id="1" name="Platform setup" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true">
+                    <depend id="2" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="9" name="Setting up a temporary svn" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true">
+                    <depend id="2" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="2" name="Code Pre-reorganization" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true"/>
+            </task>
+            <task id="10" name="Move project to Google Code" meeting="false" start="2009-01-08" duration="1" complete="100" priority="1" expand="true">
+                <depend id="16" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="16" name="Write a script to have a compiled application for each version" meeting="false" start="2009-01-09" duration="1" complete="100" priority="1" expand="true"/>
             <task id="15" name="Wiki creation" meeting="false" start="2009-02-05" duration="2" complete="100" priority="1" expand="true">
                 <depend id="29" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="29" name="Wiki Updating" meeting="false" start="2009-02-12" duration="77" complete="4" priority="1" expand="true"/>
+            <task id="29" name="Wiki Updating" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2009-02-12" duration="77" complete="4" priority="1" expand="true"/>
             <task id="28" name="Project's Gantt Diagram" meeting="false" start="2009-02-26" duration="1" complete="100" priority="1" expand="true">
                 <depend id="27" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="16" name="Write a script to have a compiled application for each version" meeting="false" start="2009-01-08" duration="1" complete="100" priority="1" expand="true"/>
-            <task id="10" name="Move project to Google Code" meeting="false" start="2009-01-09" duration="1" complete="100" priority="1" expand="true"/>
             <task id="27" name="Midterm internship meeting" meeting="false" start="2009-02-27" duration="1" complete="0" priority="1" expand="true"/>
         </task>
-        <task id="5" name="Graphical Layer Abstraction" meeting="false" start="2008-12-11" duration="7" complete="100" priority="1" expand="true">
-            <task id="7" name="Set up a bridge for graphic engines" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true"/>
-            <task id="8" name="Integration of GWT Incubator graphic engine" meeting="false" start="2008-12-12" duration="6" complete="100" priority="1" expand="true"/>
+        <task id="5" name="Graphical Layer Abstraction" meeting="false" start="2008-12-11" duration="8" complete="100" priority="1" expand="false">
+            <task id="7" name="Set up a bridge for graphic engines" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true">
+                <depend id="8" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="8" name="Integration of GWT Incubator graphic engine" meeting="false" start="2008-12-18" duration="6" complete="100" priority="1" expand="true"/>
         </task>
-        <task id="3" name="Visual Interface" meeting="false" start="2009-01-08" duration="7" complete="100" priority="1" expand="true">
-            <task id="4" name="Creation" meeting="false" start="2009-01-08" duration="1" complete="100" priority="1" expand="true"/>
-            <task id="11" name="VI Code spearation" meeting="false" start="2009-01-15" duration="2" complete="100" priority="1" expand="true"/>
-            <task id="12" name="HTML Loading Screen" meeting="false" start="2009-01-29" duration="1" complete="100" priority="1" expand="true"/>
+        <task id="3" name="Visual Interface" meeting="false" start="2009-01-08" duration="8" complete="100" priority="1" expand="false">
+            <task id="4" name="Creation" meeting="false" start="2009-01-08" duration="2" complete="100" priority="1" expand="true">
+                <depend id="11" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="11" name="Visual Interface Code spearation" meeting="false" start="2009-01-15" duration="2" complete="100" priority="1" expand="true">
+                <depend id="32" type="2" difference="0" hardness="Rubber"/>
+            </task>
+            <task id="32" name="Improvements" color="#8cb6ce" meeting="false" start="2009-01-22" duration="2" complete="100" priority="1" expand="true">
+                <depend id="31" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="31" name="Context Menu" color="#8cb6ce" meeting="false" start="2009-01-29" duration="1" complete="100" priority="1" expand="true">
+                <depend id="12" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="12" name="HTML Loading Screen" meeting="false" start="2009-01-30" duration="1" complete="100" priority="1" expand="true"/>
         </task>
-        <task id="17" name="Cleanness of code" meeting="false" start="2009-01-08" duration="1" complete="75" priority="1" expand="true">
-            <task id="18" name="Code cleanup" meeting="false" start="2009-01-08" duration="1" complete="80" priority="1" expand="true"/>
-            <task id="19" name="Code Rewrite" meeting="false" start="2009-01-08" duration="1" complete="70" priority="1" expand="true">
-                <task id="20" name="Dynamic Edition System" meeting="false" start="2009-01-08" duration="1" complete="80" priority="1" expand="true"/>
-                <task id="21" name="Artifacts" meeting="false" start="2009-01-08" duration="1" complete="60" priority="1" expand="true"/>
+        <task id="17" name="Cleanness of code" meeting="false" start="2009-01-23" duration="32" complete="42" priority="1" expand="false">
+            <task id="18" name="Code cleanup" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2009-01-23" duration="32" complete="30" priority="1" expand="true"/>
+            <task id="19" name="Code Rewrite" meeting="false" start="2009-01-23" duration="21" complete="70" priority="1" expand="false">
+                <task id="20" name="Dynamic Edition System" meeting="false" start="2009-01-23" duration="15" complete="80" priority="1" expand="true"/>
+                <task id="21" name="Artifacts Drawing" meeting="false" start="2009-01-30" duration="19" complete="60" priority="1" expand="true"/>
             </task>
         </task>
-        <task id="14" name="Code JavaDoc" meeting="false" start="2009-03-12" duration="1" complete="0" priority="1" expand="true"/>
-        <task id="22" name="Interaction emulation layer" meeting="false" start="2009-03-27" duration="1" complete="0" priority="1" expand="true"/>
-        <task id="23" name="Adding object diagram for code generation" meeting="false" start="2009-04-02" duration="1" complete="0" priority="1" expand="true"/>
-        <task id="24" name="Saving diagram in xml like format" meeting="false" start="2009-04-13" duration="1" complete="0" priority="1" expand="true"/>
-        <task id="25" name="Setting a server side to save diagrams like documents in google docs" meeting="false" start="2009-04-20" duration="1" complete="0" priority="1" expand="true"/>
-        <task id="26" name="Adding other UML diagrams" meeting="false" start="2009-05-04" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="14" name="Code JavaDoc" meeting="false" start="2009-04-06" duration="25" complete="0" priority="1" expand="true">
+            <depend id="22" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="22" name="Interaction emulation layer" meeting="false" start="2009-05-11" duration="7" complete="0" priority="1" expand="false">
+            <depend id="26" type="2" difference="0" hardness="Strong"/>
+            <task id="34" name="Keyboard Part" color="#8cb6ce" meeting="false" start="2009-05-11" duration="2" complete="0" priority="1" expand="true">
+                <depend id="33" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="33" name="Mouse Part" color="#8cb6ce" meeting="false" start="2009-05-13" duration="2" complete="0" priority="1" expand="true">
+                <depend id="35" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="35" name="Test code" color="#8cb6ce" meeting="false" start="2009-05-15" duration="3" complete="0" priority="1" expand="true"/>
+        </task>
+        <task id="26" name="Adding other UML diagrams" meeting="false" start="2009-05-20" duration="25" complete="0" priority="1" expand="false">
+            <task id="23" name="Adding object diagram for code generation" meeting="false" start="2009-05-20" duration="25" complete="0" priority="1" expand="true">
+                <depend id="24" type="2" difference="0" hardness="Strong"/>
+                <depend id="25" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="36" name="Adding other UML diagrams" color="#8cb6ce" meeting="false" start="2009-05-20" duration="1" complete="0" priority="1" expand="true"/>
+        </task>
+        <task id="24" name="If available time remaining : Saving diagram in xml like format" meeting="true" start="2009-06-24" duration="3" complete="0" priority="1" expand="true"/>
+        <task id="25" name="If available time remaining : Setting a server side to save diagrams like documents in google docs" meeting="true" start="2009-06-24" duration="3" complete="0" priority="1" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Henri Darmet" function="Default:1" contacts="" phone=""/>
