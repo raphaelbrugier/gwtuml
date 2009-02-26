@@ -1,6 +1,11 @@
 #summary Evolution of gwtuml
 
 ==02/09==
+ * *02/26/08* Grantt Diagram for project management
+ * *02/13/08* Rewrite of class / note editor
+ * *02/13/08* Added HTML loading screen
+ * *02/12/08* Delay objects attaching : fix the awful "not editable class" bug
+ * *02/12/08* Added needed jars + Removed hard links to jars
  * *02/06/08* Rewrite of class artifact component 
  * *02/06/08* Workaround with not selectable class part
  * *02/05/08* Writing this wiki
