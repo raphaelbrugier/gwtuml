@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Untitled Gantt Project" company="" webLink="http://" view-date="2008-12-29" view-index="0" gantt-divider-location="448" resource-divider-location="301" version="2.0">
+    <description/>
+    <view zooming-state="default:3" id="gantt-chart"/>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="55" order="0"/>
+        <field id="1" name="Rôle par défaut" width="44" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+        <date year="2008" month="12" date="8"/>
+        <date year="2008" month="12" date="9"/>
+        <date year="2008" month="12" date="10"/>
+        <date year="2008" month="12" date="15"/>
+        <date year="2008" month="12" date="16"/>
+        <date year="2008" month="12" date="17"/>
+        <date year="2008" month="12" date="22"/>
+        <date year="2008" month="12" date="23"/>
+        <date year="2008" month="12" date="24"/>
+        <date year="2008" month="12" date="25"/>
+        <date year="2008" month="12" date="26"/>
+        <date year="2008" month="12" date="29"/>
+        <date year="2008" month="12" date="30"/>
+        <date year="2008" month="12" date="31"/>
+        <date year="2009" month="1" date="1"/>
+        <date year="2009" month="1" date="2"/>
+        <date year="2009" month="1" date="5"/>
+        <date year="2009" month="1" date="6"/>
+        <date year="2009" month="1" date="7"/>
+        <date year="2009" month="1" date="12"/>
+        <date year="2009" month="1" date="13"/>
+        <date year="2009" month="1" date="14"/>
+        <date year="2009" month="1" date="19"/>
+        <date year="2009" month="1" date="20"/>
+        <date year="2009" month="1" date="21"/>
+        <date year="2009" month="1" date="26"/>
+        <date year="2009" month="1" date="27"/>
+        <date year="2009" month="1" date="28"/>
+        <date year="2009" month="2" date="2"/>
+        <date year="2009" month="2" date="3"/>
+        <date year="2009" month="2" date="4"/>
+        <date year="2009" month="2" date="9"/>
+        <date year="2009" month="2" date="10"/>
+        <date year="2009" month="2" date="11"/>
+        <date year="2009" month="2" date="16"/>
+        <date year="2009" month="2" date="17"/>
+        <date year="2009" month="2" date="18"/>
+        <date year="2009" month="2" date="19"/>
+        <date year="2009" month="2" date="20"/>
+        <date year="2009" month="2" date="23"/>
+        <date year="2009" month="2" date="24"/>
+        <date year="2009" month="2" date="25"/>
+        <date year="2009" month="3" date="2"/>
+        <date year="2009" month="3" date="3"/>
+        <date year="2009" month="3" date="4"/>
+        <date year="2009" month="3" date="9"/>
+        <date year="2009" month="3" date="10"/>
+        <date year="2009" month="3" date="11"/>
+        <date year="2009" month="3" date="16"/>
+        <date year="2009" month="3" date="17"/>
+        <date year="2009" month="3" date="18"/>
+        <date year="2009" month="3" date="23"/>
+        <date year="2009" month="3" date="24"/>
+        <date year="2009" month="3" date="25"/>
+    </calendars>
+    <tasks>
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="6" name="Prototype" meeting="false" start="2008-12-04" duration="1" complete="100" priority="1" expand="true">
+            <notes><![CDATA[Non mesuré]]></notes>
+            <depend id="0" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="13" name="Project Management" meeting="false" start="2008-12-05" duration="91" complete="12" priority="1" expand="true">
+            <task id="0" name="Project Setup" color="#8cb6ce" meeting="false" start="2008-12-05" duration="3" complete="100" priority="1" expand="true">
+                <task id="1" name="Platform setup" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true"/>
+                <task id="2" name="Code Reorganization" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true"/>
+                <task id="9" name="Setting up a temporary svn" meeting="false" start="2008-12-05" duration="1" complete="100" priority="1" expand="true"/>
+            </task>
+            <task id="15" name="Wiki creation" meeting="false" start="2009-02-05" duration="2" complete="100" priority="1" expand="true">
+                <depend id="29" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="29" name="Wiki Updating" meeting="false" start="2009-02-12" duration="77" complete="4" priority="1" expand="true"/>
+            <task id="28" name="Project's Gantt Diagram" meeting="false" start="2009-02-26" duration="1" complete="100" priority="1" expand="true">
+                <depend id="27" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="16" name="Write a script to have a compiled application for each version" meeting="false" start="2009-01-08" duration="1" complete="100" priority="1" expand="true"/>
+            <task id="10" name="Move project to Google Code" meeting="false" start="2009-01-09" duration="1" complete="100" priority="1" expand="true"/>
+            <task id="27" name="Midterm internship meeting" meeting="false" start="2009-02-27" duration="1" complete="0" priority="1" expand="true"/>
+        </task>
+        <task id="5" name="Graphical Layer Abstraction" meeting="false" start="2008-12-11" duration="7" complete="100" priority="1" expand="true">
+            <task id="7" name="Set up a bridge for graphic engines" meeting="false" start="2008-12-11" duration="2" complete="100" priority="1" expand="true"/>
+            <task id="8" name="Integration of GWT Incubator graphic engine" meeting="false" start="2008-12-12" duration="6" complete="100" priority="1" expand="true"/>
+        </task>
+        <task id="3" name="Visual Interface" meeting="false" start="2009-01-08" duration="7" complete="100" priority="1" expand="true">
+            <task id="4" name="Creation" meeting="false" start="2009-01-08" duration="1" complete="100" priority="1" expand="true"/>
+            <task id="11" name="VI Code spearation" meeting="false" start="2009-01-15" duration="2" complete="100" priority="1" expand="true"/>
+            <task id="12" name="HTML Loading Screen" meeting="false" start="2009-01-29" duration="1" complete="100" priority="1" expand="true"/>
+        </task>
+        <task id="17" name="Cleanness of code" meeting="false" start="2009-01-08" duration="1" complete="75" priority="1" expand="true">
+            <task id="18" name="Code cleanup" meeting="false" start="2009-01-08" duration="1" complete="80" priority="1" expand="true"/>
+            <task id="19" name="Code Rewrite" meeting="false" start="2009-01-08" duration="1" complete="70" priority="1" expand="true">
+                <task id="20" name="Dynamic Edition System" meeting="false" start="2009-01-08" duration="1" complete="80" priority="1" expand="true"/>
+                <task id="21" name="Artifacts" meeting="false" start="2009-01-08" duration="1" complete="60" priority="1" expand="true"/>
+            </task>
+        </task>
+        <task id="14" name="Code JavaDoc" meeting="false" start="2009-03-12" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="22" name="Interaction emulation layer" meeting="false" start="2009-03-27" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="23" name="Adding object diagram for code generation" meeting="false" start="2009-04-02" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="24" name="Saving diagram in xml like format" meeting="false" start="2009-04-13" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="25" name="Setting a server side to save diagrams like documents in google docs" meeting="false" start="2009-04-20" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="26" name="Adding other UML diagrams" meeting="false" start="2009-05-04" duration="1" complete="0" priority="1" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Henri Darmet" function="Default:1" contacts="" phone=""/>
+        <resource id="1" name="Florian Mounier" function="0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="6" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+    </allocations>
+    <vacations>
+        <vacation start="2008-12-20" end="2009-01-04" resourceid="1"/>
+    </vacations>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="360"/>
+        <displaycolumn property-id="tpd4" order="1" width="20"/>
+        <displaycolumn property-id="tpd5" order="2" width="19"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles>
+        <role id="0" name="Concepteur Developpeur"/>
+    </roles>
+</project>
