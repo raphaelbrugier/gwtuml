@@ -1,0 +1,7 @@
+#summary Grantt Diagram
+
+This diagram is available in [http://gwtuml.googlecode.com/svn/wiki/GanttDiagram.pdf pdf]
+and in [http://gwtuml.googlecode.com/svn/wiki/GanttDiagram.gan xml/gan format]
+
+http://gwtuml.googlecode.com/svn/wiki/GanttDiagram.png
+
