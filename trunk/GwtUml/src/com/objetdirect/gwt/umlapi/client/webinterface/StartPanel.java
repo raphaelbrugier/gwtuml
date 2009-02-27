@@ -157,8 +157,8 @@ public class StartPanel extends VerticalPanel {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 
-		widthTxtBox.setText("" + Window.getClientWidth());
-		heightTxtBox.setText("" + (Window.getClientHeight() - 20));
+		widthTxtBox.setText("" + (Window.getClientWidth() - 100));
+		heightTxtBox.setText("" + (Window.getClientHeight() - 100));
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
 

@@ -3,10 +3,13 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassNameArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassPartArtifact;
@@ -29,8 +32,27 @@ public class AttributePartEditor extends FieldEditor {
 
 	@Override
 	protected void updateClass(String newContent) {
-		attributeToChange.setName(newContent);
-		((ClassAttributesArtifact) artifact).getClassArtifact().rebuildGfxObject();
-		
+        LexicalAnalyser lex = new LexicalAnalyser(newContent);
+        try {
+                String type = null;
+                String name = null;
+                LexicalAnalyser.Token tk = lex.getToken();
+                if (tk.getType()!=LexicalAnalyser.IDENTIFIER) throw new UMLDrawerException("invalid format : must match 'identifier:type'");
+                name = tk.getContent();
+                tk = lex.getToken();
+                if (tk!=null) {
+                        if (tk.getType()!=LexicalAnalyser.SIGN || !tk.getContent().equals(":"))
+                                throw new UMLDrawerException("invalid format : must match 'identifier:type'");
+                        tk = lex.getToken();
+                        if (tk==null || tk.getType()!=LexicalAnalyser.IDENTIFIER)
+                                throw new UMLDrawerException("invalid format : must match 'identifier:type'");
+                        type = tk.getContent();
+                }
+                attributeToChange.setName(name);
+                attributeToChange.setType(type);
+        		((ClassAttributesArtifact) artifact).getClassArtifact().rebuildGfxObject();
+        } catch (UMLDrawerException e) {
+                Window.alert(e.getMessage());
+        }
 	}
 }

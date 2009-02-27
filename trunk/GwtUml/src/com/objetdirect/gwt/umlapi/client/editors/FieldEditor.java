@@ -62,6 +62,7 @@ public abstract class FieldEditor {
 	}
 	
 	protected void validate() {
+		
 		String newContent = editField.getText();
 		if(!newContent.equals(content)) {
 			//if (validationInProcess) return;
