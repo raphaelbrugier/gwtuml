@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;

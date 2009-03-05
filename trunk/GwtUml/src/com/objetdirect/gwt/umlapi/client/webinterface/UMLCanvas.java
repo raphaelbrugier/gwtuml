@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,7 +9,6 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;

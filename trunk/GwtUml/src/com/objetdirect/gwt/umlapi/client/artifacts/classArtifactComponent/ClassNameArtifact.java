@@ -2,13 +2,11 @@ package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
  * @author fmounier

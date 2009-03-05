@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.google.gwt.user.client.Command;
-import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.editors.NoteFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;

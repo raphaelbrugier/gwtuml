@@ -11,13 +11,11 @@ import java.util.Map;
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.AttributePartEditor;
-import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
  * @author fmounier

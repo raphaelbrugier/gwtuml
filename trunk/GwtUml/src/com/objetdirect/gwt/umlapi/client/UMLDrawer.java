@@ -21,7 +21,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
  * This class does some initialization and calls the start panel.
  * 
  * @author hdarmet
- * @author fmounier
+ * @author fmounier 
  */
 
 public class UMLDrawer implements EntryPoint {

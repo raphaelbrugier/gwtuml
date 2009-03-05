@@ -1,8 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;

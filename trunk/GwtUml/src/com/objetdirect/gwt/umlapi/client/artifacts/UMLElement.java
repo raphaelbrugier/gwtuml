@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
