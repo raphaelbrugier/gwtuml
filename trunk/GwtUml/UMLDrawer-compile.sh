@@ -10,5 +10,5 @@ svn rm --force latest_build/*.cache.*
 svn rm --force latest_build/*.rpc
 rm -f latest_build/*.cache.*
 rm -f latest_build/*.rpc
-cp -aufvr www/* latest_build/
+cp -aufvr www/com.objetdirect.gwt.umlapi.UMLDrawer/* latest_build/
 svn add --force latest_build/*
