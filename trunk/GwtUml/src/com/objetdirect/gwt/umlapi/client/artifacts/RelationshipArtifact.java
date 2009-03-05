@@ -98,32 +98,6 @@ public class RelationshipArtifact extends LineArtifact {
 		editor.editPart(subPart);
 	}
 
-	/*public List<GfxObject> getComponents() {
-		List<GfxObject> comps = new ArrayList<GfxObject>();
-		comps.add(line);
-		if (relationLink != null)
-			comps.add(relationLink);
-		if (leftArrow != null)
-			comps.add(leftArrow);
-		if (rightArrow != null)
-			comps.add(rightArrow);
-		if (nameText != null)
-			comps.add(nameText);
-		if (leftCardinalityText != null)
-			comps.add(leftCardinalityText);
-		if (rightCardinalityText != null)
-			comps.add(rightCardinalityText);
-		if (leftConstraintText != null)
-			comps.add(leftConstraintText);
-		if (rightConstraintText != null)
-			comps.add(rightConstraintText);
-		if (leftRoleText != null)
-			comps.add(leftRoleText);
-		if (rightRoleText != null)
-			comps.add(rightRoleText);
-		return comps;
-	}*/
-
 	public int getHeight(RelationShipArtifactPart relationShipArtifactPart) {
 		GfxObject text = getTextForPart(relationShipArtifactPart);
 		if (text != null)
@@ -519,6 +493,7 @@ public class RelationshipArtifact extends LineArtifact {
 				Math.round(lineBounds[3]));
 		line = GfxManager.getPlatform().buildLine(getX1(), getY1(), getX2(),
 				getY2());
+		line = Geometry.getLineBetween(leftClass, rightClass);
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);

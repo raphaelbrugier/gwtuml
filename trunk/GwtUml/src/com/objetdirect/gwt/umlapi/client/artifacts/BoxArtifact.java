@@ -6,12 +6,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 public abstract class BoxArtifact extends UMLArtifact {
-
-
-
-
 	int x = 0;
-
 	int y = 0;
 
 	@Override

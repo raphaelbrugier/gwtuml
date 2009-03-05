@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.engine;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -131,5 +132,45 @@ public class Geometry {
 			return new float[] { line[0] + direction[0] * tlow,
 					line[1] + direction[1] * tlow,
 					line[0] + direction[0] * tup, line[1] + direction[1] * tup, };
+	}
+
+	public static GfxObject getLineBetween(ClassArtifact leftClass,
+			ClassArtifact rightClass) {
+		
+		Point lineLeftPoint  = getPointForLine(leftClass, new Point(rightClass.getCenterX(), rightClass.getCenterY()));
+		Point lineRightPoint = getPointForLine(rightClass, new Point(leftClass.getCenterX(), leftClass.getCenterY()));
+		return GfxManager.getPlatform().buildLine(lineLeftPoint.getX(), lineLeftPoint.getY(), lineRightPoint.getX(), lineRightPoint.getY());
+
+		
+	}
+		public static Point getPointForLine(ClassArtifact classArtifact, Point targetCenter) {
+			Point targetInFrameReference = new Point(targetCenter.getX() - classArtifact.getX(), targetCenter.getY() - classArtifact.getY());
+			Point point = new Point(0,0);
+			final int constA = classArtifact.getHeight() * targetInFrameReference.getX();
+			final int constB = classArtifact.getWidth() * targetInFrameReference.getY();
+			final int constC = classArtifact.getHeight() * classArtifact.getWidth();
+
+			if(constA > constB) {
+				if(constA > constC - constB) {
+					point.setX(classArtifact.getWidth());
+					point.setY((constC - constB - constA) / (classArtifact.getWidth() - 2 * targetInFrameReference.getX()));
+				} 
+				else {
+					point.setX((constA - constB) / (classArtifact.getHeight() - 2 * targetInFrameReference.getY()));
+					point.setY(0);
+				}
+			}
+			else {
+				if(constA > constC - constB) {
+					point.setX((constC + constA - constB - 2 * classArtifact.getHeight() * targetInFrameReference.getX()) / (classArtifact.getHeight() - 2 * targetInFrameReference.getY()));
+					point.setY(classArtifact.getHeight());
+				} 
+				else {
+					point.setX(0);
+					point.setY((constB - constA) / (classArtifact.getWidth() - 2 * targetInFrameReference.getX()));		
+				}
+			}
+
+		return new Point(point.getX() + classArtifact.getX(), point.getY() + classArtifact.getY());
 	}
 }
