@@ -110,9 +110,8 @@ public class DemoPanel extends HorizontalPanel {
 		relClientProduct.setRightCardinality("0..*");
 		relClientProduct.setRelationClass(paymentClass);
 
-		NoteArtifact note = new NoteArtifact();
+		NoteArtifact note = new NoteArtifact("Ceci est une note concernant le client");
 		gc.add(note);
-		note.setContent("Ceci est une note\nconcernant le client");
 		note.setLocation(400, 500);
 		
 		NoteLinkArtifact noteClientLink = new NoteLinkArtifact(note,

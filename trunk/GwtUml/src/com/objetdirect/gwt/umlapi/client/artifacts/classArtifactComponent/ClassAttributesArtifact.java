@@ -29,7 +29,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
 		attributeGfxObjects = new HashMap<GfxObject, Attribute>();
-		attributes.add(new Attribute("String", "attribute"));
+		//attributes.add(new Attribute("String", "attribute"));
 		height = 0;
 		width = 0;
 	}

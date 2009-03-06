@@ -23,8 +23,8 @@ public class NoteArtifact extends BoxArtifact {
 	List<NoteLinkArtifact> dependencies = new ArrayList<NoteLinkArtifact>();
 	
 
-	public NoteArtifact() {
-		note = new Note("Note");
+	public NoteArtifact(String content) {
+		note = new Note(content);
 		
 	}
 

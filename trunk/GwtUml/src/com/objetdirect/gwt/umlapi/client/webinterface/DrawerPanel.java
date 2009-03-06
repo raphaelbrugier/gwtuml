@@ -26,15 +26,15 @@ public class DrawerPanel extends HorizontalPanel {
 
 		HotKeyManager.setActiveCanvas(gc);
 
-		ClassArtifact defaultclass = new ClassArtifact("Main");
+		ClassArtifact defaultclass = new ClassArtifact("Class 1");
 		gc.add(defaultclass);
-		defaultclass.setLocation(400, 300);
+		defaultclass.setLocation(w/2, h/2);
 		
 
 		
 
 		Log.info("Init class end\nBegin sidebar");
-
+/*
 		VerticalPanel sidePanel = new VerticalPanel();
 		sidePanel.setSpacing(5);
 
@@ -104,7 +104,7 @@ public class DrawerPanel extends HorizontalPanel {
 
 		
 		this.add(sidePanel);
-
+*/
 		Log.info("Init end");
 
 	}

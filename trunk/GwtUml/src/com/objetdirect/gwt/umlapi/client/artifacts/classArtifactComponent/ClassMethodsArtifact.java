@@ -28,9 +28,9 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	public ClassMethodsArtifact() {
 		methods = new ArrayList<Method>();
 		methodGfxObjects = new HashMap<GfxObject, Method>();
-		List<Parameter> methodParameters = new ArrayList<Parameter>();
-		methodParameters.add(new Parameter("String", "parameter1"));
-		methods.add(new Method("void","method", methodParameters));
+		//List<Parameter> methodParameters = new ArrayList<Parameter>();
+		//methodParameters.add(new Parameter("String", "parameter1"));
+		//methods.add(new Method("void","method", methodParameters));
 		height = 0;
 		width = 0;
 	}

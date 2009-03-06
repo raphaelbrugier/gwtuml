@@ -23,7 +23,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
 public class UMLCanvas extends AbsolutePanel {
-
+	private static long classCount = 1;
+	private static long noteCount = 0;
 	public enum Link {
 		EXTENSION, IMPLEMENTATION, NONE, RELATIONSHIP, SIMPLE
 	}	
@@ -83,7 +84,6 @@ public class UMLCanvas extends AbsolutePanel {
 	private GfxObject outline = null; // Outline is used for drawing while drag and drop	
 	private UMLElement selected = null; // Represent the current UMLElement selected
 	private Link activeLinking = Link.NONE;
-	private ContextMenuManager contextMenuManager;
 	private boolean isDeleting = false;
 
 	public UMLCanvas() {
@@ -122,7 +122,7 @@ public class UMLCanvas extends AbsolutePanel {
 	public void addNewClass(int xInit, int yInit) {
 		if (dragOn)
 			return;
-		ClassArtifact newClass = new ClassArtifact("Class");
+		ClassArtifact newClass = new ClassArtifact("Class " + ++classCount);
 		add(newClass);
 		newClass.moveTo(xInit, yInit);
 
@@ -144,7 +144,7 @@ public class UMLCanvas extends AbsolutePanel {
 	public void addNewNote(int xInit, int yInit) {
 		if (dragOn)
 			return;
-		NoteArtifact newNote = new NoteArtifact();
+		NoteArtifact newNote = new NoteArtifact("Note " + ++noteCount);
 		add(newNote);
 		newNote.moveTo(xInit, yInit);
 
@@ -328,17 +328,18 @@ public class UMLCanvas extends AbsolutePanel {
 	private void dropRightMenu(GfxObject gfxObject, int x, int y) {
 		select(gfxObject);
 		UMLElement elem = getUMLElement(gfxObject);
+		ContextMenu contextMenu;
 		if (elem != null)
-			contextMenuManager.makeMenu(elem.getRightMenu());
+			contextMenu = new ContextMenu(x, y, this, elem.getRightMenu());
 		else
-			contextMenuManager.makeMenu();
-		contextMenuManager.show(x, y);
+			contextMenu = new ContextMenu(x, y, this);
+		contextMenu.show();
 	}
+	
 	private void initCanvas() {
 		add(canvas, 0, 0);
 		GfxManager.getPlatform().addObjectListenerToCanvas(canvas,
-				gfxObjectListener);		
-		contextMenuManager = new ContextMenuManager(this);
+				gfxObjectListener);
 	}
 
 	@Override

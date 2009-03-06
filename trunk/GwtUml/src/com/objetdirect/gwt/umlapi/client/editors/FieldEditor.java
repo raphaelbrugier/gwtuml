@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.TextBox;
@@ -28,9 +29,11 @@ public abstract class FieldEditor {
 		editField.setWidth(w + "px");
 		FocusListener focusLst = new FocusListener() {
 			public void onFocus(Widget sender) {
+				Log.debug("Focus on " + this);
 			}
 
 			public void onLostFocus(Widget sender) {
+				Log.debug("Focus lost on " + this);
 				validate();
 			}
 		};
