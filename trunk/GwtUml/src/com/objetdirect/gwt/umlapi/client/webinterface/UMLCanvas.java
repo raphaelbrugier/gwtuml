@@ -47,7 +47,7 @@ public class UMLCanvas extends AbsolutePanel {
 			x = convertToRealX(x);
 			y = convertToRealY(y);
 			if (outline == null) {
-				select(gfxObject);
+				select(gfxObject);				
 				if (selected != null && selected.isDraggable()) {
 					take(x, y);
 					dragOn = true;
@@ -130,6 +130,7 @@ public class UMLCanvas extends AbsolutePanel {
 			selected.unselect();
 		select(newClass.getGfxObject());
 		take(xInit, yInit);
+		drag(xInit, yInit);
 		dragOn = true;
 	}
 
@@ -152,6 +153,7 @@ public class UMLCanvas extends AbsolutePanel {
 			selected.unselect();
 		select(newNote.getGfxObject());
 		take(xInit, yInit);
+		drag(xInit, yInit);		
 		dragOn = true;
 
 	}
@@ -180,6 +182,7 @@ public class UMLCanvas extends AbsolutePanel {
 			if (outline == null) {
 				outline = selected.getOutline();
 				GfxManager.getPlatform().addToCanvas(canvas, outline, 0, 0);
+				GfxManager.getPlatform().hide(selected.getGfxObject());
 				Log.debug("Adding outline for " + selected);
 				CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 			}
@@ -197,14 +200,18 @@ public class UMLCanvas extends AbsolutePanel {
 				GfxManager.getPlatform().removeFromCanvas(canvas, outline);
 				outline = null;
 			}
-			if (x - dx != selected.getX() || y - dy != selected.getY()) {
-				int fx = x - dx;
-				int fy = y - dy;
+			int fx = x - dx;
+			int fy = y - dy;
+			if (fx != selected.getX() || fy != selected.getY()) {
+				
 				Log.debug("Dropping at " + fx + "," + fy + " for " + selected);
 				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 				selected.moveTo(fx, fy);
+				//GfxManager.getPlatform().addToCanvas(canvas, selected.getGfxObject(), fx, fy);
+				GfxManager.getPlatform().show(selected.getGfxObject());
 				selected.adjusted();
 			}
+			
 		}
 
 	}
@@ -308,13 +315,11 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	private void take(int x, int y) {
-		Log.debug("Take at " + x + "," + y);
-		if (selected != null && selected.isDraggable()) {
-			dx = x - selected.getX();
-			dy = y - selected.getY();
-			Log.debug("... with " + dx + "," + dy + " for " + selected);
+		dx = x - selected.getX();
+		dy = y - selected.getY();
+		Log.debug("Take at " + x + "," + y + " with " + dx + "," + dy + " for " + selected);
+		//GfxManager.getPlatform().removeFromCanvas(canvas, selected.getGfxObject());
 
-		}
 	}
 	private int convertToRealX(int x) {
 		return x + RootPanel.getBodyElement().getScrollLeft()

@@ -65,5 +65,9 @@ public interface GfxPlatform {
 	void moveToFront(GfxObject gfxO);
 	
 	void moveToBack(GfxObject gfxO);
+	
+	void hide(GfxObject gfxO);
+	
+	void show(GfxObject gfxO);
 
 }

@@ -234,4 +234,11 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		
 	}
 
+	public void hide(GfxObject gfxO) {
+		getTatamiGraphicalObjectFrom(gfxO).translate(5000, 5000);
+	}
+	public void show(GfxObject gfxO) {
+		getTatamiGraphicalObjectFrom(gfxO).translate(-5000, -5000);
+	}
+
 }

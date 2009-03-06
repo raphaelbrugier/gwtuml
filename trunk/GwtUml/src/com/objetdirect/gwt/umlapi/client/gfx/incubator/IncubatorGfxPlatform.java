@@ -244,4 +244,14 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		return null;
 	}
 
+	public void hide(GfxObject gfxO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void show(GfxObject gfxO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
