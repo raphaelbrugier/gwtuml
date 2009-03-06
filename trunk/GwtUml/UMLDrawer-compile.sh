@@ -1,6 +1,6 @@
 APPDIR=`dirname $0`;
 java \
--Xms1024m -Xmx1024m \
+-Xms2048m -Xmx2048m \
 -cp "$APPDIR/src:$APPDIR/bin:$APPDIR/gwt-linux/*:$APPDIR/external_jars/*" \
 com.google.gwt.dev.GWTCompiler \
 -out "$APPDIR/www" "$@" \
@@ -8,7 +8,10 @@ com.objetdirect.gwt.umlapi.UMLDrawer
 cd $APPDIR
 svn rm --force latest_build/*.cache.*
 svn rm --force latest_build/*.rpc
-rm -f latest_build/*.cache.*
-rm -f latest_build/*.rpc
-cp -aufvr www/com.objetdirect.gwt.umlapi.UMLDrawer/* latest_build/
+cp -u www/com.objetdirect.gwt.umlapi.UMLDrawer/* latest_build/
+cp -ur www/com.objetdirect.gwt.umlapi.UMLDrawer/gwt latest_build/
+cp -ur www/com.objetdirect.gwt.umlapi.UMLDrawer/images latest_build/
+cp -u www/com.objetdirect.gwt.umlapi.UMLDrawer/dojo/dojo.js latest_build/dojo
+cp -u www/com.objetdirect.gwt.umlapi.UMLDrawer/dojox/gfx.js latest_build/dojox
+cp -ur www/com.objetdirect.gwt.umlapi.UMLDrawer/dojox/gfx latest_build/dojox
 svn add --force latest_build/*

@@ -1,10 +1,14 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public abstract class FieldEditor {
@@ -52,10 +56,12 @@ public abstract class FieldEditor {
 			}
 		};
 		editField.addFocusListener(focusLst);
+		DOM.sinkEvents(editField.getElement(), Event.ONBLUR);
 		editField.addKeyboardListener(keybLst);
 		canvas.add(editField, x, y);
 		editField.selectAll();
 		editField.setFocus(true);
+		UMLDrawerHelper.enableBrowserEvents();
 	
 	}
 	
@@ -64,20 +70,18 @@ public abstract class FieldEditor {
 		String newContent = editField.getText();
 		if(!newContent.equals(content)) {
 			//if (validationInProcess) return;
-			//validationInProcess = true;
-			
+			//validationInProcess = true;			
 			updateClass(newContent);
-			
-			
-			
 		}
 		canvas.remove(editField);
 		editField = null;
+		UMLDrawerHelper.disableBrowserEvents();
 	}
 	protected void cancel() {
 		//validationInProcess = true;
 		canvas.remove(editField);
 		editField = null;
 		//validationInProcess = false;
+		UMLDrawerHelper.disableBrowserEvents();
 	}
 }

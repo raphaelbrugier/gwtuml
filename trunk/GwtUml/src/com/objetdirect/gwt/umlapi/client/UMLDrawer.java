@@ -56,20 +56,7 @@ public class UMLDrawer implements EntryPoint {
 				"display", "none");
 	}	
 
-	public static void disableDefaultDragAndDrop() {
 
-		DOM.addEventPreview(new EventPreview() { 
-			public boolean onEventPreview(Event event) {
-				switch (DOM.eventGetType(event)) {
-				case Event.ONMOUSEDOWN:
-				case Event.ONMOUSEMOVE:
-				case Event.ONMOUSEUP: // Tell the browser not to act on the event. 
-					DOM.eventPreventDefault(event); 
-				}
-				return true; // But DO allow the event to fire. 
-			}
-		});
-	}
 		 
 	/**
 	 * Entry point of the application
@@ -84,7 +71,7 @@ public class UMLDrawer implements EntryPoint {
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 		
-		disableDefaultDragAndDrop();
+		UMLDrawerHelper.disableBrowserEvents();
 		
 		appRootPanel.setSize("100%", "100%");
 
