@@ -8,6 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/home/fmounier/work/gwtuml/GwtUml/external_jars/gwt-log-2.5.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/fmounier/work/gwtuml/GwtUml/external_jars/gwt-mosaic-0.1.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/fmounier/work/gwtuml/GwtUml/external_jars/gwt-user.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/fmounier/work/gwtuml/GwtUml/external_jars/tatami-1.3.jar"/>
+	<classpathentry kind="lib" path="/home/fmounier/work/gwtuml/GwtUml/external_jars/tatami-1.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

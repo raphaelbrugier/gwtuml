@@ -7,6 +7,8 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventPreview;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;
@@ -54,6 +56,21 @@ public class UMLDrawer implements EntryPoint {
 				"display", "none");
 	}	
 
+	public static void disableDefaultDragAndDrop() {
+
+		DOM.addEventPreview(new EventPreview() { 
+			public boolean onEventPreview(Event event) {
+				switch (DOM.eventGetType(event)) {
+				case Event.ONMOUSEDOWN:
+				case Event.ONMOUSEMOVE:
+				case Event.ONMOUSEUP: // Tell the browser not to act on the event. 
+					DOM.eventPreventDefault(event); 
+				}
+				return true; // But DO allow the event to fire. 
+			}
+		});
+	}
+		 
 	/**
 	 * Entry point of the application
 	 * This class make a @see StartPanel and manage the history for it
@@ -66,7 +83,9 @@ public class UMLDrawer implements EntryPoint {
 		
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
-
+		
+		disableDefaultDragAndDrop();
+		
 		appRootPanel.setSize("100%", "100%");
 
 		startPanel = new StartPanel(false);

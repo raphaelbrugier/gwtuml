@@ -27,7 +27,7 @@ public class UMLCanvas extends AbsolutePanel {
 	public enum Link {
 		EXTENSION, IMPLEMENTATION, NONE, RELATIONSHIP, SIMPLE
 	}	
-	private final static int FAR_AWAY = 1000;
+	private final static int FAR_AWAY = 9000;
 	private Widget canvas; // Drawing canvas
 	private boolean dragOn = false; // Represent the dragging state
 	private int dx, dy; // Represent the offset between object coordinates and mouse
@@ -115,18 +115,21 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 
 	}
-
 	public void addNewClass() {
+		addNewClass(FAR_AWAY, FAR_AWAY);
+	
+	}
+	public void addNewClass(int xInit, int yInit) {
 		if (dragOn)
 			return;
 		ClassArtifact newClass = new ClassArtifact("Class");
 		add(newClass);
-		newClass.moveTo(FAR_AWAY, FAR_AWAY);
+		newClass.moveTo(xInit, yInit);
 
 		if (selected != null)
 			selected.unselect();
 		select(newClass.getGfxObject());
-		take(FAR_AWAY, FAR_AWAY);
+		take(xInit, yInit);
 		dragOn = true;
 	}
 
@@ -134,18 +137,21 @@ public class UMLCanvas extends AbsolutePanel {
 		activeLinking = linkType;
 		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
 	}
-
 	public void addNewNote() {
+		addNewClass(FAR_AWAY, FAR_AWAY);
+	
+	}
+	public void addNewNote(int xInit, int yInit) {
 		if (dragOn)
 			return;
 		NoteArtifact newNote = new NoteArtifact();
 		add(newNote);
-		newNote.moveTo(FAR_AWAY, FAR_AWAY);
+		newNote.moveTo(xInit, yInit);
 
 		if (selected != null)
 			selected.unselect();
 		select(newNote.getGfxObject());
-		take(FAR_AWAY, FAR_AWAY);
+		take(xInit, yInit);
 		dragOn = true;
 
 	}
