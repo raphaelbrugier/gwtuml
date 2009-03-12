@@ -4,6 +4,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -23,7 +24,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 public class StartPanel extends VerticalPanel {
 	static StartPanel instance = null;
-	private HorizontalPanel current_Panel;
+	private AbsolutePanel current_Panel;
 	private LoadingScreen loadingScreen;
 
 	public StartPanel(boolean isFromHistory) {
@@ -80,10 +81,13 @@ public class StartPanel extends VerticalPanel {
 				}
 
 				current_Panel = new DrawerPanel(w, h);
-				UMLDrawer.addtoAppRootPanel(current_Panel);
 				History.newItem("Drawer", false);
-
+				
+				
 				loadingScreen.hide();
+				UMLDrawer.addtoAppRootPanel(current_Panel);
+				
+
 				
 			}
 		});
@@ -102,7 +106,19 @@ public class StartPanel extends VerticalPanel {
 					GfxManager.setPlatform(new IncubatorGfxPlatform());
 				instance.removeFromParent();
 				loadingScreen.show();
-				current_Panel = new DemoPanel();
+				int w;
+				int h;
+				try {
+					w = Integer.parseInt(widthTxtBox.getText());
+					h = Integer.parseInt(heightTxtBox.getText());
+				} catch (Exception ex) {
+					Log.warn("Unreadable resolution " + widthTxtBox.getText()
+							+ "x" + heightTxtBox.getText() + "!");
+					w = 800;
+					h = 600;
+				}
+
+				current_Panel = new DemoPanel(w, h);
 				History.newItem("Demo", false);
 
 				loadingScreen.hide();
@@ -140,7 +156,20 @@ public class StartPanel extends VerticalPanel {
 				if (historyToken.equals("Demo")) {
 					UMLDrawer.clearAppRootPanel();
 					loadingScreen.show();
-					current_Panel = new DemoPanel();
+					int w;
+					int h;
+					try {
+						w = Integer.parseInt(widthTxtBox.getText());
+						h = Integer.parseInt(heightTxtBox.getText());
+					} catch (Exception ex) {
+						Log.warn("Unreadable resolution "
+								+ widthTxtBox.getText() + "x"
+								+ heightTxtBox.getText() + "! (Hist)");
+						w = 800;
+						h = 600;
+					}
+
+					current_Panel = new DemoPanel(w, h);
 					loadingScreen.hide();
 					UMLDrawer.addtoAppRootPanel(current_Panel);
 				}
@@ -157,8 +186,8 @@ public class StartPanel extends VerticalPanel {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 
-		widthTxtBox.setText("" + (Window.getClientWidth() - 100));
-		heightTxtBox.setText("" + (Window.getClientHeight() - 100));
+		widthTxtBox.setText("" + (Window.getClientWidth() - 50));
+		heightTxtBox.setText("" + (Window.getClientHeight() - 50));
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
 

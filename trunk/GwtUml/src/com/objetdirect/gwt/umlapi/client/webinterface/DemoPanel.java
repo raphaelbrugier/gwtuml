@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
@@ -14,13 +16,48 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
-public class DemoPanel extends HorizontalPanel {
+public class DemoPanel extends AbsolutePanel {
 
-	public DemoPanel() {
+	public DemoPanel(int w, int h) {
 		Log.info("Creating demodrawer");
-		final UMLCanvas gc = new UMLCanvas(1000, 600);
+		final UMLCanvas gc = new UMLCanvas(w, h);
 		this.add(gc);		
 		gc.setStylePrimaryName("canvas");
+		this.setWidth("100%");
+		this.setHeight("100%");
+
+		w += 2; //Border Size
+		h += 2; //Border Size	
+		int shadowSize = 8;
+		
+
+		
+		SimplePanel bottomShadow = new SimplePanel();
+		bottomShadow.setPixelSize(w - shadowSize, shadowSize);
+		bottomShadow.setStylePrimaryName("bottomShadow");
+		this.add(bottomShadow, shadowSize, h);
+		
+		
+		SimplePanel rightShadow = new SimplePanel();
+		rightShadow.setPixelSize(shadowSize, h - shadowSize);
+		rightShadow.setStylePrimaryName("rightShadow");
+		this.add(rightShadow, w, shadowSize);
+		
+		SimplePanel bottomRightCornerShadow = new SimplePanel();
+		bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+		bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
+		this.add(bottomRightCornerShadow, w, h);
+		
+		SimplePanel topRightCornerShadow = new SimplePanel();
+		topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+		topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
+		this.add(topRightCornerShadow, w, 0);
+		
+		SimplePanel bottomLeftCornerShadow = new SimplePanel();
+		bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
+		bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
+		this.add(bottomLeftCornerShadow, 0, h);
+		
 		
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 		gc.add(dataManagerClass);

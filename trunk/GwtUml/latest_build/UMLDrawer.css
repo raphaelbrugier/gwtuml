@@ -11,7 +11,7 @@
 }
 
 .canvas {
-	border: 3px solid black;
+	border: 1px solid black;
 }
 
 
@@ -68,3 +68,40 @@
 .globalNotAllowedCursor *, .globalNotAllowedCursor .absolutelyPositioned {
     cursor: not-allowed;
 }
+
+
+.rightShadow {
+	color:black;
+	background-color:white;
+	background-image:url(rightShadow.png);
+	background-repeat:repeat-y;
+}
+
+.bottomShadow {
+	color:black;
+	background-color:white;
+	background-image:url(bottomShadow.png);
+	background-repeat:repeat-x;
+}
+
+.bottomRightCornerShadow {
+	color:black;
+	background-color:white;
+	background-image:url(bottomRightCornerShadow.png);
+	background-repeat:no-repeat;
+}
+
+.topRightCornerShadow {
+	color:black;
+	background-color:white;
+	background-image:url(topRightCornerShadow.png);
+	background-repeat:no-repeat;
+}
+
+.bottomLeftCornerShadow {
+	color:black;
+	background-color:white;
+	background-image:url(bottomLeftCornerShadow.png);
+	background-repeat:no-repeat;
+}  
+
