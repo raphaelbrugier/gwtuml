@@ -254,4 +254,10 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		
 	}
 
+	@Override
+	public void setSize(Widget canvas, int width, int height) {
+		
+		
+	}
+
 }

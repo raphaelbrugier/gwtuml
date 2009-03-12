@@ -41,6 +41,8 @@ public interface GfxPlatform {
 
 	Widget makeCanvas(int width, int height, GfxColor backgroundColor);
 
+	void setSize(Widget canvas, int width, int height);
+	
 	void moveTo(GfxObject gfxO, double x, double y);
 
 	void removeFromCanvas(Widget canvas, GfxObject gfxO);

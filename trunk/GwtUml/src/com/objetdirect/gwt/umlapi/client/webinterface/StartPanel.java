@@ -5,8 +5,8 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowResizeListener;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -39,6 +39,8 @@ public class StartPanel extends VerticalPanel {
 	final HorizontalPanel themePanel = new HorizontalPanel();
 	final Label themeLbl = new Label("Theme : ");
 	final ListBox themeListBox = new ListBox();
+	final HorizontalPanel resolutionAutoPanel = new HorizontalPanel();
+	final CheckBox isResolutionAutoChkBox = new CheckBox("Auto Resolution");
 	final HorizontalPanel resolutionPanel = new HorizontalPanel();
 	final Label resolutionLbl = new Label("Resolution : ");
 	final TextBox heightTxtBox = new TextBox();
@@ -102,20 +104,30 @@ public class StartPanel extends VerticalPanel {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 
+		isResolutionAutoChkBox.setChecked(true);
+		isResolutionAutoChkBox.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				widthTxtBox.setEnabled(!isResolutionAutoChkBox.isChecked());
+				heightTxtBox.setEnabled(!isResolutionAutoChkBox.isChecked());
+				
+			}});
 		widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 		heightTxtBox.setText("" + (Window.getClientHeight() - 50));
 		Window.addWindowResizeListener(new WindowResizeListener() {
 
 			
 			public void onWindowResized(int width, int height) {
-				Log.fatal(width + " " + height);
+				if(isResolutionAutoChkBox.isChecked()) {
+					GfxManager.getPlatform().setSize(drawerPanel.getGc(), Window.getClientWidth() - 50, Window.getClientHeight() - 50);
+				}
 				
 			}
 		
 		});
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
-
+		
+		
 		this.add(logoImg);
 		this.add(startBtn);
 		this.add(startDemoBtn);
@@ -125,6 +137,10 @@ public class StartPanel extends VerticalPanel {
 		themePanel.add(themeLbl);
 		themePanel.add(themeListBox);
 		this.add(themePanel);
+		
+		resolutionAutoPanel.add(isResolutionAutoChkBox);
+		this.add(resolutionAutoPanel);
+		
 		resolutionPanel.add(resolutionLbl);
 		resolutionPanel.add(widthTxtBox);
 		resolutionPanel.add(crossLbl);
