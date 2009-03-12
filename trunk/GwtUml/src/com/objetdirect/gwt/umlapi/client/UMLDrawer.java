@@ -71,7 +71,7 @@ public class UMLDrawer implements EntryPoint {
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 		
-		UMLDrawerHelper.disableBrowserEvents();
+		appRootPanel.setSpacing(8);
 		
 		appRootPanel.setSize("100%", "100%");
 

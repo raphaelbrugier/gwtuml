@@ -156,7 +156,11 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 
 		return canvas;
 	}
-
+	
+	public void setSize(Widget canvas, int width, int height) {
+		canvas.setSize(width + "px", height + "px");
+	}
+	
 	public void moveTo(GfxObject gfxO, double x, double y) {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
 

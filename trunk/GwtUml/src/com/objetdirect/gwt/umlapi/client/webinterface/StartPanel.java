@@ -4,6 +4,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.WindowResizeListener;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -23,10 +24,27 @@ import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 public class StartPanel extends VerticalPanel {
-	static StartPanel instance = null;
-	private AbsolutePanel current_Panel;
+	
+	private static StartPanel instance = null;
+	
+	private DrawerPanel drawerPanel;
 	private LoadingScreen loadingScreen;
-
+	
+	final Image logoImg = new Image("gwtumllogo.png");
+	final Button startBtn = new Button("Start New Uml Class Diagram");
+	final Button startDemoBtn = new Button("Load Class Diagram Demo");
+	final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
+	final Label gfxEngineLbl = new Label("Graphics Engine : ");
+	final ListBox gfxEngineListBox = new ListBox();
+	final HorizontalPanel themePanel = new HorizontalPanel();
+	final Label themeLbl = new Label("Theme : ");
+	final ListBox themeListBox = new ListBox();
+	final HorizontalPanel resolutionPanel = new HorizontalPanel();
+	final Label resolutionLbl = new Label("Resolution : ");
+	final TextBox heightTxtBox = new TextBox();
+	final Label crossLbl = new Label("x");
+	final TextBox widthTxtBox = new TextBox();
+	
 	public StartPanel(boolean isFromHistory) {
 		instance = this;
 		loadingScreen = new LoadingScreen();
@@ -39,114 +57,28 @@ public class StartPanel extends VerticalPanel {
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.setSpacing(10);
-		final Image logoImg = new Image("gwtumllogo.png");
-		final Button startBtn = new Button("Start New Uml Class Diagram");
-		final Button startDemoBtn = new Button("Load Class Diagram Demo");
-		final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
-		final Label gfxEngineLbl = new Label("Graphics Engine : ");
-		final ListBox gfxEngineListBox = new ListBox();
-		final HorizontalPanel themePanel = new HorizontalPanel();
-		final Label themeLbl = new Label("Theme : ");
-		final ListBox themeListBox = new ListBox();
-		final HorizontalPanel resolutionPanel = new HorizontalPanel();
-		final Label resolutionLbl = new Label("Resolution : ");
-		final TextBox heightTxtBox = new TextBox();
-		final Label crossLbl = new Label("x");
-		final TextBox widthTxtBox = new TextBox();
+
 		startBtn.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
-				ThemeManager.setCurrentTheme(ThemeManager
-						.getThemeFromName(themeListBox.getItemText(themeListBox
-								.getSelectedIndex())));
-
-				if (gfxEngineListBox.getItemText(
-						gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
-						"Tatami Gfx"))
-					GfxManager.setPlatform(new TatamiGfxPlatfrom());
-				else
-					GfxManager.setPlatform(new IncubatorGfxPlatform());
-
-				instance.removeFromParent();
-				loadingScreen.show();
-				int w;
-				int h;
-				try {
-					w = Integer.parseInt(widthTxtBox.getText());
-					h = Integer.parseInt(heightTxtBox.getText());
-				} catch (Exception ex) {
-					Log.warn("Unreadable resolution " + widthTxtBox.getText()
-							+ "x" + heightTxtBox.getText() + "!");
-					w = 800;
-					h = 600;
-				}
-
-				current_Panel = new DrawerPanel(w, h);
+			public void onClick(Widget sender) {	
+				makeFirstDrawer();
 				History.newItem("Drawer", false);
-				
-				
-				loadingScreen.hide();
-				UMLDrawer.addtoAppRootPanel(current_Panel);
-				
-
-				
+				drawerPanel.addDefaultClass();
 			}
 		});
 
 		startDemoBtn.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
-				ThemeManager.setCurrentTheme(ThemeManager
-						.getThemeFromName(themeListBox.getItemText(themeListBox
-								.getSelectedIndex())));
-
-				if (gfxEngineListBox.getItemText(
-						gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
-						"Tatami Gfx"))
-					GfxManager.setPlatform(new TatamiGfxPlatfrom());
-				else
-					GfxManager.setPlatform(new IncubatorGfxPlatform());
-				instance.removeFromParent();
-				loadingScreen.show();
-				int w;
-				int h;
-				try {
-					w = Integer.parseInt(widthTxtBox.getText());
-					h = Integer.parseInt(heightTxtBox.getText());
-				} catch (Exception ex) {
-					Log.warn("Unreadable resolution " + widthTxtBox.getText()
-							+ "x" + heightTxtBox.getText() + "!");
-					w = 800;
-					h = 600;
-				}
-
-				current_Panel = new DemoPanel(w, h);
+				makeFirstDrawer();
 				History.newItem("Demo", false);
-
-				loadingScreen.hide();
-				UMLDrawer.addtoAppRootPanel(current_Panel);
+				new Demo(drawerPanel.getGc());
 			}
 		});
 
 		History.addHistoryListener(new HistoryListener() {
 			public void onHistoryChanged(String historyToken) {
 				if (historyToken.equals("Drawer")) {
-					UMLDrawer.clearAppRootPanel();
-					loadingScreen.show();
-					int w;
-					int h;
-					try {
-						w = Integer.parseInt(widthTxtBox.getText());
-						h = Integer.parseInt(heightTxtBox.getText());
-					} catch (Exception ex) {
-						Log.warn("Unreadable resolution "
-								+ widthTxtBox.getText() + "x"
-								+ heightTxtBox.getText() + "! (Hist)");
-						w = 800;
-						h = 600;
-					}
-
-					current_Panel = new DrawerPanel(w, h);
-					loadingScreen.hide();
-					UMLDrawer.addtoAppRootPanel(current_Panel);
+					makeDrawerForHistory();
+					drawerPanel.addDefaultClass();
 				}
 			}
 		});
@@ -154,24 +86,8 @@ public class StartPanel extends VerticalPanel {
 
 			public void onHistoryChanged(String historyToken) {
 				if (historyToken.equals("Demo")) {
-					UMLDrawer.clearAppRootPanel();
-					loadingScreen.show();
-					int w;
-					int h;
-					try {
-						w = Integer.parseInt(widthTxtBox.getText());
-						h = Integer.parseInt(heightTxtBox.getText());
-					} catch (Exception ex) {
-						Log.warn("Unreadable resolution "
-								+ widthTxtBox.getText() + "x"
-								+ heightTxtBox.getText() + "! (Hist)");
-						w = 800;
-						h = 600;
-					}
-
-					current_Panel = new DemoPanel(w, h);
-					loadingScreen.hide();
-					UMLDrawer.addtoAppRootPanel(current_Panel);
+					makeDrawerForHistory();
+					new Demo(drawerPanel.getGc());
 				}
 			}
 
@@ -188,6 +104,15 @@ public class StartPanel extends VerticalPanel {
 
 		widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 		heightTxtBox.setText("" + (Window.getClientHeight() - 50));
+		Window.addWindowResizeListener(new WindowResizeListener() {
+
+			
+			public void onWindowResized(int width, int height) {
+				Log.fatal(width + " " + height);
+				
+			}
+		
+		});
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
 
@@ -209,5 +134,61 @@ public class StartPanel extends VerticalPanel {
 		loadingScreen.hide();
 		RootPanel.get().add(this);
 
+	}
+	
+	public void makeFirstDrawer() {
+		ThemeManager.setCurrentTheme(ThemeManager
+				.getThemeFromName(themeListBox.getItemText(themeListBox
+						.getSelectedIndex())));
+
+		if (gfxEngineListBox.getItemText(
+				gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
+				"Tatami Gfx"))
+			GfxManager.setPlatform(new TatamiGfxPlatfrom());
+		else
+			GfxManager.setPlatform(new IncubatorGfxPlatform());
+
+		instance.removeFromParent();
+		loadingScreen.show();
+		int w;
+		int h;
+		try {
+			w = Integer.parseInt(widthTxtBox.getText());
+			h = Integer.parseInt(heightTxtBox.getText());
+		} catch (Exception ex) {
+			Log.warn("Unreadable resolution " + widthTxtBox.getText()
+					+ "x" + heightTxtBox.getText() + "!");
+			w = 800;
+			h = 600;
+		}
+
+		drawerPanel = new DrawerPanel(w, h);	
+		
+		loadingScreen.hide();
+		UMLDrawer.addtoAppRootPanel(drawerPanel);
+	}
+	
+	public void makeDrawerForHistory() {
+		
+		UMLDrawer.clearAppRootPanel();
+		loadingScreen.show();
+		int w;
+		int h;
+		try {
+			w = Integer.parseInt(widthTxtBox.getText());
+			h = Integer.parseInt(heightTxtBox.getText());
+		} catch (Exception ex) {
+			Log.warn("Unreadable resolution "
+					+ widthTxtBox.getText() + "x"
+					+ heightTxtBox.getText() + "! (Hist)");
+			w = 800;
+			h = 600;
+		}
+
+		drawerPanel = new DrawerPanel(w, h);
+		loadingScreen.hide();
+		
+		UMLDrawer.addtoAppRootPanel(drawerPanel);
+		
 	}
 }
