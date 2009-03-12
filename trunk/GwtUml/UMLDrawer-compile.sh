@@ -2,7 +2,7 @@ APPDIR=`dirname $0`;
 java \
 -Xms2048m -Xmx2048m \
 -cp "$APPDIR/src:$APPDIR/bin:$APPDIR/gwt-linux/*:$APPDIR/external_jars/*" \
-com.google.gwt.dev.Compiler \
+com.google.gwt.dev.GWTCompiler \
 -out "$APPDIR/www" "$@" \
 com.objetdirect.gwt.umlapi.UMLDrawer
 cd $APPDIR
