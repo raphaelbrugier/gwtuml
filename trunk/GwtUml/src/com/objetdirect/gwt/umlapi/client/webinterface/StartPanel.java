@@ -98,7 +98,7 @@ public class StartPanel extends VerticalPanel {
 		themePanel.setSpacing(5);
 		resolutionPanel.setSpacing(5);
 		gfxEngineListBox.addItem("Tatami Gfx");
-		gfxEngineListBox.addItem("Incubator GWTCanvas Gfx (Not working right now)");
+		gfxEngineListBox.addItem("Incubator GWTCanvas GFX");
 
 		for (Theme theme : Theme.values()) {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
