@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="UMLDrawer" default="build" basedir=".">
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/home/fmounier/installs/gwt-linux-1.6.1" />
+  <property name="gwt.sdk" location="/home/florian/installs/gwt-linux-1.6.1" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
@@ -53,6 +53,7 @@
       <arg value="-startupUrl"/>
       <arg value="UMLDrawer.html"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <!-- arg value="-style PRETTY"/  -->
       <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
     </java>
   </target>
