@@ -1,15 +1,14 @@
-svn rm --force war/umldrawer/*
-mv war/umldrawer/.svn /tmp
-rm -fr war/umldrawer/*
-ant
-cd war/umldrawer 
-mv /tmp/.svn .
-rm -fr dijit
-rm -fr yui
-cd dojo
-rm -fr AdapterRegistry.js back.js _base _base.js behavior.js build.txt cldr colors.js cookie.js currency.js data date date.js DeferredList.js dnd _firebug fx fx.js gears.js html.js i18n.js io jaxer.js LICENSE nls NodeList-fx.js NodeList-html.js number.js OpenAjax.js parser.js regexp.js resources robot.js robotx.js rpc string.js tatami_all_module.js tatami_charting_module.js tatami_gfx_module.js tatami_widgets_module.js tests.js 
-cd ../dojox
-rm -fr analytics.js charting collections collections.js color color.js cometd.js date dtl.js editor encoding flash.js form fx fx.js gfx3d gfx3d.js grid highlight.js html html.js io json jsonPath jsonPath.js lang LICENSE math math.js off off.js presentation.js resources sketch.js sql.js storage.js string timing.js uuid uuid.js validate.js widget wire.js  
+cd war
+svn rm --force umldrawer/*.cache.*
+svn rm --force umldrawer/*.rpc
+rm -f umldrawer/*.cache.*
+rm -f umldrawer/*.rpc
+mv umldrawer umldrawer_
 cd ..
+ant
+cd war
+cp -f umldrawer/* umldrawer_
+rm -fr umldrawer
+mv umldrawer_ umldrawer
 svn add --force *
 
