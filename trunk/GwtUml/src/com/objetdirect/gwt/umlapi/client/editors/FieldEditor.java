@@ -1,12 +1,14 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.FocusListener;
-import com.google.gwt.user.client.ui.KeyboardListener;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
@@ -30,33 +32,31 @@ public abstract class FieldEditor {
 		editField.setText(content);
 		editField.setStylePrimaryName("editor-field");
 		editField.setWidth(w + "px");
-		FocusListener focusLst = new FocusListener() {
-			public void onFocus(Widget sender) {
-				Log.debug("Focus on " + this);
-			}
+		editField.addFocusHandler(new FocusHandler() {
 
-			public void onLostFocus(Widget sender) {
+			public void onFocus(FocusEvent event) {
+				Log.debug("Focus on " + this);
+				
+			}
+			
+		});
+		editField.addBlurHandler(new BlurHandler() {
+
+			public void onBlur(BlurEvent event) {
 				Log.debug("Focus lost on " + this);
 				validate();
 			}
-		};
-		KeyboardListener keybLst = new KeyboardListener() {
-			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
-			}
-
-			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
-			}
-
-			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
-				if (keyCode == KEY_ENTER) {
+			
+		});
+		editField.addKeyUpHandler(new KeyUpHandler() {
+			public void onKeyUp(KeyUpEvent event) {
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					validate();
-				} else if (keyCode == KEY_ESCAPE)
+				} else if (event.getNativeKeyCode()  == KeyCodes.KEY_ESCAPE)
 					cancel();
+				
 			}
-		};
-		editField.addFocusListener(focusLst);
-		DOM.sinkEvents(editField.getElement(), Event.ONBLUR);
-		editField.addKeyboardListener(keybLst);
+		});
 		canvas.add(editField, x, y);
 		editField.selectAll();
 		editField.setFocus(true);

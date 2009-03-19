@@ -69,7 +69,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 		};
 
-		ClickListener clickListener = new ClickListener() {
+		ClickListener ClickHandler = new ClickListener() {
 
 			public void onClick(Widget sender) {
 				gfxObjectListener.mouseClicked();
@@ -77,7 +77,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 		};
 		((GWTCanvasWithListeners) canvas).addMouseListener(mouseListener);
-		((GWTCanvasWithListeners) canvas).addClickListener(clickListener);
+		((GWTCanvasWithListeners) canvas).addClickListener(ClickHandler);
 	}
 
 	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {

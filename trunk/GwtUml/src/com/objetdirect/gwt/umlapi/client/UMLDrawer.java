@@ -3,14 +3,16 @@ package com.objetdirect.gwt.umlapi.client;
 import com.allen_sauer.gwt.log.client.DivLogger;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -74,21 +76,22 @@ public class UMLDrawer implements EntryPoint {
 		startPanel = new StartPanel(false);
 
 		History.newItem("Start");
-		History.addHistoryListener(new HistoryListener() {
-			public void onHistoryChanged(String historyToken) {
-				if (historyToken.equals("Start")) {
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue().equals("Start")) {
 					clearAppRootPanel();
 					startPanel = new StartPanel(true);
 					appRootPanel.add(startPanel, DockPanel.CENTER);
 				}
 			}
+			
 		});
 
 		log = new Button("ToggleLog");
 
-		log.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
+		log.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
 				DivLogger dl = Log.getDivLogger();
 				Element e = dl.getWidget().getElement();
 				String p = DOM.getStyleAttribute(e, "display");

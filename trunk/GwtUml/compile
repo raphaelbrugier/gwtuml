@@ -10,5 +10,6 @@ cd war
 cp -f umldrawer/* umldrawer_
 rm -fr umldrawer
 mv umldrawer_ umldrawer
+cd umldrawer
 svn add --force *
 

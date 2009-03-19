@@ -7,8 +7,9 @@ import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.MouseListenerCollection;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
-
+@SuppressWarnings("deprecation")
 public class GWTCanvasWithListeners extends GWTCanvas {
+	
 	private ClickListenerCollection clickListeners;
 	private MouseListenerCollection mouseListeners;
 

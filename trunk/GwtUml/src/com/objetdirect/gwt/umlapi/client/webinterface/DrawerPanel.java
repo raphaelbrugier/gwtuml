@@ -11,13 +11,15 @@ public class DrawerPanel extends AbsolutePanel {
 	private final UMLCanvas gc;
 	private int height;
 	private int width;
+	private SimplePanel bottomShadow;
+	private SimplePanel rightShadow;
+	private SimplePanel bottomRightCornerShadow;
+	private SimplePanel topRightCornerShadow;
+	private SimplePanel bottomLeftCornerShadow;
 	
 	public DrawerPanel(int width, int height) {
 		Log.info("Creating drawer");
-		this.width = width;
-		this.height = height;
-		
-		
+
 		
 		gc = new UMLCanvas(width, height);
 		gc.setStylePrimaryName("canvas");
@@ -25,37 +27,9 @@ public class DrawerPanel extends AbsolutePanel {
 		
 		width += 2; //Border Size
 		height += 2; //Border Size		
-		int shadowSize = 8;
-		
-		this.setWidth(width + shadowSize + this.getAbsoluteLeft() + "px");
-		this.setHeight(height + shadowSize + this.getAbsoluteTop() + "px");
-		
-		SimplePanel bottomShadow = new SimplePanel();
-		bottomShadow.setPixelSize(width - shadowSize, shadowSize);
-		bottomShadow.setStylePrimaryName("bottomShadow");
-		this.add(bottomShadow, shadowSize, height);
-		
-		
-		SimplePanel rightShadow = new SimplePanel();
-		rightShadow.setPixelSize(shadowSize, height - shadowSize);
-		rightShadow.setStylePrimaryName("rightShadow");
-		this.add(rightShadow, width, shadowSize);
-		
-		SimplePanel bottomRightCornerShadow = new SimplePanel();
-		bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-		bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
-		this.add(bottomRightCornerShadow, width, height);
-		
-		SimplePanel topRightCornerShadow = new SimplePanel();
-		topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-		topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
-		this.add(topRightCornerShadow, width, 0);
-		
-		SimplePanel bottomLeftCornerShadow = new SimplePanel();
-		bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
-		bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
-		this.add(bottomLeftCornerShadow, 0, height);
-		
+		this.width = width;
+		this.height = height;
+		makeShadow();
 		
 		// TODO : under chrome redraw doesn't work if the canvas is at a
 		// different point than (0,0) tatami ? dojo ? chrome ?
@@ -85,6 +59,46 @@ public class DrawerPanel extends AbsolutePanel {
 
 	public UMLCanvas getGc() {
 		return gc;
+	}
+	
+	public void clearShadow() {
+		this.remove(bottomShadow);
+		this.remove(rightShadow);
+		this.remove(bottomRightCornerShadow);
+		this.remove(topRightCornerShadow);
+		this.remove(bottomLeftCornerShadow);		
+	}
+	
+	public void makeShadow() {
+		int shadowSize = 8;
+		
+		this.setWidth(width + shadowSize + this.getAbsoluteLeft() + "px");
+		this.setHeight(height + shadowSize + this.getAbsoluteTop() + "px");
+		
+		bottomShadow = new SimplePanel();
+		bottomShadow.setPixelSize(width - shadowSize, shadowSize);
+		bottomShadow.setStylePrimaryName("bottomShadow");
+		this.add(bottomShadow, shadowSize, height);
+		
+		rightShadow = new SimplePanel();
+		rightShadow.setPixelSize(shadowSize, height - shadowSize);
+		rightShadow.setStylePrimaryName("rightShadow");
+		this.add(rightShadow, width, shadowSize);
+		
+		bottomRightCornerShadow = new SimplePanel();
+		bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+		bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
+		this.add(bottomRightCornerShadow, width, height);
+		
+		topRightCornerShadow = new SimplePanel();
+		topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+		topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
+		this.add(topRightCornerShadow, width, 0);
+		
+		bottomLeftCornerShadow = new SimplePanel();
+		bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
+		bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
+		this.add(bottomLeftCornerShadow, 0, height);
 	}
 	
 	public void addDefaultClass() {

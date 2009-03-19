@@ -1,13 +1,16 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.WindowResizeListener;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -16,7 +19,6 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawer;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
@@ -59,41 +61,43 @@ public class StartPanel extends VerticalPanel {
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.setSpacing(10);
+		startBtn.addClickHandler(new ClickHandler() {
 
-		startBtn.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {	
+			public void onClick(ClickEvent event) {
 				makeFirstDrawer();
 				History.newItem("Drawer", false);
 				drawerPanel.addDefaultClass();
+				
 			}
 		});
-
-		startDemoBtn.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
+		startDemoBtn.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
 				makeFirstDrawer();
 				History.newItem("Demo", false);
 				new Demo(drawerPanel.getGc());
 			}
 		});
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 
-		History.addHistoryListener(new HistoryListener() {
-			public void onHistoryChanged(String historyToken) {
-				if (historyToken.equals("Drawer")) {
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue().equals("Drawer")) {
 					makeDrawerForHistory();
 					drawerPanel.addDefaultClass();
 				}
 			}
+			
 		});
-		History.addHistoryListener(new HistoryListener() {
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 
-			public void onHistoryChanged(String historyToken) {
-				if (historyToken.equals("Demo")) {
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue().equals("Demo")) {
 					makeDrawerForHistory();
 					new Demo(drawerPanel.getGc());
 				}
 			}
-
+			
 		});
+
 		gfxEnginePanel.setSpacing(5);
 		themePanel.setSpacing(5);
 		resolutionPanel.setSpacing(5);
@@ -104,23 +108,25 @@ public class StartPanel extends VerticalPanel {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 
-		isResolutionAutoChkBox.setChecked(true);
-		isResolutionAutoChkBox.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
-				widthTxtBox.setEnabled(!isResolutionAutoChkBox.isChecked());
-				heightTxtBox.setEnabled(!isResolutionAutoChkBox.isChecked());
+		isResolutionAutoChkBox.setValue(true);
+		isResolutionAutoChkBox.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				widthTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());
+				heightTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());
 				
 			}});
 		widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 		heightTxtBox.setText("" + (Window.getClientHeight() - 50));
-		Window.addWindowResizeListener(new WindowResizeListener() {
-
-			
-			public void onWindowResized(int width, int height) {
-				if(isResolutionAutoChkBox.isChecked()) {
+		Window.addResizeHandler(new ResizeHandler() {
+			public void onResize(ResizeEvent arg0) {
+				if(isResolutionAutoChkBox.getValue()) {
+					drawerPanel.setWidth(Window.getClientWidth() - 50);
+					drawerPanel.setHeight(Window.getClientHeight() - 50);
+					drawerPanel.setPixelSize( Window.getClientWidth() - 50, Window.getClientHeight() - 50);
+					drawerPanel.clearShadow(); 
+					drawerPanel.makeShadow();
 					GfxManager.getPlatform().setSize(drawerPanel.getGc(), Window.getClientWidth() - 50, Window.getClientHeight() - 50);
-				}
-				
+				}				
 			}
 		
 		});
