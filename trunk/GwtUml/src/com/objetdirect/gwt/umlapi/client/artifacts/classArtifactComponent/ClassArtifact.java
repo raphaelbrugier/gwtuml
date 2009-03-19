@@ -21,24 +21,6 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public class ClassArtifact extends BoxArtifact {
 
-	public enum ClassArtifactPart {
-		ATTRIBUTE, METHOD, NAME, NEW_ATTRIBUTE, NEW_METHOD, NONE;
-
-		private int slotIndex;
-
-		private ClassArtifactPart() {
-			this.slotIndex = -2;
-		}
-
-		public int getSlotIndex() {
-			return slotIndex;
-		}
-
-		public void setSlotIndex(int slotIndex) {
-			this.slotIndex = slotIndex;
-		}
-	}
-
 	ClassNameArtifact className;
 	ClassAttributesArtifact classAttributes;
 	ClassMethodsArtifact classMethods;
@@ -59,7 +41,6 @@ public class ClassArtifact extends BoxArtifact {
 		this.className.setClassArtifact(this);
 		this.classAttributes.setClassArtifact(this);
 		this.classMethods.setClassArtifact(this);
-		//this.editor = new ClassEditor(this);
 	}
 	@Override
 	public void setCanvas(UMLCanvas canvas) {

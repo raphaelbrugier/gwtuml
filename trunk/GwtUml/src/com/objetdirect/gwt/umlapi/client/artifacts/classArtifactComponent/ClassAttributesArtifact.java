@@ -84,24 +84,24 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+		
 		for (Attribute attribute : attributes) {
 			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, attributeText);
 			GfxManager.getPlatform().setFont(attributeText, OptionsManager.getFont());
 			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
-			int thisAttributeWidth = (int) GfxManager.getPlatform().getWidthFor(attributeText);
+			int thisAttributeWidth = (int) GfxManager.getPlatform().getWidthFor(attributeText) ;
 			int thisAttributeHeight = (int) GfxManager.getPlatform().getHeightFor(attributeText);
-			
-			GfxManager.getPlatform().translate(attributeText, 0, thisAttributeHeight);
-			GfxManager.getPlatform().translate(attributeText, OptionsManager.getTextLeftPadding() , OptionsManager.getTextTopPadding() + height);
+			GfxManager.getPlatform().translate(attributeText, OptionsManager.getTextLeftPadding() , OptionsManager.getTextTopPadding() + height + thisAttributeHeight);
+			thisAttributeWidth += OptionsManager.getTextXTotalPadding();
+			thisAttributeHeight += OptionsManager.getTextYTotalPadding();
 			width  = thisAttributeWidth > width ? thisAttributeWidth : width;
-			height += thisAttributeHeight;			
+			height += thisAttributeHeight;	
+			
 			attributeGfxObjects.put(attributeText, attribute);
 			lastGfxObject = attributeText;
-		}
-		width += OptionsManager.getTextXTotalPadding();
+		}		
 		width += OptionsManager.getRectangleXTotalPadding();
-		height += OptionsManager.getTextYTotalPadding();
 		height += OptionsManager.getRectangleYTotalPadding();
 		
 		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
@@ -125,7 +125,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 		else {
 		AttributePartEditor editor = new AttributePartEditor(canvas, this, attributeToChange);
 		editor.startEdition(attributeToChange.toString(), (int) (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
-				(int) (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) - OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
+				(int) (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding()), 
 				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 		}
 	}

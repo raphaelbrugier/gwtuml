@@ -191,7 +191,7 @@ public class NoteArtifact extends BoxArtifact {
 	public void edit(GfxObject gfxObject, int x, int y) {
 		NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
 		editor.startEdition(note.getText(), this.x + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding(),
-				this.y + OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding(), 
+				this.y + OptionsManager.getTextYTotalPadding() + OptionsManager.getRectangleTopPadding(), 
 				getWidth() - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 		
 	}

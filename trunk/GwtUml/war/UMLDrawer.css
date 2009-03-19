@@ -7,6 +7,7 @@
 	width: 100%;
 }
 .editor-field {
+	font: bold 14px Courrier;
 	border: 1px solid #0f0;
 }
 

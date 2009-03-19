@@ -84,7 +84,8 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 		height = 0;
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);	
+		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+		
 		for (Method method : methods) {
 			GfxObject methodText = GfxManager.getPlatform().buildText(method.toString());
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, methodText);	
@@ -92,18 +93,19 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 			GfxManager.getPlatform().setFillColor(methodText, ThemeManager.getForegroundColor());
 			int thisMethodWidth = (int) GfxManager.getPlatform().getWidthFor(methodText);
 			int thisMethodHeight = (int) GfxManager.getPlatform().getHeightFor(methodText);
-			GfxManager.getPlatform().translate(methodText, 0, thisMethodHeight);
-			GfxManager.getPlatform().translate(methodText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding() + height);
+			
+			GfxManager.getPlatform().translate(methodText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding() + height + thisMethodHeight);
+			thisMethodWidth += OptionsManager.getTextXTotalPadding();
+			thisMethodHeight += OptionsManager.getTextYTotalPadding();
 			width  = thisMethodWidth > width ? thisMethodWidth : width;
 			height += thisMethodHeight;
 			
 			methodGfxObjects.put(methodText, method);
 			lastGfxObject = methodText;
 		}
-		width += OptionsManager.getTextXTotalPadding();
 		width += OptionsManager.getRectangleXTotalPadding();
-		height += OptionsManager.getTextYTotalPadding();
 		height += OptionsManager.getRectangleYTotalPadding();
+		
 		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
 
@@ -127,7 +129,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 		else {
 		MethodPartEditor editor = new MethodPartEditor(canvas, this, methodToChange);
 		editor.startEdition(methodToChange.toString(), (int) (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
-				(int) (classArtifact.getY() + classArtifact.className.getHeight() + classArtifact.classAttributes.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) -  GfxManager.getPlatform().getHeightFor(gfxObject) - OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
+				(int) (classArtifact.getY() + classArtifact.className.getHeight() +  classArtifact.classAttributes.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding() ), 
 				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 		}
 	}

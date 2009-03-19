@@ -77,12 +77,11 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
 		width  = (int) GfxManager.getPlatform().getWidthFor(nameText);
 		height = (int) GfxManager.getPlatform().getHeightFor(nameText);
-		GfxManager.getPlatform().translate(nameText, 0, height);
-		GfxManager.getPlatform().translate(nameText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding());
+		
+		GfxManager.getPlatform().translate(nameText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding() + height);
 			
 		width += OptionsManager.getTextXTotalPadding();
-		height += OptionsManager.getTextYTotalPadding();
-		
+		height += OptionsManager.getTextYTotalPadding();		
 		width += OptionsManager.getRectangleXTotalPadding();
 		height += OptionsManager.getRectangleYTotalPadding();
 		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);	
