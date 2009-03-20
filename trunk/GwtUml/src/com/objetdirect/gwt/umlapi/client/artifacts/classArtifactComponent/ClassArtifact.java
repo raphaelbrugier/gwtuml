@@ -203,8 +203,7 @@ public class ClassArtifact extends BoxArtifact {
 		return relationships.remove(relationship);
 	}
 
-	public boolean removeRelationshipDependency(
-			RelationshipArtifact relationship) {
+	public boolean removeRelationshipDependency(RelationshipArtifact relationship) {
 		return relationshipDependencies.remove(relationship);
 	}
 

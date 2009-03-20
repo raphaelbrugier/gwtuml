@@ -1,15 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.FocusListener;
-import com.google.gwt.user.client.ui.KeyboardListener;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact.RelationShipArtifactPart;
 
 public class RelationshipEditor {
-
+/*
 	public static final int FIELD_HEIGHT = 18;
 	public static final int FIELD_XMARGIN = 8;
 	public static final int FIELD_YMARGIN = -4;
@@ -120,6 +113,6 @@ public class RelationshipEditor {
 		} finally {
 			validationInProcess = false;
 		}
-	}
+	}*/
 
 }

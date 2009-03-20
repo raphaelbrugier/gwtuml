@@ -17,9 +17,9 @@ public class NoteArtifact extends BoxArtifact {
 
 
 	private Note note;
-	GfxObject borderPath = null;
+	GfxObject borderPath;
 	GfxObject contentText;
-	GfxObject cornerPath = null;
+	GfxObject cornerPath;
 	List<NoteLinkArtifact> dependencies = new ArrayList<NoteLinkArtifact>();
 	
 
@@ -69,14 +69,10 @@ public class NoteArtifact extends BoxArtifact {
 		GfxObject outlineCornerPath = getCornerPath();
 		GfxManager.getPlatform().addToVirtualGroup(vg, outlineBorderPath);
 		GfxManager.getPlatform().addToVirtualGroup(vg, outlineCornerPath);
-		GfxManager.getPlatform().setStrokeStyle(outlineBorderPath,
-				GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(outlineCornerPath,
-				GfxStyle.DASH);
-		GfxManager.getPlatform().setStroke(outlineBorderPath,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(outlineCornerPath,
-				ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStrokeStyle(outlineBorderPath, GfxStyle.DASH);
+		GfxManager.getPlatform().setStrokeStyle(outlineCornerPath, GfxStyle.DASH);
+		GfxManager.getPlatform().setStroke(outlineBorderPath, ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(outlineCornerPath, ThemeManager.getHighlightedForegroundColor(), 1);
 		return vg;
 	}
 
@@ -100,12 +96,7 @@ public class NoteArtifact extends BoxArtifact {
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
-
-	public Object getSubPart(GfxObject o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public int getWidth() {
 		int width = OptionsManager.getRectangleXTotalPadding() + OptionsManager.getTextXTotalPadding()
@@ -115,10 +106,8 @@ public class NoteArtifact extends BoxArtifact {
 
 	public void select() {
 		GfxManager.getPlatform().moveToFront(gfxObject);
-		GfxManager.getPlatform().setStroke(borderPath,
-				ThemeManager.getHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(cornerPath,
-				ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(borderPath, ThemeManager.getHighlightedForegroundColor(), 2);
+		GfxManager.getPlatform().setStroke(cornerPath, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
 
 	public void setContent(String content) {
@@ -126,21 +115,17 @@ public class NoteArtifact extends BoxArtifact {
 	}
 
 	public void unselect() {
-		GfxManager.getPlatform().setStroke(borderPath,
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(cornerPath,
-				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(borderPath, ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(cornerPath, ThemeManager.getForegroundColor(), 1);
 	}
 	void createNoteText() {
 
 		contentText = GfxManager.getPlatform().buildText(note.getText());
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, contentText);
 		GfxManager.getPlatform().setFont(contentText, OptionsManager.getFont());
-		GfxManager.getPlatform().setFillColor(contentText,
-				ThemeManager.getForegroundColor());
-		GfxManager.getPlatform().translate(contentText, 0, (int) GfxManager.getPlatform().getHeightFor(contentText));
+		GfxManager.getPlatform().setFillColor(contentText, ThemeManager.getForegroundColor());
 		GfxManager.getPlatform().translate(contentText, OptionsManager.getTextLeftPadding(),
-				OptionsManager.getTextTopPadding());
+				OptionsManager.getTextTopPadding() + (int) GfxManager.getPlatform().getHeightFor(contentText));
 	}
 	@Override
 	protected void buildGfxObject() {
@@ -161,23 +146,18 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().lineTo(thisBorderPath, getWidth(), getHeight());
 		GfxManager.getPlatform().lineTo(thisBorderPath, 0, getHeight());
 		GfxManager.getPlatform().lineTo(thisBorderPath, 0, 0);
-		GfxManager.getPlatform().setFillColor(thisBorderPath,
-				ThemeManager.getBackgroundColor());
-		GfxManager.getPlatform().setStroke(thisBorderPath,
-				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setFillColor(thisBorderPath, ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().setStroke(thisBorderPath, ThemeManager.getForegroundColor(), 1);
 		return thisBorderPath;
 	}
 	protected GfxObject getCornerPath() {
 
 		GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();		
 		GfxManager.getPlatform().moveTo(thisCornerPath, getWidth() - getCornerWidth(), 0);
-		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth() - getCornerWidth(),
-				getCornerHeight());
+		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth() - getCornerWidth(),getCornerHeight());
 		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth(), getCornerHeight());
-		GfxManager.getPlatform().setFillColor(thisCornerPath,
-				ThemeManager.getBackgroundColor());
-		GfxManager.getPlatform().setStroke(thisCornerPath,
-				ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setFillColor(thisCornerPath, ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().setStroke(thisCornerPath, ThemeManager.getForegroundColor(), 1);
 		return thisCornerPath;
 	}
 	private int getCornerHeight() {

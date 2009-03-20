@@ -6,11 +6,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 public abstract class LineArtifact extends UMLArtifact {
 
 	int x1 = 0;
-
 	int x2 = 0;
-
 	int y1 = 0;
-
 	int y2 = 0;
 
 	@Override
@@ -37,26 +34,13 @@ public abstract class LineArtifact extends UMLArtifact {
 		return x1 < x2 ? x1 : x2;
 	}
 
-	public int getX1() {
-		return x1;
-	}
-
-	public int getX2() {
-		return x2;
-	}
 
 	@Override
 	public int getY() {
 		return y1 < y2 ? y1 : y2;
 	}
 
-	public int getY1() {
-		return y1;
-	}
 
-	public int getY2() {
-		return y2;
-	}
 	public boolean isDraggable() {
 		return false;
 	}

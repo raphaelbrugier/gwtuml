@@ -16,7 +16,6 @@ public class Parameter {
 	 * @param name Name of the parameter
 	 */
 	public Parameter(String type, String name) {
-		super();
 		this.type = type;
 		this.name = name;
 	}

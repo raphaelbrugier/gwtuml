@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.dev.util.arg.OptionModuleName;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -11,7 +10,6 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.TextBox;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public abstract class FieldEditor {

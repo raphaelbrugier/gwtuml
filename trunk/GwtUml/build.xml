@@ -43,6 +43,64 @@
     </java>
   </target>
 
+  <target name="prettygwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx1024m"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="-style"/>
+      <arg value="PRETTY"/>
+      <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
+    </java>
+  </target>
+
+  <target name="detailedgwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx1024m"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="-style"/>
+      <arg value="DETAILED"/>
+      <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
+    </java>
+  </target>
+  <target name="geckonlygwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx1024m" />
+      <jvmarg value="-Dgwt.property.user.agent=gecko" />
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
+    </java>
+  </target>
+  <target name="geckonlydetailedgwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx1024m"/>
+      <jvmarg value="-Dgwt.property.user.agent=gecko" />
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="-style"/>
+      <arg value="DETAILED"/>
+      <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
+    </java>
+  </target>
+
   <target name="hosted" depends="javac" description="Run hosted mode">
     <java failonerror="true" fork="true" classname="com.google.gwt.dev.HostedMode">
       <classpath>
@@ -58,6 +116,10 @@
   </target>
 
   <target name="build" depends="gwtc" description="Build this project" />
+  <target name="pretty" depends="prettygwtc" description="Build this project pretty style" />
+  <target name="detailed" depends="detailedgwtc" description="Build this project detailed style" />
+  <target name="geckonly" depends="geckonlygwtc" description="Build this project for gecko only" />
+  <target name="geckonlydetailed" depends="geckonlydetailedgwtc" description="Build this project for gecko only detailed style" />
 
   <target name="war" depends="build" description="Create a war file">
     <zip destfile="UMLDrawer.war" basedir="war"/>
