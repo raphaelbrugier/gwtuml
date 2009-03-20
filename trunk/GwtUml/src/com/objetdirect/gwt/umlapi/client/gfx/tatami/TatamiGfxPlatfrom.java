@@ -83,16 +83,16 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 
 	}
 
-	public GfxObject buildLine(double x1, double y1, double x2, double y2) {
-		return new TatamiGfxObjectContainer(new Line((int) x1, (int) y1,
-				(int) x2, (int) y2));
+	public GfxObject buildLine(int x1, int y1, int x2, int y2) {
+		return new TatamiGfxObjectContainer(new Line( x1,  y1,
+				 x2,  y2));
 	}
 
 	public GfxObject buildPath() {
 		return new TatamiGfxObjectContainer(new Path());
 	}
 
-	public GfxObject buildRect(double width, double height) {
+	public GfxObject buildRect(int width, int height) {
 		return new TatamiGfxObjectContainer(new Rect(width, height));
 	}
 
@@ -107,33 +107,33 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		return vg;
 	}
 
-	public double getHeightFor(GfxObject gfxO) {
+	public int getHeightFor(GfxObject gfxO) {
 		if (gfxO != null)
-			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getHeight() * 4 / 5; // Converting point to pixel
+			return (int) (((Text) getTatamiGraphicalObjectFrom(gfxO)).getHeight() * 4 / 5); // Converting point to pixel
 		return 0;
 	}
 
-	public double getWidthFor(GfxObject gfxO) {
+	public int getWidthFor(GfxObject gfxO) {
 		if (gfxO != null) {
-			return ((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth() * 4 / 5; // Converting point to pixel	
+			return (int)  (((Text) getTatamiGraphicalObjectFrom(gfxO)).getWidth() * 4 / 5); // Converting point to pixel	
 		}
 		
 		return 0;
 	}
 
-	public double getXFor(GfxObject gfxO) {
+	public int getXFor(GfxObject gfxO) {
 		if (gfxO != null)
-			return getTatamiGraphicalObjectFrom(gfxO).getX();
+			return (int)  getTatamiGraphicalObjectFrom(gfxO).getX();
 		return 0;
 	}
 
-	public double getYFor(GfxObject gfxO) {
+	public int getYFor(GfxObject gfxO) {
 		if (gfxO != null)
-			return getTatamiGraphicalObjectFrom(gfxO).getY();
+			return (int)  getTatamiGraphicalObjectFrom(gfxO).getY();
 		return 0;
 	}
 
-	public void lineTo(GfxObject gfxO, double x, double y) {
+	public void lineTo(GfxObject gfxO, int x, int y) {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).lineTo(x, y);
 	}
 
@@ -161,7 +161,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		canvas.setSize(width + "px", height + "px");
 	}
 	
-	public void moveTo(GfxObject gfxO, double x, double y) {
+	public void moveTo(GfxObject gfxO, int x, int y) {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
 
 	}

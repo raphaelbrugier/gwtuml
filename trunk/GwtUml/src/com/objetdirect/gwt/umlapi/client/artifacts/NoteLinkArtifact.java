@@ -2,9 +2,11 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.LinkedHashMap;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -24,14 +26,25 @@ public class NoteLinkArtifact extends LineArtifact {
 		this.note = note;
 		this.note.addDependency(this);
 		this.target = target;
-		this.target.addNoteLink(this);
+		if(!isTargetALink()) this.target.addDependency(this);
 
 	}
 
-	public void buildGfxObject() {		
-		float[] lineBounds = Geometry.computeLineBounds(note, target);
-		line = GfxManager.getPlatform().buildLine((int) lineBounds[0],
-				(int) lineBounds[1], (int) lineBounds[2], (int) lineBounds[3]);
+	public void buildGfxObject() {
+		Point targetCenterPoint = new Point(target.getCenterX(), target.getCenterY());
+		Point lineLeftPoint  = Geometry.getPointForLine(note, targetCenterPoint);
+		Point lineRightPoint;
+		if(isTargetALink()) {
+			lineRightPoint = targetCenterPoint;
+		} else {
+			lineRightPoint = Geometry.getPointForLine(target, new Point(note.getCenterX(), note.getCenterY()));
+		}
+		x1 = lineLeftPoint.getX();
+		y1 = lineLeftPoint.getY();
+		x2 = lineRightPoint.getX();
+		y2 = lineRightPoint.getY();
+		
+		line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);		
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
@@ -93,6 +106,10 @@ public class NoteLinkArtifact extends LineArtifact {
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
+	}
+	private boolean isTargetALink() {
+		//TODO : find a better way :
+		return (target.getClass().getSuperclass().equals(LineArtifact.class) || target.getClass().getSuperclass().getSuperclass().equals(LineArtifact.class));
 	}
 
 }

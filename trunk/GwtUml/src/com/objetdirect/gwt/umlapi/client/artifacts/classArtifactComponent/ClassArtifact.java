@@ -8,8 +8,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -24,9 +23,6 @@ public class ClassArtifact extends BoxArtifact {
 	ClassNameArtifact className;
 	ClassAttributesArtifact classAttributes;
 	ClassMethodsArtifact classMethods;
-	private List<ClassDependencyArtifact> classDependencies = new ArrayList<ClassDependencyArtifact>();
-	private List<RelationshipArtifact> relationshipDependencies = new ArrayList<RelationshipArtifact>();
-	private List<RelationshipArtifact> relationships = new ArrayList<RelationshipArtifact>();
 	private int width;
 
 	public ClassArtifact() {
@@ -57,51 +53,6 @@ public class ClassArtifact extends BoxArtifact {
 
 	public void addMethod(Method method) {
 		classMethods.add(method);
-	}
-
-	public void addClassDependency(ClassDependencyArtifact clazz) {
-		classDependencies.add(clazz);
-	}
-
-	public void addRelationship(RelationshipArtifact relationship) {
-		this.relationships.add(relationship);
-	}
-
-	public void addRelationshipDependency(RelationshipArtifact relationship) {
-		relationshipDependencies.add(relationship);
-	}
-
-	@Override
-	public void adjusted() {
-		super.adjusted();
-		for (int i = 0; i < relationshipDependencies.size(); i++) {
-			final RelationshipArtifact element = relationshipDependencies
-			.get(i);
-			new Scheduler.Task(element) {
-				@Override
-				public void process() {
-					element.adjust();
-				}
-			};
-		}
-		for (int i = 0; i < relationships.size(); i++) {
-			final RelationshipArtifact element = relationships.get(i);
-			new Scheduler.Task(element) {
-				@Override
-				public void process() {
-					element.adjust();
-				}
-			};
-		}
-		for (int i = 0; i < classDependencies.size(); i++) {
-			final ClassDependencyArtifact element = classDependencies.get(i);
-			new Scheduler.Task(element) {
-				@Override
-				public void process() {
-					element.adjust();
-				}
-			};
-		}
 	}
 
 	public List<Attribute> getAttributes() {
@@ -199,18 +150,6 @@ public class ClassArtifact extends BoxArtifact {
 		return vg;
 	}
 
-	public boolean removeRelationship(RelationshipArtifact relationship) {
-		return relationships.remove(relationship);
-	}
-
-	public boolean removeRelationshipDependency(RelationshipArtifact relationship) {
-		return relationshipDependencies.remove(relationship);
-	}
-
-	public boolean removeClassDependency(ClassDependencyArtifact clazz) {
-		return classDependencies.remove(clazz);
-	}
-
 	@Override
 	public int getWidth() {
 		return width;
@@ -306,6 +245,15 @@ public class ClassArtifact extends BoxArtifact {
 		GfxManager.getPlatform().clearVirtualGroup(classMethods.getGfxObject());
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		buildGfxObject();
+		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
+			Log.warn("Rebuilding : " + dependentUMLArtifact);
+			new Scheduler.Task(dependentUMLArtifact) {
+				@Override
+				public void process() {
+					dependentUMLArtifact.rebuildGfxObject();
+				}
+			};
+		}
 		
 	}
 

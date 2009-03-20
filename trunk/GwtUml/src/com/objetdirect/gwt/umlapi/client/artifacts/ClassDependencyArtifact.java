@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -41,18 +42,14 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 		}
 
 		@Override
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
+		protected GfxObject buildArrow() {
+			return Geometry.buildFilledArrow(x1, y1, x2, y2);
 		}
 
 		@Override
-		protected GfxObject buildLine(float[] lineBounds) {
+		protected GfxObject buildLine() {
 
-			GfxObject line = GfxManager.getPlatform().buildLine(
-					(int) lineBounds[0], (int) lineBounds[1],
-					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
@@ -90,18 +87,14 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 		}
 
 		@Override
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildFilledArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
+		protected GfxObject buildArrow() {
+			return Geometry.buildFilledArrow(x1, y1, x2, y2);
 		}
 
 		@Override
-		protected GfxObject buildLine(float[] lineBounds) {
+		protected GfxObject buildLine() {
 
-			GfxObject line = GfxManager.getPlatform().buildLine(
-					(int) lineBounds[0], (int) lineBounds[1],
-					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
@@ -139,18 +132,14 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 		}
 
 		@Override
-		protected GfxObject buildArrow(float[] lineBounds) {
-			return Geometry.buildArrow((int) lineBounds[2],
-					(int) lineBounds[3], (int) lineBounds[0],
-					(int) lineBounds[1]);
+		protected GfxObject buildArrow() {
+			return Geometry.buildArrow(x1, y1, x2, y2);
 		}
 
 		@Override
-		protected GfxObject buildLine(float[] lineBounds) {
+		protected GfxObject buildLine() {
 
-			GfxObject line = GfxManager.getPlatform().buildLine(
-					(int) lineBounds[0], (int) lineBounds[1],
-					(int) lineBounds[2], (int) lineBounds[3]);
+			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
@@ -169,9 +158,9 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 
 	public ClassDependencyArtifact(ClassArtifact left, ClassArtifact right) {
 		this.left = left;
-		left.addClassDependency(this);
+		left.addDependency(this);
 		this.right = right;
-		right.addClassDependency(this);
+		right.addDependency(this);
 	}
 
 	public void edit(GfxObject gfxObject, int x, int y) {
@@ -196,22 +185,26 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 				ThemeManager.getForegroundColor(), 1);
 	}
 
-	protected abstract GfxObject buildArrow(float[] lineBounds);
+	protected abstract GfxObject buildArrow();
 
 	@Override
 	protected void buildGfxObject() {
 
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, vg);
+		Point lineLeftPoint  = Geometry.getPointForLine(left, new Point(right.getCenterX(), right.getCenterY()));
+		Point lineRightPoint = Geometry.getPointForLine(right, new Point(left.getCenterX(), left.getCenterY()));
+		x1 = lineLeftPoint.getX();
+		y1 = lineLeftPoint.getY();
+		x2 = lineRightPoint.getX();
+		y2 = lineRightPoint.getY();
 		
-		float[] lineBounds = Geometry.computeLineBounds(left, right);
-		setBounds((int) lineBounds[0], (int) lineBounds[1],
-				(int) lineBounds[2], (int) lineBounds[3]);
-		line = buildLine(lineBounds);
+
+		line = buildLine();
 		GfxManager.getPlatform().addToVirtualGroup(vg, line);
-		arrow = buildArrow(lineBounds);
+		arrow = buildArrow();
 		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
 	}
 
-	protected abstract GfxObject buildLine(float[] lineBounds);
+	protected abstract GfxObject buildLine();
 }

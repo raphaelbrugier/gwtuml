@@ -29,13 +29,13 @@ public class Rect extends IncubatorGfxObject {
 	}
 
 	@Override
-	public double getHeight() {
+	public int getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public double getWidth() {
+	public int getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

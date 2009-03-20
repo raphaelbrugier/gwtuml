@@ -75,8 +75,8 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		
 		GfxManager.getPlatform().setFont(nameText, OptionsManager.getSmallCapsFont());
 		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
-		width  = (int) GfxManager.getPlatform().getWidthFor(nameText);
-		height = (int) GfxManager.getPlatform().getHeightFor(nameText);
+		width  =  GfxManager.getPlatform().getWidthFor(nameText);
+		height =  GfxManager.getPlatform().getHeightFor(nameText);
 		
 		GfxManager.getPlatform().translate(nameText, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding() + height);
 			
@@ -95,8 +95,8 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	@Override
 	public void edit() {
 		NamePartFieldEditor editor = new NamePartFieldEditor(canvas, this);
-		editor.startEdition(className, (int) (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
-				(int) (classArtifact.getY() + OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
+		editor.startEdition(className,  (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
+				 (classArtifact.getY() + OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
 				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 	}	
 	

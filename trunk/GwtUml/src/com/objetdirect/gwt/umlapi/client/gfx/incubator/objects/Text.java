@@ -33,12 +33,12 @@ public class Text extends IncubatorGfxObject {
 	}
 
 	@Override
-	public double getHeight() {
+	public int getHeight() {
 		return 8;
 	}
 
 	@Override
-	public double getWidth() {
+	public int getWidth() {
 		return text.length() * 10;
 	}
 

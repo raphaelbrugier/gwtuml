@@ -1,38 +1,34 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 
+import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
-public abstract class UMLArtifact implements UMLElement {
+public abstract class UMLArtifact  {
 
 	protected UMLCanvas canvas;
 
 	protected GfxObject gfxObject;
 
-	List<NoteLinkArtifact> notes = new ArrayList<NoteLinkArtifact>();
+	protected HashSet<UMLArtifact> dependentUMLArtifacts = new HashSet<UMLArtifact>();
 
 	private boolean isBuilt = false;
 
-	public void addNoteLink(NoteLinkArtifact noteLink) {
-		notes.add(noteLink);
+	public void addDependency(UMLArtifact dependentUMLArtifact) {
+		Log.warn(this + "adding depency with" + dependentUMLArtifact);
+		dependentUMLArtifacts.add(dependentUMLArtifact);
 	}
-
-	public void adjust() {		
-		this.rebuildGfxObject();
-		adjusted();
-	}
-
-	public void adjusted() {
-		for (int i = 0; i < notes.size(); i++) {
-			NoteLinkArtifact elem = notes.get(i);
-			elem.adjust();
-		}
+	public void removeDependency(UMLArtifact dependentUMLArtifact) {
+		Log.warn(this + "removing depency with" + dependentUMLArtifact);
+		dependentUMLArtifacts.remove(dependentUMLArtifact);
 	}
 
 	public UMLCanvas getCanvas() {
@@ -66,7 +62,7 @@ public abstract class UMLArtifact implements UMLElement {
 
 	public abstract int getHeight();
 
-	public abstract float[] getOpaque();
+	public abstract int[] getOpaque();
 
 	public abstract int getWidth();
 
@@ -86,6 +82,29 @@ public abstract class UMLArtifact implements UMLElement {
 	public void rebuildGfxObject() {
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		buildGfxObject();
-		return;
+		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
+			Log.warn("Rebuilding : " + dependentUMLArtifact);
+			new Scheduler.Task(dependentUMLArtifact) {
+				@Override
+				public void process() {
+					dependentUMLArtifact.rebuildGfxObject();
+				}
+			};
+		}
+	
 	}
+
+	public abstract boolean isDraggable();
+
+	public abstract void edit(GfxObject gfxObject, int x, int y);
+
+	public abstract GfxObject getOutline();
+
+	public abstract LinkedHashMap<String, Command> getRightMenu();
+
+	public abstract void moveTo(int fx, int fy);
+
+	public abstract void select();
+
+	public abstract void unselect();
 }

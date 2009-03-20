@@ -1,8 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.NoteFieldEditor;
@@ -20,25 +18,11 @@ public class NoteArtifact extends BoxArtifact {
 	GfxObject borderPath;
 	GfxObject contentText;
 	GfxObject cornerPath;
-	List<NoteLinkArtifact> dependencies = new ArrayList<NoteLinkArtifact>();
 	
 
 	public NoteArtifact(String content) {
 		note = new Note(content);
 		
-	}
-
-	public void addDependency(NoteLinkArtifact dependency) {
-		dependencies.add(dependency);
-	}
-
-	@Override
-	public void adjusted() {
-		super.adjusted();
-		for (int i = 0; i < dependencies.size(); i++) {
-			NoteLinkArtifact elem = dependencies.get(i);
-			elem.adjust();
-		}
 	}
 
 	public String getContent() {
@@ -48,17 +32,17 @@ public class NoteArtifact extends BoxArtifact {
 	@Override
 	public int getHeight() {
 		int height = OptionsManager.getRectangleYTotalPadding() + OptionsManager.getTextYTotalPadding() +
-				+ (int) GfxManager.getPlatform().getHeightFor(contentText);
+				+  GfxManager.getPlatform().getHeightFor(contentText);
 		return height;
 	}
 
 	@Override
-	public float[] getOpaque() {
-		float[] opaque = new float[] { getX(), getY(), getX(),
+	public int[] getOpaque() {
+		int[] opaque = new int[] { getX(), getY(), getX(),
 				getY() + getHeight(), getX() + getWidth(),
 				getY() + getHeight(), getX() + getWidth(),
 				getY() + getCornerHeight(),
-				getX() + getWidth() - getCornerWidth(), getY(), };
+				getX() + getWidth() - getCornerWidth(), getY() };
 		return opaque;
 	}
 
@@ -96,11 +80,10 @@ public class NoteArtifact extends BoxArtifact {
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
-	
 	@Override
 	public int getWidth() {
 		int width = OptionsManager.getRectangleXTotalPadding() + OptionsManager.getTextXTotalPadding()
-				+ (int) GfxManager.getPlatform().getWidthFor(contentText);
+				+  GfxManager.getPlatform().getWidthFor(contentText);
 		return width;
 	}
 
@@ -125,7 +108,7 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setFont(contentText, OptionsManager.getFont());
 		GfxManager.getPlatform().setFillColor(contentText, ThemeManager.getForegroundColor());
 		GfxManager.getPlatform().translate(contentText, OptionsManager.getTextLeftPadding(),
-				OptionsManager.getTextTopPadding() + (int) GfxManager.getPlatform().getHeightFor(contentText));
+				OptionsManager.getTextTopPadding() +  GfxManager.getPlatform().getHeightFor(contentText));
 	}
 	@Override
 	protected void buildGfxObject() {

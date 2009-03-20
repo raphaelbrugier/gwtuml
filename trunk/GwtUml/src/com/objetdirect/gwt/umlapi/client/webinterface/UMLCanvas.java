@@ -14,7 +14,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLElement;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -78,11 +77,11 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 
 	};
-	// Map of UMLElement with corresponding Graphical objects (group)
-	private Set<UMLElement> objectsToBeAddedWhenAttached = new HashSet<UMLElement>();
-	private Map<GfxObject, UMLElement> objects = new HashMap<GfxObject, UMLElement>();
+	// Map of UMLArtifact with corresponding Graphical objects (group)
+	private Set<UMLArtifact> objectsToBeAddedWhenAttached = new HashSet<UMLArtifact>();
+	private Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
 	private GfxObject outline = null; // Outline is used for drawing while drag and drop	
-	private UMLElement selected = null; // Represent the current UMLElement selected
+	private UMLArtifact selected = null; // Represent the current UMLArtifact selected
 	private Link activeLinking = Link.NONE;
 	private boolean isDeleting = false;
 
@@ -100,7 +99,7 @@ public class UMLCanvas extends AbsolutePanel {
 		initCanvas();
 	}
 
-	public void add(UMLElement element) {
+	public void add(UMLArtifact element) {
 		if(element == null) {
 			Log.error("Adding null element to canvas");
 			return;
@@ -158,7 +157,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	}
 
-	public void remove(UMLElement element) {
+	public void remove(UMLArtifact element) {
 		GfxManager.getPlatform().removeFromCanvas(canvas,
 				element.getGfxObject());
 		objects.remove(element.getGfxObject());
@@ -182,12 +181,13 @@ public class UMLCanvas extends AbsolutePanel {
 			if (outline == null) {
 				outline = selected.getOutline();
 				GfxManager.getPlatform().addToCanvas(canvas, outline, 0, 0);
-				GfxManager.getPlatform().hide(selected.getGfxObject());
+				//GfxManager.getPlatform().hide(selected.getGfxObject());
+				GfxManager.getPlatform().clearVirtualGroup(selected.getGfxObject());
 				Log.debug("Adding outline for " + selected);
 				CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 			}
-			int tx = x - dx - (int) GfxManager.getPlatform().getXFor(outline);
-			int ty = y - dy - (int) GfxManager.getPlatform().getYFor(outline);
+			int tx = x - dx -  GfxManager.getPlatform().getXFor(outline);
+			int ty = y - dy -  GfxManager.getPlatform().getYFor(outline);
 			Log.trace("Translating " + tx + "," + ty);
 			GfxManager.getPlatform().translate(outline, tx, ty);
 		}
@@ -207,9 +207,9 @@ public class UMLCanvas extends AbsolutePanel {
 				Log.debug("Dropping at " + fx + "," + fy + " for " + selected);
 				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 				selected.moveTo(fx, fy);
-				//GfxManager.getPlatform().addToCanvas(canvas, selected.getGfxObject(), fx, fy);
-				GfxManager.getPlatform().show(selected.getGfxObject());
-				selected.adjusted();
+				selected.rebuildGfxObject();
+				//GfxManager.getPlatform().show(selected.getGfxObject());
+				//selected.moved();
 			}
 			
 		}
@@ -218,14 +218,14 @@ public class UMLCanvas extends AbsolutePanel {
 
 	private void editItem(GfxObject gfxObject, int x, int y) {
 		Log.debug("Edit request on " + gfxObject);
-		UMLElement elem = getUMLElement(gfxObject);
+		UMLArtifact elem = getUMLArtifact(gfxObject);
 		if (elem != null) {
 			Log.debug("Edit started on " + elem);
 			elem.edit(gfxObject, x, y);
 		}
 	}
 
-	private UMLElement getUMLElement(GfxObject gfxO) {
+	private UMLArtifact getUMLArtifact(GfxObject gfxO) {
 		if (gfxO == null) {
 			Log.info("No Object");
 			return null;
@@ -236,15 +236,15 @@ public class UMLCanvas extends AbsolutePanel {
 			gfxOPrentGroup = GfxManager.getPlatform().getGroup(gfxO);
 		}
 
-		UMLElement umlElement = objects.get(gfxO);
-		if (umlElement == null)
+		UMLArtifact UMLArtifact = objects.get(gfxO);
+		if (UMLArtifact == null)
 			Log.info("Artifact not found");
 
-		return umlElement;
+		return UMLArtifact;
 	}
 
 	private void select(GfxObject gfxObject) {
-		UMLElement newSelected = getUMLElement(gfxObject);
+		UMLArtifact newSelected = getUMLArtifact(gfxObject);
 		Log.debug("Selecting : " + newSelected + " (" + gfxObject + ")");
 		if (isDeleting && newSelected != null) {
 			remove(newSelected);
@@ -318,7 +318,6 @@ public class UMLCanvas extends AbsolutePanel {
 		dx = x - selected.getX();
 		dy = y - selected.getY();
 		Log.debug("Take at " + x + "," + y + " with " + dx + "," + dy + " for " + selected);
-		//GfxManager.getPlatform().removeFromCanvas(canvas, selected.getGfxObject());
 
 	}
 	private int convertToRealX(int x) {
@@ -332,7 +331,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	private void dropRightMenu(GfxObject gfxObject, int x, int y) {
 		select(gfxObject);
-		UMLElement elem = getUMLElement(gfxObject);
+		UMLArtifact elem = getUMLArtifact(gfxObject);
 		ContextMenu contextMenu;
 		if (elem != null)
 			contextMenu = new ContextMenu(x, y, this, elem.getRightMenu());
@@ -357,7 +356,7 @@ public class UMLCanvas extends AbsolutePanel {
 	protected void onLoad() {	
 		super.onLoad();
 		Log.trace("Loading");
-		for (UMLElement elementNotAdded : objectsToBeAddedWhenAttached) {
+		for (UMLArtifact elementNotAdded : objectsToBeAddedWhenAttached) {
 			elementNotAdded.setCanvas(this);
 			GfxManager.getPlatform().addToCanvas(canvas, elementNotAdded.initializeGfxObject(), elementNotAdded.getX(), elementNotAdded.getY());
 			objects.put(elementNotAdded.getGfxObject(), elementNotAdded);

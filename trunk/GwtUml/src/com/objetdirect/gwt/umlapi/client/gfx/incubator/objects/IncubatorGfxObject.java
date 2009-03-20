@@ -24,9 +24,9 @@ public abstract class IncubatorGfxObject {
 
 	public abstract void draw(GWTCanvas canvas);
 
-	public abstract double getHeight();
+	public abstract int getHeight();
 
-	public abstract double getWidth();
+	public abstract int getWidth();
 
 	public int getX() {
 		return x;

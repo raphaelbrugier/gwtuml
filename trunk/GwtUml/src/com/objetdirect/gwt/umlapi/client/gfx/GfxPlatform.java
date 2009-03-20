@@ -15,27 +15,27 @@ public interface GfxPlatform {
 
 	void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO);
 
-	GfxObject buildLine(double x1, double y1, double x2, double y2);
+	GfxObject buildLine(int x1, int y1, int x2, int y2);
 
 	GfxObject buildPath();
 
 	// Builders
 
-	GfxObject buildRect(double width, double height);
+	GfxObject buildRect(int width, int height);
 
 	GfxObject buildText(String text);
 
 	GfxObject buildVirtualGroup();
 
-	double getHeightFor(GfxObject gfxO);
+	int getHeightFor(GfxObject gfxO);
 
-	double getWidthFor(GfxObject gfxO);
+	int getWidthFor(GfxObject gfxO);
 
-	double getXFor(GfxObject gfxO);
+	int getXFor(GfxObject gfxO);
 
-	double getYFor(GfxObject gfxO);
+	int getYFor(GfxObject gfxO);
 
-	void lineTo(GfxObject gfxO, double x, double y);
+	void lineTo(GfxObject gfxO, int x, int y);
 
 	Widget makeCanvas();
 
@@ -43,7 +43,7 @@ public interface GfxPlatform {
 
 	void setSize(Widget canvas, int width, int height);
 	
-	void moveTo(GfxObject gfxO, double x, double y);
+	void moveTo(GfxObject gfxO, int x, int y);
 
 	void removeFromCanvas(Widget canvas, GfxObject gfxO);
 

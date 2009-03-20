@@ -29,7 +29,6 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
 		attributeGfxObjects = new HashMap<GfxObject, Attribute>();
-		//attributes.add(new Attribute("String", "attribute"));
 		height = 0;
 		width = 0;
 	}
@@ -90,8 +89,8 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, attributeText);
 			GfxManager.getPlatform().setFont(attributeText, OptionsManager.getFont());
 			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
-			int thisAttributeWidth = (int) GfxManager.getPlatform().getWidthFor(attributeText) ;
-			int thisAttributeHeight = (int) GfxManager.getPlatform().getHeightFor(attributeText);
+			int thisAttributeWidth =  GfxManager.getPlatform().getWidthFor(attributeText) ;
+			int thisAttributeHeight =  GfxManager.getPlatform().getHeightFor(attributeText);
 			GfxManager.getPlatform().translate(attributeText, OptionsManager.getTextLeftPadding() , OptionsManager.getTextTopPadding() + height + thisAttributeHeight);
 			thisAttributeWidth += OptionsManager.getTextXTotalPadding();
 			thisAttributeHeight += OptionsManager.getTextYTotalPadding();
@@ -124,12 +123,10 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 		if(attributeToChange == null) edit();
 		else {
 		AttributePartEditor editor = new AttributePartEditor(canvas, this, attributeToChange);
-		editor.startEdition(attributeToChange.toString(), (int) (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
-				(int) (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding()), 
+		editor.startEdition(attributeToChange.toString(),  (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
+				 (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding()), 
 				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 		}
 	}
-
-
 
 }

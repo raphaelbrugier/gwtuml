@@ -16,7 +16,7 @@ public abstract class LineArtifact extends UMLArtifact {
 	}
 
 	@Override
-	public float[] getOpaque() {
+	public int[] getOpaque() {
 		return null;
 	}
 
@@ -34,22 +34,15 @@ public abstract class LineArtifact extends UMLArtifact {
 		return x1 < x2 ? x1 : x2;
 	}
 
-
 	@Override
 	public int getY() {
 		return y1 < y2 ? y1 : y2;
 	}
 
-
 	public boolean isDraggable() {
 		return false;
 	}
-	public void setBounds(int x1, int y1, int x2, int y2) {
-		this.x1 = x1;
-		this.y1 = y1;
-		this.x2 = x2;
-		this.y2 = y2;
-	}
+
 	public void setLocation(int x, int y) {
 		throw new UMLDrawerException(
 		"invalid operation : setLocation on a line");
@@ -57,6 +50,10 @@ public abstract class LineArtifact extends UMLArtifact {
 	public void moveTo(int x, int y) {
 		throw new UMLDrawerException(
 		"invalid operation : setLocation on a line");
+	}
+	public void moved() {
+		throw new UMLDrawerException(
+		"can't move a line !");
 	}
 
 }

@@ -91,18 +91,18 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 				.add(getIncubatorGraphicalObjectFrom(gfxO));
 	}
 
-	public GfxObject buildLine(double x1, double y1, double x2, double y2) {
-		return new IncubatorGfxObjectContainer(new Line((int) x1, (int) y1,
-				(int) x2, (int) y2));
+	public GfxObject buildLine(int x1, int y1, int x2, int y2) {
+		return new IncubatorGfxObjectContainer(new Line( x1,  y1,
+				 x2,  y2));
 	}
 
 	public GfxObject buildPath() {
 		return new IncubatorGfxObjectContainer(new Path());
 	}
 
-	public GfxObject buildRect(double width, double height) {
-		return new IncubatorGfxObjectContainer(new Rect((int) width,
-				(int) height));
+	public GfxObject buildRect(int width, int height) {
+		return new IncubatorGfxObjectContainer(new Rect( width,
+				 height));
 	}
 
 	public GfxObject buildText(String text) {
@@ -114,31 +114,31 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		return new IncubatorGfxObjectContainer(new VirtualGroup());
 	}
 
-	public double getHeightFor(GfxObject gfxO) {
+	public int getHeightFor(GfxObject gfxO) {
 		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getHeight();
 		return 0;
 	}
 
-	public double getWidthFor(GfxObject gfxO) {
+	public int getWidthFor(GfxObject gfxO) {
 		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getWidth();
 		return 0;
 	}
 
-	public double getXFor(GfxObject gfxO) {
+	public int getXFor(GfxObject gfxO) {
 		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getX();
 		return 0;
 	}
 
-	public double getYFor(GfxObject gfxO) {
+	public int getYFor(GfxObject gfxO) {
 		if (gfxO != null)
 			return getIncubatorGraphicalObjectFrom(gfxO).getY();
 		return 0;
 	}
 
-	public void lineTo(GfxObject gfxO, double x, double y) {
+	public void lineTo(GfxObject gfxO, int x, int y) {
 		((Path) getIncubatorGraphicalObjectFrom(gfxO)).lineTo(x, y);
 
 	}
@@ -164,7 +164,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		return canvas;
 	}
 
-	public void moveTo(GfxObject gfxO, double x, double y) {
+	public void moveTo(GfxObject gfxO, int x, int y) {
 		((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(x, y);
 	}
 

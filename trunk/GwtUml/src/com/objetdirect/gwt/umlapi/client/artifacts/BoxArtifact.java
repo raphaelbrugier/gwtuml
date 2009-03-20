@@ -10,15 +10,8 @@ public abstract class BoxArtifact extends UMLArtifact {
 	int y = 0;
 
 	@Override
-	public void adjust() {
-		super.adjust();
-		if (getCanvas() != null)
-			GfxManager.getPlatform().translate(getGfxObject(), getX(), getY());
-	}
-
-	@Override
-	public float[] getOpaque() {
-		float[] opaque = new float[] { getX(), getY(), getX(),
+	public int[] getOpaque() {
+		int[] opaque = new int[] { getX(), getY(), getX(),
 				getY() + getHeight(), getX() + getWidth(),
 				getY() + getHeight(), getX() + getWidth(), getY() };
 		return opaque;
@@ -72,8 +65,6 @@ public abstract class BoxArtifact extends UMLArtifact {
 		return true;
 	}
 	
-	
-	
 	public void moveTo(int x, int y) {
 		GfxManager.getPlatform().translate(getGfxObject(), x - this.x,
 				y - this.y);
@@ -84,25 +75,5 @@ public abstract class BoxArtifact extends UMLArtifact {
 	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
-	}
-	
-	protected boolean set(GfxObject[] slot, GfxObject text) {
-		int oldWidth = getWidth();
-		int oldHeight = getHeight();
-		if (slot[0] != null) {
-			GfxManager.getPlatform().removeFromVirtualGroup(getGfxObject(),
-					slot[0], false);
-		}
-		slot[0] = text;
-		if (slot[0] != null) {
-			GfxManager.getPlatform().addToVirtualGroup(getGfxObject(), slot[0]);
-		}
-		int newWidth = getWidth();
-		int newHeight = getHeight();
-		if (oldWidth != newWidth || oldHeight != newHeight) {
-			adjust();
-			return true;
-		} else
-			return false;
 	}
 }

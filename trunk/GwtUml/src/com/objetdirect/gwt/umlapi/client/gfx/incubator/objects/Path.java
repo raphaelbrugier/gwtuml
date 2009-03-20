@@ -8,10 +8,10 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class Path extends IncubatorGfxObject {
 
 	private class Point {
-		double x;
-		double y;
+		int x;
+		int y;
 
-		public Point(double x, double y) {
+		public Point(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -49,20 +49,20 @@ public class Path extends IncubatorGfxObject {
 	}
 
 	@Override
-	public double getHeight() {
+	public int getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public double getWidth() {
+	public int getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean isPointed(int x, int y) {
-		double minx = Double.MAX_VALUE, miny = Double.MAX_VALUE, maxx = Double.MIN_VALUE, maxy = Double.MIN_VALUE;
+		int minx = Integer.MAX_VALUE, miny = Integer.MAX_VALUE, maxx = Integer.MIN_VALUE, maxy = Integer.MIN_VALUE;
 		for (Point point : pathPoints) {
 			minx = minx > point.x ? point.x : minx;
 			miny = miny > point.y ? point.y : miny;
@@ -73,13 +73,13 @@ public class Path extends IncubatorGfxObject {
 		return (x > minx) && (x < maxx) && (y > miny) && (y < maxy);
 	}
 
-	public void lineTo(double x, double y) {
+	public void lineTo(int x, int y) {
 		pathPoints.add(new Point(x, y));
 	}
 
-	public void moveTo(double x, double y) {
-		this.x = (int) x;
-		this.y = (int) y;
+	public void moveTo(int x, int y) {
+		this.x =  x;
+		this.y =  y;
 
 	}
 
