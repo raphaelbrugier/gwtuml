@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.gfx;
 
 /**
  * Represent a Font for text object TODO fix this class :
- * 
  */
 public class GfxFont {
 
@@ -17,7 +16,11 @@ public class GfxFont {
 	 */
 	public static final String NORMAL = "normal";
 	
-	/** the default font used (serif 10) */
+	/**
+	 * the default font used (serif 10)
+	 * @uml.property  name="dEFAULT_FONT"
+	 * @uml.associationEnd  
+	 */
 	public static final GfxFont DEFAULT_FONT = new GfxFont("monospace", 10,
 			NORMAL, NORMAL, NORMAL);
 
@@ -37,18 +40,31 @@ public class GfxFont {
 	 * slightly different proportions.
 	 **/
 	public static final String SMALL_CAPS = "small-caps";
-	/** the family of the font */
+	/**
+	 * the family of the font
+	 * @uml.property  name="family"
+	 */
 	private String family;
-	/** the size of the font */
+	/**
+	 * the size of the font
+	 * @uml.property  name="size"
+	 */
 	private int size;
 	/**
 	 * the style of the font
+	 * @uml.property  name="style"
 	 */
 	private String style;
-	/** the variant of the font */
+	/**
+	 * the variant of the font
+	 * @uml.property  name="variant"
+	 */
 	private String variant;
 
-	/** the weight of the font */
+	/**
+	 * the weight of the font
+	 * @uml.property  name="weight"
+	 */
 	private String weight;
 
 	/**
@@ -77,8 +93,8 @@ public class GfxFont {
 
 	/**
 	 * Returns the family of the font
-	 * 
-	 * @return the family of the font
+	 * @return  the family of the font
+	 * @uml.property  name="family"
 	 */
 	public String getFamily() {
 		return family;
@@ -86,8 +102,8 @@ public class GfxFont {
 
 	/**
 	 * Returns the size of the font
-	 * 
-	 * @return the size of the font
+	 * @return  the size of the font
+	 * @uml.property  name="size"
 	 */
 	public int getSize() {
 		return size;
@@ -95,8 +111,8 @@ public class GfxFont {
 
 	/**
 	 * Returns the style used by the font
-	 * 
-	 * @return style used by the font
+	 * @return  style used by the font
+	 * @uml.property  name="style"
 	 */
 	public String getStyle() {
 		return style;
@@ -104,8 +120,8 @@ public class GfxFont {
 
 	/**
 	 * Returns the variant of the font
-	 * 
-	 * @return the variant of the font
+	 * @return  the variant of the font
+	 * @uml.property  name="variant"
 	 */
 	public String getVariant() {
 		return variant;
@@ -113,8 +129,8 @@ public class GfxFont {
 
 	/**
 	 * Returns the weight of the font
-	 * 
-	 * @return the weight of the font
+	 * @return  the weight of the font
+	 * @uml.property  name="weight"
 	 */
 	public String getWeight() {
 		return weight;
@@ -122,9 +138,8 @@ public class GfxFont {
 
 	/**
 	 * Sets the family of the font
-	 * 
-	 * @param family
-	 *            a family
+	 * @param family  a family
+	 * @uml.property  name="family"
 	 */
 	public void setFamily(String family) {
 		this.family = family;
@@ -132,9 +147,8 @@ public class GfxFont {
 
 	/**
 	 * Sets the size of the font in pt
-	 * 
-	 * @param size
-	 *            size of the font
+	 * @param size  size of the font
+	 * @uml.property  name="size"
 	 */
 	public void setSize(int size) {
 		this.size = size;
@@ -142,21 +156,17 @@ public class GfxFont {
 
 	/**
 	 * sets the style for the font
-	 * 
-	 * @param style
-	 *            <code>NORMAL,OBLIQUE,ITALIC  </code>
+	 * @param style  <code>NORMAL,OBLIQUE,ITALIC  </code>
+	 * @uml.property  name="style"
 	 */
 	public void setStyle(String style) {
 		this.style = style;
 	}
 
 	/**
-	 * Sets the variant of the font.In a small-caps font the lower case letters
-	 * look similar to the uppercase ones, but in a smaller size and with
-	 * slightly different proportions.
-	 * 
-	 * @param variant
-	 *            <code>NORMAL,SMALL_CAPS</code>
+	 * Sets the variant of the font.In a small-caps font the lower case letters look similar to the uppercase ones, but in a smaller size and with slightly different proportions.
+	 * @param variant  <code>NORMAL,SMALL_CAPS</code>
+	 * @uml.property  name="variant"
 	 */
 	public void setVariant(String variant) {
 		this.variant = variant;
@@ -164,9 +174,8 @@ public class GfxFont {
 
 	/**
 	 * Sets the weight of the font
-	 * 
-	 * @param weight
-	 *            <code>	NORMAL,BOLD,BOLDER,LIGHTER ,100,200,300,400,500,600,700,800,900</code>
+	 * @param weight  <code>	NORMAL,BOLD,BOLDER,LIGHTER ,100,200,300,400,500,600,700,800,900</code>
+	 * @uml.property  name="weight"
 	 */
 	public void setWeight(String weight) {
 		this.weight = weight;

@@ -1,6 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
+import java.util.LinkedHashMap;
+
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -9,12 +12,18 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * @author fmounier
- *
+ * @author  fmounier
  */
 public class ClassNameArtifact extends ClassPartArtifact {
 
+	/**
+	 * @uml.property  name="className"
+	 */
 	private String className;
+	/**
+	 * @uml.property  name="nameText"
+	 * @uml.associationEnd  
+	 */
 	private GfxObject nameText;
 	
 	public ClassNameArtifact(String className) {
@@ -23,10 +32,18 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		width = 0;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="className"
+	 */
 	public String getClassName() {
 		return className;
 	}
 
+	/**
+	 * @param className
+	 * @uml.property  name="className"
+	 */
 	public void setClassName(String className) {
 		this.className = className;
 	}
@@ -101,8 +118,62 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	}	
 	
 	@Override
-	public void edit(GfxObject gfxObject) {
+	public void edit(GfxObject gfxObject, int x, int y) {
 		edit();
+	}
+
+	@Override
+	public int[] getOpaque() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GfxObject getOutline() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedHashMap<String, Command> getRightMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isDraggable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void moveTo(int fx, int fy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void select() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unselect() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

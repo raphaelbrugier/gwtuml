@@ -19,15 +19,17 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
 
 /**
- * Main class for gwtuml application.
- * This class does some initialization and calls the start panel.
- * 
- * @author hdarmet
- * @author fmounier 
+ * Main class for gwtuml application. This class does some initialization and calls the start panel.
+ * @author  hdarmet
+ * @author  fmounier
  */
 public class UMLDrawer implements EntryPoint {
 	private final static DockPanel appRootPanel = new DockPanel();
 	private static Button log;
+	/**
+	 * @uml.property  name="startPanel"
+	 * @uml.associationEnd  
+	 */
 	private StartPanel startPanel;
 	
 	

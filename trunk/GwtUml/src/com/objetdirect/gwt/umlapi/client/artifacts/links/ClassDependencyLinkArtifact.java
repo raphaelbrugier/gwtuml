@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.links;
 
 import java.util.LinkedHashMap;
 
@@ -11,9 +11,12 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
-public abstract class ClassDependencyArtifact extends LineArtifact {
+/**
+ * @author  florian
+ */
+public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 
-	public static class Extension extends ClassDependencyArtifact {
+	public static class Extension extends ClassDependencyLinkArtifact {
 
 		public Extension(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
@@ -58,7 +61,7 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 
 	}
 
-	public static class Implementation extends ClassDependencyArtifact {
+	public static class Implementation extends ClassDependencyLinkArtifact {
 
 		public Implementation(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
@@ -103,7 +106,7 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 
 	}
 
-	public static class Simple extends ClassDependencyArtifact {
+	public static class Simple extends ClassDependencyLinkArtifact {
 
 		public Simple(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
@@ -148,15 +151,31 @@ public abstract class ClassDependencyArtifact extends LineArtifact {
 		}
 	}
 
+	/**
+	 * @uml.property  name="arrow"
+	 * @uml.associationEnd  
+	 */
 	GfxObject arrow = null;
 
+	/**
+	 * @uml.property  name="left"
+	 * @uml.associationEnd  
+	 */
 	ClassArtifact left;
 
+	/**
+	 * @uml.property  name="line"
+	 * @uml.associationEnd  
+	 */
 	GfxObject line = null;
 
+	/**
+	 * @uml.property  name="right"
+	 * @uml.associationEnd  
+	 */
 	ClassArtifact right;
 
-	public ClassDependencyArtifact(ClassArtifact left, ClassArtifact right) {
+	public ClassDependencyLinkArtifact(ClassArtifact left, ClassArtifact right) {
 		this.left = left;
 		left.addDependency(this);
 		this.right = right;

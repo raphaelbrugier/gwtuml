@@ -1,10 +1,11 @@
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.links;
 
 import java.util.LinkedHashMap;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -13,12 +14,27 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
-public class NoteLinkArtifact extends LineArtifact {
+/**
+ * @author  florian
+ */
+public class NoteLinkArtifact extends LinkArtifact {
 
+	/**
+	 * @uml.property  name="line"
+	 * @uml.associationEnd  
+	 */
 	GfxObject line = null;
 
+	/**
+	 * @uml.property  name="note"
+	 * @uml.associationEnd  
+	 */
 	NoteArtifact note;
 
+	/**
+	 * @uml.property  name="target"
+	 * @uml.associationEnd  
+	 */
 	UMLArtifact target;
 
 
@@ -26,7 +42,7 @@ public class NoteLinkArtifact extends LineArtifact {
 		this.note = note;
 		this.note.addDependency(this);
 		this.target = target;
-		if(!isTargetALink()) this.target.addDependency(this);
+		this.target.addDependency(this);
 
 	}
 
@@ -109,7 +125,7 @@ public class NoteLinkArtifact extends LineArtifact {
 	}
 	private boolean isTargetALink() {
 		//TODO : find a better way :
-		return (target.getClass().getSuperclass().equals(LineArtifact.class) || target.getClass().getSuperclass().getSuperclass().equals(LineArtifact.class));
+		return (target.getClass().getSuperclass().equals(LinkArtifact.class) || target.getClass().getSuperclass().getSuperclass().equals(LinkArtifact.class));
 	}
 
 }

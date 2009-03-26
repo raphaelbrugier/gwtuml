@@ -25,11 +25,26 @@ import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
+/**
+ * @author  florian
+ */
 public class StartPanel extends VerticalPanel {
 	
+	/**
+	 * @uml.property  name="instance"
+	 * @uml.associationEnd  
+	 */
 	private static StartPanel instance = null;
 	
+	/**
+	 * @uml.property  name="drawerPanel"
+	 * @uml.associationEnd  
+	 */
 	private DrawerPanel drawerPanel;
+	/**
+	 * @uml.property  name="loadingScreen"
+	 * @uml.associationEnd  
+	 */
 	private LoadingScreen loadingScreen;
 	
 	final Image logoImg = new Image("gwtumllogo.png");

@@ -7,6 +7,9 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
+/**
+ * @author  florian
+ */
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	public static final int BEGIN_PARAMETER = 2;
 	public static final int BEGIN_RETURN_TYPE = 5;
@@ -14,10 +17,18 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	public static final int OPEN_PARENTHESIS_EXPECTED = 1;
 	public static final int PARAMETER_EXPECTED = 3;
 
+	/**
+	 * @uml.property  name="method"
+	 * @uml.associationEnd  
+	 */
 	Method method = new Method(null, null, null);
 
 	List<Parameter> parameters = new ArrayList<Parameter>();
 
+	/**
+	 * @return
+	 * @uml.property  name="method"
+	 */
 	public Method getMethod() {
 		return method;
 	}

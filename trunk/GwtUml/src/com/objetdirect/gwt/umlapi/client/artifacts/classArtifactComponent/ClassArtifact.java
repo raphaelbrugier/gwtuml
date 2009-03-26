@@ -18,11 +18,29 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
+/**
+ * @author  florian
+ */
 public class ClassArtifact extends BoxArtifact {
 
+	/**
+	 * @uml.property  name="className"
+	 * @uml.associationEnd  
+	 */
 	ClassNameArtifact className;
+	/**
+	 * @uml.property  name="classAttributes"
+	 * @uml.associationEnd  
+	 */
 	ClassAttributesArtifact classAttributes;
+	/**
+	 * @uml.property  name="classMethods"
+	 * @uml.associationEnd  
+	 */
 	ClassMethodsArtifact classMethods;
+	/**
+	 * @uml.property  name="width"
+	 */
 	private int width;
 
 	public ClassArtifact() {
@@ -59,6 +77,10 @@ public class ClassArtifact extends BoxArtifact {
 		return classAttributes.getList();
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="className"
+	 */
 	public String getClassName() {
 		return className.getClassName();
 	}
@@ -150,6 +172,10 @@ public class ClassArtifact extends BoxArtifact {
 		return vg;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="width"
+	 */
 	@Override
 	public int getWidth() {
 		return width;
@@ -165,7 +191,7 @@ public class ClassArtifact extends BoxArtifact {
 			classAttributes.edit();
 		} else if (gfxObject.equals(classMethods.getGfxObject())) {
 			Log.warn("Selecting a virtual group : this should not happen !");
-			classMethods.edit(gfxObject);
+			classMethods.edit(gfxObject, x, y);
 		} else if (gfxObject.equals(getGfxObject())) {
 			Log.warn("Selecting a virtual group : this should not happen !");
 			className.edit();
@@ -187,9 +213,9 @@ public class ClassArtifact extends BoxArtifact {
 						if (gfxObjectGroup.equals(className.getGfxObject())) {
 							className.edit();
 						} else if (gfxObjectGroup.equals(classAttributes.getGfxObject())) {
-							classAttributes.edit(gfxObject);
+							classAttributes.edit(gfxObject, x, y);
 						} else if (gfxObjectGroup.equals(classMethods.getGfxObject())) {
-							classMethods.edit(gfxObject);
+							classMethods.edit(gfxObject, x, y);
 						} else if (gfxObjectGroup.equals(getGfxObject())) {
 							Log.warn("Selecting the master virtual group : this should NOT happen !");
 							className.edit();

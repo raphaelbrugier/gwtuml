@@ -8,6 +8,9 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.IncubatorGfxObject;
 
+/**
+ * @author  florian
+ */
 public class IncubatorGfxObjectContainer extends GfxObject {
 
 	private static Set<IncubatorGfxObjectContainer> incubatorGfxObjectContainerSet = new HashSet<IncubatorGfxObjectContainer>();
@@ -32,6 +35,10 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 	 * incubatorGfxObjectContainer.getGraphicObject().draw(canvas); }
 	 */
 
+	/**
+	 * @uml.property  name="incubatorGfxObject"
+	 * @uml.associationEnd  
+	 */
 	private IncubatorGfxObject incubatorGfxObject;
 
 	public IncubatorGfxObjectContainer(IncubatorGfxObject incubatorGfxObject) {

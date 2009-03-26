@@ -6,10 +6,23 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 
+/**
+ * @author  florian
+ */
 public class DrawerPanel extends AbsolutePanel {
 	
+	/**
+	 * @uml.property  name="gc"
+	 * @uml.associationEnd  
+	 */
 	private final UMLCanvas gc;
+	/**
+	 * @uml.property  name="height"
+	 */
 	private int height;
+	/**
+	 * @uml.property  name="width"
+	 */
 	private int width;
 	private SimplePanel bottomShadow;
 	private SimplePanel rightShadow;
@@ -41,22 +54,42 @@ public class DrawerPanel extends AbsolutePanel {
 
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="height"
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * @param height
+	 * @uml.property  name="height"
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="width"
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @param width
+	 * @uml.property  name="width"
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="gc"
+	 */
 	public UMLCanvas getGc() {
 		return gc;
 	}

@@ -5,10 +5,12 @@ package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.AttributePartEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -18,13 +20,16 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * @author fmounier
- *
+ * @author  fmounier
  */
 public class ClassAttributesArtifact extends ClassPartArtifact {
 
 	private List<Attribute> attributes;
 	private Map<GfxObject, Attribute> attributeGfxObjects;
+	/**
+	 * @uml.property  name="lastGfxObject"
+	 * @uml.associationEnd  
+	 */
 	private GfxObject lastGfxObject;
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
@@ -115,10 +120,10 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 		Attribute attributeToCreate = new Attribute("String", "attribute");
 		attributes.add(attributeToCreate);
 		classArtifact.rebuildGfxObject();
-		edit(lastGfxObject);
+		edit(lastGfxObject, 0, 0);
 	}
 	@Override
-	public void edit(GfxObject gfxObject) {
+	public void edit(GfxObject gfxObject, int x, int y) {
 		Attribute attributeToChange = attributeGfxObjects.get(gfxObject);
 		if(attributeToChange == null) edit();
 		else {
@@ -127,6 +132,60 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 				 (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding()), 
 				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
 		}
+	}
+
+	@Override
+	public int[] getOpaque() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GfxObject getOutline() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedHashMap<String, Command> getRightMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isDraggable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void moveTo(int fx, int fy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void select() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unselect() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

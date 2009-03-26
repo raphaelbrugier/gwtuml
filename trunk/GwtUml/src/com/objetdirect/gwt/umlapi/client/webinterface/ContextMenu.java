@@ -9,10 +9,17 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 
+/**
+ * @author  florian
+ */
 public class ContextMenu {
 	
 	private int x;
 	private int y;
+	/**
+	 * @uml.property  name="canvas"
+	 * @uml.associationEnd  
+	 */
 	private UMLCanvas canvas;
 	private PopupMenu contextMenu;
 	private LinkedHashMap<String, Command> specificRightMenu;

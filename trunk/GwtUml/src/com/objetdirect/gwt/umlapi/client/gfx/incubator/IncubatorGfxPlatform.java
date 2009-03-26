@@ -22,8 +22,15 @@ import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.Rect;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.Text;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.VirtualGroup;
 
+/**
+ * @author  florian
+ */
 public class IncubatorGfxPlatform implements GfxPlatform {
 
+	/**
+	 * @uml.property  name="canvas"
+	 * @uml.associationEnd  
+	 */
 	private GWTCanvasWithListeners canvas;
 	private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
 

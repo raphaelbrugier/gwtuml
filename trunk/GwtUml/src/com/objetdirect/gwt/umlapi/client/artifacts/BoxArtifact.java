@@ -5,8 +5,17 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
+/**
+ * @author  florian
+ */
 public abstract class BoxArtifact extends UMLArtifact {
+	/**
+	 * @uml.property  name="x"
+	 */
 	int x = 0;
+	/**
+	 * @uml.property  name="y"
+	 */
 	int y = 0;
 
 	@Override
@@ -51,11 +60,19 @@ public abstract class BoxArtifact extends UMLArtifact {
 		return vg;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="x"
+	 */
 	@Override
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="y"
+	 */
 	@Override
 	public int getY() {
 		return y;

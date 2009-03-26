@@ -2,12 +2,18 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 /**
  * This class represent a parameter of a method
- * @author fmounier
- * @author hdarmet
+ * @author  fmounier
+ * @author  hdarmet
  */
 public class Parameter {
 
+	/**
+	 * @uml.property  name="name"
+	 */
 	private String name;
+	/**
+	 * @uml.property  name="type"
+	 */
 	private String type;
 	
 	/**
@@ -22,7 +28,8 @@ public class Parameter {
 
 	/**
 	 * Getter for the name
-	 * @return the name
+	 * @return  the name
+	 * @uml.property  name="name"
 	 */
 	public String getName() {
 		return name;
@@ -30,7 +37,8 @@ public class Parameter {
 
 	/**
 	 * Getter for the type
-	 * @return the type
+	 * @return  the type
+	 * @uml.property  name="type"
 	 */
 	public String getType() {
 		return type;
@@ -38,7 +46,8 @@ public class Parameter {
 
 	/**
 	 * Setter for the name
-	 * @param name to be set
+	 * @param name  to be set
+	 * @uml.property  name="name"
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -46,7 +55,8 @@ public class Parameter {
 
 	/**
 	 * Setter for the type
-	 * @param type to be set
+	 * @param type  to be set
+	 * @uml.property  name="type"
 	 */
 	public void setType(String type) {
 		this.type = type;

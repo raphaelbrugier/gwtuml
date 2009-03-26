@@ -8,6 +8,9 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.tatami.client.gfx.GraphicObject;
 
+/**
+ * @author  florian
+ */
 public class TatamiGfxObjectContainer extends GfxObject {
 
 	private static Set<TatamiGfxObjectContainer> tatamiGfxObjectContainerSet = new HashSet<TatamiGfxObjectContainer>();
@@ -32,6 +35,9 @@ public class TatamiGfxObjectContainer extends GfxObject {
 
 	}
 
+	/**
+	 * @uml.property  name="graphicObject"
+	 */
 	private GraphicObject graphicObject;
 
 	public TatamiGfxObjectContainer(GraphicObject graphicObject) {
@@ -42,6 +48,10 @@ public class TatamiGfxObjectContainer extends GfxObject {
 		Log.info("Added Tcontainer " + this);
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="graphicObject"
+	 */
 	public GraphicObject getGraphicObject() {
 		return graphicObject;
 	}

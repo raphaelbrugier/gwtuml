@@ -10,18 +10,26 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.TextBox;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
+/**
+ * @author  florian
+ */
 public abstract class FieldEditor {
 
+	/**
+	 * @uml.property  name="canvas"
+	 * @uml.associationEnd  
+	 */
 	protected UMLCanvas canvas;
 	protected TextBox editField;
-	protected Object artifact;
+	protected UMLArtifact artifact;
 	protected String content;
 	//protected boolean validationInProcess = false;
 	protected abstract void updateClass(String newContent);
 	
-	public FieldEditor(UMLCanvas canvas, Object artifact) {
+	public FieldEditor(UMLCanvas canvas, UMLArtifact artifact) {
 		this.canvas = canvas;
 		this.artifact = artifact;
 	}
@@ -61,7 +69,6 @@ public abstract class FieldEditor {
 		editField.selectAll();
 		editField.setFocus(true);
 		UMLDrawerHelper.enableBrowserEvents();
-	
 	}
 	
 	protected void validate() {

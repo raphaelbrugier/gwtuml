@@ -14,6 +14,6 @@ public class NoteFieldEditor extends FieldEditor {
 	@Override
 	protected void updateClass(String newContent) {
 		((NoteArtifact) artifact).setContent(newContent);
-		((NoteArtifact) artifact).rebuildGfxObject();
+		artifact.rebuildGfxObject();
 	}
 }

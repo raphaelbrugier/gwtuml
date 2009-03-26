@@ -11,12 +11,31 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
+/**
+ * @author  florian
+ */
 public class NoteArtifact extends BoxArtifact {
 
 
+	/**
+	 * @uml.property  name="note"
+	 * @uml.associationEnd  
+	 */
 	private Note note;
+	/**
+	 * @uml.property  name="borderPath"
+	 * @uml.associationEnd  
+	 */
 	GfxObject borderPath;
+	/**
+	 * @uml.property  name="contentText"
+	 * @uml.associationEnd  
+	 */
 	GfxObject contentText;
+	/**
+	 * @uml.property  name="cornerPath"
+	 * @uml.associationEnd  
+	 */
 	GfxObject cornerPath;
 	
 
@@ -120,6 +139,10 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().translate(contentText, OptionsManager.getRectangleLeftPadding(), OptionsManager.getRectangleTopPadding());
 		GfxManager.getPlatform().moveToFront(contentText);
 	}
+	/**
+	 * @return
+	 * @uml.property  name="borderPath"
+	 */
 	protected GfxObject getBorderPath() {
 
 		GfxObject thisBorderPath = GfxManager.getPlatform().buildPath();		
@@ -133,6 +156,10 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setStroke(thisBorderPath, ThemeManager.getForegroundColor(), 1);
 		return thisBorderPath;
 	}
+	/**
+	 * @return
+	 * @uml.property  name="cornerPath"
+	 */
 	protected GfxObject getCornerPath() {
 
 		GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();		

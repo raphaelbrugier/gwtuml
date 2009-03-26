@@ -9,29 +9,60 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassDependencyLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
+/**
+ * @author  florian
+ */
 public class UMLCanvas extends AbsolutePanel {
 	private static long classCount = 1;
 	private static long noteCount = 0;
+	/**
+	 * @author   florian
+	 */
 	public enum Link {
-		EXTENSION, IMPLEMENTATION, NONE, RELATIONSHIP, SIMPLE
+		/**
+		 * @uml.property  name="eXTENSION"
+		 * @uml.associationEnd  
+		 */
+		EXTENSION, /**
+		 * @uml.property  name="iMPLEMENTATION"
+		 * @uml.associationEnd  
+		 */
+		IMPLEMENTATION, /**
+		 * @uml.property  name="nONE"
+		 * @uml.associationEnd  
+		 */
+		NONE, /**
+		 * @uml.property  name="rELATIONSHIP"
+		 * @uml.associationEnd  
+		 */
+		RELATIONSHIP, /**
+		 * @uml.property  name="sIMPLE"
+		 * @uml.associationEnd  
+		 */
+		SIMPLE
 	}	
 	private final static int FAR_AWAY = 9000;
 	private Widget canvas; // Drawing canvas
 	private boolean dragOn = false; // Represent the dragging state
-	private int dx, dy; // Represent the offset between object coordinates and mouse
+	private int dx; // Represent the offset between object coordinates and mouse
+	private int dy;
 
+	/**
+	 * @uml.property  name="gfxObjectListener"
+	 * @uml.associationEnd  
+	 */
 	private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 		public void mouseClicked() {
 		}
@@ -80,8 +111,20 @@ public class UMLCanvas extends AbsolutePanel {
 	// Map of UMLArtifact with corresponding Graphical objects (group)
 	private Set<UMLArtifact> objectsToBeAddedWhenAttached = new HashSet<UMLArtifact>();
 	private Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
+	/**
+	 * @uml.property  name="outline"
+	 * @uml.associationEnd  
+	 */
 	private GfxObject outline = null; // Outline is used for drawing while drag and drop	
+	/**
+	 * @uml.property  name="selected"
+	 * @uml.associationEnd  
+	 */
 	private UMLArtifact selected = null; // Represent the current UMLArtifact selected
+	/**
+	 * @uml.property  name="activeLinking"
+	 * @uml.associationEnd  
+	 */
 	private Link activeLinking = Link.NONE;
 	private boolean isDeleting = false;
 
@@ -275,22 +318,22 @@ public class UMLCanvas extends AbsolutePanel {
 					} else
 						switch (activeLinking) {
 						case SIMPLE:
-							add(new ClassDependencyArtifact.Simple(
+							add(new ClassDependencyLinkArtifact.Simple(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
 						case IMPLEMENTATION:
-							add(new ClassDependencyArtifact.Implementation(
+							add(new ClassDependencyLinkArtifact.Implementation(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
 						case EXTENSION:
-							add(new ClassDependencyArtifact.Extension(
+							add(new ClassDependencyLinkArtifact.Extension(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
 						case RELATIONSHIP:
-							add(new RelationshipArtifact(
+							add(new RelationshipLinkArtifact(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;

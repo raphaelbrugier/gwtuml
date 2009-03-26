@@ -11,11 +11,14 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
- * @author fmounier
- *
+ * @author  fmounier
  */
 public class AttributePartEditor extends FieldEditor {
 	
+	/**
+	 * @uml.property  name="attributeToChange"
+	 * @uml.associationEnd  
+	 */
 	Attribute attributeToChange;
 	
 	public AttributePartEditor(UMLCanvas canvas, ClassAttributesArtifact artifact, Attribute attributeToChange) {

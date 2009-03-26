@@ -2,11 +2,17 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
+/**
+ * @author  florian
+ */
 public abstract class SyntaxAnalyser {
 
 	public static final int BEGIN = 0;
 	public static final int FINISHED = -1;
 
+	/**
+	 * @uml.property  name="status"
+	 */
 	private int status = BEGIN;
 
 	public LexicalAnalyser.Token process(LexicalAnalyser lex,
@@ -17,10 +23,18 @@ public abstract class SyntaxAnalyser {
 		return tk;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="status"
+	 */
 	int getStatus() {
 		return status;
 	}
 
+	/**
+	 * @param status
+	 * @uml.property  name="status"
+	 */
 	void setStatus(int status) {
 		this.status = status;
 	}

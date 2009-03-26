@@ -5,7 +5,8 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 public class Line extends IncubatorGfxObject {
 
-	private int w, h;
+	private int w;
+	private int h;
 
 	public Line(int x1, int y1, int x2, int y2) {
 		this.x = x1;

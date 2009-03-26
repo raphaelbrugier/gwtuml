@@ -2,11 +2,23 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
+/**
+ * @author  florian
+ */
 public class LexicalAnalyser {
 
+	/**
+	 * @author  florian
+	 */
 	public static class Token {
+		/**
+		 * @uml.property  name="content"
+		 */
 		String content;
 
+		/**
+		 * @uml.property  name="type"
+		 */
 		int type;
 
 		public Token(int type, String content) {
@@ -14,9 +26,17 @@ public class LexicalAnalyser {
 			this.content = content;
 		}
 
+		/**
+		 * @return
+		 * @uml.property  name="content"
+		 */
 		public String getContent() {
 			return content;
 		}
+		/**
+		 * @return
+		 * @uml.property  name="type"
+		 */
 		public int getType() {
 			return type;
 		}
@@ -48,6 +68,9 @@ public class LexicalAnalyser {
 
 	String text;
 
+	/**
+	 * @uml.property  name="token"
+	 */
 	StringBuffer token = new StringBuffer();
 
 	public LexicalAnalyser(String text) {
@@ -55,6 +78,10 @@ public class LexicalAnalyser {
 		this.ptr = 0;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="token"
+	 */
 	public Token getToken() {
 		Token token = null;
 		while (token == null) {

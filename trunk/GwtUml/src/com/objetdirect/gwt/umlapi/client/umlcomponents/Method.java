@@ -4,15 +4,26 @@ import java.util.List;
 
 /**
  * This class represent a method in a class
- * @author hdarmet
- * @author fmounier
- *
+ * @author  hdarmet
+ * @author  fmounier
  */
 public class Method extends ClassMember {
 
+	/**
+	 * @uml.property  name="name"
+	 */
 	private String name;
+	/**
+	 * @uml.property  name="parameters"
+	 */
 	private List<Parameter>  parameters;
+	/**
+	 * @uml.property  name="returnType"
+	 */
 	private String returnType;
+	/**
+	 * @uml.property  name="validated"
+	 */
 	private boolean validated = true;
 
 	/**
@@ -30,14 +41,16 @@ public class Method extends ClassMember {
 	
 	/**
 	 * Getter for the name
-	 * @return the name
+	 * @return  the name
+	 * @uml.property  name="name"
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
 	 * Getter for the parameters list
-	 * @return the parameters list
+	 * @return  the parameters list
+	 * @uml.property  name="parameters"
 	 */
 	public List<Parameter>  getParameters() {
 		return parameters;
@@ -45,7 +58,8 @@ public class Method extends ClassMember {
 	
 	/**
 	 * Getter for the return type
-	 * @return the return type
+	 * @return  the return type
+	 * @uml.property  name="returnType"
 	 */
 	public String getReturnType() {
 		return returnType;
@@ -53,7 +67,8 @@ public class Method extends ClassMember {
 	
 	/**
 	 * Get the validated state of the attribute
-	 * @return true if validated, false otherwise
+	 * @return  true if validated, false otherwise
+	 * @uml.property  name="validated"
 	 */
 	public boolean isValidated() {
 		return validated;
@@ -61,7 +76,8 @@ public class Method extends ClassMember {
 
 	/**
 	 * Setter for the name
-	 * @param name to be set
+	 * @param name  to be set
+	 * @uml.property  name="name"
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -69,7 +85,8 @@ public class Method extends ClassMember {
 
 	/**
 	 * Setter for the parameters list
-	 * @param parameters list to be set
+	 * @param parameters  list to be set
+	 * @uml.property  name="parameters"
 	 */
 	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
@@ -77,7 +94,8 @@ public class Method extends ClassMember {
 	
 	/**
 	 * Setter for the return type
-	 * @param return type to be set
+	 * @param  return type to be set
+	 * @uml.property  name="returnType"
 	 */
 	public void setReturnType(String returnType) {
 		this.returnType = returnType;
@@ -85,7 +103,8 @@ public class Method extends ClassMember {
 	
 	/**
 	 * Set the validation state
-	 * @param boolean for validated validation state 
+	 * @param  boolean for validated validation state
+	 * @uml.property  name="validated"
 	 */
 	public void setValidated(boolean validated) {
 		this.validated = validated;

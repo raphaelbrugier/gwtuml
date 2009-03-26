@@ -4,8 +4,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 
 /**
  * This class allows to set and access configuration values 
- * @author fmounier
- *
+ * @author  fmounier
  */
 public class OptionsManager {
 
@@ -20,7 +19,15 @@ public class OptionsManager {
 	private static final int BOTTOM_RECT_PADDING = 6;
 	
 	
+	/**
+	 * @uml.property  name="font"
+	 * @uml.associationEnd  
+	 */
 	private static GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.NORMAL);
+	/**
+	 * @uml.property  name="smallCapsFont"
+	 * @uml.associationEnd  
+	 */
 	private static GfxFont smallCapsFont = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
 	
 	
@@ -61,9 +68,17 @@ public class OptionsManager {
 		return TOP_RECT_PADDING + BOTTOM_RECT_PADDING;
 	}
 	
+	/**
+	 * @return
+	 * @uml.property  name="font"
+	 */
 	public static GfxFont getFont() {
 		return font;
 	}
+	/**
+	 * @return
+	 * @uml.property  name="smallCapsFont"
+	 */
 	public static GfxFont getSmallCapsFont() {
 		return smallCapsFont;
 	}

@@ -1,9 +1,10 @@
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.links;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 
-public abstract class LineArtifact extends UMLArtifact {
+public abstract class LinkArtifact extends UMLArtifact {
 
 	int x1 = 0;
 	int x2 = 0;

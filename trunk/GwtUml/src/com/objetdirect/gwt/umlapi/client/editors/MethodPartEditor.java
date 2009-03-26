@@ -12,11 +12,14 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
- * @author fmounier
- *
+ * @author  fmounier
  */
 public class MethodPartEditor extends FieldEditor {
 	
+	/**
+	 * @uml.property  name="methodToChange"
+	 * @uml.associationEnd  
+	 */
 	Method methodToChange;
 	
 	public MethodPartEditor(UMLCanvas canvas, ClassMethodsArtifact artifact, Method methodToChange) {

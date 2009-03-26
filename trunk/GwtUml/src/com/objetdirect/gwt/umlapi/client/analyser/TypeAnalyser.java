@@ -3,6 +3,9 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 
+/**
+ * @author  florian
+ */
 public class TypeAnalyser extends SyntaxAnalyser {
 
 	public static final int BEGIN_OPEN_BRACKET = 4;
@@ -11,8 +14,15 @@ public class TypeAnalyser extends SyntaxAnalyser {
 	public static final int END_TYPE_PARAMETER = 2;
 	public static final int TYPE_PARAMETER_EXPECTED = 3;
 
+	/**
+	 * @uml.property  name="type"
+	 */
 	String type = "";
 
+	/**
+	 * @return
+	 * @uml.property  name="type"
+	 */
 	public String getType() {
 		return type;
 	}

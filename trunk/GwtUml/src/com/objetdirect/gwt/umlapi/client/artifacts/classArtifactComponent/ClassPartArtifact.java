@@ -1,59 +1,65 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
-public abstract class ClassPartArtifact {
-	
-	private boolean isBuilt = false;
+/**
+ * @author  florian
+ */
+public abstract class ClassPartArtifact extends UMLArtifact {
+
+	/**
+	 * @uml.property  name="height"
+	 */
 	protected int height;
+	/**
+	 * @uml.property  name="width"
+	 */
 	protected int width;
 	protected int classWidth;
-	protected UMLCanvas canvas;
-	protected GfxObject gfxObject;
-	protected GfxObject textVirtualGroup;
-	protected ClassArtifact classArtifact;
 
-	
-	public abstract int getHeight();
+	/**
+	 * @param height
+	 * @uml.property  name="height"
+	 */
 	public abstract void setHeight(int height);
-	public abstract int getWidth();
+	/**
+	 * @param width
+	 * @uml.property  name="width"
+	 */
 	public abstract void setWidth(int width);	
-	public abstract void computeBounds();
-	public abstract void setClassWidth(int width);	
-	public abstract void buildGfxObject();
-	public abstract void edit();
-	public abstract void edit(GfxObject gfxobject);
+	/**
+	 * @uml.property  name="textVirtualGroup"
+	 * @uml.associationEnd  
+	 */
+	protected GfxObject textVirtualGroup;
+	/**
+	 * @uml.property  name="classArtifact"
+	 * @uml.associationEnd  
+	 */
+	protected ClassArtifact classArtifact;
 	
+	public abstract void computeBounds();
+	/**
+	 * @param width
+	 * @uml.property  name="classWidth"
+	 */
+	public abstract void setClassWidth(int width);
+	
+	public abstract void edit();
+	
+	/**
+	 * @return
+	 * @uml.property  name="classArtifact"
+	 */
 	public ClassArtifact getClassArtifact() {
 		return classArtifact;
 	}
+	/**
+	 * @param classArtifact
+	 * @uml.property  name="classArtifact"
+	 */
 	public void setClassArtifact(ClassArtifact classArtifact) {
 		this.classArtifact = classArtifact;
 	}
-	
-	public GfxObject getGfxObject() {
-		if (gfxObject == null) {
-			throw new UMLDrawerException("Must Initialize before getting gfxObjects");	
-		}
-		if(!isBuilt) {
-			buildGfxObject();
-			isBuilt = true;
-		}
-		return gfxObject;
-	}
-	
-	
-	public GfxObject initializeGfxObject() {
-		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
-		isBuilt = false;
-		return gfxObject;
-	}
-	
-	public void setCanvas(UMLCanvas canvas) {
-		this.canvas = canvas;
-	}
-		
 }

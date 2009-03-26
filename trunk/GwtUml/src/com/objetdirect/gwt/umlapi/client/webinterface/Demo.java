@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassDependencyArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.NoteLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationshipArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassDependencyLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
@@ -45,15 +45,15 @@ public class Demo extends AbsolutePanel {
 			clientClass.setLocation(300, 250);
 		gc.add(clientClass);
 		
-		ClassDependencyArtifact clientDataManager = new ClassDependencyArtifact.Simple(
+		ClassDependencyLinkArtifact clientDataManager = new ClassDependencyLinkArtifact.Simple(
 				clientClass, dataManagerClass);
 		gc.add(clientDataManager);
 
-		ClassDependencyArtifact clientBusinessObject = new ClassDependencyArtifact.Extension(
+		ClassDependencyLinkArtifact clientBusinessObject = new ClassDependencyLinkArtifact.Extension(
 				clientClass, businessObjectClass);
 		gc.add(clientBusinessObject);
 
-		ClassDependencyArtifact clientSerializable = new ClassDependencyArtifact.Implementation(
+		ClassDependencyLinkArtifact clientSerializable = new ClassDependencyLinkArtifact.Implementation(
 				clientClass, serializableClass);
 		gc.add(clientSerializable);
 
@@ -61,7 +61,7 @@ public class Demo extends AbsolutePanel {
 			eventClass.setLocation(250, 100);
 		gc.add(eventClass);
 		
-		RelationshipArtifact relClientEvent = new RelationshipArtifact(
+		RelationshipLinkArtifact relClientEvent = new RelationshipLinkArtifact(
 				clientClass, eventClass);
 			relClientEvent.setName("client-event");
 			relClientEvent.setRightArrow(true);
@@ -76,7 +76,7 @@ public class Demo extends AbsolutePanel {
 			addressClass.setLocation(50, 200);
 		gc.add(addressClass);
 		
-		RelationshipArtifact relClientAddress = new RelationshipArtifact(
+		RelationshipLinkArtifact relClientAddress = new RelationshipLinkArtifact(
 				clientClass, addressClass);
 			relClientAddress.setRightArrow(true);
 			relClientAddress.setLeftCardinality("1");
@@ -93,7 +93,7 @@ public class Demo extends AbsolutePanel {
 			paymentClass.setLocation(150, 450);
 		gc.add(paymentClass);
 		
-		RelationshipArtifact relClientProduct = new RelationshipArtifact(
+		RelationshipLinkArtifact relClientProduct = new RelationshipLinkArtifact(
 				clientClass, productClass);
 			relClientProduct.setName("client-product");
 			relClientProduct.setRightArrow(true);

@@ -9,6 +9,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
+/**
+ * @author  florian
+ */
 public final class HotKeyManager {
 	private static final class WindowCloseListenerImpl implements
 			WindowCloseListener {
@@ -35,6 +38,10 @@ public final class HotKeyManager {
 			}-*/;
 	}
 
+	/**
+	 * @uml.property  name="activeCanvas"
+	 * @uml.associationEnd  
+	 */
 	private static UMLCanvas activeCanvas;
 
 	static {
@@ -50,6 +57,10 @@ public final class HotKeyManager {
 	public static void forceStaticInit() {
 	};
 
+	/**
+	 * @param canvas
+	 * @uml.property  name="activeCanvas"
+	 */
 	public static void setActiveCanvas(UMLCanvas canvas) {
 		activeCanvas = canvas;
 	}
