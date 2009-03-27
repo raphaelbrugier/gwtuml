@@ -197,19 +197,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		
 	}
 	public GfxObject getGroup(GfxObject gfxO) {
-		// TODO Auto-generated method stub
-		return null;
+		return IncubatorGfxObjectContainer.getContainerOf(getIncubatorGraphicalObjectFrom(gfxO).getParentGroup());
 	}
-	public void hide(GfxObject gfxO) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void show(GfxObject gfxO) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setSize(Widget canvas, int width, int height) {
-		
-		
+
+	public void setSize(Widget canvas, int width, int height) {		
 	}
 }

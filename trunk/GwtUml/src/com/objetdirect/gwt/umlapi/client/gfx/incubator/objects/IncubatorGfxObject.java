@@ -8,9 +8,22 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
  */
 public abstract class IncubatorGfxObject {
 	protected Color fillColor;
-	protected boolean isVisible = false;
+	protected boolean isVisible = true;
 	protected Color strokeColor;
 	protected int strokeWidth = 0;
+	protected VirtualGroup parentGroup = null;
+	/**
+	 * @return the parentGroup
+	 */
+	public VirtualGroup getParentGroup() {
+		return parentGroup;
+	}
+	/**
+	 * @param parentGroup the parentGroup to set
+	 */
+	public void setParentGroup(VirtualGroup parentGroup) {
+		this.parentGroup = parentGroup;
+	}
 	/**
 	 * @uml.property  name="style"
 	 * @uml.associationEnd  
@@ -36,14 +49,14 @@ public abstract class IncubatorGfxObject {
 	 * @uml.property  name="x"
 	 */
 	public int getX() {
-		return x;
+		return x + (parentGroup == null ? 0 : parentGroup.getX());
 	}
 	/**
 	 * @return
 	 * @uml.property  name="y"
 	 */
 	public int getY() {
-		return y;
+		return y + (parentGroup == null ? 0 : parentGroup.getY());
 	}
 	public abstract boolean isPointed(int x, int y);
 	public void removeFromCanvas() {

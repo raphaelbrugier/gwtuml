@@ -1,5 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx.tatami;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -10,21 +12,10 @@ import com.objetdirect.tatami.client.gfx.GraphicObject;
  * @author  florian
  */
 public class TatamiGfxObjectContainer extends GfxObject {
-	private static Set<TatamiGfxObjectContainer> tatamiGfxObjectContainerSet = new HashSet<TatamiGfxObjectContainer>();
-	public static TatamiGfxObjectContainer getContainerOf(
-			GraphicObject graphicObject) {
-		if (graphicObject == null) {
-			Log.debug("Looking for a Tcontainer of a null object");
-			return null; // Avoid a complete search if null
-		}
-		for (TatamiGfxObjectContainer tatamiGfxObjectContainer : tatamiGfxObjectContainerSet) {
-			if (tatamiGfxObjectContainer.getGraphicObject().equals(
-					graphicObject))
-				return tatamiGfxObjectContainer;
-		}
-		Log.warn("No Tcontainer found for "
-				+ UMLDrawerHelper.getShortName(graphicObject));
-		return null;
+	private static Map<GraphicObject, TatamiGfxObjectContainer> tatamiGfxObjectContainerMap = new HashMap<GraphicObject, TatamiGfxObjectContainer>();
+	
+	public static TatamiGfxObjectContainer getContainerOf(GraphicObject graphicObject) {
+		return tatamiGfxObjectContainerMap.get(graphicObject);
 	}
 	/**
 	 * @uml.property  name="graphicObject"
@@ -34,7 +25,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 		if (graphicObject == null)
 			Log.error("Creating a Tcontainer of a null object");
 		this.graphicObject = graphicObject;
-		tatamiGfxObjectContainerSet.add(this);
+		tatamiGfxObjectContainerMap.put(graphicObject, this);
 		Log.debug("Added Tcontainer " + this);
 	}
 	/**

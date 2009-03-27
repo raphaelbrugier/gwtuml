@@ -19,7 +19,7 @@ public class Text extends IncubatorGfxObject {
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
 		for (int i = 0; i < text.length(); i++) {
-			canvas.strokeRect(x + 10 * i, y - 8, 8, 10);
+			canvas.strokeRect(getX() + 10 * i, getY() - 8, 8, 10);
 		}
 		canvas.restoreContext();
 	}

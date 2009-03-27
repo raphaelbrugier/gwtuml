@@ -23,8 +23,8 @@ public class Line extends IncubatorGfxObject {
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
 		canvas.beginPath();
-		canvas.moveTo(x, y);
-		canvas.lineTo(x + w, y + h);
+		canvas.moveTo(getX(), getY());
+		canvas.lineTo(getX() + w, getY() + h);
 		canvas.closePath();
 		canvas.stroke();
 		canvas.restoreContext();

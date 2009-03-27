@@ -30,7 +30,7 @@ public class Path extends IncubatorGfxObject {
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
 		canvas.beginPath();
-		canvas.moveTo(x, y);
+		canvas.moveTo(getX(), getY());
 		for (Point point : pathPoints) {
 			canvas.lineTo(point.x, point.y);
 		}
@@ -65,13 +65,5 @@ public class Path extends IncubatorGfxObject {
 	public void moveTo(int x, int y) {
 		this.x =  x;
 		this.y =  y;
-	}
-	@Override
-	public void translate(int dx, int dy) {
-		super.translate(dx, dy);
-		for (Point point : pathPoints) {
-			point.x += dx;
-			point.y += dy;
-		}
 	}
 }

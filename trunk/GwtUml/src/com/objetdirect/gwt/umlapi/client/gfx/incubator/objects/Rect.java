@@ -20,7 +20,7 @@ public class Rect extends IncubatorGfxObject {
 			canvas.setStrokeStyle(strokeColor);
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
-		canvas.strokeRect(x, y, w, h);
+		canvas.strokeRect(getX(), getY(), w, h);
 		canvas.restoreContext();
 	}
 	@Override
@@ -35,7 +35,7 @@ public class Rect extends IncubatorGfxObject {
 	}
 	@Override
 	public boolean isPointed(int x, int y) {
-		return (x > this.x) && (x < this.x + w) && (y > this.y)
-				&& (y < this.y + h);
+		return (x > getX()) && (x < getX() + w) && (y > getY())
+				&& (y < getY() + h);
 	}
 }

@@ -8,6 +8,7 @@ public class VirtualGroup extends IncubatorGfxObject {
 	private Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
 	public void add(IncubatorGfxObject incubatorGfxObject) {
 		incubatorGfxObjectSet.add(incubatorGfxObject);
+		incubatorGfxObject.setParentGroup(this);
 	}
 	@Override
 	public void addOnCanvasAt(int dx, int dy) {
@@ -43,13 +44,7 @@ public class VirtualGroup extends IncubatorGfxObject {
 	public void remove(IncubatorGfxObject incubatorGfxObject) {
 		incubatorGfxObjectSet.remove(incubatorGfxObject);
 	}
-	@Override
-	public void translate(int dx, int dy) {
-		super.translate(dx, dy);
-		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.translate(dx, dy);
-		}
-	}
+
 	public void clear() {
 		incubatorGfxObjectSet.clear();
 		
