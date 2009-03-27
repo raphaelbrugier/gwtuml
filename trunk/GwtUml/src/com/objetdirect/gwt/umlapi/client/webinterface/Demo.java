@@ -92,7 +92,7 @@ public class Demo extends AbsolutePanel {
 			relClientProduct.setRelationClass(paymentClass);
 		gc.add(relClientProduct);
 		
-		NoteArtifact note = new NoteArtifact("Ceci est une \n note \r concernant \r\n le client");
+		NoteArtifact note = new NoteArtifact("Ceci est une note\nconcernant le client");
 			note.setLocation(400, 450);
 		gc.add(note);
 		NoteLinkArtifact noteClientLink = new NoteLinkArtifact(note,

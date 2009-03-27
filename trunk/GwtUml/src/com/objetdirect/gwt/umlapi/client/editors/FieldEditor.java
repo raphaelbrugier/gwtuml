@@ -45,9 +45,11 @@ public abstract class FieldEditor {
 		this.isMultiLine = isMultiLine;
 		editField = isMultiLine ? new TextArea() : new TextBox();
 		editField.setText(content);
-		editField.setStylePrimaryName("editor-field");
+		editField.setStylePrimaryName("editor-field" + (isMultiLine ? "-multiline" : ""));
 		editField.setWidth(w + "px");
-		if(isMultiLine) editField.setHeight(height + "px");
+		if(isMultiLine) {
+			editField.setHeight(height + "px");
+		}
 		
 		editField.addFocusHandler(new FocusHandler() {
 			public void onFocus(FocusEvent event) {

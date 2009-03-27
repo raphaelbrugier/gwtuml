@@ -34,18 +34,20 @@ public class NoteArtifact extends BoxArtifact {
 	 * @uml.associationEnd  
 	 */
 	GfxObject cornerPath;
-	
+	int width;
+	int height;
+
+
 	public NoteArtifact(String content) {
+		height = 0;
+		width = 0;
 		note = new Note(content);
-		
 	}
 	public String getContent() {
 		return note.getText();
 	}
 	@Override
 	public int getHeight() {
-		int height = OptionsManager.getRectangleYTotalPadding() + OptionsManager.getTextYTotalPadding() +
-				+  GfxManager.getPlatform().getHeightFor(contentText);
 		return height;
 	}
 	@Override
@@ -89,8 +91,6 @@ public class NoteArtifact extends BoxArtifact {
 	}
 	@Override
 	public int getWidth() {
-		int width = OptionsManager.getRectangleXTotalPadding() + OptionsManager.getTextXTotalPadding()
-				+  GfxManager.getPlatform().getWidthFor(contentText);
 		return width;
 	}
 	public void select() {
@@ -106,13 +106,29 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setStroke(cornerPath, ThemeManager.getForegroundColor(), 1);
 	}
 	void createNoteText() {
-		Log.warn("" + note.getText().split("\n").length);
-		contentText = GfxManager.getPlatform().buildText(note.getText());
+		height = 0;
+		width = 0;
+		String[] noteMultiLine = note.getText().split("\n");
+		contentText = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, contentText);
-		GfxManager.getPlatform().setFont(contentText, OptionsManager.getFont());
-		GfxManager.getPlatform().setFillColor(contentText, ThemeManager.getForegroundColor());
-		GfxManager.getPlatform().translate(contentText, OptionsManager.getTextLeftPadding(),
-				OptionsManager.getTextTopPadding() +  GfxManager.getPlatform().getHeightFor(contentText));
+
+		for(String noteLine : noteMultiLine) {				
+			GfxObject textLine = GfxManager.getPlatform().buildText(noteLine);
+			GfxManager.getPlatform().addToVirtualGroup(contentText, textLine);	
+			GfxManager.getPlatform().setFont(textLine, OptionsManager.getFont());
+			GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getForegroundColor());
+			int thisLineWidth =  GfxManager.getPlatform().getWidthFor(textLine);
+			int thisLineHeight =  GfxManager.getPlatform().getHeightFor(textLine);
+			
+			GfxManager.getPlatform().translate(textLine, OptionsManager.getTextLeftPadding(), OptionsManager.getTextTopPadding() + height + thisLineHeight);
+			thisLineWidth += OptionsManager.getTextXTotalPadding();
+			thisLineHeight += OptionsManager.getTextYTotalPadding();
+			width  = thisLineWidth > width ? thisLineWidth : width;
+			height += thisLineHeight;	
+		}
+		height += OptionsManager.getRectangleYTotalPadding();
+		width += OptionsManager.getRectangleXTotalPadding() + getCornerWidth();
+		
 	}
 	@Override
 	protected void buildGfxObject() {
@@ -131,10 +147,10 @@ public class NoteArtifact extends BoxArtifact {
 	protected GfxObject getBorderPath() {
 		GfxObject thisBorderPath = GfxManager.getPlatform().buildPath();		
 		GfxManager.getPlatform().moveTo(thisBorderPath, 0, 0);
-		GfxManager.getPlatform().lineTo(thisBorderPath, getWidth() - getCornerWidth(), 0);
-		GfxManager.getPlatform().lineTo(thisBorderPath, getWidth(), getCornerHeight());
-		GfxManager.getPlatform().lineTo(thisBorderPath, getWidth(), getHeight());
-		GfxManager.getPlatform().lineTo(thisBorderPath, 0, getHeight());
+		GfxManager.getPlatform().lineTo(thisBorderPath, width - getCornerWidth(), 0);
+		GfxManager.getPlatform().lineTo(thisBorderPath, width, getCornerHeight());
+		GfxManager.getPlatform().lineTo(thisBorderPath, width, height);
+		GfxManager.getPlatform().lineTo(thisBorderPath, 0, height);
 		GfxManager.getPlatform().lineTo(thisBorderPath, 0, 0);
 		GfxManager.getPlatform().setFillColor(thisBorderPath, ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(thisBorderPath, ThemeManager.getForegroundColor(), 1);
@@ -146,25 +162,25 @@ public class NoteArtifact extends BoxArtifact {
 	 */
 	protected GfxObject getCornerPath() {
 		GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();		
-		GfxManager.getPlatform().moveTo(thisCornerPath, getWidth() - getCornerWidth(), 0);
-		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth() - getCornerWidth(),getCornerHeight());
-		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth(), getCornerHeight());
+		GfxManager.getPlatform().moveTo(thisCornerPath, width - getCornerWidth(), 0);
+		GfxManager.getPlatform().lineTo(thisCornerPath, width - getCornerWidth(),getCornerHeight());
+		GfxManager.getPlatform().lineTo(thisCornerPath, width, getCornerHeight());
 		GfxManager.getPlatform().setFillColor(thisCornerPath, ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(thisCornerPath, ThemeManager.getForegroundColor(), 1);
 		return thisCornerPath;
 	}
 	private int getCornerHeight() {
-		return getHeight() / 3;
+		return height / 3;
 	}
 	private int getCornerWidth() {
-		return getCornerHeight();
+		return height / 3;
 	}
 	public void edit(GfxObject gfxObject, int x, int y) {
 		NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
-		editor.setHeightForMultiLine(getHeight() - OptionsManager.getTextYTotalPadding() - OptionsManager.getRectangleYTotalPadding());
+		editor.setHeightForMultiLine(height - OptionsManager.getTextYTotalPadding() - OptionsManager.getRectangleYTotalPadding());
 		editor.startEdition(note.getText(), this.x + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding(),
 				this.y + OptionsManager.getTextYTotalPadding() + OptionsManager.getRectangleTopPadding(), 
-				getWidth() - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), true	);
-		
+				width - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), true);
+
 	}
 }
