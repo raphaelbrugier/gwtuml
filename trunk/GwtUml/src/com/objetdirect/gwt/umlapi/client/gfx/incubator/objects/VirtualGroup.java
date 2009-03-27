@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
 import java.util.HashSet;
 import java.util.Set;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class VirtualGroup extends IncubatorGfxObject {

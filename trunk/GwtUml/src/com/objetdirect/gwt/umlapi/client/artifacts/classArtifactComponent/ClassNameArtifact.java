@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 import java.util.LinkedHashMap;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;

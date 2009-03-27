@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
@@ -13,7 +14,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 public class Demo extends AbsolutePanel {
 	public Demo(UMLCanvas gc) {
-		Log.info("Creating demo");
+		Log.debug("Creating demo");
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 			dataManagerClass.setLocation(500, 50);
 		gc.add(dataManagerClass);
@@ -107,6 +108,6 @@ public class Demo extends AbsolutePanel {
 		NoteLinkArtifact noteDependencyLink = new NoteLinkArtifact(note,
 				clientDataManager);
 		gc.add(noteDependencyLink);
-		Log.info("Init demodrawer end");
+		Log.debug("Init demodrawer end");
 	}
 }

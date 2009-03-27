@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -135,10 +136,12 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 		if(isAttached()) {
 			element.setCanvas(this);
+			long t = System.currentTimeMillis();
 			GfxManager.getPlatform().addToCanvas(canvas, element.initializeGfxObject(), element.getX(), element.getY());
 			objects.put(element.getGfxObject(), element);
+			Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to add " + element);
 		} else {
-			Log.info("Canvas not attached, queuing " + element);
+			Log.debug("Canvas not attached, queuing " + element);
 			objectsToBeAddedWhenAttached.add(element);
 		}
 	}
@@ -201,7 +204,6 @@ public class UMLCanvas extends AbsolutePanel {
 			if (outline == null) {
 				outline = selected.getOutline();
 				GfxManager.getPlatform().addToCanvas(canvas, outline, 0, 0);
-				//GfxManager.getPlatform().hide(selected.getGfxObject());
 				GfxManager.getPlatform().clearVirtualGroup(selected.getGfxObject());
 				Log.debug("Adding outline for " + selected);
 				CursorIconManager.setCursorIcon(PointerStyle.MOVE);
@@ -226,8 +228,6 @@ public class UMLCanvas extends AbsolutePanel {
 				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 				selected.moveTo(fx, fy);
 				selected.rebuildGfxObject();
-				//GfxManager.getPlatform().show(selected.getGfxObject());
-				//selected.moved();
 			}
 			
 		}
@@ -242,7 +242,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 	private UMLArtifact getUMLArtifact(GfxObject gfxO) {
 		if (gfxO == null) {
-			Log.info("No Object");
+			Log.debug("No Object");
 			return null;
 		}
 		GfxObject gfxOPrentGroup = GfxManager.getPlatform().getGroup(gfxO);
@@ -252,7 +252,7 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 		UMLArtifact UMLArtifact = objects.get(gfxO);
 		if (UMLArtifact == null)
-			Log.info("Artifact not found");
+			Log.debug("Artifact not found");
 		return UMLArtifact;
 	}
 	private void select(GfxObject gfxObject) {
@@ -359,8 +359,10 @@ public class UMLCanvas extends AbsolutePanel {
 		Log.trace("Loading");
 		for (UMLArtifact elementNotAdded : objectsToBeAddedWhenAttached) {
 			elementNotAdded.setCanvas(this);
+			long t = System.currentTimeMillis();
 			GfxManager.getPlatform().addToCanvas(canvas, elementNotAdded.initializeGfxObject(), elementNotAdded.getX(), elementNotAdded.getY());
 			objects.put(elementNotAdded.getGfxObject(), elementNotAdded);
+			Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
 		}
 		objectsToBeAddedWhenAttached.clear();
 	}

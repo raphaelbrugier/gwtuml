@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
@@ -26,11 +27,11 @@ public abstract class UMLArtifact  {
 	protected HashSet<UMLArtifact> dependentUMLArtifacts = new HashSet<UMLArtifact>();
 	private boolean isBuilt = false;
 	public void addDependency(UMLArtifact dependentUMLArtifact) {
-		Log.warn(this + "adding depency with" + dependentUMLArtifact);
+		Log.trace(this + "adding depency with" + dependentUMLArtifact);
 		dependentUMLArtifacts.add(dependentUMLArtifact);
 	}
 	public void removeDependency(UMLArtifact dependentUMLArtifact) {
-		Log.warn(this + "removing depency with" + dependentUMLArtifact);
+		Log.trace(this + "removing depency with" + dependentUMLArtifact);
 		dependentUMLArtifacts.remove(dependentUMLArtifact);
 	}
 	/**
@@ -60,7 +61,9 @@ public abstract class UMLArtifact  {
 			throw new UMLDrawerException("Must Initialize before getting gfxObjects");	
 		}
 		if(!isBuilt) {
+			long t = System.currentTimeMillis();
 			buildGfxObject();
+			Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 			isBuilt = true;
 		}
 		return gfxObject;
@@ -82,18 +85,22 @@ public abstract class UMLArtifact  {
 		return UMLDrawerHelper.getShortName(this);
 	}
 	protected abstract void buildGfxObject();
+	
 	public void rebuildGfxObject() {
+		long t = System.currentTimeMillis();
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		buildGfxObject();
+		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
-			Log.warn("Rebuilding : " + dependentUMLArtifact);
-			new Scheduler.Task(dependentUMLArtifact) {
-				@Override
-				public void process() {
+			Log.trace("Rebuilding : " + dependentUMLArtifact);
+			//new Scheduler.Task(dependentUMLArtifact) {
+			//	@Override
+			//	public void process() {
 					dependentUMLArtifact.rebuildGfxObject();
-				}
-			};
+			//	}
+			//};
 		}
+		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
 	
 	}
 	public abstract boolean isDraggable();

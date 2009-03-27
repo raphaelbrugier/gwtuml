@@ -59,7 +59,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 				.addGraphicObjectListener(graphicObjectListener);
 	}
 	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {
-		Log.info("Adding to Tcanvas : "
+		Log.debug("Adding to Tcanvas : "
 				+ UMLDrawerHelper
 						.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
 		((GraphicCanvas) canvas).add(getTatamiGraphicalObjectFrom(gfxO), x, y);
@@ -138,7 +138,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
 	}
 	public void removeFromCanvas(Widget canvas, GfxObject gfxO) {
-		Log.info("Removing from Tcanvas : "
+		Log.debug("Removing from Tcanvas : "
 				+ UMLDrawerHelper
 						.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
 		((GraphicCanvas) canvas).remove(getTatamiGraphicalObjectFrom(gfxO));

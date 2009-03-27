@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
 import java.util.ArrayList;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class Path extends IncubatorGfxObject {

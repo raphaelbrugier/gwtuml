@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx.tatami;
 import java.util.HashSet;
 import java.util.Set;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -34,7 +35,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 			Log.error("Creating a Tcontainer of a null object");
 		this.graphicObject = graphicObject;
 		tatamiGfxObjectContainerSet.add(this);
-		Log.info("Added Tcontainer " + this);
+		Log.debug("Added Tcontainer " + this);
 	}
 	/**
 	 * @return

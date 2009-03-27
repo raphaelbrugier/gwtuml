@@ -19,6 +19,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawer;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
+import com.objetdirect.gwt.umlapi.client.engine.LinearGeometry;
+import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
@@ -51,6 +54,9 @@ public class StartPanel extends VerticalPanel {
 	final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
 	final Label gfxEngineLbl = new Label("Graphics Engine : ");
 	final ListBox gfxEngineListBox = new ListBox();
+	final HorizontalPanel geometryStylePanel = new HorizontalPanel();
+	final Label geometryStyleLbl = new Label("Geometry Style : ");
+	final ListBox geometryStyleListBox = new ListBox();
 	final HorizontalPanel themePanel = new HorizontalPanel();
 	final Label themeLbl = new Label("Theme : ");
 	final ListBox themeListBox = new ListBox();
@@ -66,7 +72,7 @@ public class StartPanel extends VerticalPanel {
 		instance = this;
 		loadingScreen = new LoadingScreen();
 		loadingScreen.show();
-		Log.info("Starting App");
+		Log.debug("Starting App");
 		HotKeyManager.forceStaticInit();
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -105,10 +111,13 @@ public class StartPanel extends VerticalPanel {
 			
 		});
 		gfxEnginePanel.setSpacing(5);
+		geometryStylePanel.setSpacing(5);
 		themePanel.setSpacing(5);
 		resolutionPanel.setSpacing(5);
 		gfxEngineListBox.addItem("Tatami Gfx");
 		gfxEngineListBox.addItem("Incubator GWTCanvas GFX");
+		geometryStyleListBox.addItem("Linear");
+		geometryStyleListBox.addItem("Shape Based");
 		for (Theme theme : Theme.values()) {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
@@ -144,6 +153,10 @@ public class StartPanel extends VerticalPanel {
 		gfxEnginePanel.add(gfxEngineLbl);
 		gfxEnginePanel.add(gfxEngineListBox);
 		this.add(gfxEnginePanel);
+		geometryStylePanel.add(geometryStyleLbl);
+		geometryStylePanel.add(geometryStyleListBox);
+		this.add(geometryStylePanel);
+		
 		themePanel.add(themeLbl);
 		themePanel.add(themeListBox);
 		this.add(themePanel);
@@ -170,6 +183,12 @@ public class StartPanel extends VerticalPanel {
 			GfxManager.setPlatform(new TatamiGfxPlatfrom());
 		else
 			GfxManager.setPlatform(new IncubatorGfxPlatform());
+		if (geometryStyleListBox.getItemText(
+				geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
+				"Linear"))
+			GeometryManager.setPlatform(new LinearGeometry());
+		else
+			GeometryManager.setPlatform(new ShapeGeometry());
 		instance.removeFromParent();
 		loadingScreen.show();
 		int w;

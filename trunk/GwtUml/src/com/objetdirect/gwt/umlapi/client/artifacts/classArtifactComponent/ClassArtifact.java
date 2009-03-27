@@ -2,6 +2,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
@@ -231,16 +232,6 @@ public class ClassArtifact extends BoxArtifact {
 		GfxManager.getPlatform().clearVirtualGroup(classAttributes.getGfxObject());
 		GfxManager.getPlatform().clearVirtualGroup(classMethods.getGfxObject());
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
-		buildGfxObject();
-		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
-			Log.warn("Rebuilding : " + dependentUMLArtifact);
-			new Scheduler.Task(dependentUMLArtifact) {
-				@Override
-				public void process() {
-					dependentUMLArtifact.rebuildGfxObject();
-				}
-			};
-		}
-		
+		super.rebuildGfxObject();
 	}
 }

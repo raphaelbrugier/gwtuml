@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;

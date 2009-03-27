@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client;
 import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;

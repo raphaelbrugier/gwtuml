@@ -9,13 +9,16 @@ public class OptionsManager {
 	private static final int LEFT_TEXT_PADDING = 1;
 	private static final int TOP_TEXT_PADDING = 1;
 	private static final int BOTTOM_TEXT_PADDING = 2;
-	
 	private static final int RIGHT_RECT_PADDING = 4;
 	private static final int LEFT_RECT_PADDING = 4;
 	private static final int TOP_RECT_PADDING = 4;
 	private static final int BOTTOM_RECT_PADDING = 6;
-	
-	
+	private static final int ARROW_LENGTH = 20;
+	private static final int ARROW_WIDTH = 8;
+	private static final int FILLED_ARROW_LENGTH = 25;
+	private static final int FILLED_ARROW_WIDTH = 10;
+
+
 	/**
 	 * @uml.property  name="font"
 	 * @uml.associationEnd  
@@ -27,6 +30,30 @@ public class OptionsManager {
 	 */
 	private static GfxFont smallCapsFont = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
 	
+	/**
+	 * @return the aRROW_LENGTH
+	 */
+	public static int getArrowLenght() {
+		return ARROW_LENGTH;
+	}
+	/**
+	 * @return the aRROW_WIDTH
+	 */
+	public static int getArrowWidth() {
+		return ARROW_WIDTH;
+	}
+	/**
+	 * @return the fILLED_ARROW_LENGTH
+	 */
+	public static int getFilledArrowLenght() {
+		return FILLED_ARROW_LENGTH;
+	}
+	/**
+	 * @return the fILLED_ARROW_WIDTH
+	 */
+	public static int getFilledArrowWidth() {
+		return FILLED_ARROW_WIDTH;
+	}
 	
 	public static int getTextRightPadding() {
 		return RIGHT_TEXT_PADDING;

@@ -1,10 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
 import java.util.LinkedHashMap;
+
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.Geometry;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -38,12 +39,12 @@ public class NoteLinkArtifact extends LinkArtifact {
 	}
 	public void buildGfxObject() {
 		Point targetCenterPoint = new Point(target.getCenterX(), target.getCenterY());
-		Point lineLeftPoint  = Geometry.getPointForLine(note, targetCenterPoint);
+		Point lineLeftPoint  = GeometryManager.getPlatform().getPointForLine(note, targetCenterPoint);
 		Point lineRightPoint;
 		if(isTargetALink()) {
 			lineRightPoint = targetCenterPoint;
 		} else {
-			lineRightPoint = Geometry.getPointForLine(target, new Point(note.getCenterX(), note.getCenterY()));
+			lineRightPoint = GeometryManager.getPlatform().getPointForLine(target, new Point(note.getCenterX(), note.getCenterY()));
 		}
 		x1 = lineLeftPoint.getX();
 		y1 = lineLeftPoint.getY();

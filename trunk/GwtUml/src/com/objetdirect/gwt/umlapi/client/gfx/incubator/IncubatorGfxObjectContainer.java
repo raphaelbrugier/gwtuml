@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx.incubator;
 import java.util.HashSet;
 import java.util.Set;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -34,7 +35,7 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 			Log.error("Creating a Icontainer of a null object");
 		this.incubatorGfxObject = incubatorGfxObject;
 		incubatorGfxObjectContainerSet.add(this);
-		Log.info("Added Icontainer " + this);
+		Log.debug("Added Icontainer " + this);
 	}
 	public IncubatorGfxObject getGraphicObject() {
 		return incubatorGfxObject;

@@ -1,11 +1,13 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.editors.RelationshipLinkFieldEditor;
-import com.objetdirect.gwt.umlapi.client.engine.Geometry;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -283,17 +285,15 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	}
 	@Override
 	protected void buildGfxObject() {
-		//int[] lineBounds = Geometry.computeLineBounds(leftClassArtifact, rightClassArtifact);
-		//setBounds(Math.round(lineBounds[0]), Math.round(lineBounds[1]), Math.round(lineBounds[2]),	Math.round(lineBounds[3]));
-		//line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 		gfxObjectPart.clear();
 		
-		Point lineLeftPoint  = Geometry.getPointForLine(leftClassArtifact, new Point(rightClassArtifact.getCenterX(), rightClassArtifact.getCenterY()));
-		Point lineRightPoint = Geometry.getPointForLine(rightClassArtifact, new Point(leftClassArtifact.getCenterX(), leftClassArtifact.getCenterY()));
-		x1 = lineLeftPoint.getX();
-		y1 = lineLeftPoint.getY();
-		x2 = lineRightPoint.getX();
-		y2 = lineRightPoint.getY();
+		ArrayList<Point> linePoints = GeometryManager.getPlatform().getLineBetween(leftClassArtifact, rightClassArtifact); 
+		
+		x1 = linePoints.get(0).getX();
+		y1 = linePoints.get(0).getY();
+		x2 = linePoints.get(1).getX();
+		y2 = linePoints.get(1).getY();
+		
 		line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
@@ -301,9 +301,9 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
 		if (arrowOnLeft)
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, Geometry.buildArrow(x1, y1, x2, y2));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(x1, y1, x2, y2));
 		if (arrowOnRight) 
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, Geometry.buildArrow(x2, y2, x1, y1));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(x2, y2, x1, y1));
 		// Making the text group
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
@@ -336,7 +336,7 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		if (relationClass != null) {
 			int xLineCenter = (x1 + x2) / 2;
 			int yLineCenter = (y1 + y2) / 2;
-			Point relationClasslinePoint  = Geometry.getPointForLine(relationClass, new Point(xLineCenter, xLineCenter));
+			Point relationClasslinePoint  = GeometryManager.getPlatform().getPointForLine(relationClass, new Point(xLineCenter, xLineCenter));
 			GfxObject relationLine = GfxManager.getPlatform().buildLine(relationClasslinePoint.getX(), relationClasslinePoint.getY(),
 					xLineCenter, yLineCenter);
 			GfxManager.getPlatform().setStrokeStyle(relationLine, GfxStyle.DASH);
@@ -346,7 +346,7 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	private GfxObject createText(String text, boolean isLeft, RelationshipArtifactPart part) {
 		GfxObject textGfxObject = GfxManager.getPlatform().buildText(text);
 		GfxManager.getPlatform().setFillColor(textGfxObject, ThemeManager.getForegroundColor());
-		Log.info("Creating text : " + text + " at " +  getTextX(textGfxObject, isLeft) + " : " + getTextY(textGfxObject, isLeft));
+		Log.trace("Creating text : " + text + " at " +  getTextX(textGfxObject, isLeft) + " : " + getTextY(textGfxObject, isLeft));
 		GfxManager.getPlatform().translate(textGfxObject, getTextX(textGfxObject, isLeft), getTextY(textGfxObject, isLeft));
 		RelationshipArtifactPart.setGfxObjectTextForPart(textGfxObject, part);
 		gfxObjectPart.put(part, textGfxObject);

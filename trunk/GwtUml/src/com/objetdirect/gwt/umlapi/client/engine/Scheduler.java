@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.engine;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gwt.user.client.Timer;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 /**

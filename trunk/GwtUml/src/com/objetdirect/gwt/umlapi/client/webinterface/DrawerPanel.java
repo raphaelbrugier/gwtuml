@@ -29,7 +29,7 @@ public class DrawerPanel extends AbsolutePanel {
 	private SimplePanel bottomLeftCornerShadow;
 	
 	public DrawerPanel(int width, int height) {
-		Log.info("Creating drawer");
+		Log.debug("Creating drawer");
 		
 		gc = new UMLCanvas(width, height);
 		gc.setStylePrimaryName("canvas");
@@ -46,7 +46,7 @@ public class DrawerPanel extends AbsolutePanel {
 		// example : this.setSpacing(50);
 		HotKeyManager.setActiveCanvas(gc);
 		UMLDrawerHelper.disableBrowserEvents();
-		Log.info("Init end");
+		Log.debug("Init end");
 	}
 	/**
 	 * @return

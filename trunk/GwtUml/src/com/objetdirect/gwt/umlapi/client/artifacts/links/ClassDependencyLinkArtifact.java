@@ -1,8 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.Geometry;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -37,7 +39,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return Geometry.buildFilledArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildFilledArrow(x1, y1, x2, y2);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -73,7 +75,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return Geometry.buildFilledArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildFilledArrow(x1, y1, x2, y2);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -109,7 +111,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return Geometry.buildArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildArrow(x1, y1, x2, y2);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -170,12 +172,13 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 	protected void buildGfxObject() {
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, vg);
-		Point lineLeftPoint  = Geometry.getPointForLine(left, new Point(right.getCenterX(), right.getCenterY()));
-		Point lineRightPoint = Geometry.getPointForLine(right, new Point(left.getCenterX(), left.getCenterY()));
-		x1 = lineLeftPoint.getX();
-		y1 = lineLeftPoint.getY();
-		x2 = lineRightPoint.getX();
-		y2 = lineRightPoint.getY();
+		
+		ArrayList<Point> linePoints = GeometryManager.getPlatform().getLineBetween(left, right); 
+		
+		x1 = linePoints.get(0).getX();
+		y1 = linePoints.get(0).getY();
+		x2 = linePoints.get(1).getX();
+		y2 = linePoints.get(1).getY();
 		
 		line = buildLine();
 		GfxManager.getPlatform().addToVirtualGroup(vg, line);

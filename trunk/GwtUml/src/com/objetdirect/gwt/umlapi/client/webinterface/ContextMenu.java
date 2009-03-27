@@ -1,7 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.gwt.mosaic.ui.client.PopupMenu;
+
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
