@@ -1,9 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
@@ -17,12 +15,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
-
 /**
  * @author  florian
  */
 public class ClassArtifact extends BoxArtifact {
-
 	/**
 	 * @uml.property  name="className"
 	 * @uml.associationEnd  
@@ -42,11 +38,9 @@ public class ClassArtifact extends BoxArtifact {
 	 * @uml.property  name="width"
 	 */
 	private int width;
-
 	public ClassArtifact() {
 		this("");
 	}
-
 	public ClassArtifact(String className) {
 		this.className = new ClassNameArtifact(className);
 		this.classAttributes = new ClassAttributesArtifact();
@@ -67,16 +61,12 @@ public class ClassArtifact extends BoxArtifact {
 	public void addAttribute(Attribute attribute) {
 		classAttributes.add(attribute);
 	}
-
-
 	public void addMethod(Method method) {
 		classMethods.add(method);
 	}
-
 	public List<Attribute> getAttributes() {
 		return classAttributes.getList();
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="className"
@@ -84,16 +74,13 @@ public class ClassArtifact extends BoxArtifact {
 	public String getClassName() {
 		return className.getClassName();
 	}
-
 	@Override
 	public int getHeight() {
 		return className.getHeight() + classAttributes.getHeight() + classMethods.getHeight();
 	}
-
 	public List<Method> getMethods() {
 		return classMethods.getList();
 	}
-
 	protected void buildGfxObject() {
 		Log.trace("Building GfxObject for "	+ UMLDrawerHelper.getShortName(this));
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, className.initializeGfxObject());
@@ -113,49 +100,34 @@ public class ClassArtifact extends BoxArtifact {
 		className.setClassWidth(maxWidth);
 		classAttributes.setClassWidth(maxWidth);
 		classMethods.setClassWidth(maxWidth);
-
 		className.getGfxObject();		
 		GfxObject attributesPart = classAttributes.getGfxObject();		
 		GfxObject methodsPart = classMethods.getGfxObject();		
-
 		GfxManager.getPlatform().translate(attributesPart, 0, className.getHeight());
 		GfxManager.getPlatform().translate(methodsPart, 0, className.getHeight() + classAttributes.getHeight());
-
-
-
 		Log.trace("GfxObject is " + gfxObject);
 	}
-
 	@Override
 	public GfxObject getOutline() {
-
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-
 		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(), 0);
 		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
-
 		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,	getWidth(), getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
-
 		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(), getHeight(), 0, getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
-
 		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,	0);
 		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
-
 		GfxObject line5 = GfxManager.getPlatform().buildLine(0,	className.getHeight(), getWidth(), className.getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line5);
-
 		GfxObject line6 = GfxManager.getPlatform().buildLine(0,	className.getHeight() + classAttributes.getHeight(), getWidth(), className.getHeight() + classAttributes.getHeight());
 		GfxManager.getPlatform().addToVirtualGroup(vg, line6);
-
 		GfxManager.getPlatform().setStrokeStyle(line1, GfxStyle.DASH);
 		GfxManager.getPlatform().setStrokeStyle(line2, GfxStyle.DASH);
 		GfxManager.getPlatform().setStrokeStyle(line3, GfxStyle.DASH);
 		GfxManager.getPlatform().setStrokeStyle(line4, GfxStyle.DASH);
 		GfxManager.getPlatform().setStrokeStyle(line5, GfxStyle.DASH);
 		GfxManager.getPlatform().setStrokeStyle(line6, GfxStyle.DASH);
-
 		GfxManager.getPlatform().setStroke(line1,
 				ThemeManager.getHighlightedForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(line2,
@@ -168,10 +140,8 @@ public class ClassArtifact extends BoxArtifact {
 				ThemeManager.getHighlightedForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(line6,
 				ThemeManager.getHighlightedForegroundColor(), 1);
-
 		return vg;
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="width"
@@ -180,9 +150,7 @@ public class ClassArtifact extends BoxArtifact {
 	public int getWidth() {
 		return width;
 	}
-
 	public void edit(GfxObject gfxObject, int x, int y) {
-
 		if (gfxObject.equals(className.getGfxObject())) {
 			Log.warn("Selecting a virtual group : this should not happen !");
 			className.edit();
@@ -196,7 +164,6 @@ public class ClassArtifact extends BoxArtifact {
 			Log.warn("Selecting a virtual group : this should not happen !");
 			className.edit();
 		} else {
-
 			GfxObject gfxObjectGroup = GfxManager.getPlatform().getGroup(gfxObject);
 			if(gfxObjectGroup != null)
 			{				
@@ -225,11 +192,8 @@ public class ClassArtifact extends BoxArtifact {
 			}
 		}
 	}
-
 	public LinkedHashMap<String, Command> getRightMenu() {
-
 		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 		Command doNothing = new Command() {
 			public void execute() {
 			}
@@ -247,15 +211,12 @@ public class ClassArtifact extends BoxArtifact {
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
-
 	public void select() {
 		GfxManager.getPlatform().moveToFront(gfxObject);
 		GfxManager.getPlatform().setStroke(className.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(classAttributes.getGfxObject(),	ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
-
 	}
-
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(className.getGfxObject(),
 				ThemeManager.getForegroundColor(), 1);
@@ -282,5 +243,4 @@ public class ClassArtifact extends BoxArtifact {
 		}
 		
 	}
-
 }

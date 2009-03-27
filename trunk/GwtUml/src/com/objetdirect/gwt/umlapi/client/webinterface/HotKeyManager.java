@@ -1,11 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowCloseListener;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
-
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
@@ -20,11 +18,9 @@ public final class HotKeyManager {
 			$doc.onkeypress = null; 
 			$doc.onkeyup = null; 
 			}-*/;
-
 		public String onWindowClosing() {
 			return null;
 		}
-
 		private native void init() /*-{ 
 				$doc.onkeydown = function(evt) { 
 					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
@@ -37,26 +33,22 @@ public final class HotKeyManager {
 				} 
 			}-*/;
 	}
-
 	/**
 	 * @uml.property  name="activeCanvas"
 	 * @uml.associationEnd  
 	 */
 	private static UMLCanvas activeCanvas;
-
 	static {
 		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl();
 		Window.addWindowCloseListener(closeListener);
 		closeListener.init();
 	};
-
 	/**
 	 * * Can be called from your code to force installation of * the event
 	 * handling hooks.
 	 */
 	public static void forceStaticInit() {
 	};
-
 	/**
 	 * @param canvas
 	 * @uml.property  name="activeCanvas"
@@ -64,7 +56,6 @@ public final class HotKeyManager {
 	public static void setActiveCanvas(UMLCanvas canvas) {
 		activeCanvas = canvas;
 	}
-
 	@SuppressWarnings("unused")
 	private static void onKeyDown(Event event) {
 		char keyCode = (char) DOM.eventGetKeyCode(event);
@@ -92,19 +83,15 @@ public final class HotKeyManager {
 				break;
 			}
 		}
-
 	}
-
 	@SuppressWarnings("unused")
 	private static void onKeyPress(Event event) {
 		// char keyCode = (char) DOM.eventGetKeyCode(event);
 	}
-
 	@SuppressWarnings("unused")
 	private static void onKeyUp(Event event) {
 		// char keyCode = (char) DOM.eventGetKeyCode(event);
 	}
-
 	/** * Prevent instantiation. */
 	private HotKeyManager() {
 	}

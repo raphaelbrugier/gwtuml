@@ -1,34 +1,26 @@
 package com.objetdirect.gwt.umlapi.client.engine;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import com.google.gwt.user.client.Timer;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-
 /**
  * @author  florian
  */
 public class Scheduler {
-
 	/**
 	 * @author  hdarmet
 	 */
 	public static abstract class Task extends Timer {
 		boolean done = false;
-
 		/**
 		 * @uml.property  name="next"
 		 * @uml.associationEnd  
 		 */
 		Task next;
-
 		Object subject;
-
 		public Task() {
 			this(null);
 		}
-
 		public Task(Object subject) {
 			this.subject = subject;
 			Scheduler.register(this);
@@ -40,21 +32,17 @@ public class Scheduler {
 			Scheduler.done(this);
 		}
 	}
-
 	/**
 	 * @uml.property  name="first"
 	 * @uml.associationEnd  
 	 */
 	static Task first = null;
-
 	/**
 	 * @uml.property  name="last"
 	 * @uml.associationEnd  
 	 */
 	static Task last = null;
-
 	static Map<Object, Task> objects = new HashMap<Object, Task>();
-
 	static public void done(Task t) {
 		if (t != first)
 			throw new UMLDrawerException("Wrong task");

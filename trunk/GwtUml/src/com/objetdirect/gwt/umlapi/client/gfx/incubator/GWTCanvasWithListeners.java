@@ -1,5 +1,4 @@
 package com.objetdirect.gwt.umlapi.client.gfx.incubator;
-
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -12,19 +11,15 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 	
 	private ClickListenerCollection clickListeners;
 	private MouseListenerCollection mouseListeners;
-
 	public GWTCanvasWithListeners() {
 		super();
 	}
-
 	public GWTCanvasWithListeners(int coordX, int coordY) {
 		super(coordX, coordY);
 	}
-
 	public GWTCanvasWithListeners(int coordX, int coordY, int pixelX, int pixelY) {
 		super(coordX, coordY, pixelX, pixelY);
 	}
-
 	public void addClickListener(ClickListener listener) {
 		if (clickListeners == null) {
 			clickListeners = new ClickListenerCollection();
@@ -32,7 +27,6 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 		}
 		clickListeners.add(listener);
 	}
-
 	public void addMouseListener(MouseListener listener) {
 		if (mouseListeners == null) {
 			mouseListeners = new MouseListenerCollection();
@@ -40,7 +34,6 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 		}
 		mouseListeners.add(listener);
 	}
-
 	@Override
 	public void onBrowserEvent(Event event) {
 		super.onBrowserEvent(event);
@@ -48,7 +41,6 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 				|| (mouseListeners != null && mouseListeners.size() > 0)) {
 			int x = event.getClientX();
 			int y = event.getClientY();
-
 			switch (DOM.eventGetType(event)) {
 			case Event.ONCLICK:
 				if (clickListeners != null) {
@@ -85,13 +77,11 @@ public class GWTCanvasWithListeners extends GWTCanvas {
 			}
 		}
 	}
-
 	public void removeClickListener(ClickListener listener) {
 		if (clickListeners != null) {
 			clickListeners.remove(listener);
 		}
 	}
-
 	public void removeMouseListener(MouseListener listener) {
 		if (mouseListeners != null) {
 			mouseListeners.remove(listener);

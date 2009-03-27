@@ -1,22 +1,14 @@
 package com.objetdirect.gwt.umlapi.client.engine;
-
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 public class Geometry {
-
 	static final int ARROW_LENGTH = 15;
-
 	static final int ARROW_WIDTH = 5;
-
 	static final int FILLED_ARROW_LENGTH = 25;
-
 	static final int FILLED_ARROW_WIDTH = 10;
-
 	public static GfxObject buildArrow(int x1, int y1, int x2, int y2) {
-
 		GfxObject path = GfxManager.getPlatform().buildPath();
 		int[] points = Geometry.getArrowPoints(x1, y1, x2, y2, ARROW_WIDTH,
 				ARROW_LENGTH);
@@ -28,9 +20,7 @@ public class Geometry {
 				ThemeManager.getForegroundColor(), 1);
 		return path;
 	}
-
 	public static GfxObject buildFilledArrow(int x1, int y1, int x2, int y2) {
-
 		GfxObject path = GfxManager.getPlatform().buildPath();
 		int[] points = Geometry.getArrowPoints(x1, y1, x2, y2,
 				FILLED_ARROW_WIDTH, FILLED_ARROW_LENGTH);
@@ -44,14 +34,12 @@ public class Geometry {
 				ThemeManager.getBackgroundColor());
 		return path;
 	}
-
 /*	public static int[] computeLineBounds(int x1, int y1, int[] zone1,
 			int x2, int y2) {
 		int[] line = new int[] { x1, y1, x2, y2 };
 		int[] segment1 = getInternalSegment(zone1, line);
 		return new int[] { segment1[2], segment1[3], x2, y2 };
 	}
-
 	public static int[] computeLineBounds(int x1, int y1, int[] zone1,
 			int x2, int y2, int[] zone2) {
 		int[] line = new int[] { x1, y1, x2, y2 };
@@ -95,7 +83,6 @@ public class Geometry {
 		float yf = ((y2 - y1)) / r;
 		return new float[] { xf * D + x1, yf * D + y1 };
 	}
-
 	static public int[] getInternalSegment(int[] shape, int[] line) {
 		float tlow = 0.0f;
 		float tup = 1.0f;
@@ -138,7 +125,6 @@ public class Geometry {
 		Point lineLeftPoint  = getPointForLine(leftUMLArtifact, new Point(rightUMLArtifact.getCenterX(), rightUMLArtifact.getCenterY()));
 		Point lineRightPoint = getPointForLine(rightUMLArtifact, new Point(leftUMLArtifact.getCenterX(), leftUMLArtifact.getCenterY()));
 		return GfxManager.getPlatform().buildLine(lineLeftPoint.getX(), lineLeftPoint.getY(), lineRightPoint.getX(), lineRightPoint.getY());
-
 		
 	}
 		public static Point getPointForLine(UMLArtifact umlArtifact, Point targetCenter) {
@@ -147,7 +133,6 @@ public class Geometry {
 			final int constA = umlArtifact.getHeight() * targetInFrameReference.getX();
 			final int constB = umlArtifact.getWidth() * targetInFrameReference.getY();
 			final int constC = umlArtifact.getHeight() * umlArtifact.getWidth();
-
 			if(constA > constB) {
 				if(constA > constC - constB) {
 					point.setX(umlArtifact.getWidth());
@@ -168,7 +153,6 @@ public class Geometry {
 					point.setY((constB - constA) / (umlArtifact.getWidth() - 2 * targetInFrameReference.getX()));		
 				}
 			}
-
 		return new Point(point.getX() + umlArtifact.getX(), point.getY() + umlArtifact.getY());
 	}
 }

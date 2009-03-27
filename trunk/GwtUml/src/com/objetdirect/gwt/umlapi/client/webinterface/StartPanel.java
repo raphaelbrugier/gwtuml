@@ -1,5 +1,4 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,7 +23,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
-
 /**
  * @author  florian
  */
@@ -68,16 +66,12 @@ public class StartPanel extends VerticalPanel {
 		instance = this;
 		loadingScreen = new LoadingScreen();
 		loadingScreen.show();
-
 		Log.info("Starting App");
-
 		HotKeyManager.forceStaticInit();
-
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.setSpacing(10);
 		startBtn.addClickHandler(new ClickHandler() {
-
 			public void onClick(ClickEvent event) {
 				makeFirstDrawer();
 				History.newItem("Drawer", false);
@@ -93,7 +87,6 @@ public class StartPanel extends VerticalPanel {
 			}
 		});
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-
 			public void onValueChange(ValueChangeEvent<String> event) {
 				if (event.getValue().equals("Drawer")) {
 					makeDrawerForHistory();
@@ -103,7 +96,6 @@ public class StartPanel extends VerticalPanel {
 			
 		});
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-
 			public void onValueChange(ValueChangeEvent<String> event) {
 				if (event.getValue().equals("Demo")) {
 					makeDrawerForHistory();
@@ -112,17 +104,14 @@ public class StartPanel extends VerticalPanel {
 			}
 			
 		});
-
 		gfxEnginePanel.setSpacing(5);
 		themePanel.setSpacing(5);
 		resolutionPanel.setSpacing(5);
 		gfxEngineListBox.addItem("Tatami Gfx");
 		gfxEngineListBox.addItem("Incubator GWTCanvas GFX");
-
 		for (Theme theme : Theme.values()) {
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
-
 		isResolutionAutoChkBox.setValue(true);
 		isResolutionAutoChkBox.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -167,24 +156,20 @@ public class StartPanel extends VerticalPanel {
 		resolutionPanel.add(crossLbl);
 		resolutionPanel.add(heightTxtBox);
 		this.add(resolutionPanel);
-
 		loadingScreen.hide();
 		RootPanel.get().add(this);
-
 	}
 	
 	public void makeFirstDrawer() {
 		ThemeManager.setCurrentTheme(ThemeManager
 				.getThemeFromName(themeListBox.getItemText(themeListBox
 						.getSelectedIndex())));
-
 		if (gfxEngineListBox.getItemText(
 				gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
 				"Tatami Gfx"))
 			GfxManager.setPlatform(new TatamiGfxPlatfrom());
 		else
 			GfxManager.setPlatform(new IncubatorGfxPlatform());
-
 		instance.removeFromParent();
 		loadingScreen.show();
 		int w;
@@ -198,7 +183,6 @@ public class StartPanel extends VerticalPanel {
 			w = 800;
 			h = 600;
 		}
-
 		drawerPanel = new DrawerPanel(w, h);	
 		
 		loadingScreen.hide();
@@ -221,7 +205,6 @@ public class StartPanel extends VerticalPanel {
 			w = 800;
 			h = 600;
 		}
-
 		drawerPanel = new DrawerPanel(w, h);
 		loadingScreen.hide();
 		

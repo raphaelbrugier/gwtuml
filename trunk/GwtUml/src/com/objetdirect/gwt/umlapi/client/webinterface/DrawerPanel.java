@@ -1,11 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-
 /**
  * @author  florian
  */
@@ -32,7 +30,6 @@ public class DrawerPanel extends AbsolutePanel {
 	
 	public DrawerPanel(int width, int height) {
 		Log.info("Creating drawer");
-
 		
 		gc = new UMLCanvas(width, height);
 		gc.setStylePrimaryName("canvas");
@@ -47,13 +44,10 @@ public class DrawerPanel extends AbsolutePanel {
 		// TODO : under chrome redraw doesn't work if the canvas is at a
 		// different point than (0,0) tatami ? dojo ? chrome ?
 		// example : this.setSpacing(50);
-
 		HotKeyManager.setActiveCanvas(gc);
 		UMLDrawerHelper.disableBrowserEvents();
 		Log.info("Init end");
-
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="height"
@@ -61,7 +55,6 @@ public class DrawerPanel extends AbsolutePanel {
 	public int getHeight() {
 		return height;
 	}
-
 	/**
 	 * @param height
 	 * @uml.property  name="height"
@@ -69,7 +62,6 @@ public class DrawerPanel extends AbsolutePanel {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="width"
@@ -77,7 +69,6 @@ public class DrawerPanel extends AbsolutePanel {
 	public int getWidth() {
 		return width;
 	}
-
 	/**
 	 * @param width
 	 * @uml.property  name="width"
@@ -85,7 +76,6 @@ public class DrawerPanel extends AbsolutePanel {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="gc"
@@ -140,5 +130,4 @@ public class DrawerPanel extends AbsolutePanel {
 		gc.add(defaultclass);
 	}
 	
-
 }

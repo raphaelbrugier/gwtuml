@@ -1,31 +1,26 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
-
 /**
  * @author  florian
  */
 public final class GfxStyle {
-
 	/**
 	 * Style for the stroke a suite of dash
 	 * @uml.property  name="dASH"
 	 * @uml.associationEnd  
 	 */
 	public static final GfxStyle DASH = new GfxStyle("Dash");
-
 	/**
 	 * Style for the stroke a suite of dash follow by a dot
 	 * @uml.property  name="dASHDOT"
 	 * @uml.associationEnd  
 	 */
 	public static final GfxStyle DASHDOT = new GfxStyle("DashDot");
-
 	/**
 	 * Style for the stroke, a suite of dots
 	 * @uml.property  name="dOT"
 	 * @uml.associationEnd  
 	 */
 	public static final GfxStyle DOT = new GfxStyle("Dot");
-
 	/**
 	 * Style for the stroke, a suite of long dash
 	 * @uml.property  name="lONGDASH"
@@ -88,5 +83,4 @@ public final class GfxStyle {
 	public String getStyleString() {
 		return style;
 	}
-
 }

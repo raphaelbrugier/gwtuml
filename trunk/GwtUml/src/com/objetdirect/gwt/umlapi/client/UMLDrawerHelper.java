@@ -1,19 +1,15 @@
 package com.objetdirect.gwt.umlapi.client;
-
 import java.util.List;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventPreview;
-
 /**
  * This class is a static helper for entire application
  * @author fmounier
  *
  */
 public class UMLDrawerHelper {
-
 	private static EventPreview eventPreview = null;
 	/**
 	 * Make a pretty object name (<code>name[hash]</code>) from an object

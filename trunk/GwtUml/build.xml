@@ -38,6 +38,7 @@
       </classpath>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
       <jvmarg value="-Xmx1024m"/>
+      <jvmarg value="-Xss16M"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
     </java>

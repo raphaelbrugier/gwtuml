@@ -1,26 +1,20 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
-
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
-
 /**
  * @author  florian
  */
 public class ParameterAnalyser extends SyntaxAnalyser {
-
 	public static final int BEGIN_TYPE = 1;
-
 	/**
 	 * @uml.property  name="param"
 	 * @uml.associationEnd  
 	 */
 	Parameter param = new Parameter(null, null);
-
 	public Parameter getParameter() {
 		return param;
 	}
-
 	@Override
 	protected Token processToken(LexicalAnalyser lex, Token tk) {
 		if (tk == null)

@@ -1,12 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import com.google.gwt.user.client.ui.RootPanel;
-
 /**
  * @author  florian
  */
 public class CursorIconManager {
-
 	// To see which type of cursor it is, check :
 	// http://www.w3schools.com/CSS/tryit.asp?filename=trycss_cursor
 	/**
@@ -90,16 +87,13 @@ public class CursorIconManager {
 				 */
 				WAIT(
 				"globalWaitCursor");
-
 		/**
 		 * @uml.property  name="cssName"
 		 */
 		private final String cssName;
-
 		private PointerStyle(String cssName) {
 			this.cssName = cssName;
 		}
-
 		/**
 		 * @return
 		 * @uml.property  name="cssName"
@@ -107,19 +101,15 @@ public class CursorIconManager {
 		public String getCssName() {
 			return this.cssName;
 		}
-
 	}
-
 	/**
 	 * @uml.property  name="currentIconStyle"
 	 * @uml.associationEnd  
 	 */
 	private static PointerStyle currentIconStyle = PointerStyle.AUTO;;
-
 	public static void setCursorIcon(PointerStyle pStyle) {
 		RootPanel.get().removeStyleName(currentIconStyle.getCssName());
 		currentIconStyle = pStyle;
 		RootPanel.get().addStyleName(currentIconStyle.getCssName());
 	}
-
 }

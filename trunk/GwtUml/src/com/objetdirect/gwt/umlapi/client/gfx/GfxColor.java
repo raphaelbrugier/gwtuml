@@ -1,87 +1,74 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
-
 /**
  * @author  florian
  */
 public class GfxColor {
-
 	/**
 	 * The aqua color in RGB
 	 * @uml.property  name="aQUA"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor AQUA = new GfxColor(0, 255, 255, 255);
-
 	/**
 	 * The balck color in RGB
 	 * @uml.property  name="bLACK"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor BLACK = new GfxColor(0, 0, 0, 255);
-
 	/**
 	 * The blue color in RGB
 	 * @uml.property  name="bLUE"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor BLUE = new GfxColor(0, 0, 255, 255);
-
 	/**
 	 * The fuchsia color in RGB
 	 * @uml.property  name="fUCHSIA"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor FUCHSIA = new GfxColor(255, 0, 255, 255);
-
 	/**
 	 * The gray color in RGB
 	 * @uml.property  name="gRAY"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor GRAY = new GfxColor(128, 128, 128, 255);
-
 	/**
 	 * The green color in RGB
 	 * @uml.property  name="gREEN"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor GREEN = new GfxColor(0, 128, 0, 255);
-
 	/**
 	 * The lime color in RGB
 	 * @uml.property  name="lIME"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor LIME = new GfxColor(0, 255, 0, 255);
-
 	/**
 	 * The maroon color in RGB
 	 * @uml.property  name="mAROON"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor MAROON = new GfxColor(128, 0, 0, 255);
-
 	/**
 	 * The navy color in RGB
 	 * @uml.property  name="nAVY"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor NAVY = new GfxColor(0, 0, 128, 255);
-
 	/**
 	 * The olive color in RGB
 	 * @uml.property  name="oLIVE"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor OLIVE = new GfxColor(128, 128, 0, 255);
-
 	/**
 	 * The purpble color in RGB
 	 * @uml.property  name="pURPLE"
 	 * @uml.associationEnd  
 	 */
 	static public final GfxColor PURPLE = new GfxColor(128, 0, 128, 255);
-
 	/**
 	 * The red color in RGB
 	 * @uml.property  name="rED"
@@ -113,11 +100,8 @@ public class GfxColor {
 	 */
 	static public final GfxColor YELLOW = new GfxColor(255, 255, 0, 255);
 	int r;
-
 	int g;
-
 	int b;
-
 	int a;
 	public GfxColor(int r, int g, int b) {
 		this(r, g, b, 255);

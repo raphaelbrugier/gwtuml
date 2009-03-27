@@ -1,65 +1,39 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
-
 import com.google.gwt.user.client.ui.Widget;
-
 public interface GfxPlatform {
 	final static int DEFAULT_CANVAS_HEIGHT = 600;
 	final static int DEFAULT_CANVAS_WIDTH = 800;
-
 	// Canvas
-
 	void addObjectListenerToCanvas(Widget canvas,
 			GfxObjectListener gfxObjectListener);
-
 	void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y);
-
 	void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO);
-
 	GfxObject buildLine(int x1, int y1, int x2, int y2);
-
 	GfxObject buildPath();
-
 	// Builders
-
 	GfxObject buildRect(int width, int height);
-
 	GfxObject buildText(String text);
-
 	GfxObject buildVirtualGroup();
-
 	int getHeightFor(GfxObject gfxO);
-
 	int getWidthFor(GfxObject gfxO);
-
 	int getXFor(GfxObject gfxO);
-
 	int getYFor(GfxObject gfxO);
-
 	void lineTo(GfxObject gfxO, int x, int y);
-
 	Widget makeCanvas();
-
 	Widget makeCanvas(int width, int height, GfxColor backgroundColor);
-
 	void setSize(Widget canvas, int width, int height);
 	
 	void moveTo(GfxObject gfxO, int x, int y);
-
 	void removeFromCanvas(Widget canvas, GfxObject gfxO);
-
 	void removeFromVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO,
 			boolean isSilent);
 	
 	void clearVirtualGroup(GfxObject gfxOGroup);
 	
 	void setFillColor(GfxObject gfxO, GfxColor color);
-
 	void setFont(GfxObject gfxO, GfxFont gfxF);
-
 	void setStroke(GfxObject gfxO, GfxColor color, int width);
-
 	void setStrokeStyle(GfxObject gfxO, GfxStyle style);
-
 	void translate(GfxObject gfxO, int x, int y);
 	
 	GfxObject getGroup(GfxObject gfxO);
@@ -71,5 +45,4 @@ public interface GfxPlatform {
 	void hide(GfxObject gfxO);
 	
 	void show(GfxObject gfxO);
-
 }

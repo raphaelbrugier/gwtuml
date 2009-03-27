@@ -1,12 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
-
 /**
  * @author  florian
  */
@@ -16,15 +13,12 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	public static final int END_PARAMETER = 4;
 	public static final int OPEN_PARENTHESIS_EXPECTED = 1;
 	public static final int PARAMETER_EXPECTED = 3;
-
 	/**
 	 * @uml.property  name="method"
 	 * @uml.associationEnd  
 	 */
 	Method method = new Method(null, null, null);
-
 	List<Parameter> parameters = new ArrayList<Parameter>();
-
 	/**
 	 * @return
 	 * @uml.property  name="method"
@@ -32,7 +26,6 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	public Method getMethod() {
 		return method;
 	}
-
 	void setParameters() {
 		Parameter[] params = new Parameter[parameters.size()];
 		for (int i = 0; i < params.length; i++)

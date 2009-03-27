@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
-
 import java.util.LinkedHashMap;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.NoteFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -10,13 +10,10 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 /**
  * @author  florian
  */
 public class NoteArtifact extends BoxArtifact {
-
-
 	/**
 	 * @uml.property  name="note"
 	 * @uml.associationEnd  
@@ -38,23 +35,19 @@ public class NoteArtifact extends BoxArtifact {
 	 */
 	GfxObject cornerPath;
 	
-
 	public NoteArtifact(String content) {
 		note = new Note(content);
 		
 	}
-
 	public String getContent() {
 		return note.getText();
 	}
-
 	@Override
 	public int getHeight() {
 		int height = OptionsManager.getRectangleYTotalPadding() + OptionsManager.getTextYTotalPadding() +
 				+  GfxManager.getPlatform().getHeightFor(contentText);
 		return height;
 	}
-
 	@Override
 	public int[] getOpaque() {
 		int[] opaque = new int[] { getX(), getY(), getX(),
@@ -64,7 +57,6 @@ public class NoteArtifact extends BoxArtifact {
 				getX() + getWidth() - getCornerWidth(), getY() };
 		return opaque;
 	}
-
 	@Override
 	public GfxObject getOutline() {
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
@@ -78,15 +70,11 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().setStroke(outlineCornerPath, ThemeManager.getHighlightedForegroundColor(), 1);
 		return vg;
 	}
-
 	public LinkedHashMap<String, Command> getRightMenu() {
-
 		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 		Command doNothing = new Command() {
 			public void execute() {
 			}
-
 		};
 		Command remove = new Command() {
 			public void execute() {
@@ -105,23 +93,20 @@ public class NoteArtifact extends BoxArtifact {
 				+  GfxManager.getPlatform().getWidthFor(contentText);
 		return width;
 	}
-
 	public void select() {
 		GfxManager.getPlatform().moveToFront(gfxObject);
 		GfxManager.getPlatform().setStroke(borderPath, ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(cornerPath, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
-
-	public void setContent(String content) {
+	public void setContent(String content) {		
 		note.setText(content);
 	}
-
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(borderPath, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(cornerPath, ThemeManager.getForegroundColor(), 1);
 	}
 	void createNoteText() {
-
+		Log.warn("" + note.getText().split("\n").length);
 		contentText = GfxManager.getPlatform().buildText(note.getText());
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, contentText);
 		GfxManager.getPlatform().setFont(contentText, OptionsManager.getFont());
@@ -144,7 +129,6 @@ public class NoteArtifact extends BoxArtifact {
 	 * @uml.property  name="borderPath"
 	 */
 	protected GfxObject getBorderPath() {
-
 		GfxObject thisBorderPath = GfxManager.getPlatform().buildPath();		
 		GfxManager.getPlatform().moveTo(thisBorderPath, 0, 0);
 		GfxManager.getPlatform().lineTo(thisBorderPath, getWidth() - getCornerWidth(), 0);
@@ -161,7 +145,6 @@ public class NoteArtifact extends BoxArtifact {
 	 * @uml.property  name="cornerPath"
 	 */
 	protected GfxObject getCornerPath() {
-
 		GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();		
 		GfxManager.getPlatform().moveTo(thisCornerPath, getWidth() - getCornerWidth(), 0);
 		GfxManager.getPlatform().lineTo(thisCornerPath, getWidth() - getCornerWidth(),getCornerHeight());
@@ -173,16 +156,15 @@ public class NoteArtifact extends BoxArtifact {
 	private int getCornerHeight() {
 		return getHeight() / 3;
 	}
-
 	private int getCornerWidth() {
 		return getCornerHeight();
 	}
-
 	public void edit(GfxObject gfxObject, int x, int y) {
 		NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
+		editor.setHeightForMultiLine(getHeight() - OptionsManager.getTextYTotalPadding() - OptionsManager.getRectangleYTotalPadding());
 		editor.startEdition(note.getText(), this.x + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding(),
 				this.y + OptionsManager.getTextYTotalPadding() + OptionsManager.getRectangleTopPadding(), 
-				getWidth() - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
+				getWidth() - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), true	);
 		
 	}
 }

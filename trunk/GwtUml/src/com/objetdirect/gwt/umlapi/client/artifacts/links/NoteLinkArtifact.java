@@ -1,7 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
-
 import java.util.LinkedHashMap;
-
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
@@ -13,39 +11,31 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
-
 /**
  * @author  florian
  */
 public class NoteLinkArtifact extends LinkArtifact {
-
 	/**
 	 * @uml.property  name="line"
 	 * @uml.associationEnd  
 	 */
 	GfxObject line = null;
-
 	/**
 	 * @uml.property  name="note"
 	 * @uml.associationEnd  
 	 */
 	NoteArtifact note;
-
 	/**
 	 * @uml.property  name="target"
 	 * @uml.associationEnd  
 	 */
 	UMLArtifact target;
-
-
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
 		this.note = note;
 		this.note.addDependency(this);
 		this.target = target;
 		this.target.addDependency(this);
-
 	}
-
 	public void buildGfxObject() {
 		Point targetCenterPoint = new Point(target.getCenterX(), target.getCenterY());
 		Point lineLeftPoint  = Geometry.getPointForLine(note, targetCenterPoint);
@@ -67,17 +57,11 @@ public class NoteLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
 		
 	}
-
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
-
 	}
-
-
 	public LinkedHashMap<String, Command> getRightMenu() {
-
 		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 		Command doNothing = new Command() {
 			public void execute() {
 			}
@@ -92,7 +76,6 @@ public class NoteLinkArtifact extends LinkArtifact {
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
-
 	public int getX() {
 		return x1 < x2 ? x1 : x2;
 	}
@@ -102,7 +85,6 @@ public class NoteLinkArtifact extends LinkArtifact {
 	public boolean isDraggable() {
 		return false;
 	}
-
 	public void select() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getHighlightedForegroundColor(), 2);
@@ -118,7 +100,6 @@ public class NoteLinkArtifact extends LinkArtifact {
 		throw new UMLDrawerException(
 		"invalid operation : setLocation on a line");
 	}
-
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
@@ -127,5 +108,4 @@ public class NoteLinkArtifact extends LinkArtifact {
 		//TODO : find a better way :
 		return (target.getClass().getSuperclass().equals(LinkArtifact.class) || target.getClass().getSuperclass().getSuperclass().equals(LinkArtifact.class));
 	}
-
 }

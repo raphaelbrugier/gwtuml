@@ -1,12 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
-
 /**
  * This class represent a parameter of a method
  * @author  fmounier
  * @author  hdarmet
  */
 public class Parameter {
-
 	/**
 	 * @uml.property  name="name"
 	 */
@@ -25,7 +23,6 @@ public class Parameter {
 		this.type = type;
 		this.name = name;
 	}
-
 	/**
 	 * Getter for the name
 	 * @return  the name
@@ -34,7 +31,6 @@ public class Parameter {
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * Getter for the type
 	 * @return  the type
@@ -43,7 +39,6 @@ public class Parameter {
 	public String getType() {
 		return type;
 	}
-
 	/**
 	 * Setter for the name
 	 * @param name  to be set
@@ -52,7 +47,6 @@ public class Parameter {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	/**
 	 * Setter for the type
 	 * @param type  to be set
@@ -77,5 +71,4 @@ public class Parameter {
 		}
 		return f.toString();
 	}
-
 }

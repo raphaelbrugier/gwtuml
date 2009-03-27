@@ -1,7 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
-
 import java.util.LinkedHashMap;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
@@ -10,12 +8,10 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 /**
  * @author  fmounier
  */
 public class ClassNameArtifact extends ClassPartArtifact {
-
 	/**
 	 * @uml.property  name="className"
 	 */
@@ -31,7 +27,6 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		height = 0;
 		width = 0;
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="className"
@@ -39,7 +34,6 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	public String getClassName() {
 		return className;
 	}
-
 	/**
 	 * @param className
 	 * @uml.property  name="className"
@@ -60,7 +54,6 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		GfxManager.getPlatform().translate(textVirtualGroup, OptionsManager.getRectangleLeftPadding() + (classWidth-width)/2, OptionsManager.getRectangleTopPadding());
 		GfxManager.getPlatform().moveToFront(textVirtualGroup);
 	}
-
 	@Override
 	public int getHeight() {
 		return height;
@@ -80,7 +73,6 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
 	@Override
 	public void computeBounds() {
 		height = 0;
@@ -103,79 +95,65 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		height += OptionsManager.getRectangleYTotalPadding();
 		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);	
 	}
-
 	@Override
 	public void setClassWidth(int width) {
 		this.classWidth = width;
 	}
-
 	@Override
 	public void edit() {
 		NamePartFieldEditor editor = new NamePartFieldEditor(canvas, this);
 		editor.startEdition(className,  (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
 				 (classArtifact.getY() + OptionsManager.getTextTopPadding() + OptionsManager.getRectangleTopPadding()), 
-				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
+				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), false);
 	}	
 	
 	@Override
 	public void edit(GfxObject gfxObject, int x, int y) {
 		edit();
 	}
-
 	@Override
 	public int[] getOpaque() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public GfxObject getOutline() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public LinkedHashMap<String, Command> getRightMenu() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public int getY() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public boolean isDraggable() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
 	public void moveTo(int fx, int fy) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void select() {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void unselect() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 }

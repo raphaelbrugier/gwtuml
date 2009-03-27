@@ -1,14 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.gwt.mosaic.ui.client.PopupMenu;
-
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
-
 /**
  * @author  florian
  */
@@ -23,7 +19,6 @@ public class ContextMenu {
 	private UMLCanvas canvas;
 	private PopupMenu contextMenu;
 	private LinkedHashMap<String, Command> specificRightMenu;
-
 	/**
 	 * @param x
 	 * @param y
@@ -54,42 +49,32 @@ public class ContextMenu {
 		public void execute() {
 			canvas.addNewLink(Link.EXTENSION);
 		}
-
 	};
 	private final Command addImplementationClassDependency = new Command() {
 		public void execute() {
 			canvas.addNewLink(Link.IMPLEMENTATION);
 		}
-
 	};
-
 	private final Command addNewClass = new Command() {
 		public void execute() {
 			canvas.addNewClass(x, y);
 		}
-
 	};
 	private final Command addNewNote = new Command() {
 		public void execute() {
 			canvas.addNewNote(x, y);
 		}
-
 	};
 	private final Command addRelationship = new Command() {
 		public void execute() {
 			canvas.addNewLink(Link.RELATIONSHIP);
 		}
-
 	};
 	private final Command addSimpleClassDependency = new Command() {
 		public void execute() {
 			canvas.addNewLink(Link.SIMPLE);
 		}
-
 	};
-
-
-
 	private void makeMenu() {
 		contextMenu = new PopupMenu();
 		if (specificRightMenu != null) {
@@ -112,7 +97,6 @@ public class ContextMenu {
 				addImplementationClassDependency);
 		contextMenu.addItem("Add new relationship", addRelationship);
 	}
-
 	public void show() {
 		
 		contextMenu.setPopupPositionAndShow(new PositionCallback() {
@@ -121,6 +105,4 @@ public class ContextMenu {
 			}
 		});
 	}
-
-
 }

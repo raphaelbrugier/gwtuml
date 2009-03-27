@@ -1,14 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
-
 import java.util.List;
-
 /**
  * This class represent a method in a class
  * @author  hdarmet
  * @author  fmounier
  */
 public class Method extends ClassMember {
-
 	/**
 	 * @uml.property  name="name"
 	 */
@@ -25,7 +22,6 @@ public class Method extends ClassMember {
 	 * @uml.property  name="validated"
 	 */
 	private boolean validated = true;
-
 	/**
 	 * Constructor of the method
 	 * @param returnType The return type of the method
@@ -73,7 +69,6 @@ public class Method extends ClassMember {
 	public boolean isValidated() {
 		return validated;
 	}
-
 	/**
 	 * Setter for the name
 	 * @param name  to be set
@@ -82,7 +77,6 @@ public class Method extends ClassMember {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	/**
 	 * Setter for the parameters list
 	 * @param parameters  list to be set
@@ -137,5 +131,4 @@ public class Method extends ClassMember {
 		}
 		return f.toString();
 	}
-
 }

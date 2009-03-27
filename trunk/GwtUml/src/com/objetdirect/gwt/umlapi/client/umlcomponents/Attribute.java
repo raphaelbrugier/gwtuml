@@ -1,12 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
-
 /**
  * This class represent an attribute in a class
  * @author  hdarmet
  * @author  fmounier
  */
 public class Attribute extends ClassMember {
-
 	/**
 	 * @uml.property  name="name"
 	 */
@@ -19,7 +17,6 @@ public class Attribute extends ClassMember {
 	 * @uml.property  name="validated"
 	 */
 	private boolean validated = true;
-
 	/**
 	 * Constructor of the attribute
 	 * @param type Type of the attribute
@@ -30,7 +27,6 @@ public class Attribute extends ClassMember {
 		this.type = type;
 		this.name = name;
 	}
-
 	/**
 	 * Getter for the name
 	 * @return  the name
@@ -39,7 +35,6 @@ public class Attribute extends ClassMember {
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * Getter for the type
 	 * @return  the type
@@ -48,7 +43,6 @@ public class Attribute extends ClassMember {
 	public String getType() {
 		return type;
 	}
-
 	/**
 	 * Get the validated state of the attribute
 	 * @return  true if validated, false otherwise
@@ -57,7 +51,6 @@ public class Attribute extends ClassMember {
 	public boolean isValidated() {
 		return validated;
 	}
-
 	/**
 	 * Setter for the name
 	 * @param name  to be set

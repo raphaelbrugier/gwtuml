@@ -1,11 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
@@ -16,7 +14,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 /**
  * @author  fmounier
  */
@@ -83,7 +80,6 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
 	@Override
 	public void computeBounds() {
 		height = 0;
@@ -113,7 +109,6 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 		
 		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
-
 	@Override
 	public void setClassWidth(int width) {
 		this.classWidth = width;
@@ -135,63 +130,52 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 		MethodPartEditor editor = new MethodPartEditor(canvas, this, methodToChange);
 		editor.startEdition(methodToChange.toString(),  (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
 				 (classArtifact.getY() + classArtifact.className.getHeight() +  classArtifact.classAttributes.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding() ), 
-				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding());
+				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), false);
 		}
 	}
-
 	@Override
 	public int[] getOpaque() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public GfxObject getOutline() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public LinkedHashMap<String, Command> getRightMenu() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public int getY() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public boolean isDraggable() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
 	public void moveTo(int fx, int fy) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void select() {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void unselect() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

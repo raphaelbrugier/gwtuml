@@ -2,12 +2,10 @@
  * 
  */
 package com.objetdirect.gwt.umlapi.client.engine;
-
 /**
  * @author  fmounier
  */
 public class Point {
-
 	/**
 	 * @uml.property  name="x"
 	 */

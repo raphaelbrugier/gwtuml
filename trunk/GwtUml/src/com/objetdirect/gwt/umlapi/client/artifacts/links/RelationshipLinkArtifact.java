@@ -1,8 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
@@ -15,12 +13,10 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 /**
  * @author  florian
  */
 public class RelationshipLinkArtifact extends LinkArtifact {
-
 	/**
 	 * @author   florian
 	 */
@@ -89,12 +85,9 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			@Override
 			public void setText(Relation relation, String text) { relation.setRightRole(text); }
 		};
-
 		private static HashMap<GfxObject, RelationshipArtifactPart> textGfxObject = new HashMap<GfxObject, RelationshipArtifactPart>();
-
 		public abstract String getText(Relation relation);
 		public abstract void setText(Relation relation, String text);
-
 		public static void setGfxObjectTextForPart(GfxObject text, RelationshipArtifactPart part) {
 			textGfxObject.put(text, part);
 		}
@@ -103,7 +96,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			return textGfxObject.get(text);
 		}
 	}
-
 	/**
 	 * @author   florian
 	 */
@@ -130,7 +122,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		 */
 		UNKNOWN;
 	}
-
 	boolean arrowOnLeft = false;
 	boolean arrowOnRight = false;
 	private int current_delta;
@@ -139,25 +130,21 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	 * @uml.associationEnd  
 	 */
 	private Relation relation;
-
 	/**
 	 * @uml.property  name="line"
 	 * @uml.associationEnd  
 	 */
 	GfxObject line;
-
 	/**
 	 * @uml.property  name="arrowVirtualGroup"
 	 * @uml.associationEnd  
 	 */
 	GfxObject arrowVirtualGroup;
-
 	/**
 	 * @uml.property  name="textVirtualGroup"
 	 * @uml.associationEnd  
 	 */
 	GfxObject textVirtualGroup;
-
 	/**
 	 * @uml.property  name="leftClassArtifact"
 	 * @uml.associationEnd  
@@ -173,9 +160,7 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	 * @uml.associationEnd  
 	 */
 	ClassArtifact rightClassArtifact;
-
 	private HashMap<RelationshipArtifactPart, GfxObject> gfxObjectPart = new HashMap<RelationshipArtifactPart, GfxObject>();
-
 	
 	public RelationshipLinkArtifact(ClassArtifact left, ClassArtifact right) {
 		this.leftClassArtifact = left;
@@ -184,13 +169,11 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		right.addDependency(this);
 		relation = new Relation();
 	}
-
 	public void edit(RelationshipArtifactPart part) {
 		part.setText(relation, "link");
 		rebuildGfxObject();
 		edit(gfxObjectPart.get(part), 0, 0);		
 	}
-
 	public void edit(GfxObject gfxObject, int x, int y) {
 		RelationshipArtifactPart editPart = RelationshipArtifactPart.getPartForGfxObject(gfxObject);
 		if(editPart ==  null) {
@@ -200,10 +183,9 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			editor.startEdition(editPart.getText(relation), 
 					GfxManager.getPlatform().getXFor(gfxObject),
 					GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject),
-					GfxManager.getPlatform().getWidthFor(gfxObject) + OptionsManager.getRectangleXTotalPadding());
+					GfxManager.getPlatform().getWidthFor(gfxObject) + OptionsManager.getRectangleXTotalPadding(), false);
 		}
 	}
-
 	public void setPartContent(RelationshipArtifactPart part, String newContent) {
 		part.setText(relation, newContent);
 	}
@@ -214,7 +196,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	public ClassArtifact getLeftClassArtifact() {
 		return leftClassArtifact;
 	}
-
 	/**
 	 * @return
 	 * @uml.property  name="rightClassArtifact"
@@ -222,11 +203,8 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	public ClassArtifact getRightClassArtifact() {
 		return rightClassArtifact;
 	}
-
 	public LinkedHashMap<String, Command> getRightMenu() {
-
 		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 		Command doNothing = new Command() {
 			public void execute() {
 			}
@@ -242,25 +220,20 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		rightMenu.put("> Edit", doNothing);
 		rightMenu.put("> Reverse", doNothing);
 		rightMenu.put("> Delete", remove);
-
 		return rightMenu;
 	}
-
 	public void select() {
 		GfxManager.getPlatform().moveToFront(gfxObject);
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(arrowVirtualGroup, ThemeManager.getHighlightedForegroundColor(), 2);
-
 	}
 	public void setLeftArrow(boolean arrowOnLeft) {
 		this.arrowOnLeft = arrowOnLeft;
 	}
-
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(arrowVirtualGroup, ThemeManager.getForegroundColor(), 1);
 	}
-
 	Anchor getAnchorType(ClassArtifact classArtifact, int x1, int y1) {
 		if (x1 == classArtifact.getX())	return Anchor.LEFT;
 		else if (y1 == classArtifact.getY()) return Anchor.TOP;
@@ -268,7 +241,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		else if (y1 == classArtifact.getY() + classArtifact.getHeight()) return Anchor.BOTTOM;
 		return Anchor.UNKNOWN;
 	}
-
 	int getTextX(GfxObject text, boolean isLeft) {
 		int relative_x1 = x1;
 		int relative_x2 = x2;
@@ -288,7 +260,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		}
 		return 0;
 	}
-
 	int getTextY(GfxObject text, boolean isLeft) {
 		int relative_x1 = x1;		
 		int relative_y1 = y1;
@@ -310,10 +281,8 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		}
 		return 0;
 	}
-
 	@Override
 	protected void buildGfxObject() {
-
 		//int[] lineBounds = Geometry.computeLineBounds(leftClassArtifact, rightClassArtifact);
 		//setBounds(Math.round(lineBounds[0]), Math.round(lineBounds[1]), Math.round(lineBounds[2]),	Math.round(lineBounds[3]));
 		//line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
@@ -325,20 +294,16 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		y1 = lineLeftPoint.getY();
 		x2 = lineRightPoint.getX();
 		y2 = lineRightPoint.getY();
-
 		line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
-
 		// Making arrows group :
 		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
-
 		if (arrowOnLeft)
 			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, Geometry.buildArrow(x1, y1, x2, y2));
 		if (arrowOnRight) 
 			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, Geometry.buildArrow(x2, y2, x1, y1));
-
 		// Making the text group
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
@@ -354,7 +319,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			RelationshipArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationshipArtifactPart.NAME);
 			gfxObjectPart.put(RelationshipArtifactPart.NAME, nameGfxObject);
 		}
-
 		current_delta = 0;
 		if (relation.getLeftCardinality() != "")
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getLeftCardinality(), true, RelationshipArtifactPart.LEFT_CARDINALITY));
@@ -362,7 +326,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getLeftConstraint(), true, RelationshipArtifactPart.LEFT_CONSTRAINT));
 		if (relation.getLeftRole() != "") 
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getLeftRole(), true, RelationshipArtifactPart.LEFT_ROLE));
-
 		current_delta = 0;
 		if (relation.getRightCardinality() != "") 
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getRightCardinality(), false, RelationshipArtifactPart.RIGHT_CARDINALITY));
@@ -370,7 +333,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getRightConstraint(), false, RelationshipArtifactPart.RIGHT_CONSTRAINT));
 		if (relation.getRightRole() != "") 
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getRightRole(), false, RelationshipArtifactPart.RIGHT_ROLE));
-
 		if (relationClass != null) {
 			int xLineCenter = (x1 + x2) / 2;
 			int yLineCenter = (y1 + y2) / 2;
@@ -380,9 +342,7 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			GfxManager.getPlatform().setStrokeStyle(relationLine, GfxStyle.DASH);
 			GfxManager.getPlatform().addToVirtualGroup(gfxObject, relationLine);
 		}
-
 	}
-
 	private GfxObject createText(String text, boolean isLeft, RelationshipArtifactPart part) {
 		GfxObject textGfxObject = GfxManager.getPlatform().buildText(text);
 		GfxManager.getPlatform().setFillColor(textGfxObject, ThemeManager.getForegroundColor());
@@ -392,11 +352,9 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		gfxObjectPart.put(part, textGfxObject);
 		return textGfxObject;
 	}
-
 	public void setRightArrow(boolean arrowOnRight) {
 		this.arrowOnRight = arrowOnRight;
 	}
-
 	public void setName(String name) {
 		relation.setName(name);
 	}
@@ -418,7 +376,6 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	public void setRightConstraint(String rightConstraint) {
 		relation.setRightConstraint(rightConstraint);
 	}
-
 	/**
 	 * @param relationClass
 	 * @uml.property  name="relationClass"

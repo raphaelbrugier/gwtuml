@@ -1,5 +1,4 @@
 package com.objetdirect.gwt.umlapi.client;
-
 import com.allen_sauer.gwt.log.client.DivLogger;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
@@ -17,7 +16,6 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
-
 /**
  * Main class for gwtuml application. This class does some initialization and calls the start panel.
  * @author  hdarmet
@@ -44,7 +42,6 @@ public class UMLDrawer implements EntryPoint {
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 	}
-
 	/**
 	 * Clear the application root DockPanel from any added widget
 	 */
@@ -55,8 +52,6 @@ public class UMLDrawer implements EntryPoint {
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 	}	
-
-
 		 
 	/**
 	 * Entry point of the application
@@ -74,12 +69,9 @@ public class UMLDrawer implements EntryPoint {
 		appRootPanel.setSpacing(8);
 		
 		appRootPanel.setSize("100%", "100%");
-
 		startPanel = new StartPanel(false);
-
 		History.newItem("Start");
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-
 			public void onValueChange(ValueChangeEvent<String> event) {
 				if (event.getValue().equals("Start")) {
 					clearAppRootPanel();
@@ -89,9 +81,7 @@ public class UMLDrawer implements EntryPoint {
 			}
 			
 		});
-
 		log = new Button("ToggleLog");
-
 		log.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				DivLogger dl = Log.getDivLogger();
@@ -103,14 +93,12 @@ public class UMLDrawer implements EntryPoint {
 						log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 			}
 		});
-
 		appRootPanel.add(startPanel, DockPanel.CENTER);
 		appRootPanel.add(log, DockPanel.SOUTH);
 		RootPanel.get().add(appRootPanel);
 		Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
 				log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	}
-
 	/* (non-Javadoc)
 	 * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
 	 */

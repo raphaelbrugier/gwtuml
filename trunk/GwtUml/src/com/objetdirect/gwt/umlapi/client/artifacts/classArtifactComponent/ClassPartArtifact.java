@@ -1,13 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
-
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-
 /**
  * @author  florian
  */
 public abstract class ClassPartArtifact extends UMLArtifact {
-
 	/**
 	 * @uml.property  name="height"
 	 */
@@ -17,7 +14,6 @@ public abstract class ClassPartArtifact extends UMLArtifact {
 	 */
 	protected int width;
 	protected int classWidth;
-
 	/**
 	 * @param height
 	 * @uml.property  name="height"

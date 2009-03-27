@@ -1,13 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
-
 /**
  * This class allows to set and access configuration values 
  * @author  fmounier
  */
 public class OptionsManager {
-
 	private static final int RIGHT_TEXT_PADDING = 1;
 	private static final int LEFT_TEXT_PADDING = 1;
 	private static final int TOP_TEXT_PADDING = 1;

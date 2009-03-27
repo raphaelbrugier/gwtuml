@@ -1,24 +1,19 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
-
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
-
 /**
  * @author  florian
  */
 public class TypeAnalyser extends SyntaxAnalyser {
-
 	public static final int BEGIN_OPEN_BRACKET = 4;
 	public static final int BEGIN_TYPE_PARAMETER = 1;
 	public static final int CLOSE_BRACKET_EXPECTED = 5;
 	public static final int END_TYPE_PARAMETER = 2;
 	public static final int TYPE_PARAMETER_EXPECTED = 3;
-
 	/**
 	 * @uml.property  name="type"
 	 */
 	String type = "";
-
 	/**
 	 * @return
 	 * @uml.property  name="type"
@@ -26,7 +21,6 @@ public class TypeAnalyser extends SyntaxAnalyser {
 	public String getType() {
 		return type;
 	}
-
 	@Override
 	protected Token processToken(LexicalAnalyser lex, Token tk) {
 		if (tk == null)
@@ -83,7 +77,6 @@ public class TypeAnalyser extends SyntaxAnalyser {
 				setStatus(END_TYPE_PARAMETER);
 				return tk;
 			}
-
 		case BEGIN_OPEN_BRACKET:
 			if (tk != null && tk.getType() == LexicalAnalyser.SIGN
 					&& tk.getContent().equals("[")) {

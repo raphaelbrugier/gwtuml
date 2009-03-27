@@ -2,8 +2,6 @@
  * 
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
-
-
 /**
  * @author  florian
  */
@@ -54,7 +52,6 @@ public class Relation {
 		this.rightConstraint = "";
 		this.rightRole = "";
 	}
-
 	
 	
 	/**
@@ -155,5 +152,4 @@ public class Relation {
 	public void setRightRole(String rightRole) {
 		this.rightRole = rightRole;
 	}
-
 }

@@ -1,7 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
-
 import java.util.LinkedHashMap;
-
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Geometry;
@@ -10,22 +8,16 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-
 /**
  * @author  florian
  */
 public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
-
 	public static class Extension extends ClassDependencyLinkArtifact {
-
 		public Extension(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
-
 		public LinkedHashMap<String, Command> getRightMenu() {
-
 			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 			Command doNothing = new Command() {
 				public void execute() {
 				}
@@ -43,34 +35,25 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 			rightMenu.put("Delete", remove);
 			return rightMenu;
 		}
-
 		@Override
 		protected GfxObject buildArrow() {
 			return Geometry.buildFilledArrow(x1, y1, x2, y2);
 		}
-
 		@Override
 		protected GfxObject buildLine() {
-
 			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
 			return line;
 		}
-
 	}
-
 	public static class Implementation extends ClassDependencyLinkArtifact {
-
 		public Implementation(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
-
 		public LinkedHashMap<String, Command> getRightMenu() {
-
 			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 			Command doNothing = new Command() {
 				public void execute() {
 				}
@@ -88,34 +71,25 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 			rightMenu.put("> Delete", remove);
 			return rightMenu;
 		}
-
 		@Override
 		protected GfxObject buildArrow() {
 			return Geometry.buildFilledArrow(x1, y1, x2, y2);
 		}
-
 		@Override
 		protected GfxObject buildLine() {
-
 			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
 			return line;
 		}
-
 	}
-
 	public static class Simple extends ClassDependencyLinkArtifact {
-
 		public Simple(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
-
 		public LinkedHashMap<String, Command> getRightMenu() {
-
 			LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
-
 			Command doNothing = new Command() {
 				public void execute() {
 				}
@@ -133,60 +107,48 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 			rightMenu.put("Delete", remove);
 			return rightMenu;
 		}
-
 		@Override
 		protected GfxObject buildArrow() {
 			return Geometry.buildArrow(x1, y1, x2, y2);
 		}
-
 		@Override
 		protected GfxObject buildLine() {
-
 			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-
 			return line;
 		}
 	}
-
 	/**
 	 * @uml.property  name="arrow"
 	 * @uml.associationEnd  
 	 */
 	GfxObject arrow = null;
-
 	/**
 	 * @uml.property  name="left"
 	 * @uml.associationEnd  
 	 */
 	ClassArtifact left;
-
 	/**
 	 * @uml.property  name="line"
 	 * @uml.associationEnd  
 	 */
 	GfxObject line = null;
-
 	/**
 	 * @uml.property  name="right"
 	 * @uml.associationEnd  
 	 */
 	ClassArtifact right;
-
 	public ClassDependencyLinkArtifact(ClassArtifact left, ClassArtifact right) {
 		this.left = left;
 		left.addDependency(this);
 		this.right = right;
 		right.addDependency(this);
 	}
-
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
-
 	}
-
 	public Object getSubPart(GfxObject o) {
 		// TODO Auto-generated method stub
 		return null;
@@ -203,12 +165,9 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().setStroke(arrow,
 				ThemeManager.getForegroundColor(), 1);
 	}
-
 	protected abstract GfxObject buildArrow();
-
 	@Override
 	protected void buildGfxObject() {
-
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, vg);
 		Point lineLeftPoint  = Geometry.getPointForLine(left, new Point(right.getCenterX(), right.getCenterY()));
@@ -218,12 +177,10 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		x2 = lineRightPoint.getX();
 		y2 = lineRightPoint.getY();
 		
-
 		line = buildLine();
 		GfxManager.getPlatform().addToVirtualGroup(vg, line);
 		arrow = buildArrow();
 		GfxManager.getPlatform().addToVirtualGroup(vg, arrow);
 	}
-
 	protected abstract GfxObject buildLine();
 }
