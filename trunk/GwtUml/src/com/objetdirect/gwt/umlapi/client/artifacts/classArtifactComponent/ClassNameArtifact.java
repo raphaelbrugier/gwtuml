@@ -22,6 +22,7 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	 * @uml.associationEnd  
 	 */
 	private GfxObject nameText;
+	private GfxObject nameRect;
 	
 	public ClassNameArtifact(String className) {
 		this.className = className;
@@ -46,7 +47,7 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	@Override
 	public void buildGfxObject() {
 		if(textVirtualGroup == null) computeBounds();	
-		GfxObject nameRect = GfxManager.getPlatform().buildRect(classWidth, height);
+		nameRect = GfxManager.getPlatform().buildRect(classWidth, height);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameRect);
 		GfxManager.getPlatform().setFillColor(nameRect,	ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(nameRect, ThemeManager.getForegroundColor(), 1);
@@ -84,6 +85,7 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, nameText);
 		
 		GfxManager.getPlatform().setFont(nameText, OptionsManager.getSmallCapsFont());
+		GfxManager.getPlatform().setStroke(nameText, ThemeManager.getBackgroundColor(), 0);
 		GfxManager.getPlatform().setFillColor(nameText,	ThemeManager.getForegroundColor());
 		width  =  GfxManager.getPlatform().getWidthFor(nameText);
 		height =  GfxManager.getPlatform().getHeightFor(nameText);
@@ -149,12 +151,11 @@ public class ClassNameArtifact extends ClassPartArtifact {
 	}
 	@Override
 	public void select() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(nameRect, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
+
 	@Override
 	public void unselect() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(nameRect, ThemeManager.getForegroundColor(), 1);	
 	}
 }

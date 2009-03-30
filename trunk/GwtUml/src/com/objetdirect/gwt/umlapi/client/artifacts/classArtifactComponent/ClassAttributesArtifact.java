@@ -28,6 +28,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	 * @uml.associationEnd  
 	 */
 	private GfxObject lastGfxObject;
+	private GfxObject attributeRect;
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
 		attributeGfxObjects = new HashMap<GfxObject, Attribute>();
@@ -46,7 +47,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 	@Override
 	public void buildGfxObject() {
 		if(textVirtualGroup == null) computeBounds();		
-		GfxObject attributeRect = GfxManager.getPlatform().buildRect(classWidth, height);
+		attributeRect = GfxManager.getPlatform().buildRect(classWidth, height);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeRect);	
 		GfxManager.getPlatform().setFillColor(attributeRect, ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getForegroundColor(), 1);
@@ -86,6 +87,7 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, attributeText);
 			GfxManager.getPlatform().setFont(attributeText, OptionsManager.getFont());
+			GfxManager.getPlatform().setStroke(attributeText, ThemeManager.getBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
 			int thisAttributeWidth =  GfxManager.getPlatform().getWidthFor(attributeText) ;
 			int thisAttributeHeight =  GfxManager.getPlatform().getHeightFor(attributeText);
@@ -160,14 +162,15 @@ public class ClassAttributesArtifact extends ClassPartArtifact {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public void select() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
+
 	@Override
 	public void unselect() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getForegroundColor(), 1);	
 	}
+	
 }

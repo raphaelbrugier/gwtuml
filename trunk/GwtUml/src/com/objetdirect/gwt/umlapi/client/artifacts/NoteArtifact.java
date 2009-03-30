@@ -115,6 +115,7 @@ public class NoteArtifact extends BoxArtifact {
 			GfxObject textLine = GfxManager.getPlatform().buildText(noteLine);
 			GfxManager.getPlatform().addToVirtualGroup(contentText, textLine);	
 			GfxManager.getPlatform().setFont(textLine, OptionsManager.getFont());
+			GfxManager.getPlatform().setStroke(textLine, ThemeManager.getBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getForegroundColor());
 			int thisLineWidth =  GfxManager.getPlatform().getWidthFor(textLine);
 			int thisLineHeight =  GfxManager.getPlatform().getHeightFor(textLine);

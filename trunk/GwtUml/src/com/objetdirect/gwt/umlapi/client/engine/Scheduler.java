@@ -4,9 +4,7 @@ import java.util.Map;
 
 import com.google.gwt.user.client.Timer;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-/**
- * @author  florian
- */
+
 public class Scheduler {
 	/**
 	 * @author  hdarmet

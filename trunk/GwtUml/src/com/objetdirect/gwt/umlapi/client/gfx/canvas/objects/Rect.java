@@ -1,6 +1,6 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Rect extends IncubatorGfxObject {
 	private int h = 0;
 	private int w = 0;
@@ -9,10 +9,14 @@ public class Rect extends IncubatorGfxObject {
 		this.h = h;
 	}
 	@Override
-	public void draw(GWTCanvas canvas) {
-		if (!isVisible)
+	public void draw() {
+		if (!isVisible) {
+			Log.debug(this + " is not visible");
 			return;
-		Log.trace("{Incubator} Drawing " + this);
+		}
+		if (canvas == null) Log.fatal("canvas is null for " + this);
+		
+		Log.trace("Drawing " + this);
 		canvas.saveContext();
 		if (fillColor != null)
 			canvas.setFillStyle(fillColor);
@@ -20,6 +24,7 @@ public class Rect extends IncubatorGfxObject {
 			canvas.setStrokeStyle(strokeColor);
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
+		canvas.fillRect(getX(), getY(), w, h);
 		canvas.strokeRect(getX(), getY(), w, h);
 		canvas.restoreContext();
 	}

@@ -1,17 +1,31 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.widgetideas.graphics.client.Color;
-import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 /**
  * @author  florian
  */
 public abstract class IncubatorGfxObject {
+	private int redFill;
+	private int greenFill;
+	private int blueFill;
+	private int redStroke;
+	private int greenStroke;
+	private int blueStroke;
 	protected Color fillColor;
-	protected boolean isVisible = true;
+	protected boolean isVisible = false;
 	protected Color strokeColor;
 	protected int strokeWidth = 0;
 	protected VirtualGroup parentGroup = null;
+	protected CanvasBridge canvas;
+	/**
+	 * @return the canvas
+	 */
+	public CanvasBridge getCanvas() {
+		return canvas;
+	}
 	/**
 	 * @return the parentGroup
 	 */
@@ -37,11 +51,14 @@ public abstract class IncubatorGfxObject {
 	 * @uml.property  name="y"
 	 */
 	protected int y = 0;
-	public void addOnCanvasAt(int dx, int dy) {
+	public void addOnCanvasAt(CanvasBridge canvas, int dx, int dy) {
+		Log.debug("Adding " + this + " on canvas " + canvas);
 		isVisible = true;
+		this.canvas = canvas;
 		translate(dx, dy);
 	}
-	public abstract void draw(GWTCanvas canvas);
+	public abstract void draw();
+	
 	public abstract int getHeight();
 	public abstract int getWidth();
 	/**
@@ -63,12 +80,20 @@ public abstract class IncubatorGfxObject {
 		isVisible = false;
 	}
 	public void setFillColor(GfxColor gfxColor) {
-		this.fillColor = new Color(gfxColor.getRed(), gfxColor.getBlue(),
-				gfxColor.getGreen(), gfxColor.getAlpha());
+		redFill = gfxColor.getRed();
+		blueFill = gfxColor.getBlue();
+		greenFill = gfxColor.getGreen();
+		this.fillColor = new Color(redFill, blueFill, greenFill, gfxColor.getAlpha());
+	}
+	public void setAlpha(float alpha) {
+		this.fillColor = new Color(redFill, blueFill, greenFill, alpha);
+		this.strokeColor = new Color(redStroke, blueStroke, greenStroke, alpha);
 	}
 	public void setStrokeColor(GfxColor gfxColor) {
-		this.strokeColor = new Color(gfxColor.getRed(), gfxColor.getBlue(),
-				gfxColor.getGreen(), gfxColor.getAlpha());
+		redStroke = gfxColor.getRed();
+		blueStroke = gfxColor.getBlue();
+		greenStroke = gfxColor.getGreen();
+		this.strokeColor = new Color(redStroke, blueStroke, greenStroke, gfxColor.getAlpha());
 	}
 	/**
 	 * @param width

@@ -23,7 +23,8 @@ import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.LinearGeometry;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
-import com.objetdirect.gwt.umlapi.client.gfx.incubator.IncubatorGfxPlatform;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.GWTCanvasGfxPlatform;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 /**
@@ -62,6 +63,8 @@ public class StartPanel extends VerticalPanel {
 	final ListBox themeListBox = new ListBox();
 	final HorizontalPanel resolutionAutoPanel = new HorizontalPanel();
 	final CheckBox isResolutionAutoChkBox = new CheckBox("Auto Resolution");
+	final HorizontalPanel animationPanel = new HorizontalPanel();
+	final CheckBox isAnimated = new CheckBox("Animated");
 	final HorizontalPanel resolutionPanel = new HorizontalPanel();
 	final Label resolutionLbl = new Label("Resolution : ");
 	final TextBox heightTxtBox = new TextBox();
@@ -114,8 +117,9 @@ public class StartPanel extends VerticalPanel {
 		geometryStylePanel.setSpacing(5);
 		themePanel.setSpacing(5);
 		resolutionPanel.setSpacing(5);
-		gfxEngineListBox.addItem("Tatami Gfx");
-		gfxEngineListBox.addItem("Incubator GWTCanvas GFX");
+		gfxEngineListBox.addItem("Tatami GFX");
+		gfxEngineListBox.addItem("Incubator Canvas GFX");
+		gfxEngineListBox.addItem("GWT Canvas GFX");
 		geometryStyleListBox.addItem("Linear");
 		geometryStyleListBox.addItem("Shape Based");
 		for (Theme theme : Theme.values()) {
@@ -128,6 +132,8 @@ public class StartPanel extends VerticalPanel {
 				heightTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());
 				
 			}});
+		
+
 		widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 		heightTxtBox.setText("" + (Window.getClientHeight() - 50));
 		Window.addResizeHandler(new ResizeHandler() {
@@ -145,7 +151,7 @@ public class StartPanel extends VerticalPanel {
 		});
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
-		
+		isAnimated.setValue(false);
 		
 		this.add(logoImg);
 		this.add(startBtn);
@@ -169,6 +175,10 @@ public class StartPanel extends VerticalPanel {
 		resolutionPanel.add(crossLbl);
 		resolutionPanel.add(heightTxtBox);
 		this.add(resolutionPanel);
+		
+		animationPanel.add(isAnimated);
+		this.add(animationPanel);
+		
 		loadingScreen.hide();
 		RootPanel.get().add(this);
 	}
@@ -179,16 +189,22 @@ public class StartPanel extends VerticalPanel {
 						.getSelectedIndex())));
 		if (gfxEngineListBox.getItemText(
 				gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
-				"Tatami Gfx"))
+				"Tatami GFX"))
 			GfxManager.setPlatform(new TatamiGfxPlatfrom());
-		else
+		else if (gfxEngineListBox.getItemText(
+				gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
+				"Incubator Canvas GFX"))
 			GfxManager.setPlatform(new IncubatorGfxPlatform());
+		else
+			GfxManager.setPlatform(new GWTCanvasGfxPlatform());
+		
 		if (geometryStyleListBox.getItemText(
 				geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
 				"Linear"))
 			GeometryManager.setPlatform(new LinearGeometry());
 		else
 			GeometryManager.setPlatform(new ShapeGeometry());
+		OptionsManager.setAnimated(isAnimated.getValue());
 		instance.removeFromParent();
 		loadingScreen.show();
 		int w;

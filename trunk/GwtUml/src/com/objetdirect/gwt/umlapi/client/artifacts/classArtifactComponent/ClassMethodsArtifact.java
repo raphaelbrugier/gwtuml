@@ -27,7 +27,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	 * @uml.associationEnd  
 	 */
 	private GfxObject lastGfxObject;
-	
+	private GfxObject methodRect;
 	public ClassMethodsArtifact() {
 		methods = new ArrayList<Method>();
 		methodGfxObjects = new HashMap<GfxObject, Method>();
@@ -54,7 +54,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	@Override
 	public void buildGfxObject() {
 		if(textVirtualGroup == null) computeBounds();	
-		GfxObject methodRect = GfxManager.getPlatform().buildRect(classWidth, height);
+		methodRect = GfxManager.getPlatform().buildRect(classWidth, height);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, methodRect);
 		GfxManager.getPlatform().setFillColor(methodRect,	ThemeManager.getBackgroundColor());
 		GfxManager.getPlatform().setStroke(methodRect, ThemeManager.getForegroundColor(), 1);	
@@ -92,6 +92,8 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 			GfxObject methodText = GfxManager.getPlatform().buildText(method.toString());
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, methodText);	
 			GfxManager.getPlatform().setFont(methodText, OptionsManager.getFont());
+
+			GfxManager.getPlatform().setStroke(methodText, ThemeManager.getBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(methodText, ThemeManager.getForegroundColor());
 			int thisMethodWidth =  GfxManager.getPlatform().getWidthFor(methodText);
 			int thisMethodHeight =  GfxManager.getPlatform().getHeightFor(methodText);
@@ -171,12 +173,11 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	}
 	@Override
 	public void select() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(methodRect, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
+
 	@Override
 	public void unselect() {
-		// TODO Auto-generated method stub
-		
+		GfxManager.getPlatform().setStroke(methodRect, ThemeManager.getForegroundColor(), 1);	
 	}
 }

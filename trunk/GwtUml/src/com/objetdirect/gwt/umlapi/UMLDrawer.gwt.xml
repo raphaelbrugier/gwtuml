@@ -14,7 +14,8 @@
       <!-- Other module inherits                                      -->
 	    <inherits name='com.google.gwt.widgetideas.GWTCanvas'/>
    	    <inherits name='org.gwt.mosaic.Mosaic' />
-   	      <inherits name='com.objetdirect.tatami.Tatami' />
+   	    <inherits name='com.objetdirect.tatami.Tatami' />
+   	    <inherits name='gwt.canvas.gwt-canvas'/>
         <stylesheet src="gwt/standard/Mosaic.css" />
 
         <!-- Add gwt-log support -->

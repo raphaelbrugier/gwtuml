@@ -7,8 +7,11 @@ import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 /**
  * @author  florian
@@ -52,6 +55,22 @@ public abstract class UMLArtifact  {
 		isBuilt = false;
 		return gfxObject;
 	}
+	public void buildGfxObjectWithAnimation() {
+		if(OptionsManager.isAnimated()) ThemeManager.setForegroundOpacityTo(0);
+		buildGfxObject();
+		if(OptionsManager.isAnimated()) {
+			for(int i = 25 ; i < 256 ; i+=50) {
+				final int j = i;
+				new Scheduler.Task() {
+					@Override
+					public void process() {
+						GfxManager.getPlatform().setOpacity(gfxObject, j);
+					}
+				};
+			}
+			ThemeManager.setForegroundOpacityTo(255);
+		}
+	}
 	/**
 	 * @return
 	 * @uml.property  name="gfxObject"
@@ -85,23 +104,24 @@ public abstract class UMLArtifact  {
 		return UMLDrawerHelper.getShortName(this);
 	}
 	protected abstract void buildGfxObject();
-	
+
 	public void rebuildGfxObject() {
 		long t = System.currentTimeMillis();
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
-		buildGfxObject();
+		buildGfxObjectWithAnimation();
+
 		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
 			Log.trace("Rebuilding : " + dependentUMLArtifact);
-			//new Scheduler.Task(dependentUMLArtifact) {
-			//	@Override
-			//	public void process() {
+			new Scheduler.Task(dependentUMLArtifact) {
+				@Override
+				public void process() {
 					dependentUMLArtifact.rebuildGfxObject();
-			//	}
-			//};
+				}
+			};
 		}
 		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
-	
+
 	}
 	public abstract boolean isDraggable();
 	public abstract void edit(GfxObject gfxObject, int x, int y);

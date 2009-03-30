@@ -42,6 +42,7 @@ public abstract class ClassPartArtifact extends UMLArtifact {
 	 */
 	public abstract void setClassWidth(int width);
 	
+	
 	public abstract void edit();
 	
 	/**

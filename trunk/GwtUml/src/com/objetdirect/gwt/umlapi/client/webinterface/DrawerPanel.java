@@ -34,17 +34,20 @@ public class DrawerPanel extends AbsolutePanel {
 		gc = new UMLCanvas(width, height);
 		gc.setStylePrimaryName("canvas");
 		this.add(gc);
-		
+		Log.trace("Canvas added");
 		width += 2; //Border Size
 		height += 2; //Border Size		
 		this.width = width;
 		this.height = height;
+		Log.trace("Making shadow");
 		makeShadow();
 		
 		// TODO : under chrome redraw doesn't work if the canvas is at a
 		// different point than (0,0) tatami ? dojo ? chrome ?
 		// example : this.setSpacing(50);
+		Log.trace("Setting active canvas");
 		HotKeyManager.setActiveCanvas(gc);
+		Log.trace("Disabling browser events");
 		UMLDrawerHelper.disableBrowserEvents();
 		Log.debug("Init end");
 	}

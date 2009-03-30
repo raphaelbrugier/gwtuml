@@ -1,31 +1,36 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class VirtualGroup extends IncubatorGfxObject {
 	private Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
 	public void add(IncubatorGfxObject incubatorGfxObject) {
 		incubatorGfxObjectSet.add(incubatorGfxObject);
 		incubatorGfxObject.setParentGroup(this);
+		if(isVisible) incubatorGfxObject.addOnCanvasAt(canvas, 0, 0);
 	}
 	@Override
-	public void addOnCanvasAt(int dx, int dy) {
-		super.addOnCanvasAt(dx, dy);
+	public void addOnCanvasAt(CanvasBridge canvas, int dx, int dy) {
+		super.addOnCanvasAt(canvas, dx, dy);
 		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.addOnCanvasAt(dx, dy);
+			incubatorGfxObject.addOnCanvasAt(canvas, dx, dy);
 		}
 	}
 	@Override
-	public void draw(GWTCanvas canvas) {
-		if (!isVisible)
+	public void draw() {
+		if (!isVisible) {
+			Log.debug(this + " is not visible");
 			return;
-		Log.trace("{Incubator} Starting drawing " + this);
-		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.draw(canvas);
 		}
-		Log.trace("{Incubator} Ending drawing " + this);
+		if (canvas == null) Log.fatal("canvas is null for " + this);
+		
+		Log.trace("Starting drawing " + this);
+		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
+			incubatorGfxObject.draw();
+		}
+		Log.trace("Ending drawing " + this);
 	}
 	@Override
 	public int getHeight() {

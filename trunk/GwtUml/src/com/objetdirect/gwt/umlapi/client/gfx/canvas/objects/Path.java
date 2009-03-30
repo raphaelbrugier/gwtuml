@@ -1,16 +1,31 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Path extends IncubatorGfxObject {
 	private class Point {
-		int x;
-		int y;
-		public Point(int x, int y) {
+		private int x;
+		private int y;
+		private Path path;
+		public Point(int x, int y, Path path) {
 			this.x = x;
 			this.y = y;
+			this.path = path;
 		}
+		/**
+		 * @return the x
+		 */
+		public int getX() {
+			return x + path.getX();
+		}
+		/**
+		 * @return the y
+		 */
+		public int getY() {
+			return y + path.getY();
+		}
+
 	}
 	private ArrayList<Point> pathPoints = new ArrayList<Point>();
 	public Path() {
@@ -18,10 +33,14 @@ public class Path extends IncubatorGfxObject {
 		this.y = 0;
 	}
 	@Override
-	public void draw(GWTCanvas canvas) {
-		if (!isVisible)
+	public void draw() {
+		if (!isVisible) {
+			Log.debug(this + " is not visible");
 			return;
-		Log.trace("{Incubator} Drawing " + this);
+		}
+		if (canvas == null) Log.fatal("canvas is null for " + this);
+		
+		Log.trace("Drawing " + this);
 		canvas.saveContext();
 		if (fillColor != null)
 			canvas.setFillStyle(fillColor);
@@ -30,11 +49,11 @@ public class Path extends IncubatorGfxObject {
 		if (strokeWidth != 0)
 			canvas.setLineWidth(strokeWidth);
 		canvas.beginPath();
-		canvas.moveTo(getX(), getY());
 		for (Point point : pathPoints) {
-			canvas.lineTo(point.x, point.y);
+			canvas.lineTo(point.getX(), point.getY());
 		}
 		canvas.closePath();
+		canvas.fill();
 		canvas.stroke();
 		canvas.restoreContext();
 	}
@@ -52,18 +71,17 @@ public class Path extends IncubatorGfxObject {
 	public boolean isPointed(int x, int y) {
 		int minx = Integer.MAX_VALUE, miny = Integer.MAX_VALUE, maxx = Integer.MIN_VALUE, maxy = Integer.MIN_VALUE;
 		for (Point point : pathPoints) {
-			minx = minx > point.x ? point.x : minx;
-			miny = miny > point.y ? point.y : miny;
-			maxx = maxx < point.x ? point.x : maxx;
-			maxy = maxy < point.y ? point.y : maxy;
+			minx = minx > point.getX() ? point.getX() : minx;
+			miny = miny > point.getY() ? point.getY() : miny;
+			maxx = maxx < point.getX() ? point.getX() : maxx;
+			maxy = maxy < point.getY() ? point.getY() : maxy;
 		}
 		return (x > minx) && (x < maxx) && (y > miny) && (y < maxy);
 	}
 	public void lineTo(int x, int y) {
-		pathPoints.add(new Point(x, y));
+		pathPoints.add(new Point(x, y, this));
 	}
 	public void moveTo(int x, int y) {
-		this.x =  x;
-		this.y =  y;
+		pathPoints.add(new Point(x, y, this));
 	}
 }

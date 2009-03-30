@@ -312,6 +312,8 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			GfxObject nameGfxObject = GfxManager.getPlatform().buildText(relation.getName());
 			
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, nameGfxObject);
+
+			GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getForegroundColor());
 			GfxManager.getPlatform().translate(nameGfxObject, 
 					(x1 + x2 -  (GfxManager.getPlatform().getWidthFor(nameGfxObject))) / 2, 
@@ -345,7 +347,10 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 	}
 	private GfxObject createText(String text, boolean isLeft, RelationshipArtifactPart part) {
 		GfxObject textGfxObject = GfxManager.getPlatform().buildText(text);
+
+		GfxManager.getPlatform().setStroke(textGfxObject, ThemeManager.getBackgroundColor(), 0);
 		GfxManager.getPlatform().setFillColor(textGfxObject, ThemeManager.getForegroundColor());
+		
 		Log.trace("Creating text : " + text + " at " +  getTextX(textGfxObject, isLeft) + " : " + getTextY(textGfxObject, isLeft));
 		GfxManager.getPlatform().translate(textGfxObject, getTextX(textGfxObject, isLeft), getTextY(textGfxObject, isLeft));
 		RelationshipArtifactPart.setGfxObjectTextForPart(textGfxObject, part);

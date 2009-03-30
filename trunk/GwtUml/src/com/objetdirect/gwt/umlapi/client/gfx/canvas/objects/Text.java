@@ -1,16 +1,15 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator.objects;
-import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Text extends IncubatorGfxObject {
 	private String text;
 	public Text(String text) {
 		this.text = text;
 	}
 	@Override
-	public void draw(GWTCanvas canvas) {
-		if (!isVisible)
+	public void draw() {
+		//if (!isVisible)
 			return;
-		Log.trace("{Incubator} Drawing " + this);
+		/*Log.trace("{Incubator} Drawing " + this);
 		canvas.saveContext();
 		if (fillColor != null)
 			canvas.setFillStyle(fillColor);
@@ -21,7 +20,7 @@ public class Text extends IncubatorGfxObject {
 		for (int i = 0; i < text.length(); i++) {
 			canvas.strokeRect(getX() + 10 * i, getY() - 8, 8, 10);
 		}
-		canvas.restoreContext();
+		canvas.restoreContext();*/
 	}
 	@Override
 	public int getHeight() {

@@ -1,15 +1,11 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.incubator.objects.IncubatorGfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxObjectContainer;
-import com.objetdirect.tatami.client.gfx.GraphicObject;
+import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject;
 /**
  * @author  florian
  */
@@ -20,9 +16,12 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 	}
 	
 	public static IncubatorGfxObjectContainer getPointedObject(int x, int y) {
+		long t = System.currentTimeMillis();
 		for (Map.Entry<IncubatorGfxObject, IncubatorGfxObjectContainer> pair : incubatorGfxObjectContainerMap.entrySet()) {
-			if (pair.getKey().isPointed(x, y))
+			if (pair.getKey().isPointed(x, y)) {
+				Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to find " + pair.getValue());
 				return pair.getValue();
+			}
 		}
 		Log.debug("No Icontainer found at " + x + ", " + y);
 		return null;

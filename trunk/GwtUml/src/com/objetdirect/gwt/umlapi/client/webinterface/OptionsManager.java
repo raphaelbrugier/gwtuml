@@ -5,6 +5,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * @author  fmounier
  */
 public class OptionsManager {
+
 	private static final int RIGHT_TEXT_PADDING = 1;
 	private static final int LEFT_TEXT_PADDING = 1;
 	private static final int TOP_TEXT_PADDING = 1;
@@ -17,8 +18,20 @@ public class OptionsManager {
 	private static final int ARROW_WIDTH = 8;
 	private static final int FILLED_ARROW_LENGTH = 25;
 	private static final int FILLED_ARROW_WIDTH = 10;
+	private static boolean isAnimated = false;
 
-
+	/**
+	 * @return the isAnimated
+	 */
+	public static boolean isAnimated() {
+		return isAnimated;
+	}
+	/**
+	 * @param isAnimated the isAnimated to set
+	 */
+	public static void setAnimated(boolean isAnimated) {
+		OptionsManager.isAnimated = isAnimated;
+	}
 	/**
 	 * @uml.property  name="font"
 	 * @uml.associationEnd  

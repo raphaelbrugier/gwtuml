@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client.gfx.incubator;
+package com.objetdirect.gwt.umlapi.client.gfx.canvas;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ClickListener;

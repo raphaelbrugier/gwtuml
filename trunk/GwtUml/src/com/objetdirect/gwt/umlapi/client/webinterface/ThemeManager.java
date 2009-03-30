@@ -53,6 +53,7 @@ public class ThemeManager {
 			return this.backgroundColor;
 		}
 		public GfxColor getThemeForegroundColor() {
+			if(opacity != 255) return new GfxColor(this.foregroundColor.getRed(), this.foregroundColor.getGreen(), this.foregroundColor.getBlue(), opacity);
 			return this.foregroundColor;
 		}
 		public GfxColor getThemeHighlightedForegroundColor() {
@@ -71,6 +72,7 @@ public class ThemeManager {
 	 * @uml.associationEnd  
 	 */
 	private static Theme current_theme = Theme.NORMAL;
+	private static int opacity = 255;
 	public static GfxColor getBackgroundColor() {
 		return current_theme.getThemeBackgroundColor();
 	}
@@ -92,5 +94,9 @@ public class ThemeManager {
 	}
 	public static void setCurrentTheme(Theme theme) {
 		current_theme = theme;
+	}
+	public static void setForegroundOpacityTo(int i) {
+		opacity = i;
+		
 	}
 }

@@ -21,7 +21,7 @@ import com.objetdirect.tatami.client.gfx.Rect;
 import com.objetdirect.tatami.client.gfx.Text;
 import com.objetdirect.tatami.client.gfx.VirtualGroup;
 public class TatamiGfxPlatfrom implements GfxPlatform {
-	public void addObjectListenerToCanvas(Widget canvas,
+	public void addObjectListenerToCanvas(Object canvas,
 			final GfxObjectListener gfxObjectListener) {
 		GraphicObjectListener graphicObjectListener = new GraphicObjectListener() {
 			public void mouseClicked(GraphicObject graphicObject, Event e) {
@@ -58,7 +58,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		((GraphicCanvas) canvas)
 				.addGraphicObjectListener(graphicObjectListener);
 	}
-	public void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y) {
+	public void addToCanvas(Object canvas, GfxObject gfxO, int x, int y) {
 		Log.debug("Adding to Tcanvas : "
 				+ UMLDrawerHelper
 						.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
@@ -137,7 +137,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	public void moveTo(GfxObject gfxO, int x, int y) {
 		((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
 	}
-	public void removeFromCanvas(Widget canvas, GfxObject gfxO) {
+	public void removeFromCanvas(Object canvas, GfxObject gfxO) {
 		Log.debug("Removing from Tcanvas : "
 				+ UMLDrawerHelper
 						.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
@@ -158,8 +158,13 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		((Text) getTatamiGraphicalObjectFrom(gfxO)).setFont(convertFont(gfxF));
 	}
 	public void setStroke(GfxObject gfxO, GfxColor color, int width) {
-		getTatamiGraphicalObjectFrom(gfxO)
-				.setStroke(convertColor(color), width);
+		if(getTatamiGraphicalObjectFrom(gfxO).getClass().equals(Text.class)) {
+			width = 0; 
+			getTatamiGraphicalObjectFrom(gfxO).setOpacity(color.getAlpha());
+			setFillColor(gfxO, color);			
+		}
+		if(color.getAlpha() == 255) color.setAlpha(getTatamiGraphicalObjectFrom(gfxO).getStrokeColor().getAlpha());
+		getTatamiGraphicalObjectFrom(gfxO).setStroke(convertColor(color), width);
 	}
 	public void setStrokeStyle(GfxObject gfxO, GfxStyle style) {
 		getTatamiGraphicalObjectFrom(gfxO).setStrokeStyle(
@@ -190,6 +195,10 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	}
 	public void moveToFront(GfxObject gfxO) {
 		getTatamiGraphicalObjectFrom(gfxO).moveToFront();
-		
 	}
+	public void setOpacity(GfxObject gfxO, int opacity) {
+		Color strokeColor = getTatamiGraphicalObjectFrom(gfxO).getStrokeColor();
+		getTatamiGraphicalObjectFrom(gfxO).setStrokeColor(new Color(strokeColor.getRed(), strokeColor.getGreen(), strokeColor.getBlue(), opacity));
+	}	
+
 }

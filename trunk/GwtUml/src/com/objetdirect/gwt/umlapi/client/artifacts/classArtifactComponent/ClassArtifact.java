@@ -7,13 +7,12 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 /**
@@ -214,17 +213,14 @@ public class ClassArtifact extends BoxArtifact {
 	}
 	public void select() {
 		GfxManager.getPlatform().moveToFront(gfxObject);
-		GfxManager.getPlatform().setStroke(className.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(classAttributes.getGfxObject(),	ThemeManager.getHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(), ThemeManager.getHighlightedForegroundColor(), 2);
+		className.select();
+		classAttributes.select();
+		classMethods.select();
 	}
 	public void unselect() {
-		GfxManager.getPlatform().setStroke(className.getGfxObject(),
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(classAttributes.getGfxObject(),
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(classMethods.getGfxObject(),
-				ThemeManager.getForegroundColor(), 1);
+		className.unselect();
+		classAttributes.unselect();
+		classMethods.unselect();
 	}
 	@Override
 	public void rebuildGfxObject() {

@@ -3,14 +3,12 @@ import com.google.gwt.user.client.ui.Widget;
 public interface GfxPlatform {
 	final static int DEFAULT_CANVAS_HEIGHT = 600;
 	final static int DEFAULT_CANVAS_WIDTH = 800;
-	// Canvas
-	void addObjectListenerToCanvas(Widget canvas,
+	void addObjectListenerToCanvas(Object canvas,
 			GfxObjectListener gfxObjectListener);
-	void addToCanvas(Widget canvas, GfxObject gfxO, int x, int y);
+	void addToCanvas(Object canvas, GfxObject gfxO, int x, int y);
 	void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO);
 	GfxObject buildLine(int x1, int y1, int x2, int y2);
 	GfxObject buildPath();
-	// Builders
 	GfxObject buildRect(int width, int height);
 	GfxObject buildText(String text);
 	GfxObject buildVirtualGroup();
@@ -24,7 +22,7 @@ public interface GfxPlatform {
 	void setSize(Widget canvas, int width, int height);
 	
 	void moveTo(GfxObject gfxO, int x, int y);
-	void removeFromCanvas(Widget canvas, GfxObject gfxO);
+	void removeFromCanvas(Object canvas, GfxObject gfxO);
 	void removeFromVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO,
 			boolean isSilent);
 	
@@ -41,4 +39,5 @@ public interface GfxPlatform {
 	void moveToFront(GfxObject gfxO);
 	
 	void moveToBack(GfxObject gfxO);
+	void setOpacity(GfxObject gfxO, int opacity);
 }
