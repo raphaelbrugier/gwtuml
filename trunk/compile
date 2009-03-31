@@ -1,0 +1,15 @@
+cd war
+svn rm --force umldrawer/*.cache.*
+svn rm --force umldrawer/*.rpc
+rm -f umldrawer/*.cache.*
+rm -f umldrawer/*.rpc
+mv umldrawer umldrawer_
+cd ..
+ant $1
+cd war
+cp -f umldrawer/* umldrawer_
+rm -fr umldrawer
+mv umldrawer_ umldrawer
+cd umldrawer
+svn add --force *
+
