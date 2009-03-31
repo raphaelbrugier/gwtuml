@@ -1,5 +1,4 @@
 package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Text extends IncubatorGfxObject {
 	private String text;
 	public Text(String text) {

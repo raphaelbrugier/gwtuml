@@ -18,41 +18,46 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  */
 public abstract class GeometryPlatform {
 
-	public GfxObject buildArrow(int x1, int y1, int x2, int y2) {
+	public GfxObject buildArrow(Point point1, Point point2) {
 		GfxObject path = GfxManager.getPlatform().buildPath();
-		int[] points = getArrowPoints(x1, y1, x2, y2, OptionsManager.getArrowWidth(),
+		ArrayList<Point> points = getArrowPoints(point1, point2, OptionsManager.getArrowWidth(),
 				OptionsManager.getArrowLenght());
-		GfxManager.getPlatform().moveTo(path, points[0], points[1]);
-		GfxManager.getPlatform().lineTo(path, x1, y1);
-		GfxManager.getPlatform().lineTo(path, points[2], points[3]);
-		GfxManager.getPlatform().lineTo(path, x1, y1);
+		GfxManager.getPlatform().moveTo(path, points.get(0).getX(), points.get(0).getY());
+		GfxManager.getPlatform().lineTo(path, point1.getX(), point1.getY());
+		GfxManager.getPlatform().lineTo(path, points.get(1).getX(), points.get(1).getY());
 		GfxManager.getPlatform().setStroke(path,
 				ThemeManager.getForegroundColor(), 1);
 		return path;
 	}
-	public GfxObject buildFilledArrow(int x1, int y1, int x2, int y2) {
+	public GfxObject buildFilledArrow(Point point1, Point point2) {
 		GfxObject path = GfxManager.getPlatform().buildPath();
-		int[] points = getArrowPoints(x1, y1, x2, y2,
+		ArrayList<Point> points = getArrowPoints(point1, point2,
 				OptionsManager.getFilledArrowWidth(), OptionsManager.getFilledArrowLenght());
-		GfxManager.getPlatform().moveTo(path, x1, y1);
-		GfxManager.getPlatform().lineTo(path, points[0], points[1]);
-		GfxManager.getPlatform().lineTo(path, points[2], points[3]);
-		GfxManager.getPlatform().lineTo(path, x1, y1);
-		GfxManager.getPlatform().setStroke(path,
-				ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().setFillColor(path,
-				ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().moveTo(path, point1.getX(), point1.getY());
+		
+		for(Point point : points) {
+		    GfxManager.getPlatform().lineTo(path, point.getX(), point.getY());
+		}
+	
+		GfxManager.getPlatform().lineTo(path, point1.getX(), point1.getY());
+		
+		GfxManager.getPlatform().setStroke(path, ThemeManager.getForegroundColor(), 1);
+		GfxManager.getPlatform().setFillColor(path,	ThemeManager.getBackgroundColor());
 		return path;
 	}
 	
-	public int[] getArrowPoints(int x1, int y1, int x2, int y2, int d,
-			int D) {
-		float r = (float) Math.sqrt((((x2 - x1) * (x2 - x1) + (y2 - y1)
-				* (y2 - y1))));
-		float xf = ((x2 - x1)) / r;
-		float yf = ((y2 - y1)) / r;
-		return new int[] {  (int) (xf * D - yf * d + x1),  (int) (yf * D + xf * d + y1),
-				 (int) (xf * D + yf * d + x1),  (int) (yf * D - xf * d + y1) };
+	public ArrayList<Point> getArrowPoints(Point point1, Point point2, int width, int lenght) {
+	    ArrayList<Point> arrowPoints = new ArrayList<Point>();
+	    
+	    int xDiff = point2.getX() - point1.getX();
+	    int yDiff = point2.getY() - point1.getY();
+		double root = Math.sqrt(((xDiff^2 + yDiff^2)));
+		int xf = (int) Math.round(((double) xDiff) / root);
+		int yf = (int) Math.round(((double) yDiff) / root);
+		
+		arrowPoints.add(new Point(xf * lenght - yf * width + point1.getX(), yf * lenght + xf * width + point1.getY()));
+		arrowPoints.add(new Point(xf * lenght + yf * width + point1.getX(), yf * lenght - xf * width + point1.getY()));
+		return arrowPoints;
 	}
 	
 	public ArrayList<Point> getLineBetween(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact){

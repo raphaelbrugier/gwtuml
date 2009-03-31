@@ -236,50 +236,47 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStroke(arrowVirtualGroup, ThemeManager.getForegroundColor(), 1);
 	}
-	Anchor getAnchorType(ClassArtifact classArtifact, int x1, int y1) {
-		if (x1 == classArtifact.getX())	return Anchor.LEFT;
-		else if (y1 == classArtifact.getY()) return Anchor.TOP;
-		else if (x1 == classArtifact.getX() + classArtifact.getWidth())	return Anchor.RIGHT;
-		else if (y1 == classArtifact.getY() + classArtifact.getHeight()) return Anchor.BOTTOM;
+	Anchor getAnchorType(ClassArtifact classArtifact, Point point) {
+		if (point.getX() == classArtifact.getX())	return Anchor.LEFT;
+		else if (point.getY() == classArtifact.getY()) return Anchor.TOP;
+		else if (point.getX() == classArtifact.getX() + classArtifact.getWidth())	return Anchor.RIGHT;
+		else if (point.getY() == classArtifact.getY() + classArtifact.getHeight()) return Anchor.BOTTOM;
 		return Anchor.UNKNOWN;
 	}
 	int getTextX(GfxObject text, boolean isLeft) {
-		int relative_x1 = x1;
-		int relative_x2 = x2;
-		int relative_y1 = y1;
+	    
+		Point relative_point1 = point1;
+		Point relative_point2 = point2;
 		int textWidth =  GfxManager.getPlatform().getWidthFor(text);
 		if(!isLeft) {
-			relative_x1 = x2;
-			relative_x2 = x1;
-			relative_y1 = y2;
+			relative_point1 = point2;
+			relative_point2 = point1;
 		}
-		switch (getAnchorType(isLeft ? leftClassArtifact : rightClassArtifact, relative_x1, relative_y1)) {
-		case LEFT: return relative_x1 - textWidth - OptionsManager.getRectangleLeftPadding();
-		case RIGHT:	return relative_x1 + OptionsManager.getRectangleRightPadding();
+		switch (getAnchorType(isLeft ? leftClassArtifact : rightClassArtifact, relative_point1)) {
+		case LEFT: return relative_point1.getX() - textWidth - OptionsManager.getRectangleLeftPadding();
+		case RIGHT:	return relative_point1.getX() + OptionsManager.getRectangleRightPadding();
 		case TOP: case BOTTOM: case UNKNOWN: 
-			if (relative_x1 < relative_x2) return relative_x1 - textWidth - OptionsManager.getRectangleLeftPadding();
-			else return relative_x1 + OptionsManager.getRectangleRightPadding();
+			if (relative_point1.getX() < relative_point2.getX()) return relative_point1.getX() - textWidth - OptionsManager.getRectangleLeftPadding();
+			else return relative_point1.getX() + OptionsManager.getRectangleRightPadding();
 		}
 		return 0;
 	}
 	int getTextY(GfxObject text, boolean isLeft) {
-		int relative_x1 = x1;		
-		int relative_y1 = y1;
-		int relative_y2 = y2;
-		if(!isLeft) {
-			relative_x1 = x2;
-			relative_y1 = y2;
-			relative_y2 = y1;
-		}
+        Point relative_point1 = point1;
+        Point relative_point2 = point2;
+        if(!isLeft) {
+            relative_point1 = point2;
+            relative_point2 = point1;
+        }
 		int textHeight =   GfxManager.getPlatform().getHeightFor(text);
 		int delta = current_delta;
 		current_delta += textHeight;
-		switch (getAnchorType(isLeft ? leftClassArtifact : rightClassArtifact, relative_x1, relative_y1)) {
+		switch (getAnchorType(isLeft ? leftClassArtifact : rightClassArtifact, relative_point1)) {
 		case LEFT: case RIGHT:
-			if (relative_y1 > relative_y2) return relative_y1 + OptionsManager.getRectangleBottomPadding() + textHeight + delta;
-			else return relative_y1 - OptionsManager.getRectangleTopPadding()  - delta;
-		case TOP: return relative_y1 - OptionsManager.getRectangleTopPadding() - delta;
-		case BOTTOM: case UNKNOWN: return relative_y1 + textHeight + OptionsManager.getRectangleBottomPadding() + delta;
+			if (relative_point1.getY() > relative_point2.getY()) return relative_point1.getY() + OptionsManager.getRectangleBottomPadding() + textHeight + delta;
+			else return relative_point1.getY() - OptionsManager.getRectangleTopPadding()  - delta;
+		case TOP: return relative_point1.getY() - OptionsManager.getRectangleTopPadding() - delta;
+		case BOTTOM: case UNKNOWN: return relative_point1.getY() + textHeight + OptionsManager.getRectangleBottomPadding() + delta;
 		}
 		return 0;
 	}
@@ -288,22 +285,18 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		gfxObjectPart.clear();
 		
 		ArrayList<Point> linePoints = GeometryManager.getPlatform().getLineBetween(leftClassArtifact, rightClassArtifact); 
-		
-		x1 = linePoints.get(0).getX();
-		y1 = linePoints.get(0).getY();
-		x2 = linePoints.get(1).getX();
-		y2 = linePoints.get(1).getY();
-		
-		line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
+		point1 = linePoints.get(0);
+		point2 = linePoints.get(1);
+		line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 		// Making arrows group :
 		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
 		if (arrowOnLeft)
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(x1, y1, x2, y2));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point1, point2));
 		if (arrowOnRight) 
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(x2, y2, x1, y1));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point2, point1));
 		// Making the text group
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
@@ -316,8 +309,8 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 			GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getForegroundColor());
 			GfxManager.getPlatform().translate(nameGfxObject, 
-					(x1 + x2 -  (GfxManager.getPlatform().getWidthFor(nameGfxObject))) / 2, 
-					(y1 + y2) / 2);
+					(point1.getX() + point2.getX() -  (GfxManager.getPlatform().getWidthFor(nameGfxObject))) / 2, 
+					(point1.getY() + point2.getY()) / 2);
 			RelationshipArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationshipArtifactPart.NAME);
 			gfxObjectPart.put(RelationshipArtifactPart.NAME, nameGfxObject);
 		}
@@ -336,8 +329,8 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		if (relation.getRightRole() != "") 
 			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, createText(relation.getRightRole(), false, RelationshipArtifactPart.RIGHT_ROLE));
 		if (relationClass != null) {
-			int xLineCenter = (x1 + x2) / 2;
-			int yLineCenter = (y1 + y2) / 2;
+			int xLineCenter = (point1.getX() + point2.getX()) / 2;
+			int yLineCenter = (point1.getY() + point2.getY()) / 2;
 			Point relationClasslinePoint  = GeometryManager.getPlatform().getPointForLine(relationClass, new Point(xLineCenter, xLineCenter));
 			GfxObject relationLine = GfxManager.getPlatform().buildLine(relationClasslinePoint.getX(), relationClasslinePoint.getY(),
 					xLineCenter, yLineCenter);

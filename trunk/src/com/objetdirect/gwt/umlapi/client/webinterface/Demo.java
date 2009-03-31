@@ -12,6 +12,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifac
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 public class Demo extends AbsolutePanel {
 	public Demo(UMLCanvas gc) {
 		Log.trace("Creating demo");
@@ -27,16 +28,16 @@ public class Demo extends AbsolutePanel {
 			serializableClass.setLocation(700, 150);
 		gc.add(serializableClass);
 		ClassArtifact clientClass = new ClassArtifact("Client");
-			clientClass.addAttribute(new Attribute("String", "firstName"));
-			clientClass.addAttribute(new Attribute("String", "lastName"));
+			clientClass.addAttribute(new Attribute(Visibility.PRIVATE, "String", "firstName"));
+			clientClass.addAttribute(new Attribute(Visibility.PROTECTED, "String", "lastName"));
 			List<Parameter> clientParameters = new ArrayList<Parameter>();
 			clientParameters.add(new Parameter("String", "firstName"));
 			clientParameters.add(new Parameter("String", "lastName"));
-			clientClass.addMethod(new Method(null, "Client", clientParameters));
+			clientClass.addMethod(new Method(Visibility.PUBLIC, null, "Client", clientParameters));
 			List<Parameter> addProductParameters = new ArrayList<Parameter>();
 			addProductParameters.add(new Parameter("Product", "product"));
 			addProductParameters.add(new Parameter("Date", "when"));
-			clientClass.addMethod(new Method("void", "addProduct", addProductParameters));
+			clientClass.addMethod(new Method(Visibility.FRIENDLY,"void", "addProduct", addProductParameters));
 			clientClass.setLocation(300, 250);
 		gc.add(clientClass);
 		

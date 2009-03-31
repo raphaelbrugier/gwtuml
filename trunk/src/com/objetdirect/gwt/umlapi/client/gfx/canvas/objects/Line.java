@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Line extends IncubatorGfxObject {
 	
 	private int w;
