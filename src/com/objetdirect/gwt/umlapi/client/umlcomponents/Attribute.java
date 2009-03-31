@@ -17,16 +17,26 @@ public class Attribute extends ClassMember {
 	 * @uml.property  name="validated"
 	 */
 	private boolean validated = true;
+	private Visibility visibility;
 	/**
 	 * Constructor of the attribute
 	 * @param type Type of the attribute
 	 * @param name Name of the attribute
 	 */
-	public Attribute(String type, String name) {
-		super();
+	public Attribute(Visibility visibility, String type, String name) {
+		super();      
+		this.visibility = visibility;		
 		this.type = type;
 		this.name = name;
 	}
+	   
+    public Visibility getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+    }
 	/**
 	 * Getter for the name
 	 * @return  the name
@@ -87,6 +97,7 @@ public class Attribute extends ClassMember {
 	@Override
 	public String toString() {
 		StringBuffer f = new StringBuffer();
+		f.append(visibility);
 		f.append(this.name);
 		if (this.type != null) {
 			f.append(" : ");

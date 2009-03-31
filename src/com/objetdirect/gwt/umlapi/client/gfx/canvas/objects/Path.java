@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 public class Path extends IncubatorGfxObject {
 	private class Point {
 		private int x;

@@ -22,20 +22,31 @@ public class Method extends ClassMember {
 	 * @uml.property  name="validated"
 	 */
 	private boolean validated = true;
+	
+	private Visibility visibility;
 	/**
 	 * Constructor of the method
 	 * @param returnType The return type of the method
 	 * @param name The name of the method
 	 * @param parameters The parameters list of this method
 	 */
-	public Method(String returnType, String name, List<Parameter> parameters) {
+	public Method(Visibility visibility, String returnType, String name, List<Parameter> parameters) {
 		super();
+		this.visibility = visibility;
 		this.returnType = returnType;
 		this.name = name;
 		this.parameters = parameters;
 	}
 	
-	/**
+	public Visibility getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+    }
+
+    /**
 	 * Getter for the name
 	 * @return  the name
 	 * @uml.property  name="name"
@@ -112,6 +123,7 @@ public class Method extends ClassMember {
 	@Override
 	public String toString() {
 		StringBuffer f = new StringBuffer();
+		f.append(visibility);
 		f.append(this.name);
 		f.append("(");
 		if (parameters != null && parameters.size() > 0) {

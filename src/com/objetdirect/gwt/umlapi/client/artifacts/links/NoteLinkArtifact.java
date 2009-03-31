@@ -46,12 +46,10 @@ public class NoteLinkArtifact extends LinkArtifact {
 		} else {
 			lineRightPoint = GeometryManager.getPlatform().getPointForLine(target, new Point(note.getCenterX(), note.getCenterY()));
 		}
-		x1 = lineLeftPoint.getX();
-		y1 = lineLeftPoint.getY();
-		x2 = lineRightPoint.getX();
-		y2 = lineRightPoint.getY();
-		
-		line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);		
+
+        point1 = lineLeftPoint; 
+        point2 = lineRightPoint;
+		line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
@@ -77,12 +75,7 @@ public class NoteLinkArtifact extends LinkArtifact {
 		rightMenu.put("> Delete", remove);
 		return rightMenu;
 	}
-	public int getX() {
-		return x1 < x2 ? x1 : x2;
-	}
-	public int getY() {
-		return y1 < y2 ? y1 : y2;
-	}
+
 	public boolean isDraggable() {
 		return false;
 	}

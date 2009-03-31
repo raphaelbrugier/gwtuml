@@ -6,6 +6,7 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 /**
  * @author  florian
  */
@@ -14,7 +15,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	 * @uml.property  name="method"
 	 * @uml.associationEnd  
 	 */
-	Method method = new Method(null, null, null);
+	Method method = new Method(Visibility.PUBLIC, null, null, null);
 	List<Parameter> parameters = new ArrayList<Parameter>();
 	/**
 	 * @return

@@ -39,11 +39,11 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildFilledArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildFilledArrow(point1, point2);
 		}
 		@Override
 		protected GfxObject buildLine() {
-			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
+			GfxObject line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.SOLID);
@@ -75,11 +75,11 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildFilledArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildFilledArrow(point1, point2);
 		}
 		@Override
 		protected GfxObject buildLine() {
-			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
+			GfxObject line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
@@ -111,11 +111,11 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildArrow(x1, y1, x2, y2);
+			return GeometryManager.getPlatform().buildArrow(point1, point2);
 		}
 		@Override
 		protected GfxObject buildLine() {
-			GfxObject line = GfxManager.getPlatform().buildLine(x1, y1, x2, y2);
+			GfxObject line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 			GfxManager.getPlatform().setStroke(line,
 					ThemeManager.getForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
@@ -175,10 +175,8 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		
 		ArrayList<Point> linePoints = GeometryManager.getPlatform().getLineBetween(left, right); 
 		
-		x1 = linePoints.get(0).getX();
-		y1 = linePoints.get(0).getY();
-		x2 = linePoints.get(1).getX();
-		y2 = linePoints.get(1).getY();
+		point1 = linePoints.get(0);	
+		point2 = linePoints.get(1);
 		
 		line = buildLine();
 		GfxManager.getPlatform().addToVirtualGroup(vg, line);

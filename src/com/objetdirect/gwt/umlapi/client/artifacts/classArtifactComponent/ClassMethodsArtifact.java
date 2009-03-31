@@ -13,6 +13,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 /**
@@ -121,7 +122,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	public void edit() {
 		List<Parameter> methodToCreateParameters = new ArrayList<Parameter>();
 		methodToCreateParameters.add(new Parameter("String", "parameter1"));
-		methods.add(new Method("void","method", methodToCreateParameters));
+		methods.add(new Method(Visibility.PUBLIC, "void","method", methodToCreateParameters));
 		classArtifact.rebuildGfxObject();
 		edit(lastGfxObject, 0, 0);
 	}
