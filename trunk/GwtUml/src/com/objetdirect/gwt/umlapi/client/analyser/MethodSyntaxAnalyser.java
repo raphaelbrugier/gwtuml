@@ -3,17 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 /**
  * @author  florian
  */
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
-	public static final int BEGIN_PARAMETER = 2;
-	public static final int BEGIN_RETURN_TYPE = 5;
-	public static final int END_PARAMETER = 4;
-	public static final int OPEN_PARENTHESIS_EXPECTED = 1;
-	public static final int PARAMETER_EXPECTED = 3;
 	/**
 	 * @uml.property  name="method"
 	 * @uml.associationEnd  
@@ -28,10 +24,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		return method;
 	}
 	void setParameters() {
-		Parameter[] params = new Parameter[parameters.size()];
-		for (int i = 0; i < params.length; i++)
-			params[i] = parameters.get(i);
-		//TODO method.setParameters(params);
+	    method.setParameters(parameters);
 	}
 	@Override
 	protected LexicalAnalyser.Token processToken(LexicalAnalyser lex,
@@ -42,45 +35,45 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		case BEGIN:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.IDENTIFIER) {
+			else if (tk.getType() == LexicalFlag.IDENTIFIER) {
 				method.setName(tk.getContent());
-				setStatus(OPEN_PARENTHESIS_EXPECTED);
+				setStatus(State.OPEN_PARENTHESIS_EXPECTED);
 				return null;
 			} else
 				throwSyntaxError(tk);
 		case OPEN_PARENTHESIS_EXPECTED:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.SIGN
+			else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals("(")) {
-				setStatus(BEGIN_PARAMETER);
+				setStatus(State.BEGIN_PARAMETER);
 				return null;
 			} else
 				throwSyntaxError(tk);
 		case BEGIN_PARAMETER:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.SIGN
+			else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(")")) {
-				setStatus(BEGIN_RETURN_TYPE);
+				setStatus(State.BEGIN_RETURN_TYPE);
 				return null;
 			} else {
 				ParameterAnalyser pa = new ParameterAnalyser();
 				tk = pa.process(lex, tk);
 				parameters.add(pa.getParameter());
-				setStatus(END_PARAMETER);
+				setStatus(State.END_PARAMETER);
 				return tk;
 			}
 		case END_PARAMETER:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.SIGN
+			else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(")")) {
-				setStatus(BEGIN_RETURN_TYPE);
+				setStatus(State.BEGIN_RETURN_TYPE);
 				return null;
-			} else if (tk.getType() == LexicalAnalyser.SIGN
+			} else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(",")) {
-				setStatus(PARAMETER_EXPECTED);
+				setStatus(State.PARAMETER_EXPECTED);
 				return null;
 			} else
 				throwSyntaxError(tk);
@@ -91,20 +84,20 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 				ParameterAnalyser pa = new ParameterAnalyser();
 				tk = pa.process(lex, tk);
 				parameters.add(pa.getParameter());
-				setStatus(END_PARAMETER);
+				setStatus(State.END_PARAMETER);
 				return tk;
 			}
 		case BEGIN_RETURN_TYPE:
 			setParameters();
-			if (tk != null && tk.getType() == LexicalAnalyser.SIGN
+			if (tk != null && tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(":")) {
 				TypeAnalyser ta = new TypeAnalyser();
 				tk = ta.process(lex, null);
 				method.setReturnType(ta.getType());
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			} else {
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			}
 		}

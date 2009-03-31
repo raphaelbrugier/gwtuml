@@ -4,15 +4,19 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
  * @author  florian
  */
 public abstract class SyntaxAnalyser {
-	public static final int BEGIN = 0;
-	public static final int FINISHED = -1;
+	public enum State { 
+		BEGIN, BEGIN_TYPE, FINISHED, BEGIN_PARAMETER,
+		BEGIN_RETURN_TYPE, END_PARAMETER, 
+		OPEN_PARENTHESIS_EXPECTED, PARAMETER_EXPECTED,
+		BEGIN_OPEN_BRACKET, BEGIN_TYPE_PARAMETER, CLOSE_BRACKET_EXPECTED,
+		END_TYPE_PARAMETER, TYPE_PARAMETER_EXPECTED}
 	/**
 	 * @uml.property  name="status"
 	 */
-	private int status = BEGIN;
+	private State status = State.BEGIN;
 	public LexicalAnalyser.Token process(LexicalAnalyser lex,
 			LexicalAnalyser.Token tk) {
-		while (getStatus() != FINISHED) {
+		while (getStatus() != State.FINISHED) {
 			tk = processToken(lex, tk);
 		}
 		return tk;
@@ -21,14 +25,14 @@ public abstract class SyntaxAnalyser {
 	 * @return
 	 * @uml.property  name="status"
 	 */
-	int getStatus() {
+	State getStatus() {
 		return status;
 	}
 	/**
 	 * @param status
 	 * @uml.property  name="status"
 	 */
-	void setStatus(int status) {
+	void setStatus(State status) {
 		this.status = status;
 	}
 	protected abstract LexicalAnalyser.Token processToken(LexicalAnalyser lex,

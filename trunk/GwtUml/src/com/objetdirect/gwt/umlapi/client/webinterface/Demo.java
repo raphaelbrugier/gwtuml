@@ -14,7 +14,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 public class Demo extends AbsolutePanel {
 	public Demo(UMLCanvas gc) {
-		Log.debug("Creating demo");
+		Log.trace("Creating demo");
 		ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 			dataManagerClass.setLocation(500, 50);
 		gc.add(dataManagerClass);
@@ -108,6 +108,6 @@ public class Demo extends AbsolutePanel {
 		NoteLinkArtifact noteDependencyLink = new NoteLinkArtifact(note,
 				clientDataManager);
 		gc.add(noteDependencyLink);
-		Log.debug("Init demodrawer end");
+		Log.trace("Init demodrawer end");
 	}
 }

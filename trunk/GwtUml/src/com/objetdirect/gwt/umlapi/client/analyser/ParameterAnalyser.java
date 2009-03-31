@@ -1,16 +1,17 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 /**
  * @author  florian
  */
 public class ParameterAnalyser extends SyntaxAnalyser {
-	public static final int BEGIN_TYPE = 1;
 	/**
 	 * @uml.property  name="param"
 	 * @uml.associationEnd  
 	 */
+	
 	Parameter param = new Parameter(null, null);
 	public Parameter getParameter() {
 		return param;
@@ -23,22 +24,22 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		case BEGIN:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.IDENTIFIER) {
+			else if (tk.getType() == LexicalFlag.IDENTIFIER) {
 				param.setName(tk.getContent());
-				setStatus(BEGIN_TYPE);
+				setStatus(State.BEGIN_TYPE);
 				return null;
 			} else
 				throwSyntaxError(tk);
 		case BEGIN_TYPE:
-			if (tk != null && tk.getType() == LexicalAnalyser.SIGN
+			if (tk != null && tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(":")) {
 				TypeAnalyser ta = new TypeAnalyser();
 				tk = ta.process(lex, null);
 				param.setType(ta.getType());
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			} else {
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			}
 		}

@@ -1,15 +1,12 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 /**
  * @author  florian
  */
 public class TypeAnalyser extends SyntaxAnalyser {
-	public static final int BEGIN_OPEN_BRACKET = 4;
-	public static final int BEGIN_TYPE_PARAMETER = 1;
-	public static final int CLOSE_BRACKET_EXPECTED = 5;
-	public static final int END_TYPE_PARAMETER = 2;
-	public static final int TYPE_PARAMETER_EXPECTED = 3;
+
 	/**
 	 * @uml.property  name="type"
 	 */
@@ -29,41 +26,41 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		case BEGIN:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.IDENTIFIER) {
+			else if (tk.getType() == LexicalFlag.IDENTIFIER) {
 				type += tk.getContent();
-				setStatus(BEGIN_TYPE_PARAMETER);
+				setStatus(State.BEGIN_TYPE_PARAMETER);
 				return null;
 			} else
 				throwSyntaxError(tk);
 		case BEGIN_TYPE_PARAMETER:
-			if (tk != null && tk.getType() == LexicalAnalyser.SIGN
+			if (tk != null && tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals("<")) {
 				TypeAnalyser ta = new TypeAnalyser();
 				tk = ta.process(lex, null);
 				type += "<" + ta.getType();
-				setStatus(END_TYPE_PARAMETER);
+				setStatus(State.END_TYPE_PARAMETER);
 				return tk;
-			} else if (tk != null && tk.getType() == LexicalAnalyser.SIGN
+			} else if (tk != null && tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals("[")) {
 				type += "[";
-				setStatus(CLOSE_BRACKET_EXPECTED);
+				setStatus(State.CLOSE_BRACKET_EXPECTED);
 				return null;
 			} else {
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			}
 		case END_TYPE_PARAMETER:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.SIGN
+			else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(">")) {
 				type += ">";
-				setStatus(BEGIN_OPEN_BRACKET);
+				setStatus(State.BEGIN_OPEN_BRACKET);
 				return null;
-			} else if (tk.getType() == LexicalAnalyser.SIGN
+			} else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals(",")) {
 				type += ", ";
-				setStatus(TYPE_PARAMETER_EXPECTED);
+				setStatus(State.TYPE_PARAMETER_EXPECTED);
 				return null;
 			} else
 				throwSyntaxError(tk);
@@ -74,26 +71,26 @@ public class TypeAnalyser extends SyntaxAnalyser {
 				TypeAnalyser ta = new TypeAnalyser();
 				tk = ta.process(lex, tk);
 				type += ta.getType();
-				setStatus(END_TYPE_PARAMETER);
+				setStatus(State.END_TYPE_PARAMETER);
 				return tk;
 			}
 		case BEGIN_OPEN_BRACKET:
-			if (tk != null && tk.getType() == LexicalAnalyser.SIGN
+			if (tk != null && tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals("[")) {
 				type += "[";
-				setStatus(CLOSE_BRACKET_EXPECTED);
+				setStatus(State.CLOSE_BRACKET_EXPECTED);
 				return null;
 			} else {
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return tk;
 			}
 		case CLOSE_BRACKET_EXPECTED:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalAnalyser.SIGN
+			else if (tk.getType() == LexicalFlag.SIGN
 					&& tk.getContent().equals("]")) {
 				type += "]";
-				setStatus(FINISHED);
+				setStatus(State.FINISHED);
 				return null;
 			} else
 				throwSyntaxError(tk);

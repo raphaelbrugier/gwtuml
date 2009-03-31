@@ -53,14 +53,14 @@ public abstract class FieldEditor {
 		
 		editField.addFocusHandler(new FocusHandler() {
 			public void onFocus(FocusEvent event) {
-				Log.debug("Focus on " + this);
+				Log.trace("Focus on " + this);
 				
 			}
 			
 		});
 		editField.addBlurHandler(new BlurHandler() {
 			public void onBlur(BlurEvent event) {
-				Log.debug("Focus lost on " + this);
+				Log.trace("Focus lost on " + this);
 				validate(true);
 			}
 			

@@ -154,7 +154,7 @@ public class GWTCanvasGfxPlatform  implements GfxPlatform {
 	}
 	public void redraw(final CanvasBridge canvas) {
 		if(System.currentTimeMillis() - lastRedrawTime > timeBetween2Redraw) {
-			Log.info("Redraw");
+			Log.debug("Redraw");
 			canvas.clear();
 			for (GfxObject gfxO : canvasObjects) {
 				getIncubatorGraphicalObjectFrom(gfxO).draw();

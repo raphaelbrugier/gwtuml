@@ -75,7 +75,7 @@ public class StartPanel extends VerticalPanel {
 		instance = this;
 		loadingScreen = new LoadingScreen();
 		loadingScreen.show();
-		Log.debug("Starting App");
+		Log.trace("Starting App");
 		HotKeyManager.forceStaticInit();
 		this.setWidth("100%");
 		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);

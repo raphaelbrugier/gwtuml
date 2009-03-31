@@ -52,7 +52,7 @@ public abstract class IncubatorGfxObject {
 	 */
 	protected int y = 0;
 	public void addOnCanvasAt(CanvasBridge canvas, int dx, int dy) {
-		Log.debug("Adding " + this + " on canvas " + canvas);
+		Log.trace("Adding " + this + " on canvas " + canvas);
 		isVisible = true;
 		this.canvas = canvas;
 		translate(dx, dy);

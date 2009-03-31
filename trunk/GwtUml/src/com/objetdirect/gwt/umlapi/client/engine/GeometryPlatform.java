@@ -58,7 +58,7 @@ public abstract class GeometryPlatform {
 	public ArrayList<Point> getLineBetween(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact){
 		long t = System.currentTimeMillis();
 		ArrayList<Point> pointList = getLineBetweenWithTime(firstUMLArtifact, secondUMLArtifact);
-		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + firstUMLArtifact + " and " + secondUMLArtifact);
+		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + firstUMLArtifact + " and " + secondUMLArtifact);
 		return pointList;
 		
 		
@@ -66,7 +66,7 @@ public abstract class GeometryPlatform {
 	public Point getPointForLine(UMLArtifact uMLArtifact, Point point) {
 		long t = System.currentTimeMillis();
 		Point pt = getPointForLineWithTime(uMLArtifact, point);
-		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + uMLArtifact + " and a point");
+		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + uMLArtifact + " and a point");
 		return pt;
 	}
 	

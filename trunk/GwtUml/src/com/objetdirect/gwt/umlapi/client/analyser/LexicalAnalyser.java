@@ -1,11 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 /**
- * @author  florian
+ * @author  henri, florian
  */
 public class LexicalAnalyser {
 	/**
-	 * @author  florian
+	 * @author  henri, florian
 	 */
 	public static class Token {
 		/**
@@ -15,8 +15,8 @@ public class LexicalAnalyser {
 		/**
 		 * @uml.property  name="type"
 		 */
-		int type;
-		public Token(int type, String content) {
+		LexicalFlag type;
+		public Token(LexicalFlag type, String content) {
 			this.type = type;
 			this.content = content;
 		}
@@ -31,31 +31,17 @@ public class LexicalAnalyser {
 		 * @return
 		 * @uml.property  name="type"
 		 */
-		public int getType() {
+		public LexicalFlag getType() {
 			return type;
 		}
 	}
-	public static final int CHAR = 12;
-	public static final int FLOAT = 17;
-	public static final int IDENTIFIER = 1;
-	public static final int INTEGER = 16;
-	public static final int SIGN = 15;
-	public static final int SIGN_CONTINUED = 16;
-	public static final int STRING = 10;
-	static final int CHAR_DEFINED = 14;
-	static final int DECIMAL = 5;
-	static final int DOT_OR_DECIMAL = 4;
-	static final int ESCAPED_CHAR = 13;
-	static final int ESCAPED_STRING = 11;
-	static final int EXPONENT = 9;
-	static final int NUMERIC = 2;
-	static final int SIGN_OR_NUMERIC = 3;
-	static final int SIGNED_EXPONENT = 7;
-	static final int START_DECIMAL = 6;
-	static final int START_EXPONENT = 8;
-	static final int UNDEFINED = 0;
+	public enum LexicalFlag {
+		CHAR, FLOAT, IDENTIFIER, INTEGER,  SIGN,  SIGN_CONTINUED, STRING,  CHAR_DEFINED,
+		DECIMAL, DOT_OR_DECIMAL, ESCAPED_CHAR, ESCAPED_STRING, EXPONENT, NUMERIC,
+		SIGN_OR_NUMERIC, SIGNED_EXPONENT, START_DECIMAL, START_EXPONENT , UNDEFINED;
+	}
 	int ptr;
-	int status = UNDEFINED;
+	LexicalFlag status = LexicalFlag.UNDEFINED;
 	String text;
 	/**
 	 * @uml.property  name="token"
@@ -86,25 +72,25 @@ public class LexicalAnalyser {
 		}
 		return token;
 	}
-	Token consume(int status, char c) {
+	Token consume(LexicalFlag status, char c) {
 		this.token.append(c);
 		this.ptr++;
 		String content = this.token.toString();
 		this.token = new StringBuffer();
-		this.status = UNDEFINED;
+		this.status = LexicalFlag.UNDEFINED;
 		return new Token(status, content);
 	}
 	Token ignore() {
 		this.ptr++;
 		return null;
 	}
-	Token inject(int status) {
+	Token inject(LexicalFlag status) {
 		String content = this.token.toString();
 		this.token = new StringBuffer();
-		this.status = UNDEFINED;
+		this.status = LexicalFlag.UNDEFINED;
 		return new Token(status, content);
 	}
-	Token process(int status, char c) {
+	Token process(LexicalFlag status, char c) {
 		this.token.append(c);
 		this.ptr++;
 		this.status = status;
@@ -113,19 +99,19 @@ public class LexicalAnalyser {
 	Token processEOF() {
 		switch (status) {
 		case IDENTIFIER:
-			return inject(IDENTIFIER);
+			return inject(LexicalFlag.IDENTIFIER);
 		case SIGN_OR_NUMERIC:
-			return inject(SIGN);
+			return inject(LexicalFlag.SIGN);
 		case DOT_OR_DECIMAL:
-			return inject(SIGN);
+			return inject(LexicalFlag.SIGN);
 		case NUMERIC:
-			return inject(INTEGER);
+			return inject(LexicalFlag.INTEGER);
 		case DECIMAL:
-			return inject(FLOAT);
+			return inject(LexicalFlag.FLOAT);
 		case EXPONENT:
-			return inject(FLOAT);
+			return inject(LexicalFlag.FLOAT);
 		case SIGN_CONTINUED:
-			return inject(SIGN);
+			return inject(LexicalFlag.SIGN);
 		}
 		return null;
 	}
@@ -136,100 +122,100 @@ public class LexicalAnalyser {
 			if (c == ' ')
 				return ignore();
 			else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
-				return process(IDENTIFIER, c);
+				return process(LexicalFlag.IDENTIFIER, c);
 			else if (c == '#' || c == '(' || c == ')' || c == ',' || c == '{'
-					|| c == '}' || c == ':' || c == '[' || c == ']')
-				return consume(SIGN, c);
+				|| c == '}' || c == ':' || c == '[' || c == ']')
+				return consume(LexicalFlag.SIGN, c);
 			else if (c == '<' || c == '>')
-				return process(SIGN_CONTINUED, c);
+				return process(LexicalFlag.SIGN_CONTINUED, c);
 			else if (c == '+' || c == '-')
-				return process(SIGN_OR_NUMERIC, c);
+				return process(LexicalFlag.SIGN_OR_NUMERIC, c);
 			else if (c == '.')
-				return process(DOT_OR_DECIMAL, c);
+				return process(LexicalFlag.DOT_OR_DECIMAL, c);
 			else if (c == '\'')
-				return process(CHAR, c);
+				return process(LexicalFlag.CHAR, c);
 			else if (c == '"')
-				return process(STRING, c);
+				return process(LexicalFlag.STRING, c);
 			else if (c >= '0' && c <= '9')
-				return process(NUMERIC, c);
+				return process(LexicalFlag.NUMERIC, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case IDENTIFIER:
 			if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_'
-					|| c >= '0' && c <= '9')
-				return process(IDENTIFIER, c);
+				|| c >= '0' && c <= '9')
+				return process(LexicalFlag.IDENTIFIER, c);
 			else
-				return inject(IDENTIFIER);
+				return inject(LexicalFlag.IDENTIFIER);
 		case SIGN_OR_NUMERIC:
 			if (c >= '0' && c <= '9')
-				return process(NUMERIC, c);
+				return process(LexicalFlag.NUMERIC, c);
 			else if (c == '.')
-				return process(DECIMAL, c);
+				return process(LexicalFlag.DECIMAL, c);
 			else
-				return inject(SIGN);
+				return inject(LexicalFlag.SIGN);
 		case SIGN_CONTINUED:
 			if (c == '=')
-				return consume(SIGN, c);
+				return consume(LexicalFlag.SIGN, c);
 			else
-				return inject(SIGN);
+				return inject(LexicalFlag.SIGN);
 		case DOT_OR_DECIMAL:
 			if (c >= '0' && c <= '9')
-				return process(START_DECIMAL, c);
+				return process(LexicalFlag.START_DECIMAL, c);
 			else
-				return inject(SIGN);
+				return inject(LexicalFlag.SIGN);
 		case STRING:
 			if (c == '\\')
-				return process(ESCAPED_STRING, c);
+				return process(LexicalFlag.ESCAPED_STRING, c);
 			else if (c == '"')
-				return consume(STRING, c);
+				return consume(LexicalFlag.STRING, c);
 		case ESCAPED_STRING:
-			return process(STRING, c);
+			return process(LexicalFlag.STRING, c);
 		case CHAR:
 			if (c == '\\')
-				return process(ESCAPED_CHAR, c);
+				return process(LexicalFlag.ESCAPED_CHAR, c);
 			else if (c != '\'')
-				return process(CHAR_DEFINED, c);
+				return process(LexicalFlag.CHAR_DEFINED, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case ESCAPED_CHAR:
-			return process(CHAR_DEFINED, c);
+			return process(LexicalFlag.CHAR_DEFINED, c);
 		case CHAR_DEFINED:
 			if (c == '\'')
-				return consume(CHAR, c);
+				return consume(LexicalFlag.CHAR, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case NUMERIC:
 			if (c >= '0' && c <= '9')
-				return process(NUMERIC, c);
+				return process(LexicalFlag.NUMERIC, c);
 			else if (c == '.')
-				return process(DECIMAL, c);
+				return process(LexicalFlag.DECIMAL, c);
 			else if (c == 'e' || c == 'E')
-				return process(SIGNED_EXPONENT, c);
+				return process(LexicalFlag.SIGNED_EXPONENT, c);
 			else
-				return consume(INTEGER, c);
+				return consume(LexicalFlag.INTEGER, c);
 		case START_DECIMAL:
 			if (c >= '0' && c <= '9')
-				return process(DECIMAL, c);
+				return process(LexicalFlag.DECIMAL, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case DECIMAL:
 			if (c >= '0' && c <= '9')
-				return process(DECIMAL, c);
+				return process(LexicalFlag.DECIMAL, c);
 			else if (c == 'e' || c == 'E')
-				return process(SIGNED_EXPONENT, c);
+				return process(LexicalFlag.SIGNED_EXPONENT, c);
 			else
-				return inject(FLOAT);
+				return inject(LexicalFlag.FLOAT);
 		case SIGNED_EXPONENT:
 			if (c == '+' || c == '-')
-				return process(START_EXPONENT, c);
+				return process(LexicalFlag.START_EXPONENT, c);
 			else if (c >= '0' && c <= '9')
-				return process(EXPONENT, c);
+				return process(LexicalFlag.EXPONENT, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case START_EXPONENT:
 			if (c >= '0' && c <= '9')
-				return process(EXPONENT, c);
+				return process(LexicalFlag.EXPONENT, c);
 			throw new UMLDrawerException("Invalid character : " + c);
 		case EXPONENT:
 			if (c >= '0' && c <= '9')
-				return process(EXPONENT, c);
+				return process(LexicalFlag.EXPONENT, c);
 			else
-				return inject(FLOAT);
+				return inject(LexicalFlag.FLOAT);
 		}
 		throw new UMLDrawerException("Invalid status : " + status);
 	}

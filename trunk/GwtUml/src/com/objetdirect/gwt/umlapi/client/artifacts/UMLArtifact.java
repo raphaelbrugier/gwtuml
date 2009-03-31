@@ -81,8 +81,8 @@ public abstract class UMLArtifact  {
 		}
 		if(!isBuilt) {
 			long t = System.currentTimeMillis();
-			buildGfxObject();
-			Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
+			buildGfxObjectWithAnimation();
+			Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 			isBuilt = true;
 		}
 		return gfxObject;
@@ -110,17 +110,19 @@ public abstract class UMLArtifact  {
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		buildGfxObjectWithAnimation();
 
-		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
+		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 		for(final UMLArtifact dependentUMLArtifact : dependentUMLArtifacts) {
 			Log.trace("Rebuilding : " + dependentUMLArtifact);
 			new Scheduler.Task(dependentUMLArtifact) {
 				@Override
 				public void process() {
+					long t = System.currentTimeMillis();
 					dependentUMLArtifact.rebuildGfxObject();
+					Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to arrow " + this);
 				}
 			};
 		}
-		Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
+		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
 
 	}
 	public abstract boolean isDraggable();

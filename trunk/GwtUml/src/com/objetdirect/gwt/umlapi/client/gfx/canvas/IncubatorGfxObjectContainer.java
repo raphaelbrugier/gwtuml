@@ -19,11 +19,11 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 		long t = System.currentTimeMillis();
 		for (Map.Entry<IncubatorGfxObject, IncubatorGfxObjectContainer> pair : incubatorGfxObjectContainerMap.entrySet()) {
 			if (pair.getKey().isPointed(x, y)) {
-				Log.info("([" + (System.currentTimeMillis() - t) + "ms]) to find " + pair.getValue());
+				Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to find " + pair.getValue());
 				return pair.getValue();
 			}
 		}
-		Log.debug("No Icontainer found at " + x + ", " + y);
+		Log.trace("No Icontainer found at " + x + ", " + y);
 		return null;
 	}
 	/*
@@ -42,7 +42,7 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 			Log.error("Creating a Icontainer of a null object");
 		this.incubatorGfxObject = incubatorGfxObject;
 		incubatorGfxObjectContainerMap.put(incubatorGfxObject, this);
-		Log.debug("Added Icontainer " + this);
+		Log.trace("Added Icontainer " + this);
 	}
 	public IncubatorGfxObject getGraphicObject() {
 		return incubatorGfxObject;

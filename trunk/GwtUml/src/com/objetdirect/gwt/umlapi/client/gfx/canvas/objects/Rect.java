@@ -11,7 +11,7 @@ public class Rect extends IncubatorGfxObject {
 	@Override
 	public void draw() {
 		if (!isVisible) {
-			Log.debug(this + " is not visible");
+			Log.trace(this + " is not visible");
 			return;
 		}
 		if (canvas == null) Log.fatal("canvas is null for " + this);

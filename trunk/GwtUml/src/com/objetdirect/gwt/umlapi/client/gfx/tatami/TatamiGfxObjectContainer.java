@@ -24,7 +24,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 			Log.error("Creating a Tcontainer of a null object");
 		this.graphicObject = graphicObject;
 		tatamiGfxObjectContainerMap.put(graphicObject, this);
-		Log.debug("Added Tcontainer " + this);
+		Log.trace("Added Tcontainer " + this);
 	}
 	/**
 	 * @return
