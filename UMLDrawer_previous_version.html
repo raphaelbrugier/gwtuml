@@ -45,9 +45,10 @@ function afficher(){
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GwtUml/www/com.objetdirect.gwt.umlapi.UMLDrawer/UMLDrawer.html';		
 	else if(rev < 83) // gwt 1.5 -> 1.6
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GwtUml/latest_build/UMLDrawer.html';
-	else
+	else if(rev < 110) // gwt 1.6 -> bleeding w/ oophm
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GwtUml/war/UMLDrawer.html';
-	
+	else
+		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/war/UMLDrawer.html';
 	return false;
 }
 //]]>
