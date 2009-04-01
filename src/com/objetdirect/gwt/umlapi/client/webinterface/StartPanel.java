@@ -198,11 +198,12 @@ public class StartPanel extends VerticalPanel {
 		else
 			GfxManager.setPlatform(new GWTCanvasGfxPlatform());
 		
+
 		if (geometryStyleListBox.getItemText(
-				geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
-				"Linear"))
-			GeometryManager.setPlatform(new LinearGeometry());
-		else
+                geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
+                "Linear"))
+            GeometryManager.setPlatform(new LinearGeometry());
+        else
 			GeometryManager.setPlatform(new ShapeGeometry());
 		OptionsManager.setAnimated(isAnimated.getValue());
 		instance.removeFromParent();

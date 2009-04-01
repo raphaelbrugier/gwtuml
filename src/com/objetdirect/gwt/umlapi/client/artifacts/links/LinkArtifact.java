@@ -4,9 +4,17 @@ import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 public abstract class LinkArtifact extends UMLArtifact {
+    
+    public enum LinkAdornment {
+        NONE, CROSS, ARROW, WHITE_ARROW, WHITE_DIAMOND, BLACK_DIAMOND;
+    }
+    
     Point point1 = new Point(0,0);
     Point point2 = new Point(0,0);
-	@Override
+	LinkAdornment side1;
+	LinkAdornment side2;
+    
+    @Override
 	public int getHeight() {
 		return point1.getY() < point2.getY() ? point2.getY() - point1.getY() : point1.getY() - point2.getY();
 	}

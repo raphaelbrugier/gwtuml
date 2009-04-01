@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.editors.RelationshipLinkFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -225,7 +226,7 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		return rightMenu;
 	}
 	public void select() {
-		GfxManager.getPlatform().moveToFront(gfxObject);
+		GfxManager.getPlatform().moveToFront(gfxObject/*textVirtualGroup*/);
 		GfxManager.getPlatform().setStroke(line, ThemeManager.getHighlightedForegroundColor(), 2);
 		GfxManager.getPlatform().setStroke(arrowVirtualGroup, ThemeManager.getHighlightedForegroundColor(), 2);
 	}
@@ -294,9 +295,9 @@ public class RelationshipLinkArtifact extends LinkArtifact {
 		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
 		if (arrowOnLeft)
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point1, point2));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point1, point2, LinkAdornment.WHITE_ARROW));
 		if (arrowOnRight) 
-			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point2, point1));
+			GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildArrow(point2, point1, LinkAdornment.WHITE_ARROW));
 		// Making the text group
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);

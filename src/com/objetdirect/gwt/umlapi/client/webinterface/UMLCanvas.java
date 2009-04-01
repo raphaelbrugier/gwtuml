@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassDependencyLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.DependencyLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -287,17 +287,17 @@ public class UMLCanvas extends AbsolutePanel {
 					} else
 						switch (activeLinking) {
 						case SIMPLE:
-							add(new ClassDependencyLinkArtifact.Simple(
+							add(new DependencyLinkArtifact.Simple(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
 						case IMPLEMENTATION:
-							add(new ClassDependencyLinkArtifact.Implementation(
+							add(new DependencyLinkArtifact.Implementation(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
 						case EXTENSION:
-							add(new ClassDependencyLinkArtifact.Extension(
+							add(new DependencyLinkArtifact.Extension(
 									(ClassArtifact) selected,
 									(ClassArtifact) newSelected));
 							break;
