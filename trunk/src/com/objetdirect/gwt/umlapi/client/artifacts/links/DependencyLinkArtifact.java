@@ -13,8 +13,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 /**
  * @author  florian
  */
-public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
-	public static class Extension extends ClassDependencyLinkArtifact {
+public abstract class DependencyLinkArtifact extends LinkArtifact {
+	public static class Extension extends DependencyLinkArtifact {
 		public Extension(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
@@ -39,7 +39,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildFilledArrow(point1, point2);
+			return GeometryManager.getPlatform().buildArrow(point1, point2, LinkAdornment.WHITE_ARROW);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -50,7 +50,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 			return line;
 		}
 	}
-	public static class Implementation extends ClassDependencyLinkArtifact {
+	public static class Implementation extends DependencyLinkArtifact {
 		public Implementation(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
@@ -75,7 +75,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildFilledArrow(point1, point2);
+			return GeometryManager.getPlatform().buildArrow(point1, point2, LinkAdornment.WHITE_DIAMOND);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -86,7 +86,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 			return line;
 		}
 	}
-	public static class Simple extends ClassDependencyLinkArtifact {
+	public static class Simple extends DependencyLinkArtifact {
 		public Simple(ClassArtifact left, ClassArtifact right) {
 			super(left, right);
 		}
@@ -111,7 +111,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 		}
 		@Override
 		protected GfxObject buildArrow() {
-			return GeometryManager.getPlatform().buildArrow(point1, point2);
+			return GeometryManager.getPlatform().buildArrow(point1, point2, LinkAdornment.ARROW);
 		}
 		@Override
 		protected GfxObject buildLine() {
@@ -126,7 +126,7 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 	 * @uml.property  name="arrow"
 	 * @uml.associationEnd  
 	 */
-	GfxObject arrow = null;
+	GfxObject arrow;
 	/**
 	 * @uml.property  name="left"
 	 * @uml.associationEnd  
@@ -136,25 +136,23 @@ public abstract class ClassDependencyLinkArtifact extends LinkArtifact {
 	 * @uml.property  name="line"
 	 * @uml.associationEnd  
 	 */
-	GfxObject line = null;
+	GfxObject line;
 	/**
 	 * @uml.property  name="right"
 	 * @uml.associationEnd  
 	 */
 	ClassArtifact right;
-	public ClassDependencyLinkArtifact(ClassArtifact left, ClassArtifact right) {
+	public DependencyLinkArtifact(ClassArtifact left, ClassArtifact right) {
 		this.left = left;
 		left.addDependency(this);
 		this.right = right;
 		right.addDependency(this);
 	}
+	
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
 	}
-	public Object getSubPart(GfxObject o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	public void select() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getHighlightedForegroundColor(), 2);

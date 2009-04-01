@@ -14,10 +14,10 @@ public class OptionsManager {
 	private static final int LEFT_RECT_PADDING = 4;
 	private static final int TOP_RECT_PADDING = 4;
 	private static final int BOTTOM_RECT_PADDING = 6;
-	private static final int ARROW_LENGTH = 20;
-	private static final int ARROW_WIDTH = 8;
-	private static final int FILLED_ARROW_LENGTH = 25;
-	private static final int FILLED_ARROW_WIDTH = 10;
+	private static final int ARROW_LENGTH = 25;
+	private static final int ARROW_WIDTH = 15;
+	private static final int FILLED_ARROW_LENGTH = 30;
+	private static final int FILLED_ARROW_WIDTH = 20;
 	private static boolean isAnimated = false;
 
 	/**

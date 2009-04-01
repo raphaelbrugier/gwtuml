@@ -6,7 +6,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassDependencyLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.DependencyLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
@@ -37,17 +37,17 @@ public class Demo extends AbsolutePanel {
 			List<Parameter> addProductParameters = new ArrayList<Parameter>();
 			addProductParameters.add(new Parameter("Product", "product"));
 			addProductParameters.add(new Parameter("Date", "when"));
-			clientClass.addMethod(new Method(Visibility.FRIENDLY,"void", "addProduct", addProductParameters));
+			clientClass.addMethod(new Method(Visibility.PACKAGE,"void", "addProduct", addProductParameters));
 			clientClass.setLocation(300, 250);
 		gc.add(clientClass);
 		
-		ClassDependencyLinkArtifact clientDataManager = new ClassDependencyLinkArtifact.Simple(
+		DependencyLinkArtifact clientDataManager = new DependencyLinkArtifact.Simple(
 				clientClass, dataManagerClass);
 		gc.add(clientDataManager);
-		ClassDependencyLinkArtifact clientBusinessObject = new ClassDependencyLinkArtifact.Extension(
+		DependencyLinkArtifact clientBusinessObject = new DependencyLinkArtifact.Extension(
 				clientClass, businessObjectClass);
 		gc.add(clientBusinessObject);
-		ClassDependencyLinkArtifact clientSerializable = new ClassDependencyLinkArtifact.Implementation(
+		DependencyLinkArtifact clientSerializable = new DependencyLinkArtifact.Implementation(
 				clientClass, serializableClass);
 		gc.add(clientSerializable);
 		ClassArtifact eventClass = new ClassArtifact("Event");		
