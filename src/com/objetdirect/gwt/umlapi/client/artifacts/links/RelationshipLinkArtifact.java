@@ -26,7 +26,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author  florian
  */
 public abstract class RelationshipLinkArtifact extends LinkArtifact {
-    
+
     public static RelationshipLinkArtifact makeLinkArtifact(ClassArtifact left, ClassArtifact right, RelationKind kind) {
         switch (kind) {
         case AGGREGATION: return new AggregationLinkArtifact(left, right);
@@ -38,9 +38,9 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
         default:
             return new AggregationLinkArtifact(left, right);
         }
-        
+
     }
-    
+
     /**
      * @author   florian
      */
@@ -212,23 +212,43 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
     @Override
     protected void buildGfxObject() {
         gfxObjectPart.clear();
+        ArrayList<Point> linePoints;
+        if(leftClassArtifact != rightClassArtifact) {
+            linePoints = GeometryManager.getPlatform().getLineBetween(leftClassArtifact, rightClassArtifact); 
+            point1 = linePoints.get(0);
+            point2 = linePoints.get(1);
+            line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
+        } else {
+            linePoints = GeometryManager.getPlatform().getReflexiveLineFor(leftClassArtifact);
+            point1 = linePoints.get(1);
+            point2 = linePoints.get(2);
+            line = GfxManager.getPlatform().buildPath();
+            GfxManager.getPlatform().moveTo(line, linePoints.get(0).getX(), linePoints.get(0).getY());
+            GfxManager.getPlatform().lineTo(line, linePoints.get(1).getX(), linePoints.get(1).getY());
+            GfxManager.getPlatform().lineTo(line, linePoints.get(2).getX(), linePoints.get(2).getY());
+            GfxManager.getPlatform().lineTo(line, linePoints.get(3).getX(), linePoints.get(3).getY());
+            GfxManager.getPlatform().lineTo(line, linePoints.get(4).getX(), linePoints.get(4).getY());
+            GfxManager.getPlatform().setOpacity(line, 0, true);
+        }
 
-        ArrayList<Point> linePoints = GeometryManager.getPlatform().getLineBetween(leftClassArtifact, rightClassArtifact); 
-        point1 = linePoints.get(0);
-        point2 = linePoints.get(1);
-        line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
         GfxManager.getPlatform().setStroke(line, ThemeManager.getForegroundColor(), 1);
         GfxManager.getPlatform().setStrokeStyle(line, style.getGfxStyle());
         GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 
+
         // Making arrows group :
         arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
         GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
-        if (adornmentLeft != LinkAdornment.NONE)
+        if(leftClassArtifact != rightClassArtifact) {
+        if (adornmentLeft != LinkAdornment.NONE || adornmentLeft.isCrossed())
             GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(point1, point2, adornmentLeft));
-        if (adornmentRight != LinkAdornment.NONE) 
+        if (adornmentRight != LinkAdornment.NONE || adornmentLeft.isCrossed()) 
             GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(point2, point1, adornmentRight));
-
+        } else {
+            if (adornmentLeft != LinkAdornment.NONE || adornmentLeft.isCrossed())
+                GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(linePoints.get(4), linePoints.get(3), adornmentLeft));
+        }
+            
         // Making the text group :        
         textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
         GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
