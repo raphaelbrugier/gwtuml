@@ -21,9 +21,9 @@ NoteArtifact note;
 UMLArtifact target;
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
 		this.note = note;
-		this.note.addDependency(this);
+		this.note.addDependency(this, target);
 		this.target = target;
-		this.target.addDependency(this);
+		this.target.addDependency(this, note);
 	}
 	public void buildGfxObject() {
 		Point targetCenterPoint = new Point(target.getCenterX(), target.getCenterY());

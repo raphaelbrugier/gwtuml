@@ -14,17 +14,20 @@ public abstract class ClassPartArtifact extends UMLArtifact {
 	public abstract void setHeight(int height);
  
 	public abstract void setWidth(int width);	
-protected GfxObject textVirtualGroup;
-protected ClassArtifact classArtifact;
+	protected GfxObject textVirtualGroup;
+    protected ClassArtifact classArtifact;
 	
 	public abstract void computeBounds();
  
 	public abstract void setClassWidth(int width);
 	
-	
 	public abstract void edit();
 	
-public ClassArtifact getClassArtifact() {
+	@Override
+	public void buildGfxObjectWithAnimation() {
+	    buildGfxObject();
+	}
+	public ClassArtifact getClassArtifact() {
 		return classArtifact;
 	}
  

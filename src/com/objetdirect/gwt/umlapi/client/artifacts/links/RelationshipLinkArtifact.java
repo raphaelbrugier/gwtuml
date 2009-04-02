@@ -121,9 +121,9 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
 
     public RelationshipLinkArtifact(ClassArtifact left, ClassArtifact right) {
         this.leftClassArtifact = left;
-        left.addDependency(this);
+        left.addDependency(this, right);
         this.rightClassArtifact = right;
-        right.addDependency(this);
+        if(right != left) right.addDependency(this, left);
     }
 
     public void edit(RelationshipArtifactPart part) {
@@ -328,6 +328,6 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
     public void setRelationClass(ClassArtifact relationClass) {
         this.relationClass = relationClass;
         if (relationClass != null)
-            relationClass.addDependency(this);
+            relationClass.addDependency(this, null);
     }
 }

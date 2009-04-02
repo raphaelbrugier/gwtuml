@@ -26,6 +26,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.GWTCanvasGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.IncubatorGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 /**
  * @author  florian
@@ -51,8 +52,9 @@ private LoadingScreen loadingScreen;
 	final ListBox themeListBox = new ListBox();
 	final HorizontalPanel resolutionAutoPanel = new HorizontalPanel();
 	final CheckBox isResolutionAutoChkBox = new CheckBox(" Auto Resolution");
-	final HorizontalPanel animationPanel = new HorizontalPanel();
-	final CheckBox isAnimated = new CheckBox(" Soft transition ?");
+	final HorizontalPanel qualityPanel = new HorizontalPanel();
+	final Label qualityLbl = new Label("Quality : ");
+	final ListBox qualityListBox = new ListBox();
 	final HorizontalPanel resolutionPanel = new HorizontalPanel();
 	final Label resolutionLbl = new Label("Resolution : ");
 	final TextBox heightTxtBox = new TextBox();
@@ -139,7 +141,10 @@ private LoadingScreen loadingScreen;
 		});
 		widthTxtBox.setWidth("50px");
 		heightTxtBox.setWidth("50px");
-		isAnimated.setValue(false);
+		for (QualityLevel qlvl : QualityLevel.values()) {
+            qualityListBox.addItem(qlvl.toString());
+        }
+		qualityListBox.setSelectedIndex(1); // High quality
 		
 		this.add(logoImg);
 		this.add(startBtn);
@@ -164,15 +169,16 @@ private LoadingScreen loadingScreen;
 		resolutionPanel.add(heightTxtBox);
 		this.add(resolutionPanel);
 		
-		animationPanel.add(isAnimated);
-		this.add(animationPanel);
+		qualityPanel.add(qualityLbl);
+		qualityPanel.add(qualityListBox);
+		this.add(qualityPanel);
 		
 		loadingScreen.hide();
 		RootPanel.get().add(this);
 	}
 	
 	public void makeFirstDrawer() {
-		ThemeManager.setCurrentTheme(ThemeManager
+		ThemeManager.setCurrentTheme(Theme
 				.getThemeFromName(themeListBox.getItemText(themeListBox
 						.getSelectedIndex())));
 		if (gfxEngineListBox.getItemText(
@@ -193,7 +199,7 @@ private LoadingScreen loadingScreen;
             GeometryManager.setPlatform(new LinearGeometry());
         else
 			GeometryManager.setPlatform(new ShapeGeometry());
-		OptionsManager.setAnimated(isAnimated.getValue());
+		OptionsManager.setQualityLevel(QualityLevel.getQualityFromName(qualityListBox.getItemText(qualityListBox.getSelectedIndex())));
 		instance.removeFromParent();
 		loadingScreen.show();
 		int w;
