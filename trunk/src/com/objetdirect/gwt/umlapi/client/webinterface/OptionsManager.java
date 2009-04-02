@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 /**
  * This class allows to set and access configuration values 
  * @author  fmounier
@@ -22,20 +23,69 @@ public class OptionsManager {
     private static final int DIAMOND_WIDTH = 15;
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
-    private static boolean isAnimated = false;
+    
+    private static QualityLevel qualityLevel;
 
+    /**
+     * @return the qualityLevel
+     */
+    public static QualityLevel getQualityLevel() {
+        return qualityLevel;
+    }
+    /**
+     * @param qualityLevel the qualityLevel to set
+     */
+    public static void setQualityLevel(QualityLevel qualityLevel) {
+        OptionsManager.qualityLevel = qualityLevel;
+    }
+    public enum QualityLevel {
+        VERY_HIGH("Very High","Slow", 40),
+        HIGH("High","for good pc and browser", 30),
+        NORMAL("Normal","Recommended for real browser", 20), 
+        LOW("Low","for very old pc and IE users", 10);
+        private String name;
+        private String description;
+        private int index;
+
+        private QualityLevel(String name, String description, int index) {
+            this.name = name;
+            this.description = description;
+            this.index = index;
+            
+        }
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+        public String toString() {
+            return name + " (" + description + ")";
+        }
+        public static QualityLevel getQualityFromName(String qualityName) {
+            for (QualityLevel qlvl : QualityLevel.values()) {
+                if (qlvl.toString().equalsIgnoreCase(qualityName))
+                    return qlvl;
+            }
+            return QualityLevel.HIGH;
+        }
+        public static boolean compare(QualityLevel q1, QualityLevel q2) {
+            return q1.index >= q2.index;
+        }
+    }
     /**
      * @return the isAnimated
      */
-    public static boolean isAnimated() {
-        return isAnimated;
+    public static boolean qualityLevelIsAlmost(QualityLevel level) {
+        return QualityLevel.compare(qualityLevel, level) ;
     }
-    /**
-     * @param isAnimated the isAnimated to set
-     */
-    public static void setAnimated(boolean isAnimated) {
-        OptionsManager.isAnimated = isAnimated;
-    }
+
     private static GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.NORMAL);
     private static GfxFont smallCapsFont = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
 

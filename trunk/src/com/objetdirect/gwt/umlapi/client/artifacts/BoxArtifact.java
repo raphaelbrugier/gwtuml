@@ -20,30 +20,11 @@ public abstract class BoxArtifact extends UMLArtifact {
 	}
 	public GfxObject getOutline() {
 		GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		GfxObject line1 = GfxManager.getPlatform().buildLine(0, 0, getWidth(),
-				0);
-		GfxObject line2 = GfxManager.getPlatform().buildLine(getWidth(), 0,
-				getWidth(), getHeight());
-		GfxObject line3 = GfxManager.getPlatform().buildLine(getWidth(),
-				getHeight(), 0, getHeight());
-		GfxObject line4 = GfxManager.getPlatform().buildLine(0, getHeight(), 0,
-				0);
-		GfxManager.getPlatform().setStrokeStyle(line1, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line2, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line3, GfxStyle.DASH);
-		GfxManager.getPlatform().setStrokeStyle(line4, GfxStyle.DASH);
-		GfxManager.getPlatform().setStroke(line1,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line2,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line3,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(line4,
-				ThemeManager.getHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line1);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line2);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line3);
-		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
+		GfxObject rect = GfxManager.getPlatform().buildRect(getWidth(), getHeight());
+		GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
+		GfxManager.getPlatform().setStroke(rect, ThemeManager.getHighlightedForegroundColor(), 1);
+        GfxManager.getPlatform().setFillColor(rect, ThemeManager.getBackgroundColor());
+		GfxManager.getPlatform().addToVirtualGroup(vg, rect);
 		return vg;
 	}
 @Override

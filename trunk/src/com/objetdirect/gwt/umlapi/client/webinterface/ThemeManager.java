@@ -45,9 +45,17 @@ public class ThemeManager {
 		 * @return
 		 * 
 		 */
-		public String getThemeName() {
+		@Override
+		public String toString() {
 			return this.themeName;
 		}
+		  public static Theme getThemeFromName(String themeName) {
+		        for (Theme theme : Theme.values()) {
+		            if (theme.toString().equalsIgnoreCase(themeName))
+		                return theme;
+		        }
+		        return Theme.NORMAL;
+		    }
 	};
 private static Theme current_theme = Theme.NORMAL;
 	private static int opacity = 255;
@@ -60,15 +68,9 @@ private static Theme current_theme = Theme.NORMAL;
 	public static GfxColor getHighlightedForegroundColor() {
 		return current_theme.getThemeHighlightedForegroundColor();
 	}
-	public static Theme getThemeFromName(String themeName) {
-		for (Theme theme : Theme.values()) {
-			if (theme.getThemeName().equalsIgnoreCase(themeName))
-				return theme;
-		}
-		return Theme.NORMAL;
-	}
+
 	public static String getThemeName(Theme theme) {
-		return theme.getThemeName();
+		return theme.toString();
 	}
 	public static void setCurrentTheme(Theme theme) {
 		current_theme = theme;
