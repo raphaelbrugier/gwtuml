@@ -24,11 +24,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 public class ClassAttributesArtifact extends ClassPartArtifact {
 	private List<Attribute> attributes;
 	private Map<GfxObject, Attribute> attributeGfxObjects;
-	/**
-	 * @uml.property  name="lastGfxObject"
-	 * @uml.associationEnd  
-	 */
-	private GfxObject lastGfxObject;
+private GfxObject lastGfxObject;
 	private GfxObject attributeRect;
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();

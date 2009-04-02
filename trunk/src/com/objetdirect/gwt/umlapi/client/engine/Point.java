@@ -6,12 +6,16 @@ package com.objetdirect.gwt.umlapi.client.engine;
  * @author  fmounier
  */
 public class Point {
+    public static Point substract(Point p1, Point p2) {
+        return new Point(p1.x - p2.x, p1.y - p2.y); 
+    }
+    
     /**
-     * @uml.property  name="x"
+     * 
      */
     private int x;
     /**
-     * @uml.property  name="y"
+     * 
      */
     private int y;
 
@@ -37,28 +41,28 @@ public class Point {
     }
     /**
      * @return
-     * @uml.property  name="x"
+     * 
      */
     public int getX() {
         return x;
     }
     /**
      * @param x
-     * @uml.property  name="x"
+     * 
      */
     public void setX(int x) {
         this.x = x;
     }
     /**
      * @return
-     * @uml.property  name="y"
+     * 
      */
     public int getY() {
         return y;
     }
     /**
      * @param y
-     * @uml.property  name="y"
+     * 
      */
     public void setY(int y) {
         this.y = y;

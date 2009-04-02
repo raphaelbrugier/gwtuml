@@ -15,11 +15,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  */
 public class MethodPartEditor extends FieldEditor {
 	
-	/**
-	 * @uml.property  name="methodToChange"
-	 * @uml.associationEnd  
-	 */
-	Method methodToChange;
+Method methodToChange;
 	
 	public MethodPartEditor(UMLCanvas canvas, ClassMethodsArtifact artifact, Method methodToChange) {
 		super(canvas, artifact);

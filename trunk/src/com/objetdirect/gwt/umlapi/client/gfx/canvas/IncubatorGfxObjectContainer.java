@@ -32,11 +32,7 @@ public class IncubatorGfxObjectContainer extends GfxObject {
 	 * incubatorGfxObjectContainerSet)
 	 * incubatorGfxObjectContainer.getGraphicObject().draw(canvas); }
 	 */
-	/**
-	 * @uml.property  name="incubatorGfxObject"
-	 * @uml.associationEnd  
-	 */
-	private IncubatorGfxObject incubatorGfxObject;
+private IncubatorGfxObject incubatorGfxObject;
 	public IncubatorGfxObjectContainer(IncubatorGfxObject incubatorGfxObject) {
 		if (incubatorGfxObject == null)
 			Log.error("Creating a Icontainer of a null object");

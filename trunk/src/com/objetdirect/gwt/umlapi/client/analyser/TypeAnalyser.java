@@ -7,15 +7,9 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
  */
 public class TypeAnalyser extends SyntaxAnalyser {
 
-	/**
-	 * @uml.property  name="type"
-	 */
+	 
 	String type = "";
-	/**
-	 * @return
-	 * @uml.property  name="type"
-	 */
-	public String getType() {
+public String getType() {
 		return type;
 	}
 	@Override

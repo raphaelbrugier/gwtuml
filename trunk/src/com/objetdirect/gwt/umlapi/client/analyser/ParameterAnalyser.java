@@ -7,11 +7,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
  * @author  florian
  */
 public class ParameterAnalyser extends SyntaxAnalyser {
-	/**
-	 * @uml.property  name="param"
-	 * @uml.associationEnd  
-	 */
-	
+
 	Parameter param = new Parameter(null, null);
 	public Parameter getParameter() {
 		return param;

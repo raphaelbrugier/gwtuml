@@ -11,17 +11,9 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
  * @author  florian
  */
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
-	/**
-	 * @uml.property  name="method"
-	 * @uml.associationEnd  
-	 */
-	Method method = new Method(Visibility.PUBLIC, null, null, null);
+Method method = new Method(Visibility.PUBLIC, null, null, null);
 	List<Parameter> parameters = new ArrayList<Parameter>();
-	/**
-	 * @return
-	 * @uml.property  name="method"
-	 */
-	public Method getMethod() {
+public Method getMethod() {
 		return method;
 	}
 	void setParameters() {

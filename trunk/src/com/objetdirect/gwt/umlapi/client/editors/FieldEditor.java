@@ -17,11 +17,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author  florian
  */
 public abstract class FieldEditor {
-	/**
-	 * @uml.property  name="canvas"
-	 * @uml.associationEnd  
-	 */
-	protected UMLCanvas canvas;
+protected UMLCanvas canvas;
 	protected TextBoxBase editField;
 	protected UMLArtifact artifact;
 	protected String content;

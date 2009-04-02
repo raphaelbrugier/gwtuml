@@ -18,12 +18,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  */
 public abstract class UMLArtifact  {
     /**
-     * @uml.property  name="canvas"
+     * 
      * @uml.associationEnd  
      */
     protected UMLCanvas canvas;
     /**
-     * @uml.property  name="gfxObject"
+     * 
      * @uml.associationEnd  
      */
     protected GfxObject gfxObject;
@@ -39,7 +39,7 @@ public abstract class UMLArtifact  {
     }
     /**
      * @return
-     * @uml.property  name="canvas"
+     * 
      */
     public UMLCanvas getCanvas() {
         return canvas;
@@ -76,7 +76,7 @@ public abstract class UMLArtifact  {
     }
     /**
      * @return
-     * @uml.property  name="gfxObject"
+     * 
      */
     public GfxObject getGfxObject() {
         if (gfxObject == null) {
@@ -97,7 +97,7 @@ public abstract class UMLArtifact  {
     public abstract int getY();
     /**
      * @param canvas
-     * @uml.property  name="canvas"
+     * 
      */
     public void setCanvas(UMLCanvas canvas) {
         this.canvas = canvas;

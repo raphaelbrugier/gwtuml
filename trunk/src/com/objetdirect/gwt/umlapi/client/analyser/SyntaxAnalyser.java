@@ -10,9 +10,7 @@ public abstract class SyntaxAnalyser {
 		OPEN_PARENTHESIS_EXPECTED, PARAMETER_EXPECTED,
 		BEGIN_OPEN_BRACKET, BEGIN_TYPE_PARAMETER, CLOSE_BRACKET_EXPECTED,
 		END_TYPE_PARAMETER, TYPE_PARAMETER_EXPECTED}
-	/**
-	 * @uml.property  name="status"
-	 */
+	 
 	private State status = State.BEGIN;
 	public LexicalAnalyser.Token process(LexicalAnalyser lex,
 			LexicalAnalyser.Token tk) {
@@ -21,17 +19,10 @@ public abstract class SyntaxAnalyser {
 		}
 		return tk;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="status"
-	 */
-	State getStatus() {
+State getStatus() {
 		return status;
 	}
-	/**
-	 * @param status
-	 * @uml.property  name="status"
-	 */
+ 
 	void setStatus(State status) {
 		this.status = status;
 	}

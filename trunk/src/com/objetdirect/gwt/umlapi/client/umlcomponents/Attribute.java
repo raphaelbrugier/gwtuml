@@ -5,17 +5,11 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
  * @author  fmounier
  */
 public class Attribute extends ClassMember {
-	/**
-	 * @uml.property  name="name"
-	 */
+	 
 	private String name;
-	/**
-	 * @uml.property  name="type"
-	 */
+	 
 	private String type;
-	/**
-	 * @uml.property  name="validated"
-	 */
+	 
 	private boolean validated = true;
 	private Visibility visibility;
 	/**
@@ -40,7 +34,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Getter for the name
 	 * @return  the name
-	 * @uml.property  name="name"
+	 * 
 	 */
 	public String getName() {
 		return name;
@@ -48,7 +42,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Getter for the type
 	 * @return  the type
-	 * @uml.property  name="type"
+	 * 
 	 */
 	public String getType() {
 		return type;
@@ -56,7 +50,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Get the validated state of the attribute
 	 * @return  true if validated, false otherwise
-	 * @uml.property  name="validated"
+	 * 
 	 */
 	public boolean isValidated() {
 		return validated;
@@ -64,7 +58,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Setter for the name
 	 * @param name  to be set
-	 * @uml.property  name="name"
+	 * 
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -73,7 +67,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Setter for the type
 	 * @param type  to be set
-	 * @uml.property  name="type"
+	 * 
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -83,7 +77,7 @@ public class Attribute extends ClassMember {
 	/**
 	 * Set the validation state
 	 * @param  boolean for validated validation state
-	 * @uml.property  name="validated"
+	 * 
 	 */
 	public void setValidated(boolean validated) {
 		this.validated = validated;

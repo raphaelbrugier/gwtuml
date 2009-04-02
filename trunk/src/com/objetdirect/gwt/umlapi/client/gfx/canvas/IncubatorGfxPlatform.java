@@ -26,11 +26,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.VirtualGroup;
  * @author  florian
  */
 public class IncubatorGfxPlatform implements GfxPlatform {
-	/**
-	 * @uml.property  name="canvas"
-	 * @uml.associationEnd  
-	 */
-	//private CanvasBridge incubatorCanvasBridge;
+//private CanvasBridge incubatorCanvasBridge;
 	private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
 	private Map<GWTCanvasWithListeners, CanvasBridge> canvasBridges = new HashMap<GWTCanvasWithListeners, CanvasBridge>();
 	

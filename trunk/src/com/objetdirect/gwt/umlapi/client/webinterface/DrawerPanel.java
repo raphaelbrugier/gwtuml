@@ -9,18 +9,10 @@ import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassA
  */
 public class DrawerPanel extends AbsolutePanel {
 	
-	/**
-	 * @uml.property  name="gc"
-	 * @uml.associationEnd  
-	 */
-	private final UMLCanvas gc;
-	/**
-	 * @uml.property  name="height"
-	 */
+private final UMLCanvas gc;
+	 
 	private int height;
-	/**
-	 * @uml.property  name="width"
-	 */
+	 
 	private int width;
 	private SimplePanel bottomShadow;
 	private SimplePanel rightShadow;
@@ -51,39 +43,21 @@ public class DrawerPanel extends AbsolutePanel {
 		UMLDrawerHelper.disableBrowserEvents();
 		Log.trace("Init end");
 	}
-	/**
-	 * @return
-	 * @uml.property  name="height"
-	 */
-	public int getHeight() {
+public int getHeight() {
 		return height;
 	}
-	/**
-	 * @param height
-	 * @uml.property  name="height"
-	 */
+ 
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="width"
-	 */
-	public int getWidth() {
+public int getWidth() {
 		return width;
 	}
-	/**
-	 * @param width
-	 * @uml.property  name="width"
-	 */
+ 
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="gc"
-	 */
-	public UMLCanvas getGc() {
+public UMLCanvas getGc() {
 		return gc;
 	}
 	

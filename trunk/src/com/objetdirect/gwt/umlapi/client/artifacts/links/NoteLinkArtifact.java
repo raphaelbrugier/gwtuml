@@ -16,21 +16,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author  florian
  */
 public class NoteLinkArtifact extends LinkArtifact {
-	/**
-	 * @uml.property  name="line"
-	 * @uml.associationEnd  
-	 */
-	GfxObject line = null;
-	/**
-	 * @uml.property  name="note"
-	 * @uml.associationEnd  
-	 */
-	NoteArtifact note;
-	/**
-	 * @uml.property  name="target"
-	 * @uml.associationEnd  
-	 */
-	UMLArtifact target;
+GfxObject line = null;
+NoteArtifact note;
+UMLArtifact target;
 	public NoteLinkArtifact(NoteArtifact note, UMLArtifact target) {
 		this.note = note;
 		this.note.addDependency(this);

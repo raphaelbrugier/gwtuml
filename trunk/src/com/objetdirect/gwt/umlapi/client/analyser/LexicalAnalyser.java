@@ -9,11 +9,11 @@ public class LexicalAnalyser {
 	 */
 	public static class Token {
 		/**
-		 * @uml.property  name="content"
+		 * 
 		 */
 		String content;
 		/**
-		 * @uml.property  name="type"
+		 * 
 		 */
 		LexicalFlag type;
 		public Token(LexicalFlag type, String content) {
@@ -22,14 +22,14 @@ public class LexicalAnalyser {
 		}
 		/**
 		 * @return
-		 * @uml.property  name="content"
+		 * 
 		 */
 		public String getContent() {
 			return content;
 		}
 		/**
 		 * @return
-		 * @uml.property  name="type"
+		 * 
 		 */
 		public LexicalFlag getType() {
 			return type;
@@ -43,19 +43,13 @@ public class LexicalAnalyser {
 	int ptr;
 	LexicalFlag status = LexicalFlag.UNDEFINED;
 	String text;
-	/**
-	 * @uml.property  name="token"
-	 */
+	 
 	StringBuffer token = new StringBuffer();
 	public LexicalAnalyser(String text) {
 		this.text = text;
 		this.ptr = 0;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="token"
-	 */
-	public Token getToken() {
+public Token getToken() {
 		Token token = null;
 		while (token == null) {
 			if (this.ptr >= text.length()) {

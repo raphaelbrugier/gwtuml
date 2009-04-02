@@ -27,11 +27,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.Text;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.VirtualGroup;
 
 public class GWTCanvasGfxPlatform  implements GfxPlatform {
-	/**
-	 * @uml.property  name="canvas"
-	 * @uml.associationEnd  
-	 */
-	private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
+private Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
 	private Map<Canvas, CanvasBridge> canvasBridges = new HashMap<Canvas, CanvasBridge>();
 	
 	public static long timeBetween2Redraw = 10;
