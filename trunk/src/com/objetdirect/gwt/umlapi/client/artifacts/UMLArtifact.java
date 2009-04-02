@@ -67,7 +67,7 @@ public abstract class UMLArtifact  {
                 new Scheduler.Task() {
                     @Override
                     public void process() {
-                        GfxManager.getPlatform().setOpacity(gfxObject, j);
+                        GfxManager.getPlatform().setOpacity(gfxObject, j, false);
                     }
                 };
             }

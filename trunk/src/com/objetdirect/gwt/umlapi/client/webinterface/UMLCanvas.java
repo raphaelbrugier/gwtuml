@@ -227,8 +227,7 @@ public class UMLCanvas extends AbsolutePanel {
             CursorIconManager.setCursorIcon(PointerStyle.AUTO);
             return;
         }
-        // if it's the same nothing is to be done
-        if (newSelected != selected || isDeleting) {
+
             if (newSelected == null) {
                 activeLinking = null;
                 isDeleting = false;
@@ -239,8 +238,7 @@ public class UMLCanvas extends AbsolutePanel {
                     if ((selected.getClass() == NoteArtifact.class)
                             || (newSelected.getClass() == NoteArtifact.class)) {
                         if (newSelected.getClass() == NoteArtifact.class)
-                            add(new NoteLinkArtifact(
-                                    (NoteArtifact) newSelected, selected));
+                            add(new NoteLinkArtifact((NoteArtifact) newSelected, selected));
                         else
                             add(new NoteLinkArtifact((NoteArtifact) selected, newSelected));
                     } else
@@ -256,7 +254,7 @@ public class UMLCanvas extends AbsolutePanel {
                 selected.select();
                 Log.trace("Selecting really : " + selected);
             }
-        }
+        
     }
     private void take(int x, int y) {
         dx = x - selected.getX();

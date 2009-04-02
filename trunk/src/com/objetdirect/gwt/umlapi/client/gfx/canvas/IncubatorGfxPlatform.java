@@ -229,7 +229,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
 	public void setSize(Widget canvas, int width, int height) {		
 	}
-	public void setOpacity(GfxObject gfxO, int opacity) {
+	public void setOpacity(GfxObject gfxO, int opacity, boolean isForBack) {
 		getIncubatorGraphicalObjectFrom(gfxO).setAlpha(((float) opacity) / 100);
 		
 	}

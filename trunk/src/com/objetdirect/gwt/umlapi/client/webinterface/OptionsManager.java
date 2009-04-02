@@ -20,6 +20,8 @@ public class OptionsManager {
     private static final int SOLID_ARROW_WIDTH = 20;  
     private static final int DIAMOND_LENGTH = 20;
     private static final int DIAMOND_WIDTH = 15;
+    private static final int REFLEXIVE_PATH_X_GAP = 25;
+    private static final int REFLEXIVE_PATH_Y_GAP = 50;
     private static boolean isAnimated = false;
 
     /**
@@ -73,6 +75,18 @@ public class OptionsManager {
      */
     public static int getDiamondWidth() {
         return DIAMOND_WIDTH;
+    }
+    /**
+     * @return the rEFLEXIVE_PATH_X_GAP
+     */
+    public static int getReflexivePathXGap() {
+        return REFLEXIVE_PATH_X_GAP;
+    }
+    /**
+     * @return the rEFLEXIVE_PATH_Y_GAP
+     */
+    public static int getReflexivePathYGap() {
+        return REFLEXIVE_PATH_Y_GAP;
     }
     public static int getTextRightPadding() {
         return RIGHT_TEXT_PADDING;

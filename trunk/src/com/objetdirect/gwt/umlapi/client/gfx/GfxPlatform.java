@@ -39,5 +39,5 @@ public interface GfxPlatform {
 	void moveToFront(GfxObject gfxO);
 	
 	void moveToBack(GfxObject gfxO);
-	void setOpacity(GfxObject gfxO, int opacity);
+	void setOpacity(GfxObject gfxO, int opacity, boolean isForBack);
 }

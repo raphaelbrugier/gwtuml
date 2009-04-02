@@ -8,7 +8,6 @@ public abstract class LinkArtifact extends UMLArtifact {
     
     public enum LinkAdornment {
         NONE(Shape.NONE, false),
-        CROSS(Shape.CROSS, false),
         WIRE_ARROW(Shape.ARROW, false),
         SOLID_ARROW(Shape.ARROW, true),
         SOLID_DIAMOND(Shape.DIAMOND, true),
@@ -21,7 +20,20 @@ public abstract class LinkArtifact extends UMLArtifact {
         private Shape shape;
         private boolean isSolid;
         private boolean isInverted;
+        private boolean isCrossed;
         
+        /**
+         * @return the isCrossed
+         */
+        public boolean isCrossed() {
+            return isCrossed;
+        }
+        /**
+         * @param isCrossed the isCrossed to set
+         */
+        public void setCrossed(boolean isCrossed) {
+            this.isCrossed = isCrossed;
+        }
         private LinkAdornment(Shape shape, boolean isSolid) {
             this(shape, isSolid, false);
         }
@@ -29,7 +41,7 @@ public abstract class LinkArtifact extends UMLArtifact {
             this.shape = shape;
             this.isSolid = isSolid;
             this.isInverted = isInverted;
-            
+            this.isInverted = false;
         }
         /**
          * @return the shape

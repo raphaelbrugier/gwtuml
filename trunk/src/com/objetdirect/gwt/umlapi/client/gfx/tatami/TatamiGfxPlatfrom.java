@@ -196,9 +196,14 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	public void moveToFront(GfxObject gfxO) {
 		getTatamiGraphicalObjectFrom(gfxO).moveToFront();
 	}
-	public void setOpacity(GfxObject gfxO, int opacity) {
+	public void setOpacity(GfxObject gfxO, int opacity, boolean isForBack) {
+	    if(isForBack) {
+	        getTatamiGraphicalObjectFrom(gfxO).setOpacity(opacity); 
+	    } else {
+	        
 		Color strokeColor = getTatamiGraphicalObjectFrom(gfxO).getStrokeColor();
 		getTatamiGraphicalObjectFrom(gfxO).setStrokeColor(new Color(strokeColor.getRed(), strokeColor.getGreen(), strokeColor.getBlue(), opacity));
+	    }
 	}	
 
 }

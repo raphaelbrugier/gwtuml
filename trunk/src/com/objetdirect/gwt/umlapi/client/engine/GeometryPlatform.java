@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact.LinkAdornment.Shape;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
@@ -108,22 +109,48 @@ public abstract class GeometryPlatform {
         Point up = new Point(root);
         Point down = new Point(root);
         Point diamondTail = Point.substract(root, Point.substract(point1, root));
+        Point crossUp =  Point.substract(up, Point.substract(point1, root));
+        Point crossDown =  Point.substract(down, Point.substract(point1, root));
         up.translate(-xShift, yShift);
         down.translate(xShift, -yShift);
         arrowPoints.add(up); 
         arrowPoints.add(down);
         arrowPoints.add(diamondTail);
+        arrowPoints.add(crossUp);
+        arrowPoints.add(crossDown);
         return arrowPoints;
     }
 
+    public ArrayList<Point> getReflexiveLineFor(ClassArtifact classArtifact) {
+        Point center = classArtifact.getCenter();
+        int halfClassWidth = classArtifact.getWidth()/2;
+        int halfClassHeight = classArtifact.getHeight()/2;
+        ArrayList<Point> pointList = new ArrayList<Point>();
+        Point point0 = new Point(center);
+        point0.translate(halfClassWidth, 0);
+        Point point1 = new Point(point0);
+        point1.translate(OptionsManager.getReflexivePathXGap(), 0);
+        Point point2 = new Point(point1);
+        point2.translate(0, - halfClassHeight - OptionsManager.getReflexivePathYGap());
+        Point point3 = new Point(point2);
+        point3.translate( - halfClassWidth - OptionsManager.getReflexivePathXGap(), 0);
+        Point point4 = new Point(point3);
+        point4.translate(0, OptionsManager.getReflexivePathYGap());        
+        pointList.add(point0);
+        pointList.add(point1);
+        pointList.add(point2);
+        pointList.add(point3);
+        pointList.add(point4);
+        return pointList;
+    }
+    
     public ArrayList<Point> getLineBetween(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact){
         long t = System.currentTimeMillis();
         ArrayList<Point> pointList = getLineBetweenWithTime(firstUMLArtifact, secondUMLArtifact);
         Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + firstUMLArtifact + " and " + secondUMLArtifact);
         return pointList;
-
-
     }
+    
     public Point getPointForLine(UMLArtifact uMLArtifact, Point point) {
         long t = System.currentTimeMillis();
         Point pt = getPointForLineWithTime(uMLArtifact, point);
@@ -134,4 +161,6 @@ public abstract class GeometryPlatform {
     public abstract ArrayList<Point> getLineBetweenWithTime(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact);
 
     public abstract Point getPointForLineWithTime(UMLArtifact uMLArtifact, Point point);
+
+
 }
