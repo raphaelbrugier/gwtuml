@@ -1,4 +1,6 @@
 cd war
+rm -fr umldrawer
+svn up
 svn rm --force umldrawer/*.cache.*
 svn rm --force umldrawer/*.rpc
 rm -f umldrawer/*.cache.*
@@ -12,4 +14,4 @@ rm -fr umldrawer
 mv umldrawer_ umldrawer
 cd umldrawer
 svn add --force *
-
+notify-send "Build done !"

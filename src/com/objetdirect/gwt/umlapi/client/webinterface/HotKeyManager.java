@@ -3,7 +3,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowCloseListener;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas.Link;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
@@ -33,11 +33,7 @@ public final class HotKeyManager {
 				} 
 			}-*/;
 	}
-	/**
-	 * @uml.property  name="activeCanvas"
-	 * @uml.associationEnd  
-	 */
-	private static UMLCanvas activeCanvas;
+private static UMLCanvas activeCanvas;
 	static {
 		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl();
 		Window.addWindowCloseListener(closeListener);
@@ -49,10 +45,7 @@ public final class HotKeyManager {
 	 */
 	public static void forceStaticInit() {
 	};
-	/**
-	 * @param canvas
-	 * @uml.property  name="activeCanvas"
-	 */
+ 
 	public static void setActiveCanvas(UMLCanvas canvas) {
 		activeCanvas = canvas;
 	}
@@ -68,16 +61,16 @@ public final class HotKeyManager {
 				activeCanvas.addNewNote();
 				break;
 			case 'D':
-				activeCanvas.addNewLink(Link.SIMPLE);
+				activeCanvas.addNewLink(RelationKind.DEPENDENCY);
 				break;
 			case 'I':
-				activeCanvas.addNewLink(Link.IMPLEMENTATION);
+				activeCanvas.addNewLink(RelationKind.REALIZATION);
 				break;
 			case 'E':
-				activeCanvas.addNewLink(Link.EXTENSION);
+				activeCanvas.addNewLink(RelationKind.GENERALIZATION);
 				break;
 			case 'R':
-				activeCanvas.addNewLink(Link.RELATIONSHIP);
+				activeCanvas.addNewLink(RelationKind.ASSOCIATION);
 				break;
 			default:
 				break;

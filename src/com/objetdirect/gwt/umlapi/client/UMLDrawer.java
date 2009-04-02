@@ -24,11 +24,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
 public class UMLDrawer implements EntryPoint {
 	private final static DockPanel appRootPanel = new DockPanel();
 	private static Button log;
-	/**
-	 * @uml.property  name="startPanel"
-	 * @uml.associationEnd  
-	 */
-	private StartPanel startPanel;
+private StartPanel startPanel;
 	
 	
 	/**

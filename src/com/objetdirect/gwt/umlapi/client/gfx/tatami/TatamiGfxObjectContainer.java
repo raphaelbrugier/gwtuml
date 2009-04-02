@@ -15,9 +15,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 	public static TatamiGfxObjectContainer getContainerOf(GraphicObject graphicObject) {
 		return tatamiGfxObjectContainerMap.get(graphicObject);
 	}
-	/**
-	 * @uml.property  name="graphicObject"
-	 */
+	 
 	private GraphicObject graphicObject;
 	public TatamiGfxObjectContainer(GraphicObject graphicObject) {
 		if (graphicObject == null)
@@ -26,11 +24,7 @@ public class TatamiGfxObjectContainer extends GfxObject {
 		tatamiGfxObjectContainerMap.put(graphicObject, this);
 		Log.trace("Added Tcontainer " + this);
 	}
-	/**
-	 * @return
-	 * @uml.property  name="graphicObject"
-	 */
-	public GraphicObject getGraphicObject() {
+public GraphicObject getGraphicObject() {
 		return graphicObject;
 	}
 	@Override

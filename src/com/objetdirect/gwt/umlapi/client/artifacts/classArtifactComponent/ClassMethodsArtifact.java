@@ -23,11 +23,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
 	
 	private List<Method> methods;
 	private Map<GfxObject, Method> methodGfxObjects;
-	/**
-	 * @uml.property  name="lastGfxObject"
-	 * @uml.associationEnd  
-	 */
-	private GfxObject lastGfxObject;
+private GfxObject lastGfxObject;
 	private GfxObject methodRect;
 	public ClassMethodsArtifact() {
 		methods = new ArrayList<Method>();

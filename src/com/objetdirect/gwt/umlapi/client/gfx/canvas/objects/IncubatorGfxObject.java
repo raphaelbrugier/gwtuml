@@ -38,18 +38,10 @@ public abstract class IncubatorGfxObject {
 	public void setParentGroup(VirtualGroup parentGroup) {
 		this.parentGroup = parentGroup;
 	}
-	/**
-	 * @uml.property  name="style"
-	 * @uml.associationEnd  
-	 */
-	protected GfxStyle style;
-	/**
-	 * @uml.property  name="x"
-	 */
+protected GfxStyle style;
+	 
 	protected int x = 0;
-	/**
-	 * @uml.property  name="y"
-	 */
+	 
 	protected int y = 0;
 	public void addOnCanvasAt(CanvasBridge canvas, int dx, int dy) {
 		Log.trace("Adding " + this + " on canvas " + canvas);
@@ -61,18 +53,10 @@ public abstract class IncubatorGfxObject {
 	
 	public abstract int getHeight();
 	public abstract int getWidth();
-	/**
-	 * @return
-	 * @uml.property  name="x"
-	 */
-	public int getX() {
+public int getX() {
 		return x + (parentGroup == null ? 0 : parentGroup.getX());
 	}
-	/**
-	 * @return
-	 * @uml.property  name="y"
-	 */
-	public int getY() {
+public int getY() {
 		return y + (parentGroup == null ? 0 : parentGroup.getY());
 	}
 	public abstract boolean isPointed(int x, int y);
@@ -95,17 +79,11 @@ public abstract class IncubatorGfxObject {
 		greenStroke = gfxColor.getGreen();
 		this.strokeColor = new Color(redStroke, blueStroke, greenStroke, gfxColor.getAlpha());
 	}
-	/**
-	 * @param width
-	 * @uml.property  name="strokeWidth"
-	 */
+ 
 	public void setStrokeWidth(int width) {
 		this.strokeWidth = width;
 	}
-	/**
-	 * @param style
-	 * @uml.property  name="style"
-	 */
+ 
 	public void setStyle(GfxStyle style) {
 		this.style = style;
 	}

@@ -18,24 +18,10 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author  florian
  */
 public class ClassArtifact extends BoxArtifact {
-	/**
-	 * @uml.property  name="className"
-	 * @uml.associationEnd  
-	 */
-	ClassNameArtifact className;
-	/**
-	 * @uml.property  name="classAttributes"
-	 * @uml.associationEnd  
-	 */
-	ClassAttributesArtifact classAttributes;
-	/**
-	 * @uml.property  name="classMethods"
-	 * @uml.associationEnd  
-	 */
-	ClassMethodsArtifact classMethods;
-	/**
-	 * @uml.property  name="width"
-	 */
+ClassNameArtifact className;
+ClassAttributesArtifact classAttributes;
+ClassMethodsArtifact classMethods;
+	 
 	private int width;
 	public ClassArtifact() {
 		this("");
@@ -66,11 +52,7 @@ public class ClassArtifact extends BoxArtifact {
 	public List<Attribute> getAttributes() {
 		return classAttributes.getList();
 	}
-	/**
-	 * @return
-	 * @uml.property  name="className"
-	 */
-	public String getClassName() {
+public String getClassName() {
 		return className.getClassName();
 	}
 	@Override
@@ -141,11 +123,7 @@ public class ClassArtifact extends BoxArtifact {
 				ThemeManager.getHighlightedForegroundColor(), 1);
 		return vg;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="width"
-	 */
-	@Override
+@Override
 	public int getWidth() {
 		return width;
 	}

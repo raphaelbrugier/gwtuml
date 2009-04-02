@@ -8,38 +8,20 @@ public class ThemeManager {
 	 * @author   florian
 	 */
 	public enum Theme {
-		/**
-		 * @uml.property  name="nORMAL"
-		 * @uml.associationEnd  
-		 */
+ 
 		NORMAL("Normal", GfxColor.WHITE, GfxColor.BLACK, GfxColor.BLUE),
-		/**
-		 * @uml.property  name="aERO"
-		 * @uml.associationEnd  
-		 */
+ 
 		AERO("Aero", GfxColor.BLUE, GfxColor.NAVY, GfxColor.WHITE), 
-		/**
-		 * @uml.property  name="dARK"
-		 * @uml.associationEnd  
-		 */
+ 
 		DARK("Dark", GfxColor.BLACK, GfxColor.WHITE, GfxColor.GREEN);
-		/**
-		 * @uml.property  name="backgroundColor"
-		 * @uml.associationEnd  
-		 */
+ 
 		private final GfxColor backgroundColor;
-		/**
-		 * @uml.property  name="foregroundColor"
-		 * @uml.associationEnd  
-		 */
+ 
 		private final GfxColor foregroundColor;
-		/**
-		 * @uml.property  name="highlightedForegroundColor"
-		 * @uml.associationEnd  
-		 */
+ 
 		private final GfxColor highlightedForegroundColor;
 		/**
-		 * @uml.property  name="themeName"
+		 * 
 		 */
 		private final String themeName;
 		private Theme(String themeName, GfxColor backgroundColor,
@@ -61,17 +43,13 @@ public class ThemeManager {
 		}
 		/**
 		 * @return
-		 * @uml.property  name="themeName"
+		 * 
 		 */
 		public String getThemeName() {
 			return this.themeName;
 		}
 	};
-	/**
-	 * @uml.property  name="current_theme"
-	 * @uml.associationEnd  
-	 */
-	private static Theme current_theme = Theme.NORMAL;
+private static Theme current_theme = Theme.NORMAL;
 	private static int opacity = 255;
 	public static GfxColor getBackgroundColor() {
 		return current_theme.getThemeBackgroundColor();

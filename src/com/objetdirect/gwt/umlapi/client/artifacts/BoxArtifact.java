@@ -7,13 +7,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author  florian
  */
 public abstract class BoxArtifact extends UMLArtifact {
-	/**
-	 * @uml.property  name="x"
-	 */
+	 
 	int x = 0;
-	/**
-	 * @uml.property  name="y"
-	 */
+	 
 	int y = 0;
 	@Override
 	public int[] getOpaque() {
@@ -50,19 +46,11 @@ public abstract class BoxArtifact extends UMLArtifact {
 		GfxManager.getPlatform().addToVirtualGroup(vg, line4);
 		return vg;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="x"
-	 */
-	@Override
+@Override
 	public int getX() {
 		return x;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="y"
-	 */
-	@Override
+@Override
 	public int getY() {
 		return y;
 	}

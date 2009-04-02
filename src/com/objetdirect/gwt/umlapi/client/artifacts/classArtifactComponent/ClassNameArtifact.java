@@ -13,15 +13,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author  fmounier
  */
 public class ClassNameArtifact extends ClassPartArtifact {
-	/**
-	 * @uml.property  name="className"
-	 */
+	 
 	private String className;
-	/**
-	 * @uml.property  name="nameText"
-	 * @uml.associationEnd  
-	 */
-	private GfxObject nameText;
+private GfxObject nameText;
 	private GfxObject nameRect;
 	
 	public ClassNameArtifact(String className) {
@@ -29,17 +23,10 @@ public class ClassNameArtifact extends ClassPartArtifact {
 		height = 0;
 		width = 0;
 	}
-	/**
-	 * @return
-	 * @uml.property  name="className"
-	 */
-	public String getClassName() {
+public String getClassName() {
 		return className;
 	}
-	/**
-	 * @param className
-	 * @uml.property  name="className"
-	 */
+ 
 	public void setClassName(String className) {
 		this.className = className;
 	}
