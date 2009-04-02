@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 

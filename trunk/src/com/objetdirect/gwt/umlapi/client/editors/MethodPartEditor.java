@@ -28,6 +28,7 @@ Method methodToChange;
                 MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
                 ma.process(lex, null);
                 Method newMethod = ma.getMethod();
+                methodToChange.setVisibility(newMethod.getVisibility());
                 methodToChange.setName(newMethod.getName());
                 methodToChange.setReturnType(newMethod.getReturnType());
                 methodToChange.setParameters(newMethod.getParameters());

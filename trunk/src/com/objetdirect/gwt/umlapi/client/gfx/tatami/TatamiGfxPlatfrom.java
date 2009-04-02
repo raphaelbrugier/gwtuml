@@ -159,9 +159,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	}
 	public void setStroke(GfxObject gfxO, GfxColor color, int width) {
 		if(getTatamiGraphicalObjectFrom(gfxO).getClass().equals(Text.class)) {
-			width = 0; 
 			getTatamiGraphicalObjectFrom(gfxO).setOpacity(color.getAlpha());
-			setFillColor(gfxO, color);			
 		}
 		if(color.getAlpha() == 255) color.setAlpha(getTatamiGraphicalObjectFrom(gfxO).getStrokeColor().getAlpha());
 		getTatamiGraphicalObjectFrom(gfxO).setStroke(convertColor(color), width);

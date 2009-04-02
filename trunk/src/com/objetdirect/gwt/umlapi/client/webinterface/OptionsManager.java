@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 /**
  * This class allows to set and access configuration values 
  * @author  fmounier

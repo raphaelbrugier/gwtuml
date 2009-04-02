@@ -5,8 +5,6 @@ import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
-import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -26,22 +24,15 @@ UMLArtifact target;
 		this.target.addDependency(this, note);
 	}
 	public void buildGfxObject() {
-		Point targetCenterPoint = new Point(target.getCenterX(), target.getCenterY());
-		Point lineLeftPoint  = GeometryManager.getPlatform().getPointForLine(note, targetCenterPoint);
-		Point lineRightPoint;
-		if(isTargetALink()) {
-			lineRightPoint = targetCenterPoint;
-		} else {
-			lineRightPoint = GeometryManager.getPlatform().getPointForLine(target, new Point(note.getCenterX(), note.getCenterY()));
-		}
 
-        point1 = lineLeftPoint; 
-        point2 = lineRightPoint;
-		line = GfxManager.getPlatform().buildLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
+        leftPoint = note.getCenter(); 
+        rightPoint = target.getCenter();
+		line = GfxManager.getPlatform().buildLine(leftPoint.getX(), leftPoint.getY(), rightPoint.getX(), rightPoint.getY());
 		GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
 		GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
+		GfxManager.getPlatform().moveToBack(gfxObject);
 		
 	}
 	public void edit(GfxObject gfxObject, int x, int y) {
