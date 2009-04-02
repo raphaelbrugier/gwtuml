@@ -5,7 +5,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 public class ShapeGeometry extends GeometryPlatform {
 
 	@Override
-	public ArrayList<Point> getLineBetweenWithTime(UMLArtifact firstUMLArtifact,
+	public ArrayList<Point> getLineBetweenImpl(UMLArtifact firstUMLArtifact,
 			UMLArtifact secondUMLArtifact) {
 		int[] points = computeLineBounds(firstUMLArtifact, secondUMLArtifact);
 		ArrayList<Point> pointList = new ArrayList<Point>();
@@ -15,7 +15,7 @@ public class ShapeGeometry extends GeometryPlatform {
 	}
 
 	@Override
-	public Point getPointForLineWithTime(UMLArtifact uMLArtifact, Point point) {
+	public Point getPointForLineImpl(UMLArtifact uMLArtifact, Point point) {
 		int[] points = computeLineBounds(uMLArtifact, point.getX(), point.getY());
 		return new Point(points[0], points[1]);
 	}

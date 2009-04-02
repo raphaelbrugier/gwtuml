@@ -10,7 +10,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
  */
 public class LinearGeometry extends GeometryPlatform {	
 	@Override
-	public ArrayList<Point> getLineBetweenWithTime(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact) {		
+	public ArrayList<Point> getLineBetweenImpl(UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact) {		
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		pointList.add(getPointForLine(firstUMLArtifact, new Point(secondUMLArtifact.getCenterX(), secondUMLArtifact.getCenterY())));
 		pointList.add(getPointForLine(secondUMLArtifact, 
@@ -18,7 +18,7 @@ public class LinearGeometry extends GeometryPlatform {
 		return pointList;
 	}	
 	@Override
-	public Point getPointForLineWithTime(UMLArtifact uMLArtifact, Point targetCenter) {
+	public Point getPointForLineImpl(UMLArtifact uMLArtifact, Point targetCenter) {
 		Point targetInFrameReference = new Point(targetCenter.getX() - uMLArtifact.getX(), targetCenter.getY() - uMLArtifact.getY());
 		Point point = new Point(0,0);
 		final int constA = uMLArtifact.getHeight() * targetInFrameReference.getX();

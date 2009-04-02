@@ -38,7 +38,7 @@ public class LexicalAnalyser {
 	public enum LexicalFlag {
 		CHAR, FLOAT, IDENTIFIER, INTEGER,  SIGN,  SIGN_CONTINUED, STRING,  CHAR_DEFINED,
 		DECIMAL, DOT_OR_DECIMAL, ESCAPED_CHAR, ESCAPED_STRING, EXPONENT, NUMERIC,
-		SIGN_OR_NUMERIC, SIGNED_EXPONENT, START_DECIMAL, START_EXPONENT , UNDEFINED;
+		SIGN_OR_NUMERIC, SIGNED_EXPONENT, START_DECIMAL, START_EXPONENT , UNDEFINED, VISIBILITY;
 	}
 	int ptr;
 	LexicalFlag status = LexicalFlag.UNDEFINED;
@@ -92,6 +92,8 @@ public Token getToken() {
 	}
 	Token processEOF() {
 		switch (status) {
+		case VISIBILITY:
+		    return inject(LexicalFlag.VISIBILITY);
 		case IDENTIFIER:
 			return inject(LexicalFlag.IDENTIFIER);
 		case SIGN_OR_NUMERIC:
@@ -115,6 +117,8 @@ public Token getToken() {
 		case UNDEFINED:
 			if (c == ' ')
 				return ignore();
+			else if(c == '#' || c == '+' || c == '-' || c == '~')
+			    return process(LexicalFlag.VISIBILITY, c); 
 			else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
 				return process(LexicalFlag.IDENTIFIER, c);
 			else if (c == '#' || c == '(' || c == ')' || c == ',' || c == '{'
@@ -133,6 +137,8 @@ public Token getToken() {
 			else if (c >= '0' && c <= '9')
 				return process(LexicalFlag.NUMERIC, c);
 			throw new UMLDrawerException("Invalid character : " + c);
+	     case VISIBILITY:
+	                return inject(LexicalFlag.VISIBILITY);
 		case IDENTIFIER:
 			if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_'
 				|| c >= '0' && c <= '9')

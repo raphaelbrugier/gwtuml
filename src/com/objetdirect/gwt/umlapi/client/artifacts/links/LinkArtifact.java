@@ -2,10 +2,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts.links;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 public abstract class LinkArtifact extends UMLArtifact {
 
     public enum LinkAdornment {
@@ -77,15 +75,15 @@ public abstract class LinkArtifact extends UMLArtifact {
         }
     }
 
-    protected Point point1 = new Point(0,0);
-    protected Point point2 = new Point(0,0);
+    protected Point leftPoint = new Point(0,0);
+    protected Point rightPoint = new Point(0,0);
     protected LinkAdornment adornmentLeft;
     protected LinkAdornment adornmentRight;
     protected LinkStyle style;
 
     @Override
     public int getHeight() {
-        return point1.getY() < point2.getY() ? point2.getY() - point1.getY() : point1.getY() - point2.getY();
+        return leftPoint.getY() < rightPoint.getY() ? rightPoint.getY() - leftPoint.getY() : leftPoint.getY() - rightPoint.getY();
     }
     @Override
     public int[] getOpaque() {
@@ -97,15 +95,15 @@ public abstract class LinkArtifact extends UMLArtifact {
     }
     @Override
     public int getWidth() {
-        return point1.getX() < point2.getX() ? point2.getX() - point1.getX() : point1.getX() - point2.getX();
+        return leftPoint.getX() < rightPoint.getX() ? rightPoint.getX() - leftPoint.getX() : leftPoint.getX() - rightPoint.getX();
     }
     @Override
     public int getX() {
-        return point1.getX() < point2.getX() ? point1.getX() : point2.getX();
+        return leftPoint.getX() < rightPoint.getX() ? leftPoint.getX() : rightPoint.getX();
     }
     @Override
     public int getY() {
-        return point1.getY() < point2.getY() ? point1.getY() : point2.getY();
+        return leftPoint.getY() < rightPoint.getY() ? leftPoint.getY() : rightPoint.getY();
     }
     public boolean isDraggable() {
         return false;

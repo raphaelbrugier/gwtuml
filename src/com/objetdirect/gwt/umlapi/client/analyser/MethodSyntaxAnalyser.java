@@ -28,12 +28,22 @@ public Method getMethod() {
 		case BEGIN:
 			if (tk == null)
 				throwUnexpectedEOF();
-			else if (tk.getType() == LexicalFlag.IDENTIFIER) {
-				method.setName(tk.getContent());
-				setStatus(State.OPEN_PARENTHESIS_EXPECTED);
-				return null;
-			} else
-				throwSyntaxError(tk);
+			else if (tk.getType() == LexicalFlag.VISIBILITY) {
+				method.setVisibility(Visibility.getVisibilityFromToken(tk.getContent().charAt(0)));
+                setStatus(State.IDENTIFIER_EXPECTED);
+                return null;
+			}
+			else method.setVisibility(Visibility.PACKAGE);
+
+	     case IDENTIFIER_EXPECTED:
+	            if (tk == null)
+	                throwUnexpectedEOF();
+	            else if (tk.getType() == LexicalFlag.IDENTIFIER) {
+	                method.setName(tk.getContent());
+	                setStatus(State.OPEN_PARENTHESIS_EXPECTED);
+	                return null;
+	            } else
+	                throwSyntaxError(tk);
 		case OPEN_PARENTHESIS_EXPECTED:
 			if (tk == null)
 				throwUnexpectedEOF();
