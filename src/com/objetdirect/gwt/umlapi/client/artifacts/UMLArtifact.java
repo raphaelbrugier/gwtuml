@@ -161,7 +161,7 @@ public abstract class UMLArtifact  {
     public abstract boolean isDraggable();
     public abstract void edit(GfxObject gfxObject, int x, int y);
     public abstract GfxObject getOutline();
-    public abstract LinkedHashMap<String, Command> getRightMenu();
+    public abstract LinkedHashMap<Command, String> getRightMenu();
     public abstract void moveTo(int fx, int fy);
     public abstract void select();
     public abstract void unselect();

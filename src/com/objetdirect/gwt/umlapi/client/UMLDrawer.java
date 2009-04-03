@@ -62,7 +62,7 @@ private StartPanel startPanel;
 		DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(),
 				"display", "none");
 		
-		appRootPanel.setSpacing(8);
+		//appRootPanel.setSpacing(8);
 		
 		appRootPanel.setSize("100%", "100%");
 		startPanel = new StartPanel(false);

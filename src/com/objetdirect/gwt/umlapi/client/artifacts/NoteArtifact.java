@@ -60,21 +60,14 @@ public class NoteArtifact extends BoxArtifact {
             return super.getOutline();
         }
     }
-    public LinkedHashMap<String, Command> getRightMenu() {
-        LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+    public LinkedHashMap<Command, String> getRightMenu() {
+        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
         Command doNothing = new Command() {
             public void execute() {
             }
         };
-        Command remove = new Command() {
-            public void execute() {
-                getCanvas().removeSelected();
-            }
-        };
-        rightMenu.put("Note", doNothing);
-        rightMenu.put("-", null);
-        rightMenu.put("> Edit", doNothing);
-        rightMenu.put("> Delete", remove);
+
+        rightMenu.put(null, "Note");
         return rightMenu;
     }
     @Override

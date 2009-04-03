@@ -15,9 +15,10 @@ public class NamePartFieldEditor extends FieldEditor {
 		super(canvas, artifact);
 	}
 	@Override
-	protected void updateClass(String newContent) {
+	protected boolean updateUMLArtifact(String newContent) {
 		((ClassNameArtifact) artifact).setClassName(newContent);
 		((ClassNameArtifact) artifact).getClassArtifact().rebuildGfxObject();
+		return false;
 	}
 	@Override
 	protected void next() {		

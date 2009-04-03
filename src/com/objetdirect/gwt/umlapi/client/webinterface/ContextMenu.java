@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
 
@@ -17,7 +18,7 @@ public class ContextMenu {
     private int y;
     private UMLCanvas canvas;
     private PopupMenu contextMenu;
-    private LinkedHashMap<String, Command> specificRightMenu;
+    private LinkedHashMap<Command, String> specificRightMenu;
     /**
      * @param x
      * @param y
@@ -36,7 +37,7 @@ public class ContextMenu {
      * @param y
      * @param canvas
      */
-    public ContextMenu(int x, int y, UMLCanvas canvas, LinkedHashMap<String, Command> specificRightMenu) {
+    public ContextMenu(int x, int y, UMLCanvas canvas, LinkedHashMap<Command, String> specificRightMenu) {
         this.x = x;
         this.y = y;
         this.canvas = canvas;
@@ -52,18 +53,32 @@ public class ContextMenu {
         public void execute() {
             canvas.addNewNote(x, y);
         }
+    };   
+    private final Command bringHelp = new Command() {
+        public void execute() {
+            HelpManager.bringHelpPopup();
+        }
+    };
+    private final Command remove = new Command() {
+        public void execute() {
+            canvas.removeSelected();
+        }
     };
     private void makeMenu() {
         contextMenu = new PopupMenu();
         if (specificRightMenu != null) {
-            for (Map.Entry<String, Command> item : specificRightMenu.entrySet()) {
-                if (item.getKey().equals("-"))
-                    contextMenu.addSeparator();
+            MenuBar specificSubMenu = new MenuBar(true);
+            for (Entry<Command, String> item : specificRightMenu.entrySet()) {
+                if(item.getKey() != null) {
+                if (item.getValue().equals("-"))
+                    specificSubMenu.addSeparator();
                 else
-                    contextMenu.addItem(item.getKey(), item.getValue());
+                    specificSubMenu.addItem(item.getValue(), item.getKey());
+                }
             }
-            contextMenu.addSeparator();
-            contextMenu.addSeparator();
+            specificSubMenu.addItem("Delete", remove);
+            //specificSubMenu.addSeparator();
+            contextMenu.addItem(specificRightMenu.get(null), specificSubMenu);
         }
 
         contextMenu.addItem("Add new class", addNewClass);
@@ -72,7 +87,9 @@ public class ContextMenu {
         for(RelationKind relation : RelationKind.values()) {
             linkSubMenu.addItem(relation.getName(), addRelation(relation));
         }
-        contextMenu.addItem("Add relationship", linkSubMenu);
+        contextMenu.addItem("Add relation", linkSubMenu);
+        contextMenu.addSeparator();
+        contextMenu.addItem("Help...", bringHelp);
     }
     private Command addRelation(final RelationKind relation) {       
         return new Command() {

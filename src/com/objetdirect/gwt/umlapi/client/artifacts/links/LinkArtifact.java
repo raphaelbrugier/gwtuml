@@ -14,7 +14,21 @@ public abstract class LinkArtifact extends UMLArtifact {
         INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, true);
 
         public enum Shape {
-            NONE, CROSS, ARROW, DIAMOND;
+            NONE(""), CROSS("x"), ARROW("<"), DIAMOND("<>");
+            private String idiom;
+
+            private Shape (String idiom) {
+                this.idiom = idiom;
+            }
+
+            public String getIdiom() {
+                return idiom;
+            }
+            
+            public String getIdiom(boolean isRight) {
+                if(idiom.equals("<") && isRight) return ">"; 
+                return idiom;
+            }
         }
 
         private Shape shape;

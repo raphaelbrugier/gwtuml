@@ -160,23 +160,15 @@ public class ClassArtifact extends BoxArtifact {
             }
         }
     }
-    public LinkedHashMap<String, Command> getRightMenu() {
-        LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+    public LinkedHashMap<Command, String> getRightMenu() {
+        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
         Command doNothing = new Command() {
             public void execute() {
             }
         };
-        Command remove = new Command() {
-            public void execute() {
-                getCanvas().removeSelected();
-            }
-        };
-        rightMenu.put("Class " + className.getClassName(), doNothing);
-        rightMenu.put("-", null);
-        rightMenu.put("> Rename", doNothing);
-        rightMenu.put("> Edit attribute", doNothing);
-        rightMenu.put("> Edit method", doNothing);
-        rightMenu.put("> Delete", remove);
+
+        rightMenu.put(null, "Class " + className.getClassName());
+
         return rightMenu;
     }
     public void select() {

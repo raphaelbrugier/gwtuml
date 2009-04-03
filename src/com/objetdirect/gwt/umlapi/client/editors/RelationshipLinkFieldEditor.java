@@ -11,9 +11,10 @@ public class RelationshipLinkFieldEditor extends FieldEditor {
 		this.relationshipPart = relationshipPart;
 	}
 	@Override
-	protected void updateClass(String newContent) {
+	protected boolean updateUMLArtifact(String newContent) {
 		((RelationshipLinkArtifact) artifact).setPartContent(relationshipPart, newContent);
 		artifact.rebuildGfxObject();
+		return false;
 	}
 	@Override
 	protected void next() {		

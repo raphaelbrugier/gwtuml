@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 /**
  * @author  florian

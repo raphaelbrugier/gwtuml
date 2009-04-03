@@ -37,8 +37,8 @@ private GfxObject lastGfxObject;
 		attributes.add(attribute);
 	}
 	
-	public void remove(int index) {
-		attributes.remove(index);
+	public void remove(Attribute attributeToChange) {
+		attributes.remove(attributeToChange);
 	}
 	
 	@Override
@@ -135,7 +135,7 @@ private GfxObject lastGfxObject;
 		return null;
 	}
 	@Override
-	public LinkedHashMap<String, Command> getRightMenu() {
+	public LinkedHashMap<Command, String> getRightMenu() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -153,7 +153,7 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
     public ClassArtifact getRightClassArtifact() {
         return rightClassArtifact;
     }
-    public abstract LinkedHashMap<String, Command> getRightMenu();
+    public abstract LinkedHashMap<Command, String> getRightMenu();
 
     public void select() {
         GfxManager.getPlatform().moveToFront(textVirtualGroup);
@@ -196,9 +196,9 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
             relative_point1 = rightPoint;
             relative_point2 = leftPoint;
         }
-        int textHeight =   GfxManager.getPlatform().getHeightFor(text);
+        int textHeight = GfxManager.getPlatform().getHeightFor(text);
         int delta = current_delta;
-        current_delta += textHeight;
+        current_delta += 8; //TODO : Fix Height
         switch (getAnchorType(isLeft ? leftClassArtifact : rightClassArtifact, relative_point1)) {
         case LEFT: case RIGHT:
             if (relative_point1.getY() > relative_point2.getY()) return relative_point1.getY() + OptionsManager.getRectangleBottomPadding() + textHeight + delta;
@@ -213,19 +213,19 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
     protected void buildGfxObject() {
         gfxObjectPart.clear();
         ArrayList<Point> linePoints = new ArrayList<Point>();;
-        boolean isAdornmentOnLeft = adornmentLeft != LinkAdornment.NONE || adornmentLeft.isCrossed();
-        boolean isAdornmentOnRight = adornmentRight != LinkAdornment.NONE || adornmentLeft.isCrossed();
+        boolean isComputationNeededOnLeft = adornmentLeft != LinkAdornment.NONE || adornmentLeft.isCrossed() || (relation.getLeftCardinality() + relation.getLeftConstraint() + relation.getLeftRole() != "");
+        boolean isComputationNeededOnRight = adornmentRight != LinkAdornment.NONE || adornmentRight.isCrossed() || (relation.getRightCardinality() + relation.getRightConstraint() + relation.getRightRole() != "");;
         if(leftClassArtifact != rightClassArtifact) {
-            if(isAdornmentOnLeft && isAdornmentOnRight) {
+            if(isComputationNeededOnLeft && isComputationNeededOnRight) {
                 linePoints = GeometryManager.getPlatform().getLineBetween(leftClassArtifact, rightClassArtifact); 
                 leftPoint = linePoints.get(0);
                 rightPoint = linePoints.get(1);
             }
-            else if(isAdornmentOnLeft) {
+            else if(isComputationNeededOnLeft) {
                 rightPoint = rightClassArtifact.getCenter();
                 leftPoint = GeometryManager.getPlatform().getPointForLine(leftClassArtifact, rightPoint); 
             }
-            else if(isAdornmentOnRight) {
+            else if(isComputationNeededOnRight) {
                 leftPoint = leftClassArtifact.getCenter();
                 rightPoint = GeometryManager.getPlatform().getPointForLine(leftClassArtifact, leftPoint); 
             }
@@ -256,12 +256,12 @@ public abstract class RelationshipLinkArtifact extends LinkArtifact {
         arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
         GfxManager.getPlatform().addToVirtualGroup(gfxObject, arrowVirtualGroup);
         if(leftClassArtifact != rightClassArtifact) {
-            if (isAdornmentOnLeft)
+            if (isComputationNeededOnLeft)
                 GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(leftPoint, rightPoint, adornmentLeft));
-            if (isAdornmentOnRight) 
+            if (isComputationNeededOnRight) 
                 GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(rightPoint, leftPoint, adornmentRight));
         } else {
-            if (isAdornmentOnLeft)
+            if (isComputationNeededOnLeft)
                 GfxManager.getPlatform().addToVirtualGroup(arrowVirtualGroup, GeometryManager.getPlatform().buildAdornment(linePoints.get(4), linePoints.get(3), adornmentLeft));
         }
 

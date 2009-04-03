@@ -7,9 +7,14 @@ public class NoteFieldEditor extends FieldEditor {
 		super(canvas, artifact);
 	}
 	@Override
-	protected void updateClass(String newContent) {
+	protected boolean updateUMLArtifact(String newContent) {
+	    if(newContent.equals("")) {
+	        canvas.remove(artifact);
+	        return false;
+	    }
 		((NoteArtifact) artifact).setContent(newContent);
 		artifact.rebuildGfxObject();
+		return false;
 	}
 	@Override
 	protected void next() {
