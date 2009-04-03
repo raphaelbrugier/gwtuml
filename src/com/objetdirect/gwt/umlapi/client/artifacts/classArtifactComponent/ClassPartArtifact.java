@@ -1,10 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
+import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 /**
  * @author  florian
  */
-public abstract class ClassPartArtifact extends UMLArtifact {
+public abstract class ClassPartArtifact extends BoxArtifact {
 	 
 	protected int height;
 	 

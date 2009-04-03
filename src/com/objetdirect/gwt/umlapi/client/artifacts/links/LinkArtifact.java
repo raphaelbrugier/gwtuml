@@ -41,7 +41,6 @@ public abstract class LinkArtifact extends UMLArtifact {
             this.shape = shape;
             this.isSolid = isSolid;
             this.isInverted = isInverted;
-            this.isInverted = false;
         }
         /**
          * @return the shape
@@ -80,7 +79,11 @@ public abstract class LinkArtifact extends UMLArtifact {
     protected LinkAdornment adornmentLeft;
     protected LinkAdornment adornmentRight;
     protected LinkStyle style;
-
+    
+    @Override
+    public boolean isALink() {
+        return true;
+    }
     @Override
     public int getHeight() {
         return leftPoint.getY() < rightPoint.getY() ? rightPoint.getY() - leftPoint.getY() : leftPoint.getY() - rightPoint.getY();

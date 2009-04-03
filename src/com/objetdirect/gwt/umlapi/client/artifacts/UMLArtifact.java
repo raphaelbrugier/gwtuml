@@ -31,11 +31,11 @@ public abstract class UMLArtifact  {
      * @uml.associationEnd  
      */
     protected GfxObject gfxObject;
-    protected HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
+    private HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     private boolean isBuilt = false;
     public void addDependency(LinkArtifact dependentUMLArtifact, UMLArtifact linkedUMLArtifact) {
         Log.trace(this + "adding depency with" + dependentUMLArtifact + " - " + linkedUMLArtifact);
-        dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
+        getDependentUMLArtifacts().put(dependentUMLArtifact, linkedUMLArtifact);
     }
     public void removeDependency(LinkArtifact dependentUMLArtifact) {
         Log.trace(this + "removing depency with" + dependentUMLArtifact);
@@ -125,7 +125,7 @@ public abstract class UMLArtifact  {
         buildGfxObjectWithAnimation();
 
         Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
-        for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : dependentUMLArtifacts.entrySet()) {
+        for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts().entrySet()) {
             Log.trace("Rebuilding : " + dependentUMLArtifact);
             new Scheduler.Task(dependentUMLArtifact) {
                 @Override
@@ -143,7 +143,7 @@ public abstract class UMLArtifact  {
 
         ArrayList<Point> points = new ArrayList<Point>();
         if(OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
-            for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : dependentUMLArtifacts.entrySet()) {
+            for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts().entrySet()) {
                 if (dependentUMLArtifact.getValue() != null) points.add(dependentUMLArtifact.getValue().getCenter());
             }
         }
@@ -151,9 +151,12 @@ public abstract class UMLArtifact  {
     }
     public void destructGfxObjectWhithDependencies() {
         GfxManager.getPlatform().clearVirtualGroup(gfxObject);
-        for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : dependentUMLArtifacts.entrySet()) {
+        for(final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts().entrySet()) {
             GfxManager.getPlatform().clearVirtualGroup(dependentUMLArtifact.getKey().getGfxObject());
         }
+    }
+    public HashMap<LinkArtifact, UMLArtifact> getDependentUMLArtifacts() {
+        return dependentUMLArtifacts;
     }
     public abstract boolean isDraggable();
     public abstract void edit(GfxObject gfxObject, int x, int y);
@@ -162,5 +165,7 @@ public abstract class UMLArtifact  {
     public abstract void moveTo(int fx, int fy);
     public abstract void select();
     public abstract void unselect();
+    public abstract boolean isALink();
+
 
 }
