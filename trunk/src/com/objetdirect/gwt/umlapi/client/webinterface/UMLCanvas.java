@@ -143,7 +143,7 @@ public class UMLCanvas extends AbsolutePanel {
         CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
     }
     public void addNewNote() {
-        addNewClass(FAR_AWAY, FAR_AWAY);
+        addNewNote(FAR_AWAY, FAR_AWAY);
 
     }
     public void addNewNote(int xInit, int yInit) {

@@ -27,28 +27,19 @@ public class AggregationLinkArtifact extends RelationshipLinkArtifact {
         adornmentRight = LinkAdornment.NONE;
         style = LinkStyle.SOLID;
     }
-
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact#getRightMenu()
      */
     @Override
-    public LinkedHashMap<String, Command> getRightMenu() {
-        LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+    public LinkedHashMap<Command, String> getRightMenu() {
+        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
         Command doNothing = new Command() {
             public void execute() {
             }
         };
-        Command remove = new Command() {
-            public void execute() {
-                getCanvas().removeSelected();
-            }
-        };
-        rightMenu.put("Aggregation " + leftClassArtifact.getClassName() + " <-> "
-                + rightClassArtifact.getClassName(), doNothing);
-        rightMenu.put("-", null);
-        rightMenu.put("> Edit", doNothing);
-        rightMenu.put("> Reverse", doNothing);
-        rightMenu.put("> Delete", remove);
+        rightMenu.put(null, "Aggregation " + leftClassArtifact.getClassName() + 
+                " " + adornmentLeft.getShape().getIdiom() +  "-" + adornmentRight.getShape().getIdiom(true) + " "
+                + rightClassArtifact.getClassName());
         return rightMenu;
     }
 }

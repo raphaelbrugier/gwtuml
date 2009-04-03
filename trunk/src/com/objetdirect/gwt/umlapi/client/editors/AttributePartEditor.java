@@ -2,6 +2,7 @@
  * 
  */
 package com.objetdirect.gwt.umlapi.client.editors;
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
@@ -23,7 +24,14 @@ public class AttributePartEditor extends FieldEditor {
         this.attributeToChange = attributeToChange;
     }
     @Override
-    protected void updateClass(String newContent) {
+    protected boolean updateUMLArtifact(String newContent) {
+        Log.fatal(newContent);
+        if(newContent.equals("")) {
+            ((ClassAttributesArtifact) artifact).remove(attributeToChange);
+            ((ClassAttributesArtifact) artifact).getClassArtifact().rebuildGfxObject();
+            return false;
+        }
+        
         LexicalAnalyser lex = new LexicalAnalyser(newContent);
         try {
             String type = null;
@@ -53,6 +61,7 @@ public class AttributePartEditor extends FieldEditor {
         } catch (UMLDrawerException e) {
             Window.alert(e.getMessage());
         }
+        return true;
     }
 
     @Override

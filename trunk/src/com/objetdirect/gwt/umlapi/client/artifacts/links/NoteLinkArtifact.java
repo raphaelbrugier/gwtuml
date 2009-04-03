@@ -38,20 +38,14 @@ UMLArtifact target;
 	public void edit(GfxObject gfxObject, int x, int y) {
 		// TODO Auto-generated method stub
 	}
-	public LinkedHashMap<String, Command> getRightMenu() {
-		LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+	public LinkedHashMap<Command, String> getRightMenu() {
+		LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
 		Command doNothing = new Command() {
 			public void execute() {
 			}
 		};
-		Command remove = new Command() {
-			public void execute() {
-				getCanvas().removeSelected();
-			}
-		};
-		rightMenu.put("Note link", doNothing);
-		rightMenu.put("-", null);
-		rightMenu.put("> Delete", remove);
+
+		rightMenu.put(null, "Note link");
 		return rightMenu;
 	}
 

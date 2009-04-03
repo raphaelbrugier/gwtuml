@@ -116,6 +116,8 @@ private LoadingScreen loadingScreen;
 			themeListBox.addItem(ThemeManager.getThemeName(theme));
 		}
 		isResolutionAutoChkBox.setValue(true);
+		widthTxtBox.setEnabled(false);
+		heightTxtBox.setEnabled(false);
 		isResolutionAutoChkBox.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				widthTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());

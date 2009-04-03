@@ -24,28 +24,19 @@ public class RealizationLinkArtifact extends RelationshipLinkArtifact {
         this.adornmentRight = LinkAdornment.NONE;
         this.style = LinkStyle.LONG_DASHED;
     }
-
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact#getRightMenu()
      */
     @Override
-    public LinkedHashMap<String, Command> getRightMenu() {
-        LinkedHashMap<String, Command> rightMenu = new LinkedHashMap<String, Command>();
+    public LinkedHashMap<Command, String> getRightMenu() {
+        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
         Command doNothing = new Command() {
             public void execute() {
             }
         };
-        Command remove = new Command() {
-            public void execute() {
-                getCanvas().removeSelected();
-            }
-        };
-        rightMenu.put("Realization " + leftClassArtifact.getClassName() + " <-> "
-                + rightClassArtifact.getClassName(), doNothing);
-        rightMenu.put("-", null);
-        rightMenu.put("> Edit", doNothing);
-        rightMenu.put("> Reverse", doNothing);
-        rightMenu.put("> Delete", remove);
+        rightMenu.put(null, "Realization " + leftClassArtifact.getClassName() + 
+                " " + adornmentLeft.getShape().getIdiom() +  "-" + adornmentRight.getShape().getIdiom(true) + " "
+                + rightClassArtifact.getClassName());
         return rightMenu;
     }
 }

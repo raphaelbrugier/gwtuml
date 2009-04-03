@@ -14,31 +14,39 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author  fmounier
  */
 public class MethodPartEditor extends FieldEditor {
-	
-Method methodToChange;
-	
-	public MethodPartEditor(UMLCanvas canvas, ClassMethodsArtifact artifact, Method methodToChange) {
-		super(canvas, artifact);
-		this.methodToChange = methodToChange;
-	}
-	@Override
-	protected void updateClass(String newContent) {
-		LexicalAnalyser lex = new LexicalAnalyser(newContent);
-        try {
-                MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
-                ma.process(lex, null);
-                Method newMethod = ma.getMethod();
-                methodToChange.setVisibility(newMethod.getVisibility());
-                methodToChange.setName(newMethod.getName());
-                methodToChange.setReturnType(newMethod.getReturnType());
-                methodToChange.setParameters(newMethod.getParameters());
-        		((ClassMethodsArtifact) artifact).getClassArtifact().rebuildGfxObject();
-        } catch (UMLDrawerException e) {
-                Window.alert(e.getMessage());
+
+    Method methodToChange;
+
+    public MethodPartEditor(UMLCanvas canvas, ClassMethodsArtifact artifact, Method methodToChange) {
+        super(canvas, artifact);
+        this.methodToChange = methodToChange;
+    }
+    @Override
+    protected boolean updateUMLArtifact(String newContent) {
+        if(newContent.equals("")) {
+            ((ClassMethodsArtifact) artifact).remove(methodToChange);
+            ((ClassMethodsArtifact) artifact).getClassArtifact().rebuildGfxObject();
+            return false;
         }
-	}
-	@Override
-	protected void next() {		
-		((ClassPartArtifact) artifact).edit();
-	}
+
+        LexicalAnalyser lex = new LexicalAnalyser(newContent);
+        try {
+            MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
+            ma.process(lex, null);
+            Method newMethod = ma.getMethod();
+            methodToChange.setVisibility(newMethod.getVisibility());
+            methodToChange.setName(newMethod.getName());
+            methodToChange.setReturnType(newMethod.getReturnType());
+            methodToChange.setParameters(newMethod.getParameters());
+            ((ClassMethodsArtifact) artifact).getClassArtifact().rebuildGfxObject();
+        } catch (UMLDrawerException e) {
+            Window.alert(e.getMessage());
+        }
+        return true;
+
+    }
+    @Override
+    protected void next() {		
+        ((ClassPartArtifact) artifact).edit();
+    }
 }

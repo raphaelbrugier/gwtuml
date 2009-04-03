@@ -39,8 +39,8 @@ private GfxObject lastGfxObject;
 		this.methods.add(method);
 	}
 	
-	public void remove(int index) {
-		methods.remove(index);
+	public void remove(Method method) {
+		methods.remove(method);
 	}
 	
 	public List<Method> getList() {
@@ -144,7 +144,7 @@ private GfxObject lastGfxObject;
 		return null;
 	}
 	@Override
-	public LinkedHashMap<String, Command> getRightMenu() {
+	public LinkedHashMap<Command, String> getRightMenu() {
 		// TODO Auto-generated method stub
 		return null;
 	}

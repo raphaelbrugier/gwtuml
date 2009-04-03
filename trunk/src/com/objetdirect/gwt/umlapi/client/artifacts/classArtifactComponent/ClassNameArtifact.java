@@ -112,7 +112,7 @@ public String getClassName() {
 		return null;
 	}
 	@Override
-	public LinkedHashMap<String, Command> getRightMenu() {
+	public LinkedHashMap<Command, String> getRightMenu() {
 		// TODO Auto-generated method stub
 		return null;
 	}
