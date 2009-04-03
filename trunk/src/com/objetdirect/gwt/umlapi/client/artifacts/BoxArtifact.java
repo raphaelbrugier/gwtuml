@@ -27,6 +27,10 @@ public abstract class BoxArtifact extends UMLArtifact {
 		GfxManager.getPlatform().addToVirtualGroup(vg, rect);
 		return vg;
 	}
+    @Override
+    public boolean isALink() {
+        return false;
+    }
 @Override
 	public int getX() {
 		return x;

@@ -28,7 +28,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 				gfxObjectListener.mouseClicked();
 			}
 			public void mouseDblClicked(GraphicObject graphicObject, Event e) {
-				Log.warn(""+graphicObject);
 				gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
 						.getContainerOf(graphicObject), DOM.eventGetClientX(e),
 						DOM.eventGetClientY(e));

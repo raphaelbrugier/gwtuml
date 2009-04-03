@@ -1,8 +1,13 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowCloseListener;
+import com.google.gwt.user.client.Window.ClosingEvent;
+import com.google.gwt.user.client.Window.ClosingHandler;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 /* Source :
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
@@ -11,16 +16,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
  * @author  florian
  */
 public final class HotKeyManager {
-	private static final class WindowCloseListenerImpl implements
-			WindowCloseListener {
-		public native void onWindowClosed() /*-{ 
-			$doc.onkeydown = null; 
-			$doc.onkeypress = null; 
-			$doc.onkeyup = null; 
-			}-*/;
-		public String onWindowClosing() {
-			return null;
-		}
+	private static final class WindowCloseHandlerImpl implements
+			ClosingHandler {
 		private native void init() /*-{ 
 				$doc.onkeydown = function(evt) { 
 					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
@@ -32,11 +29,17 @@ public final class HotKeyManager {
 					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 			}-*/;
+        public native void onWindowClosing(ClosingEvent event) /*-{ 
+        $doc.onkeydown = null; 
+        $doc.onkeypress = null; 
+        $doc.onkeyup = null; 
+        }-*/;
+        
 	}
 private static UMLCanvas activeCanvas;
 	static {
-		WindowCloseListenerImpl closeListener = new WindowCloseListenerImpl();
-		Window.addWindowCloseListener(closeListener);
+		WindowCloseHandlerImpl closeListener = new WindowCloseHandlerImpl();
+		Window.addWindowClosingHandler(closeListener);
 		closeListener.init();
 	};
 	/**
@@ -52,7 +55,7 @@ private static UMLCanvas activeCanvas;
 	@SuppressWarnings("unused")
 	private static void onKeyDown(Event event) {
 		char keyCode = (char) DOM.eventGetKeyCode(event);
-		if (DOM.eventGetCtrlKey(event)) {
+		///if (DOM.eventGetCtrlKey(event)) {
 			switch (keyCode) {
 			case 'C':
 				activeCanvas.addNewClass();
@@ -60,22 +63,43 @@ private static UMLCanvas activeCanvas;
 			case 'N':
 				activeCanvas.addNewNote();
 				break;
-			case 'D':
-				activeCanvas.addNewLink(RelationKind.DEPENDENCY);
+			case 'A':
+				activeCanvas.addNewLink(RelationKind.AGGREGATION);
 				break;
-			case 'I':
-				activeCanvas.addNewLink(RelationKind.REALIZATION);
-				break;
-			case 'E':
-				activeCanvas.addNewLink(RelationKind.GENERALIZATION);
-				break;
-			case 'R':
-				activeCanvas.addNewLink(RelationKind.ASSOCIATION);
-				break;
+            case 'L':
+                activeCanvas.addNewLink(RelationKind.ASSOCIATION);
+                break;
+            case 'O':
+                activeCanvas.addNewLink(RelationKind.COMPOSITION);
+                break;
+            case 'D':
+                activeCanvas.addNewLink(RelationKind.DEPENDENCY);
+                break;
+            case 'G':
+                activeCanvas.addNewLink(RelationKind.GENERALIZATION);
+                break;
+            case 'R':
+                activeCanvas.addNewLink(RelationKind.REALIZATION);
+                break;
+            case KeyCodes.KEY_DELETE:
+                activeCanvas.removeSelected();
+                break;
+            case KeyCodes.KEY_UP:
+                activeCanvas.moveSelected(Direction.UP);
+                break;
+            case KeyCodes.KEY_DOWN:
+                activeCanvas.moveSelected(Direction.DOWN);
+                break;
+            case KeyCodes.KEY_LEFT:
+                activeCanvas.moveSelected(Direction.LEFT);
+                break;
+            case KeyCodes.KEY_RIGHT:
+                activeCanvas.moveSelected(Direction.RIGHT);
+                break;
 			default:
 				break;
 			}
-		}
+		//}
 	}
 	@SuppressWarnings("unused")
 	private static void onKeyPress(Event event) {

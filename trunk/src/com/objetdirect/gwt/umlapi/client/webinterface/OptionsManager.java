@@ -22,6 +22,7 @@ public class OptionsManager {
     private static final int DIAMOND_WIDTH = 15;
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
+    private static final int MOVING_STEP = 20;
     
     private static QualityLevel qualityLevel;
 
@@ -179,5 +180,8 @@ public class OptionsManager {
     }
     public static GfxFont getSmallCapsFont() {
         return smallCapsFont;
+    }
+    public static int getMovingStep() {
+        return MOVING_STEP;
     }
 }

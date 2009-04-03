@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -159,12 +160,15 @@ public class UMLCanvas extends AbsolutePanel {
         dragOn = true;
     }
     public void remove(UMLArtifact element) {
-        GfxManager.getPlatform().removeFromCanvas(drawingCanvas,
-                element.getGfxObject());
-        objects.remove(element.getGfxObject());
+        GfxManager.getPlatform().removeFromCanvas(drawingCanvas, element.getGfxObject());
+        objects.remove(element.getGfxObject());       
         element.setCanvas(null);
-        if (element == selected)
-            selected = null;
+        if (element == selected) selected = null;
+        for(Entry<LinkArtifact, UMLArtifact> entry : element.getDependentUMLArtifacts().entrySet()) {
+            if(entry.getValue().isALink()) remove(entry.getValue());
+            entry.getValue().removeDependency(entry.getKey());     
+            remove(entry.getKey());
+        }
     }
     public void removeSelected() {
         if (selected != null)
@@ -355,5 +359,11 @@ public class UMLCanvas extends AbsolutePanel {
             Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
         }
         objectsToBeAddedWhenAttached.clear();
+    }
+    public void moveSelected(Direction direction) {
+        if(selected != null) {
+            selected.moveTo(selected.getX() + OptionsManager.getMovingStep() * direction.getXDirection(),
+                            selected.getY() + OptionsManager.getMovingStep() * direction.getYDirection());
+        }
     }
 }
