@@ -131,12 +131,14 @@ private LoadingScreen loadingScreen;
 		Window.addResizeHandler(new ResizeHandler() {
 			public void onResize(ResizeEvent arg0) {
 				if(isResolutionAutoChkBox.getValue()) {
+				    if(drawerPanel != null) {
 					drawerPanel.setWidth(Window.getClientWidth() - 50);
 					drawerPanel.setHeight(Window.getClientHeight() - 50);
 					drawerPanel.setPixelSize( Window.getClientWidth() - 50, Window.getClientHeight() - 50);
 					drawerPanel.clearShadow(); 
 					drawerPanel.makeShadow();
 					GfxManager.getPlatform().setSize(drawerPanel.getGc(), Window.getClientWidth() - 50, Window.getClientHeight() - 50);
+				    }
 				}				
 			}
 		
