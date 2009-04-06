@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 
@@ -15,7 +15,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
  * @author florian
  *
  */
-public class CompositionLinkArtifact extends RelationshipLinkArtifact {
+public class CompositionLinkArtifact extends RelationArtifact {
 
     public CompositionLinkArtifact(ClassArtifact left, ClassArtifact right) {
         super(left, right);

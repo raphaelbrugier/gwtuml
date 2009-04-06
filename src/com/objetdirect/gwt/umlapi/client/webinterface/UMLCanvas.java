@@ -10,18 +10,21 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
@@ -29,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
  * @author  florian
  */
 public class UMLCanvas extends AbsolutePanel {
+
     private static long classCount = 1;
     private static long noteCount = 0;
     /**
@@ -40,6 +44,7 @@ public class UMLCanvas extends AbsolutePanel {
     private int dx; // Represent the offset between object coordinates and mouse
     private int dy;
     private GfxObject movingLine;
+    private ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
         public void mouseClicked() {
         }
@@ -125,22 +130,18 @@ public class UMLCanvas extends AbsolutePanel {
         addNewClass(FAR_AWAY, FAR_AWAY);
 
     }
-    public void addNewClass(int xInit, int yInit) {
-        if (dragOn)
-            return;
+    public void addNewClass(int xInit, int yInit) {      
+        if (dragOn) return;
         ClassArtifact newClass = new ClassArtifact("Class " + ++classCount);
-        add(newClass);
-        newClass.moveTo(xInit, yInit);
-        if (selected != null)
-            selected.unselect();
-        select(newClass.getGfxObject());
-        take(xInit, yInit);
-        drag(xInit, yInit);
-        dragOn = true;
-    }
-    public void addNewLink(RelationKind linkType) {
-        activeLinking = linkType;
-        CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
+        if(fireNewArtifactEvent(newClass)) {
+            add(newClass);
+            newClass.moveTo(xInit, yInit);
+            if (selected != null) selected.unselect();
+            select(newClass.getGfxObject());
+            take(xInit, yInit);
+            drag(xInit, yInit);
+            dragOn = true;
+        }
     }
     public void addNewNote() {
         addNewNote(FAR_AWAY, FAR_AWAY);
@@ -150,14 +151,43 @@ public class UMLCanvas extends AbsolutePanel {
         if (dragOn)
             return;
         NoteArtifact newNote = new NoteArtifact("Note " + ++noteCount);
-        add(newNote);
-        newNote.moveTo(xInit, yInit);
-        if (selected != null)
-            selected.unselect();
-        select(newNote.getGfxObject());
-        take(xInit, yInit);
-        drag(xInit, yInit);		
-        dragOn = true;
+        if(fireNewArtifactEvent(newNote)) {
+            add(newNote);
+            newNote.moveTo(xInit, yInit);
+            if (selected != null)
+                selected.unselect();
+            select(newNote.getGfxObject());
+            take(xInit, yInit);
+            drag(xInit, yInit);		
+            dragOn = true;
+        }
+    }
+    public void toLinkMode(RelationKind linkType) {
+        activeLinking = linkType;
+        CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
+    }
+    public void addNewLink(UMLArtifact selected, UMLArtifact newSelected) {
+        LinkArtifact newLink;
+        Log.info("selected " + selected.getClass() + " newSelected " + newSelected.getClass());
+        if(activeLinking == RelationKind.OTHER) {
+                if (newSelected.getClass() == NoteArtifact.class) {
+                    newLink = new NoteLinkArtifact((NoteArtifact) newSelected, selected);
+                } else if (selected.getClass() == NoteArtifact.class) {
+                    newLink = new NoteLinkArtifact((NoteArtifact) selected, newSelected);
+                } else if (newSelected.getClass().getSuperclass() == RelationArtifact.class && selected.getClass() == ClassArtifact.class) {
+                    newLink = new ClassRelationLinkArtifact((ClassArtifact) selected, (RelationArtifact) newSelected);
+                } else if (selected.getClass().getSuperclass() == RelationArtifact.class && newSelected.getClass() == ClassArtifact.class) {
+                    newLink = new ClassRelationLinkArtifact((ClassArtifact) newSelected, (RelationArtifact) selected);
+                } else newLink = null;
+        }
+        else if (selected.getClass() == ClassArtifact.class && newSelected.getClass() == ClassArtifact.class) {
+            newLink = RelationArtifact.makeLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selected, activeLinking);
+        }
+        else newLink = null;
+        
+        if(newLink != null && fireNewLinkEvent(newLink)) {
+            add(newLink);
+        }
     }
     public void remove(UMLArtifact element) {
         GfxManager.getPlatform().removeFromCanvas(drawingCanvas, element.getGfxObject());
@@ -259,14 +289,7 @@ public class UMLCanvas extends AbsolutePanel {
         }
         if (selected != null) {
             if (activeLinking != null) {
-                if ((selected.getClass() == NoteArtifact.class)
-                        || (newSelected.getClass() == NoteArtifact.class)) {
-                    if (newSelected.getClass() == NoteArtifact.class)
-                        add(new NoteLinkArtifact((NoteArtifact) newSelected, selected));
-                    else
-                        add(new NoteLinkArtifact((NoteArtifact) selected, newSelected));
-                } else
-                    add(RelationshipLinkArtifact.makeLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selected, activeLinking));
+                addNewLink(selected, newSelected);
                 activeLinking = null;
                 if(movingLine != null)  GfxManager.getPlatform().removeFromCanvas(drawingCanvas, movingLine);
                 CursorIconManager.setCursorIcon(PointerStyle.AUTO);
@@ -363,7 +386,31 @@ public class UMLCanvas extends AbsolutePanel {
     public void moveSelected(Direction direction) {
         if(selected != null) {
             selected.moveTo(selected.getX() + OptionsManager.getMovingStep() * direction.getXDirection(),
-                            selected.getY() + OptionsManager.getMovingStep() * direction.getYDirection());
+                    selected.getY() + OptionsManager.getMovingStep() * direction.getYDirection());
         }
+    }
+    public void addUMLEventListener(UMLEventListener uMLEventListener) {
+        uMLEventListenerList.add(uMLEventListener);
+    }
+    public void removeUMLEventListener(UMLEventListener uMLEventListener) {
+        uMLEventListenerList.remove(uMLEventListener);
+    }
+    public boolean fireNewArtifactEvent(UMLArtifact umlArtifact) {
+        boolean isThisOk = true;
+        for(UMLEventListener listener : uMLEventListenerList) {
+            //If one is not ok then it's not ok !
+            isThisOk = listener.onNewUMLArtifact(umlArtifact) && isThisOk;
+        }
+        Log.trace("New Artifact event fired. Status : " + isThisOk);
+        return isThisOk;
+
+    }
+    public boolean fireNewLinkEvent(LinkArtifact newLink) {
+        boolean isThisOk = true;
+        for(UMLEventListener listener : uMLEventListenerList) {
+            isThisOk = listener.onNewLink(newLink) && isThisOk;
+        }
+        Log.trace("New Link event fired. Status : " + isThisOk);
+        return isThisOk;
     }
 }

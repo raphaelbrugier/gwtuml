@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
@@ -77,8 +76,8 @@ public class ContextMenu {
                 }
             }
             specificSubMenu.addItem("Delete", remove);
-            //specificSubMenu.addSeparator();
             contextMenu.addItem(specificRightMenu.get(null), specificSubMenu);
+            contextMenu.addSeparator();
         }
 
         contextMenu.addItem("Add new class", addNewClass);
@@ -94,7 +93,7 @@ public class ContextMenu {
     private Command addRelation(final RelationKind relation) {       
         return new Command() {
             public void execute() {
-                canvas.addNewLink(relation);
+                canvas.toLinkMode(relation);
             }
         };
     }

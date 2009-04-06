@@ -1,6 +1,6 @@
 cd war
 rm -fr umldrawer
-svn up
+svn up umldrawer
 svn rm --force umldrawer/*.cache.*
 svn rm --force umldrawer/*.rpc
 rm -f umldrawer/*.cache.*

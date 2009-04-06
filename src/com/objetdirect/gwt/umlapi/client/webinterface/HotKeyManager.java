@@ -77,22 +77,22 @@ public final class HotKeyManager {
             activeCanvas.addNewNote();
             break;
         case 'A':
-            activeCanvas.addNewLink(RelationKind.AGGREGATION);
+            activeCanvas.toLinkMode(RelationKind.AGGREGATION);
             break;
         case 'L':
-            activeCanvas.addNewLink(RelationKind.ASSOCIATION);
+            activeCanvas.toLinkMode(RelationKind.ASSOCIATION);
             break;
         case 'O':
-            activeCanvas.addNewLink(RelationKind.COMPOSITION);
+            activeCanvas.toLinkMode(RelationKind.COMPOSITION);
             break;
         case 'D':
-            activeCanvas.addNewLink(RelationKind.DEPENDENCY);
+            activeCanvas.toLinkMode(RelationKind.DEPENDENCY);
             break;
         case 'G':
-            activeCanvas.addNewLink(RelationKind.GENERALIZATION);
+            activeCanvas.toLinkMode(RelationKind.GENERALIZATION);
             break;
         case 'R':
-            activeCanvas.addNewLink(RelationKind.REALIZATION);
+            activeCanvas.toLinkMode(RelationKind.REALIZATION);
             break;
         case KeyCodes.KEY_DELETE:
             activeCanvas.removeSelected();

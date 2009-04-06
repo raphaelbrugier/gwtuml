@@ -12,7 +12,8 @@ public class Relation {
 	    COMPOSITION("Composition"),
 	    DEPENDENCY("Dependency"),
 	    GENERALIZATION("Generalization"),
-	    REALIZATION("Realization");
+	    REALIZATION("Realization"),
+	    OTHER("Other");
 	    
 	    private String name;
 

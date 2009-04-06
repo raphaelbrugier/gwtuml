@@ -6,8 +6,9 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks.AssociationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks.DependencyLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks.GeneralizationLinkArtifact;
@@ -16,6 +17,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+/**
+ * @author florian
+ *
+ */
 public class Demo extends AbsolutePanel {
 	public Demo(UMLCanvas gc) {
 		Log.trace("Creating demo");
@@ -44,20 +49,20 @@ public class Demo extends AbsolutePanel {
 			clientClass.setLocation(300, 250);
 		gc.add(clientClass);
 		
-		RelationshipLinkArtifact clientDataManager = new DependencyLinkArtifact(
+		RelationArtifact clientDataManager = new DependencyLinkArtifact(
 				clientClass, dataManagerClass);
 		gc.add(clientDataManager);
-		RelationshipLinkArtifact clientBusinessObject = new GeneralizationLinkArtifact(
+		RelationArtifact clientBusinessObject = new GeneralizationLinkArtifact(
 				clientClass, businessObjectClass);
 		gc.add(clientBusinessObject);
-		RelationshipLinkArtifact clientSerializable = new RealizationLinkArtifact(
+		RelationArtifact clientSerializable = new RealizationLinkArtifact(
 				clientClass, serializableClass);
 		gc.add(clientSerializable);
 		ClassArtifact eventClass = new ClassArtifact("Event");		
 			eventClass.setLocation(250, 100);
 		gc.add(eventClass);
 		
-		RelationshipLinkArtifact relClientEvent = new AssociationLinkArtifact(
+		RelationArtifact relClientEvent = new AssociationLinkArtifact(
 				clientClass, eventClass);
 			relClientEvent.setName("client-event");
 			relClientEvent.setLeftCardinality("1");
@@ -71,7 +76,7 @@ public class Demo extends AbsolutePanel {
 			addressClass.setLocation(50, 200);
 		gc.add(addressClass);
 		
-		RelationshipLinkArtifact relClientAddress = new AssociationLinkArtifact(
+		RelationArtifact relClientAddress = new AssociationLinkArtifact(
 				clientClass, addressClass);
 			relClientAddress.setLeftCardinality("1");
 			relClientAddress.setLeftConstraint("{ordered}");
@@ -86,13 +91,15 @@ public class Demo extends AbsolutePanel {
 			paymentClass.setLocation(150, 450);
 		gc.add(paymentClass);
 		
-		RelationshipLinkArtifact relClientProduct = new AssociationLinkArtifact(
+		RelationArtifact relClientProduct = new AssociationLinkArtifact(
 				clientClass, productClass);
 			relClientProduct.setName("client-product");
 			relClientProduct.setLeftCardinality("1");
 			relClientProduct.setRightCardinality("0..*");
-			relClientProduct.setRelationClass(paymentClass);
 		gc.add(relClientProduct);
+		
+		ClassRelationLinkArtifact relClassClientProductPayment = new ClassRelationLinkArtifact(paymentClass, relClientProduct);
+	    gc.add(relClassClientProductPayment);
 		
 		NoteArtifact note = new NoteArtifact("Ceci est une note\nconcernant le client");
 			note.setLocation(400, 450);
