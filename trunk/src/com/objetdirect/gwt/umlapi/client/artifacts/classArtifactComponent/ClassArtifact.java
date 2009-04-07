@@ -145,7 +145,7 @@ public class ClassArtifact extends BoxArtifact {
                     if(gfxObjectGroup != null)
                     {
                         if (gfxObjectGroup.equals(className.getGfxObject())) {
-                            className.edit();
+                            className.edit(gfxObject);
                         } else if (gfxObjectGroup.equals(classAttributes.getGfxObject())) {
                             classAttributes.edit(gfxObject);
                         } else if (gfxObjectGroup.equals(classMethods.getGfxObject())) {
