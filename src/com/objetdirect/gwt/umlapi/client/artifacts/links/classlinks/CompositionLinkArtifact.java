@@ -4,7 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
@@ -13,7 +13,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
  * @author florian
  *
  */
-public class CompositionLinkArtifact extends RelationArtifact {
+public class CompositionLinkArtifact extends RelationLinkArtifact {
 
     public CompositionLinkArtifact(ClassArtifact left, ClassArtifact right) {
         super(left, right);
@@ -23,16 +23,5 @@ public class CompositionLinkArtifact extends RelationArtifact {
         this.adornmentLeft = LinkAdornment.INVERTED_SOLID_DIAMOND;
         this.adornmentRight = LinkAdornment.NONE;
         this.style = LinkStyle.SOLID;
-    }
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact#getRightMenu()
-     */
-    @Override
-    public MenuBarAndTitle getRightMenu() {
-        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-        rightMenu.setName("Composition " + leftClassArtifact.getClassName() + 
-                " " + adornmentLeft.getShape().getIdiom() +  "-" + adornmentRight.getShape().getIdiom(true) + " "
-                + rightClassArtifact.getClassName());
-        return rightMenu;
     }
 }
