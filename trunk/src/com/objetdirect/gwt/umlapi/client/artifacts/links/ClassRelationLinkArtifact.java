@@ -13,9 +13,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 public class ClassRelationLinkArtifact extends LinkArtifact {
 GfxObject line = null;
 ClassArtifact classArtifact;
-RelationArtifact relation;
+RelationLinkArtifact relation;
 
-    public ClassRelationLinkArtifact(ClassArtifact classArtifact, RelationArtifact relation) {
+    public ClassRelationLinkArtifact(ClassArtifact classArtifact, RelationLinkArtifact relation) {
         this.classArtifact = classArtifact;
         this.classArtifact.addDependency(this, relation);
         this.relation = relation;
@@ -62,5 +62,10 @@ RelationArtifact relation;
     public void unselect() {
         GfxManager.getPlatform().setStroke(line,
                 ThemeManager.getForegroundColor(), 1);
+    }
+    @Override
+    public void removeCreatedDependency() {
+        classArtifact.removeDependency(this);
+        relation.removeDependency(this);
     }
 }

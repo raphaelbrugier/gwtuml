@@ -17,7 +17,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassA
 import com.objetdirect.gwt.umlapi.client.artifacts.links.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.NoteLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -171,14 +171,14 @@ public class UMLCanvas extends AbsolutePanel {
                     newLink = new NoteLinkArtifact((NoteArtifact) newSelected, selected);
                 } else if (selected.getClass() == NoteArtifact.class) {
                     newLink = new NoteLinkArtifact((NoteArtifact) selected, newSelected);
-                } else if (newSelected.getClass().getSuperclass() == RelationArtifact.class && selected.getClass() == ClassArtifact.class) {
-                    newLink = new ClassRelationLinkArtifact((ClassArtifact) selected, (RelationArtifact) newSelected);
-                } else if (selected.getClass().getSuperclass() == RelationArtifact.class && newSelected.getClass() == ClassArtifact.class) {
-                    newLink = new ClassRelationLinkArtifact((ClassArtifact) newSelected, (RelationArtifact) selected);
+                } else if (newSelected.getClass().getSuperclass() == RelationLinkArtifact.class && selected.getClass() == ClassArtifact.class) {
+                    newLink = new ClassRelationLinkArtifact((ClassArtifact) selected, (RelationLinkArtifact) newSelected);
+                } else if (selected.getClass().getSuperclass() == RelationLinkArtifact.class && newSelected.getClass() == ClassArtifact.class) {
+                    newLink = new ClassRelationLinkArtifact((ClassArtifact) newSelected, (RelationLinkArtifact) selected);
                 } else newLink = null;
         }
         else if (selected.getClass() == ClassArtifact.class && newSelected.getClass() == ClassArtifact.class) {
-            newLink = RelationArtifact.makeLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selected, activeLinking);
+            newLink = RelationLinkArtifact.makeLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selected, activeLinking);
         }
         else newLink = null;
         
@@ -187,15 +187,24 @@ public class UMLCanvas extends AbsolutePanel {
         }
     }
     public void remove(UMLArtifact element) {
+        removeRecursive(element);
+        if(element.isALink()) {
+            ((LinkArtifact) element).removeCreatedDependency();
+        }
+    }
+    private void removeRecursive(UMLArtifact element) {
         GfxManager.getPlatform().removeFromCanvas(drawingCanvas, element.getGfxObject());
         objects.remove(element.getGfxObject());       
         element.setCanvas(null);
         if (element == selected) selected = null;
+
         for(Entry<LinkArtifact, UMLArtifact> entry : element.getDependentUMLArtifacts().entrySet()) {
-            if(entry.getValue().isALink()) remove(entry.getValue());
+            if(entry.getValue().isALink() && entry.getKey().getClass() != NoteLinkArtifact.class) remove(entry.getValue());
             entry.getValue().removeDependency(entry.getKey());     
-            remove(entry.getKey());
+            removeRecursive(entry.getKey());
         }
+
+        
     }
     public void removeSelected() {
         if (selected != null)
@@ -218,7 +227,7 @@ public class UMLCanvas extends AbsolutePanel {
             int ty = y - dy -  GfxManager.getPlatform().getYFor(outline);
             Log.trace("Translating " + tx + "," + ty);
             GfxManager.getPlatform().translate(outline, tx, ty);
-            outlineDependencies(selected.getOutlineForDependencies(), x, y);
+            outlineDependencies(selected.getOutlineForDependencies(), x - dx + selected.getWidth()/2, y - dy + selected.getHeight()/2);
 
 
         }

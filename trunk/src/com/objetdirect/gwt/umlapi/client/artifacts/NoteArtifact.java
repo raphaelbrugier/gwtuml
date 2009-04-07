@@ -1,4 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.NoteFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -58,10 +59,18 @@ public class NoteArtifact extends BoxArtifact {
             return super.getOutline();
         }
     }
+    private Command editCommand() {       
+        return new Command() {
+            public void execute() {
+                edit(null);
+            }
+        };
+    }
     @Override
     public MenuBarAndTitle getRightMenu() {
         MenuBarAndTitle rightMenu = new MenuBarAndTitle();
         rightMenu.setName("Note");
+        rightMenu.addItem("Edit content", editCommand());
         return rightMenu;
     }
     @Override

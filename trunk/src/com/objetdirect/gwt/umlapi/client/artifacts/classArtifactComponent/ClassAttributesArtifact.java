@@ -150,6 +150,7 @@ private GfxObject lastGfxObject;
         return new Command() {
             public void execute() {
                 remove(attribute);
+                classArtifact.rebuildGfxObject();
             }
         };
     }

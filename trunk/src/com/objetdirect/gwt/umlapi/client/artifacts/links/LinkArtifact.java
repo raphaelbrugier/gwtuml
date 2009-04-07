@@ -94,6 +94,8 @@ public abstract class LinkArtifact extends UMLArtifact {
     protected LinkAdornment adornmentRight;
     protected LinkStyle style;
     
+    public abstract void removeCreatedDependency();
+    
     @Override
     public boolean isALink() {
         return true;

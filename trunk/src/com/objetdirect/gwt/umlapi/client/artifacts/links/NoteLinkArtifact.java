@@ -65,4 +65,9 @@ UMLArtifact target;
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
 	}
+	@Override
+    public void removeCreatedDependency() {
+        note.removeDependency(this);
+        target.removeDependency(this);
+    }
 }

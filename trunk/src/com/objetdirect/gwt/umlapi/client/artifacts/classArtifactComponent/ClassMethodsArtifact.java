@@ -161,10 +161,11 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
             }
         };
     }
-    private Command deleteCommand(final GfxObject gfxo) {       
+    private Command deleteCommand(final Method  method) {       
         return new Command() {
             public void execute() {
-                edit(gfxo);
+                remove(method);
+                classArtifact.rebuildGfxObject();
             }
         };
     }
@@ -176,7 +177,7 @@ public class ClassMethodsArtifact extends ClassPartArtifact {
         for(Entry<GfxObject, Method> method : methodGfxObjects.entrySet()) {
             MenuBar subsubMenu = new MenuBar(true);
             subsubMenu.addItem("Edit ", editCommand(method.getKey()));
-            subsubMenu.addItem("Delete ", deleteCommand(method.getKey()));
+            subsubMenu.addItem("Delete ", deleteCommand(method.getValue()));
             rightMenu.addItem(method.getValue().toString(), subsubMenu);
         }
         rightMenu.addItem("Add new", editCommand());
