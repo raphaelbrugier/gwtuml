@@ -3,13 +3,11 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks;
 
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 
 /**
  * @author florian
@@ -30,13 +28,9 @@ public class CompositionLinkArtifact extends RelationArtifact {
      * @see com.objetdirect.gwt.umlapi.client.artifacts.links.RelationshipLinkArtifact#getRightMenu()
      */
     @Override
-    public LinkedHashMap<Command, String> getRightMenu() {
-        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
-        Command doNothing = new Command() {
-            public void execute() {
-            }
-        };
-        rightMenu.put(null, "Composition " + leftClassArtifact.getClassName() +
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        rightMenu.setName("Composition " + leftClassArtifact.getClassName() + 
                 " " + adornmentLeft.getShape().getIdiom() +  "-" + adornmentRight.getShape().getIdiom(true) + " "
                 + rightClassArtifact.getClassName());
         return rightMenu;

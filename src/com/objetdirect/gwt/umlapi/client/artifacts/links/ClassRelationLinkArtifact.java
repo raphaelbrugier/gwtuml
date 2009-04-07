@@ -1,14 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 /**
@@ -36,17 +32,12 @@ RelationArtifact relation;
         GfxManager.getPlatform().moveToBack(gfxObject);
         
     }
-    public void edit(GfxObject gfxObject, int x, int y) {
+    public void edit(GfxObject gfxObject) {
         // TODO Auto-generated method stub
     }
-    public LinkedHashMap<Command, String> getRightMenu() {
-        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
-        Command doNothing = new Command() {
-            public void execute() {
-            }
-        };
-
-        rightMenu.put(null, "Class relation link");
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        rightMenu.setName("Class relation link " + classArtifact.getClassName());
         return rightMenu;
     }
 

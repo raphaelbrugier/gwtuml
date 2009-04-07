@@ -24,7 +24,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
@@ -49,9 +48,7 @@ public class UMLCanvas extends AbsolutePanel {
         public void mouseClicked() {
         }
         public void mouseDblClicked(GfxObject gfxObject, int x, int y) {
-            x = convertToRealX(x);
-            y = convertToRealY(y);
-            editItem(gfxObject, x, y);
+            editItem(gfxObject);
         }
         public void mouseLeftClickPressed(GfxObject gfxObject, int x, int y) {
             x = convertToRealX(x);
@@ -248,12 +245,12 @@ public class UMLCanvas extends AbsolutePanel {
 
         }
     }
-    private void editItem(GfxObject gfxObject, int x, int y) {
+    private void editItem(GfxObject gfxObject) {
         Log.trace("Edit request on " + gfxObject);
         UMLArtifact elem = getUMLArtifact(gfxObject);
         if (elem != null) {
             Log.trace("Edit started on " + elem);
-            elem.edit(gfxObject, x, y);
+            elem.edit(gfxObject);
         }
     }
     private UMLArtifact getUMLArtifact(GfxObject gfxO) {

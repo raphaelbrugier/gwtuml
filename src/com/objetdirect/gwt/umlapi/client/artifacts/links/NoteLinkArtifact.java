@@ -1,13 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 /**
@@ -35,19 +33,15 @@ UMLArtifact target;
 		GfxManager.getPlatform().moveToBack(gfxObject);
 		
 	}
-	public void edit(GfxObject gfxObject, int x, int y) {
+	public void edit(GfxObject gfxObject) {
 		// TODO Auto-generated method stub
 	}
-	public LinkedHashMap<Command, String> getRightMenu() {
-		LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
-		Command doNothing = new Command() {
-			public void execute() {
-			}
-		};
-
-		rightMenu.put(null, "Note link");
-		return rightMenu;
-	}
+    @Override
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        rightMenu.setName("Note link");
+        return rightMenu;
+    }
 
 	public boolean isDraggable() {
 		return false;
@@ -70,9 +64,5 @@ UMLArtifact target;
 	public void unselect() {
 		GfxManager.getPlatform().setStroke(line,
 				ThemeManager.getForegroundColor(), 1);
-	}
-	private boolean isTargetALink() {
-		//TODO : find a better way :
-		return (target.getClass().getSuperclass().equals(LinkArtifact.class) || target.getClass().getSuperclass().getSuperclass().equals(LinkArtifact.class));
 	}
 }

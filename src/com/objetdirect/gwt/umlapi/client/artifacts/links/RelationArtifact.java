@@ -1,10 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.links;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks.AggregationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks.AssociationLinkArtifact;
@@ -17,7 +15,6 @@ import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
@@ -129,10 +126,10 @@ public abstract class RelationArtifact extends LinkArtifact {
     public void edit(RelationArtifactPart part) {
         part.setText(relation, "link");
         rebuildGfxObject();
-        edit(gfxObjectPart.get(part), 0, 0);		
+        edit(gfxObjectPart.get(part));		
     }
 
-    public void edit(GfxObject gfxObject, int x, int y) {
+    public void edit(GfxObject gfxObject) {
         RelationArtifactPart editPart = RelationArtifactPart.getPartForGfxObject(gfxObject);
         if(editPart ==  null) {
             edit(RelationArtifactPart.NAME);
@@ -153,7 +150,7 @@ public abstract class RelationArtifact extends LinkArtifact {
     public ClassArtifact getRightClassArtifact() {
         return rightClassArtifact;
     }
-    public abstract LinkedHashMap<Command, String> getRightMenu();
+    
 
     public void select() {
         GfxManager.getPlatform().moveToFront(textVirtualGroup);
