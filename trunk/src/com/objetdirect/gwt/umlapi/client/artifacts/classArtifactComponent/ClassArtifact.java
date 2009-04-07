@@ -1,10 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -12,6 +10,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
@@ -118,7 +117,7 @@ public class ClassArtifact extends BoxArtifact {
     public int getWidth() {
         return width;
     }
-    public void edit(GfxObject gfxObject, int x, int y) {
+    public void edit(GfxObject gfxObject) {
         if (gfxObject.equals(className.getGfxObject())) {
             Log.warn("Selecting a virtual group : this should not happen !");
             className.edit();
@@ -127,7 +126,7 @@ public class ClassArtifact extends BoxArtifact {
             classAttributes.edit();
         } else if (gfxObject.equals(classMethods.getGfxObject())) {
             Log.warn("Selecting a virtual group : this should not happen !");
-            classMethods.edit(gfxObject, x, y);
+            classMethods.edit(gfxObject);
         } else if (gfxObject.equals(getGfxObject())) {
             Log.warn("Selecting a virtual group : this should not happen !");
             className.edit();
@@ -148,9 +147,9 @@ public class ClassArtifact extends BoxArtifact {
                         if (gfxObjectGroup.equals(className.getGfxObject())) {
                             className.edit();
                         } else if (gfxObjectGroup.equals(classAttributes.getGfxObject())) {
-                            classAttributes.edit(gfxObject, x, y);
+                            classAttributes.edit(gfxObject);
                         } else if (gfxObjectGroup.equals(classMethods.getGfxObject())) {
-                            classMethods.edit(gfxObject, x, y);
+                            classMethods.edit(gfxObject);
                         } else if (gfxObjectGroup.equals(getGfxObject())) {
                             Log.warn("Selecting the master virtual group : this should NOT happen !");
                             className.edit();
@@ -160,15 +159,18 @@ public class ClassArtifact extends BoxArtifact {
             }
         }
     }
-    public LinkedHashMap<Command, String> getRightMenu() {
-        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
-        Command doNothing = new Command() {
-            public void execute() {
-            }
-        };
-
-        rightMenu.put(null, "Class " + className.getClassName());
-
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        MenuBarAndTitle classNameRightMenu =  className.getRightMenu();
+        MenuBarAndTitle classAttributesRightMenu =  classAttributes.getRightMenu();
+        MenuBarAndTitle classMethodsRightMenu =  classMethods.getRightMenu();
+        
+        rightMenu.setName("Class " + className.getClassName());
+        
+        rightMenu.addItem(classNameRightMenu.getName(), classNameRightMenu.getSubMenu());
+        rightMenu.addItem(classAttributesRightMenu.getName(), classAttributesRightMenu.getSubMenu());
+        rightMenu.addItem(classMethodsRightMenu.getName(), classMethodsRightMenu.getSubMenu());
+        
         return rightMenu;
     }
     public void select() {

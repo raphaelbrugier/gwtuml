@@ -1,7 +1,4 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
 import org.gwt.mosaic.ui.client.PopupMenu;
 
 import com.google.gwt.user.client.Command;
@@ -17,7 +14,9 @@ public class ContextMenu {
     private int y;
     private UMLCanvas canvas;
     private PopupMenu contextMenu;
-    private LinkedHashMap<Command, String> specificRightMenu;
+    private MenuBarAndTitle specificRightMenu;
+    
+
     /**
      * @param x
      * @param y
@@ -36,7 +35,7 @@ public class ContextMenu {
      * @param y
      * @param canvas
      */
-    public ContextMenu(int x, int y, UMLCanvas canvas, LinkedHashMap<Command, String> specificRightMenu) {
+    public ContextMenu(int x, int y, UMLCanvas canvas, MenuBarAndTitle specificRightMenu) {
         this.x = x;
         this.y = y;
         this.canvas = canvas;
@@ -66,17 +65,10 @@ public class ContextMenu {
     private void makeMenu() {
         contextMenu = new PopupMenu();
         if (specificRightMenu != null) {
-            MenuBar specificSubMenu = new MenuBar(true);
-            for (Entry<Command, String> item : specificRightMenu.entrySet()) {
-                if(item.getKey() != null) {
-                if (item.getValue().equals("-"))
-                    specificSubMenu.addSeparator();
-                else
-                    specificSubMenu.addItem(item.getValue(), item.getKey());
-                }
-            }
+            MenuBar specificSubMenu = specificRightMenu.getSubMenu();
+
             specificSubMenu.addItem("Delete", remove);
-            contextMenu.addItem(specificRightMenu.get(null), specificSubMenu);
+            contextMenu.addItem(specificRightMenu.getName(), specificSubMenu);
             contextMenu.addSeparator();
         }
 

@@ -7,15 +7,18 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.AttributePartEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 /**
@@ -28,7 +31,7 @@ private GfxObject lastGfxObject;
 	private GfxObject attributeRect;
 	public ClassAttributesArtifact() {
 		attributes = new ArrayList<Attribute>();
-		attributeGfxObjects = new HashMap<GfxObject, Attribute>();
+		attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
 		height = 0;
 		width = 0;
 	}
@@ -75,6 +78,7 @@ private GfxObject lastGfxObject;
 	}
 	@Override
 	public void computeBounds() {
+	    attributeGfxObjects.clear();
 		height = 0;
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
@@ -111,10 +115,11 @@ private GfxObject lastGfxObject;
 		Attribute attributeToCreate = new Attribute(Visibility.PROTECTED, "String", "attribute");
 		attributes.add(attributeToCreate);
 		classArtifact.rebuildGfxObject();
-		edit(lastGfxObject, 0, 0);
+		attributeGfxObjects.put(lastGfxObject, attributeToCreate);
+		edit(lastGfxObject);
 	}
 	@Override
-	public void edit(GfxObject gfxObject, int x, int y) {
+	public void edit(GfxObject gfxObject) {
 		Attribute attributeToChange = attributeGfxObjects.get(gfxObject);
 		if(attributeToChange == null) edit();
 		else {
@@ -134,11 +139,41 @@ private GfxObject lastGfxObject;
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public LinkedHashMap<Command, String> getRightMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private Command editCommand(final GfxObject gfxo) {       
+        return new Command() {
+            public void execute() {
+                edit(gfxo);
+            }
+        };
+    }
+    private Command deleteCommand(final Attribute attribute) {       
+        return new Command() {
+            public void execute() {
+                remove(attribute);
+            }
+        };
+    }
+    private Command editCommand() {       
+        return new Command() {
+            public void execute() {
+                edit();
+            }
+        };
+    }
+    @Override
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        rightMenu.setName("Attributes");
+
+        for(Entry<GfxObject, Attribute> attribute : attributeGfxObjects.entrySet()) {
+            MenuBar subsubMenu = new MenuBar(true);
+            subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
+            subsubMenu.addItem("Delete ", deleteCommand(attribute.getValue()));
+            rightMenu.addItem(attribute.getValue().toString(), subsubMenu);
+        }
+        rightMenu.addItem("Add new", editCommand());
+        return rightMenu;
+    }
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub

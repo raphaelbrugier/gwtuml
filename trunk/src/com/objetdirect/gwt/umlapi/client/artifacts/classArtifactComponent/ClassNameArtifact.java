@@ -1,12 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
-import java.util.LinkedHashMap;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 /**
@@ -98,7 +97,7 @@ public String getClassName() {
 	}	
 	
 	@Override
-	public void edit(GfxObject gfxObject, int x, int y) {
+	public void edit(GfxObject gfxObject) {
 		edit();
 	}
 	@Override
@@ -112,10 +111,19 @@ public String getClassName() {
 		return null;
 	}
 	@Override
-	public LinkedHashMap<Command, String> getRightMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public MenuBarAndTitle getRightMenu() {
+	    MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        Command editName = new Command() {
+            public void execute() {
+                edit();
+            }
+        };
+        rightMenu.setName("Name");
+        rightMenu.addItem("Edit", editName);
+
+        return rightMenu;
+    }
+	
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub

@@ -1,12 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.editors.NoteFieldEditor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
@@ -60,14 +58,10 @@ public class NoteArtifact extends BoxArtifact {
             return super.getOutline();
         }
     }
-    public LinkedHashMap<Command, String> getRightMenu() {
-        LinkedHashMap<Command, String> rightMenu = new LinkedHashMap<Command, String>();
-        Command doNothing = new Command() {
-            public void execute() {
-            }
-        };
-
-        rightMenu.put(null, "Note");
+    @Override
+    public MenuBarAndTitle getRightMenu() {
+        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+        rightMenu.setName("Note");
         return rightMenu;
     }
     @Override
@@ -149,7 +143,7 @@ public class NoteArtifact extends BoxArtifact {
     private int getCornerWidth() {
         return height / 3;
     }
-    public void edit(GfxObject gfxObject, int x, int y) {
+    public void edit(GfxObject gfxObject) {
         NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
         editor.setHeightForMultiLine(height - OptionsManager.getTextYTotalPadding() - OptionsManager.getRectangleYTotalPadding());
         editor.startEdition(note.getText(), this.x + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding(),

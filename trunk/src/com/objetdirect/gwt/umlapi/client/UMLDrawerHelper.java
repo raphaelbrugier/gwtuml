@@ -40,12 +40,10 @@ public class UMLDrawerHelper {
 	}
 	
 	public static void disableBrowserEvents() {
-	    Log.fatal("Disable");
 		if(eventPreview == null) makeEventPreview();
 		DOM.addEventPreview(eventPreview);
 	}
 	public static void enableBrowserEvents() {
-	    Log.fatal("Enable");
 		if(eventPreview == null) makeEventPreview();
 		else DOM.removeEventPreview(eventPreview);
 	}

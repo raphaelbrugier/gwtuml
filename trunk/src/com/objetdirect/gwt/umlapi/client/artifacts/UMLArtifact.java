@@ -1,11 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact;
@@ -13,6 +11,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
@@ -159,9 +158,9 @@ public abstract class UMLArtifact  {
         return dependentUMLArtifacts;
     }
     public abstract boolean isDraggable();
-    public abstract void edit(GfxObject gfxObject, int x, int y);
+    public abstract void edit(GfxObject gfxObject);
     public abstract GfxObject getOutline();
-    public abstract LinkedHashMap<Command, String> getRightMenu();
+    public abstract MenuBarAndTitle getRightMenu();
     public abstract void moveTo(int fx, int fy);
     public abstract void select();
     public abstract void unselect();
