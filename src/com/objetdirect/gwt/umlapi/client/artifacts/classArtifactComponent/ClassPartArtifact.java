@@ -1,37 +1,42 @@
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
+
 import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+
 /**
- * @author  florian
+ * @author florian
  */
 public abstract class ClassPartArtifact extends BoxArtifact {
-	 
-	protected int height;
-	 
-	protected int width;
-	protected int classWidth;
- 
-	public abstract void setHeight(int height);
- 
-	public abstract void setWidth(int width);	
-	protected GfxObject textVirtualGroup;
+
     protected ClassArtifact classArtifact;
-	
-	public abstract void computeBounds();
- 
-	public abstract void setClassWidth(int width);
-	
-	public abstract void edit();
-	
-	@Override
-	public void buildGfxObjectWithAnimation() {
-	    buildGfxObject();
-	}
-	public ClassArtifact getClassArtifact() {
-		return classArtifact;
-	}
- 
-	public void setClassArtifact(ClassArtifact classArtifact) {
-		this.classArtifact = classArtifact;
-	}
+
+    protected int classWidth;
+    protected int height;
+
+    protected GfxObject textVirtualGroup;
+
+    protected int width;
+
+    @Override
+    public void buildGfxObjectWithAnimation() {
+	buildGfxObject();
+    }
+
+    public abstract void computeBounds();
+
+    public abstract void edit();
+
+    public ClassArtifact getClassArtifact() {
+	return this.classArtifact;
+    }
+
+    public void setClassArtifact(final ClassArtifact classArtifact) {
+	this.classArtifact = classArtifact;
+    }
+
+    public abstract void setClassWidth(int width);
+
+    public abstract void setHeight(int height);
+
+    public abstract void setWidth(int width);
 }

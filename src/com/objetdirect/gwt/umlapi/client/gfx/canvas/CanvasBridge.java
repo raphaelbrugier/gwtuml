@@ -10,30 +10,119 @@ import com.google.gwt.widgetideas.graphics.client.Color;
 
 /**
  * @author florian
- *
+ * 
  */
 public interface CanvasBridge {
 
-	public enum AbstractCanvasType {
-		GWTCANVAS, INCUBATORCANVAS;
-	}
-	
-	public void saveContext();
-	public void setFillStyle(Color fillColor);
-	public void setStrokeStyle(Color strokeColor);
-	public void setLineWidth(int strokeWidth);
-	public void beginPath();
-	public void moveTo(int x, int y);
-	public void lineTo(int i, int j);
-	public void closePath();
-	public void stroke();
-	public void restoreContext();
-	public void addMouseListener(MouseListener mouseListener);
-	public void addClickListener(ClickListener clickHandler);
-	public void setBackgroundColor(Color color);
-	public void clear();
-	public void fill();
-	public void fillRect(int x, int y, int w, int h);
-	public void strokeRect(int x, int y, int w, int h);
-	public Widget getWidget();
+    /**
+     * @author florian
+     * 
+     */
+    public enum AbstractCanvasType {
+	/**
+		 * 
+		 */
+	GWTCANVAS, /**
+		 * 
+		 */
+	INCUBATORCANVAS;
+    }
+
+    /**
+     * @param clickHandler
+     */
+    public void addClickListener(ClickListener clickHandler);
+
+    /**
+     * @param mouseListener
+     */
+    public void addMouseListener(MouseListener mouseListener);
+
+    /**
+	 * 
+	 */
+    public void beginPath();
+
+    /**
+	 * 
+	 */
+    public void clear();
+
+    /**
+	 * 
+	 */
+    public void closePath();
+
+    /**
+	 * 
+	 */
+    public void fill();
+
+    /**
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    public void fillRect(int x, int y, int w, int h);
+
+    /**
+     * @return the widget of the current canvas
+     */
+    public Widget getWidget();
+
+    /**
+     * @param i
+     * @param j
+     */
+    public void lineTo(int i, int j);
+
+    /**
+     * @param x
+     * @param y
+     */
+    public void moveTo(int x, int y);
+
+    /**
+	 * 
+	 */
+    public void restoreContext();
+
+    /**
+	 * 
+	 */
+    public void saveContext();
+
+    /**
+     * @param color
+     */
+    public void setBackgroundColor(Color color);
+
+    /**
+     * @param fillColor
+     */
+    public void setFillStyle(Color fillColor);
+
+    /**
+     * @param strokeWidth
+     */
+    public void setLineWidth(int strokeWidth);
+
+    /**
+     * @param strokeColor
+     */
+    public void setStrokeStyle(Color strokeColor);
+
+    /**
+	 * 
+	 */
+    public void stroke();
+
+    /**
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     */
+    public void strokeRect(int x, int y, int w, int h);
 }
