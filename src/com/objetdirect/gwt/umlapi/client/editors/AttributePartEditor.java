@@ -54,14 +54,14 @@ public class AttributePartEditor extends FieldEditor {
 	    String name = null;
 	    Visibility visibility;
 	    LexicalAnalyser.Token tk = lex.getToken();
-	    if (tk.getType() != LexicalFlag.VISIBILITY) {
+	    if (tk != null && tk.getType() != LexicalFlag.VISIBILITY) {
 		visibility = Visibility.PACKAGE;
 	    } else {
 		visibility = Visibility.getVisibilityFromToken(tk.getContent()
 			.charAt(0));
 		tk = lex.getToken();
 	    }
-	    if (tk.getType() != LexicalFlag.IDENTIFIER) {
+	    if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
 		throw new UMLDrawerException(
 			"invalid format : must match 'identifier:type'");
 	    }

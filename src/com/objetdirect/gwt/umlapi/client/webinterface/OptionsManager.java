@@ -62,33 +62,29 @@ public class OptionsManager {
 	    return this.name + " (" + this.description + ")";
 	}
     }
-
+    private static QualityLevel qualityLevel;
     private static final int ARROW_LENGTH = 25;
     private static final int ARROW_WIDTH = 15;
     private static final int BOTTOM_RECT_PADDING = 6;
     private static final int BOTTOM_TEXT_PADDING = 2;
     private static final int DIAMOND_LENGTH = 20;
     private static final int DIAMOND_WIDTH = 15;
-    private static GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL,
-	    GfxFont.NORMAL, GfxFont.NORMAL);
     private static final int LEFT_RECT_PADDING = 4;
     private static final int LEFT_TEXT_PADDING = 1;
-    private static final int MOVING_STEP = 20;
-    private static QualityLevel qualityLevel;
+    private static final int MOVING_STEP = 20;    
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
     private static final int RIGHT_RECT_PADDING = 4;
     private static final int RIGHT_TEXT_PADDING = 1;
-    private static GfxFont smallCapsFont = new GfxFont("monospace", 10,
-	    GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
-
     private static final int SOLID_ARROW_LENGTH = 30;
-
     private static final int SOLID_ARROW_WIDTH = 20;
-
     private static final int TOP_RECT_PADDING = 4;
-
     private static final int TOP_TEXT_PADDING = 1;
+    private static final int NOTE_CORNER_WIDTH = 15;
+    private static final int NOTE_CORNER_HEIGHT = 15;
+    private static GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.NORMAL);
+    private static GfxFont smallCapsFont = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
+
 
     /**
      * @return the aRROW_LENGTH
@@ -124,6 +120,19 @@ public class OptionsManager {
 
     public static int getMovingStep() {
 	return MOVING_STEP;
+    }
+    /**
+     * @return the nOTE_CORNER_WIDTH
+     */
+    public static int getNoteCornerWidth() {
+        return NOTE_CORNER_WIDTH;
+    }
+
+    /**
+     * @return the nOTE_CORNER_HEIGHT
+     */
+    public static int getNoteCornerHeight() {
+        return NOTE_CORNER_HEIGHT;
     }
 
     /**
