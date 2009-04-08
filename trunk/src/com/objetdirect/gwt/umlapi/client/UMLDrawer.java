@@ -28,6 +28,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
 public class UMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
     private static Button log;
+    private StartPanel startPanel;
 
     /**
      * Add a widget to the center of the application root DockPanel Only one
@@ -54,10 +55,10 @@ public class UMLDrawer implements EntryPoint {
 		"display", "none");
     }
 
-    private StartPanel startPanel;
+
 
     /**
-     * Entry point of the application This class make a @see StartPanel and
+     * Entry point of the application This class make a StartPanel and
      * manage the history for it
      */
     public void gwt_main() {
@@ -103,9 +104,9 @@ public class UMLDrawer implements EntryPoint {
 		log.getAbsoluteTop() + log.getOffsetHeight() + 10);
     }
 
-    /*
-     * Entry point (non-Javadoc)
-     * 
+
+    /* Real gwt app entry point, this code allow GWT Log to catch exception and display it
+     * (non-Javadoc)
      * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
      */
     public void onModuleLoad() {

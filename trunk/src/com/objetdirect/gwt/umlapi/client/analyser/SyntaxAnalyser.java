@@ -21,7 +21,7 @@ public abstract class SyntaxAnalyser {
 	    final LexicalAnalyser.Token tk) {
 	Token token = tk;
 	while (getStatus() != State.FINISHED) {
-	    token = processToken(lex, tk);
+	    token = processToken(lex, token);
 	}
 	return token;
     }
@@ -34,10 +34,10 @@ public abstract class SyntaxAnalyser {
     }
 
     protected void throwSyntaxError(final LexicalAnalyser.Token tk) {
-	throw new UMLDrawerException("Syntax error : " + tk);
+	throw new UMLDrawerException("Syntax error at : " + tk.getContent() + " in state : " + this.status);
     }
 
     protected void throwUnexpectedEOF() {
-	throw new UMLDrawerException("Unexpected EOF");
+	throw new UMLDrawerException("Syntax error in state " + this.status);
     }
 }

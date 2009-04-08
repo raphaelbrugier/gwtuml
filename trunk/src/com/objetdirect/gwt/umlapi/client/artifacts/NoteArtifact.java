@@ -123,7 +123,7 @@ public class NoteArtifact extends BoxArtifact {
     }
 
     private int getCornerHeight() {
-	return this.height / 3;
+	return OptionsManager.getNoteCornerHeight();
     }
 
     protected GfxObject getCornerPath() {
@@ -142,7 +142,7 @@ public class NoteArtifact extends BoxArtifact {
     }
 
     private int getCornerWidth() {
-	return this.height / 3;
+	return OptionsManager.getNoteCornerWidth();
     }
 
     @Override

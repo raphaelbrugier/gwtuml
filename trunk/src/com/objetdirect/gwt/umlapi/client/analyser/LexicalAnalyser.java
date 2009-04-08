@@ -226,11 +226,10 @@ public class LexicalAnalyser {
 	case DECIMAL:
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.DECIMAL, c);
-	    } else if (c == 'e' || c == 'E') {
+	    } else if (c == 'e' || c == 'E')
 		return process(LexicalFlag.SIGNED_EXPONENT, c);
-	    } else {
-		return inject(LexicalFlag.FLOAT);
-	    }
+	return inject(LexicalFlag.FLOAT);
+
 	case SIGNED_EXPONENT:
 	    if (c == '+' || c == '-') {
 		return process(LexicalFlag.START_EXPONENT, c);
