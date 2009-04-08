@@ -4,7 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.engine;
 
 /**
- * @author fmounier
+ * @author fmounier 
  */
 /**
  * @author florian
