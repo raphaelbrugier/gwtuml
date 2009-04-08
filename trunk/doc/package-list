@@ -1,0 +1,14 @@
+com.objetdirect.gwt.umlapi.client
+com.objetdirect.gwt.umlapi.client.analyser
+com.objetdirect.gwt.umlapi.client.artifacts
+com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent
+com.objetdirect.gwt.umlapi.client.artifacts.links
+com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks
+com.objetdirect.gwt.umlapi.client.editors
+com.objetdirect.gwt.umlapi.client.engine
+com.objetdirect.gwt.umlapi.client.gfx
+com.objetdirect.gwt.umlapi.client.gfx.canvas
+com.objetdirect.gwt.umlapi.client.gfx.canvas.objects
+com.objetdirect.gwt.umlapi.client.gfx.tatami
+com.objetdirect.gwt.umlapi.client.umlcomponents
+com.objetdirect.gwt.umlapi.client.webinterface

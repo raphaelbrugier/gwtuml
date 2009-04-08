@@ -2,8 +2,8 @@
  * 
  */
 package com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,189 +21,245 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+
 /**
- * @author  fmounier
+ * @author fmounier
  */
 public class ClassAttributesArtifact extends ClassPartArtifact {
-	private List<Attribute> attributes;
-	private Map<GfxObject, Attribute> attributeGfxObjects;
-private GfxObject lastGfxObject;
-	private GfxObject attributeRect;
-	public ClassAttributesArtifact() {
-		attributes = new ArrayList<Attribute>();
-		attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
-		height = 0;
-		width = 0;
-	}
-	
-	public void add(Attribute attribute) {
-		attributes.add(attribute);
-	}
-	
-	public void remove(Attribute attributeToChange) {
-		attributes.remove(attributeToChange);
-	}
-	
-	@Override
-	public void buildGfxObject() {
-		if(textVirtualGroup == null) computeBounds();		
-		attributeRect = GfxManager.getPlatform().buildRect(classWidth, height);
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeRect);	
-		GfxManager.getPlatform().setFillColor(attributeRect, ThemeManager.getBackgroundColor());
-		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getForegroundColor(), 1);
-		GfxManager.getPlatform().translate(textVirtualGroup, OptionsManager.getRectangleLeftPadding(), OptionsManager.getRectangleTopPadding());
-		GfxManager.getPlatform().moveToFront(textVirtualGroup);
-	}
-	public List<Attribute> getList() {
-		return attributes;
-	}
-	@Override
-	public int getHeight() {
-		return height;
-	}
-	
-	@Override
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	
-	@Override
-	public int getWidth() {
-		return width;
-	}
-	
-	@Override
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	@Override
-	public void computeBounds() {
-	    attributeGfxObjects.clear();
-		height = 0;
-		width = 0;
-		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
-		
-		for (Attribute attribute : attributes) {
-			GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString());
-			GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, attributeText);
-			GfxManager.getPlatform().setFont(attributeText, OptionsManager.getFont());
-			GfxManager.getPlatform().setStroke(attributeText, ThemeManager.getBackgroundColor(), 0);
-			GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getForegroundColor());
-			int thisAttributeWidth =  GfxManager.getPlatform().getWidthFor(attributeText) ;
-			int thisAttributeHeight =  GfxManager.getPlatform().getHeightFor(attributeText);
-			GfxManager.getPlatform().translate(attributeText, OptionsManager.getTextLeftPadding() , OptionsManager.getTextTopPadding() + height + thisAttributeHeight);
-			thisAttributeWidth += OptionsManager.getTextXTotalPadding();
-			thisAttributeHeight += OptionsManager.getTextYTotalPadding();
-			width  = thisAttributeWidth > width ? thisAttributeWidth : width;
-			height += thisAttributeHeight;	
-			
-			attributeGfxObjects.put(attributeText, attribute);
-			lastGfxObject = attributeText;
-		}		
-		width += OptionsManager.getRectangleXTotalPadding();
-		height += OptionsManager.getRectangleYTotalPadding();
-		
-		Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
-	}
-	@Override
-	public void setClassWidth(int width) {
-		this.classWidth = width;
-	}
-	@Override
-	public void edit() {
-		Attribute attributeToCreate = new Attribute(Visibility.PROTECTED, "String", "attribute");
-		attributes.add(attributeToCreate);
-		classArtifact.rebuildGfxObject();
-		attributeGfxObjects.put(lastGfxObject, attributeToCreate);
-		edit(lastGfxObject);
-	}
-	@Override
-	public void edit(GfxObject gfxObject) {
-		Attribute attributeToChange = attributeGfxObjects.get(gfxObject);
-		if(attributeToChange == null) edit();
-		else {
-		AttributePartEditor editor = new AttributePartEditor(canvas, this, attributeToChange);
-		editor.startEdition(attributeToChange.toString(),  (classArtifact.getX() + OptionsManager.getTextLeftPadding() + OptionsManager.getRectangleLeftPadding()),
-				 (classArtifact.getY() + classArtifact.className.getHeight() + GfxManager.getPlatform().getYFor(gfxObject) - GfxManager.getPlatform().getHeightFor(gfxObject) + OptionsManager.getRectangleTopPadding()), 
-				classWidth - OptionsManager.getTextXTotalPadding() - OptionsManager.getRectangleXTotalPadding(), false);
-		}
-	}
-	@Override
-	public int[] getOpaque() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public GfxObject getOutline() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    private Command editCommand(final GfxObject gfxo) {       
-        return new Command() {
-            public void execute() {
-                edit(gfxo);
-            }
-        };
+    private final Map<GfxObject, Attribute> attributeGfxObjects;
+    private GfxObject attributeRect;
+    private final List<Attribute> attributes;
+    private GfxObject lastGfxObject;
+
+    public ClassAttributesArtifact() {
+	this.attributes = new ArrayList<Attribute>();
+	this.attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
+	this.height = 0;
+	this.width = 0;
     }
-    private Command deleteCommand(final Attribute attribute) {       
-        return new Command() {
-            public void execute() {
-                remove(attribute);
-                classArtifact.rebuildGfxObject();
-            }
-        };
+
+    public void add(final Attribute attribute) {
+	this.attributes.add(attribute);
     }
-    private Command editCommand() {       
-        return new Command() {
-            public void execute() {
-                edit();
-            }
-        };
+
+    @Override
+    public void buildGfxObject() {
+	if (this.textVirtualGroup == null) {
+	    computeBounds();
+	}
+	this.attributeRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.attributeRect);
+	GfxManager.getPlatform().setFillColor(this.attributeRect,
+		ThemeManager.getBackgroundColor());
+	GfxManager.getPlatform().setStroke(this.attributeRect,
+		ThemeManager.getForegroundColor(), 1);
+	GfxManager.getPlatform().translate(this.textVirtualGroup,
+		OptionsManager.getRectangleLeftPadding(),
+		OptionsManager.getRectangleTopPadding());
+	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
+
+    @Override
+    public void computeBounds() {
+	this.attributeGfxObjects.clear();
+	this.height = 0;
+	this.width = 0;
+	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+
+	for (final Attribute attribute : this.attributes) {
+	    final GfxObject attributeText = GfxManager.getPlatform().buildText(
+		    attribute.toString());
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
+		    attributeText);
+	    GfxManager.getPlatform().setFont(attributeText,
+		    OptionsManager.getFont());
+	    GfxManager.getPlatform().setStroke(attributeText,
+		    ThemeManager.getBackgroundColor(), 0);
+	    GfxManager.getPlatform().setFillColor(attributeText,
+		    ThemeManager.getForegroundColor());
+	    int thisAttributeWidth = GfxManager.getPlatform().getWidthFor(
+		    attributeText);
+	    int thisAttributeHeight = GfxManager.getPlatform().getHeightFor(
+		    attributeText);
+	    GfxManager.getPlatform().translate(
+		    attributeText,
+		    OptionsManager.getTextLeftPadding(),
+		    OptionsManager.getTextTopPadding() + this.height
+			    + thisAttributeHeight);
+	    thisAttributeWidth += OptionsManager.getTextXTotalPadding();
+	    thisAttributeHeight += OptionsManager.getTextYTotalPadding();
+	    this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
+	    this.height += thisAttributeHeight;
+
+	    this.attributeGfxObjects.put(attributeText, attribute);
+	    this.lastGfxObject = attributeText;
+	}
+	this.width += OptionsManager.getRectangleXTotalPadding();
+	this.height += OptionsManager.getRectangleYTotalPadding();
+
+	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
+		+ this.width + "x" + this.height);
+    }
+
+    private Command deleteCommand(final Attribute attribute) {
+	return new Command() {
+	    public void execute() {
+		remove(attribute);
+		ClassAttributesArtifact.this.classArtifact.rebuildGfxObject();
+	    }
+	};
+    }
+
+    @Override
+    public void edit() {
+	final Attribute attributeToCreate = new Attribute(Visibility.PROTECTED,
+		"String", "attribute");
+	this.attributes.add(attributeToCreate);
+	this.classArtifact.rebuildGfxObject();
+	this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
+	edit(this.lastGfxObject);
+    }
+
+    @Override
+    public void edit(final GfxObject editedGfxObject) {
+	final Attribute attributeToChange = this.attributeGfxObjects
+		.get(editedGfxObject);
+	if (attributeToChange == null) {
+	    edit();
+	} else {
+	    final AttributePartEditor editor = new AttributePartEditor(this.canvas,
+		    this, attributeToChange);
+	    editor
+		    .startEdition(
+			    attributeToChange.toString(),
+			    (this.classArtifact.getX()
+				    + OptionsManager.getTextLeftPadding() + OptionsManager
+				    .getRectangleLeftPadding()), (this.classArtifact
+				    .getY()
+				    + this.classArtifact.className.getHeight()
+				    + GfxManager.getPlatform().getYFor(
+					    editedGfxObject)
+				    - GfxManager.getPlatform().getHeightFor(
+					    editedGfxObject) + OptionsManager
+				    .getRectangleTopPadding()), this.classWidth
+				    - OptionsManager.getTextXTotalPadding()
+				    - OptionsManager
+					    .getRectangleXTotalPadding(), false);
+	}
+    }
+
+    private Command editCommand() {
+	return new Command() {
+	    public void execute() {
+		edit();
+	    }
+	};
+    }
+
+    private Command editCommand(final GfxObject gfxo) {
+	return new Command() {
+	    public void execute() {
+		edit(gfxo);
+	    }
+	};
+    }
+
+    @Override
+    public int getHeight() {
+	return this.height;
+    }
+
+    public List<Attribute> getList() {
+	return this.attributes;
+    }
+
+    @Override
+    public int[] getOpaque() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public GfxObject getOutline() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
     @Override
     public MenuBarAndTitle getRightMenu() {
-        MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-        rightMenu.setName("Attributes");
+	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
+	rightMenu.setName("Attributes");
 
-        for(Entry<GfxObject, Attribute> attribute : attributeGfxObjects.entrySet()) {
-            MenuBar subsubMenu = new MenuBar(true);
-            subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
-            subsubMenu.addItem("Delete ", deleteCommand(attribute.getValue()));
-            rightMenu.addItem(attribute.getValue().toString(), subsubMenu);
-        }
-        rightMenu.addItem("Add new", editCommand());
-        return rightMenu;
+	for (final Entry<GfxObject, Attribute> attribute : this.attributeGfxObjects
+		.entrySet()) {
+	    final MenuBar subsubMenu = new MenuBar(true);
+	    subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
+	    subsubMenu.addItem("Delete ", deleteCommand(attribute.getValue()));
+	    rightMenu.addItem(attribute.getValue().toString(), subsubMenu);
+	}
+	rightMenu.addItem("Add new", editCommand());
+	return rightMenu;
     }
-	@Override
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public boolean isDraggable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void moveTo(int fx, int fy) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void select() {
-		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getHighlightedForegroundColor(), 2);
-	}
+    @Override
+    public int getWidth() {
+	return this.width;
+    }
 
-	@Override
-	public void unselect() {
-		GfxManager.getPlatform().setStroke(attributeRect, ThemeManager.getForegroundColor(), 1);	
-	}
-	
+    @Override
+    public int getX() {
+	// TODO Auto-generated method stub
+	return 0;
+    }
+
+    @Override
+    public int getY() {
+	// TODO Auto-generated method stub
+	return 0;
+    }
+
+    @Override
+    public boolean isDraggable() {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
+    @Override
+    public void moveTo(final int fx, final int fy) {
+	// TODO Auto-generated method stub
+
+    }
+
+    public void remove(final Attribute attributeToChange) {
+	this.attributes.remove(attributeToChange);
+    }
+
+    @Override
+    public void select() {
+	GfxManager.getPlatform().setStroke(this.attributeRect,
+		ThemeManager.getHighlightedForegroundColor(), 2);
+    }
+
+    @Override
+    public void setClassWidth(final int width) {
+	this.classWidth = width;
+    }
+
+    @Override
+    public void setHeight(final int height) {
+	this.height = height;
+    }
+
+    @Override
+    public void setWidth(final int width) {
+	this.width = width;
+    }
+
+    @Override
+    public void unselect() {
+	GfxManager.getPlatform().setStroke(this.attributeRect,
+		ThemeManager.getForegroundColor(), 1);
+    }
+
 }

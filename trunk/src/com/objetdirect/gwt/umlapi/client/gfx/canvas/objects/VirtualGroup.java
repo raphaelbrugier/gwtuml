@@ -1,57 +1,117 @@
 package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
+
+/**
+ * @author florian
+ * 
+ */
 public class VirtualGroup extends IncubatorGfxObject {
-	private Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
-	public void add(IncubatorGfxObject incubatorGfxObject) {
-		incubatorGfxObjectSet.add(incubatorGfxObject);
-		incubatorGfxObject.setParentGroup(this);
-		if(isVisible) incubatorGfxObject.addOnCanvasAt(canvas, 0, 0);
+    private final Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
+
+    /**
+     * @param incubatorGfxObject
+     */
+    public void add(final IncubatorGfxObject incubatorGfxObject) {
+	this.incubatorGfxObjectSet.add(incubatorGfxObject);
+	incubatorGfxObject.setParentGroup(this);
+	if (this.isVisible) {
+	    incubatorGfxObject.addOnCanvasAt(this.canvas, 0, 0);
 	}
-	@Override
-	public void addOnCanvasAt(CanvasBridge canvas, int dx, int dy) {
-		super.addOnCanvasAt(canvas, dx, dy);
-		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.addOnCanvasAt(canvas, dx, dy);
-		}
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject
+     * #addOnCanvasAt(com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge,
+     * int, int)
+     */
+    @Override
+    public void addOnCanvasAt(final CanvasBridge canvasBridge, final int dx,
+	    final int dy) {
+	super.addOnCanvasAt(canvasBridge, dx, dy);
+	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
+	    incubatorGfxObject.addOnCanvasAt(canvasBridge, dx, dy);
 	}
-	@Override
-	public void draw() {
-		if (!isVisible) {
-			Log.trace(this + " is not visible");
-			return;
-		}
-		if (canvas == null) Log.fatal("canvas is null for " + this);
-		
-		Log.trace("Starting drawing " + this);
-		for (IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
-			incubatorGfxObject.draw();
-		}
-		Log.trace("Ending drawing " + this);
+    }
+
+    public void clear() {
+	this.incubatorGfxObjectSet.clear();
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject
+     * #draw()
+     */
+    @Override
+    public void draw() {
+	if (!this.isVisible) {
+	    Log.trace(this + " is not visible");
+	    return;
 	}
-	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public boolean isPointed(int x, int y) {
-		return false;
-	}
-	public void remove(IncubatorGfxObject incubatorGfxObject) {
-		incubatorGfxObjectSet.remove(incubatorGfxObject);
+	if (this.canvas == null) {
+	    Log.fatal("canvas is null for " + this);
 	}
 
-	public void clear() {
-		incubatorGfxObjectSet.clear();
-		
+	Log.trace("Starting drawing " + this);
+	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
+	    incubatorGfxObject.draw();
 	}
+	Log.trace("Ending drawing " + this);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject
+     * #getHeight()
+     */
+    @Override
+    public int getHeight() {
+	// TODO Auto-generated method stub
+	return 0;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject
+     * #getWidth()
+     */
+    @Override
+    public int getWidth() {
+	// TODO Auto-generated method stub
+	return 0;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject
+     * #isPointed(int, int)
+     */
+    @Override
+    public boolean isPointed(final int xp, final int yp) {
+	return false;
+    }
+
+    /**
+     * @param incubatorGfxObject
+     */
+    public void remove(final IncubatorGfxObject incubatorGfxObject) {
+	this.incubatorGfxObjectSet.remove(incubatorGfxObject);
+    }
 }

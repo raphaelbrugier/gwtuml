@@ -1,19 +1,22 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
+
 /**
- * @author  florian
+ * @author florian
  */
 public class Note {
-	 
-	private String text;
-	public Note(String text) {
-		this.text = text;
-	}
-public String getText() {
-		return text;
-	}
- 
-	public void setText(String text) {
-		this.text = text;
-	}
-	
+
+    private String text;
+
+    public Note(final String text) {
+	this.text = text;
+    }
+
+    public String getText() {
+	return this.text;
+    }
+
+    public void setText(final String text) {
+	this.text = text;
+    }
+
 }

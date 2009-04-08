@@ -4,45 +4,58 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 
 public class MenuBarAndTitle {
-    
-    private String name; 
-    private MenuBar subMenu;
+
+    private String name;
+    private final MenuBar subMenu;
+
     public MenuBarAndTitle() {
-        subMenu = new MenuBar(true);
+	this.subMenu = new MenuBar(true);
     }
+
+    /**
+     * Add an item to the Menu Bar
+     * 
+     * @param text
+     *            the menu caption
+     * @param cmd
+     *            the command to run
+     */
+    public void addItem(final String text, final Command cmd) {
+	this.subMenu.addItem(text, cmd);
+    }
+
+    /**
+     * Add a sub menu
+     * 
+     * @param text
+     *            the menu caption
+     * @param popup
+     *            the submenu
+     */
+    public void addItem(final String text, final MenuBar popup) {
+	this.subMenu.addItem(text, popup);
+    }
+
     /**
      * @return the name
      */
     public String getName() {
-        return name;
+	return this.name;
     }
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+
     /**
      * @return the subMenu
      */
     public MenuBar getSubMenu() {
-        return subMenu;
+	return this.subMenu;
     }
+
     /**
-     * Add an item to the Menu Bar
-     * @param text the menu caption
-     * @param cmd the command to run
+     * @param name
+     *            the name to set
      */
-    public void addItem(String text, Command cmd){
-        subMenu.addItem(text, cmd);
+    public void setName(final String name) {
+	this.name = name;
     }
-    /**
-     * Add a sub menu
-     * @param text the menu caption
-     * @param popup the submenu
-     */
-    public void addItem(String text, MenuBar popup){
-        subMenu.addItem(text, popup);
-    }
-    
+
 }

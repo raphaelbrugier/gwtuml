@@ -1,22 +1,30 @@
 package com.objetdirect.gwt.umlapi.client.editors;
+
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact.RelationLinkArtifactPart;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+
 public class RelationFieldEditor extends FieldEditor {
-	
-	RelationLinkArtifactPart relationshipPart;	
-	
-	public RelationFieldEditor(UMLCanvas canvas, RelationLinkArtifact artifact, RelationLinkArtifactPart relationshipPart) {
-		super(canvas, artifact);
-		this.relationshipPart = relationshipPart;
-	}
-	@Override
-	protected boolean updateUMLArtifact(String newContent) {
-		((RelationLinkArtifact) artifact).setPartContent(relationshipPart, newContent);
-		artifact.rebuildGfxObject();
-		return false;
-	}
-	@Override
-	protected void next() {		
-	}
+
+    RelationLinkArtifactPart relationshipPart;
+
+    public RelationFieldEditor(final UMLCanvas canvas,
+	    final RelationLinkArtifact artifact,
+	    final RelationLinkArtifactPart relationshipPart) {
+	super(canvas, artifact);
+	this.relationshipPart = relationshipPart;
+    }
+
+    @Override
+    protected void next() {
+	// No next part to edit
+    }
+
+    @Override
+    protected boolean updateUMLArtifact(final String newContent) {
+	((RelationLinkArtifact) this.artifact).setPartContent(this.relationshipPart,
+		newContent);
+	this.artifact.rebuildGfxObject();
+	return false;
+    }
 }

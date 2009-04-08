@@ -1,110 +1,114 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+
 /**
- * @author  florian
+ * @author florian
  */
 public class DrawerPanel extends AbsolutePanel {
-	
-private final UMLCanvas gc;
-	 
-	private int height;
-	 
-	private int width;
-	private SimplePanel bottomShadow;
-	private SimplePanel rightShadow;
-	private SimplePanel bottomRightCornerShadow;
-	private SimplePanel topRightCornerShadow;
-	private SimplePanel bottomLeftCornerShadow;
-	
-	public DrawerPanel(int width, int height) {
-		Log.trace("Creating drawer");
-		
-		gc = new UMLCanvas(width, height);
-		gc.setStylePrimaryName("canvas");
-		this.add(gc);
-		Log.trace("Canvas added");
-		width += 2; //Border Size
-		height += 2; //Border Size		
-		this.width = width;
-		this.height = height;
-		Log.trace("Making shadow");
-		makeShadow();
-		
-		// TODO : under chrome redraw doesn't work if the canvas is at a
-		// different point than (0,0) tatami ? dojo ? chrome ?
-		// example : this.setSpacing(50);
-		Log.trace("Setting active canvas");
-		HotKeyManager.setActiveCanvas(gc);
-		Log.trace("Disabling browser events");
-		UMLDrawerHelper.disableBrowserEvents();
-		Log.trace("Init end");
-	}
-public int getHeight() {
-		return height;
-	}
- 
-	public void setHeight(int height) {
-		this.height = height;
-	}
-public int getWidth() {
-		return width;
-	}
- 
-	public void setWidth(int width) {
-		this.width = width;
-	}
-public UMLCanvas getGc() {
-		return gc;
-	}
-	
-	public void clearShadow() {
-		this.remove(bottomShadow);
-		this.remove(rightShadow);
-		this.remove(bottomRightCornerShadow);
-		this.remove(topRightCornerShadow);
-		this.remove(bottomLeftCornerShadow);		
-	}
-	
-	public void makeShadow() {
-		int shadowSize = 8;
-		
-		this.setWidth(width + shadowSize + this.getAbsoluteLeft() + "px");
-		this.setHeight(height + shadowSize + this.getAbsoluteTop() + "px");
-		
-		bottomShadow = new SimplePanel();
-		bottomShadow.setPixelSize(width - shadowSize, shadowSize);
-		bottomShadow.setStylePrimaryName("bottomShadow");
-		this.add(bottomShadow, shadowSize, height);
-		
-		rightShadow = new SimplePanel();
-		rightShadow.setPixelSize(shadowSize, height - shadowSize);
-		rightShadow.setStylePrimaryName("rightShadow");
-		this.add(rightShadow, width, shadowSize);
-		
-		bottomRightCornerShadow = new SimplePanel();
-		bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-		bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
-		this.add(bottomRightCornerShadow, width, height);
-		
-		topRightCornerShadow = new SimplePanel();
-		topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-		topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
-		this.add(topRightCornerShadow, width, 0);
-		
-		bottomLeftCornerShadow = new SimplePanel();
-		bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
-		bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
-		this.add(bottomLeftCornerShadow, 0, height);
-	}
-	
-	public void addDefaultClass() {
-		ClassArtifact defaultclass = new ClassArtifact("Class 1");
-			defaultclass.setLocation(width/2, height/2);
-		gc.add(defaultclass);
-	}
-	
+
+    private SimplePanel bottomLeftCornerShadow;
+
+    private SimplePanel bottomRightCornerShadow;
+
+    private SimplePanel bottomShadow;
+    private final UMLCanvas gc;
+    private int height;
+    private SimplePanel rightShadow;
+    private SimplePanel topRightCornerShadow;
+    private int width;
+
+    public DrawerPanel(final int width, final int height) {
+	Log.trace("Creating drawer");
+
+	this.gc = new UMLCanvas(width + 2, height);
+	this.gc.setStylePrimaryName("canvas");
+	this.add(this.gc);
+	Log.trace("Canvas added");
+
+	this.width = width + 2;// Border Size
+	this.height = height + 2;// Border Size
+	Log.trace("Making shadow");
+	makeShadow();
+
+	// TODO : under chrome redraw doesn't work if the canvas is at a
+	// different point than (0,0) tatami ? dojo ? chrome ?
+	// example : this.setSpacing(50);
+	Log.trace("Setting active canvas");
+	HotKeyManager.setActiveCanvas(this.gc);
+	Log.trace("Disabling browser events");
+	UMLDrawerHelper.disableBrowserEvents();
+	Log.trace("Init end");
+    }
+
+    public void addDefaultClass() {
+	final ClassArtifact defaultclass = new ClassArtifact("Class 1");
+	defaultclass.setLocation(this.width / 2, this.height / 2);
+	this.gc.add(defaultclass);
+    }
+
+    public void clearShadow() {
+	this.remove(this.bottomShadow);
+	this.remove(this.rightShadow);
+	this.remove(this.bottomRightCornerShadow);
+	this.remove(this.topRightCornerShadow);
+	this.remove(this.bottomLeftCornerShadow);
+    }
+
+    public UMLCanvas getGc() {
+	return this.gc;
+    }
+
+    public int getHeight() {
+	return this.height;
+    }
+
+    public int getWidth() {
+	return this.width;
+    }
+
+    public void makeShadow() {
+	final int shadowSize = 8;
+
+	this.setWidth(this.width + shadowSize + getAbsoluteLeft() + "px");
+	this.setHeight(this.height + shadowSize + getAbsoluteTop() + "px");
+
+	this.bottomShadow = new SimplePanel();
+	this.bottomShadow.setPixelSize(this.width - shadowSize, shadowSize);
+	this.bottomShadow.setStylePrimaryName("bottomShadow");
+	this.add(this.bottomShadow, shadowSize, this.height);
+
+	this.rightShadow = new SimplePanel();
+	this.rightShadow.setPixelSize(shadowSize, this.height - shadowSize);
+	this.rightShadow.setStylePrimaryName("rightShadow");
+	this.add(this.rightShadow, this.width, shadowSize);
+
+	this.bottomRightCornerShadow = new SimplePanel();
+	this.bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+	this.bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
+	this.add(this.bottomRightCornerShadow, this.width, this.height);
+
+	this.topRightCornerShadow = new SimplePanel();
+	this.topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+	this.topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
+	this.add(this.topRightCornerShadow, this.width, 0);
+
+	this.bottomLeftCornerShadow = new SimplePanel();
+	this.bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
+	this.bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
+	this.add(this.bottomLeftCornerShadow, 0, this.height);
+    }
+
+    public void setHeight(final int height) {
+	this.height = height;
+    }
+
+    public void setWidth(final int width) {
+	this.width = width;
+    }
+
 }
