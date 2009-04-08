@@ -23,14 +23,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
  */
 public abstract class UMLArtifact {
     /**
-     * 
-     * @uml.associationEnd
+
      */
     protected UMLCanvas canvas;
     private final HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     /**
-     * 
-     * @uml.associationEnd
+
      */
     protected GfxObject gfxObject;
     private boolean isBuilt = false;
