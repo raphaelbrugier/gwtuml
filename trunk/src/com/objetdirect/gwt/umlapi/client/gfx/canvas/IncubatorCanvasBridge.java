@@ -17,7 +17,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
     private final GWTCanvasWithListeners gwtCanvasWithListeners;
 
     public IncubatorCanvasBridge(final int width, final int height) {
-	gwtCanvasWithListeners = new GWTCanvasWithListeners(width, height);
+	this.gwtCanvasWithListeners = new GWTCanvasWithListeners(width, height);
     }
 
     /*
@@ -28,7 +28,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (com.google.gwt.user.client.ui.ClickListener)
      */
     public void addClickListener(final ClickListener clickListener) {
-	gwtCanvasWithListeners.addClickListener(clickListener);
+	this.gwtCanvasWithListeners.addClickListener(clickListener);
     }
 
     /*
@@ -39,7 +39,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (com.google.gwt.user.client.ui.MouseListener)
      */
     public void addMouseListener(final MouseListener mouseListener) {
-	gwtCanvasWithListeners.addMouseListener(mouseListener);
+	this.gwtCanvasWithListeners.addMouseListener(mouseListener);
     }
 
     /*
@@ -49,7 +49,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#beginPath()
      */
     public void beginPath() {
-	gwtCanvasWithListeners.beginPath();
+	this.gwtCanvasWithListeners.beginPath();
     }
 
     /*
@@ -58,7 +58,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * @see com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#clear()
      */
     public void clear() {
-	gwtCanvasWithListeners.clear();
+	this.gwtCanvasWithListeners.clear();
     }
 
     /*
@@ -68,7 +68,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#closePath()
      */
     public void closePath() {
-	gwtCanvasWithListeners.closePath();
+	this.gwtCanvasWithListeners.closePath();
     }
 
     /*
@@ -77,7 +77,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * @see com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#fill()
      */
     public void fill() {
-	gwtCanvasWithListeners.fill();
+	this.gwtCanvasWithListeners.fill();
     }
 
     /*
@@ -88,7 +88,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (int, int, int, int)
      */
     public void fillRect(final int x, final int y, final int w, final int h) {
-	gwtCanvasWithListeners.fillRect(x, y, w, h);
+	this.gwtCanvasWithListeners.fillRect(x, y, w, h);
     }
 
     /*
@@ -98,7 +98,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#getWidget()
      */
     public Widget getWidget() {
-	return gwtCanvasWithListeners;
+	return this.gwtCanvasWithListeners;
     }
 
     /*
@@ -109,7 +109,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * int)
      */
     public void lineTo(final int i, final int j) {
-	gwtCanvasWithListeners.lineTo(i, j);
+	this.gwtCanvasWithListeners.lineTo(i, j);
     }
 
     /*
@@ -120,7 +120,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * int)
      */
     public void moveTo(final int x, final int y) {
-	gwtCanvasWithListeners.moveTo(x, y);
+	this.gwtCanvasWithListeners.moveTo(x, y);
     }
 
     /*
@@ -131,7 +131,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * ()
      */
     public void restoreContext() {
-	gwtCanvasWithListeners.restoreContext();
+	this.gwtCanvasWithListeners.restoreContext();
     }
 
     /*
@@ -142,7 +142,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * ()
      */
     public void saveContext() {
-	gwtCanvasWithListeners.saveContext();
+	this.gwtCanvasWithListeners.saveContext();
     }
 
     /*
@@ -152,7 +152,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * setBackgroundColor(com.google.gwt.widgetideas.graphics.client.Color)
      */
     public void setBackgroundColor(final Color color) {
-	gwtCanvasWithListeners.setBackgroundColor(color);
+	this.gwtCanvasWithListeners.setBackgroundColor(color);
     }
 
     /*
@@ -163,7 +163,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (com.google.gwt.widgetideas.graphics.client.Color)
      */
     public void setFillStyle(final Color fillColor) {
-	gwtCanvasWithListeners.setFillStyle(fillColor);
+	this.gwtCanvasWithListeners.setFillStyle(fillColor);
     }
 
     /*
@@ -174,7 +174,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (int)
      */
     public void setLineWidth(final int strokeWidth) {
-	gwtCanvasWithListeners.setLineWidth(strokeWidth);
+	this.gwtCanvasWithListeners.setLineWidth(strokeWidth);
     }
 
     /*
@@ -185,7 +185,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (com.google.gwt.widgetideas.graphics.client.Color)
      */
     public void setStrokeStyle(final Color strokeColor) {
-	gwtCanvasWithListeners.setStrokeStyle(strokeColor);
+	this.gwtCanvasWithListeners.setStrokeStyle(strokeColor);
     }
 
     /*
@@ -195,7 +195,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * com.objetdirect.gwt.umlapi.client.gfx.incubator.CanvasBridge#stroke()
      */
     public void stroke() {
-	gwtCanvasWithListeners.stroke();
+	this.gwtCanvasWithListeners.stroke();
     }
 
     /*
@@ -206,7 +206,7 @@ public class IncubatorCanvasBridge implements CanvasBridge {
      * (int, int, int, int)
      */
     public void strokeRect(final int x, final int y, final int w, final int h) {
-	gwtCanvasWithListeners.strokeRect(x, y, w, h);
+	this.gwtCanvasWithListeners.strokeRect(x, y, w, h);
     }
 
 }

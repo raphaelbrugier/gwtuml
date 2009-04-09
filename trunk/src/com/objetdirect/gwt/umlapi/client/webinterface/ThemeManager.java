@@ -60,24 +60,24 @@ public class ThemeManager {
 	}
 
 	public GfxColor getThemeBackgroundColor() {
-	    return backgroundColor;
+	    return this.backgroundColor;
 	}
 
 	public GfxColor getThemeForegroundColor() {
 	    if (opacity != 255) {
-		return new GfxColor(foregroundColor.getRed(), foregroundColor
-			.getGreen(), foregroundColor.getBlue(), opacity);
+		return new GfxColor(this.foregroundColor.getRed(), this.foregroundColor
+			.getGreen(), this.foregroundColor.getBlue(), opacity);
 	    }
-	    return foregroundColor;
+	    return this.foregroundColor;
 	}
 
 	public GfxColor getThemeHighlightedForegroundColor() {
-	    return highlightedForegroundColor;
+	    return this.highlightedForegroundColor;
 	}
 
 	@Override
 	public String toString() {
-	    return themeName;
+	    return this.themeName;
 	}
     }
 

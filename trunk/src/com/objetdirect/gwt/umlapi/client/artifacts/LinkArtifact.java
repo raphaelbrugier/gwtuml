@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -21,14 +20,14 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    }
 
 	    public String getIdiom() {
-		return idiom;
+		return this.idiom;
 	    }
 
 	    public String getIdiom(final boolean isRight) {
-		if (idiom.equals("<") && isRight) {
+		if (this.idiom.equals("<") && isRight) {
 		    return ">";
 		}
-		return idiom;
+		return this.idiom;
 	    }
 	}
 
@@ -52,28 +51,28 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 * @return the shape
 	 */
 	public Shape getShape() {
-	    return shape;
+	    return this.shape;
 	}
 
 	/**
 	 * @return the isCrossed
 	 */
 	public boolean isCrossed() {
-	    return isCrossed;
+	    return this.isCrossed;
 	}
 
 	/**
 	 * @return the isInverted
 	 */
 	public boolean isInverted() {
-	    return isInverted;
+	    return this.isInverted;
 	}
 
 	/**
 	 * @return the isSolid
 	 */
 	public boolean isSolid() {
-	    return isSolid;
+	    return this.isSolid;
 	}
 
 	/**
@@ -97,7 +96,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
 
 	public GfxStyle getGfxStyle() {
-	    return style;
+	    return this.style;
 	}
     }
 
@@ -109,13 +108,13 @@ public abstract class LinkArtifact extends UMLArtifact {
 
     @Override
     public int getHeight() {
-	return leftPoint.getY() < rightPoint.getY() ? rightPoint.getY()
-		- leftPoint.getY() : leftPoint.getY() - rightPoint.getY();
+	return this.leftPoint.getY() < this.rightPoint.getY() ? this.rightPoint.getY()
+		- this.leftPoint.getY() : this.leftPoint.getY() - this.rightPoint.getY();
     }
 
     @Override
     public Point getLocation() {
-	return Point.min(leftPoint, rightPoint);
+	return Point.min(this.leftPoint, this.rightPoint);
     }
 
     @Override
@@ -130,8 +129,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 
     @Override
     public int getWidth() {
-	return leftPoint.getX() < rightPoint.getX() ? rightPoint.getX()
-		- leftPoint.getX() : leftPoint.getX() - rightPoint.getX();
+	return this.leftPoint.getX() < this.rightPoint.getX() ? this.rightPoint.getX()
+		- this.leftPoint.getX() : this.leftPoint.getX() - this.rightPoint.getX();
     }
 
     @Override

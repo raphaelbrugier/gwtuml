@@ -1,16 +1,20 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This abstract class specialize an {@link UMLArtifact} in a box shape based artifact
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class BoxArtifact extends UMLArtifact {
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOpaque()
+     */
     @Override
     public int[] getOpaque() {
 	final int[] opaque = new int[] { getLocation().getX(),
@@ -22,6 +26,9 @@ public abstract class BoxArtifact extends UMLArtifact {
 	return opaque;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOutline()
+     */
     @Override
     public GfxObject getOutline() {
 	final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
@@ -36,11 +43,17 @@ public abstract class BoxArtifact extends UMLArtifact {
 	return vg;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#isALink()
+     */
     @Override
     public boolean isALink() {
 	return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#isDraggable()
+     */
     @Override
     public boolean isDraggable() {
 	return true;

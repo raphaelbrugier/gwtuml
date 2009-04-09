@@ -53,19 +53,19 @@ public class OptionsManager {
 	 * @return the description
 	 */
 	public String getDescription() {
-	    return description;
+	    return this.description;
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-	    return name;
+	    return this.name;
 	}
 
 	@Override
 	public String toString() {
-	    return name + " (" + description + ")";
+	    return this.name + " (" + this.description + ")";
 	}
     }
 

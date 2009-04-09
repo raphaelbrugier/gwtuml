@@ -22,6 +22,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This class represent the lower Part of a {@link ClassArtifact}
+ * It can hold a method list
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ClassPartMethodsArtifact extends ClassPartArtifact {
@@ -30,50 +33,60 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
     private final Map<GfxObject, Method> methodGfxObjects;
     private GfxObject methodRect;
     private final List<Method> methods;
-
+    
+    /**
+     * Constructor of ClassPartMethodsArtifact
+     * It initializes the method list
+     * 
+     */
     public ClassPartMethodsArtifact() {
-	methods = new ArrayList<Method>();
-	methodGfxObjects = new LinkedHashMap<GfxObject, Method>();
+	this.methods = new ArrayList<Method>();
+	this.methodGfxObjects = new LinkedHashMap<GfxObject, Method>();
 	// List<Parameter> methodParameters = new ArrayList<Parameter>();
 	// methodParameters.add(new Parameter("String", "parameter1"));
 	// methods.add(new Method("void","method", methodParameters));
-	height = 0;
-	width = 0;
+	this.height = 0;
+	this.width = 0;
     }
-
+    /**
+     * Add a method to the current method list.
+     * The graphical object must be rebuilt to reflect the changes
+     * 
+     * @param method The new method to add
+     */
     public void add(final Method method) {
-	methods.add(method);
+	this.methods.add(method);
     }
 
     @Override
     public void buildGfxObject() {
-	if (textVirtualGroup == null) {
+	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	methodRect = GfxManager.getPlatform().buildRect(classWidth, height);
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, methodRect);
-	GfxManager.getPlatform().setFillColor(methodRect,
+	this.methodRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.methodRect);
+	GfxManager.getPlatform().setFillColor(this.methodRect,
 		ThemeManager.getBackgroundColor());
-	GfxManager.getPlatform().setStroke(methodRect,
+	GfxManager.getPlatform().setStroke(this.methodRect,
 		ThemeManager.getForegroundColor(), 1);
-	GfxManager.getPlatform().translate(textVirtualGroup, new Point(
+	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.getRectangleLeftPadding(),
 		OptionsManager.getRectangleTopPadding()));
-	GfxManager.getPlatform().moveToFront(textVirtualGroup);
+	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
     @Override
     public void computeBounds() {
-	methodGfxObjects.clear();
-	height = 0;
-	width = 0;
-	textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+	this.methodGfxObjects.clear();
+	this.height = 0;
+	this.width = 0;
+	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 
-	for (final Method method : methods) {
+	for (final Method method : this.methods) {
 	    final GfxObject methodText = GfxManager.getPlatform().buildText(
 		    method.toString());
-	    GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup,
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    methodText);
 	    GfxManager.getPlatform().setFont(methodText,
 		    OptionsManager.getFont());
@@ -90,55 +103,55 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().translate(
 		    methodText,new Point(
 		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + height
+		    OptionsManager.getTextTopPadding() + this.height
 			    + thisMethodHeight));
 	    thisMethodWidth += OptionsManager.getTextXTotalPadding();
 	    thisMethodHeight += OptionsManager.getTextYTotalPadding();
-	    width = thisMethodWidth > width ? thisMethodWidth : width;
-	    height += thisMethodHeight;
+	    this.width = thisMethodWidth > this.width ? thisMethodWidth : this.width;
+	    this.height += thisMethodHeight;
 
-	    methodGfxObjects.put(methodText, method);
-	    lastGfxObject = methodText;
+	    this.methodGfxObjects.put(methodText, method);
+	    this.lastGfxObject = methodText;
 	}
-	width += OptionsManager.getRectangleXTotalPadding();
-	height += OptionsManager.getRectangleYTotalPadding();
+	this.width += OptionsManager.getRectangleXTotalPadding();
+	this.height += OptionsManager.getRectangleYTotalPadding();
 
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
-		+ width + "x" + height);
+		+ this.width + "x" + this.height);
     }
 
     @Override
     public void edit() {
 	final List<Parameter> methodToCreateParameters = new ArrayList<Parameter>();
 	methodToCreateParameters.add(new Parameter("String", "parameter1"));
-	methods.add(new Method(Visibility.PUBLIC, "void", "method",
+	this.methods.add(new Method(Visibility.PUBLIC, "void", "method",
 		methodToCreateParameters));
-	classArtifact.rebuildGfxObject();
-	edit(lastGfxObject);
+	this.classArtifact.rebuildGfxObject();
+	edit(this.lastGfxObject);
     }
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final Method methodToChange = methodGfxObjects.get(editedGfxObject);
+	final Method methodToChange = this.methodGfxObjects.get(editedGfxObject);
 	if (methodToChange == null) {
 	    edit();
 	} else {
-	    final MethodPartEditor editor = new MethodPartEditor(canvas, this,
+	    final MethodPartEditor editor = new MethodPartEditor(this.canvas, this,
 		    methodToChange);
 	    editor
 		    .startEdition(
 			    methodToChange.toString(),
-			    (classArtifact.getLocation().getX()
+			    (this.classArtifact.getLocation().getX()
 				    + OptionsManager.getTextLeftPadding() + OptionsManager
-				    .getRectangleLeftPadding()), (classArtifact
+				    .getRectangleLeftPadding()), (this.classArtifact
 				    .getLocation().getY()
-				    + classArtifact.className.getHeight()
-				    + classArtifact.classAttributes.getHeight()
+				    + this.classArtifact.className.getHeight()
+				    + this.classArtifact.classAttributes.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
 				    - GfxManager.getPlatform().getHeightFor(
 					    editedGfxObject) + OptionsManager
-				    .getRectangleTopPadding()), classWidth
+				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
 					    .getRectangleXTotalPadding(), false);
@@ -147,22 +160,25 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 
     @Override
     public int getHeight() {
-	return height;
+	return this.height;
     }
-
+    
+    /**
+     * Getter for the method list
+     * 
+     * @return The current method list
+     */
     public List<Method> getList() {
-	return methods;
+	return this.methods;
     }
 
     @Override
     public int[] getOpaque() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public GfxObject getOutline() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
@@ -171,7 +187,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName("Methods");
 
-	for (final Entry<GfxObject, Method> method : methodGfxObjects
+	for (final Entry<GfxObject, Method> method : this.methodGfxObjects
 		.entrySet()) {
 	    final MenuBar subsubMenu = new MenuBar(true);
 	    subsubMenu.addItem("Edit ", editCommand(method.getKey()));
@@ -184,42 +200,38 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 
     @Override
     public int getWidth() {
-	return width;
+	return this.width;
     }
 
     @Override
     public boolean isDraggable() {
 	return false;
     }
-
+    
+    /**
+     * Remove a method to the current method list.
+     * The graphical object must be rebuilt to reflect the changes
+     * 
+     * @param method The method to be removed
+     */
     public void remove(final Method method) {
-	methods.remove(method);
+	this.methods.remove(method);
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().setStroke(methodRect,
+	GfxManager.getPlatform().setStroke(this.methodRect,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
     @Override
-    public void setClassWidth(final int width) {
-	classWidth = width;
-    }
-
-    @Override
-    public void setHeight(final int height) {
-	this.height = height;
-    }
-
-    @Override
-    public void setWidth(final int width) {
-	this.width = width;
+    void setClassWidth(final int width) {
+	this.classWidth = width;
     }
 
     @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(methodRect,
+	GfxManager.getPlatform().setStroke(this.methodRect,
 		ThemeManager.getForegroundColor(), 1);
     }
 

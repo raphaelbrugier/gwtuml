@@ -85,19 +85,19 @@ public class GfxColor {
     }
 
     public int getAlpha() {
-	return a;
+	return this.a;
     }
 
     public int getBlue() {
-	return b;
+	return this.b;
     }
 
     public int getGreen() {
-	return g;
+	return this.g;
     }
 
     public int getRed() {
-	return r;
+	return this.r;
     }
 
     public void setAlpha(final int a) {
@@ -118,7 +118,7 @@ public class GfxColor {
 
     @Override
     public String toString() {
-	return "#" + Integer.toHexString(r) + Integer.toHexString(g)
-		+ Integer.toHexString(b);
+	return "#" + Integer.toHexString(this.r) + Integer.toHexString(this.g)
+		+ Integer.toHexString(this.b);
     }
 }

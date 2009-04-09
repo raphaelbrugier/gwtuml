@@ -12,6 +12,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This class represent the upper Part of a {@link ClassArtifact}
+ * It can hold a name and a stereotype
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ClassPartNameArtifact extends ClassPartArtifact {
@@ -22,135 +25,143 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     private String stereotype;
     private GfxObject stereotypeText;
 
+    /**
+     * Constructor of ClassPartNameArtifact
+     * 
+     * @param className The name of the class
+     */
     public ClassPartNameArtifact(final String className) {
 	this.className = className;
-	height = 0;
-	width = 0;
+	this.height = 0;
+	this.width = 0;
     }
 
     @Override
     public void buildGfxObject() {
-	if (textVirtualGroup == null) {
+	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	nameRect = GfxManager.getPlatform().buildRect(classWidth, height);
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, nameRect);
-	GfxManager.getPlatform().setFillColor(nameRect,
+	this.nameRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.nameRect);
+	GfxManager.getPlatform().setFillColor(this.nameRect,
 		ThemeManager.getBackgroundColor());
-	GfxManager.getPlatform().setStroke(nameRect,
+	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getForegroundColor(), 1);
 
 	// Centering name class :
 	GfxManager.getPlatform().translate(
-		textVirtualGroup, new Point(
-		OptionsManager.getRectangleLeftPadding() + (classWidth - width)
+		this.textVirtualGroup, new Point(
+		OptionsManager.getRectangleLeftPadding() + (this.classWidth - this.width)
 			/ 2, OptionsManager.getRectangleTopPadding()));
-	GfxManager.getPlatform().moveToFront(textVirtualGroup);
+	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
     @Override
     public void computeBounds() {
-	height = 0;
-	width = 0;
-	textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
-	if (stereotype != null) {
-	    stereotypeText = GfxManager.getPlatform().buildText(stereotype);
-	    GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup,
-		    stereotypeText);
-	    GfxManager.getPlatform().setFont(stereotypeText,
+	this.height = 0;
+	this.width = 0;
+	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+	if (this.stereotype != null) {
+	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype);
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
+		    this.stereotypeText);
+	    GfxManager.getPlatform().setFont(this.stereotypeText,
 		    OptionsManager.getSmallCapsFont());
-	    GfxManager.getPlatform().setStroke(stereotypeText,
+	    GfxManager.getPlatform().setStroke(this.stereotypeText,
 		    ThemeManager.getBackgroundColor(), 0);
-	    GfxManager.getPlatform().setFillColor(stereotypeText,
+	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
 		    ThemeManager.getForegroundColor());
-	    width = GfxManager.getPlatform().getWidthFor(stereotypeText);
-	    height += GfxManager.getPlatform().getHeightFor(stereotypeText);
+	    this.width = GfxManager.getPlatform().getWidthFor(this.stereotypeText);
+	    this.height += GfxManager.getPlatform().getHeightFor(this.stereotypeText);
 
-	    GfxManager.getPlatform().translate(stereotypeText, new Point(
+	    GfxManager.getPlatform().translate(this.stereotypeText, new Point(
 		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + height));
+		    OptionsManager.getTextTopPadding() + this.height));
 
-	    width += OptionsManager.getTextXTotalPadding();
-	    height += OptionsManager.getTextYTotalPadding();
+	    this.width += OptionsManager.getTextXTotalPadding();
+	    this.height += OptionsManager.getTextYTotalPadding();
 	}
-	nameText = GfxManager.getPlatform().buildText(className);
-	GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup, nameText);
-	GfxManager.getPlatform().setFont(nameText,
+	this.nameText = GfxManager.getPlatform().buildText(this.className);
+	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
+	GfxManager.getPlatform().setFont(this.nameText,
 		OptionsManager.getSmallCapsFont());
-	GfxManager.getPlatform().setStroke(nameText,
+	GfxManager.getPlatform().setStroke(this.nameText,
 		ThemeManager.getBackgroundColor(), 0);
-	GfxManager.getPlatform().setFillColor(nameText,
+	GfxManager.getPlatform().setFillColor(this.nameText,
 		ThemeManager.getForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getWidthFor(
-		nameText)
+		this.nameText)
 		+ OptionsManager.getTextXTotalPadding();
-	width = thisAttributeWidth > width ? thisAttributeWidth : width;
-	height += GfxManager.getPlatform().getHeightFor(nameText);
-	GfxManager.getPlatform().translate(nameText, new Point(
+	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
+	this.height += GfxManager.getPlatform().getHeightFor(this.nameText);
+	GfxManager.getPlatform().translate(this.nameText, new Point(
 		OptionsManager.getTextLeftPadding(),
-		OptionsManager.getTextTopPadding() + height));
-	height += OptionsManager.getTextYTotalPadding();
+		OptionsManager.getTextTopPadding() + this.height));
+	this.height += OptionsManager.getTextYTotalPadding();
 
-	width += OptionsManager.getRectangleXTotalPadding();
-	height += OptionsManager.getRectangleYTotalPadding();
+	this.width += OptionsManager.getRectangleXTotalPadding();
+	this.height += OptionsManager.getRectangleYTotalPadding();
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
-		+ width + "x" + height);
+		+ this.width + "x" + this.height);
     }
 
     @Override
     public void edit() {
-	if (stereotype == null) {
-	    stereotype = "<<Abstract>>";
-	    classArtifact.rebuildGfxObject();
-	    edit(stereotypeText);
+	if (this.stereotype == null) {
+	    this.stereotype = "<<Abstract>>";
+	    this.classArtifact.rebuildGfxObject();
+	    edit(this.stereotypeText);
 	} else {
-	    edit(nameText);
+	    edit(this.nameText);
 	}
 
     }
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final boolean isTheStereotype = editedGfxObject.equals(stereotypeText);
-	final NamePartFieldEditor editor = new NamePartFieldEditor(canvas,
+	final boolean isTheStereotype = editedGfxObject.equals(this.stereotypeText);
+	final NamePartFieldEditor editor = new NamePartFieldEditor(this.canvas,
 		this, isTheStereotype);
 	String edited;
 	if (isTheStereotype) {
-	    edited = stereotype;
+	    edited = this.stereotype;
 	} else {
-	    edited = className;
+	    edited = this.className;
 	}
-	editor.startEdition(edited, (classArtifact.getLocation().getX()
+	editor.startEdition(edited, (this.classArtifact.getLocation().getX()
 		+ OptionsManager.getTextLeftPadding() + OptionsManager
 		.getRectangleLeftPadding()),
-		(classArtifact.getLocation().getY()
+		(this.classArtifact.getLocation().getY()
 			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()
 			- GfxManager.getPlatform()
 				.getHeightFor(editedGfxObject) + OptionsManager
-			.getRectangleTopPadding()), classWidth
+			.getRectangleTopPadding()), this.classWidth
 			- OptionsManager.getTextXTotalPadding()
 			- OptionsManager.getRectangleXTotalPadding(), false);
     }
 
+    /**
+     * Getter for the class name
+     * 
+     * @return The class name
+     */
     public String getClassName() {
-	return className;
+	return this.className;
     }
 
     @Override
     public int getHeight() {
-	return height;
+	return this.height;
     }
 
     @Override
     public int[] getOpaque() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public GfxObject getOutline() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
@@ -158,11 +169,11 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName("Name");
-	rightMenu.addItem("Edit Name", editCommand(nameText));
-	if (stereotypeText == null) {
+	rightMenu.addItem("Edit Name", editCommand(this.nameText));
+	if (this.stereotypeText == null) {
 	    rightMenu.addItem("Add stereotype", createStereotype());
 	} else {
-	    rightMenu.addItem("Edit Stereotype", editCommand(stereotypeText));
+	    rightMenu.addItem("Edit Stereotype", editCommand(this.stereotypeText));
 	    rightMenu.addItem("Delete Stereotype", deleteStereotype());
 	}
 
@@ -170,35 +181,38 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     }
 
     /**
+     * Getter for the stereotype
+     * 
      * @return the stereotype
      */
     public String getStereotype() {
-	return stereotype;
+	return this.stereotype;
     }
 
     @Override
     public int getWidth() {
-	return width;
+	return this.width;
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().setStroke(nameRect,
+	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
+    /**
+     * Setter for the class name
+     * 
+     * @param className 
+     * 			The new name of the class 
+     */
     public void setClassName(final String className) {
 	this.className = className;
     }
 
     @Override
-    public void setClassWidth(final int width) {
-	classWidth = width;
-    }
-
-    @Override
-    public void setHeight(final int height) {
-	this.height = height;
+    void setClassWidth(final int width) {
+	this.classWidth = width;
     }
 
     /**
@@ -210,13 +224,8 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     }
 
     @Override
-    public void setWidth(final int width) {
-	this.width = width;
-    }
-
-    @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(nameRect,
+	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getForegroundColor(), 1);
     }
 
@@ -231,7 +240,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     private Command deleteStereotype() {
 	return new Command() {
 	    public void execute() {
-		stereotype = null;
+		ClassPartNameArtifact.this.stereotype = null;
 		ClassPartNameArtifact.this.classArtifact.rebuildGfxObject();
 	    }
 	};

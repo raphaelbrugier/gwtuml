@@ -33,26 +33,26 @@ public class NamePartFieldEditor extends FieldEditor {
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
-	if (isTheStereotype) {
+	if (this.isTheStereotype) {
 	    if (newContent.equals("")) {
-		((ClassPartNameArtifact) artifact).setStereotype(null);
+		((ClassPartNameArtifact) this.artifact).setStereotype(null);
 	    } else {
 		if (!(newContent.startsWith("<<") && newContent.endsWith(">>"))) {
-		    ((ClassPartNameArtifact) artifact).setStereotype("<<"
+		    ((ClassPartNameArtifact) this.artifact).setStereotype("<<"
 			    + newContent + ">>");
 		} else {
-		    ((ClassPartNameArtifact) artifact)
+		    ((ClassPartNameArtifact) this.artifact)
 			    .setStereotype(newContent);
 		}
 	    }
 	} else {
 	    if (newContent.equals("")) {
-		((ClassPartNameArtifact) artifact).setClassName("Class");
+		((ClassPartNameArtifact) this.artifact).setClassName("Class");
 	    } else {
-		((ClassPartNameArtifact) artifact).setClassName(newContent);
+		((ClassPartNameArtifact) this.artifact).setClassName(newContent);
 	    }
 	}
-	((ClassPartNameArtifact) artifact).getClassArtifact()
+	((ClassPartNameArtifact) this.artifact).getClassArtifact()
 		.rebuildGfxObject();
 	return false;
     }

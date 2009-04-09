@@ -53,12 +53,12 @@ public class IncubatorGfxObjectContainer extends GfxObject {
     }
 
     public IncubatorGfxObject getGraphicObject() {
-	return incubatorGfxObject;
+	return this.incubatorGfxObject;
     }
 
     @Override
     public String toString() {
 	return UMLDrawerHelper.getShortName(this) + " containing "
-		+ UMLDrawerHelper.getShortName(incubatorGfxObject);
+		+ UMLDrawerHelper.getShortName(this.incubatorGfxObject);
     }
 }

@@ -19,13 +19,13 @@ public class RelationLinkAggregationArtifact extends RelationLinkArtifact {
     public RelationLinkAggregationArtifact(final ClassArtifact left,
 	    final ClassArtifact right) {
 	super(left, right);
-	relation = new Relation(RelationKind.AGGREGATION);
-	relation.setLeftCardinality("1");
-	relation.setRightCardinality("0..*");
+	this.relation = new Relation(RelationKind.AGGREGATION);
+	this.relation.setLeftCardinality("1");
+	this.relation.setRightCardinality("0..*");
 
-	adornmentLeft = LinkAdornment.SOLID_DIAMOND;
-	adornmentRight = LinkAdornment.NONE;
-	style = LinkStyle.SOLID;
+	this.adornmentLeft = LinkAdornment.SOLID_DIAMOND;
+	this.adornmentRight = LinkAdornment.NONE;
+	this.style = LinkStyle.SOLID;
     }
 
 }

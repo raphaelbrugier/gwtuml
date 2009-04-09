@@ -37,7 +37,7 @@ public class LexicalAnalyser {
 	 * 
 	 */
 	public String getContent() {
-	    return content;
+	    return this.content;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class LexicalAnalyser {
 	 * @see LexicalFlag
 	 */
 	public LexicalFlag getType() {
-	    return type;
+	    return this.type;
 	}
     }
 
@@ -57,14 +57,14 @@ public class LexicalAnalyser {
 
     public LexicalAnalyser(final String text) {
 	this.text = text;
-	ptr = 0;
+	this.ptr = 0;
     }
 
     public Token getToken() {
 	Token token = null;
 	while (token == null) {
-	    if (ptr >= text.length()) {
-		if (tokenStringBuffer.length() > 0) {
+	    if (this.ptr >= this.text.length()) {
+		if (this.tokenStringBuffer.length() > 0) {
 		    token = processEOF();
 		    if (token != null) {
 			return token;
@@ -79,35 +79,35 @@ public class LexicalAnalyser {
     }
 
     Token consume(final LexicalFlag consumeStatus, final char c) {
-	tokenStringBuffer.append(c);
-	ptr++;
-	final String content = tokenStringBuffer.toString();
-	tokenStringBuffer = new StringBuffer();
-	status = LexicalFlag.UNDEFINED;
+	this.tokenStringBuffer.append(c);
+	this.ptr++;
+	final String content = this.tokenStringBuffer.toString();
+	this.tokenStringBuffer = new StringBuffer();
+	this.status = LexicalFlag.UNDEFINED;
 	return new Token(consumeStatus, content);
     }
 
     Token ignore() {
-	ptr++;
+	this.ptr++;
 	return null;
     }
 
     Token inject(final LexicalFlag injectStatus) {
-	final String content = tokenStringBuffer.toString();
-	tokenStringBuffer = new StringBuffer();
-	status = LexicalFlag.UNDEFINED;
+	final String content = this.tokenStringBuffer.toString();
+	this.tokenStringBuffer = new StringBuffer();
+	this.status = LexicalFlag.UNDEFINED;
 	return new Token(injectStatus, content);
     }
 
     Token process(final LexicalFlag processStatus, final char c) {
-	tokenStringBuffer.append(c);
-	ptr++;
-	status = processStatus;
+	this.tokenStringBuffer.append(c);
+	this.ptr++;
+	this.status = processStatus;
 	return null;
     }
 
     Token processEOF() {
-	switch (status) {
+	switch (this.status) {
 	case VISIBILITY:
 	    return inject(LexicalFlag.VISIBILITY);
 	case IDENTIFIER:
@@ -130,8 +130,8 @@ public class LexicalAnalyser {
 
     @SuppressWarnings("fallthrough")
     Token processNextChar() {
-	final char c = text.charAt(ptr);
-	switch (status) {
+	final char c = this.text.charAt(this.ptr);
+	switch (this.status) {
 	case UNDEFINED:
 	    if (c == ' ') {
 		return ignore();
@@ -250,6 +250,6 @@ public class LexicalAnalyser {
 
 	    return inject(LexicalFlag.FLOAT);
 	}
-	throw new UMLDrawerException("Invalid status : " + status);
+	throw new UMLDrawerException("Invalid status : " + this.status);
     }
 }

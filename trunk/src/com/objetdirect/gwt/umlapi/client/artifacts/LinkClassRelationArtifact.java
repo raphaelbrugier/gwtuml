@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -26,14 +25,14 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 
     @Override
     public void buildGfxObject() {
-	leftPoint = classArtifact.getCenter();
-	rightPoint = relation.getCenter();
-	line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
-	GfxManager.getPlatform().setStroke(line,
+	this.leftPoint = this.classArtifact.getCenter();
+	this.rightPoint = this.relation.getCenter();
+	this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getForegroundColor(), 1);
-	GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-	GfxManager.getPlatform().moveToBack(gfxObject);
+	GfxManager.getPlatform().setStrokeStyle(this.line, GfxStyle.DASH);
+	GfxManager.getPlatform().moveToBack(this.gfxObject);
 
     }
 
@@ -46,7 +45,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu
-		.setName("Class relation link " + classArtifact.getClassName());
+		.setName("Class relation link " + this.classArtifact.getClassName());
 	return rightMenu;
     }
 
@@ -57,13 +56,13 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 
      @Override
     public void removeCreatedDependency() {
-	classArtifact.removeDependency(this);
-	relation.removeDependency(this);
+	this.classArtifact.removeDependency(this);
+	this.relation.removeDependency(this);
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().setStroke(line,
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
@@ -74,7 +73,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 
     @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(line,
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getForegroundColor(), 1);
     }
 }

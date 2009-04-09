@@ -12,23 +12,23 @@ public class LoadingScreen {
 
     public LoadingScreen() {
 	final Image loader = new Image("ajax-loader.gif");
-	loadingPanel = new HorizontalPanel();
-	loadingPanel
+	this.loadingPanel = new HorizontalPanel();
+	this.loadingPanel
 		.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	loadingPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	loadingPanel.setSize("100%", "100%");
-	loadingPanel.add(loader);
-	loadingPanel.setVisible(false);
-	RootPanel.get().add(loadingPanel, 0, 0);
+	this.loadingPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	this.loadingPanel.setSize("100%", "100%");
+	this.loadingPanel.add(loader);
+	this.loadingPanel.setVisible(false);
+	RootPanel.get().add(this.loadingPanel, 0, 0);
     }
 
     public void hide() {
 	CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-	loadingPanel.setVisible(false);
+	this.loadingPanel.setVisible(false);
     }
 
     public void show() {
 	CursorIconManager.setCursorIcon(PointerStyle.WAIT);
-	loadingPanel.setVisible(true);
+	this.loadingPanel.setVisible(true);
     }
 }

@@ -60,6 +60,6 @@ public final class GfxStyle {
     }
 
     public String getStyleString() {
-	return style;
+	return this.style;
     }
 }

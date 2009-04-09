@@ -17,11 +17,11 @@ public class NoteFieldEditor extends FieldEditor {
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (newContent.equals("")) {
-	    canvas.remove(artifact);
+	    this.canvas.remove(this.artifact);
 	    return false;
 	}
-	((NoteArtifact) artifact).setContent(newContent);
-	artifact.rebuildGfxObject();
+	((NoteArtifact) this.artifact).setContent(newContent);
+	this.artifact.rebuildGfxObject();
 	return false;
     }
 }

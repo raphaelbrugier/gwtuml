@@ -43,44 +43,44 @@ public abstract class FieldEditor {
 
     public void startEdition(final String text, final int x, final int y,
 	    final int w, final boolean isitMultiLine) {
-	isMultiLine = isitMultiLine;
-	if (isMultiLine && height == 0) {
+	this.isMultiLine = isitMultiLine;
+	if (this.isMultiLine && this.height == 0) {
 	    Log.error("Must set height for multiline editors");
 	}
-	content = text;
+	this.content = text;
 
-	editField = isMultiLine ? new TextArea() : new TextBox();
-	editField.setText(text);
-	editField.setStylePrimaryName("editor-field"
-		+ (isMultiLine ? "-multiline" : ""));
-	editField.setWidth(w + "px");
-	if (isMultiLine) {
-	    editField.setHeight(height + "px");
+	this.editField = this.isMultiLine ? new TextArea() : new TextBox();
+	this.editField.setText(text);
+	this.editField.setStylePrimaryName("editor-field"
+		+ (this.isMultiLine ? "-multiline" : ""));
+	this.editField.setWidth(w + "px");
+	if (this.isMultiLine) {
+	    this.editField.setHeight(this.height + "px");
 	}
-	DOM.setStyleAttribute(editField.getElement(), "backgroundColor",
+	DOM.setStyleAttribute(this.editField.getElement(), "backgroundColor",
 		ThemeManager.getBackgroundColor().toString());
-	DOM.setStyleAttribute(editField.getElement(), "color", ThemeManager
+	DOM.setStyleAttribute(this.editField.getElement(), "color", ThemeManager
 		.getForegroundColor().toString());
-	DOM.setStyleAttribute(editField.getElement(), "selection", ThemeManager
+	DOM.setStyleAttribute(this.editField.getElement(), "selection", ThemeManager
 		.getBackgroundColor().toString()); // CSS 3 :'(
-	editField.addFocusHandler(new FocusHandler() {
+	this.editField.addFocusHandler(new FocusHandler() {
 	    public void onFocus(final FocusEvent event) {
 		Log.trace("Focus on " + this);
 
 	    }
 
 	});
-	editField.addBlurHandler(new BlurHandler() {
+	this.editField.addBlurHandler(new BlurHandler() {
 	    public void onBlur(final BlurEvent event) {
 		Log.trace("Focus lost on " + this);
 		validate(false);
 	    }
 
 	});
-	editField.addKeyUpHandler(new KeyUpHandler() {
+	this.editField.addKeyUpHandler(new KeyUpHandler() {
 	    public void onKeyUp(final KeyUpEvent event) {
 		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-		    if (!isMultiLine || event.isAnyModifierKeyDown()) {
+		    if (!FieldEditor.this.isMultiLine || event.isAnyModifierKeyDown()) {
 			validate(true);
 		    }
 
@@ -89,15 +89,15 @@ public abstract class FieldEditor {
 		}
 	    }
 	});
-	canvas.add(editField, x, y);
-	editField.selectAll();
-	editField.setFocus(true);
+	this.canvas.add(this.editField, x, y);
+	this.editField.selectAll();
+	this.editField.setFocus(true);
 	UMLDrawerHelper.enableBrowserEvents();
     }
 
     protected void cancel() {
-	canvas.remove(editField);
-	editField = null;
+	this.canvas.remove(this.editField);
+	this.editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setEnabled(true);
     }
@@ -108,12 +108,12 @@ public abstract class FieldEditor {
 
     protected void validate(final boolean isNextable) {
 	boolean isStillNextable = isNextable;
-	final String newContent = editField.getText();
-	if (!newContent.equals(content)) {
+	final String newContent = this.editField.getText();
+	if (!newContent.equals(this.content)) {
 	    isStillNextable = updateUMLArtifact(newContent) && isStillNextable;
 	}
-	canvas.remove(editField);
-	editField = null;
+	this.canvas.remove(this.editField);
+	this.editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setEnabled(true);
 	if (isStillNextable) {

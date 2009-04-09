@@ -39,7 +39,7 @@ public class Attribute {
      * 
      */
     public String getName() {
-	return name;
+	return this.name;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Attribute {
      * 
      */
     public String getType() {
-	return type;
+	return this.type;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Attribute {
      * @return the visibility
      */
     public Visibility getVisibility() {
-	return visibility;
+	return this.visibility;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Attribute {
      * 
      */
     public boolean isValidated() {
-	return validated;
+	return this.validated;
     }
 
     /**
@@ -126,11 +126,11 @@ public class Attribute {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(visibility);
-	f.append(name);
-	if (type != null) {
+	f.append(this.visibility);
+	f.append(this.name);
+	if (this.type != null) {
 	    f.append(" : ");
-	    f.append(type);
+	    f.append(this.type);
 	}
 	return f.toString();
     }

@@ -8,39 +8,39 @@ public class Line extends IncubatorGfxObject {
     private final int w;
 
     public Line(final int x1, final int y1, final int x2, final int y2) {
-	x = x1;
-	y = y1;
-	w = x2 - x1;
-	h = y2 - y1;
+	this.x = x1;
+	this.y = y1;
+	this.w = x2 - x1;
+	this.h = y2 - y1;
     }
 
     @Override
     public void draw() {
-	if (!isVisible) {
+	if (!this.isVisible) {
 	    Log.trace(this + " is not visible");
 	    return;
 	}
-	if (canvas == null) {
+	if (this.canvas == null) {
 	    Log.fatal("canvas is null for " + this);
 	}
 
 	Log.trace("Drawing " + this);
-	canvas.saveContext();
-	if (fillColor != null) {
-	    canvas.setFillStyle(fillColor);
+	this.canvas.saveContext();
+	if (this.fillColor != null) {
+	    this.canvas.setFillStyle(this.fillColor);
 	}
-	if (strokeColor != null) {
-	    canvas.setStrokeStyle(strokeColor);
+	if (this.strokeColor != null) {
+	    this.canvas.setStrokeStyle(this.strokeColor);
 	}
-	if (strokeWidth != 0) {
-	    canvas.setLineWidth(strokeWidth);
+	if (this.strokeWidth != 0) {
+	    this.canvas.setLineWidth(this.strokeWidth);
 	}
-	canvas.beginPath();
-	canvas.moveTo(getX(), getY());
-	canvas.lineTo(getX() + w, getY() + h);
-	canvas.closePath();
-	canvas.stroke();
-	canvas.restoreContext();
+	this.canvas.beginPath();
+	this.canvas.moveTo(getX(), getY());
+	this.canvas.lineTo(getX() + this.w, getY() + this.h);
+	this.canvas.closePath();
+	this.canvas.stroke();
+	this.canvas.restoreContext();
     }
 
     @Override

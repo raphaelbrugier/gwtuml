@@ -17,10 +17,10 @@ public class VirtualGroup extends IncubatorGfxObject {
      * @param incubatorGfxObject
      */
     public void add(final IncubatorGfxObject incubatorGfxObject) {
-	incubatorGfxObjectSet.add(incubatorGfxObject);
+	this.incubatorGfxObjectSet.add(incubatorGfxObject);
 	incubatorGfxObject.setParentGroup(this);
-	if (isVisible) {
-	    incubatorGfxObject.addOnCanvasAt(canvas, 0, 0);
+	if (this.isVisible) {
+	    incubatorGfxObject.addOnCanvasAt(this.canvas, 0, 0);
 	}
     }
 
@@ -36,13 +36,13 @@ public class VirtualGroup extends IncubatorGfxObject {
     public void addOnCanvasAt(final CanvasBridge canvasBridge, final int dx,
 	    final int dy) {
 	super.addOnCanvasAt(canvasBridge, dx, dy);
-	for (final IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
+	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
 	    incubatorGfxObject.addOnCanvasAt(canvasBridge, dx, dy);
 	}
     }
 
     public void clear() {
-	incubatorGfxObjectSet.clear();
+	this.incubatorGfxObjectSet.clear();
 
     }
 
@@ -55,16 +55,16 @@ public class VirtualGroup extends IncubatorGfxObject {
      */
     @Override
     public void draw() {
-	if (!isVisible) {
+	if (!this.isVisible) {
 	    Log.trace(this + " is not visible");
 	    return;
 	}
-	if (canvas == null) {
+	if (this.canvas == null) {
 	    Log.fatal("canvas is null for " + this);
 	}
 
 	Log.trace("Starting drawing " + this);
-	for (final IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
+	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
 	    incubatorGfxObject.draw();
 	}
 	Log.trace("Ending drawing " + this);
@@ -112,6 +112,6 @@ public class VirtualGroup extends IncubatorGfxObject {
      * @param incubatorGfxObject
      */
     public void remove(final IncubatorGfxObject incubatorGfxObject) {
-	incubatorGfxObjectSet.remove(incubatorGfxObject);
+	this.incubatorGfxObjectSet.remove(incubatorGfxObject);
     }
 }

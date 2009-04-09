@@ -35,15 +35,15 @@ public class AttributePartEditor extends FieldEditor {
 
     @Override
     protected void next() {
-	((ClassPartArtifact) artifact).edit();
+	((ClassPartArtifact) this.artifact).edit();
     }
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	Log.fatal(newContent);
 	if (newContent.equals("")) {
-	    ((ClassPartAttributesArtifact) artifact).remove(attributeToChange);
-	    ((ClassPartAttributesArtifact) artifact).getClassArtifact()
+	    ((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
+	    ((ClassPartAttributesArtifact) this.artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	    return false;
 	}
@@ -52,11 +52,11 @@ public class AttributePartEditor extends FieldEditor {
 	try {
 	    String type = null;
 	    String name = null;
-	    Visibility visibility;
+	    Visibility visibility = Visibility.PACKAGE;
 	    LexicalAnalyser.Token tk = lex.getToken();
 	    if (tk != null && tk.getType() != LexicalFlag.VISIBILITY) {
 		visibility = Visibility.PACKAGE;
-	    } else {
+	    } else if (tk != null) {
 		visibility = Visibility.getVisibilityFromToken(tk.getContent()
 			.charAt(0));
 		tk = lex.getToken();
@@ -80,10 +80,10 @@ public class AttributePartEditor extends FieldEditor {
 		}
 		type = tk.getContent();
 	    }
-	    attributeToChange.setVisibility(visibility);
-	    attributeToChange.setName(name);
-	    attributeToChange.setType(type);
-	    ((ClassPartAttributesArtifact) artifact).getClassArtifact()
+	    this.attributeToChange.setVisibility(visibility);
+	    this.attributeToChange.setName(name);
+	    this.attributeToChange.setType(type);
+	    ((ClassPartAttributesArtifact) this.artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {
 	    Window.alert(e.getMessage());

@@ -12,7 +12,7 @@ public class Note {
     }
 
     public String getText() {
-	return text;
+	return this.text;
     }
 
     public void setText(final String text) {

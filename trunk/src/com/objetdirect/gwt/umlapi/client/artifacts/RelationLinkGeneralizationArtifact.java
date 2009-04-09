@@ -15,9 +15,9 @@ public class RelationLinkGeneralizationArtifact extends RelationLinkArtifact {
     public RelationLinkGeneralizationArtifact(final ClassArtifact left,
 	    final ClassArtifact right) {
 	super(left, right);
-	relation = new Relation(RelationKind.GENERALIZATION);
-	adornmentLeft = LinkAdornment.SOLID_ARROW;
-	adornmentRight = LinkAdornment.NONE;
-	style = LinkStyle.SOLID;
+	this.relation = new Relation(RelationKind.GENERALIZATION);
+	this.adornmentLeft = LinkAdornment.SOLID_ARROW;
+	this.adornmentRight = LinkAdornment.NONE;
+	this.style = LinkStyle.SOLID;
     }
 }

@@ -15,12 +15,12 @@ public class ContextMenu {
 
     private final Command addNewClass = new Command() {
 	public void execute() {
-	    canvas.addNewClass(location);
+	    ContextMenu.this.canvas.addNewClass(ContextMenu.this.location);
 	}
     };
     private final Command addNewNote = new Command() {
 	public void execute() {
-	    canvas.addNewNote(location);
+	    ContextMenu.this.canvas.addNewNote(ContextMenu.this.location);
 	}
     };
     private final Command bringHelp = new Command() {
@@ -33,7 +33,7 @@ public class ContextMenu {
 
     private final Command remove = new Command() {
 	public void execute() {
-	    canvas.removeSelected();
+	    ContextMenu.this.canvas.removeSelected();
 	}
     };
 
@@ -45,7 +45,7 @@ public class ContextMenu {
     public ContextMenu(final Point location, final UMLCanvas canvas) {
 	this.location = location;
 	this.canvas = canvas;
-	specificRightMenu = null;
+	this.specificRightMenu = null;
 	makeMenu();
     }
 
@@ -60,10 +60,10 @@ public class ContextMenu {
 
     public void show() {
 
-	contextMenu.setPopupPositionAndShow(new PositionCallback() {
+	this.contextMenu.setPopupPositionAndShow(new PositionCallback() {
 	    public void setPosition(final int offsetWidth,
 		    final int offsetHeight) {
-		contextMenu.setPopupPosition(location.getX(), location.getY());
+		ContextMenu.this.contextMenu.setPopupPosition(ContextMenu.this.location.getX(), ContextMenu.this.location.getY());
 	    }
 	});
     }
@@ -71,29 +71,29 @@ public class ContextMenu {
     private Command addRelation(final RelationKind relation) {
 	return new Command() {
 	    public void execute() {
-		canvas.toLinkMode(relation);
+		ContextMenu.this.canvas.toLinkMode(relation);
 	    }
 	};
     }
 
     private void makeMenu() {
-	contextMenu = new PopupMenu();
-	if (specificRightMenu != null) {
-	    final MenuBar specificSubMenu = specificRightMenu.getSubMenu();
+	this.contextMenu = new PopupMenu();
+	if (this.specificRightMenu != null) {
+	    final MenuBar specificSubMenu = this.specificRightMenu.getSubMenu();
 
-	    specificSubMenu.addItem("Delete", remove);
-	    contextMenu.addItem(specificRightMenu.getName(), specificSubMenu);
-	    contextMenu.addSeparator();
+	    specificSubMenu.addItem("Delete", this.remove);
+	    this.contextMenu.addItem(this.specificRightMenu.getName(), specificSubMenu);
+	    this.contextMenu.addSeparator();
 	}
 
-	contextMenu.addItem("Add new class", addNewClass);
-	contextMenu.addItem("Add new note", addNewNote);
+	this.contextMenu.addItem("Add new class", this.addNewClass);
+	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relation : RelationKind.values()) {
 	    linkSubMenu.addItem(relation.getName(), addRelation(relation));
 	}
-	contextMenu.addItem("Add relation", linkSubMenu);
-	contextMenu.addSeparator();
-	contextMenu.addItem("Help...", bringHelp);
+	this.contextMenu.addItem("Add relation", linkSubMenu);
+	this.contextMenu.addSeparator();
+	this.contextMenu.addItem("Help...", this.bringHelp);
     }
 }

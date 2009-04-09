@@ -14,16 +14,16 @@ public enum Direction {
     private int yDirection;
 
     private Direction(final int x, final int y) {
-	xDirection = x;
-	yDirection = y;
+	this.xDirection = x;
+	this.yDirection = y;
     }
 
     public int getXDirection() {
-	return xDirection;
+	return this.xDirection;
     }
 
     public int getYDirection() {
-	return yDirection;
+	return this.yDirection;
     }
 
 }

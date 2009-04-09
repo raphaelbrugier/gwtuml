@@ -24,35 +24,35 @@ public class NoteArtifact extends BoxArtifact {
     private final Note note;
 
     public NoteArtifact(final String content) {
-	height = 0;
-	width = 0;
-	note = new Note(content);
+	this.height = 0;
+	this.width = 0;
+	this.note = new Note(content);
     }
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
-	editor.setHeightForMultiLine(height
+	final NoteFieldEditor editor = new NoteFieldEditor(this.canvas, this);
+	editor.setHeightForMultiLine(this.height
 		- OptionsManager.getTextYTotalPadding()
 		- OptionsManager.getRectangleYTotalPadding());
-	editor.startEdition(note.getText(), getLocation().getX()
+	editor.startEdition(this.note.getText(), getLocation().getX()
 		+ OptionsManager.getTextLeftPadding()
 		+ OptionsManager.getRectangleLeftPadding(), getLocation()
 		.getY()
 		+ OptionsManager.getTextYTotalPadding()
-		+ OptionsManager.getRectangleTopPadding(), width
+		+ OptionsManager.getRectangleTopPadding(), this.width
 		- OptionsManager.getTextXTotalPadding()
 		- OptionsManager.getRectangleXTotalPadding(), true);
 
     }
 
     public String getContent() {
-	return note.getText();
+	return this.note.getText();
     }
 
     @Override
     public int getHeight() {
-	return height;
+	return this.height;
     }
 
     @Override
@@ -101,41 +101,41 @@ public class NoteArtifact extends BoxArtifact {
 
     @Override
     public int getWidth() {
-	return width;
+	return this.width;
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().moveToFront(gfxObject);
-	GfxManager.getPlatform().setStroke(borderPath,
+	GfxManager.getPlatform().moveToFront(this.gfxObject);
+	GfxManager.getPlatform().setStroke(this.borderPath,
 		ThemeManager.getHighlightedForegroundColor(), 2);
-	GfxManager.getPlatform().setStroke(cornerPath,
+	GfxManager.getPlatform().setStroke(this.cornerPath,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
     public void setContent(final String content) {
-	note.setText(content);
+	this.note.setText(content);
     }
 
     @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(borderPath,
+	GfxManager.getPlatform().setStroke(this.borderPath,
 		ThemeManager.getForegroundColor(), 1);
-	GfxManager.getPlatform().setStroke(cornerPath,
+	GfxManager.getPlatform().setStroke(this.cornerPath,
 		ThemeManager.getForegroundColor(), 1);
     }
 
     void createNoteText() {
-	height = 0;
-	width = 0;
-	final String[] noteMultiLine = note.getText().split("\n");
-	contentText = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, contentText);
+	this.height = 0;
+	this.width = 0;
+	final String[] noteMultiLine = this.note.getText().split("\n");
+	this.contentText = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.contentText);
 
 	for (final String noteLine : noteMultiLine) {
 	    final GfxObject textLine = GfxManager.getPlatform().buildText(
 		    noteLine);
-	    GfxManager.getPlatform().addToVirtualGroup(contentText, textLine);
+	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
 	    GfxManager.getPlatform()
 		    .setFont(textLine, OptionsManager.getFont());
 	    GfxManager.getPlatform().setStroke(textLine,
@@ -149,40 +149,40 @@ public class NoteArtifact extends BoxArtifact {
 	    GfxManager.getPlatform().translate(
 		    textLine,
 		    new Point(OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + height
+		    OptionsManager.getTextTopPadding() + this.height
 			    + thisLineHeight));
 	    thisLineWidth += OptionsManager.getTextXTotalPadding();
 	    thisLineHeight += OptionsManager.getTextYTotalPadding();
-	    width = thisLineWidth > width ? thisLineWidth : width;
-	    height += thisLineHeight;
+	    this.width = thisLineWidth > this.width ? thisLineWidth : this.width;
+	    this.height += thisLineHeight;
 	}
-	height += OptionsManager.getRectangleYTotalPadding();
-	width += OptionsManager.getRectangleXTotalPadding() + getCornerWidth();
+	this.height += OptionsManager.getRectangleYTotalPadding();
+	this.width += OptionsManager.getRectangleXTotalPadding() + getCornerWidth();
 
     }
 
     @Override
     protected void buildGfxObject() {
 	createNoteText();
-	borderPath = getBorderPath();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, borderPath);
-	cornerPath = getCornerPath();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, cornerPath);
-	GfxManager.getPlatform().translate(contentText, new Point(
+	this.borderPath = getBorderPath();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.borderPath);
+	this.cornerPath = getCornerPath();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.cornerPath);
+	GfxManager.getPlatform().translate(this.contentText, new Point(
 		OptionsManager.getRectangleLeftPadding(),
 		OptionsManager.getRectangleTopPadding()));
-	GfxManager.getPlatform().moveToFront(contentText);
+	GfxManager.getPlatform().moveToFront(this.contentText);
     }
 
     protected GfxObject getBorderPath() {
 	final GfxObject thisBorderPath = GfxManager.getPlatform().buildPath();
 	GfxManager.getPlatform().moveTo(thisBorderPath, Point.getOrigin());
 	GfxManager.getPlatform().lineTo(thisBorderPath,
-		new Point(width - getCornerWidth(), 0));
-	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width,
+		new Point(this.width - getCornerWidth(), 0));
+	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(this.width,
 		getCornerHeight()));
-	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width, height));
-	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(0, height));
+	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(this.width, this.height));
+	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(0, this.height));
 	GfxManager.getPlatform().lineTo(thisBorderPath, Point.getOrigin());
 	GfxManager.getPlatform().setFillColor(thisBorderPath,
 		ThemeManager.getBackgroundColor());
@@ -194,10 +194,10 @@ public class NoteArtifact extends BoxArtifact {
     protected GfxObject getCornerPath() {
 	final GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();
 	GfxManager.getPlatform().moveTo(thisCornerPath,
-		new Point(width - getCornerWidth(), 0));
+		new Point(this.width - getCornerWidth(), 0));
 	GfxManager.getPlatform().lineTo(thisCornerPath,
-		new Point(width - getCornerWidth(), getCornerHeight()));
-	GfxManager.getPlatform().lineTo(thisCornerPath, new Point(width,
+		new Point(this.width - getCornerWidth(), getCornerHeight()));
+	GfxManager.getPlatform().lineTo(thisCornerPath, new Point(this.width,
 		getCornerHeight()));
 	GfxManager.getPlatform().setFillColor(thisCornerPath,
 		ThemeManager.getBackgroundColor());

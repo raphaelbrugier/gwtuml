@@ -11,8 +11,8 @@ public class Path extends IncubatorGfxObject {
 	private final int yp;
 
 	public Point(final int x, final int y, final Path path) {
-	    xp = x;
-	    yp = y;
+	    this.xp = x;
+	    this.yp = y;
 	    this.path = path;
 	}
 
@@ -20,14 +20,14 @@ public class Path extends IncubatorGfxObject {
 	 * @return the x
 	 */
 	public int getX() {
-	    return xp + path.getX();
+	    return this.xp + this.path.getX();
 	}
 
 	/**
 	 * @return the y
 	 */
 	public int getY() {
-	    return yp + path.getY();
+	    return this.yp + this.path.getY();
 	}
 
     }
@@ -35,39 +35,39 @@ public class Path extends IncubatorGfxObject {
     private final ArrayList<Point> pathPoints = new ArrayList<Point>();
 
     public Path() {
-	x = 0;
-	y = 0;
+	this.x = 0;
+	this.y = 0;
     }
 
     @Override
     public void draw() {
-	if (!isVisible) {
+	if (!this.isVisible) {
 	    Log.trace(this + " is not visible");
 	    return;
 	}
-	if (canvas == null) {
+	if (this.canvas == null) {
 	    Log.fatal("canvas is null for " + this);
 	}
 
 	Log.trace("Drawing " + this);
-	canvas.saveContext();
-	if (fillColor != null) {
-	    canvas.setFillStyle(fillColor);
+	this.canvas.saveContext();
+	if (this.fillColor != null) {
+	    this.canvas.setFillStyle(this.fillColor);
 	}
-	if (strokeColor != null) {
-	    canvas.setStrokeStyle(strokeColor);
+	if (this.strokeColor != null) {
+	    this.canvas.setStrokeStyle(this.strokeColor);
 	}
-	if (strokeWidth != 0) {
-	    canvas.setLineWidth(strokeWidth);
+	if (this.strokeWidth != 0) {
+	    this.canvas.setLineWidth(this.strokeWidth);
 	}
-	canvas.beginPath();
-	for (final Point point : pathPoints) {
-	    canvas.lineTo(point.getX(), point.getY());
+	this.canvas.beginPath();
+	for (final Point point : this.pathPoints) {
+	    this.canvas.lineTo(point.getX(), point.getY());
 	}
-	canvas.closePath();
-	canvas.fill();
-	canvas.stroke();
-	canvas.restoreContext();
+	this.canvas.closePath();
+	this.canvas.fill();
+	this.canvas.stroke();
+	this.canvas.restoreContext();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Path extends IncubatorGfxObject {
     @Override
     public boolean isPointed(final int xp, final int yp) {
 	int minx = Integer.MAX_VALUE, miny = Integer.MAX_VALUE, maxx = Integer.MIN_VALUE, maxy = Integer.MIN_VALUE;
-	for (final Point point : pathPoints) {
+	for (final Point point : this.pathPoints) {
 	    minx = minx > point.getX() ? point.getX() : minx;
 	    miny = miny > point.getY() ? point.getY() : miny;
 	    maxx = maxx < point.getX() ? point.getX() : maxx;
@@ -95,10 +95,10 @@ public class Path extends IncubatorGfxObject {
     }
 
     public void lineTo(final int xp, final int yp) {
-	pathPoints.add(new Point(xp, yp, this));
+	this.pathPoints.add(new Point(xp, yp, this));
     }
 
     public void moveTo(final int xp, final int yp) {
-	pathPoints.add(new Point(xp, yp, this));
+	this.pathPoints.add(new Point(xp, yp, this));
     }
 }

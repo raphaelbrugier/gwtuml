@@ -22,9 +22,9 @@ public class RelationFieldEditor extends FieldEditor {
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
-	((RelationLinkArtifact) artifact).setPartContent(relationshipPart,
+	((RelationLinkArtifact) this.artifact).setPartContent(this.relationshipPart,
 		newContent);
-	artifact.rebuildGfxObject();
+	this.artifact.rebuildGfxObject();
 	return false;
     }
 }

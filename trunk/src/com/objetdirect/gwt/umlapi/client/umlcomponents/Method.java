@@ -47,7 +47,7 @@ public class Method {
      * 
      */
     public String getName() {
-	return name;
+	return this.name;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Method {
      * 
      */
     public List<Parameter> getParameters() {
-	return parameters;
+	return this.parameters;
     }
 
     /**
@@ -67,11 +67,11 @@ public class Method {
      * 
      */
     public String getReturnType() {
-	return returnType;
+	return this.returnType;
     }
 
     public Visibility getVisibility() {
-	return visibility;
+	return this.visibility;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Method {
      * 
      */
     public boolean isValidated() {
-	return validated;
+	return this.validated;
     }
 
     /**
@@ -145,12 +145,12 @@ public class Method {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(visibility);
-	f.append(name);
+	f.append(this.visibility);
+	f.append(this.name);
 	f.append("(");
-	if (parameters != null && parameters.size() > 0) {
+	if (this.parameters != null && this.parameters.size() > 0) {
 	    boolean first = true;
-	    for (final Parameter parameter : parameters) {
+	    for (final Parameter parameter : this.parameters) {
 		if (!first) {
 		    f.append(", ");
 		} else {
@@ -160,9 +160,9 @@ public class Method {
 	    }
 	}
 	f.append(")");
-	if (returnType != null) {
+	if (this.returnType != null) {
 	    f.append(" : ");
-	    f.append(returnType);
+	    f.append(this.returnType);
 	}
 	return f.toString();
     }

@@ -15,11 +15,11 @@ public class RelationLinkCompositionArtifact extends RelationLinkArtifact {
     public RelationLinkCompositionArtifact(final ClassArtifact left,
 	    final ClassArtifact right) {
 	super(left, right);
-	relation = new Relation(RelationKind.COMPOSITION);
-	relation.setLeftCardinality("1");
-	relation.setRightCardinality("0..*");
-	adornmentLeft = LinkAdornment.INVERTED_SOLID_DIAMOND;
-	adornmentRight = LinkAdornment.NONE;
-	style = LinkStyle.SOLID;
+	this.relation = new Relation(RelationKind.COMPOSITION);
+	this.relation.setLeftCardinality("1");
+	this.relation.setRightCardinality("0..*");
+	this.adornmentLeft = LinkAdornment.INVERTED_SOLID_DIAMOND;
+	this.adornmentRight = LinkAdornment.NONE;
+	this.style = LinkStyle.SOLID;
     }
 }
