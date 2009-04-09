@@ -12,107 +12,190 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLComponent;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This abstract class represents any relation artifact between two classes
+ *  
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class RelationLinkArtifact extends LinkArtifact {
 
     /**
+     * This enumeration list all text part of a RelationLinkArtifact
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
+    /**
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     *
+     */
     public enum RelationLinkArtifactPart {
+	/**
+	 * Left end cardinality
+	 */
 	LEFT_CARDINALITY("Cardinality", true) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getLeftCardinality();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setLeftCardinality(text);
 	    }
 	},
+	/**
+	 * Left end constraint
+	 */
 	LEFT_CONSTRAINT("Constraint", true) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getLeftConstraint();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setLeftConstraint(text);
 	    }
 	},
+	/**
+	 * Left end role
+	 */
 	LEFT_ROLE("Role", true) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getLeftRole();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setLeftRole(text);
 	    }
 	},
+	/**
+	 * The relation name
+	 */
 	NAME("Name", false) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getName();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setName(text);
 	    }
 	},
+
+	/**
+	 * Right end cardinality
+	 */
 	RIGHT_CARDINALITY("Cardinality", false) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getRightCardinality();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setRightCardinality(text);
 	    }
 	},
+	/**
+	 * Right end constraint
+	 */
 	RIGHT_CONSTRAINT("Constraint", false) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getRightConstraint();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setRightConstraint(text);
 	    }
 	},
+	/**
+	 * Right end role
+	 */
 	RIGHT_ROLE("Role", false) {
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
+	     */
 	    @Override
 	    public String getText(final Relation relation) {
 		return relation.getRightRole();
 	    }
 
+	    /* (non-Javadoc)
+	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
+	     */
 	    @Override
 	    public void setText(final Relation relation, final String text) {
 		relation.setRightRole(text);
 	    }
 	};
+	
 	private static HashMap<GfxObject, RelationLinkArtifactPart> textGfxObject = new HashMap<GfxObject, RelationLinkArtifactPart>();
 
-	public static RelationLinkArtifactPart getPartForGfxObject(
-		final GfxObject text) {
-	    return textGfxObject.get(text);
+	/**
+	 * Getter for the part represented by the graphical object
+	 * 
+	 * @param gfxObjectText The graphical object to retrieve the relationLinkArtifactPart
+	 * @return The RelationLinkArtifactPart represented by the graphical object
+	 */
+	public static RelationLinkArtifactPart getPartForGfxObject(final GfxObject gfxObjectText) {
+	    return textGfxObject.get(gfxObjectText);
 	}
 
-	public static void setGfxObjectTextForPart(final GfxObject text,
-		final RelationLinkArtifactPart part) {
-	    textGfxObject.put(text, part);
+	/**
+	 * Setter of the relation between a RelationLinkArtifactPart and his graphical object
+	 * 
+	 * @param gfxObjectText The graphical object representing the relationLinkArtifactPart
+	 * @param relationLinkArtifactPart the relationLinkArtifactPart represented by gfxObjecttext
+	 */
+	public static void setGfxObjectTextForPart(final GfxObject gfxObjectText, final RelationLinkArtifactPart relationLinkArtifactPart) {
+	    textGfxObject.put(gfxObjectText, relationLinkArtifactPart);
 	}
 
 	private boolean isLeft;
@@ -124,22 +207,40 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	    this.isLeft = isLeft;
 	}
 
-	/**
-	 * @return the name
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
 	 */
-	public String getName() {
+	@Override
+	public String toString() {
 	    return this.name;
 	}
 
+	/**
+	 * Getter for the text contained by the graphical object for a part
+	 * 
+	 * @param relation The relation {@link UMLComponent} this enumeration is about
+	 * @return the text corresponding to this part
+	 */
 	public abstract String getText(Relation relation);
 
 	/**
-	 * @return the isLeft
+	 * Determine if this part is "Left"
+	 * 
+	 * @return <ul>
+	 *         <li><b>True</b> if it is actually "Left"</li>
+	 *         <li><b>False</b> otherwise</li>
+	 *         </ul>
 	 */
 	public boolean isLeft() {
 	    return this.isLeft;
 	}
 
+	/**
+	 * Setter to affect a text to a part of the relation {@link UMLComponent}
+	 * 
+	 * @param relation The relation {@link UMLComponent} this enumeration is about
+	 * @param text The text corresponding to this part
+	 */
 	public abstract void setText(Relation relation, String text);
     }
 
@@ -150,9 +251,16 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
     }
 
-    public static RelationLinkArtifact makeLinkArtifact(
-	    final ClassArtifact left, final ClassArtifact right,
-	    final RelationKind kind) {
+    /**
+     * This class method is an easy way to create a {@link RelationLinkArtifact} by knowing its {@link RelationKind}
+     * 
+     * @param left The left {@link ClassArtifact} of the relation
+     * @param right The right {@link ClassArtifact} of the relation
+     * @param kind The type of its relation
+     * 
+     * @return The created new {@link RelationLinkArtifact} in type of kind
+     */
+    public static RelationLinkArtifact makeLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind kind) {
 	switch (kind) {
 	case AGGREGATION:
 	    return new RelationLinkAggregationArtifact(left, right);
@@ -182,8 +290,13 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
     private int current_delta;
     private final HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart = new HashMap<RelationLinkArtifactPart, GfxObject>();
 
-    public RelationLinkArtifact(final ClassArtifact left,
-	    final ClassArtifact right) {
+    /**
+     * Constructor of {@link RelationLinkArtifact}
+     * 
+     * @param left The left {@link ClassArtifact} of the relation
+     * @param right The right {@link ClassArtifact} of the relation
+     */
+    public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right) {
 	this.leftClassArtifact = left;
 	left.addDependency(this, right);
 	this.rightClassArtifact = right;
@@ -212,6 +325,10 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	}
     }
 
+    /**
+     * Request an edition on a {@link RelationLinkArtifactPart}  and set if the text is empty a default text
+     * @param part The {@link RelationLinkArtifactPart} to edit
+     */
     public void edit(final RelationLinkArtifactPart part) {
 	String defaultText;
 	switch (part) {
@@ -240,10 +357,20 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	edit(this.gfxObjectPart.get(part));
     }
 
+    /**
+     * Getter for the left {@link ClassArtifact} of this relation 
+     * 
+     * @return the left {@link ClassArtifact} of this relation
+     */
     public ClassArtifact getLeftClassArtifact() {
 	return this.leftClassArtifact;
     }
 
+    /**
+     * Getter for the right {@link ClassArtifact} of this relation 
+     * 
+     * @return the right {@link ClassArtifact} of this relation
+     */
     public ClassArtifact getRightClassArtifact() {
 	return this.rightClassArtifact;
     }
@@ -281,13 +408,13 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	    }
 	    if (relationLinkArtifactPart.isLeft) {
 		leftSide
-			.addItem(relationLinkArtifactPart.getName(), editDelete);
+			.addItem(relationLinkArtifactPart.toString(), editDelete);
 	    } else {
 		if (relationLinkArtifactPart != RelationLinkArtifactPart.NAME) {
-		    rightSide.addItem(relationLinkArtifactPart.getName(),
+		    rightSide.addItem(relationLinkArtifactPart.toString(),
 			    editDelete);
 		} else {
-		    rightMenu.addItem(relationLinkArtifactPart.getName(),
+		    rightMenu.addItem(relationLinkArtifactPart.toString(),
 			    editDelete);
 		}
 	    }
@@ -299,12 +426,18 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	return rightMenu;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact#removeCreatedDependency()
+     */
     @Override
     public void removeCreatedDependency() {
 	this.leftClassArtifact.removeDependency(this);
 	this.rightClassArtifact.removeDependency(this);
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#select()
+     */
     @Override
     public void select() {
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
@@ -314,39 +447,89 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
+    /**
+     * Setter for the leftCardinality in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param leftCardinality The leftCardinality text to be set
+     */
     public void setLeftCardinality(final String leftCardinality) {
 	this.relation.setLeftCardinality(leftCardinality);
     }
 
+    /**
+     * Setter for the leftConstraint in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param leftConstraint The leftConstraint text to be set
+     */
     public void setLeftConstraint(final String leftConstraint) {
 	this.relation.setLeftConstraint(leftConstraint);
     }
-
+    
+    /**
+     * Setter for the leftRole in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param leftRole The leftRole text to be set
+     */
     public void setLeftRole(final String leftRole) {
 	this.relation.setLeftRole(leftRole);
     }
 
+    /**
+     * Setter for the name in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param name The name text to be set
+     */
     public void setName(final String name) {
 	this.relation.setName(name);
     }
 
+    /**
+     * Setter of a part text
+     * @param part The {@link RelationLinkArtifactPart} in which the text is to be updated 
+     * @param newContent The new text to set for this part 
+     */
     public void setPartContent(final RelationLinkArtifactPart part,
 	    final String newContent) {
 	part.setText(this.relation, newContent);
     }
 
+    /**
+     * Setter for the rightCardinality in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param rightCardinality The rightCardinality text to be set
+     */
     public void setRightCardinality(final String rightCardinality) {
 	this.relation.setRightCardinality(rightCardinality);
     }
 
+    /**
+     * Setter for the rightConstraint in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param rightConstraint The rightConstraint text to be set
+     */
     public void setRightConstraint(final String rightConstraint) {
 	this.relation.setRightConstraint(rightConstraint);
     }
-
+    
+    /**
+     * Setter for the rightRole in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param rightRole The rightRole text to be set
+     */
     public void setRightRole(final String rightRole) {
 	this.relation.setRightRole(rightRole);
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#unselect()
+     */
     @Override
     public void unselect() {
 	GfxManager.getPlatform().setStroke(this.line,

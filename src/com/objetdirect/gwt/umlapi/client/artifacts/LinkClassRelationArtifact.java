@@ -8,6 +8,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
+ * This artifact represent the link between a class and a class relation 
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class LinkClassRelationArtifact extends LinkArtifact {
@@ -15,6 +17,11 @@ public class LinkClassRelationArtifact extends LinkArtifact {
     GfxObject line = null;
     RelationLinkArtifact relation;
 
+    /**
+     * Constructor of LinkClassRelationArtifact
+     * @param classArtifact The class for the relation class 
+     * @param relation The relation between the two other classes
+     */
     public LinkClassRelationArtifact(final ClassArtifact classArtifact,
 	    final RelationLinkArtifact relation) {
 	this.classArtifact = classArtifact;
@@ -38,7 +45,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	// TODO Auto-generated method stub
+	// Nothing to edit
     }
 
     @Override

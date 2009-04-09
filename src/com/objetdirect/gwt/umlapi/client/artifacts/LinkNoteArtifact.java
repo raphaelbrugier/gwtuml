@@ -8,6 +8,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
+ * This artifact represent a specific link between a note and any uml artifact
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class LinkNoteArtifact extends LinkArtifact {
@@ -15,6 +17,12 @@ public class LinkNoteArtifact extends LinkArtifact {
     NoteArtifact note;
     UMLArtifact target;
 
+    /**
+     * Constructor of LinkNoteArtifact
+     * 
+     * @param note The note the link is related to
+     * @param target The uml artifact the note is pointing to
+     */
     public LinkNoteArtifact(final NoteArtifact note, final UMLArtifact target) {
 	this.note = note;
 	this.note.addDependency(this, target);
@@ -38,7 +46,7 @@ public class LinkNoteArtifact extends LinkArtifact {
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	// TODO Auto-generated method stub
+	// Nothing to edit
     }
 
     @Override
