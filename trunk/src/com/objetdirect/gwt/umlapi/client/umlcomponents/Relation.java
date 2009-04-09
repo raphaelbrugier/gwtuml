@@ -4,13 +4,46 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 /**
+ * This class represent an uml relation between two {@link Class}es
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class Relation extends UMLComponent {
+    /**
+     * This enumeration lists all the relations type between two {@link Class}es
+     * 
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     *
+     */
     public enum RelationKind {
-	AGGREGATION("Aggregation"), ASSOCIATION("Association"), COMPOSITION(
-		"Composition"), DEPENDENCY("Dependency"), GENERALIZATION(
-		"Generalization"), OTHER("Other"), REALIZATION("Realization");
+	/**
+	 * Aggregation relation
+	 */
+	AGGREGATION("Aggregation"),	
+	/**
+	 * Association relation
+	 */
+	ASSOCIATION("Association"),
+	/**
+	 * Composition relation
+	 */
+	COMPOSITION("Composition"),
+	/**
+	 * Dependency relation
+	 */
+	DEPENDENCY("Dependency"),
+	/**
+	 * Generalization relation
+	 */
+	GENERALIZATION("Generalization"), 
+	/**
+	 * Other relation
+	 */
+	OTHER("Other"), //TODO other relations (note, class) 
+	/**
+	 * Realization relation
+	 */
+	REALIZATION("Realization");
 
 	private String name;
 
@@ -38,6 +71,11 @@ public class Relation extends UMLComponent {
     private String rightConstraint;
     private String rightRole;
 
+    /**
+     * Constructor of Relation
+     *
+     * @param relationKind : The type of this relation
+     */
     public Relation(final RelationKind relationKind) {
 	this.relationKind = relationKind;
 	this.leftCardinality = "";

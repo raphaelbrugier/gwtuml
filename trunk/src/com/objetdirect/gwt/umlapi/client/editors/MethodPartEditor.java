@@ -13,23 +13,38 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
+ * This field editor is a specialized editor for {@link Method} editing
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class MethodPartEditor extends FieldEditor {
 
     Method methodToChange;
 
+    /**
+     * Constructor of the {@link MethodPartEditor} 
+     *     
+     * @param canvas The canvas on which is the artifact
+     * @param artifact The artifact being edited
+     * @param methodToChange The {@link Method} on which edition has been requested
+     */
     public MethodPartEditor(final UMLCanvas canvas,
 	    final ClassPartMethodsArtifact artifact, final Method methodToChange) {
 	super(canvas, artifact);
 	this.methodToChange = methodToChange;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.editors.FieldEditor#next()
+     */
     @Override
     protected void next() {
 	((ClassPartArtifact) this.artifact).edit();
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.editors.FieldEditor#updateUMLArtifact(java.lang.String)
+     */
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (newContent.equals("")) {

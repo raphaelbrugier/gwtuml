@@ -340,8 +340,8 @@ public class UMLCanvas extends AbsolutePanel {
 		Log.trace("Adding outline for " + this.selected);
 		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 	    }
-	    final Point position = Point.substract(location, this.offset);
-	    final Point translation = Point.substract(position, GfxManager.getPlatform().getLocationFor(this.outline));
+	    final Point position = Point.subtract(location, this.offset);
+	    final Point translation = Point.subtract(position, GfxManager.getPlatform().getLocationFor(this.outline));
 	    position.translate(this.selected.getWidth() / 2, this.selected.getHeight()/ 2);
 	    GfxManager.getPlatform().translate(this.outline, translation);
 	    outlineDependencies(this.selected.getOutlineForDependencies(), position);
@@ -363,7 +363,7 @@ public class UMLCanvas extends AbsolutePanel {
 		this.outlineDependencies.clear();
 	    }
 	    
-	    final Point f = Point.substract(location, this.offset);
+	    final Point f = Point.subtract(location, this.offset);
 	    
 	    if (!f.equals(this.selected.getLocation())) {
 		Log.trace("Dropping at " + f + " for " + this.selected);
@@ -511,7 +511,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void take(final Point point) {
-	this.offset = Point.substract(point, this.selected.getLocation());
+	this.offset = Point.subtract(point, this.selected.getLocation());
 	Log.trace("Take at " + point + " with " + this.offset + " for "
 		+ this.selected);
     }

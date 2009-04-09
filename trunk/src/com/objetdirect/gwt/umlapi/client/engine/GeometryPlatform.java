@@ -17,11 +17,21 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This abstract class contains several common geometry methods used by {@link UMLArtifact}s
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public abstract class GeometryPlatform {
 
+    /**
+     * This method return a graphical object containing a link adornment 
+     * 
+     * @param target The {@link Point} where the adornment is to be built
+     * @param origin The {@link Point} of the other side of the link
+     * @param adornment The {@link LinkAdornment} that defines which adornment must be drawn
+     * @return The graphical object containing a link adornment 
+     */
     public GfxObject buildAdornment(final Point target, final Point origin,
 	    final LinkAdornment adornment) {
 	final GfxObject path = GfxManager.getPlatform().buildPath();
@@ -69,26 +79,84 @@ public abstract class GeometryPlatform {
 	return path;
     }
 
-    // . origin
-    // \ ^
-    // \ / \
-    // \/ \
-    // /°root \
-    // / \
-    // /__________\. target
 
-    // ^
-    // / \
-    // / \
-    // / \
-    // / \
-    // /__________\.
-    // |
-    // |
-    // |
-    // |
-    //
-    public ArrayList<Point> getAdornmentPoints(final Point point1,
+    /**
+     * This method return an array of point containing the intersection <br>
+     * between a line between two artifact centers and these artifacts
+     * 
+     * @param firstUMLArtifact The {@link UMLArtifact} from which the line starts  
+     * @param secondUMLArtifact The {@link UMLArtifact} from which the line ends
+     * 
+     * @return The two intersection {@link Point}s to draw the line in an {@link ArrayList}
+     */
+    public ArrayList<Point> getLineBetween(final UMLArtifact firstUMLArtifact,
+	    final UMLArtifact secondUMLArtifact) {
+	final long t = System.currentTimeMillis();
+	final ArrayList<Point> pointList = getLineBetweenImpl(firstUMLArtifact,
+		secondUMLArtifact);
+	Log.debug("([" + (System.currentTimeMillis() - t)
+		+ "ms]) to compute line between " + firstUMLArtifact + " and "
+		+ secondUMLArtifact);
+	return pointList;
+    }
+
+    /**
+     * This method return an array of point containing the intersection <br>
+     * between a line between an artifact center and a point and this artifact
+     * 
+     * @param uMLArtifact The {@link UMLArtifact} from which the line starts  
+     * @param point The {@link Point} where the line ends
+     * 
+     * @return The intersection {@link Point}
+     */
+    public Point getPointForLine(final UMLArtifact uMLArtifact,
+	    final Point point) {
+	final long t = System.currentTimeMillis();
+	final Point pt = getPointForLineImpl(uMLArtifact, point);
+	Log.debug("([" + (System.currentTimeMillis() - t)
+		+ "ms]) to compute line between " + uMLArtifact
+		+ " and a point");
+	return pt;
+    }
+
+    /**
+     * This method calculates the point to draw a reflexive link (between a {@link ClassArtifact} and itself)  
+     * @param classArtifact The {@link ClassArtifact} which the reflexive link belongs
+     * @return An {@link ArrayList} of the {@link Point}s computed to draw the path
+     */
+    public ArrayList<Point> getReflexiveLineFor(
+	    final ClassArtifact classArtifact) {
+	final Point center = classArtifact.getCenter();
+	final int halfClassWidth = classArtifact.getWidth() / 2;
+	final int halfClassHeight = classArtifact.getHeight() / 2;
+	final ArrayList<Point> pointList = new ArrayList<Point>();
+	final Point point0 = center.clone();
+	point0.translate(halfClassWidth, 0);
+	final Point point1 = point0.clone();
+	point1.translate(OptionsManager.getReflexivePathXGap(), 0);
+	final Point point2 = point1.clone();
+	point2.translate(0, -halfClassHeight
+		- OptionsManager.getReflexivePathYGap());
+	final Point point3 = point2.clone();
+	point3.translate(-halfClassWidth
+		- OptionsManager.getReflexivePathXGap(), 0);
+	final Point point4 = point3.clone();
+	point4.translate(0, OptionsManager.getReflexivePathYGap());
+	pointList.add(point0);
+	pointList.add(point1);
+	pointList.add(point2);
+	pointList.add(point3);
+	pointList.add(point4);
+	return pointList;
+    }
+
+    protected abstract ArrayList<Point> getLineBetweenImpl(
+	    UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact);
+
+    protected abstract Point getPointForLineImpl(UMLArtifact uMLArtifact,
+	    Point point);
+
+    private ArrayList<Point> getAdornmentPoints(final Point point1,
 	    final Point point2, final int width, final int lenght) {
 	final ArrayList<Point> arrowPoints = new ArrayList<Point>();
 
@@ -103,13 +171,13 @@ public abstract class GeometryPlatform {
 	final double yShift = width / 2. / Math.sqrt(1. + Math.pow(slope, 2));
 	final double xShift = slope * yShift;
 	final Point root = getArrowRoot(point1, xDiff, yDiff, distance, lenght);
-	final Point up = new Point(root);
-	final Point down = new Point(root);
-	final Point diamondTail = Point.substract(root, Point.substract(point1,
+	final Point up = root.clone();
+	final Point down = root.clone();
+	final Point diamondTail = Point.subtract(root, Point.subtract(point1,
 		root));
 	final Point crossUp = Point
-		.substract(up, Point.substract(point1, root));
-	final Point crossDown = Point.substract(down, Point.substract(point1,
+		.subtract(up, Point.subtract(point1, root));
+	final Point crossDown = Point.subtract(down, Point.subtract(point1,
 		root));
 	up.translate(-xShift, yShift);
 	down.translate(xShift, -yShift);
@@ -120,66 +188,20 @@ public abstract class GeometryPlatform {
 	arrowPoints.add(crossDown);
 	return arrowPoints;
     }
-
-    public Point getArrowRoot(final Point target, final double xDiff,
+    
+    //         . origin
+    //   \     ^
+    //    \   /  \
+    //     \ /    \
+    //      /°root \
+    //     /        \
+    //    /__________\. target
+    private Point getArrowRoot(final Point target, final double xDiff,
 	    final double yDiff, final double distance, final int lenght) {
 	final double thalesConst = lenght / distance;
-	final Point root = new Point(target);
+	final Point root = target.clone();
 	root.translate(xDiff * thalesConst, yDiff * thalesConst);
 	return root;
-    }
-
-    public ArrayList<Point> getLineBetween(final UMLArtifact firstUMLArtifact,
-	    final UMLArtifact secondUMLArtifact) {
-	final long t = System.currentTimeMillis();
-	final ArrayList<Point> pointList = getLineBetweenImpl(firstUMLArtifact,
-		secondUMLArtifact);
-	Log.debug("([" + (System.currentTimeMillis() - t)
-		+ "ms]) to compute line between " + firstUMLArtifact + " and "
-		+ secondUMLArtifact);
-	return pointList;
-    }
-
-    public abstract ArrayList<Point> getLineBetweenImpl(
-	    UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact);
-
-    public Point getPointForLine(final UMLArtifact uMLArtifact,
-	    final Point point) {
-	final long t = System.currentTimeMillis();
-	final Point pt = getPointForLineImpl(uMLArtifact, point);
-	Log.debug("([" + (System.currentTimeMillis() - t)
-		+ "ms]) to compute line between " + uMLArtifact
-		+ " and a point");
-	return pt;
-    }
-
-    public abstract Point getPointForLineImpl(UMLArtifact uMLArtifact,
-	    Point point);
-
-    public ArrayList<Point> getReflexiveLineFor(
-	    final ClassArtifact classArtifact) {
-	final Point center = classArtifact.getCenter();
-	final int halfClassWidth = classArtifact.getWidth() / 2;
-	final int halfClassHeight = classArtifact.getHeight() / 2;
-	final ArrayList<Point> pointList = new ArrayList<Point>();
-	final Point point0 = new Point(center);
-	point0.translate(halfClassWidth, 0);
-	final Point point1 = new Point(point0);
-	point1.translate(OptionsManager.getReflexivePathXGap(), 0);
-	final Point point2 = new Point(point1);
-	point2.translate(0, -halfClassHeight
-		- OptionsManager.getReflexivePathYGap());
-	final Point point3 = new Point(point2);
-	point3.translate(-halfClassWidth
-		- OptionsManager.getReflexivePathXGap(), 0);
-	final Point point4 = new Point(point3);
-	point4.translate(0, OptionsManager.getReflexivePathYGap());
-	pointList.add(point0);
-	pointList.add(point1);
-	pointList.add(point2);
-	pointList.add(point3);
-	pointList.add(point4);
-	return pointList;
     }
 
 }
