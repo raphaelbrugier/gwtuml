@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class GfxManager {
     private static GfxPlatform instance;

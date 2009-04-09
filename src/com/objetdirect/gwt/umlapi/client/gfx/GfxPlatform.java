@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 
 public interface GfxPlatform {
     final static int DEFAULT_CANVAS_HEIGHT = 600;
@@ -9,12 +10,12 @@ public interface GfxPlatform {
     void addObjectListenerToCanvas(Object canvas,
 	    GfxObjectListener gfxObjectListener);
 
-    void addToCanvas(Object canvas, GfxObject gfxO, int x, int y);
+    void addToCanvas(Object canvas, GfxObject gfxO, Point location);
 
     void addToVirtualGroup(GfxObject gfxOGroup, GfxObject gfxO);
 
-    GfxObject buildLine(int x1, int y1, int x2, int y2);
-
+    GfxObject buildLine(Point p1, Point p2);
+    
     GfxObject buildPath();
 
     GfxObject buildRect(int width, int height);
@@ -30,18 +31,16 @@ public interface GfxPlatform {
     int getHeightFor(GfxObject gfxO);
 
     int getWidthFor(GfxObject gfxO);
+    
+    Point getLocationFor(GfxObject gfxO);
 
-    int getXFor(GfxObject gfxO);
-
-    int getYFor(GfxObject gfxO);
-
-    void lineTo(GfxObject gfxO, int x, int y);
+    void lineTo(GfxObject gfxO, Point location);
 
     Widget makeCanvas();
 
     Widget makeCanvas(int width, int height, GfxColor backgroundColor);
 
-    void moveTo(GfxObject gfxO, int x, int y);
+    void moveTo(GfxObject gfxO, Point destination);
 
     void moveToBack(GfxObject gfxO);
 
@@ -64,5 +63,5 @@ public interface GfxPlatform {
 
     void setStrokeStyle(GfxObject gfxO, GfxStyle style);
 
-    void translate(GfxObject gfxO, int x, int y);
+    void translate(GfxObject gfxO, Point destination);
 }

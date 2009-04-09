@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import org.gwt.mosaic.ui.client.MessageBox;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class HelpManager {

@@ -5,14 +5,14 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class TypeAnalyser extends SyntaxAnalyser {
 
     String type = "";
 
     public String getType() {
-	return this.type;
+	return type;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		throwUnexpectedEOF();
 		return null;
 	    } else if (token.getType() == LexicalFlag.IDENTIFIER) {
-		this.type += token.getContent();
+		type += token.getContent();
 		setStatus(State.BEGIN_TYPE_PARAMETER);
 		return null;
 	    }
@@ -39,12 +39,12 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		    && token.getContent().equals("<")) {
 		final TypeAnalyser ta = new TypeAnalyser();
 		token = ta.process(lex, null);
-		this.type += "<" + ta.getType();
+		type += "<" + ta.getType();
 		setStatus(State.END_TYPE_PARAMETER);
 		return token;
 	    } else if (token != null && token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals("[")) {
-		this.type += "[";
+		type += "[";
 		setStatus(State.CLOSE_BRACKET_EXPECTED);
 		return null;
 	    } else {
@@ -57,12 +57,12 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		return null;
 	    } else if (token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals(">")) {
-		this.type += ">";
+		type += ">";
 		setStatus(State.BEGIN_OPEN_BRACKET);
 		return null;
 	    } else if (token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals(",")) {
-		this.type += ", ";
+		type += ", ";
 		setStatus(State.TYPE_PARAMETER_EXPECTED);
 		return null;
 	    }
@@ -76,14 +76,14 @@ public class TypeAnalyser extends SyntaxAnalyser {
 
 	    final TypeAnalyser ta = new TypeAnalyser();
 	    token = ta.process(lex, token);
-	    this.type += ta.getType();
+	    type += ta.getType();
 	    setStatus(State.END_TYPE_PARAMETER);
 	    return token;
 
 	case BEGIN_OPEN_BRACKET:
 	    if (token != null && token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals("[")) {
-		this.type += "[";
+		type += "[";
 		setStatus(State.CLOSE_BRACKET_EXPECTED);
 		return null;
 	    }
@@ -95,7 +95,7 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		throwUnexpectedEOF();
 	    } else if (token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals("]")) {
-		this.type += "]";
+		type += "]";
 		setStatus(State.FINISHED);
 		return null;
 	    } else {

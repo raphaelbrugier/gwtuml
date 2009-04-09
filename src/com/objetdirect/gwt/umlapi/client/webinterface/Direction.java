@@ -4,7 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public enum Direction {
@@ -14,16 +14,16 @@ public enum Direction {
     private int yDirection;
 
     private Direction(final int x, final int y) {
-	this.xDirection = x;
-	this.yDirection = y;
+	xDirection = x;
+	yDirection = y;
     }
 
     public int getXDirection() {
-	return this.xDirection;
+	return xDirection;
     }
 
     public int getYDirection() {
-	return this.yDirection;
+	return yDirection;
     }
 
 }

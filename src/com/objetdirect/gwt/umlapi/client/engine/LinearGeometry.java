@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class LinearGeometry extends GeometryPlatform {
@@ -14,21 +14,21 @@ public class LinearGeometry extends GeometryPlatform {
 	    final UMLArtifact firstUMLArtifact,
 	    final UMLArtifact secondUMLArtifact) {
 	final ArrayList<Point> pointList = new ArrayList<Point>();
-	pointList
-		.add(getPointForLine(firstUMLArtifact, new Point(
-			secondUMLArtifact.getCenterX(), secondUMLArtifact
-				.getCenterY())));
+	pointList.add(getPointForLine(firstUMLArtifact, new Point(
+		secondUMLArtifact.getCenter().getX(), secondUMLArtifact
+			.getCenter().getY())));
 	pointList.add(getPointForLine(secondUMLArtifact, new Point(
-		firstUMLArtifact.getCenterX(), firstUMLArtifact.getCenterY())));
+		firstUMLArtifact.getCenter().getX(), firstUMLArtifact
+			.getCenter().getY())));
 	return pointList;
     }
 
     @Override
     public Point getPointForLineImpl(final UMLArtifact uMLArtifact,
 	    final Point targetCenter) {
-	final Point targetInFrameReference = new Point(targetCenter.getX()
-		- uMLArtifact.getX(), targetCenter.getY() - uMLArtifact.getY());
-	final Point point = new Point(0, 0);
+	final Point targetInFrameReference = Point.substract(targetCenter,
+		uMLArtifact.getLocation());
+	final Point point = Point.getOrigin();
 	final int constA = uMLArtifact.getHeight()
 		* targetInFrameReference.getX();
 	final int constB = uMLArtifact.getWidth()
@@ -61,7 +61,6 @@ public class LinearGeometry extends GeometryPlatform {
 				.getX()));
 	    }
 	}
-	return new Point(point.getX() + uMLArtifact.getX(), point.getY()
-		+ uMLArtifact.getY());
+	return Point.add(point, uMLArtifact.getLocation());
     }
 }

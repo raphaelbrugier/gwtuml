@@ -9,7 +9,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.tatami.client.gfx.GraphicObject;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class TatamiGfxObjectContainer extends GfxObject {
     private static Map<GraphicObject, TatamiGfxObjectContainer> tatamiGfxObjectContainerMap = new HashMap<GraphicObject, TatamiGfxObjectContainer>();
@@ -31,12 +31,12 @@ public class TatamiGfxObjectContainer extends GfxObject {
     }
 
     public GraphicObject getGraphicObject() {
-	return this.graphicObject;
+	return graphicObject;
     }
 
     @Override
     public String toString() {
 	return UMLDrawerHelper.getShortName(this) + " containing "
-		+ UMLDrawerHelper.getShortName(this.graphicObject);
+		+ UMLDrawerHelper.getShortName(graphicObject);
     }
 }

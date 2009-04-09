@@ -6,10 +6,10 @@ package com.objetdirect.gwt.umlapi.client.engine;
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.LinkArtifact.LinkAdornment.Shape;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment.Shape;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -17,7 +17,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public abstract class GeometryPlatform {
@@ -53,20 +53,16 @@ public abstract class GeometryPlatform {
 	final ArrayList<Point> points = getAdornmentPoints(target, origin,
 		width, lenght);
 
-	GfxManager.getPlatform().moveTo(path, points.get(0).getX(),
-		points.get(0).getY());
-	GfxManager.getPlatform().lineTo(path, target.getX(), target.getY());
-	GfxManager.getPlatform().lineTo(path, points.get(1).getX(),
-		points.get(1).getY());
+	GfxManager.getPlatform().moveTo(path, points.get(0));
+	GfxManager.getPlatform().lineTo(path, target);
+	GfxManager.getPlatform().lineTo(path, points.get(1));
 	if (adornment == LinkAdornment.WIRE_ARROW) {
-	    GfxManager.getPlatform().lineTo(path, target.getX(), target.getY());
+	    GfxManager.getPlatform().lineTo(path, target);
 	} else {
 	    if (adornment.getShape() == Shape.DIAMOND) {
-		GfxManager.getPlatform().lineTo(path, points.get(2).getX(),
-			points.get(2).getY());
+		GfxManager.getPlatform().lineTo(path, points.get(2));
 	    }
-	    GfxManager.getPlatform().lineTo(path, points.get(0).getX(),
-		    points.get(0).getY());
+	    GfxManager.getPlatform().lineTo(path, points.get(0));
 	}
 	GfxManager.getPlatform().setStroke(path, foreColor, 1);
 	GfxManager.getPlatform().setFillColor(path, backColor);

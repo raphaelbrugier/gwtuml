@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * This class represent a method in a class
  * 
- * @author hdarmet
- * @author fmounier
+ * @author Henri Darmet
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class Method {
 
@@ -47,7 +47,7 @@ public class Method {
      * 
      */
     public String getName() {
-	return this.name;
+	return name;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Method {
      * 
      */
     public List<Parameter> getParameters() {
-	return this.parameters;
+	return parameters;
     }
 
     /**
@@ -67,21 +67,24 @@ public class Method {
      * 
      */
     public String getReturnType() {
-	return this.returnType;
+	return returnType;
     }
 
     public Visibility getVisibility() {
-	return this.visibility;
+	return visibility;
     }
 
     /**
      * Get the validated state of the attribute
      * 
-     * @return true if validated, false otherwise
+     * @return <ul>
+     *         <li><b>True</b> if validated</li>
+     *         <li><b>False</b> otherwise</li>
+     *         </ul>
      * 
      */
     public boolean isValidated() {
-	return this.validated;
+	return validated;
     }
 
     /**
@@ -109,7 +112,8 @@ public class Method {
     /**
      * Setter for the return type
      * 
-     * @param returnType return type to be set
+     * @param returnType
+     *            return type to be set
      * 
      */
     public void setReturnType(final String returnType) {
@@ -119,7 +123,8 @@ public class Method {
     /**
      * Set the validation state
      * 
-     * @param validated boolean for validated validation state
+     * @param validated
+     *            boolean for validated validation state
      * 
      */
     public void setValidated(final boolean validated) {
@@ -140,12 +145,12 @@ public class Method {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(this.visibility);
-	f.append(this.name);
+	f.append(visibility);
+	f.append(name);
 	f.append("(");
-	if (this.parameters != null && this.parameters.size() > 0) {
+	if (parameters != null && parameters.size() > 0) {
 	    boolean first = true;
-	    for (final Parameter parameter : this.parameters) {
+	    for (final Parameter parameter : parameters) {
 		if (!first) {
 		    f.append(", ");
 		} else {
@@ -155,9 +160,9 @@ public class Method {
 	    }
 	}
 	f.append(")");
-	if (this.returnType != null) {
+	if (returnType != null) {
 	    f.append(" : ");
-	    f.append(this.returnType);
+	    f.append(returnType);
 	}
 	return f.toString();
     }

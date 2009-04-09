@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.links.RelationLinkArtifact.RelationLinkArtifactPart;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 public class RelationFieldEditor extends FieldEditor {
@@ -22,9 +22,9 @@ public class RelationFieldEditor extends FieldEditor {
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
-	((RelationLinkArtifact) this.artifact).setPartContent(this.relationshipPart,
+	((RelationLinkArtifact) artifact).setPartContent(relationshipPart,
 		newContent);
-	this.artifact.rebuildGfxObject();
+	artifact.rebuildGfxObject();
 	return false;
     }
 }

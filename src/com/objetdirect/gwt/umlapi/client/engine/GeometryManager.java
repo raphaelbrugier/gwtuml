@@ -4,7 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.engine;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class GeometryManager {

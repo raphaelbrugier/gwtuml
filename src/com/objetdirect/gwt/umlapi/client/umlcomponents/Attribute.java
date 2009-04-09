@@ -3,8 +3,8 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 /**
  * This class represent an attribute in a class
  * 
- * @author hdarmet
- * @author fmounier
+ * @author Henri Darmet
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class Attribute {
 
@@ -39,7 +39,7 @@ public class Attribute {
      * 
      */
     public String getName() {
-	return this.name;
+	return name;
     }
 
     /**
@@ -49,31 +49,36 @@ public class Attribute {
      * 
      */
     public String getType() {
-	return this.type;
+	return type;
     }
 
     /**
      * Getter for the visibility
+     * 
      * @return the visibility
      */
     public Visibility getVisibility() {
-	return this.visibility;
+	return visibility;
     }
 
     /**
      * Get the validated state of the attribute
      * 
-     * @return true if validated, false otherwise
+     * @return <ul>
+     *         <li><b>True</b> if validated</li>
+     *         <li><b>False</b> otherwise</li>
+     *         </ul>
      * 
      */
     public boolean isValidated() {
-	return this.validated;
+	return validated;
     }
 
     /**
      * Setter for the name
      * 
-     * @param name to be set
+     * @param name
+     *            to be set
      * 
      */
     public void setName(final String name) {
@@ -83,7 +88,8 @@ public class Attribute {
     /**
      * Setter for the type
      * 
-     * @param type  to be set
+     * @param type
+     *            to be set
      * 
      */
     public void setType(final String type) {
@@ -93,7 +99,8 @@ public class Attribute {
     /**
      * Set the validation state
      * 
-     * @param validated boolean for validated validation state
+     * @param validated
+     *            boolean for validated validation state
      * 
      */
     public void setValidated(final boolean validated) {
@@ -102,6 +109,7 @@ public class Attribute {
 
     /**
      * Set the visibility of the Attribute
+     * 
      * @see Visibility
      * @param visibility
      */
@@ -118,11 +126,11 @@ public class Attribute {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(this.visibility);
-	f.append(this.name);
-	if (this.type != null) {
+	f.append(visibility);
+	f.append(name);
+	if (type != null) {
 	    f.append(" : ");
-	    f.append(this.type);
+	    f.append(type);
 	}
 	return f.toString();
     }

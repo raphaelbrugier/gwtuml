@@ -11,14 +11,18 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class MethodSyntaxAnalyser extends SyntaxAnalyser {
     Method method = new Method(Visibility.PUBLIC, null, null, null);
     List<Parameter> parameters = new ArrayList<Parameter>();
 
     public Method getMethod() {
-	return this.method;
+	return method;
+    }
+
+    void setParameters() {
+	method.setParameters(parameters);
     }
 
     @SuppressWarnings("fallthrough")
@@ -36,19 +40,19 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		return null;
 	    }
 	    if (token.getType() == LexicalFlag.VISIBILITY) {
-		this.method.setVisibility(Visibility.getVisibilityFromToken(token
+		method.setVisibility(Visibility.getVisibilityFromToken(token
 			.getContent().charAt(0)));
 		setStatus(State.IDENTIFIER_EXPECTED);
 		return null;
 	    }
-	    this.method.setVisibility(Visibility.PACKAGE);
+	    method.setVisibility(Visibility.PACKAGE);
 	case IDENTIFIER_EXPECTED:
 	    if (token == null) {
 		throwUnexpectedEOF();
 		return null;
 	    }
 	    if (token.getType() == LexicalFlag.IDENTIFIER) {
-		this.method.setName(token.getContent());
+		method.setName(token.getContent());
 		setStatus(State.OPEN_PARENTHESIS_EXPECTED);
 		return null;
 	    }
@@ -78,7 +82,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	    }
 	    final ParameterAnalyser pa = new ParameterAnalyser();
 	    token = pa.process(lex, token);
-	    this.parameters.add(pa.getParameter());
+	    parameters.add(pa.getParameter());
 	    setStatus(State.END_PARAMETER);
 	    return token;
 
@@ -107,7 +111,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 
 	    final ParameterAnalyser parameterAnalyser = new ParameterAnalyser();
 	    token = parameterAnalyser.process(lex, token);
-	    this.parameters.add(parameterAnalyser.getParameter());
+	    parameters.add(parameterAnalyser.getParameter());
 	    setStatus(State.END_PARAMETER);
 	    return token;
 
@@ -117,7 +121,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		    && token.getContent().equals(":")) {
 		final TypeAnalyser ta = new TypeAnalyser();
 		token = ta.process(lex, null);
-		this.method.setReturnType(ta.getType());
+		method.setReturnType(ta.getType());
 		setStatus(State.FINISHED);
 		return token;
 	    }
@@ -127,9 +131,5 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 
 	}
 	throw new UMLDrawerException("Invalid syntax status : " + getStatus());
-    }
-
-    void setParameters() {
-	this.method.setParameters(this.parameters);
     }
 }

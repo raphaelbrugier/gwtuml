@@ -9,13 +9,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.graphics.client.Color;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public interface CanvasBridge {
 
     /**
-     * @author florian
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      * 
      */
     public enum AbstractCanvasType {

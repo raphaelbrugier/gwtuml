@@ -5,8 +5,10 @@ public enum Visibility {
 
     /**
      * This function convert a visibility char (+, -, #, ~) to a Visibility
+     * 
      * @param token
-     * @return the Visibility, if the char is any other character returns the PACKAGE visibility 
+     * @return the Visibility, if the char is any other character returns the
+     *         PACKAGE visibility
      */
     public static Visibility getVisibilityFromToken(final char token) {
 	switch (token) {
@@ -33,7 +35,7 @@ public enum Visibility {
 
     @Override
     public String toString() {
-	return "" + this.token;
+	return "" + token;
     }
 
 }

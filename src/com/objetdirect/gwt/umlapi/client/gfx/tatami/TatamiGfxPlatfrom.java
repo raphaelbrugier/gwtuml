@@ -6,6 +6,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -72,11 +73,11 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     }
 
     public void addToCanvas(final Object canvas, final GfxObject gfxO,
-	    final int x, final int y) {
+	    final Point location) {
 	Log.trace("Adding to Tcanvas : "
 		+ UMLDrawerHelper
 			.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
-	((GraphicCanvas) canvas).add(getTatamiGraphicalObjectFrom(gfxO), x, y);
+	((GraphicCanvas) canvas).add(getTatamiGraphicalObjectFrom(gfxO), location.getX(), location.getY());
     }
 
     public void addToVirtualGroup(final GfxObject gfxOGroup,
@@ -86,9 +87,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		.add(getTatamiGraphicalObjectFrom(gfxO));
     }
 
-    public GfxObject buildLine(final int x1, final int y1, final int x2,
-	    final int y2) {
-	return new TatamiGfxObjectContainer(new Line(x1, y1, x2, y2));
+    public GfxObject buildLine(final Point p1, final Point p2) {
+	return new TatamiGfxObjectContainer(new Line(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
     }
 
     public GfxObject buildPath() {
@@ -114,16 +114,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	((VirtualGroup) getTatamiGraphicalObjectFrom(gfxOGroup)).clear();
     }
 
-    private Color convertColor(final GfxColor gfxColor) {
-	return new Color(gfxColor.getRed(), gfxColor.getGreen(), gfxColor
-		.getBlue(), gfxColor.getAlpha());
-    }
-
-    private Font convertFont(final GfxFont gfxFont) {
-	return new Font(gfxFont.getFamily(), gfxFont.getSize(), gfxFont
-		.getStyle(), gfxFont.getVariant(), gfxFont.getWeight());
-    }
-
     public GfxObject getGroup(final GfxObject gfxO) {
 	return TatamiGfxObjectContainer
 		.getContainerOf(getTatamiGraphicalObjectFrom(gfxO).getGroup());
@@ -138,10 +128,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	return 0;
     }
 
-    private GraphicObject getTatamiGraphicalObjectFrom(final GfxObject gfxO) {
-	return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
-    }
-
     public int getWidthFor(final GfxObject gfxO) {
 	if (gfxO != null) {
 	    return (int) (((Text) getTatamiGraphicalObjectFrom(gfxO))
@@ -151,22 +137,14 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	return 0;
     }
 
-    public int getXFor(final GfxObject gfxO) {
+    public Point getLocationFor(final GfxObject gfxO) {
 	if (gfxO != null) {
-	    return (int) getTatamiGraphicalObjectFrom(gfxO).getX();
+	    return new Point(getTatamiGraphicalObjectFrom(gfxO).getX(), getTatamiGraphicalObjectFrom(gfxO).getY());
 	}
-	return 0;
+	return Point.getOrigin();
     }
-
-    public int getYFor(final GfxObject gfxO) {
-	if (gfxO != null) {
-	    return (int) getTatamiGraphicalObjectFrom(gfxO).getY();
-	}
-	return 0;
-    }
-
-    public void lineTo(final GfxObject gfxO, final int x, final int y) {
-	((Path) getTatamiGraphicalObjectFrom(gfxO)).lineTo(x, y);
+    public void lineTo(final GfxObject gfxO, final Point location) {
+	((Path) getTatamiGraphicalObjectFrom(gfxO)).lineTo(location.getX(), location.getY());
     }
 
     public Widget makeCanvas() {
@@ -188,8 +166,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	return canvas;
     }
 
-    public void moveTo(final GfxObject gfxO, final int x, final int y) {
-	((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(x, y);
+    public void moveTo(final GfxObject gfxO, final Point location) {
+	((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(location.getX(), location.getY());
     }
 
     public void moveToBack(final GfxObject gfxO) {
@@ -254,8 +232,22 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		style.getStyleString());
     }
 
-    public void translate(final GfxObject gfxO, final int x, final int y) {
-	getTatamiGraphicalObjectFrom(gfxO).translate(x, y);
+    public void translate(final GfxObject gfxO, final Point location) {
+	getTatamiGraphicalObjectFrom(gfxO).translate(location.getX(), location.getY());
+    }
+
+    private Color convertColor(final GfxColor gfxColor) {
+	return new Color(gfxColor.getRed(), gfxColor.getGreen(), gfxColor
+		.getBlue(), gfxColor.getAlpha());
+    }
+
+    private Font convertFont(final GfxFont gfxFont) {
+	return new Font(gfxFont.getFamily(), gfxFont.getSize(), gfxFont
+		.getStyle(), gfxFont.getVariant(), gfxFont.getWeight());
+    }
+
+    private GraphicObject getTatamiGraphicalObjectFrom(final GfxObject gfxO) {
+	return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
     }
 
 }

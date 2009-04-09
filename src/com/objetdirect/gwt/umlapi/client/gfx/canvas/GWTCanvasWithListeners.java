@@ -29,61 +29,61 @@ public class GWTCanvasWithListeners extends GWTCanvas {
     }
 
     public void addClickListener(final ClickListener listener) {
-	if (this.clickListeners == null) {
-	    this.clickListeners = new ClickListenerCollection();
+	if (clickListeners == null) {
+	    clickListeners = new ClickListenerCollection();
 	    sinkEvents(Event.ONCLICK + Event.ONDBLCLICK);
 	}
-	this.clickListeners.add(listener);
+	clickListeners.add(listener);
     }
 
     public void addMouseListener(final MouseListener listener) {
-	if (this.mouseListeners == null) {
-	    this.mouseListeners = new MouseListenerCollection();
+	if (mouseListeners == null) {
+	    mouseListeners = new MouseListenerCollection();
 	    sinkEvents(Event.MOUSEEVENTS);
 	}
-	this.mouseListeners.add(listener);
+	mouseListeners.add(listener);
     }
 
     @Override
     public void onBrowserEvent(final Event event) {
 	super.onBrowserEvent(event);
-	if (this.clickListeners != null && this.clickListeners.size() > 0
-		|| this.mouseListeners != null && this.mouseListeners.size() > 0) {
+	if (clickListeners != null && clickListeners.size() > 0
+		|| mouseListeners != null && mouseListeners.size() > 0) {
 	    final int x = event.getClientX();
 	    final int y = event.getClientY();
 	    switch (DOM.eventGetType(event)) {
 	    case Event.ONCLICK:
-		if (this.clickListeners != null) {
-		    this.clickListeners.fireClick(this);
+		if (clickListeners != null) {
+		    clickListeners.fireClick(this);
 		}
 		break;
 	    // TODO ; Fix this hacky hack
 	    case Event.ONDBLCLICK:
-		if (this.mouseListeners != null) {
-		    this.mouseListeners.fireMouseUp(this, -x, -y);
+		if (mouseListeners != null) {
+		    mouseListeners.fireMouseUp(this, -x, -y);
 		}
 		break;
 	    case Event.ONMOUSEDOWN:
-		if (this.mouseListeners != null) {
+		if (mouseListeners != null) {
 		    if (event.getButton() == NativeEvent.BUTTON_RIGHT) {
-			this.mouseListeners.fireMouseDown(this, -x, -y); // TODO
+			mouseListeners.fireMouseDown(this, -x, -y); // TODO
 			// ;
 			// Fix this
 			// hacky
 			// hack
 		    } else {
-			this.mouseListeners.fireMouseDown(this, x, y);
+			mouseListeners.fireMouseDown(this, x, y);
 		    }
 		}
 		break;
 	    case Event.ONMOUSEMOVE:
-		if (this.mouseListeners != null) {
-		    this.mouseListeners.fireMouseMove(this, x, y);
+		if (mouseListeners != null) {
+		    mouseListeners.fireMouseMove(this, x, y);
 		}
 		break;
 	    case Event.ONMOUSEUP:
-		if (this.mouseListeners != null) {
-		    this.mouseListeners.fireMouseUp(this, x, y);
+		if (mouseListeners != null) {
+		    mouseListeners.fireMouseUp(this, x, y);
 		}
 		break;
 	    }
@@ -91,14 +91,14 @@ public class GWTCanvasWithListeners extends GWTCanvas {
     }
 
     public void removeClickListener(final ClickListener listener) {
-	if (this.clickListeners != null) {
-	    this.clickListeners.remove(listener);
+	if (clickListeners != null) {
+	    clickListeners.remove(listener);
 	}
     }
 
     public void removeMouseListener(final MouseListener listener) {
-	if (this.mouseListeners != null) {
-	    this.mouseListeners.remove(listener);
+	if (mouseListeners != null) {
+	    mouseListeners.remove(listener);
 	}
     }
 }

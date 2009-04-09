@@ -3,25 +3,33 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ThemeManager {
     /**
-     * @author florian
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     public enum Theme {
-	NORMAL("Normal", 
-		new GfxColor(255,255,255,255), 	// White
-		new GfxColor(0,0,0,255), 	// Black
-		new GfxColor(0,0,255,255)), 	// Blue
-	DARK("Dark", 
-		new GfxColor(0,0,0,255), 	// Black
-		new GfxColor(255,255,255,255), 	// White
-		new GfxColor(0,255,0,255)), 	// Green
-	AERO("Aero", 
-		new GfxColor(26,106,155,255), 	// Light Blue
-		new GfxColor(56,192,192,255), 	// Teal
-		new GfxColor(255,255,255,255)); // White
+	 NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
+	 new GfxColor(0, 0, 0, 255), // Black
+	 new GfxColor(0, 0, 255, 255)), // Blue
+	 DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
+	 new GfxColor(255, 255, 255, 255), // White
+	 new GfxColor(0, 255, 0, 255)), // Green
+	 AERO("Aero", new GfxColor(26, 106, 155, 255), // Light Blue
+	 new GfxColor(56, 192, 192, 255), // Teal
+	 new GfxColor(255, 255, 255, 255)); // White
+	
+	// NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
+	// new GfxColor(0, 0, 0, 255), // Black
+	// new GfxColor(0, 0, 255, 255)), // Blue
+	// DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
+	// new GfxColor(255, 255, 255, 255), // White
+	// new GfxColor(0, 255, 0, 255)), // Green
+	// AERO("Aero", new GfxColor(26, 106, 155, 255), // Light Blue
+	// new GfxColor(56, 192, 192, 255), // Teal
+	// new GfxColor(255, 255, 255, 255)); // White
+
 
 	public static Theme getThemeFromName(final String themeName) {
 	    for (final Theme theme : Theme.values()) {
@@ -38,8 +46,8 @@ public class ThemeManager {
 	private final GfxColor highlightedForegroundColor;
 
 	/**
-		 * 
-		 */
+	 * 
+	 */
 	private final String themeName;
 
 	private Theme(final String themeName, final GfxColor backgroundColor,
@@ -52,24 +60,24 @@ public class ThemeManager {
 	}
 
 	public GfxColor getThemeBackgroundColor() {
-	    return this.backgroundColor;
+	    return backgroundColor;
 	}
 
 	public GfxColor getThemeForegroundColor() {
 	    if (opacity != 255) {
-		return new GfxColor(this.foregroundColor.getRed(), this.foregroundColor
-			.getGreen(), this.foregroundColor.getBlue(), opacity);
+		return new GfxColor(foregroundColor.getRed(), foregroundColor
+			.getGreen(), foregroundColor.getBlue(), opacity);
 	    }
-	    return this.foregroundColor;
+	    return foregroundColor;
 	}
 
 	public GfxColor getThemeHighlightedForegroundColor() {
-	    return this.highlightedForegroundColor;
+	    return highlightedForegroundColor;
 	}
 
 	@Override
 	public String toString() {
-	    return this.themeName;
+	    return themeName;
 	}
     }
 

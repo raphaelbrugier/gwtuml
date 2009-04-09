@@ -7,7 +7,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class VirtualGroup extends IncubatorGfxObject {
@@ -17,10 +17,10 @@ public class VirtualGroup extends IncubatorGfxObject {
      * @param incubatorGfxObject
      */
     public void add(final IncubatorGfxObject incubatorGfxObject) {
-	this.incubatorGfxObjectSet.add(incubatorGfxObject);
+	incubatorGfxObjectSet.add(incubatorGfxObject);
 	incubatorGfxObject.setParentGroup(this);
-	if (this.isVisible) {
-	    incubatorGfxObject.addOnCanvasAt(this.canvas, 0, 0);
+	if (isVisible) {
+	    incubatorGfxObject.addOnCanvasAt(canvas, 0, 0);
 	}
     }
 
@@ -36,13 +36,13 @@ public class VirtualGroup extends IncubatorGfxObject {
     public void addOnCanvasAt(final CanvasBridge canvasBridge, final int dx,
 	    final int dy) {
 	super.addOnCanvasAt(canvasBridge, dx, dy);
-	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
+	for (final IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
 	    incubatorGfxObject.addOnCanvasAt(canvasBridge, dx, dy);
 	}
     }
 
     public void clear() {
-	this.incubatorGfxObjectSet.clear();
+	incubatorGfxObjectSet.clear();
 
     }
 
@@ -55,16 +55,16 @@ public class VirtualGroup extends IncubatorGfxObject {
      */
     @Override
     public void draw() {
-	if (!this.isVisible) {
+	if (!isVisible) {
 	    Log.trace(this + " is not visible");
 	    return;
 	}
-	if (this.canvas == null) {
+	if (canvas == null) {
 	    Log.fatal("canvas is null for " + this);
 	}
 
 	Log.trace("Starting drawing " + this);
-	for (final IncubatorGfxObject incubatorGfxObject : this.incubatorGfxObjectSet) {
+	for (final IncubatorGfxObject incubatorGfxObject : incubatorGfxObjectSet) {
 	    incubatorGfxObject.draw();
 	}
 	Log.trace("Ending drawing " + this);
@@ -112,6 +112,6 @@ public class VirtualGroup extends IncubatorGfxObject {
      * @param incubatorGfxObject
      */
     public void remove(final IncubatorGfxObject incubatorGfxObject) {
-	this.incubatorGfxObjectSet.remove(incubatorGfxObject);
+	incubatorGfxObjectSet.remove(incubatorGfxObject);
     }
 }
