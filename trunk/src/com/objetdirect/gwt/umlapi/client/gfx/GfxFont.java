@@ -4,29 +4,30 @@ package com.objetdirect.gwt.umlapi.client.gfx;
  * Represent a Font for text object TODO fix this class :
  */
 public class GfxFont {
+    /**
+     * use for variant, style, weight attributes
+     */
+    public static final String _NORMAL = "normal";
     /** use for the weight attribute */
     public static final String BOLD = "bold";
+
     /** use for the weight attribute */
     public static final String BOLDER = "bolder";
+
     /**
-     * the default font used (serif 10)
+     * the default font used (monospace 10)
      * 
      */
-    public static final String NORMAL = "normal";
     public static final GfxFont DEFAULT_FONT = new GfxFont("monospace", 10,
-	    NORMAL, NORMAL, NORMAL);
+	    _NORMAL, _NORMAL, _NORMAL);
     /** use for style */
     public static final String ITALIC = "italic";
 
     /** use for the weight attribute */
     public static final String LIGHTER = "lighter";
-    /**
-     * use for variant, style, weight attributes
-     */
- 
-
     /** use for style */
     public static final String OBLIQUE = "oblique";
+
     /**
      * use for variant attribute : In a small-caps font the lower case letters
      * look similar to the uppercase ones, but in a smaller size and with
@@ -90,7 +91,7 @@ public class GfxFont {
      * 
      */
     public String getFamily() {
-	return this.family;
+	return family;
     }
 
     /**
@@ -100,7 +101,7 @@ public class GfxFont {
      * 
      */
     public int getSize() {
-	return this.size;
+	return size;
     }
 
     /**
@@ -110,7 +111,7 @@ public class GfxFont {
      * 
      */
     public String getStyle() {
-	return this.style;
+	return style;
     }
 
     /**
@@ -120,7 +121,7 @@ public class GfxFont {
      * 
      */
     public String getVariant() {
-	return this.variant;
+	return variant;
     }
 
     /**
@@ -130,7 +131,7 @@ public class GfxFont {
      * 
      */
     public String getWeight() {
-	return this.weight;
+	return weight;
     }
 
     /**

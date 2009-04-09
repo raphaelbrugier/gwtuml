@@ -9,7 +9,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class IncubatorGfxObjectContainer extends GfxObject {
     private static Map<IncubatorGfxObject, IncubatorGfxObjectContainer> incubatorGfxObjectContainerMap = new HashMap<IncubatorGfxObject, IncubatorGfxObjectContainer>();
@@ -53,12 +53,12 @@ public class IncubatorGfxObjectContainer extends GfxObject {
     }
 
     public IncubatorGfxObject getGraphicObject() {
-	return this.incubatorGfxObject;
+	return incubatorGfxObject;
     }
 
     @Override
     public String toString() {
 	return UMLDrawerHelper.getShortName(this) + " containing "
-		+ UMLDrawerHelper.getShortName(this.incubatorGfxObject);
+		+ UMLDrawerHelper.getShortName(incubatorGfxObject);
     }
 }

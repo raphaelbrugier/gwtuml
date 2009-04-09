@@ -5,15 +5,21 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 /**
  * This class allows to set and access configuration values
  * 
- * @author fmounier
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class OptionsManager {
 
     public enum QualityLevel {
-	VERY_HIGH("Very High", "Slow", 40),
-	HIGH("High", "for good pc and browser", 30),	
-	NORMAL("Normal", "Recommended for real browser", 20),
-	LOW("Low", "for very old pc and IE users", 10);
+	
+	 VERY_HIGH("Very High", "Slow", 40),
+	 HIGH("High", "For good pc and browser", 30), 
+	 NORMAL("Normal", "Recommended for real browser", 20),
+	 LOW("Low", "For very old pc and IE users", 10);
+	 /*	 VERY_HIGH("Very High", "Slow", 40),
+	 HIGH("High", "For good pc and browser", 30), 
+	 NORMAL("Normal", "Recommended for real browser", 20),
+	 LOW("Low", "For very old pc and IE users", 10);*/
+
 
 	public static boolean compare(final QualityLevel q1,
 		final QualityLevel q2) {
@@ -47,44 +53,46 @@ public class OptionsManager {
 	 * @return the description
 	 */
 	public String getDescription() {
-	    return this.description;
+	    return description;
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-	    return this.name;
+	    return name;
 	}
 
 	@Override
 	public String toString() {
-	    return this.name + " (" + this.description + ")";
+	    return name + " (" + description + ")";
 	}
     }
-    private static QualityLevel qualityLevel;
+
     private static final int ARROW_LENGTH = 25;
     private static final int ARROW_WIDTH = 15;
     private static final int BOTTOM_RECT_PADDING = 6;
     private static final int BOTTOM_TEXT_PADDING = 2;
     private static final int DIAMOND_LENGTH = 20;
     private static final int DIAMOND_WIDTH = 15;
+    private static GfxFont font = new GfxFont("monospace", 10, GfxFont._NORMAL,
+	    GfxFont._NORMAL, GfxFont._NORMAL);
     private static final int LEFT_RECT_PADDING = 4;
     private static final int LEFT_TEXT_PADDING = 1;
-    private static final int MOVING_STEP = 20;    
+    private static final int MOVING_STEP = 20;
+    private static final int NOTE_CORNER_HEIGHT = 15;
+    private static final int NOTE_CORNER_WIDTH = 15;
+    private static QualityLevel qualityLevel;
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
     private static final int RIGHT_RECT_PADDING = 4;
     private static final int RIGHT_TEXT_PADDING = 1;
+    private static GfxFont smallCapsFont = new GfxFont("monospace", 10,
+	    GfxFont._NORMAL, GfxFont.SMALL_CAPS, GfxFont._NORMAL);
     private static final int SOLID_ARROW_LENGTH = 30;
     private static final int SOLID_ARROW_WIDTH = 20;
     private static final int TOP_RECT_PADDING = 4;
     private static final int TOP_TEXT_PADDING = 1;
-    private static final int NOTE_CORNER_WIDTH = 15;
-    private static final int NOTE_CORNER_HEIGHT = 15;
-    private static GfxFont font = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.NORMAL, GfxFont.NORMAL);
-    private static GfxFont smallCapsFont = new GfxFont("monospace", 10, GfxFont.NORMAL, GfxFont.SMALL_CAPS, GfxFont.NORMAL);
-
 
     /**
      * @return the aRROW_LENGTH
@@ -121,18 +129,19 @@ public class OptionsManager {
     public static int getMovingStep() {
 	return MOVING_STEP;
     }
-    /**
-     * @return the nOTE_CORNER_WIDTH
-     */
-    public static int getNoteCornerWidth() {
-        return NOTE_CORNER_WIDTH;
-    }
 
     /**
      * @return the nOTE_CORNER_HEIGHT
      */
     public static int getNoteCornerHeight() {
-        return NOTE_CORNER_HEIGHT;
+	return NOTE_CORNER_HEIGHT;
+    }
+
+    /**
+     * @return the nOTE_CORNER_WIDTH
+     */
+    public static int getNoteCornerWidth() {
+	return NOTE_CORNER_WIDTH;
     }
 
     /**

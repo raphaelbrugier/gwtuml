@@ -31,16 +31,15 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class StartPanel extends VerticalPanel {
 
     private static StartPanel instance = null;
 
     final Label crossLbl = new Label("x");
-    private DrawerPanel drawerPanel;
-
     final Label geometryStyleLbl = new Label("Geometry Style : ");
+
     final ListBox geometryStyleListBox = new ListBox();
     final HorizontalPanel geometryStylePanel = new HorizontalPanel();
     final Label gfxEngineLbl = new Label("Graphics Engine : ");
@@ -48,7 +47,6 @@ public class StartPanel extends VerticalPanel {
     final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
     final TextBox heightTxtBox = new TextBox();
     final CheckBox isResolutionAutoChkBox = new CheckBox(" Auto Resolution");
-    private final LoadingScreen loadingScreen;
     final Image logoImg = new Image("gwtumllogo.png");
     final Label qualityLbl = new Label("Quality : ");
     final ListBox qualityListBox = new ListBox();
@@ -62,36 +60,38 @@ public class StartPanel extends VerticalPanel {
     final ListBox themeListBox = new ListBox();
     final HorizontalPanel themePanel = new HorizontalPanel();
     final TextBox widthTxtBox = new TextBox();
+    private DrawerPanel drawerPanel;
+    private final LoadingScreen loadingScreen;
 
     public StartPanel(final boolean isFromHistory) {
 	instance = this;
-	this.loadingScreen = new LoadingScreen();
-	this.loadingScreen.show();
+	loadingScreen = new LoadingScreen();
+	loadingScreen.show();
 	Log.trace("Starting App");
 	HotKeyManager.forceStaticInit();
 	setWidth("100%");
 	setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	setSpacing(10);
-	this.startBtn.addClickHandler(new ClickHandler() {
+	startBtn.addClickHandler(new ClickHandler() {
 	    public void onClick(final ClickEvent event) {
 		makeFirstDrawer();
 		History.newItem("Drawer", false);
-		StartPanel.this.drawerPanel.addDefaultClass();
+		drawerPanel.addDefaultClass();
 
 	    }
 	});
-	this.startDemoBtn.addClickHandler(new ClickHandler() {
+	startDemoBtn.addClickHandler(new ClickHandler() {
 	    public void onClick(final ClickEvent event) {
 		makeFirstDrawer();
 		History.newItem("Demo", false);
-		new Demo(StartPanel.this.drawerPanel.getGc());
+		new Demo(drawerPanel.getGc());
 	    }
 	});
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Drawer")) {
 		    makeDrawerForHistory();
-		    StartPanel.this.drawerPanel.addDefaultClass();
+		    drawerPanel.addDefaultClass();
 		}
 	    }
 
@@ -100,47 +100,47 @@ public class StartPanel extends VerticalPanel {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Demo")) {
 		    makeDrawerForHistory();
-		    new Demo(StartPanel.this.drawerPanel.getGc());
+		    new Demo(drawerPanel.getGc());
 		}
 	    }
 
 	});
-	this.gfxEnginePanel.setSpacing(5);
-	this.geometryStylePanel.setSpacing(5);
-	this.themePanel.setSpacing(5);
-	this.resolutionPanel.setSpacing(5);
-	this.gfxEngineListBox.addItem("Tatami GFX");
-	this.gfxEngineListBox.addItem("Incubator Canvas GFX");
-	this.gfxEngineListBox.addItem("GWT Canvas GFX");
-	this.geometryStyleListBox.addItem("Linear");
-	this.geometryStyleListBox.addItem("Shape Based");
+	gfxEnginePanel.setSpacing(5);
+	geometryStylePanel.setSpacing(5);
+	themePanel.setSpacing(5);
+	resolutionPanel.setSpacing(5);
+	gfxEngineListBox.addItem("Tatami GFX");
+	gfxEngineListBox.addItem("Incubator Canvas GFX");
+	gfxEngineListBox.addItem("GWT Canvas GFX");
+	geometryStyleListBox.addItem("Linear");
+	geometryStyleListBox.addItem("Shape Based");
 	for (final Theme theme : Theme.values()) {
-	    this.themeListBox.addItem(ThemeManager.getThemeName(theme));
+	    themeListBox.addItem(ThemeManager.getThemeName(theme));
 	}
-	this.isResolutionAutoChkBox.setValue(true);
-	this.widthTxtBox.setEnabled(false);
-	this.heightTxtBox.setEnabled(false);
-	this.isResolutionAutoChkBox.addClickHandler(new ClickHandler() {
+	isResolutionAutoChkBox.setValue(true);
+	widthTxtBox.setEnabled(false);
+	heightTxtBox.setEnabled(false);
+	isResolutionAutoChkBox.addClickHandler(new ClickHandler() {
 	    public void onClick(final ClickEvent event) {
-		StartPanel.this.widthTxtBox.setEnabled(!StartPanel.this.isResolutionAutoChkBox.getValue());
-		StartPanel.this.heightTxtBox.setEnabled(!StartPanel.this.isResolutionAutoChkBox.getValue());
+		widthTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());
+		heightTxtBox.setEnabled(!isResolutionAutoChkBox.getValue());
 
 	    }
 	});
 
-	this.widthTxtBox.setText("" + (Window.getClientWidth() - 50));
-	this.heightTxtBox.setText("" + (Window.getClientHeight() - 50));
+	widthTxtBox.setText("" + (Window.getClientWidth() - 50));
+	heightTxtBox.setText("" + (Window.getClientHeight() - 50));
 	Window.addResizeHandler(new ResizeHandler() {
 	    public void onResize(final ResizeEvent arg0) {
-		if (StartPanel.this.isResolutionAutoChkBox.getValue()) {
-		    if (StartPanel.this.drawerPanel != null) {
-			StartPanel.this.drawerPanel.setWidth(Window.getClientWidth() - 50);
-			StartPanel.this.drawerPanel.setHeight(Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50,
+		if (isResolutionAutoChkBox.getValue()) {
+		    if (drawerPanel != null) {
+			drawerPanel.setWidth(Window.getClientWidth() - 50);
+			drawerPanel.setHeight(Window.getClientHeight() - 50);
+			drawerPanel.setPixelSize(Window.getClientWidth() - 50,
 				Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.clearShadow();
-			StartPanel.this.drawerPanel.makeShadow();
-			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getGc(),
+			drawerPanel.clearShadow();
+			drawerPanel.makeShadow();
+			GfxManager.getPlatform().setSize(drawerPanel.getGc(),
 				Window.getClientWidth() - 50,
 				Window.getClientHeight() - 50);
 		    }
@@ -148,106 +148,106 @@ public class StartPanel extends VerticalPanel {
 	    }
 
 	});
-	this.widthTxtBox.setWidth("50px");
-	this.heightTxtBox.setWidth("50px");
+	widthTxtBox.setWidth("50px");
+	heightTxtBox.setWidth("50px");
 	for (final QualityLevel qlvl : QualityLevel.values()) {
-	    this.qualityListBox.addItem(qlvl.toString());
+	    qualityListBox.addItem(qlvl.toString());
 	}
-	this.qualityListBox.setSelectedIndex(1); // High quality
+	qualityListBox.setSelectedIndex(1); // High quality
 
-	this.add(this.logoImg);
-	this.add(this.startBtn);
-	this.add(this.startDemoBtn);
-	this.gfxEnginePanel.add(this.gfxEngineLbl);
-	this.gfxEnginePanel.add(this.gfxEngineListBox);
-	this.add(this.gfxEnginePanel);
-	this.geometryStylePanel.add(this.geometryStyleLbl);
-	this.geometryStylePanel.add(this.geometryStyleListBox);
-	this.add(this.geometryStylePanel);
+	this.add(logoImg);
+	this.add(startBtn);
+	this.add(startDemoBtn);
+	gfxEnginePanel.add(gfxEngineLbl);
+	gfxEnginePanel.add(gfxEngineListBox);
+	this.add(gfxEnginePanel);
+	geometryStylePanel.add(geometryStyleLbl);
+	geometryStylePanel.add(geometryStyleListBox);
+	this.add(geometryStylePanel);
 
-	this.themePanel.add(this.themeLbl);
-	this.themePanel.add(this.themeListBox);
-	this.add(this.themePanel);
+	themePanel.add(themeLbl);
+	themePanel.add(themeListBox);
+	this.add(themePanel);
 
-	this.resolutionAutoPanel.add(this.isResolutionAutoChkBox);
-	this.add(this.resolutionAutoPanel);
+	resolutionAutoPanel.add(isResolutionAutoChkBox);
+	this.add(resolutionAutoPanel);
 
-	this.resolutionPanel.add(this.resolutionLbl);
-	this.resolutionPanel.add(this.widthTxtBox);
-	this.resolutionPanel.add(this.crossLbl);
-	this.resolutionPanel.add(this.heightTxtBox);
-	this.add(this.resolutionPanel);
+	resolutionPanel.add(resolutionLbl);
+	resolutionPanel.add(widthTxtBox);
+	resolutionPanel.add(crossLbl);
+	resolutionPanel.add(heightTxtBox);
+	this.add(resolutionPanel);
 
-	this.qualityPanel.add(this.qualityLbl);
-	this.qualityPanel.add(this.qualityListBox);
-	this.add(this.qualityPanel);
+	qualityPanel.add(qualityLbl);
+	qualityPanel.add(qualityListBox);
+	this.add(qualityPanel);
 
-	this.loadingScreen.hide();
+	loadingScreen.hide();
 	RootPanel.get().add(this);
     }
 
     public void makeDrawerForHistory() {
 
 	UMLDrawer.clearAppRootPanel();
-	this.loadingScreen.show();
+	loadingScreen.show();
 	int w;
 	int h;
 	try {
-	    w = Integer.parseInt(this.widthTxtBox.getText());
-	    h = Integer.parseInt(this.heightTxtBox.getText());
+	    w = Integer.parseInt(widthTxtBox.getText());
+	    h = Integer.parseInt(heightTxtBox.getText());
 	} catch (final Exception ex) {
-	    Log.warn("Unreadable resolution " + this.widthTxtBox.getText() + "x"
-		    + this.heightTxtBox.getText() + "! (Hist)");
+	    Log.warn("Unreadable resolution " + widthTxtBox.getText() + "x"
+		    + heightTxtBox.getText() + "! (Hist)");
 	    w = 800;
 	    h = 600;
 	}
-	this.drawerPanel = new DrawerPanel(w, h);
-	this.loadingScreen.hide();
+	drawerPanel = new DrawerPanel(w, h);
+	loadingScreen.hide();
 
-	UMLDrawer.addtoAppRootPanel(this.drawerPanel);
+	UMLDrawer.addtoAppRootPanel(drawerPanel);
 
     }
 
     public void makeFirstDrawer() {
-	ThemeManager.setCurrentTheme(Theme.getThemeFromName(this.themeListBox
-		.getItemText(this.themeListBox.getSelectedIndex())));
-	if (this.gfxEngineListBox.getItemText(this.gfxEngineListBox.getSelectedIndex())
+	ThemeManager.setCurrentTheme(Theme.getThemeFromName(themeListBox
+		.getItemText(themeListBox.getSelectedIndex())));
+	if (gfxEngineListBox.getItemText(gfxEngineListBox.getSelectedIndex())
 		.equalsIgnoreCase("Tatami GFX")) {
 	    GfxManager.setPlatform(new TatamiGfxPlatfrom());
-	} else if (this.gfxEngineListBox.getItemText(
-		this.gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
+	} else if (gfxEngineListBox.getItemText(
+		gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
 		"Incubator Canvas GFX")) {
 	    GfxManager.setPlatform(new IncubatorGfxPlatform());
 	} else {
 	    GfxManager.setPlatform(new GWTCanvasGfxPlatform());
 	}
 
-	if (this.geometryStyleListBox.getItemText(
-		this.geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
+	if (geometryStyleListBox.getItemText(
+		geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
 		"Linear")) {
 	    GeometryManager.setPlatform(new LinearGeometry());
 	} else {
 	    GeometryManager.setPlatform(new ShapeGeometry());
 	}
 	OptionsManager.setQualityLevel(QualityLevel
-		.getQualityFromName(this.qualityListBox.getItemText(this.qualityListBox
+		.getQualityFromName(qualityListBox.getItemText(qualityListBox
 			.getSelectedIndex())));
 	instance.removeFromParent();
-	this.loadingScreen.show();
+	loadingScreen.show();
 	int w;
 	int h;
 	try {
-	    w = Integer.parseInt(this.widthTxtBox.getText());
-	    h = Integer.parseInt(this.heightTxtBox.getText());
+	    w = Integer.parseInt(widthTxtBox.getText());
+	    h = Integer.parseInt(heightTxtBox.getText());
 	} catch (final Exception ex) {
-	    Log.warn("Unreadable resolution " + this.widthTxtBox.getText() + "x"
-		    + this.heightTxtBox.getText() + "!");
+	    Log.warn("Unreadable resolution " + widthTxtBox.getText() + "x"
+		    + heightTxtBox.getText() + "!");
 	    w = 800;
 	    h = 600;
 	}
-	this.drawerPanel = new DrawerPanel(w, h);
+	drawerPanel = new DrawerPanel(w, h);
 
-	this.loadingScreen.hide();
-	UMLDrawer.addtoAppRootPanel(this.drawerPanel);
+	loadingScreen.hide();
+	UMLDrawer.addtoAppRootPanel(drawerPanel);
     }
 }

@@ -4,10 +4,11 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class DrawerPanel extends AbsolutePanel {
 
@@ -25,9 +26,9 @@ public class DrawerPanel extends AbsolutePanel {
     public DrawerPanel(final int width, final int height) {
 	Log.trace("Creating drawer");
 
-	this.gc = new UMLCanvas(width + 2, height);
-	this.gc.setStylePrimaryName("canvas");
-	this.add(this.gc);
+	gc = new UMLCanvas(width + 2, height);
+	gc.setStylePrimaryName("canvas");
+	this.add(gc);
 	Log.trace("Canvas added");
 
 	this.width = width + 2;// Border Size
@@ -39,7 +40,7 @@ public class DrawerPanel extends AbsolutePanel {
 	// different point than (0,0) tatami ? dojo ? chrome ?
 	// example : this.setSpacing(50);
 	Log.trace("Setting active canvas");
-	HotKeyManager.setActiveCanvas(this.gc);
+	HotKeyManager.setActiveCanvas(gc);
 	Log.trace("Disabling browser events");
 	UMLDrawerHelper.disableBrowserEvents();
 	Log.trace("Init end");
@@ -47,60 +48,60 @@ public class DrawerPanel extends AbsolutePanel {
 
     public void addDefaultClass() {
 	final ClassArtifact defaultclass = new ClassArtifact("Class 1");
-	defaultclass.setLocation(this.width / 2, this.height / 2);
-	this.gc.add(defaultclass);
+	defaultclass.setLocation(new Point(width / 2, height / 2));
+	gc.add(defaultclass);
     }
 
     public void clearShadow() {
-	this.remove(this.bottomShadow);
-	this.remove(this.rightShadow);
-	this.remove(this.bottomRightCornerShadow);
-	this.remove(this.topRightCornerShadow);
-	this.remove(this.bottomLeftCornerShadow);
+	this.remove(bottomShadow);
+	this.remove(rightShadow);
+	this.remove(bottomRightCornerShadow);
+	this.remove(topRightCornerShadow);
+	this.remove(bottomLeftCornerShadow);
     }
 
     public UMLCanvas getGc() {
-	return this.gc;
+	return gc;
     }
 
     public int getHeight() {
-	return this.height;
+	return height;
     }
 
     public int getWidth() {
-	return this.width;
+	return width;
     }
 
     public void makeShadow() {
 	final int shadowSize = 8;
 
-	this.setWidth(this.width + shadowSize + getAbsoluteLeft() + "px");
-	this.setHeight(this.height + shadowSize + getAbsoluteTop() + "px");
+	this.setWidth(width + shadowSize + getAbsoluteLeft() + "px");
+	this.setHeight(height + shadowSize + getAbsoluteTop() + "px");
 
-	this.bottomShadow = new SimplePanel();
-	this.bottomShadow.setPixelSize(this.width - shadowSize, shadowSize);
-	this.bottomShadow.setStylePrimaryName("bottomShadow");
-	this.add(this.bottomShadow, shadowSize, this.height);
+	bottomShadow = new SimplePanel();
+	bottomShadow.setPixelSize(width - shadowSize, shadowSize);
+	bottomShadow.setStylePrimaryName("bottomShadow");
+	this.add(bottomShadow, shadowSize, height);
 
-	this.rightShadow = new SimplePanel();
-	this.rightShadow.setPixelSize(shadowSize, this.height - shadowSize);
-	this.rightShadow.setStylePrimaryName("rightShadow");
-	this.add(this.rightShadow, this.width, shadowSize);
+	rightShadow = new SimplePanel();
+	rightShadow.setPixelSize(shadowSize, height - shadowSize);
+	rightShadow.setStylePrimaryName("rightShadow");
+	this.add(rightShadow, width, shadowSize);
 
-	this.bottomRightCornerShadow = new SimplePanel();
-	this.bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-	this.bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
-	this.add(this.bottomRightCornerShadow, this.width, this.height);
+	bottomRightCornerShadow = new SimplePanel();
+	bottomRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+	bottomRightCornerShadow.setStylePrimaryName("bottomRightCornerShadow");
+	this.add(bottomRightCornerShadow, width, height);
 
-	this.topRightCornerShadow = new SimplePanel();
-	this.topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
-	this.topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
-	this.add(this.topRightCornerShadow, this.width, 0);
+	topRightCornerShadow = new SimplePanel();
+	topRightCornerShadow.setPixelSize(shadowSize, shadowSize);
+	topRightCornerShadow.setStylePrimaryName("topRightCornerShadow");
+	this.add(topRightCornerShadow, width, 0);
 
-	this.bottomLeftCornerShadow = new SimplePanel();
-	this.bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
-	this.bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
-	this.add(this.bottomLeftCornerShadow, 0, this.height);
+	bottomLeftCornerShadow = new SimplePanel();
+	bottomLeftCornerShadow.setPixelSize(shadowSize, shadowSize);
+	bottomLeftCornerShadow.setStylePrimaryName("bottomLeftCornerShadow");
+	this.add(bottomLeftCornerShadow, 0, height);
     }
 
     public void setHeight(final int height) {

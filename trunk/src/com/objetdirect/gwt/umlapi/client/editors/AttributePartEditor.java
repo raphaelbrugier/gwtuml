@@ -8,14 +8,14 @@ import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassAttributesArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent.ClassPartArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
- * @author fmounier
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class AttributePartEditor extends FieldEditor {
 
@@ -27,7 +27,7 @@ public class AttributePartEditor extends FieldEditor {
      * @param attributeToChange
      */
     public AttributePartEditor(final UMLCanvas canvas,
-	    final ClassAttributesArtifact artifact,
+	    final ClassPartAttributesArtifact artifact,
 	    final Attribute attributeToChange) {
 	super(canvas, artifact);
 	this.attributeToChange = attributeToChange;
@@ -35,15 +35,15 @@ public class AttributePartEditor extends FieldEditor {
 
     @Override
     protected void next() {
-	((ClassPartArtifact) this.artifact).edit();
+	((ClassPartArtifact) artifact).edit();
     }
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	Log.fatal(newContent);
 	if (newContent.equals("")) {
-	    ((ClassAttributesArtifact) this.artifact).remove(this.attributeToChange);
-	    ((ClassAttributesArtifact) this.artifact).getClassArtifact()
+	    ((ClassPartAttributesArtifact) artifact).remove(attributeToChange);
+	    ((ClassPartAttributesArtifact) artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	    return false;
 	}
@@ -80,10 +80,10 @@ public class AttributePartEditor extends FieldEditor {
 		}
 		type = tk.getContent();
 	    }
-	    this.attributeToChange.setVisibility(visibility);
-	    this.attributeToChange.setName(name);
-	    this.attributeToChange.setType(type);
-	    ((ClassAttributesArtifact) this.artifact).getClassArtifact()
+	    attributeToChange.setVisibility(visibility);
+	    attributeToChange.setName(name);
+	    attributeToChange.setType(type);
+	    ((ClassPartAttributesArtifact) artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {
 	    Window.alert(e.getMessage());

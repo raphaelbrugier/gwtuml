@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class Note {
 
@@ -12,7 +12,7 @@ public class Note {
     }
 
     public String getText() {
-	return this.text;
+	return text;
     }
 
     public void setText(final String text) {

@@ -3,8 +3,8 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 /**
  * This class represent a parameter of a method
  * 
- * @author fmounier
- * @author hdarmet
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @author Henri Darmet
  */
 public class Parameter {
 
@@ -32,7 +32,7 @@ public class Parameter {
      * 
      */
     public String getName() {
-	return this.name;
+	return name;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Parameter {
      * 
      */
     public String getType() {
-	return this.type;
+	return type;
     }
 
     /**
@@ -76,10 +76,10 @@ public class Parameter {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(this.name);
-	if (this.type != null) {
+	f.append(name);
+	if (type != null) {
 	    f.append(" : ");
-	    f.append(this.type);
+	    f.append(type);
 	}
 	return f.toString();
     }

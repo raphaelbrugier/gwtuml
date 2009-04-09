@@ -22,13 +22,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
  * Main class for gwtuml application. This class does some initialization and
  * calls the start panel.
  * 
- * @author hdarmet
- * @author fmounier
+ * @author Henri Darmet
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class UMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
     private static Button log;
-    private StartPanel startPanel;
 
     /**
      * Add a widget to the center of the application root DockPanel Only one
@@ -55,11 +54,11 @@ public class UMLDrawer implements EntryPoint {
 		"display", "none");
     }
 
-
+    private StartPanel startPanel;
 
     /**
-     * Entry point of the application This class make a StartPanel and
-     * manage the history for it
+     * Entry point of the application This class make a StartPanel and manage
+     * the history for it
      */
     public void gwt_main() {
 
@@ -73,14 +72,14 @@ public class UMLDrawer implements EntryPoint {
 	// appRootPanel.setSpacing(8);
 
 	appRootPanel.setSize("100%", "100%");
-	this.startPanel = new StartPanel(false);
+	startPanel = new StartPanel(false);
 	History.newItem("Start");
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Start")) {
 		    clearAppRootPanel();
-		    UMLDrawer.this.startPanel = new StartPanel(true);
-		    appRootPanel.add(UMLDrawer.this.startPanel, DockPanel.CENTER);
+		    startPanel = new StartPanel(true);
+		    appRootPanel.add(startPanel, DockPanel.CENTER);
 		}
 	    }
 
@@ -97,16 +96,17 @@ public class UMLDrawer implements EntryPoint {
 			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	    }
 	});
-	appRootPanel.add(this.startPanel, DockPanel.CENTER);
+	appRootPanel.add(startPanel, DockPanel.CENTER);
 	appRootPanel.add(log, DockPanel.SOUTH);
 	RootPanel.get().add(appRootPanel);
 	Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
 		log.getAbsoluteTop() + log.getOffsetHeight() + 10);
     }
 
-
-    /* Real gwt app entry point, this code allow GWT Log to catch exception and display it
-     * (non-Javadoc)
+    /*
+     * Real gwt app entry point, this code allow GWT Log to catch exception and
+     * display it (non-Javadoc)
+     * 
      * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
      */
     public void onModuleLoad() {

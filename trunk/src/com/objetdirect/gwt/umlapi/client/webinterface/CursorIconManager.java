@@ -3,15 +3,16 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
- * This class is an helper to change the current mouse cursor
- * To see which type of cursor it is, check :
+ * This class is an helper to change the current mouse cursor To see which type
+ * of cursor it is, check :
  * http://www.w3schools.com/CSS/tryit.asp?filename=trycss_cursor
- * @author florian
+ * 
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class CursorIconManager {
 
     /**
-     * @author florian
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     public enum PointerStyle {
 
@@ -38,7 +39,7 @@ public class CursorIconManager {
 	 * 
 	 */
 	public String getCssName() {
-	    return this.cssName;
+	    return cssName;
 	}
     }
 

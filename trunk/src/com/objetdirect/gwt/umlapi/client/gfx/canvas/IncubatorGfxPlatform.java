@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.graphics.client.Color;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -25,7 +26,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.Text;
 import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.VirtualGroup;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class IncubatorGfxPlatform implements GfxPlatform {
     public static long lastRedrawTime = 0;
@@ -39,7 +40,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
     public void addObjectListenerToCanvas(final Object canvas,
 	    final GfxObjectListener gfxObjectListener) {
 	Log.trace("adding " + gfxObjectListener + " on " + canvas);
-	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 	final MouseListener mouseListener = new MouseListener() {
 	    public void onMouseDown(final Widget sender, final int x,
 		    final int y) {
@@ -55,11 +56,11 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	    }
 
 	    public void onMouseEnter(final Widget sender) {
-		//Unused
+		// Unused
 	    }
 
 	    public void onMouseLeave(final Widget sender) {
-		//Unused
+		// Unused
 	    }
 
 	    public void onMouseMove(final Widget sender, final int x,
@@ -91,13 +92,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
     }
 
     public void addToCanvas(final Object canvas, final GfxObject gfxO,
-	    final int x, final int y) {
-	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+	    final Point location) {
+	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 	if (canvasBridge == null) {
 	    Log.fatal("No bridge for " + canvas + " found");
 	}
-	getIncubatorGraphicalObjectFrom(gfxO).addOnCanvasAt(canvasBridge, x, y);
-	this.canvasObjects.add(gfxO);
+	getIncubatorGraphicalObjectFrom(gfxO).addOnCanvasAt(canvasBridge, location.getX(), location.getY());
+	canvasObjects.add(gfxO);
 	getIncubatorGraphicalObjectFrom(gfxO).draw();
     }
 
@@ -107,9 +108,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		.add(getIncubatorGraphicalObjectFrom(gfxO));
     }
 
-    public GfxObject buildLine(final int x1, final int y1, final int x2,
-	    final int y2) {
-	return new IncubatorGfxObjectContainer(new Line(x1, y1, x2, y2));
+    public GfxObject buildLine(final Point p1, Point p2) {
+	return new IncubatorGfxObjectContainer(new Line(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
     }
 
     public GfxObject buildPath() {
@@ -147,11 +147,6 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	return 0;
     }
 
-    private IncubatorGfxObject getIncubatorGraphicalObjectFrom(
-	    final GfxObject gfxO) {
-	return ((IncubatorGfxObjectContainer) gfxO).getGraphicObject();
-    }
-
     public int getWidthFor(final GfxObject gfxO) {
 	if (gfxO != null) {
 	    return getIncubatorGraphicalObjectFrom(gfxO).getWidth();
@@ -159,22 +154,15 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	return 0;
     }
 
-    public int getXFor(final GfxObject gfxO) {
+    public Point getLocationFor(final GfxObject gfxO) {
 	if (gfxO != null) {
-	    return getIncubatorGraphicalObjectFrom(gfxO).getX();
+	    return new Point(getIncubatorGraphicalObjectFrom(gfxO).getX(), getIncubatorGraphicalObjectFrom(gfxO).getY());
 	}
-	return 0;
+	return Point.getOrigin();
     }
 
-    public int getYFor(final GfxObject gfxO) {
-	if (gfxO != null) {
-	    return getIncubatorGraphicalObjectFrom(gfxO).getY();
-	}
-	return 0;
-    }
-
-    public void lineTo(final GfxObject gfxO, final int x, final int y) {
-	((Path) getIncubatorGraphicalObjectFrom(gfxO)).lineTo(x, y);
+    public void lineTo(final GfxObject gfxO, final Point location) {
+	((Path) getIncubatorGraphicalObjectFrom(gfxO)).lineTo(location.getX(), location.getY());
     }
 
     public Widget makeCanvas() {
@@ -198,13 +186,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	 */
 	));
 	incubatorCanvasBridge.clear();
-	this.canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge
+	canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge
 		.getWidget(), incubatorCanvasBridge);
 	return incubatorCanvasBridge.getWidget();
     }
 
-    public void moveTo(final GfxObject gfxO, final int x, final int y) {
-	((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(x, y);
+    public void moveTo(final GfxObject gfxO, final Point location) {
+	((Path) getIncubatorGraphicalObjectFrom(gfxO)).moveTo(location.getX(), location.getY());
     }
 
     public void moveToBack(final GfxObject gfxO) {
@@ -221,13 +209,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	if (System.currentTimeMillis() - lastRedrawTime > timeBetween2Redraw) {
 	    Log.debug("Redraw");
 	    canvas.clear();
-	    for (final GfxObject gfxO : this.canvasObjects) {
+	    for (final GfxObject gfxO : canvasObjects) {
 		getIncubatorGraphicalObjectFrom(gfxO).draw();
 	    }
 	    lastRedrawTime = System.currentTimeMillis();
-	    this.toBeRedrawn = true;
+	    toBeRedrawn = true;
 	} else {
-	    if (this.toBeRedrawn) {
+	    if (toBeRedrawn) {
 		final Timer t = new Timer() {
 		    @Override
 		    public void run() {
@@ -235,13 +223,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		    }
 		};
 		t.schedule((int) timeBetween2Redraw);
-		this.toBeRedrawn = false;
+		toBeRedrawn = false;
 	    }
 	}
     }
 
     public void removeFromCanvas(final Object canvas, final GfxObject gfxO) {
-	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 	getIncubatorGraphicalObjectFrom(gfxO).removeFromCanvas();
 	redraw(canvasBridge);
     }
@@ -286,10 +274,15 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	// redraw();
     }
 
-    public void translate(final GfxObject gfxO, final int x, final int y) {
-	getIncubatorGraphicalObjectFrom(gfxO).translate(x, y);
+    public void translate(final GfxObject gfxO, final Point location) {
+	getIncubatorGraphicalObjectFrom(gfxO).translate(location.getX(), location.getY());
 	getIncubatorGraphicalObjectFrom(gfxO).draw();
 	redraw(getIncubatorGraphicalObjectFrom(gfxO).getCanvas());
+    }
+
+    private IncubatorGfxObject getIncubatorGraphicalObjectFrom(
+	    final GfxObject gfxO) {
+	return ((IncubatorGfxObjectContainer) gfxO).getGraphicObject();
     }
 
 }

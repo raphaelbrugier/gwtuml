@@ -1,24 +1,24 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class BoxArtifact extends UMLArtifact {
 
-    int x = 0;
-
-    int y = 0;
-
     @Override
     public int[] getOpaque() {
-	final int[] opaque = new int[] { getX(), getY(), getX(),
-		getY() + getHeight(), getX() + getWidth(),
-		getY() + getHeight(), getX() + getWidth(), getY() };
+	final int[] opaque = new int[] { getLocation().getX(),
+		getLocation().getY(), getLocation().getX(),
+		getLocation().getY() + getHeight(),
+		getLocation().getX() + getWidth(),
+		getLocation().getY() + getHeight(),
+		getLocation().getX() + getWidth(), getLocation().getY() };
 	return opaque;
     }
 
@@ -37,16 +37,6 @@ public abstract class BoxArtifact extends UMLArtifact {
     }
 
     @Override
-    public int getX() {
-	return this.x;
-    }
-
-    @Override
-    public int getY() {
-	return this.y;
-    }
-
-    @Override
     public boolean isALink() {
 	return false;
     }
@@ -54,21 +44,5 @@ public abstract class BoxArtifact extends UMLArtifact {
     @Override
     public boolean isDraggable() {
 	return true;
-    }
-
-    @Override
-    public void moveTo(final int xm, final int ym) {
-	GfxManager.getPlatform().translate(getGfxObject(), xm - this.x, ym - this.y);
-	this.x = xm;
-	this.y = ym;
-    }
-
-    /**
-     * @param xl
-     * @param yl
-     */
-    public void setLocation(final int xl, final int yl) {
-	this.x = xl;
-	this.y = yl;
     }
 }

@@ -12,10 +12,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
  * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public final class HotKeyManager {
     private static final class WindowCloseHandlerImpl implements ClosingHandler {
+	public native void onWindowClosing(ClosingEvent event) /*-{ 
+	       $doc.onkeydown = null; 
+	       $doc.onkeypress = null; 
+	       $doc.onkeyup = null; 
+	       }-*/;
+
 	private native void init() /*-{ 
 				$doc.onkeydown = function(evt) { 
 					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
@@ -27,12 +33,6 @@ public final class HotKeyManager {
 					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 			}-*/;
-
-	public native void onWindowClosing(ClosingEvent event) /*-{ 
-	       $doc.onkeydown = null; 
-	       $doc.onkeypress = null; 
-	       $doc.onkeyup = null; 
-	       }-*/;
 
     }
 
@@ -71,6 +71,18 @@ public final class HotKeyManager {
      */
     public static boolean isEnabled() {
 	return isEnabled;
+    }
+
+    public static void setActiveCanvas(final UMLCanvas canvas) {
+	activeCanvas = canvas;
+    }
+
+    /**
+     * @param isEnabled
+     *            the isEnabled to set
+     */
+    public static void setEnabled(final boolean isEnabled) {
+	HotKeyManager.isEnabled = isEnabled;
     }
 
     @SuppressWarnings("unused")
@@ -132,24 +144,12 @@ public final class HotKeyManager {
 
     @SuppressWarnings("unused")
     private static void onKeyPress(final Event event) {
-	//Unused
+	// Unused
     }
 
     @SuppressWarnings("unused")
     private static void onKeyUp(final Event event) {
-	//Unused
-    }
-
-    public static void setActiveCanvas(final UMLCanvas canvas) {
-	activeCanvas = canvas;
-    }
-
-    /**
-     * @param isEnabled
-     *            the isEnabled to set
-     */
-    public static void setEnabled(final boolean isEnabled) {
-	HotKeyManager.isEnabled = isEnabled;
+	// Unused
     }
 
     /** * Prevent instantiation. */

@@ -1,9 +1,6 @@
 com.objetdirect.gwt.umlapi.client
 com.objetdirect.gwt.umlapi.client.analyser
 com.objetdirect.gwt.umlapi.client.artifacts
-com.objetdirect.gwt.umlapi.client.artifacts.classArtifactComponent
-com.objetdirect.gwt.umlapi.client.artifacts.links
-com.objetdirect.gwt.umlapi.client.artifacts.links.classlinks
 com.objetdirect.gwt.umlapi.client.editors
 com.objetdirect.gwt.umlapi.client.engine
 com.objetdirect.gwt.umlapi.client.gfx

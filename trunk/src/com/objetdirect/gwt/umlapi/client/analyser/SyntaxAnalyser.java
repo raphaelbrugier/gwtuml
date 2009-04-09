@@ -4,7 +4,7 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class SyntaxAnalyser {
     public enum State {
@@ -12,10 +12,6 @@ public abstract class SyntaxAnalyser {
     }
 
     private State status = State.BEGIN;
-
-    State getStatus() {
-	return this.status;
-    }
 
     public LexicalAnalyser.Token process(final LexicalAnalyser lex,
 	    final LexicalAnalyser.Token tk) {
@@ -26,18 +22,23 @@ public abstract class SyntaxAnalyser {
 	return token;
     }
 
-    protected abstract LexicalAnalyser.Token processToken(LexicalAnalyser lex,
-	    LexicalAnalyser.Token tk);
+    State getStatus() {
+	return status;
+    }
 
     void setStatus(final State status) {
 	this.status = status;
     }
 
+    protected abstract LexicalAnalyser.Token processToken(LexicalAnalyser lex,
+	    LexicalAnalyser.Token tk);
+
     protected void throwSyntaxError(final LexicalAnalyser.Token tk) {
-	throw new UMLDrawerException("Syntax error at : " + tk.getContent() + " in state : " + this.status);
+	throw new UMLDrawerException("Syntax error at : " + tk.getContent()
+		+ " in state : " + status);
     }
 
     protected void throwUnexpectedEOF() {
-	throw new UMLDrawerException("Syntax error in state " + this.status);
+	throw new UMLDrawerException("Syntax error in state " + status);
     }
 }

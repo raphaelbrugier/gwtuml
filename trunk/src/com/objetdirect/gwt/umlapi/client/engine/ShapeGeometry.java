@@ -32,15 +32,15 @@ public class ShapeGeometry extends GeometryPlatform {
 
     public int[] computeLineBounds(final UMLArtifact art1, final int x2,
 	    final int y2) {
-	return computeLineBounds(art1.getCenterX(), art1.getCenterY(), art1
-		.getOpaque(), x2, y2);
+	return computeLineBounds(art1.getCenter().getX(), art1.getCenter()
+		.getY(), art1.getOpaque(), x2, y2);
     }
 
     public int[] computeLineBounds(final UMLArtifact art1,
 	    final UMLArtifact art2) {
-	return computeLineBounds(art1.getCenterX(), art1.getCenterY(), art1
-		.getOpaque(), art2.getCenterX(), art2.getCenterY(), art2
-		.getOpaque());
+	return computeLineBounds(art1.getCenter().getX(), art1.getCenter()
+		.getY(), art1.getOpaque(), art2.getCenter().getX(), art2
+		.getCenter().getY(), art2.getOpaque());
     }
 
     public float[] getIntermediatePoint(final int x1, final int y1,

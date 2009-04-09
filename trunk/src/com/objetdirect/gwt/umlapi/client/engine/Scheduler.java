@@ -8,7 +8,7 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
 public class Scheduler {
     /**
-     * @author hdarmet
+     * @author Henri Darmet
      */
     public static abstract class Task extends Timer {
 	boolean done = false;
@@ -55,14 +55,6 @@ public class Scheduler {
 
     }
 
-    private static void execute(final Task t) {
-	if (t.done) {
-	    done(t);
-	} else {
-	    t.schedule(5);
-	}
-    }
-
     static public void register(final Task t) {
 	if (t.subject != null) {
 	    final Task old = objects.get(t.subject);
@@ -78,6 +70,14 @@ public class Scheduler {
 	} else {
 	    last.next = t;
 	    last = t;
+	}
+    }
+
+    private static void execute(final Task t) {
+	if (t.done) {
+	    done(t);
+	} else {
+	    t.schedule(5);
 	}
     }
 }

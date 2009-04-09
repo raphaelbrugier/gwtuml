@@ -10,12 +10,15 @@ import com.google.gwt.user.client.EventPreview;
 /**
  * This class is a static helper for entire application
  * 
- * @author fmounier
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class UMLDrawerHelper {
     private static EventPreview eventPreview = null;
 
+    /**
+     * Disable various browser events like image drag and drop
+     */
     public static void disableBrowserEvents() {
 	if (eventPreview == null) {
 	    makeEventPreview();
@@ -23,6 +26,9 @@ public class UMLDrawerHelper {
 	DOM.addEventPreview(eventPreview);
     }
 
+    /**
+     * Enable browser events if it was disabled before
+     */
     public static void enableBrowserEvents() {
 	if (eventPreview == null) {
 	    makeEventPreview();
@@ -31,6 +37,12 @@ public class UMLDrawerHelper {
 	}
     }
 
+    /**
+     * Useful function that return the maximum of an integer list
+     * 
+     * @param list
+     * @return The max of all integer in list
+     */
     public static int getMaxOf(final List<Integer> list) {
 	int max = 0;
 	for (final int i : list) {

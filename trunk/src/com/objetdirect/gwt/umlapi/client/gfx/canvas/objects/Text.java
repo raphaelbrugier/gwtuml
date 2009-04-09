@@ -28,7 +28,7 @@ public class Text extends IncubatorGfxObject {
 
     @Override
     public int getWidth() {
-	return this.text.length() * 10;
+	return text.length() * 10;
     }
 
     @Override

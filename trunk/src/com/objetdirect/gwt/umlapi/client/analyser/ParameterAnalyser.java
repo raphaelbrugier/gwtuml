@@ -6,14 +6,14 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 
 /**
- * @author florian
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ParameterAnalyser extends SyntaxAnalyser {
 
     Parameter param = new Parameter(null, null);
 
     public Parameter getParameter() {
-	return this.param;
+	return param;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		throwUnexpectedEOF();
 		return null;
 	    } else if (token.getType() == LexicalFlag.IDENTIFIER) {
-		this.param.setName(token.getContent());
+		param.setName(token.getContent());
 		setStatus(State.BEGIN_TYPE);
 		return null;
 	    }
@@ -39,7 +39,7 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		    && token.getContent().equals(":")) {
 		final TypeAnalyser ta = new TypeAnalyser();
 		token = ta.process(lex, null);
-		this.param.setType(ta.getType());
+		param.setType(ta.getType());
 		setStatus(State.FINISHED);
 		return token;
 	    }
