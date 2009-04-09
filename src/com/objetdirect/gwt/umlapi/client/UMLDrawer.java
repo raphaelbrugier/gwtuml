@@ -72,14 +72,14 @@ public class UMLDrawer implements EntryPoint {
 	// appRootPanel.setSpacing(8);
 
 	appRootPanel.setSize("100%", "100%");
-	startPanel = new StartPanel(false);
+	this.startPanel = new StartPanel(false);
 	History.newItem("Start");
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Start")) {
 		    clearAppRootPanel();
-		    startPanel = new StartPanel(true);
-		    appRootPanel.add(startPanel, DockPanel.CENTER);
+		    UMLDrawer.this.startPanel = new StartPanel(true);
+		    appRootPanel.add(UMLDrawer.this.startPanel, DockPanel.CENTER);
 		}
 	    }
 
@@ -96,7 +96,7 @@ public class UMLDrawer implements EntryPoint {
 			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	    }
 	});
-	appRootPanel.add(startPanel, DockPanel.CENTER);
+	appRootPanel.add(this.startPanel, DockPanel.CENTER);
 	appRootPanel.add(log, DockPanel.SOUTH);
 	RootPanel.get().add(appRootPanel);
 	Log.getDivLogger().moveTo(log.getAbsoluteLeft(),

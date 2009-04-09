@@ -39,7 +39,7 @@ public class CursorIconManager {
 	 * 
 	 */
 	public String getCssName() {
-	    return cssName;
+	    return this.cssName;
 	}
     }
 

@@ -27,14 +27,14 @@ public class MethodPartEditor extends FieldEditor {
 
     @Override
     protected void next() {
-	((ClassPartArtifact) artifact).edit();
+	((ClassPartArtifact) this.artifact).edit();
     }
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (newContent.equals("")) {
-	    ((ClassPartMethodsArtifact) artifact).remove(methodToChange);
-	    ((ClassPartMethodsArtifact) artifact).getClassArtifact()
+	    ((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
+	    ((ClassPartMethodsArtifact) this.artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	    return false;
 	}
@@ -44,11 +44,11 @@ public class MethodPartEditor extends FieldEditor {
 	    final MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
 	    ma.process(lex, null);
 	    final Method newMethod = ma.getMethod();
-	    methodToChange.setVisibility(newMethod.getVisibility());
-	    methodToChange.setName(newMethod.getName());
-	    methodToChange.setReturnType(newMethod.getReturnType());
-	    methodToChange.setParameters(newMethod.getParameters());
-	    ((ClassPartMethodsArtifact) artifact).getClassArtifact()
+	    this.methodToChange.setVisibility(newMethod.getVisibility());
+	    this.methodToChange.setName(newMethod.getName());
+	    this.methodToChange.setReturnType(newMethod.getReturnType());
+	    this.methodToChange.setParameters(newMethod.getParameters());
+	    ((ClassPartMethodsArtifact) this.artifact).getClassArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {
 	    Window.alert(e.getMessage());

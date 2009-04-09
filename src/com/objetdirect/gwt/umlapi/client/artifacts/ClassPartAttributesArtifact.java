@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
@@ -24,6 +21,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
+ * This class represent the middle Part of a {@link ClassArtifact}
+ * It can hold an attribute list
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ClassPartAttributesArtifact extends ClassPartArtifact {
@@ -31,47 +31,58 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
     private GfxObject attributeRect;
     private final List<Attribute> attributes;
     private GfxObject lastGfxObject;
-
+    
+    /**
+     * Constructor of ClassPartAttributesArtifact
+     * It initializes the attribute list
+     * 
+     */
     public ClassPartAttributesArtifact() {
-	attributes = new ArrayList<Attribute>();
-	attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
-	height = 0;
-	width = 0;
+	this.attributes = new ArrayList<Attribute>();
+	this.attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
+	this.height = 0;
+	this.width = 0;
     }
 
+    /**
+     * Add an attribute to the current attribute list.
+     * The graphical object must be rebuilt to reflect the changes
+     * 
+     * @param attribute The new attribute to add
+     */
     public void add(final Attribute attribute) {
-	attributes.add(attribute);
+	this.attributes.add(attribute);
     }
 
     @Override
     public void buildGfxObject() {
-	if (textVirtualGroup == null) {
+	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	attributeRect = GfxManager.getPlatform().buildRect(classWidth, height);
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, attributeRect);
-	GfxManager.getPlatform().setFillColor(attributeRect,
+	this.attributeRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.attributeRect);
+	GfxManager.getPlatform().setFillColor(this.attributeRect,
 		ThemeManager.getBackgroundColor());
-	GfxManager.getPlatform().setStroke(attributeRect,
+	GfxManager.getPlatform().setStroke(this.attributeRect,
 		ThemeManager.getForegroundColor(), 1);
-	GfxManager.getPlatform().translate(textVirtualGroup, new Point(
+	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.getRectangleLeftPadding(),
 		OptionsManager.getRectangleTopPadding()));
-	GfxManager.getPlatform().moveToFront(textVirtualGroup);
+	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
     @Override
     public void computeBounds() {
-	attributeGfxObjects.clear();
-	height = 0;
-	width = 0;
-	textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, textVirtualGroup);
+	this.attributeGfxObjects.clear();
+	this.height = 0;
+	this.width = 0;
+	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 
-	for (final Attribute attribute : attributes) {
+	for (final Attribute attribute : this.attributes) {
 	    final GfxObject attributeText = GfxManager.getPlatform().buildText(
 		    attribute.toString());
-	    GfxManager.getPlatform().addToVirtualGroup(textVirtualGroup,
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    attributeText);
 	    GfxManager.getPlatform().setFont(attributeText,
 		    OptionsManager.getFont());
@@ -86,55 +97,55 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().translate(
 		    attributeText, new Point(
 		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + height
+		    OptionsManager.getTextTopPadding() + this.height
 			    + thisAttributeHeight));
 	    thisAttributeWidth += OptionsManager.getTextXTotalPadding();
 	    thisAttributeHeight += OptionsManager.getTextYTotalPadding();
-	    width = thisAttributeWidth > width ? thisAttributeWidth : width;
-	    height += thisAttributeHeight;
+	    this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
+	    this.height += thisAttributeHeight;
 
-	    attributeGfxObjects.put(attributeText, attribute);
-	    lastGfxObject = attributeText;
+	    this.attributeGfxObjects.put(attributeText, attribute);
+	    this.lastGfxObject = attributeText;
 	}
-	width += OptionsManager.getRectangleXTotalPadding();
-	height += OptionsManager.getRectangleYTotalPadding();
+	this.width += OptionsManager.getRectangleXTotalPadding();
+	this.height += OptionsManager.getRectangleYTotalPadding();
 
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
-		+ width + "x" + height);
+		+ this.width + "x" + this.height);
     }
 
     @Override
     public void edit() {
 	final Attribute attributeToCreate = new Attribute(Visibility.PROTECTED,
 		"String", "attribute");
-	attributes.add(attributeToCreate);
-	classArtifact.rebuildGfxObject();
-	attributeGfxObjects.put(lastGfxObject, attributeToCreate);
-	edit(lastGfxObject);
+	this.attributes.add(attributeToCreate);
+	this.classArtifact.rebuildGfxObject();
+	this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
+	edit(this.lastGfxObject);
     }
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final Attribute attributeToChange = attributeGfxObjects
+	final Attribute attributeToChange = this.attributeGfxObjects
 		.get(editedGfxObject);
 	if (attributeToChange == null) {
 	    edit();
 	} else {
-	    final AttributePartEditor editor = new AttributePartEditor(canvas,
+	    final AttributePartEditor editor = new AttributePartEditor(this.canvas,
 		    this, attributeToChange);
 	    editor
 		    .startEdition(
 			    attributeToChange.toString(),
-			    (classArtifact.getLocation().getX()
+			    (this.classArtifact.getLocation().getX()
 				    + OptionsManager.getTextLeftPadding() + OptionsManager
-				    .getRectangleLeftPadding()), (classArtifact
+				    .getRectangleLeftPadding()), (this.classArtifact
 				    .getLocation().getY()
-				    + classArtifact.className.getHeight()
+				    + this.classArtifact.className.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
 				    - GfxManager.getPlatform().getHeightFor(
 					    editedGfxObject) + OptionsManager
-				    .getRectangleTopPadding()), classWidth
+				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
 					    .getRectangleXTotalPadding(), false);
@@ -143,22 +154,25 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 
     @Override
     public int getHeight() {
-	return height;
+	return this.height;
     }
 
+    /**
+     * Getter for the attribute list
+     * 
+     * @return The current attribute list
+     */
     public List<Attribute> getList() {
-	return attributes;
+	return this.attributes;
     }
 
     @Override
     public int[] getOpaque() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public GfxObject getOutline() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
@@ -167,7 +181,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName("Attributes");
 
-	for (final Entry<GfxObject, Attribute> attribute : attributeGfxObjects
+	for (final Entry<GfxObject, Attribute> attribute : this.attributeGfxObjects
 		.entrySet()) {
 	    final MenuBar subsubMenu = new MenuBar(true);
 	    subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
@@ -180,43 +194,33 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 
     @Override
     public int getWidth() {
-	return width;
+	return this.width;
     }
-
-    @Override
-    public boolean isDraggable() {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    public void remove(final Attribute attributeToChange) {
-	attributes.remove(attributeToChange);
+    
+    /**
+     * Remove an attribute to the current attribute list.
+     * The graphical object must be rebuilt to reflect the changes
+     * 
+     * @param attribute The attribute to be removed
+     */
+    public void remove(final Attribute attribute) {
+	this.attributes.remove(attribute);
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().setStroke(attributeRect,
+	GfxManager.getPlatform().setStroke(this.attributeRect,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
     @Override
-    public void setClassWidth(final int width) {
-	classWidth = width;
-    }
-
-    @Override
-    public void setHeight(final int height) {
-	this.height = height;
-    }
-
-    @Override
-    public void setWidth(final int width) {
-	this.width = width;
+    void setClassWidth(final int width) {
+	this.classWidth = width;
     }
 
     @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(attributeRect,
+	GfxManager.getPlatform().setStroke(this.attributeRect,
 		ThemeManager.getForegroundColor(), 1);
     }
 

@@ -24,7 +24,7 @@ public class Relation {
 	 * @return the name
 	 */
 	public String getName() {
-	    return name;
+	    return this.name;
 	}
 
     }
@@ -40,13 +40,13 @@ public class Relation {
 
     public Relation(final RelationKind relationKind) {
 	this.relationKind = relationKind;
-	leftCardinality = "";
-	leftConstraint = "";
-	leftRole = "";
-	name = "";
-	rightCardinality = "";
-	rightConstraint = "";
-	rightRole = "";
+	this.leftCardinality = "";
+	this.leftConstraint = "";
+	this.leftRole = "";
+	this.name = "";
+	this.rightCardinality = "";
+	this.rightConstraint = "";
+	this.rightRole = "";
     }
 
     /**
@@ -55,7 +55,7 @@ public class Relation {
      * @return the leftCardinality
      */
     public String getLeftCardinality() {
-	return leftCardinality;
+	return this.leftCardinality;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Relation {
      * @return the leftConstraint
      */
     public String getLeftConstraint() {
-	return leftConstraint;
+	return this.leftConstraint;
     }
 
     /**
@@ -73,7 +73,7 @@ public class Relation {
      * @return the leftRole
      */
     public String getLeftRole() {
-	return leftRole;
+	return this.leftRole;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Relation {
      * @return the name
      */
     public String getName() {
-	return name;
+	return this.name;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Relation {
      * @return the relationKind
      */
     public RelationKind getRelationKind() {
-	return relationKind;
+	return this.relationKind;
     }
 
     /**
@@ -100,7 +100,7 @@ public class Relation {
      * @return the rightCardinality
      */
     public String getRightCardinality() {
-	return rightCardinality;
+	return this.rightCardinality;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Relation {
      * @return the rightConstraint
      */
     public String getRightConstraint() {
-	return rightConstraint;
+	return this.rightConstraint;
     }
 
     /**
@@ -118,7 +118,7 @@ public class Relation {
      * @return the rightRole
      */
     public String getRightRole() {
-	return rightRole;
+	return this.rightRole;
     }
 
     /**

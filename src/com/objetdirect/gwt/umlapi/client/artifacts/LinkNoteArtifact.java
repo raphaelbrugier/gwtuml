@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -26,14 +25,14 @@ public class LinkNoteArtifact extends LinkArtifact {
     @Override
     public void buildGfxObject() {
 
-	leftPoint = note.getCenter();
-	rightPoint = target.getCenter();
-	line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
-	GfxManager.getPlatform().addToVirtualGroup(gfxObject, line);
-	GfxManager.getPlatform().setStroke(line,
+	this.leftPoint = this.note.getCenter();
+	this.rightPoint = this.target.getCenter();
+	this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getForegroundColor(), 1);
-	GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-	GfxManager.getPlatform().moveToBack(gfxObject);
+	GfxManager.getPlatform().setStrokeStyle(this.line, GfxStyle.DASH);
+	GfxManager.getPlatform().moveToBack(this.gfxObject);
 
     }
 
@@ -56,13 +55,13 @@ public class LinkNoteArtifact extends LinkArtifact {
 
     @Override
     public void removeCreatedDependency() {
-	note.removeDependency(this);
-	target.removeDependency(this);
+	this.note.removeDependency(this);
+	this.target.removeDependency(this);
     }
 
     @Override
     public void select() {
-	GfxManager.getPlatform().setStroke(line,
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
@@ -73,7 +72,7 @@ public class LinkNoteArtifact extends LinkArtifact {
 
     @Override
     public void unselect() {
-	GfxManager.getPlatform().setStroke(line,
+	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getForegroundColor(), 1);
     }
 }

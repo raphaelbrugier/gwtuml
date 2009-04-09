@@ -19,11 +19,11 @@ public class RelationLinkAssociationArtifact extends RelationLinkArtifact {
     public RelationLinkAssociationArtifact(final ClassArtifact left,
 	    final ClassArtifact right) {
 	super(left, right);
-	relation = new Relation(RelationKind.ASSOCIATION);
-	relation.setLeftCardinality("0..*");
-	relation.setRightCardinality("0..*");
-	adornmentLeft = LinkAdornment.WIRE_ARROW;
-	adornmentRight = LinkAdornment.NONE;
-	style = LinkStyle.SOLID;
+	this.relation = new Relation(RelationKind.ASSOCIATION);
+	this.relation.setLeftCardinality("0..*");
+	this.relation.setRightCardinality("0..*");
+	this.adornmentLeft = LinkAdornment.WIRE_ARROW;
+	this.adornmentRight = LinkAdornment.NONE;
+	this.style = LinkStyle.SOLID;
     }
 }

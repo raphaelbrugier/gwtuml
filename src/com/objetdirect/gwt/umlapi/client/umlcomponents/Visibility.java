@@ -35,7 +35,7 @@ public enum Visibility {
 
     @Override
     public String toString() {
-	return "" + token;
+	return "" + this.token;
     }
 
 }

@@ -18,11 +18,11 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
     List<Parameter> parameters = new ArrayList<Parameter>();
 
     public Method getMethod() {
-	return method;
+	return this.method;
     }
 
     void setParameters() {
-	method.setParameters(parameters);
+	this.method.setParameters(this.parameters);
     }
 
     @SuppressWarnings("fallthrough")
@@ -40,19 +40,19 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		return null;
 	    }
 	    if (token.getType() == LexicalFlag.VISIBILITY) {
-		method.setVisibility(Visibility.getVisibilityFromToken(token
+		this.method.setVisibility(Visibility.getVisibilityFromToken(token
 			.getContent().charAt(0)));
 		setStatus(State.IDENTIFIER_EXPECTED);
 		return null;
 	    }
-	    method.setVisibility(Visibility.PACKAGE);
+	    this.method.setVisibility(Visibility.PACKAGE);
 	case IDENTIFIER_EXPECTED:
 	    if (token == null) {
 		throwUnexpectedEOF();
 		return null;
 	    }
 	    if (token.getType() == LexicalFlag.IDENTIFIER) {
-		method.setName(token.getContent());
+		this.method.setName(token.getContent());
 		setStatus(State.OPEN_PARENTHESIS_EXPECTED);
 		return null;
 	    }
@@ -82,7 +82,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	    }
 	    final ParameterAnalyser pa = new ParameterAnalyser();
 	    token = pa.process(lex, token);
-	    parameters.add(pa.getParameter());
+	    this.parameters.add(pa.getParameter());
 	    setStatus(State.END_PARAMETER);
 	    return token;
 
@@ -111,7 +111,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 
 	    final ParameterAnalyser parameterAnalyser = new ParameterAnalyser();
 	    token = parameterAnalyser.process(lex, token);
-	    parameters.add(parameterAnalyser.getParameter());
+	    this.parameters.add(parameterAnalyser.getParameter());
 	    setStatus(State.END_PARAMETER);
 	    return token;
 
@@ -121,7 +121,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		    && token.getContent().equals(":")) {
 		final TypeAnalyser ta = new TypeAnalyser();
 		token = ta.process(lex, null);
-		method.setReturnType(ta.getType());
+		this.method.setReturnType(ta.getType());
 		setStatus(State.FINISHED);
 		return token;
 	    }

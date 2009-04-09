@@ -40,7 +40,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
     public void addObjectListenerToCanvas(final Object canvas,
 	    final GfxObjectListener gfxObjectListener) {
 	Log.trace("adding " + gfxObjectListener + " on " + canvas);
-	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
+	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
 	final MouseListener mouseListener = new MouseListener() {
 	    public void onMouseDown(final Widget sender, final int x,
 		    final int y) {
@@ -93,12 +93,12 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 
     public void addToCanvas(final Object canvas, final GfxObject gfxO,
 	    final Point location) {
-	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
+	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
 	if (canvasBridge == null) {
 	    Log.fatal("No bridge for " + canvas + " found");
 	}
 	getIncubatorGraphicalObjectFrom(gfxO).addOnCanvasAt(canvasBridge, location.getX(), location.getY());
-	canvasObjects.add(gfxO);
+	this.canvasObjects.add(gfxO);
 	getIncubatorGraphicalObjectFrom(gfxO).draw();
     }
 
@@ -186,7 +186,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	 */
 	));
 	incubatorCanvasBridge.clear();
-	canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge
+	this.canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge
 		.getWidget(), incubatorCanvasBridge);
 	return incubatorCanvasBridge.getWidget();
     }
@@ -209,13 +209,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	if (System.currentTimeMillis() - lastRedrawTime > timeBetween2Redraw) {
 	    Log.debug("Redraw");
 	    canvas.clear();
-	    for (final GfxObject gfxO : canvasObjects) {
+	    for (final GfxObject gfxO : this.canvasObjects) {
 		getIncubatorGraphicalObjectFrom(gfxO).draw();
 	    }
 	    lastRedrawTime = System.currentTimeMillis();
-	    toBeRedrawn = true;
+	    this.toBeRedrawn = true;
 	} else {
-	    if (toBeRedrawn) {
+	    if (this.toBeRedrawn) {
 		final Timer t = new Timer() {
 		    @Override
 		    public void run() {
@@ -223,13 +223,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		    }
 		};
 		t.schedule((int) timeBetween2Redraw);
-		toBeRedrawn = false;
+		this.toBeRedrawn = false;
 	    }
 	}
     }
 
     public void removeFromCanvas(final Object canvas, final GfxObject gfxO) {
-	final CanvasBridge canvasBridge = canvasBridges.get(canvas);
+	final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
 	getIncubatorGraphicalObjectFrom(gfxO).removeFromCanvas();
 	redraw(canvasBridge);
     }

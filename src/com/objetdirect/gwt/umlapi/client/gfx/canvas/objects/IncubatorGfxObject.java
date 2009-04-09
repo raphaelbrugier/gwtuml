@@ -32,8 +32,8 @@ public abstract class IncubatorGfxObject {
     public void addOnCanvasAt(final CanvasBridge canvasBridge, final int dx,
 	    final int dy) {
 	Log.trace("Adding " + this + " on canvas " + canvasBridge);
-	isVisible = true;
-	canvas = canvasBridge;
+	this.isVisible = true;
+	this.canvas = canvasBridge;
 	translate(dx, dy);
     }
 
@@ -43,7 +43,7 @@ public abstract class IncubatorGfxObject {
      * @return the canvas
      */
     public CanvasBridge getCanvas() {
-	return canvas;
+	return this.canvas;
     }
 
     public abstract int getHeight();
@@ -52,35 +52,35 @@ public abstract class IncubatorGfxObject {
      * @return the parentGroup
      */
     public VirtualGroup getParentGroup() {
-	return parentGroup;
+	return this.parentGroup;
     }
 
     public abstract int getWidth();
 
     public int getX() {
-	return x + (parentGroup == null ? 0 : parentGroup.getX());
+	return this.x + (this.parentGroup == null ? 0 : this.parentGroup.getX());
     }
 
     public int getY() {
-	return y + (parentGroup == null ? 0 : parentGroup.getY());
+	return this.y + (this.parentGroup == null ? 0 : this.parentGroup.getY());
     }
 
     public abstract boolean isPointed(int xp, int yp);
 
     public void removeFromCanvas() {
-	isVisible = false;
+	this.isVisible = false;
     }
 
     public void setAlpha(final float alpha) {
-	fillColor = new Color(redFill, blueFill, greenFill, alpha);
-	strokeColor = new Color(redStroke, blueStroke, greenStroke, alpha);
+	this.fillColor = new Color(this.redFill, this.blueFill, this.greenFill, alpha);
+	this.strokeColor = new Color(this.redStroke, this.blueStroke, this.greenStroke, alpha);
     }
 
     public void setFillColor(final GfxColor gfxColor) {
-	redFill = gfxColor.getRed();
-	blueFill = gfxColor.getBlue();
-	greenFill = gfxColor.getGreen();
-	fillColor = new Color(redFill, blueFill, greenFill, gfxColor.getAlpha());
+	this.redFill = gfxColor.getRed();
+	this.blueFill = gfxColor.getBlue();
+	this.greenFill = gfxColor.getGreen();
+	this.fillColor = new Color(this.redFill, this.blueFill, this.greenFill, gfxColor.getAlpha());
     }
 
     /**
@@ -92,15 +92,15 @@ public abstract class IncubatorGfxObject {
     }
 
     public void setStrokeColor(final GfxColor gfxColor) {
-	redStroke = gfxColor.getRed();
-	blueStroke = gfxColor.getBlue();
-	greenStroke = gfxColor.getGreen();
-	strokeColor = new Color(redStroke, blueStroke, greenStroke, gfxColor
+	this.redStroke = gfxColor.getRed();
+	this.blueStroke = gfxColor.getBlue();
+	this.greenStroke = gfxColor.getGreen();
+	this.strokeColor = new Color(this.redStroke, this.blueStroke, this.greenStroke, gfxColor
 		.getAlpha());
     }
 
     public void setStrokeWidth(final int width) {
-	strokeWidth = width;
+	this.strokeWidth = width;
     }
 
     public void setStyle(final GfxStyle style) {
@@ -108,7 +108,7 @@ public abstract class IncubatorGfxObject {
     }
 
     public void translate(final int dx, final int dy) {
-	x += dx;
-	y += dy;
+	this.x += dx;
+	this.y += dy;
     }
 }

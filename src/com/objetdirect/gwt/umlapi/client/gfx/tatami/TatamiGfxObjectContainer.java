@@ -31,12 +31,12 @@ public class TatamiGfxObjectContainer extends GfxObject {
     }
 
     public GraphicObject getGraphicObject() {
-	return graphicObject;
+	return this.graphicObject;
     }
 
     @Override
     public String toString() {
 	return UMLDrawerHelper.getShortName(this) + " containing "
-		+ UMLDrawerHelper.getShortName(graphicObject);
+		+ UMLDrawerHelper.getShortName(this.graphicObject);
     }
 }

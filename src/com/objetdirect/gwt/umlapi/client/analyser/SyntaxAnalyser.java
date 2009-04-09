@@ -23,7 +23,7 @@ public abstract class SyntaxAnalyser {
     }
 
     State getStatus() {
-	return status;
+	return this.status;
     }
 
     void setStatus(final State status) {
@@ -35,10 +35,10 @@ public abstract class SyntaxAnalyser {
 
     protected void throwSyntaxError(final LexicalAnalyser.Token tk) {
 	throw new UMLDrawerException("Syntax error at : " + tk.getContent()
-		+ " in state : " + status);
+		+ " in state : " + this.status);
     }
 
     protected void throwUnexpectedEOF() {
-	throw new UMLDrawerException("Syntax error in state " + status);
+	throw new UMLDrawerException("Syntax error in state " + this.status);
     }
 }

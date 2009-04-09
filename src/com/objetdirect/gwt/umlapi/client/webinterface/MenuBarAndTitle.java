@@ -9,7 +9,7 @@ public class MenuBarAndTitle {
     private final MenuBar subMenu;
 
     public MenuBarAndTitle() {
-	subMenu = new MenuBar(true);
+	this.subMenu = new MenuBar(true);
     }
 
     /**
@@ -21,7 +21,7 @@ public class MenuBarAndTitle {
      *            the command to run
      */
     public void addItem(final String text, final Command cmd) {
-	subMenu.addItem(text, cmd);
+	this.subMenu.addItem(text, cmd);
     }
 
     /**
@@ -33,21 +33,21 @@ public class MenuBarAndTitle {
      *            the submenu
      */
     public void addItem(final String text, final MenuBar popup) {
-	subMenu.addItem(text, popup);
+	this.subMenu.addItem(text, popup);
     }
 
     /**
      * @return the name
      */
     public String getName() {
-	return name;
+	return this.name;
     }
 
     /**
      * @return the subMenu
      */
     public MenuBar getSubMenu() {
-	return subMenu;
+	return this.subMenu;
     }
 
     /**

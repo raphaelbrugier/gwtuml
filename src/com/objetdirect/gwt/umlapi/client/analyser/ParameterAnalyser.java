@@ -13,7 +13,7 @@ public class ParameterAnalyser extends SyntaxAnalyser {
     Parameter param = new Parameter(null, null);
 
     public Parameter getParameter() {
-	return param;
+	return this.param;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		throwUnexpectedEOF();
 		return null;
 	    } else if (token.getType() == LexicalFlag.IDENTIFIER) {
-		param.setName(token.getContent());
+		this.param.setName(token.getContent());
 		setStatus(State.BEGIN_TYPE);
 		return null;
 	    }
@@ -39,7 +39,7 @@ public class ParameterAnalyser extends SyntaxAnalyser {
 		    && token.getContent().equals(":")) {
 		final TypeAnalyser ta = new TypeAnalyser();
 		token = ta.process(lex, null);
-		param.setType(ta.getType());
+		this.param.setType(ta.getType());
 		setStatus(State.FINISHED);
 		return token;
 	    }

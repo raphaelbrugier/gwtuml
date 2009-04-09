@@ -13,28 +13,28 @@ public class Rect extends IncubatorGfxObject {
 
     @Override
     public void draw() {
-	if (!isVisible) {
+	if (!this.isVisible) {
 	    Log.trace(this + " is not visible");
 	    return;
 	}
-	if (canvas == null) {
+	if (this.canvas == null) {
 	    Log.fatal("canvas is null for " + this);
 	}
 
 	Log.trace("Drawing " + this);
-	canvas.saveContext();
-	if (fillColor != null) {
-	    canvas.setFillStyle(fillColor);
+	this.canvas.saveContext();
+	if (this.fillColor != null) {
+	    this.canvas.setFillStyle(this.fillColor);
 	}
-	if (strokeColor != null) {
-	    canvas.setStrokeStyle(strokeColor);
+	if (this.strokeColor != null) {
+	    this.canvas.setStrokeStyle(this.strokeColor);
 	}
-	if (strokeWidth != 0) {
-	    canvas.setLineWidth(strokeWidth);
+	if (this.strokeWidth != 0) {
+	    this.canvas.setLineWidth(this.strokeWidth);
 	}
-	canvas.fillRect(getX(), getY(), w, h);
-	canvas.strokeRect(getX(), getY(), w, h);
-	canvas.restoreContext();
+	this.canvas.fillRect(getX(), getY(), this.w, this.h);
+	this.canvas.strokeRect(getX(), getY(), this.w, this.h);
+	this.canvas.restoreContext();
     }
 
     @Override
@@ -51,6 +51,6 @@ public class Rect extends IncubatorGfxObject {
 
     @Override
     public boolean isPointed(final int xp, final int yp) {
-	return xp > getX() && xp < getX() + w && yp > getY() && yp < getY() + h;
+	return xp > getX() && xp < getX() + this.w && yp > getY() && yp < getY() + this.h;
     }
 }

@@ -9,6 +9,7 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
+import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
@@ -19,7 +20,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
 
 /**
  * This abstract class represent any uml artifact that can be displayed An
- * artifact is something between the graphical object and the uml component. It
+ * artifact is something between the graphical object and the uml component. <br> It
  * has an uml component and it build the graphical object
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -34,10 +35,11 @@ public abstract class UMLArtifact {
 
     /**
      * This method destroys this artifact's graphical object and all
-     * dependencies graphical objects Useful to remove a class and all its links
+     * dependencies graphical objects. <br> 
+     * Useful to remove a class and all its links
      */
     public void destroyGfxObjectWhithDependencies() {
-	GfxManager.getPlatform().clearVirtualGroup(gfxObject);
+	GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
 	for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts()
 		.entrySet()) {
 	    GfxManager.getPlatform().clearVirtualGroup(
@@ -67,32 +69,33 @@ public abstract class UMLArtifact {
     /**
      * Getter for the dependent UMLArtifacts
      * 
-     * @return An HashMap of LinkArtifact and UMLArtifact which represents the
+     * @return An {@link HashMap} of {@link LinkArtifact} and UMLArtifact which represents the
      *         links of this artifact with the linked artifacts
      */
     public HashMap<LinkArtifact, UMLArtifact> getDependentUMLArtifacts() {
-	return dependentUMLArtifacts;
+	return this.dependentUMLArtifacts;
     }
 
     /** 
      * Getter for the graphical object of this artifact
-     * @return The graphical object of this artifact If it has already built
-     *         this function just returns it, otherwise it builds it
+     * 
+     * @return The graphical object of this artifact. <br> If it has already built
+     *         this function just returns it, otherwise it builds it.
      * 
      */
     public GfxObject getGfxObject() {
-	if (gfxObject == null) {
+	if (this.gfxObject == null) {
 	    throw new UMLDrawerException(
 		    "Must Initialize before getting gfxObjects");
 	}
-	if (!isBuilt) {
+	if (!this.isBuilt) {
 	    final long t = System.currentTimeMillis();
 	    buildGfxObjectWithAnimation();
 	    Log.debug("([" + (System.currentTimeMillis() - t)
 		    + "ms]) to build " + this);
-	    isBuilt = true;
+	    this.isBuilt = true;
 	}
-	return gfxObject;
+	return this.gfxObject;
     }
 
     /**
@@ -108,28 +111,31 @@ public abstract class UMLArtifact {
      * @return The Point that represents where this artifact currently is
      */
     public Point getLocation() {
-	return location;
+	return this.location;
     }
 
     /**
-     * Getter for an "opaque" integer table. This opaque represents all the
-     * points that describes a shape. This is used by the shape based engine
+     * Getter for an "opaque" integer table. <br> 
+     * This opaque represents all the points that describes a shape. <br> 
+     * This is used by the shape based engine.
      * 
      * @return The opaque of this artifact which is an integer table
+     *  
+     * @see ShapeGeometry 
      */
     public abstract int[] getOpaque();
 
     /**
-     * Getter for the outline of an artifact. The outline is what is been drawn
-     * during drag and drop
+     * Getter for the outline of an artifact. <br> 
+     * The outline is what is been drawn during drag and drop
      * 
      * @return The graphical object of this outline
      */
     public abstract GfxObject getOutline();
 
     /**
-     * Getter for the dependent objects points. This is used to draw outline
-     * links during drag and drop.
+     * Getter for the dependent objects points. <br> 
+     * This is used to draw outline links during drag and drop.
      * 
      * @return An ArrayList of all this points
      */
@@ -148,8 +154,8 @@ public abstract class UMLArtifact {
     }
 
     /**
-     * Getter for the context menu. Each artifact has his own context menu which
-     * is built during right click
+     * Getter for the context menu. <br> 
+     * Each artifact has his own context menu which is built during right click
      * 
      * @return The context sub menu and the title of the sub menu
      * @see MenuBarAndTitle
@@ -164,19 +170,19 @@ public abstract class UMLArtifact {
     public abstract int getWidth();
 
     /**
-     * This is the method that initialize the graphical object. It <b>MUST</b>
+     * This is the method that initializes the graphical object. It <b>MUST</b>
      * be called before doing anything else with the graphical object.
      * 
      * @return The initialized graphical object.
      */
     public GfxObject initializeGfxObject() {
-	gfxObject = GfxManager.getPlatform().buildVirtualGroup();
-	isBuilt = false;
-	return gfxObject;
+	this.gfxObject = GfxManager.getPlatform().buildVirtualGroup();
+	this.isBuilt = false;
+	return this.gfxObject;
     }
 
     /**
-     * This method can be used to determine if this artifact is a link
+     * This method can be used to determine if this artifact has a type inherited from {@link LinkArtifact}
      * 
      * @return <ul>
      *         <li><b>True</b> if it is a link</li>
@@ -195,8 +201,10 @@ public abstract class UMLArtifact {
     public abstract boolean isDraggable();
 
     /**
-     * This method move
-     * @param newLocation
+     * This method moves an artifact to a new location
+     * It changes the current location <b>AND</b> translate the graphical object
+     * @param newLocation 
+     * 			The new location of the artifact
      */
     public void moveTo(final Point newLocation) {
 	if(!isALink()) {
@@ -210,9 +218,14 @@ public abstract class UMLArtifact {
     }
 
 
+    /**
+     * This method does a rebuild of the graphical object of this artifact. <br> 
+     * It is useful to reflect changes made on an artifact / uml component
+     * 
+     */
     public void rebuildGfxObject() {
 	final long t = System.currentTimeMillis();
-	GfxManager.getPlatform().clearVirtualGroup(gfxObject);
+	GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
 	buildGfxObjectWithAnimation();
 
 	Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build "
@@ -243,13 +256,18 @@ public abstract class UMLArtifact {
      */
     public void removeDependency(final LinkArtifact dependentUMLArtifact) {
 	Log.trace(this + "removing depency with" + dependentUMLArtifact);
-	dependentUMLArtifacts.remove(dependentUMLArtifact);
+	this.dependentUMLArtifacts.remove(dependentUMLArtifact);
     }
 
+    /**
+     * This method does the graphic changes to reflect that an artifact has been selected
+     */
     public abstract void select();
 
     /**
-     * @param canvas
+     * Setter for the canvas
+     * Assign an artifact to his canvas
+     * @param canvas The canvas this artifact belongs
      * 
      */
     public void setCanvas(final UMLCanvas canvas) {
@@ -257,19 +275,27 @@ public abstract class UMLArtifact {
     }
 
     /**
+     * This method change the artifact current location but doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
      * @param location
-     *            the location to set
+     *            The new artifact location
      */
     public void setLocation(final Point location) {
 	this.location = location;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
 	return UMLDrawerHelper.getShortName(this);
     }
-
+    
+    /**
+     * This method do the graphic changes to reflect that an artifact has been unselected
+     */
     public abstract void unselect();
+    
 
     void addDependency(final LinkArtifact dependentUMLArtifact,
 	    final UMLArtifact linkedUMLArtifact) {
@@ -290,7 +316,7 @@ public abstract class UMLArtifact {
 		    @Override
 		    public void process() {
 			GfxManager.getPlatform()
-				.setOpacity(gfxObject, j, false);
+				.setOpacity(UMLArtifact.this.gfxObject, j, false);
 		    }
 		};
 	    }
@@ -299,11 +325,11 @@ public abstract class UMLArtifact {
     }
 
     void toBack() {
-	GfxManager.getPlatform().moveToBack(gfxObject);
+	GfxManager.getPlatform().moveToBack(this.gfxObject);
     }
 
     void toFront() {
-	GfxManager.getPlatform().moveToFront(gfxObject);
+	GfxManager.getPlatform().moveToFront(this.gfxObject);
     }
 
     protected abstract void buildGfxObject();

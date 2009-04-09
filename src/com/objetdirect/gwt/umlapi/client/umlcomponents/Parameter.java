@@ -32,7 +32,7 @@ public class Parameter {
      * 
      */
     public String getName() {
-	return name;
+	return this.name;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Parameter {
      * 
      */
     public String getType() {
-	return type;
+	return this.type;
     }
 
     /**
@@ -76,10 +76,10 @@ public class Parameter {
     @Override
     public String toString() {
 	final StringBuffer f = new StringBuffer();
-	f.append(name);
-	if (type != null) {
+	f.append(this.name);
+	if (this.type != null) {
 	    f.append(" : ");
-	    f.append(type);
+	    f.append(this.type);
 	}
 	return f.toString();
     }

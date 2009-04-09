@@ -91,7 +91,7 @@ public class GfxFont {
      * 
      */
     public String getFamily() {
-	return family;
+	return this.family;
     }
 
     /**
@@ -101,7 +101,7 @@ public class GfxFont {
      * 
      */
     public int getSize() {
-	return size;
+	return this.size;
     }
 
     /**
@@ -111,7 +111,7 @@ public class GfxFont {
      * 
      */
     public String getStyle() {
-	return style;
+	return this.style;
     }
 
     /**
@@ -121,7 +121,7 @@ public class GfxFont {
      * 
      */
     public String getVariant() {
-	return variant;
+	return this.variant;
     }
 
     /**
@@ -131,7 +131,7 @@ public class GfxFont {
      * 
      */
     public String getWeight() {
-	return weight;
+	return this.weight;
     }
 
     /**
