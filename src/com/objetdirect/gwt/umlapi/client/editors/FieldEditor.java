@@ -19,6 +19,11 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
+ * This abstract class is a generic field editor for uml artifacts.<br>
+ * It displays a {@link TextBox} and update the artifact if the user hit Enter or the TextBox lose the focus <br>
+ * or cancel if the user hit Escape <br>
+ * It also supports multiple lines edition with {@link TextArea} 
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class FieldEditor {
@@ -26,24 +31,42 @@ public abstract class FieldEditor {
     protected UMLCanvas canvas;
     protected String content;
     protected TextBoxBase editField;
-
     protected int height = 0;
-
     protected boolean isMultiLine;
 
+    /**
+     * Constructor of the FieldEditor
+     *
+     * @param canvas The canvas on which is the artifact
+     * @param artifact The artifact being edited
+     */
     public FieldEditor(final UMLCanvas canvas, final UMLArtifact artifact) {
 	this.canvas = canvas;
 	this.artifact = artifact;
 	HotKeyManager.setEnabled(false);
     }
 
+    /**
+     * Setter for the {@link TextArea} height in case of multiple lines edition
+     * 
+     * @param height The height of the {@link TextArea} to set
+     */
     public void setHeightForMultiLine(final int height) {
 	this.height = height;
     }
 
+    /**
+     * This function begin the edition from the parameters
+     * 
+     * @param text The previous text, it is used as default {@link TextBox} text
+     * @param x The abscissa location of the edition {@link TextBox} 
+     * @param y The ordinate location of the edition {@link TextBox} 
+     * @param w The width of the edition {@link TextBox} 
+     * @param isItMultiLine A boolean to precise if the edition box allow multiple lines 
+     */
     public void startEdition(final String text, final int x, final int y,
-	    final int w, final boolean isitMultiLine) {
-	this.isMultiLine = isitMultiLine;
+	    final int w, final boolean isItMultiLine) {
+	this.isMultiLine = isItMultiLine;
 	if (this.isMultiLine && this.height == 0) {
 	    Log.error("Must set height for multiline editors");
 	}

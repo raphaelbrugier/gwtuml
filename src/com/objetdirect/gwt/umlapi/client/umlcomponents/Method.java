@@ -70,6 +70,11 @@ public class Method {
 	return this.returnType;
     }
 
+    /**
+     * Getter of the visibility of this method
+     * 
+     * @return The visibility of this method
+     */
     public Visibility getVisibility() {
 	return this.visibility;
     }
@@ -131,6 +136,11 @@ public class Method {
 	this.validated = validated;
     }
 
+    /**
+     * Setter for the visibility of the method
+     * 
+     * @param visibility The {@link Visibility} of this method
+     */
     public void setVisibility(final Visibility visibility) {
 	this.visibility = visibility;
     }

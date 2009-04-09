@@ -208,7 +208,7 @@ public abstract class UMLArtifact {
      */
     public void moveTo(final Point newLocation) {
 	if(!isALink()) {
-	GfxManager.getPlatform().translate(getGfxObject(), Point.substract(newLocation, getLocation()));
+	GfxManager.getPlatform().translate(getGfxObject(), Point.subtract(newLocation, getLocation()));
 	this.setLocation(newLocation);
 	}
 	else {

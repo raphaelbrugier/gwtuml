@@ -1,7 +1,28 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+/**
+ * This enumeration lists all the visibility defined in uml
+ * 
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ *
+ */
 public enum Visibility {
-    PACKAGE('~'), PRIVATE('-'), PROTECTED('#'), PUBLIC('+');
+    /**
+     * Package visibility (~) 
+     */
+    PACKAGE('~'),
+    /**
+     * Private visibility (-)
+     */
+    PRIVATE('-'),
+    /**
+     * Protected visibility (#)
+     */
+    PROTECTED('#'),
+    /**
+     * Public visibility (+)
+     */
+    PUBLIC('+');
 
     /**
      * This function convert a visibility char (+, -, #, ~) to a Visibility
@@ -33,6 +54,9 @@ public enum Visibility {
 	this.token = token;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
     @Override
     public String toString() {
 	return "" + this.token;

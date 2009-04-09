@@ -4,16 +4,47 @@ import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 
+/**
+ * This class implement a shape based algorithm to determine intersection between a line and a shape 
+ * @author Henri Darmet
+ *
+ */
 public class ShapeGeometry extends GeometryPlatform {
 
-    public int[] computeLineBounds(final int x1, final int y1,
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getLineBetweenImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)
+     */
+    @Override
+    public ArrayList<Point> getLineBetweenImpl(
+	    final UMLArtifact firstUMLArtifact,
+	    final UMLArtifact secondUMLArtifact) {
+	final int[] points = computeLineBounds(firstUMLArtifact,
+		secondUMLArtifact);
+	final ArrayList<Point> pointList = new ArrayList<Point>();
+	pointList.add(new Point(points[0], points[1]));
+	pointList.add(new Point(points[2], points[3]));
+	return pointList;
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getPointForLineImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    @Override
+    public Point getPointForLineImpl(final UMLArtifact uMLArtifact,
+	    final Point point) {
+	final int[] points = computeLineBounds(uMLArtifact, point.getX(), point
+		.getY());
+	return new Point(points[0], points[1]);
+    }
+
+    private int[] computeLineBounds(final int x1, final int y1,
 	    final int[] zone1, final int x2, final int y2) {
 	final int[] line = new int[] { x1, y1, x2, y2 };
 	final int[] segment1 = getInternalSegment(zone1, line);
 	return new int[] { segment1[2], segment1[3], x2, y2 };
     }
 
-    public int[] computeLineBounds(final int x1, final int y1,
+    private int[] computeLineBounds(final int x1, final int y1,
 	    final int[] zone1, final int x2, final int y2, final int[] zone2) {
 	final int[] line = new int[] { x1, y1, x2, y2 };
 	final int[] result = new int[] { x1, y1, x2, y2 };
@@ -30,29 +61,20 @@ public class ShapeGeometry extends GeometryPlatform {
 	return result;
     }
 
-    public int[] computeLineBounds(final UMLArtifact art1, final int x2,
+    private int[] computeLineBounds(final UMLArtifact art1, final int x2,
 	    final int y2) {
 	return computeLineBounds(art1.getCenter().getX(), art1.getCenter()
 		.getY(), art1.getOpaque(), x2, y2);
     }
 
-    public int[] computeLineBounds(final UMLArtifact art1,
+    private int[] computeLineBounds(final UMLArtifact art1,
 	    final UMLArtifact art2) {
 	return computeLineBounds(art1.getCenter().getX(), art1.getCenter()
 		.getY(), art1.getOpaque(), art2.getCenter().getX(), art2
 		.getCenter().getY(), art2.getOpaque());
     }
 
-    public float[] getIntermediatePoint(final int x1, final int y1,
-	    final int x2, final int y2, final int D) {
-	final float r = (float) Math.sqrt(((x2 - x1) * (x2 - x1) + (y2 - y1)
-		* (y2 - y1)));
-	final float xf = (x2 - x1) / r;
-	final float yf = (y2 - y1) / r;
-	return new float[] { xf * D + x1, yf * D + y1 };
-    }
-
-    public int[] getInternalSegment(final int[] shape, final int[] line) {
+    private int[] getInternalSegment(final int[] shape, final int[] line) {
 	float tlow = 0.0f;
 	float tup = 1.0f;
 	final float[] direction = new float[] { line[2] - line[0],
@@ -94,26 +116,6 @@ public class ShapeGeometry extends GeometryPlatform {
 		(int) (line[1] + direction[1] * tlow),
 		(int) (line[0] + direction[0] * tup),
 		(int) (line[1] + direction[1] * tup) };
-    }
-
-    @Override
-    public ArrayList<Point> getLineBetweenImpl(
-	    final UMLArtifact firstUMLArtifact,
-	    final UMLArtifact secondUMLArtifact) {
-	final int[] points = computeLineBounds(firstUMLArtifact,
-		secondUMLArtifact);
-	final ArrayList<Point> pointList = new ArrayList<Point>();
-	pointList.add(new Point(points[0], points[1]));
-	pointList.add(new Point(points[2], points[3]));
-	return pointList;
-    }
-
-    @Override
-    public Point getPointForLineImpl(final UMLArtifact uMLArtifact,
-	    final Point point) {
-	final int[] points = computeLineBounds(uMLArtifact, point.getX(), point
-		.getY());
-	return new Point(points[0], points[1]);
     }
 
 }

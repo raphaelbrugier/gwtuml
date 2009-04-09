@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 
 /**
+ * This class implement a linear geometric formula to determine intersection between a line and a rectangle 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
 public class LinearGeometry extends GeometryPlatform {
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getLineBetweenImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)
+     */
     @Override
     public ArrayList<Point> getLineBetweenImpl(
 	    final UMLArtifact firstUMLArtifact,
@@ -23,10 +27,13 @@ public class LinearGeometry extends GeometryPlatform {
 	return pointList;
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getPointForLineImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
     @Override
     public Point getPointForLineImpl(final UMLArtifact uMLArtifact,
 	    final Point targetCenter) {
-	final Point targetInFrameReference = Point.substract(targetCenter,
+	final Point targetInFrameReference = Point.subtract(targetCenter,
 		uMLArtifact.getLocation());
 	final Point point = Point.getOrigin();
 	final int constA = uMLArtifact.getHeight()
