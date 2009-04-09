@@ -6,7 +6,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class Relation {
+public class Relation extends UMLComponent {
     public enum RelationKind {
 	AGGREGATION("Aggregation"), ASSOCIATION("Association"), COMPOSITION(
 		"Composition"), DEPENDENCY("Dependency"), GENERALIZATION(

@@ -4,25 +4,93 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 
+/**
+ * This abstract class specialize an {@link UMLArtifact} in a link type artifact
+ * 
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ *
+ */
 public abstract class LinkArtifact extends UMLArtifact {
 
+    /**
+     * This enumeration list all the adornments that a relation could have
+     * 
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     */
     public enum LinkAdornment {
-	INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, true), NONE(Shape.UNSHAPED,
-		false), SOLID_ARROW(Shape.ARROW, true), SOLID_DIAMOND(
-		Shape.DIAMOND, true), WIRE_ARROW(Shape.ARROW, false);
+	
+	/**
+	 * No adornment -
+	 */
+	NONE(Shape.UNSHAPED, false),
+	
+	/**
+	 * A wire arrow : -&gt;
+	 */
+	WIRE_ARROW(Shape.ARROW, false),
+	
+	/**
+	 * A simple filled arrow : -|&gt;
+	 */
+	SOLID_ARROW(Shape.ARROW, true),
+	
+	/**
+	 * A filled diamond : -&lt;&gt;
+	 */
+	SOLID_DIAMOND(Shape.DIAMOND, true),
+	
+	/**
+	 * A filled diamond with foreground color : -&lt;@&gt;
+	 */
+	INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, true);
+	
+	
 
+	/**
+	 * This sub enumeration specify the global shape of the adornment
+	 *  
+	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+	 *
+	 */
 	public enum Shape {
-	    ARROW("<"), CROSS("x"), DIAMOND("<>"), UNSHAPED("");
+	    /**
+	     * Arrow type
+	     */
+	    ARROW("<"),
+	    /**
+	     * Cross type
+	     */
+	    CROSS("x"),
+	    /**
+	     * Diamond type
+	     */
+	    DIAMOND("<>"),
+	    /**
+	     * No shape
+	     */
+	    UNSHAPED("");
+	    
 	    private final String idiom;
 
 	    private Shape(final String idiom) {
 		this.idiom = idiom;
 	    }
 
+	    /**
+	     * Getter for the idiom
+	     * 
+	     * @return a string that represent the shape textually : for arrow  &lt; 
+	     */
 	    public String getIdiom() {
-		return this.idiom;
+		return getIdiom(false);
 	    }
 
+	    /**
+	     * Specific Getter for the idiom which change shape orientation between left &lt; and right &gt; 
+	     * 
+	     * @param isRight : if the shape is oriented to the right
+	     * @return a string that represent the shape textually in the right orientation : for right arrow  &gt; 
+	     */
 	    public String getIdiom(final boolean isRight) {
 		if (this.idiom.equals("<") && isRight) {
 		    return ">";
@@ -47,47 +115,81 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    this.isInverted = isInverted;
 	}
 
-	/**
+	/** Getter for the shape
 	 * @return the shape
 	 */
 	public Shape getShape() {
 	    return this.shape;
 	}
 
-	/**
-	 * @return the isCrossed
+	/** 
+	 * Determine if the shape is crossed or not
+	 * 
+	 * @return <ul>
+	 *         <li><b>True</b> if it is crossed</li>
+	 *         <li><b>False</b> otherwise</li>
+	 *         </ul>
 	 */
 	public boolean isCrossed() {
 	    return this.isCrossed;
 	}
-
-	/**
-	 * @return the isInverted
+	
+	/** 
+	 * Determine if the shape is inverted or not (ie : the fill color is the foreground color)
+	 * 
+	 * @return <ul>
+	 *         <li><b>True</b> if it is inverted</li>
+	 *         <li><b>False</b> otherwise</li>
+	 *         </ul>
 	 */
 	public boolean isInverted() {
 	    return this.isInverted;
 	}
 
-	/**
-	 * @return the isSolid
+	/** 
+	 * Determine if the shape is filled or not 
+	 * 
+	 * @return <ul>
+	 *         <li><b>True</b> if it is filled</li>
+	 *         <li><b>False</b> otherwise</li>
+	 *         </ul>
 	 */
 	public boolean isSolid() {
 	    return this.isSolid;
 	}
 
 	/**
+	 * Setter for the crossed state of the shape 
 	 * @param isCrossed
-	 *            the isCrossed to set
+	 *            <ul>
+	 *         <li><b>True</b> to make the shape crossed</li>
+	 *         <li><b>False</b> to make the shape normal</li>
+	 *         </ul>
 	 */
 	public void setCrossed(final boolean isCrossed) {
 	    this.isCrossed = isCrossed;
 	}
 
     }
-
+    /**
+     * This enumeration list all the style that a link could have
+     * 
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     */
     public enum LinkStyle {
-	DASHED(GfxStyle.DASH), LONG_DASHED(GfxStyle.LONGDASH), SOLID(
-		GfxStyle.NONE);
+	
+	/**
+	 * Dash style : - - - - - 
+	 */
+	DASHED(GfxStyle.DASH),
+	/**
+	 * Long dash style : -- -- -- -- --
+	 */
+	LONG_DASHED(GfxStyle.LONGDASH),
+	/**
+	 * Solid style : ------------ 
+	 */
+	SOLID(GfxStyle.NONE);
 
 	private final GfxStyle style;
 
@@ -95,6 +197,11 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    this.style = style;
 	}
 
+	/**
+	 * Getter for the {@link GfxStyle}
+	 * 
+	 * @return the {@link GfxStyle} to set to a line
+	 */
 	public GfxStyle getGfxStyle() {
 	    return this.style;
 	}
@@ -143,5 +250,9 @@ public abstract class LinkArtifact extends UMLArtifact {
 	return false;
     }
 
-   public abstract void removeCreatedDependency();
+   /**
+    * This method add an extra dependency removal for link <br> 
+    * to tell other artifact that they don't need to be still dependent on this line
+    */
+    public abstract void removeCreatedDependency();
 }

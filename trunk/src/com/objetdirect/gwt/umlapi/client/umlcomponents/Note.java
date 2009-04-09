@@ -3,7 +3,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class Note {
+public class Note extends UMLComponent {
 
     private String text;
 

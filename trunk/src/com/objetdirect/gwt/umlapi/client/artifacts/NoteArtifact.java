@@ -13,6 +13,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
 /**
+ * This artifact represent a note
+ * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class NoteArtifact extends BoxArtifact {
@@ -23,6 +25,11 @@ public class NoteArtifact extends BoxArtifact {
     int width;
     private final Note note;
 
+    /**
+     * Constructor of the NoteArtifact
+     * @param content 
+     * 			The text contained by the note
+     */
     public NoteArtifact(final String content) {
 	this.height = 0;
 	this.width = 0;
@@ -46,6 +53,11 @@ public class NoteArtifact extends BoxArtifact {
 
     }
 
+    /**
+     * Getter for the content
+     * 
+     * @return The content of the note
+     */
     public String getContent() {
 	return this.note.getText();
     }
@@ -113,6 +125,12 @@ public class NoteArtifact extends BoxArtifact {
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
 
+    /**
+     * Setter for the content
+     * The graphical object MUST be rebuilt to reflect the changes 
+     * 
+     * @param content The new content of the note
+     */
     public void setContent(final String content) {
 	this.note.setText(content);
     }
