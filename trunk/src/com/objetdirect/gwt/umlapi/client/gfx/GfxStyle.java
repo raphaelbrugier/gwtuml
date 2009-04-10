@@ -55,10 +55,20 @@ public final class GfxStyle {
     public static final GfxStyle SOLID = new GfxStyle("Solid");
     private final String style;
 
+    /**
+     * Constructor of the graphic style
+     *
+     * @param style The text style 
+     */
     public GfxStyle(final String style) {
 	this.style = style;
     }
 
+    /**
+     * Getter for the style text 
+     * 
+     * @return The style text
+     */
     public String getStyleString() {
 	return this.style;
     }

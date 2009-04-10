@@ -1,16 +1,15 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public class VirtualGroup extends IncubatorGfxObject {
+class VirtualGroup extends IncubatorGfxObject {
     private final Set<IncubatorGfxObject> incubatorGfxObjectSet = new HashSet<IncubatorGfxObject>();
 
     /**

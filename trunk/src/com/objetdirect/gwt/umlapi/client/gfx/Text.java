@@ -1,6 +1,6 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
-public class Text extends IncubatorGfxObject {
+class Text extends IncubatorGfxObject {
     private final String text;
 
     public Text(final String text) {

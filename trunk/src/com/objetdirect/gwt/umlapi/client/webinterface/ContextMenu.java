@@ -9,6 +9,8 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 
 /**
+ * This class manages the right click context drop menu
+ *  
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ContextMenu {
@@ -42,14 +44,23 @@ public class ContextMenu {
     private final Point location;
 
 
+    /**
+     * Constructor of ContextMenu without a specific context menu part
+     *
+     * @param location The {@link Point} location where to display it (generally the mouse coordinates)
+     * @param canvas The canvas where the actions must be called
+     */
     public ContextMenu(final Point location, final UMLCanvas canvas) {
-	this.location = location;
-	this.canvas = canvas;
-	this.specificRightMenu = null;
-	makeMenu();
+	this(location, canvas, null);
     }
-
-
+    
+    /**
+     * Constructor of ContextMenu with a specific context menu part
+     *
+     * @param location The {@link Point} location where to display it (generally the mouse coordinates)
+     * @param canvas The canvas where the actions must be called
+     * @param specificRightMenu The right menu specific to an artifact to add in this menu 
+     */
     public ContextMenu(final Point location, final UMLCanvas canvas,
 	    final MenuBarAndTitle specificRightMenu) {
 	this.location = location;
@@ -58,6 +69,10 @@ public class ContextMenu {
 	makeMenu();
     }
 
+    /**
+     * This method show the constructed context menu
+     * 
+     */
     public void show() {
 
 	this.contextMenu.setPopupPositionAndShow(new PositionCallback() {

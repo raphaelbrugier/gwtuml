@@ -1,22 +1,27 @@
 package com.objetdirect.gwt.umlapi.client.analyser;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
 
 /**
- * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @author Henri Darmet
  */
-public class TypeAnalyser extends SyntaxAnalyser {
+public class TypeAnalyzer extends SyntaxAnalyzer {
 
     String type = "";
 
+    /**
+     * Getter for the type
+     * 
+     * @return the type
+     */
     public String getType() {
 	return this.type;
     }
 
     @Override
-    protected Token processToken(final LexicalAnalyser lex, final Token tk) {
+    protected Token processToken(final LexicalAnalyzer lex, final Token tk) {
 	Token token = tk;
 
 	if (token == null) {
@@ -37,7 +42,7 @@ public class TypeAnalyser extends SyntaxAnalyser {
 	case BEGIN_TYPE_PARAMETER:
 	    if (token != null && token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals("<")) {
-		final TypeAnalyser ta = new TypeAnalyser();
+		final TypeAnalyzer ta = new TypeAnalyzer();
 		token = ta.process(lex, null);
 		this.type += "<" + ta.getType();
 		setStatus(State.END_TYPE_PARAMETER);
@@ -74,7 +79,7 @@ public class TypeAnalyser extends SyntaxAnalyser {
 		return null;
 	    }
 
-	    final TypeAnalyser ta = new TypeAnalyser();
+	    final TypeAnalyzer ta = new TypeAnalyzer();
 	    token = ta.process(lex, token);
 	    this.type += ta.getType();
 	    setStatus(State.END_TYPE_PARAMETER);

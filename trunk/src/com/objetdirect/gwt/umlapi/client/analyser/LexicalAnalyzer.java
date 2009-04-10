@@ -3,27 +3,110 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 
 /**
- * @author henri, florian
+ * A lexical analyzer
+ * @author Henri Darmet
  */
-public class LexicalAnalyser {
+
+public class LexicalAnalyzer {
+    /**
+     * Flag used by the lexical analyzer
+     * 
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     *
+     */
     public enum LexicalFlag {
-	CHAR, CHAR_DEFINED, DECIMAL, DOT_OR_DECIMAL, ESCAPED_CHAR, ESCAPED_STRING, EXPONENT, FLOAT, IDENTIFIER, INTEGER, NUMERIC, SIGN, SIGN_CONTINUED, SIGN_OR_NUMERIC, SIGNED_EXPONENT, START_DECIMAL, START_EXPONENT, STRING, UNDEFINED, VISIBILITY;
+	/**
+	 * 
+	 */
+	CHAR,
+	/**
+	 * 
+	 */
+	CHAR_DEFINED,
+	/**
+	 * 
+	 */
+	DECIMAL,
+	/**
+	 * 
+	 */
+	DOT_OR_DECIMAL,
+	/**
+	 * 
+	 */
+	ESCAPED_CHAR,
+	/**
+	 * 
+	 */
+	ESCAPED_STRING,
+	/**
+	 * 
+	 */
+	EXPONENT,
+	/**
+	 * 
+	 */
+	FLOAT,
+	/**
+	 * 
+	 */
+	IDENTIFIER,
+	/**
+	 * 
+	 */
+	INTEGER, 
+	/**
+	 * 
+	 */
+	NUMERIC, 
+	/**
+	 * 
+	 */
+	SIGN, 
+	/**
+	 * 
+	 */
+	SIGN_CONTINUED, 
+	/**
+	 * 
+	 */
+	SIGN_OR_NUMERIC, 
+	/**
+	 * 
+	 */
+	SIGNED_EXPONENT, 
+	/**
+	 * 
+	 */
+	START_DECIMAL, 
+	/**
+	 * 
+	 */
+	START_EXPONENT, 
+	/**
+	 * 
+	 */
+	STRING, 
+	/**
+	 * 
+	 */
+	UNDEFINED, 
+	/**
+	 * 
+	 */
+	VISIBILITY;
     }
 
     /**
-     * @author henri, florian
+     * @author Henri Darmet
      */
     public static class Token {
-	/**
-	 * 
-	 */
+
 	String content;
-	/**
-	 * 
-	 */
 	LexicalFlag type;
 
 	/**
+	 * Token
 	 * @param type
 	 * @param content
 	 */
@@ -33,6 +116,8 @@ public class LexicalAnalyser {
 	}
 
 	/**
+	 * Getter for the token content
+	 * 
 	 * @return the content of the token
 	 * 
 	 */
@@ -41,7 +126,10 @@ public class LexicalAnalyser {
 	}
 
 	/**
+	 * Getter for the token type
+	 * 
 	 * @return the type of the token
+	 * 
 	 * @see LexicalFlag
 	 */
 	public LexicalFlag getType() {
@@ -55,11 +143,21 @@ public class LexicalAnalyser {
 
     StringBuffer tokenStringBuffer = new StringBuffer();
 
-    public LexicalAnalyser(final String text) {
+    /**
+     * Constructor of LexicalAnalyzer
+     *
+     * @param text
+     */
+    public LexicalAnalyzer(final String text) {
 	this.text = text;
 	this.ptr = 0;
     }
 
+    /**
+     * Getter for the token
+     * 
+     * @return the token
+     */
     public Token getToken() {
 	Token token = null;
 	while (token == null) {

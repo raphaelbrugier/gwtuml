@@ -6,8 +6,8 @@ package com.objetdirect.gwt.umlapi.client.editors;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
@@ -48,12 +48,12 @@ public class AttributePartEditor extends FieldEditor {
 	    return false;
 	}
 
-	final LexicalAnalyser lex = new LexicalAnalyser(newContent);
+	final LexicalAnalyzer lex = new LexicalAnalyzer(newContent);
 	try {
 	    String type = null;
 	    String name = null;
 	    Visibility visibility = Visibility.PACKAGE;
-	    LexicalAnalyser.Token tk = lex.getToken();
+	    LexicalAnalyzer.Token tk = lex.getToken();
 	    if (tk != null && tk.getType() != LexicalFlag.VISIBILITY) {
 		visibility = Visibility.PACKAGE;
 	    } else if (tk != null) {

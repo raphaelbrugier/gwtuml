@@ -318,9 +318,9 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		    .startEdition(editPart.getText(this.relation), GfxManager
 			    .getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager
 			    .getPlatform().getLocationFor(editedGfxObject).getY()
-			    - GfxManager.getPlatform().getHeightFor(
+			    - GfxManager.getPlatform().getTextHeightFor(
 				    editedGfxObject), GfxManager.getPlatform()
-			    .getWidthFor(editedGfxObject)
+			    .getTextWidthFor(editedGfxObject)
 			    + OptionsManager.getRectangleXTotalPadding(), false);
 	}
     }
@@ -557,7 +557,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
 	Point relative_point1 = this.leftPoint;
 	Point relative_point2 = this.rightPoint;
-	final int textWidth = GfxManager.getPlatform().getWidthFor(text);
+	final int textWidth = GfxManager.getPlatform().getTextWidthFor(text);
 	if (!isLeft) {
 	    relative_point1 = this.rightPoint;
 	    relative_point2 = this.leftPoint;
@@ -590,7 +590,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	    relative_point1 = this.rightPoint;
 	    relative_point2 = this.leftPoint;
 	}
-	final int textHeight = GfxManager.getPlatform().getHeightFor(text);
+	final int textHeight = GfxManager.getPlatform().getTextHeightFor(text);
 	final int delta = this.current_delta;
 	this.current_delta += 8; // TODO : Fix Height
 	switch (getAnchorType(isLeft ? this.leftClassArtifact : this.rightClassArtifact,
@@ -711,7 +711,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	    GfxManager.getPlatform().translate(
 		    nameGfxObject, new Point(
 		    (this.leftPoint.getX() + this.rightPoint.getX() - GfxManager
-			    .getPlatform().getWidthFor(nameGfxObject)) / 2,
+			    .getPlatform().getTextWidthFor(nameGfxObject)) / 2,
 		    (this.leftPoint.getY() + this.rightPoint.getY()) / 2));
 	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject,
 		    RelationLinkArtifactPart.NAME);

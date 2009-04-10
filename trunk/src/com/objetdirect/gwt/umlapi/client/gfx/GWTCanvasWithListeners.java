@@ -1,4 +1,4 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.DOM;
@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.MouseListenerCollection;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 @SuppressWarnings("deprecation")
-public class GWTCanvasWithListeners extends GWTCanvas {
+class GWTCanvasWithListeners extends GWTCanvas {
 
     private ClickListenerCollection clickListeners;
     private MouseListenerCollection mouseListeners;
