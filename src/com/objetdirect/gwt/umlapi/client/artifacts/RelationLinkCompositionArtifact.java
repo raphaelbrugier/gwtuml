@@ -26,8 +26,10 @@ public class RelationLinkCompositionArtifact extends RelationLinkArtifact {
 	this.relation = new Relation(RelationKind.COMPOSITION);
 	this.relation.setLeftCardinality("1");
 	this.relation.setRightCardinality("0..*");
+	this.relation.setLeftSideNavigable(true);
+	this.relation.setLeftSideNavigable(true);
 	this.adornmentLeft = LinkAdornment.INVERTED_SOLID_DIAMOND;
-	this.adornmentRight = LinkAdornment.NONE;
+	this.adornmentRight = LinkAdornment.WIRE_ARROW;
 	this.style = LinkStyle.SOLID;
     }
 }

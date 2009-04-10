@@ -620,11 +620,9 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	this.gfxObjectPart.clear();
 	ArrayList<Point> linePoints = new ArrayList<Point>();
 	final boolean isComputationNeededOnLeft = this.adornmentLeft != LinkAdornment.NONE
-		|| this.adornmentLeft.isCrossed()
 		|| this.relation.getLeftCardinality() + this.relation.getLeftConstraint()
 			+ this.relation.getLeftRole() != "";
 	final boolean isComputationNeededOnRight = this.adornmentRight != LinkAdornment.NONE
-		|| this.adornmentRight.isCrossed()
 		|| this.relation.getRightCardinality()
 			+ this.relation.getRightConstraint()
 			+ this.relation.getRightRole() != "";

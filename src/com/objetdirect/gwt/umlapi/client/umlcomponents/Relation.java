@@ -67,6 +67,8 @@ public class Relation extends UMLComponent {
     private String leftRole;
     private String name;
     private RelationKind relationKind;
+    private boolean isLeftSideNavigable;
+    private boolean isRightSideNavigable;
     private String rightCardinality;
     private String rightConstraint;
     private String rightRole;
@@ -157,6 +159,42 @@ public class Relation extends UMLComponent {
      */
     public String getRightRole() {
 	return this.rightRole;
+    }
+
+    /**
+     * Getter for the left side navigability 
+     *
+     * @return True if left side is navigable
+     */
+    public boolean isLeftSideNavigable() {
+        return this.isLeftSideNavigable;
+    }
+
+    /**
+     * Getter for the right side navigability 
+     *
+     * @return True if right side is navigable
+     */
+    public boolean isRightSideNavigable() {
+        return this.isRightSideNavigable;
+    }
+
+    /**
+     * Setter for the left side navigability 
+     *
+     * @param isLeftSideNavigable Set to true if left side is navigable. False otherwise.
+     */
+    public void setLeftSideNavigable(boolean isLeftSideNavigable) {
+        this.isLeftSideNavigable = isLeftSideNavigable;
+    }
+
+    /**
+     * Setter for the right side navigability 
+     *
+     * @param isRightSideNavigable Set to true if right side is navigable. False otherwise.
+     */
+    public void setRightSideNavigable(boolean isRightSideNavigable) {
+        this.isRightSideNavigable = isRightSideNavigable;
     }
 
     /**

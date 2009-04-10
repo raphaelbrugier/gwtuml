@@ -23,6 +23,10 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 * No adornment -
 	 */
 	NONE(Shape.UNSHAPED, false),
+	/**
+	 * A cross: -x
+	 */
+	WIRE_CROSS(Shape.CROSS, false),
 	
 	/**
 	 * A wire arrow : -&gt;
@@ -99,7 +103,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    }
 	}
 
-	private boolean isCrossed;
 	private final boolean isInverted;
 	private final boolean isSolid;
 	private final Shape shape;
@@ -122,17 +125,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    return this.shape;
 	}
 
-	/** 
-	 * Determine if the shape is crossed or not
-	 * 
-	 * @return <ul>
-	 *         <li><b>True</b> if it is crossed</li>
-	 *         <li><b>False</b> otherwise</li>
-	 *         </ul>
-	 */
-	public boolean isCrossed() {
-	    return this.isCrossed;
-	}
 	
 	/** 
 	 * Determine if the shape is inverted or not (ie : the fill color is the foreground color)
@@ -156,18 +148,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 */
 	public boolean isSolid() {
 	    return this.isSolid;
-	}
-
-	/**
-	 * Setter for the crossed state of the shape 
-	 * @param isCrossed
-	 *            <ul>
-	 *         <li><b>True</b> to make the shape crossed</li>
-	 *         <li><b>False</b> to make the shape normal</li>
-	 *         </ul>
-	 */
-	public void setCrossed(final boolean isCrossed) {
-	    this.isCrossed = isCrossed;
 	}
 
     }

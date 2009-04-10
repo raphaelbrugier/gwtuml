@@ -24,8 +24,10 @@ public class RelationLinkDependencyArtifact extends RelationLinkArtifact {
 	    final ClassArtifact right) {
 	super(left, right);
 	this.relation = new Relation(RelationKind.DEPENDENCY);
+	this.relation.setLeftSideNavigable(true);
+	this.relation.setLeftSideNavigable(false);
 	this.adornmentLeft = LinkAdornment.WIRE_ARROW;
-	this.adornmentRight = LinkAdornment.NONE;
+	this.adornmentRight = LinkAdornment.WIRE_CROSS;
 	this.style = LinkStyle.DASHED;
     }
 }

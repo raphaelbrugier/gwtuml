@@ -107,7 +107,9 @@ public class OptionsManager {
     private static final int ARROW_LENGTH = 25;
     private static final int ARROW_WIDTH = 15;
     private static final int BOTTOM_RECT_PADDING = 6;
-    private static final int BOTTOM_TEXT_PADDING = 2;
+    private static final int BOTTOM_TEXT_PADDING = 2;    
+    private static final int CROSS_LENGTH = 5;
+    private static final int CROSS_WIDTH = 10;
     private static final int DIAMOND_LENGTH = 20;
     private static final int DIAMOND_WIDTH = 15;
     private static GfxFont font = new GfxFont("monospace", 10, GfxFont._NORMAL,
@@ -146,6 +148,22 @@ public class OptionsManager {
 	return ARROW_WIDTH;
     }
 
+    /**
+     * Getter for the cross length
+     *
+     * @return the cross length
+     */
+    public static final int getCrossLength() {
+        return CROSS_LENGTH;
+    }
+    /**
+     * Getter for the cross width
+     *
+     * @return the cross width
+     */
+    public static final int getCrossWidth() {
+        return CROSS_WIDTH;
+    }
     /**
      * Getter for the diamond length
      * 
