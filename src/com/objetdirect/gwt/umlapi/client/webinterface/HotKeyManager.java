@@ -8,11 +8,12 @@ import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.Window.ClosingHandler;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 
-/* Source :
- * http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
- */
+
 /**
- * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * This class is a bit hacky but allows a GWT application to have global key listeners <br>
+ * It also defines the hot keys for the drawer
+ *  
+ * @author http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results
  */
 public final class HotKeyManager {
     private static final class WindowCloseHandlerImpl implements ClosingHandler {
@@ -73,6 +74,11 @@ public final class HotKeyManager {
 	return isEnabled;
     }
 
+    /**
+     * Setter for the active canvas (the one which will receive the hot keys)
+     *  
+     * @param canvas The active {@link UMLCanvas}
+     */
     public static void setActiveCanvas(final UMLCanvas canvas) {
 	activeCanvas = canvas;
     }

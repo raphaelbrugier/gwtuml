@@ -3,11 +3,20 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 
+/** 
+ * This class is simply a class with a context sub menu component with a title for the upper level display   
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ *
+ */
 public class MenuBarAndTitle {
 
     private String name;
     private final MenuBar subMenu;
 
+    /**
+     * Constructor of {@link MenuBarAndTitle}
+     *
+     */
     public MenuBarAndTitle() {
 	this.subMenu = new MenuBar(true);
     }

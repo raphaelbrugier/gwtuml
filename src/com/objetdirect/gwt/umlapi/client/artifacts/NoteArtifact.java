@@ -160,9 +160,9 @@ public class NoteArtifact extends BoxArtifact {
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(textLine,
 		    ThemeManager.getForegroundColor());
-	    int thisLineWidth = GfxManager.getPlatform().getWidthFor(textLine);
+	    int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
 	    int thisLineHeight = GfxManager.getPlatform()
-		    .getHeightFor(textLine);
+		    .getTextHeightFor(textLine);
 
 	    GfxManager.getPlatform().translate(
 		    textLine,

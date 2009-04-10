@@ -23,14 +23,16 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawer;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.LinearGeometry;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
+import com.objetdirect.gwt.umlapi.client.gfx.GWTCanvasGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.GWTCanvasGfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.IncubatorGfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.tatami.TatamiGfxPlatfrom;
+import com.objetdirect.gwt.umlapi.client.gfx.IncubatorGfxPlatform;
+import com.objetdirect.gwt.umlapi.client.gfx.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 /**
+ * This class is the index panel displaying drawer options and logo
+ *  
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class StartPanel extends VerticalPanel {
@@ -63,6 +65,11 @@ public class StartPanel extends VerticalPanel {
     private DrawerPanel drawerPanel;
     private final LoadingScreen loadingScreen;
 
+    /**
+     * Constructor of the {@link StartPanel}
+     *
+     * @param isFromHistory
+     */
     public StartPanel(final boolean isFromHistory) {
 	instance = this;
 	this.loadingScreen = new LoadingScreen();
@@ -84,7 +91,7 @@ public class StartPanel extends VerticalPanel {
 	    public void onClick(final ClickEvent event) {
 		makeFirstDrawer();
 		History.newItem("Demo", false);
-		new Demo(StartPanel.this.drawerPanel.getGc());
+		new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
 	    }
 	});
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -100,7 +107,7 @@ public class StartPanel extends VerticalPanel {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Demo")) {
 		    makeDrawerForHistory();
-		    new Demo(StartPanel.this.drawerPanel.getGc());
+		    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
 		}
 	    }
 
@@ -140,7 +147,7 @@ public class StartPanel extends VerticalPanel {
 				Window.getClientHeight() - 50);
 			StartPanel.this.drawerPanel.clearShadow();
 			StartPanel.this.drawerPanel.makeShadow();
-			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getGc(),
+			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getUMLCanvas(),
 				Window.getClientWidth() - 50,
 				Window.getClientHeight() - 50);
 		    }
@@ -186,7 +193,7 @@ public class StartPanel extends VerticalPanel {
 	RootPanel.get().add(this);
     }
 
-    public void makeDrawerForHistory() {
+    void makeDrawerForHistory() {
 
 	UMLDrawer.clearAppRootPanel();
 	this.loadingScreen.show();
@@ -201,14 +208,14 @@ public class StartPanel extends VerticalPanel {
 	    w = 800;
 	    h = 600;
 	}
-	this.drawerPanel = new DrawerPanel(w, h);
+	this.drawerPanel = new DrawerPanel(w, h, true);
 	this.loadingScreen.hide();
 
 	UMLDrawer.addtoAppRootPanel(this.drawerPanel);
 
     }
 
-    public void makeFirstDrawer() {
+    void makeFirstDrawer() {
 	ThemeManager.setCurrentTheme(Theme.getThemeFromName(this.themeListBox
 		.getItemText(this.themeListBox.getSelectedIndex())));
 	if (this.gfxEngineListBox.getItemText(this.gfxEngineListBox.getSelectedIndex())
@@ -245,7 +252,7 @@ public class StartPanel extends VerticalPanel {
 	    w = 800;
 	    h = 600;
 	}
-	this.drawerPanel = new DrawerPanel(w, h);
+	this.drawerPanel = new DrawerPanel(w, h, true);
 
 	this.loadingScreen.hide();
 	UMLDrawer.addtoAppRootPanel(this.drawerPanel);

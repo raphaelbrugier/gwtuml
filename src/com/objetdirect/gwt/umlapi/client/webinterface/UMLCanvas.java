@@ -40,12 +40,9 @@ public class UMLCanvas extends AbsolutePanel {
      */
     private final static int FAR_AWAY = 9000;
     private static long noteCount = 0;
-    // selected
     private RelationKind activeLinking = null;
     private boolean dragOn = false; // Represent the dragging state
     private final Widget drawingCanvas; // Drawing canvas
-    private Point offset; // Represent the offset between object coordinates and mouse
-    
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 	public void mouseClicked() {
 	    // Unused
@@ -94,19 +91,22 @@ public class UMLCanvas extends AbsolutePanel {
 	    dropRightMenu(gfxObject, realPoint);
 	}
     };
+    
     private boolean isDeleting = false;
-
     private GfxObject movingLine;
     private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
     // Map of UMLArtifact with corresponding Graphical objects (group)
     private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new HashSet<UMLArtifact>();
-    private GfxObject outline = null; // Outline is used for drawing while drag
+    private Point offset; // Represent the offset between object coordinates and mouse
+    private GfxObject outline = null; // Outline is used for drawing while drag and drop
     private final HashMap<Point, GfxObject> outlineDependencies = new HashMap<Point, GfxObject>();
-    // and drop
     private UMLArtifact selected = null; // Represent the current UMLArtifact
-
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
 
+    /**
+     * Constructor of an {@link UMLCanvas} with default size 
+     *
+     */
     public UMLCanvas() {
 	Log.trace("Making Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
@@ -115,6 +115,12 @@ public class UMLCanvas extends AbsolutePanel {
 	initCanvas();
     }
 
+    /**
+     * Constructor of an {@link UMLCanvas} with the specified size 
+     *
+     * @param width The uml canvas width
+     * @param height The uml canvas height
+     */
     public UMLCanvas(final int width, final int height) {
 	Log.trace("Making " + width + " x " + height + " Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height,
@@ -123,32 +129,74 @@ public class UMLCanvas extends AbsolutePanel {
 	initCanvas();
     }
 
-    public void add(final UMLArtifact element) {
-	if (element == null) {
+    /**
+     * Add an {@link UMLArtifact} to this canvas
+     * 
+     * @param artifact The {@link UMLArtifact} to add
+     */
+    public void add(final UMLArtifact artifact) {
+	if (artifact == null) {
 	    Log.error("Adding null element to canvas");
 	    return;
 	}
 	if (isAttached()) {
-	    element.setCanvas(this);
+	    artifact.setCanvas(this);
 	    final long t = System.currentTimeMillis();
 	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas,
-		    element.initializeGfxObject(),
-		    element.getLocation());
-	    this.objects.put(element.getGfxObject(), element);
+		    artifact.initializeGfxObject(),
+		    artifact.getLocation());
+	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
-		    + element);
+		    + artifact);
 	} else {
-	    Log.trace("Canvas not attached, queuing " + element);
-	    this.objectsToBeAddedWhenAttached.add(element);
+	    Log.trace("Canvas not attached, queuing " + artifact);
+	    this.objectsToBeAddedWhenAttached.add(artifact);
 	}
     }
 
-    public void addNewClass() {
+    /**
+     * Add an {@link UMLEventListener} to this canvas
+     * 
+     * @param uMLEventListener The {@link UMLEventListener} to add to this canvas
+     */
+    public void addUMLEventListener(final UMLEventListener uMLEventListener) {
+	this.uMLEventListenerList.add(uMLEventListener);
+    }
+    /**
+     * Remove the specified artifact from the canvas 
+     * @param artifact
+     */
+    public void remove(final UMLArtifact artifact) {
+	removeRecursive(artifact);
+	if (artifact.isALink()) {
+	    ((LinkArtifact) artifact).removeCreatedDependency();
+	}
+    }
+
+     /**
+     *Remove the specified  {@link UMLEventListener} from this canvas
+     * 
+     * @param uMLEventListener The {@link UMLEventListener} to remove from this canvas
+     */
+    public void removeUMLEventListener(final UMLEventListener uMLEventListener) {
+	this.uMLEventListenerList.remove(uMLEventListener);
+    }
+
+    /**
+     * Add a new class with default values to this canvas to an invisible location (to hide it)
+     */
+    void addNewClass() {
 	addNewClass(new Point(FAR_AWAY, FAR_AWAY));
 
     }
 
-    public void addNewClass(final Point initPoint) {
+    /**
+     * Add a new class with default values to this canvas at the specified location
+     * 
+     * @param location The initial class location
+     * 
+     */
+    void addNewClass(final Point location) {
 	if (this.dragOn) {
 	    return;
 	}
@@ -156,18 +204,18 @@ public class UMLCanvas extends AbsolutePanel {
 		+ ++classCount);
 	if (fireNewArtifactEvent(newClass)) {
 	    add(newClass);
-	    newClass.moveTo(initPoint);
+	    newClass.moveTo(location);
 	    if (this.selected != null) {
 		this.selected.unselect();
 	    }
 	    select(newClass.getGfxObject());
-	    take(initPoint);
-	    drag(initPoint);
+	    take(location);
+	    drag(location);
 	    this.dragOn = true;
 	}
     }
 
-    public void addNewLink(final UMLArtifact newSelected) {
+    void addNewLink(final UMLArtifact newSelected) {
 	LinkArtifact newLink;
 	Log.info("selected " + this.selected.getClass() + " newSelected "
 		+ newSelected.getClass());
@@ -205,12 +253,12 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
 
-    public void addNewNote() {
+    void addNewNote() {
 	addNewNote(new Point(FAR_AWAY, FAR_AWAY));
 
     }
 
-    public void addNewNote(final Point initPoint) {
+    void addNewNote(final Point initPoint) {
 	if (this.dragOn) {
 	    return;
 	}
@@ -228,11 +276,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
 
-    public void addUMLEventListener(final UMLEventListener uMLEventListener) {
-	this.uMLEventListenerList.add(uMLEventListener);
-    }
-
-    public boolean fireNewArtifactEvent(final UMLArtifact umlArtifact) {
+    boolean fireNewArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
 	for (final UMLEventListener listener : this.uMLEventListenerList) {
 	    // If one is not ok then it's not ok !
@@ -243,7 +287,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     }
 
-    public boolean fireNewLinkEvent(final LinkArtifact newLink) {
+    boolean fireNewLinkEvent(final LinkArtifact newLink) {
 	boolean isThisOk = true;
 	for (final UMLEventListener listener : this.uMLEventListenerList) {
 	    isThisOk = listener.onNewLink(newLink) && isThisOk;
@@ -252,7 +296,7 @@ public class UMLCanvas extends AbsolutePanel {
 	return isThisOk;
     }
 
-    public void moveSelected(final Direction direction) {
+    void moveSelected(final Direction direction) {
 	if (this.selected != null) {
 	    this.selected.moveTo(new Point(this.selected.getLocation().getX()
 		    + OptionsManager.getMovingStep()
@@ -261,30 +305,19 @@ public class UMLCanvas extends AbsolutePanel {
 		    * direction.getYDirection()));
 	}
     }
-
-    public void remove(final UMLArtifact element) {
-	removeRecursive(element);
-	if (element.isALink()) {
-	    ((LinkArtifact) element).removeCreatedDependency();
-	}
-    }
-
-    public void removeSelected() {
+    
+    void removeSelected() {
 	if (this.selected != null) {
 	    remove(this.selected);
 	}
     }
 
-    public void removeUMLEventListener(final UMLEventListener uMLEventListener) {
-	this.uMLEventListenerList.remove(uMLEventListener);
-    }
-
-    public void setDeleteMode() {
+    void setDeleteMode() {
 	this.isDeleting = true;
 	CursorIconManager.setCursorIcon(PointerStyle.NOT_ALLOWED);
     }
 
-    public void toLinkMode(final RelationKind linkType) {
+    void toLinkMode(final RelationKind linkType) {
 	this.activeLinking = linkType;
 	CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
     }

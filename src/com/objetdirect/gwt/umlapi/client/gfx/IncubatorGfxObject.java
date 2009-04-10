@@ -1,15 +1,10 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.widgetideas.graphics.client.Color;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.CanvasBridge;
 
-/**
- * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- */
-public abstract class IncubatorGfxObject {
+
+abstract class IncubatorGfxObject {
     protected CanvasBridge canvas;
     protected Color fillColor;
     protected boolean isVisible = false;

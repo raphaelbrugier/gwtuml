@@ -1,10 +1,10 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
 
-public class Path extends IncubatorGfxObject {
+class Path extends IncubatorGfxObject {
     private class Point {
 	private final Path path;
 	private final int xp;

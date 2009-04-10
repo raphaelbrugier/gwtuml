@@ -1,7 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 /**
- * Represent a Font for text object TODO fix this class :
+ * Represent a Font for text object :
+ * 
  */
 public class GfxFont {
     /**
@@ -155,15 +156,33 @@ public class GfxFont {
     public void setSize(final int size) {
 	this.size = size;
     }
-
+    /**
+     * Sets the style of the font
+     * 
+     * @param style
+     *            style of the font
+     * 
+     */
     public void setStyle(final String style) {
 	this.style = style;
     }
-
+    /**
+     * Sets the variant of the font
+     * 
+     * @param variant
+     *            variant of the font
+     * 
+     */
     public void setVariant(final String variant) {
 	this.variant = variant;
     }
-
+    /**
+     * Sets the weight of the font
+     * 
+     * @param weight
+     *            weight of the font
+     * 
+     */
     public void setWeight(final String weight) {
 	this.weight = weight;
     }

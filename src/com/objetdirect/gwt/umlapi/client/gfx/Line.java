@@ -1,14 +1,17 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas.objects;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.allen_sauer.gwt.log.client.Log;
 
-public class Rect extends IncubatorGfxObject {
-    private int h = 0;
-    private int w = 0;
+class Line extends IncubatorGfxObject {
 
-    public Rect(final int w, final int h) {
-	this.w = w;
-	this.h = h;
+    private final int h;
+    private final int w;
+
+    public Line(final int x1, final int y1, final int x2, final int y2) {
+	this.x = x1;
+	this.y = y1;
+	this.w = x2 - x1;
+	this.h = y2 - y1;
     }
 
     @Override
@@ -32,8 +35,11 @@ public class Rect extends IncubatorGfxObject {
 	if (this.strokeWidth != 0) {
 	    this.canvas.setLineWidth(this.strokeWidth);
 	}
-	this.canvas.fillRect(getX(), getY(), this.w, this.h);
-	this.canvas.strokeRect(getX(), getY(), this.w, this.h);
+	this.canvas.beginPath();
+	this.canvas.moveTo(getX(), getY());
+	this.canvas.lineTo(getX() + this.w, getY() + this.h);
+	this.canvas.closePath();
+	this.canvas.stroke();
 	this.canvas.restoreContext();
     }
 
@@ -51,6 +57,6 @@ public class Rect extends IncubatorGfxObject {
 
     @Override
     public boolean isPointed(final int xp, final int yp) {
-	return xp > getX() && xp < getX() + this.w && yp > getY() && yp < getY() + this.h;
+	return false;
     }
 }

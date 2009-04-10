@@ -95,9 +95,9 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(methodText,
 		    ThemeManager.getForegroundColor());
-	    int thisMethodWidth = GfxManager.getPlatform().getWidthFor(
+	    int thisMethodWidth = GfxManager.getPlatform().getTextWidthFor(
 		    methodText);
-	    int thisMethodHeight = GfxManager.getPlatform().getHeightFor(
+	    int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(
 		    methodText);
 
 	    GfxManager.getPlatform().translate(
@@ -149,7 +149,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 				    + this.classArtifact.classAttributes.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
-				    - GfxManager.getPlatform().getHeightFor(
+				    - GfxManager.getPlatform().getTextHeightFor(
 					    editedGfxObject) + OptionsManager
 				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()

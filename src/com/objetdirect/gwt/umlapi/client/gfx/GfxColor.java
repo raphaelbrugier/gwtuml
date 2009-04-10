@@ -73,10 +73,25 @@ public class GfxColor {
     int g;
     int r;
 
+    /**
+     * Constructor of a color
+     *
+     * @param r Red value (0-255)
+     * @param g Green value (0-255)
+     * @param b Blue value (0-255)
+     */
     public GfxColor(final int r, final int g, final int b) {
 	this(r, g, b, 255);
     }
 
+    /**
+     * Constructor of 
+     *
+     * @param r Red value (0-255)
+     * @param g Green value (0-255)
+     * @param b Blue value (0-255)
+     * @param a Alpha (transparency) value (0-255)
+     */
     public GfxColor(final int r, final int g, final int b, final int a) {
 	this.r = r;
 	this.g = g;
@@ -84,38 +99,81 @@ public class GfxColor {
 	this.a = a;
     }
 
+    /**
+     * Getter for the Alpha value 
+     * 
+     * @return The Alpha value 
+     */
     public int getAlpha() {
 	return this.a;
     }
 
+    /**
+     * Getter for the Blue value 
+     * 
+     * @return The Blue value 
+     */
     public int getBlue() {
 	return this.b;
     }
-
+    
+    /**
+     * Getter for the Green value 
+     * 
+     * @return The Green value 
+     */
     public int getGreen() {
 	return this.g;
     }
-
+    
+    /**
+     * Getter for the Red value 
+     * 
+     * @return The Red value 
+     */
     public int getRed() {
 	return this.r;
     }
 
+    /**
+     * Setter for the Alpha value
+     * 
+     * @param a The Alpha value
+     */
     public void setAlpha(final int a) {
 	this.a = a;
     }
 
+    /**
+     * Setter for the Blue value
+     * 
+     * @param b The Blue value
+     */
     public void setBlue(final int b) {
 	this.b = b;
     }
 
+    /**
+     * Setter for the Green value
+     * 
+     * @param g The Green value
+     */
     public void setGreen(final int g) {
 	this.g = g;
     }
 
+    /**
+     * Setter for the Red value
+     * 
+     * @param r The Red value
+     */
     public void setRed(final int r) {
 	this.r = r;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
 	return "#" + Integer.toHexString(this.r) + Integer.toHexString(this.g)

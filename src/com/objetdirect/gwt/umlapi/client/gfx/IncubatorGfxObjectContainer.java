@@ -1,17 +1,15 @@
-package com.objetdirect.gwt.umlapi.client.gfx.canvas;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.canvas.objects.IncubatorGfxObject;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class IncubatorGfxObjectContainer extends GfxObject {
+class IncubatorGfxObjectContainer extends GfxObject {
     private static Map<IncubatorGfxObject, IncubatorGfxObjectContainer> incubatorGfxObjectContainerMap = new HashMap<IncubatorGfxObject, IncubatorGfxObjectContainer>();
 
     public static IncubatorGfxObjectContainer getContainerOf(

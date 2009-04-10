@@ -1,6 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
 
 /**
  * This class allows to set and access configuration values
@@ -9,23 +10,50 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  */
 public class OptionsManager {
 
+    /**
+     * This enumeration lists the available quality level for the drawer
+     * 
+     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+     *
+     */
     public enum QualityLevel {
 	
-	 VERY_HIGH("Very High", "Slow", 40),
-	 HIGH("High", "For good pc and browser", 30), 
-	 NORMAL("Normal", "Recommended for real browser", 20),
-	 LOW("Low", "For very old pc and IE users", 10);
-	 /*	 VERY_HIGH("Very High", "Slow", 40),
-	 HIGH("High", "For good pc and browser", 30), 
-	 NORMAL("Normal", "Recommended for real browser", 20),
-	 LOW("Low", "For very old pc and IE users", 10);*/
+	 /**
+	 * Highest quality level requires JIT JavaScript Compile
+	 */
+	VERY_HIGH("Very High", "Slow", 40),
+	 /**
+	 * It is the best compromise quality level available for medium to fast PCs/browsers
+	 */
+	HIGH("High", "For good pc and browser", 30), 
+	 /**
+	 * It is the normal quality, worths a try if High is slow
+	 */
+	NORMAL("Normal", "Recommended for real browser", 20),
+	 /**
+	 * Lowest quality but not so fast by the way
+	 */
+	LOW("Low", "For very old pc and IE users", 10);
 
 
+	/**
+	 * Compare two quality level and return true if the first is higher or equal than the second
+	 * 
+	 * @param q1 The first quality level
+	 * @param q2 The first quality level
+	 * @return True if the first quality level is higher or equal than the second
+	 */
 	public static boolean compare(final QualityLevel q1,
 		final QualityLevel q2) {
 	    return q1.index >= q2.index;
 	}
 
+	/**
+	 * Return a the quality level that corresponds to the String name
+	 * 
+	 * @param qualityName the String for the quality to retrieve
+	 * @return The {@link QualityLevel} corresponding to the name
+	 */
 	public static QualityLevel getQualityFromName(final String qualityName) {
 	    for (final QualityLevel qlvl : QualityLevel.values()) {
 		if (qlvl.toString().equalsIgnoreCase(qualityName)) {
@@ -50,19 +78,26 @@ public class OptionsManager {
 	}
 
 	/**
+	 * Getter for the {@link QualityLevel} description 
+	 * 
 	 * @return the description
 	 */
 	public String getDescription() {
 	    return this.description;
 	}
 
-	/**
+	/** 
+	 * Getter for the {@link QualityLevel} name
+	 *  
 	 * @return the name
 	 */
 	public String getName() {
 	    return this.name;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
 	@Override
 	public String toString() {
 	    return this.name + " (" + this.description + ")";
@@ -95,151 +130,252 @@ public class OptionsManager {
     private static final int TOP_TEXT_PADDING = 1;
 
     /**
-     * @return the aRROW_LENGTH
+     * Getter for the arrow length
+     * 
+     * @return the arrow length
      */
-    public static int getArrowLenght() {
+    public static int getArrowLength() {
 	return ARROW_LENGTH;
     }
-
     /**
-     * @return the aRROW_WIDTH
+     * Getter for the arrow width
+     * 
+     * @return the arrow width 
      */
     public static int getArrowWidth() {
 	return ARROW_WIDTH;
     }
 
     /**
-     * @return the dIAMOND_LENGTH
+     * Getter for the diamond length
+     * 
+     * @return the diamond length
      */
     public static int getDiamondLength() {
 	return DIAMOND_LENGTH;
     }
 
     /**
-     * @return the dIAMOND_WIDTH
+     * Getter for the diamond width
+     * 
+     * @return the diamond width
      */
     public static int getDiamondWidth() {
 	return DIAMOND_WIDTH;
     }
 
+    /**
+     * Getter for the application font
+     * 
+     * @return the current application font
+     */
     public static GfxFont getFont() {
 	return font;
     }
 
+    /**
+     * Getter for the artifact key moving step
+     *  
+     * @return the moving step
+     */
     public static int getMovingStep() {
 	return MOVING_STEP;
     }
 
     /**
-     * @return the nOTE_CORNER_HEIGHT
+     * Getter for the {@link Note} corner height
+     * 
+     * @return the {@link Note} corner height
      */
     public static int getNoteCornerHeight() {
 	return NOTE_CORNER_HEIGHT;
     }
 
     /**
-     * @return the nOTE_CORNER_WIDTH
+     * Getter for the {@link Note} corner width
+     * 
+     * @return the {@link Note} corner width
      */
     public static int getNoteCornerWidth() {
 	return NOTE_CORNER_WIDTH;
     }
 
     /**
-     * @return the qualityLevel
+     * Getter for the current {@link QualityLevel}
+     * 
+     * @return the current {@link QualityLevel}
      */
     public static QualityLevel getQualityLevel() {
 	return qualityLevel;
     }
 
+    /**
+     * Getter for the rectangle bottom padding
+     * 
+     * @return The rectangle bottom padding
+     */
     public static int getRectangleBottomPadding() {
 	return BOTTOM_RECT_PADDING;
     }
-
+    
+    /**
+     * Getter for the rectangle left padding
+     * 
+     * @return The rectangle left padding
+     */
     public static int getRectangleLeftPadding() {
 	return LEFT_RECT_PADDING;
     }
-
+    
+    /**
+     * Getter for the rectangle right padding
+     * 
+     * @return The rectangle right padding
+     */
     public static int getRectangleRightPadding() {
 	return RIGHT_RECT_PADDING;
     }
-
+    
+    /**
+     * Getter for the rectangle top padding
+     * 
+     * @return The rectangle top padding
+     */
     public static int getRectangleTopPadding() {
 	return TOP_RECT_PADDING;
     }
-
+    
+    /**
+     * Getter for the total rectangle horizontal padding
+     * 
+     * @return The total rectangle horizontal padding
+     */
     public static int getRectangleXTotalPadding() {
 	return RIGHT_RECT_PADDING + LEFT_RECT_PADDING;
     }
-
+    
+    /**
+     * Getter for the total rectangle vertical padding
+     * 
+     * @return The total rectangle vertical padding
+     */
     public static int getRectangleYTotalPadding() {
 	return TOP_RECT_PADDING + BOTTOM_RECT_PADDING;
     }
 
     /**
-     * @return the rEFLEXIVE_PATH_X_GAP
+     * Getter for the horizontal gap for reflexive relations
+     * 
+     * @return the horizontal gap for reflexive relations
      */
     public static int getReflexivePathXGap() {
 	return REFLEXIVE_PATH_X_GAP;
     }
 
     /**
-     * @return the rEFLEXIVE_PATH_Y_GAP
+     * Getter for the vertical gap for reflexive relations
+     * 
+     * @return the vertical gap for reflexive relations
      */
     public static int getReflexivePathYGap() {
 	return REFLEXIVE_PATH_Y_GAP;
     }
 
+    /**
+     * Getter for the application font with small caps
+     * 
+     * @return the current application font with small caps
+     */
     public static GfxFont getSmallCapsFont() {
 	return smallCapsFont;
     }
 
-    /**
-     * @return the fILLED_ARROW_LENGTH
+     /**
+     * Getter for the solid arrow length
+     * 
+     * @return the arrow length
      */
-    public static int getSolidArrowLenght() {
+    public static int getSolidArrowLength() {
 	return SOLID_ARROW_LENGTH;
     }
 
     /**
-     * @return the fILLED_ARROW_WIDTH
-     */
+    * Getter for the solid arrow width
+    * 
+    * @return the arrow width
+    */
     public static int getSolidArrowWidth() {
 	return SOLID_ARROW_WIDTH;
     }
-
+    
+    /**
+     * Getter for the text bottom padding
+     * 
+     * @return The text bottom padding
+     */
     public static int getTextBottomPadding() {
 	return BOTTOM_TEXT_PADDING;
     }
-
+    
+    /**
+     * Getter for the text left padding
+     * 
+     * @return The text left padding
+     */
     public static int getTextLeftPadding() {
 	return LEFT_TEXT_PADDING;
     }
-
+    
+    /**
+     * Getter for the text right padding
+     * 
+     * @return The text right padding
+     */
     public static int getTextRightPadding() {
 	return RIGHT_TEXT_PADDING;
     }
-
+    
+    /**
+     * Getter for the text top padding
+     * 
+     * @return The text top padding
+     */
     public static int getTextTopPadding() {
 	return TOP_TEXT_PADDING;
     }
-
+    
+    /**
+     * Getter for the total text horizontal padding
+     * 
+     * @return The total text horizontal padding
+     */
     public static int getTextXTotalPadding() {
 	return RIGHT_TEXT_PADDING + LEFT_TEXT_PADDING;
     }
-
+    
+    /**
+     * Getter for the total text vertical padding
+     * 
+     * @return The total text vertical padding
+     */
     public static int getTextYTotalPadding() {
 	return TOP_TEXT_PADDING + BOTTOM_TEXT_PADDING;
     }
 
     /**
-     * @param level
-     * @return the isAnimated
+     * Return true if the current quality level is almost the given level
+     * 
+     * @param level The level to compare with
+     * 
+     * @return True if the current quality level is almost the given level, False otherwise
      */
     public static boolean qualityLevelIsAlmost(final QualityLevel level) {
 	return QualityLevel.compare(qualityLevel, level);
     }
 
     /**
+     * Setter for the current {@link QualityLevel}
+     * 
      * @param qualityLevel
      *            the qualityLevel to set
      */

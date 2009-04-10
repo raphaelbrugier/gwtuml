@@ -5,8 +5,8 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser;
-import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyser;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
+import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
@@ -54,9 +54,9 @@ public class MethodPartEditor extends FieldEditor {
 	    return false;
 	}
 
-	final LexicalAnalyser lex = new LexicalAnalyser(newContent);
+	final LexicalAnalyzer lex = new LexicalAnalyzer(newContent);
 	try {
-	    final MethodSyntaxAnalyser ma = new MethodSyntaxAnalyser();
+	    final MethodSyntaxAnalyzer ma = new MethodSyntaxAnalyzer();
 	    ma.process(lex, null);
 	    final Method newMethod = ma.getMethod();
 	    this.methodToChange.setVisibility(newMethod.getVisibility());

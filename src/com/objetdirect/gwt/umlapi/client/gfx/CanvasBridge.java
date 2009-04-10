@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.objetdirect.gwt.umlapi.client.gfx.canvas;
+package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.MouseListener;
@@ -12,7 +12,7 @@ import com.google.gwt.widgetideas.graphics.client.Color;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public interface CanvasBridge {
+interface CanvasBridge {
 
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)

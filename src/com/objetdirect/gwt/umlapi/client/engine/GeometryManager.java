@@ -23,6 +23,7 @@ public class GeometryManager {
 
     /**
      * Setter of the current {@link GeometryPlatform} instance
+     * 
      * @param geometryPlatform The current {@link GeometryPlatform} instance to be set
      */
     public static void setPlatform(final GeometryPlatform geometryPlatform) {

@@ -4,19 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.LexicalFlag;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyser.Token;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 
 /**
- * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * A method syntax analyzer
+ * 
+ * @author Henri Darmet
  */
-public class MethodSyntaxAnalyser extends SyntaxAnalyser {
+public class MethodSyntaxAnalyzer extends SyntaxAnalyzer {
     Method method = new Method(Visibility.PUBLIC, null, null, null);
     List<Parameter> parameters = new ArrayList<Parameter>();
 
+    /**
+     * Getter for the {@link Method} 
+     * 
+     * @return The method
+     */
     public Method getMethod() {
 	return this.method;
     }
@@ -25,10 +32,13 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	this.method.setParameters(this.parameters);
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.analyser.SyntaxAnalyzer#processToken(com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer, com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token)
+     */
     @SuppressWarnings("fallthrough")
     @Override
-    protected LexicalAnalyser.Token processToken(final LexicalAnalyser lex,
-	    final LexicalAnalyser.Token tk) {
+    protected LexicalAnalyzer.Token processToken(final LexicalAnalyzer lex,
+	    final LexicalAnalyzer.Token tk) {
 	Token token = tk;
 	if (token == null) {
 	    token = lex.getToken();
@@ -80,7 +90,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		setStatus(State.BEGIN_RETURN_TYPE);
 		return null;
 	    }
-	    final ParameterAnalyser pa = new ParameterAnalyser();
+	    final ParameterAnalyzer pa = new ParameterAnalyzer();
 	    token = pa.process(lex, token);
 	    this.parameters.add(pa.getParameter());
 	    setStatus(State.END_PARAMETER);
@@ -109,7 +119,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 		return null;
 	    }
 
-	    final ParameterAnalyser parameterAnalyser = new ParameterAnalyser();
+	    final ParameterAnalyzer parameterAnalyser = new ParameterAnalyzer();
 	    token = parameterAnalyser.process(lex, token);
 	    this.parameters.add(parameterAnalyser.getParameter());
 	    setStatus(State.END_PARAMETER);
@@ -119,7 +129,7 @@ public class MethodSyntaxAnalyser extends SyntaxAnalyser {
 	    setParameters();
 	    if (token != null && token.getType() == LexicalFlag.SIGN
 		    && token.getContent().equals(":")) {
-		final TypeAnalyser ta = new TypeAnalyser();
+		final TypeAnalyzer ta = new TypeAnalyzer();
 		token = ta.process(lex, null);
 		this.method.setReturnType(ta.getType());
 		setStatus(State.FINISHED);

@@ -52,10 +52,10 @@ public abstract class GeometryPlatform {
 	case ARROW:
 	    if (adornment.isSolid()) {
 		width = OptionsManager.getSolidArrowWidth();
-		lenght = OptionsManager.getSolidArrowLenght();
+		lenght = OptionsManager.getSolidArrowLength();
 	    } else {
 		width = OptionsManager.getArrowWidth();
-		lenght = OptionsManager.getArrowLenght();
+		lenght = OptionsManager.getArrowLength();
 	    }
 	    break;
 	}

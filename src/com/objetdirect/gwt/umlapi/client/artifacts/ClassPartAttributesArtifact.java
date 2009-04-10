@@ -90,9 +90,9 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(attributeText,
 		    ThemeManager.getForegroundColor());
-	    int thisAttributeWidth = GfxManager.getPlatform().getWidthFor(
+	    int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		    attributeText);
-	    int thisAttributeHeight = GfxManager.getPlatform().getHeightFor(
+	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(
 		    attributeText);
 	    GfxManager.getPlatform().translate(
 		    attributeText, new Point(
@@ -143,7 +143,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 				    + this.classArtifact.className.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
-				    - GfxManager.getPlatform().getHeightFor(
+				    - GfxManager.getPlatform().getTextHeightFor(
 					    editedGfxObject) + OptionsManager
 				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()

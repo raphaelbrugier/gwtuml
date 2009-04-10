@@ -72,8 +72,8 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
 		    ThemeManager.getForegroundColor());
-	    this.width = GfxManager.getPlatform().getWidthFor(this.stereotypeText);
-	    this.height += GfxManager.getPlatform().getHeightFor(this.stereotypeText);
+	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
+	    this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
 
 	    GfxManager.getPlatform().translate(this.stereotypeText, new Point(
 		    OptionsManager.getTextLeftPadding(),
@@ -90,11 +90,11 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 		ThemeManager.getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
 		ThemeManager.getForegroundColor());
-	final int thisAttributeWidth = GfxManager.getPlatform().getWidthFor(
+	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
 		+ OptionsManager.getTextXTotalPadding();
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
-	this.height += GfxManager.getPlatform().getHeightFor(this.nameText);
+	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
 	GfxManager.getPlatform().translate(this.nameText, new Point(
 		OptionsManager.getTextLeftPadding(),
 		OptionsManager.getTextTopPadding() + this.height));
@@ -135,7 +135,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 		(this.classArtifact.getLocation().getY()
 			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()
 			- GfxManager.getPlatform()
-				.getHeightFor(editedGfxObject) + OptionsManager
+				.getTextHeightFor(editedGfxObject) + OptionsManager
 			.getRectangleTopPadding()), this.classWidth
 			- OptionsManager.getTextXTotalPadding()
 			- OptionsManager.getRectangleXTotalPadding(), false);
