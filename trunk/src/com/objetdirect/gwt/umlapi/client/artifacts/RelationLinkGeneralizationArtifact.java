@@ -24,6 +24,8 @@ public class RelationLinkGeneralizationArtifact extends RelationLinkArtifact {
 	    final ClassArtifact right) {
 	super(left, right);
 	this.relation = new Relation(RelationKind.GENERALIZATION);
+	this.relation.setLeftSideNavigable(true);
+	this.relation.setLeftSideNavigable(false); //TODO third state : undetermined
 	this.adornmentLeft = LinkAdornment.SOLID_ARROW;
 	this.adornmentRight = LinkAdornment.NONE;
 	this.style = LinkStyle.SOLID;

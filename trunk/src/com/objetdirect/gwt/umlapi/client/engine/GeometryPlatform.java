@@ -58,23 +58,33 @@ public abstract class GeometryPlatform {
 		lenght = OptionsManager.getArrowLength();
 	    }
 	    break;
+	case CROSS:
+		width = OptionsManager.getCrossWidth();
+		lenght = OptionsManager.getCrossLength();
+		break;
 	}
 
 	final ArrayList<Point> points = getAdornmentPoints(target, origin,
 		width, lenght);
 
 	GfxManager.getPlatform().moveTo(path, points.get(0));
-	GfxManager.getPlatform().lineTo(path, target);
-	GfxManager.getPlatform().lineTo(path, points.get(1));
-	if (adornment == LinkAdornment.WIRE_ARROW) {
-	    GfxManager.getPlatform().lineTo(path, target);
+	if(adornment == LinkAdornment.WIRE_CROSS) {
+	    GfxManager.getPlatform().lineTo(path, points.get(4)); 
+	    GfxManager.getPlatform().moveTo(path, points.get(1));
+	    GfxManager.getPlatform().lineTo(path, points.get(3));
 	} else {
-	    if (adornment.getShape() == Shape.DIAMOND) {
-		GfxManager.getPlatform().lineTo(path, points.get(2));
+	    GfxManager.getPlatform().lineTo(path, target);
+	    GfxManager.getPlatform().lineTo(path, points.get(1));
+	    if (adornment == LinkAdornment.WIRE_ARROW) {
+		GfxManager.getPlatform().lineTo(path, target);
+	    } else {
+		if (adornment.getShape() == Shape.DIAMOND) {
+		    GfxManager.getPlatform().lineTo(path, points.get(2));
+		}
+		GfxManager.getPlatform().lineTo(path, points.get(0));
 	    }
-	    GfxManager.getPlatform().lineTo(path, points.get(0));
 	}
-	GfxManager.getPlatform().setStroke(path, foreColor, 1);
+	GfxManager.getPlatform().setStroke(path, foreColor, adornment == LinkAdornment.WIRE_CROSS ? 2 : 1);
 	GfxManager.getPlatform().setFillColor(path, backColor);
 	return path;
     }
@@ -130,17 +140,17 @@ public abstract class GeometryPlatform {
 	final int halfClassWidth = classArtifact.getWidth() / 2;
 	final int halfClassHeight = classArtifact.getHeight() / 2;
 	final ArrayList<Point> pointList = new ArrayList<Point>();
-	final Point point0 = center.clone();
+	final Point point0 = center.clonePoint();
 	point0.translate(halfClassWidth, 0);
-	final Point point1 = point0.clone();
+	final Point point1 = point0.clonePoint();
 	point1.translate(OptionsManager.getReflexivePathXGap(), 0);
-	final Point point2 = point1.clone();
+	final Point point2 = point1.clonePoint();
 	point2.translate(0, -halfClassHeight
 		- OptionsManager.getReflexivePathYGap());
-	final Point point3 = point2.clone();
+	final Point point3 = point2.clonePoint();
 	point3.translate(-halfClassWidth
 		- OptionsManager.getReflexivePathXGap(), 0);
-	final Point point4 = point3.clone();
+	final Point point4 = point3.clonePoint();
 	point4.translate(0, OptionsManager.getReflexivePathYGap());
 	pointList.add(point0);
 	pointList.add(point1);
@@ -171,24 +181,23 @@ public abstract class GeometryPlatform {
 	final double yShift = width / 2. / Math.sqrt(1. + Math.pow(slope, 2));
 	final double xShift = slope * yShift;
 	final Point root = getArrowRoot(point1, xDiff, yDiff, distance, lenght);
-	final Point up = root.clone();
-	final Point down = root.clone();
-	final Point diamondTail = Point.subtract(root, Point.subtract(point1,
-		root));
-	final Point crossUp = Point
-		.subtract(up, Point.subtract(point1, root));
-	final Point crossDown = Point.subtract(down, Point.subtract(point1,
-		root));
+	final Point up = root.clonePoint();
+	final Point down = root.clonePoint();
 	up.translate(-xShift, yShift);
 	down.translate(xShift, -yShift);
-	arrowPoints.add(up);
-	arrowPoints.add(down);
-	arrowPoints.add(diamondTail);
-	arrowPoints.add(crossUp);
-	arrowPoints.add(crossDown);
+	final Point diamondTail = Point.subtract(root, Point.subtract(point1, root));
+	final Point crossUp = Point.subtract(diamondTail, Point.subtract(down, diamondTail));
+	final Point crossDown = Point.subtract(diamondTail, Point.subtract(up, diamondTail));
+	
+
+	arrowPoints.add(up); // 0
+	arrowPoints.add(down); // 1
+	arrowPoints.add(diamondTail); // 2
+	arrowPoints.add(crossUp); // 3
+	arrowPoints.add(crossDown); // 4
 	return arrowPoints;
     }
-    
+
     //         . origin
     //   \     ^
     //    \   /  \
@@ -199,7 +208,7 @@ public abstract class GeometryPlatform {
     private Point getArrowRoot(final Point target, final double xDiff,
 	    final double yDiff, final double distance, final int lenght) {
 	final double thalesConst = lenght / distance;
-	final Point root = target.clone();
+	final Point root = target.clonePoint();
 	root.translate(xDiff * thalesConst, yDiff * thalesConst);
 	return root;
     }

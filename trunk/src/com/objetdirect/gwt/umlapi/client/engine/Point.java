@@ -191,11 +191,13 @@ public class Point {
 	return this.x == point.x && this.y == point.y;
     }   
     
-    /* (non-Javadoc)
-     * @see java.lang.Object#clone()
+
+    /**
+     * Clone a point
+     * 
+     * @return The clone of this point
      */
-    @Override
-    public Point clone() {
+    public Point clonePoint() {
 	return new Point(this.x, this.y);
     }
 }
