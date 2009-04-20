@@ -3,6 +3,9 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
+
 /**
  * This class represent an uml relation between two {@link Class}es
  * 
@@ -19,36 +22,95 @@ public class Relation extends UMLComponent {
 	/**
 	 * Aggregation relation
 	 */
-	AGGREGATION("Aggregation"),	
+	AGGREGATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
 	/**
 	 * Association relation
 	 */
-	ASSOCIATION("Association"),
+	ASSOCIATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "0..*", "0..*", LinkStyle.SOLID),
 	/**
 	 * Composition relation
 	 */
-	COMPOSITION("Composition"),
+	COMPOSITION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
 	/**
 	 * Dependency relation
 	 */
-	DEPENDENCY("Dependency"),
+	DEPENDENCY("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED),
 	/**
 	 * Generalization relation
 	 */
-	GENERALIZATION("Generalization"), 
+	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.SOLID), 
 	/**
 	 * Other relation
 	 */
-	OTHER("Other"), //TODO other relations (note, class) 
+	OTHER("Other", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID), //TODO other relations (note, class) 
 	/**
 	 * Realization relation
 	 */
-	REALIZATION("Realization");
+	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.LONG_DASHED);
 
 	private String name;
-
-	private RelationKind(final String name) {
+	private LinkAdornment defaultLeftAdornment;
+	private LinkAdornment defaultRightAdornment;
+	private String defaultLeftCardinality;
+	private String defaultRightCardinality;
+	private LinkStyle defaultLinkStyle;
+	
+	private RelationKind(final String name, 
+		final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
+		final String defaultLeftCardinality, final String defaultRightCardinality,
+		final LinkStyle defaultLinkStyle) {
+	    
 	    this.name = name;
+	    this.defaultLeftAdornment = defaultLeftAdornment;
+	    this.defaultRightAdornment = defaultRightAdornment;
+	    this.defaultLeftCardinality = defaultLeftCardinality;
+	    this.defaultRightCardinality = defaultRightCardinality;
+	    this.defaultLinkStyle = defaultLinkStyle;
+	}
+
+	/**
+	 * Getter for the defaultLeftAdornment
+	 *
+	 * @return the defaultLeftAdornment
+	 */
+	public LinkAdornment getDefaultLeftAdornment() {
+	    return this.defaultLeftAdornment;
+	}
+
+	/**
+	 * Getter for the defaultRightAdornment
+	 *
+	 * @return the defaultRightAdornment
+	 */
+	public LinkAdornment getDefaultRightAdornment() {
+	    return this.defaultRightAdornment;
+	}
+
+	/**
+	 * Getter for the defaultLeftCardinality
+	 *
+	 * @return the defaultLeftCardinality
+	 */
+	public String getDefaultLeftCardinality() {
+	    return this.defaultLeftCardinality;
+	}
+
+	/**
+	 * Getter for the defaultRightCardinality
+	 *
+	 * @return the defaultRightCardinality
+	 */
+	public String getDefaultRightCardinality() {
+	    return this.defaultRightCardinality;
+	}
+
+	/**
+	 * Getter for the defaultLinkStyle
+	 *
+	 * @return the defaultLinkStyle
+	 */
+	public LinkStyle getDefaultLinkStyle() {
+	    return this.defaultLinkStyle;
 	}
 
 	/**
@@ -67,11 +129,12 @@ public class Relation extends UMLComponent {
     private String leftRole;
     private String name;
     private RelationKind relationKind;
-    private boolean isLeftSideNavigable;
-    private boolean isRightSideNavigable;
     private String rightCardinality;
     private String rightConstraint;
     private String rightRole;
+    private LinkAdornment leftAdornment;
+    private LinkAdornment rightAdornment;
+    private LinkStyle linkStyle;
 
     /**
      * Constructor of Relation
@@ -80,13 +143,52 @@ public class Relation extends UMLComponent {
      */
     public Relation(final RelationKind relationKind) {
 	this.relationKind = relationKind;
-	this.leftCardinality = "";
+	this.linkStyle = relationKind.getDefaultLinkStyle();
+	this.leftAdornment = relationKind.getDefaultLeftAdornment();
+	this.rightAdornment = relationKind.getDefaultRightAdornment();
+	this.leftCardinality = relationKind.getDefaultLeftCardinality();
+	this.rightCardinality = relationKind.getDefaultRightCardinality();
 	this.leftConstraint = "";
-	this.leftRole = "";
-	this.name = "";
-	this.rightCardinality = "";
 	this.rightConstraint = "";
+	this.leftRole = "";
 	this.rightRole = "";
+	this.name = "";
+    }
+
+    /**
+     * Getter for the link style
+     *
+     * @return the link style
+     */
+    public LinkStyle getLinkStyle() {
+        return this.linkStyle;
+    }
+
+    /**
+     * Setter for the link style
+     *
+     * @param linkStyle the link style to set
+     */
+    public void setLinkStyle(LinkStyle linkStyle) {
+        this.linkStyle = linkStyle;
+    }
+
+    /**
+     * Getter for the left adornment
+     *
+     * @return the left adornment
+     */
+    public LinkAdornment getLeftAdornment() {
+        return this.leftAdornment;
+    }
+
+    /**
+     * Getter for the right adornment
+     *
+     * @return the right adornment
+     */
+    public LinkAdornment getRightAdornment() {
+        return this.rightAdornment;
     }
 
     /**
@@ -162,39 +264,21 @@ public class Relation extends UMLComponent {
     }
 
     /**
-     * Getter for the left side navigability 
+     * Setter for the left adornment
      *
-     * @return True if left side is navigable
+     * @param leftAdornment the left adornment to set
      */
-    public boolean isLeftSideNavigable() {
-        return this.isLeftSideNavigable;
+    public void setLeftAdornment(LinkAdornment leftAdornment) {
+        this.leftAdornment = leftAdornment;
     }
 
     /**
-     * Getter for the right side navigability 
+     * Setter for the right adornment
      *
-     * @return True if right side is navigable
+     * @param rightAdornment the right adornment to set
      */
-    public boolean isRightSideNavigable() {
-        return this.isRightSideNavigable;
-    }
-
-    /**
-     * Setter for the left side navigability 
-     *
-     * @param isLeftSideNavigable Set to true if left side is navigable. False otherwise.
-     */
-    public void setLeftSideNavigable(boolean isLeftSideNavigable) {
-        this.isLeftSideNavigable = isLeftSideNavigable;
-    }
-
-    /**
-     * Setter for the right side navigability 
-     *
-     * @param isRightSideNavigable Set to true if right side is navigable. False otherwise.
-     */
-    public void setRightSideNavigable(boolean isRightSideNavigable) {
-        this.isRightSideNavigable = isRightSideNavigable;
+    public void setRightAdornment(LinkAdornment rightAdornment) {
+        this.rightAdornment = rightAdornment;
     }
 
     /**
@@ -275,6 +359,24 @@ public class Relation extends UMLComponent {
      */
     public void setRightRole(final String rightRole) {
 	this.rightRole = rightRole;
+    }
+
+    /**
+     * Reverse the current relation
+     */
+    public void reverse() {
+	LinkAdornment tempAdornment = this.leftAdornment;
+	String tempCardinality = this.leftCardinality;
+	String tempConstraint = this.leftConstraint;
+	String tempRole = this.leftRole;
+	this.leftAdornment = this.rightAdornment;
+	this.leftCardinality = this.rightCardinality;
+	this.leftConstraint = this.rightConstraint;
+	this.leftRole = this.rightRole;
+	this.rightAdornment = tempAdornment;
+	this.rightCardinality = tempCardinality;
+	this.rightConstraint = tempConstraint;
+	this.rightRole = tempRole;
     }
 
 }

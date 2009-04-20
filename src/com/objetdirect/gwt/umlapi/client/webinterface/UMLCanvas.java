@@ -241,7 +241,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	} else if (this.selected.getClass() == ClassArtifact.class
 		&& newSelected.getClass() == ClassArtifact.class) {
-	    newLink = RelationLinkArtifact.makeLinkArtifact(
+	    newLink = new RelationLinkArtifact(
 		    (ClassArtifact) newSelected, (ClassArtifact) this.selected,
 		    this.activeLinking);
 	} else {

@@ -104,8 +104,8 @@ public class ContextMenu {
 	this.contextMenu.addItem("Add new class", this.addNewClass);
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
-	for (final RelationKind relation : RelationKind.values()) {
-	    linkSubMenu.addItem(relation.getName(), addRelation(relation));
+	for (final RelationKind relationKind : RelationKind.values()) {
+	    linkSubMenu.addItem(relationKind.getName(), addRelation(relationKind));
 	}
 	this.contextMenu.addItem("Add relation", linkSubMenu);
 	this.contextMenu.addSeparator();
