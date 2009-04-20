@@ -10,15 +10,12 @@ import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkAssociationArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkDependencyArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkGeneralizationArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkRealizationArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 
 /**
  * This class is an exemple of a static contruction of a uml diagram
@@ -33,7 +30,7 @@ public class Demo extends AbsolutePanel {
      * @param uMLCanvas The {@link UMLCanvas} where to add the demo uml artifacts 
      */
     public Demo(final UMLCanvas uMLCanvas) {
-	Log.trace("Creating demo");
+	/*Log.trace("Creating demo");
 	final ClassArtifact dataManagerClass = new ClassArtifact("DataManager");
 	dataManagerClass.setLocation(new Point(500, 50));
 	uMLCanvas.add(dataManagerClass);
@@ -71,15 +68,15 @@ public class Demo extends AbsolutePanel {
 	final RelationLinkArtifact clientBusinessObject = new RelationLinkGeneralizationArtifact(
 		clientClass, businessObjectClass);
 	uMLCanvas.add(clientBusinessObject);
-	final RelationLinkArtifact clientSerializable = new RelationLinkRealizationArtifact(
+	final RelationLinkArtifact clientSerializable = new RelationLinkArtifact(
 		clientClass, serializableClass);
 	uMLCanvas.add(clientSerializable);
 	final ClassArtifact eventClass = new ClassArtifact("Event");
 	eventClass.setLocation(new Point(250, 100));
 	uMLCanvas.add(eventClass);
 
-	final RelationLinkArtifact relClientEvent = new RelationLinkAssociationArtifact(
-		clientClass, eventClass);
+	final RelationLinkArtifact relClientEvent = new RelationLinkArtifact(
+		clientClass, eventClass, RelationKind.ASSOCIATION);
 	relClientEvent.setName("client-event");
 	relClientEvent.setLeftCardinality("1");
 	relClientEvent.setRightCardinality("0..*");
@@ -134,6 +131,6 @@ public class Demo extends AbsolutePanel {
 	final LinkNoteArtifact noteDependencyLink = new LinkNoteArtifact(note,
 		clientDataManager);
 	uMLCanvas.add(noteDependencyLink);
-	Log.trace("Init demodrawer end");
+	Log.trace("Init demodrawer end");*/
     }
 }
