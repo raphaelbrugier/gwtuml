@@ -39,7 +39,7 @@ public class UMLCanvas extends AbsolutePanel {
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     private final static int FAR_AWAY = 9000;
-    private static long noteCount = 0;
+    private long noteCount;
     private RelationKind activeLinking = null;
     private boolean dragOn = false; // Represent the dragging state
     private final Widget drawingCanvas; // Drawing canvas
@@ -91,7 +91,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    dropRightMenu(gfxObject, realPoint);
 	}
     };
-    
+
     private boolean isDeleting = false;
     private GfxObject movingLine;
     private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
@@ -173,7 +173,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
 
-     /**
+    /**
      *Remove the specified  {@link UMLEventListener} from this canvas
      * 
      * @param uMLEventListener The {@link UMLEventListener} to remove from this canvas
@@ -219,19 +219,23 @@ public class UMLCanvas extends AbsolutePanel {
 	LinkArtifact newLink;
 	Log.info("selected " + this.selected.getClass() + " newSelected "
 		+ newSelected.getClass());
-	if (this.activeLinking == RelationKind.OTHER) {
+	if (this.activeLinking == RelationKind.NOTE) {
 	    if (newSelected.getClass() == NoteArtifact.class) {
 		newLink = new LinkNoteArtifact((NoteArtifact) newSelected,
 			this.selected);
 	    } else if (this.selected.getClass() == NoteArtifact.class) {
 		newLink = new LinkNoteArtifact((NoteArtifact) this.selected,
 			newSelected);
-	    } else if (newSelected.getClass().getSuperclass() == RelationLinkArtifact.class
+	    } else {
+		newLink = null;
+	    }
+	} else if (this.activeLinking == RelationKind.CLASSRELATION) {
+	    if (newSelected.getClass() == RelationLinkArtifact.class
 		    && this.selected.getClass() == ClassArtifact.class) {
 		newLink = new LinkClassRelationArtifact(
 			(ClassArtifact) this.selected,
 			(RelationLinkArtifact) newSelected);
-	    } else if (this.selected.getClass().getSuperclass() == RelationLinkArtifact.class
+	    } else if (this.selected.getClass() == RelationLinkArtifact.class
 		    && newSelected.getClass() == ClassArtifact.class) {
 		newLink = new LinkClassRelationArtifact(
 			(ClassArtifact) newSelected,
@@ -239,7 +243,8 @@ public class UMLCanvas extends AbsolutePanel {
 	    } else {
 		newLink = null;
 	    }
-	} else if (this.selected.getClass() == ClassArtifact.class
+	}
+	else if (this.selected.getClass() == ClassArtifact.class
 		&& newSelected.getClass() == ClassArtifact.class) {
 	    newLink = new RelationLinkArtifact(
 		    (ClassArtifact) newSelected, (ClassArtifact) this.selected,
@@ -262,7 +267,7 @@ public class UMLCanvas extends AbsolutePanel {
 	if (this.dragOn) {
 	    return;
 	}
-	final NoteArtifact newNote = new NoteArtifact("Note " + ++noteCount);
+	final NoteArtifact newNote = new NoteArtifact("Note " + ++this.noteCount);
 	if (fireNewArtifactEvent(newNote)) {
 	    add(newNote);
 	    newNote.moveTo(initPoint);
@@ -305,7 +310,7 @@ public class UMLCanvas extends AbsolutePanel {
 		    * direction.getYDirection()));
 	}
     }
-    
+
     void removeSelected() {
 	if (this.selected != null) {
 	    remove(this.selected);
@@ -395,9 +400,9 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 		this.outlineDependencies.clear();
 	    }
-	    
+
 	    final Point f = Point.subtract(location, this.offset);
-	    
+
 	    if (!f.equals(this.selected.getLocation())) {
 		Log.trace("Dropping at " + f + " for " + this.selected);
 		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
@@ -455,6 +460,7 @@ public class UMLCanvas extends AbsolutePanel {
 	Log.trace("Adding object listener");
 	GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas,
 		this.gfxObjectListener);
+	this.noteCount = 0;
 	Log.trace("Init canvas done");
     }
 

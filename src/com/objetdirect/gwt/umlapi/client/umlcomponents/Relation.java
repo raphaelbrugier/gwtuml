@@ -38,15 +38,19 @@ public class Relation extends UMLComponent {
 	/**
 	 * Generalization relation
 	 */
-	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.SOLID), 
-	/**
-	 * Other relation
-	 */
-	OTHER("Other", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID), //TODO other relations (note, class) 
+	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.SOLID),
 	/**
 	 * Realization relation
 	 */
-	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.LONG_DASHED);
+	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.LONG_DASHED), 
+	/**
+	 * Note relation
+	 */
+	NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+	/**
+	 * Class relation 
+	 */
+	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
 
 	private String name;
 	private LinkAdornment defaultLeftAdornment;
