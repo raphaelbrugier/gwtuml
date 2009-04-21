@@ -93,6 +93,8 @@ public class ContextMenu {
 
     private void makeMenu() {
 	this.contextMenu = new PopupMenu();
+	this.contextMenu.setAutoOpen(true);
+	this.contextMenu.setAutoHideEnabled(false);
 	if (this.specificRightMenu != null) {
 	    final MenuBar specificSubMenu = this.specificRightMenu.getSubMenu();
 

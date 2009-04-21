@@ -27,11 +27,9 @@ public class RelationLinkArtifact extends LinkArtifact {
 
     /**
      * This enumeration list all text part of a RelationLinkArtifact
+     * 
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-     */
-    /**
-     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-     *
+     * 
      */
     public enum RelationLinkArtifactPart {
 	/**
@@ -265,8 +263,10 @@ public class RelationLinkArtifact extends LinkArtifact {
      * 
      * @param left The left {@link ClassArtifact} of the relation
      * @param right The right {@link ClassArtifact} of the relation
+     * @param relationKind The kind of relation this link is.
      */
     public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind) {
+	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
 	this.relation = new Relation(relationKind);
 	this.leftClassArtifact = left;
 	left.addDependency(this, right);
@@ -297,7 +297,8 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Request an edition on a {@link RelationLinkArtifactPart}  and set if the text is empty a default text
+     * Request an edition on a {@link RelationLinkArtifactPart} and set if the text is empty a default text
+     * 
      * @param part The {@link RelationLinkArtifactPart} to edit
      */
     public void edit(final RelationLinkArtifactPart part) {

@@ -15,7 +15,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 public class LinkClassRelationArtifact extends LinkArtifact {
     ClassArtifact classArtifact;
     GfxObject line = null;
-    RelationLinkArtifact relation;
+    RelationLinkArtifact relationLinkArtifact;
 
     /**
      * Constructor of LinkClassRelationArtifact
@@ -26,14 +26,14 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	    final RelationLinkArtifact relation) {
 	this.classArtifact = classArtifact;
 	this.classArtifact.addDependency(this, relation);
-	this.relation = relation;
-	this.relation.addDependency(this, classArtifact);
+	this.relationLinkArtifact = relation;
+	this.relationLinkArtifact.addDependency(this, classArtifact);
     }
 
     @Override
     public void buildGfxObject() {
 	this.leftPoint = this.classArtifact.getCenter();
-	this.rightPoint = this.relation.getCenter();
+	this.rightPoint = this.relationLinkArtifact.getCenter();
 	this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 	GfxManager.getPlatform().setStroke(this.line,
@@ -64,7 +64,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
      @Override
     public void removeCreatedDependency() {
 	this.classArtifact.removeDependency(this);
-	this.relation.removeDependency(this);
+	this.relationLinkArtifact.removeDependency(this);
     }
 
     @Override

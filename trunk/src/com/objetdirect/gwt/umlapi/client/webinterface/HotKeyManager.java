@@ -47,8 +47,8 @@ public final class HotKeyManager {
     }
 
     /**
-     * * Can be called from your code to force installation of * the event
-     * handling hooks.
+     * This method must be called to ensure the class is statically initialized
+     * It fills up the {@link HelpManager} too.
      */
     public static void forceStaticInit() {
 	HelpManager.addHotkeyHelp("C", "Add a new class");
@@ -58,6 +58,8 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("Q", "Add a new composition");
 	HelpManager.addHotkeyHelp("D", "Add a new dependency");
 	HelpManager.addHotkeyHelp("R", "Add a new generalization");
+	HelpManager.addHotkeyHelp("T", "Add a new note link");
+	HelpManager.addHotkeyHelp("S", "Add a new class relation");
 	HelpManager.addHotkeyHelp("Del", "Add a new realization");
 	HelpManager.addHotkeyHelp("Home", "Bring this help");
 	HelpManager.addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
@@ -68,7 +70,9 @@ public final class HotKeyManager {
     }
 
     /**
-     * @return the isEnabled
+     * Getter to the current state of hotkeys
+     * 
+     * @return true if it is enabled false otherwise
      */
     public static boolean isEnabled() {
 	return isEnabled;
@@ -84,8 +88,9 @@ public final class HotKeyManager {
     }
 
     /**
-     * @param isEnabled
-     *            the isEnabled to set
+     * Set the hotkey manager state. This is used to disable hotkeys while editing for instance
+     * 
+     * @param isEnabled The status : True to activate False to disable 
      */
     public static void setEnabled(final boolean isEnabled) {
 	HotKeyManager.isEnabled = isEnabled;
@@ -121,6 +126,12 @@ public final class HotKeyManager {
 	    break;
 	case 'R':
 	    activeCanvas.toLinkMode(RelationKind.REALIZATION);
+	    break;
+	case 'T':
+	    activeCanvas.toLinkMode(RelationKind.NOTE);
+	    break;
+	case 'S':
+	    activeCanvas.toLinkMode(RelationKind.CLASSRELATION);
 	    break;
 	case KeyCodes.KEY_DELETE:
 	    activeCanvas.removeSelected();
@@ -158,7 +169,9 @@ public final class HotKeyManager {
 	// Unused
     }
 
-    /** * Prevent instantiation. */
+    /** 
+     * Prevent instantiation. 
+     */
     private HotKeyManager() {
 	// This constructor should not be called
     }
