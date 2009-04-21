@@ -6,9 +6,11 @@ gwtuml is a gwt application to easily draw UML diagrams.
 The first development step aims to a stable and user friendly class diagram drawer.
 
 Here is the current state :
+
 http://gwtuml.googlecode.com/svn/wiki/r130screenshot.PNG
 
 100 revisions before :
+
 http://gwtuml.googlecode.com/svn/wiki/r30screenshot.PNG
 
 
