@@ -46,9 +46,9 @@ public class NamePartFieldEditor extends FieldEditor {
 	    if (newContent.equals("")) {
 		((ClassPartNameArtifact) this.artifact).setStereotype(null);
 	    } else {
-		if (!(newContent.startsWith("<<") && newContent.endsWith(">>"))) {
-		    ((ClassPartNameArtifact) this.artifact).setStereotype("<<"
-			    + newContent + ">>");
+		if (!(newContent.startsWith("«") && newContent.endsWith("»"))) {
+		    ((ClassPartNameArtifact) this.artifact).setStereotype("«"
+			    + newContent + "»");
 		} else {
 		    ((ClassPartNameArtifact) this.artifact)
 			    .setStereotype(newContent);

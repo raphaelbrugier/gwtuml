@@ -40,14 +40,23 @@ public class ClassArtifact extends BoxArtifact {
     public ClassArtifact() {
 	this("Class");
     }
-
+    
     /**
-     * ClassArtifact constructor, initializes all {@link ClassPartArtifact}
+     * ClassArtifact constructor, initializes the {@link ClassArtifact} with a name and without stereotype
      * 
      * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
      */
     public ClassArtifact(final String className) {
-	this.className = new ClassPartNameArtifact(className);
+	this(className, "");
+    }
+    /**
+     * ClassArtifact constructor, initializes all {@link ClassPartArtifact}
+     * 
+     * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
+     * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
+     */
+    public ClassArtifact(final String className, final String stereotype) {
+	this.className = new ClassPartNameArtifact(className, stereotype);
 	this.classAttributes = new ClassPartAttributesArtifact();
 	this.classMethods = new ClassPartMethodsArtifact();
 
