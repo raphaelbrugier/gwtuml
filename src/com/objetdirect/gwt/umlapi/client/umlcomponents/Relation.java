@@ -38,11 +38,11 @@ public class Relation extends UMLComponent {
 	/**
 	 * Generalization relation
 	 */
-	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.SOLID),
+	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 	/**
 	 * Realization relation
 	 */
-	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.LONG_DASHED), 
+	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED), 
 	/**
 	 * Note relation
 	 */

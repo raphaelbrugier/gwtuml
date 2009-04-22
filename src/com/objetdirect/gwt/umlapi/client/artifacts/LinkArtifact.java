@@ -23,31 +23,31 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * No adornment -
 	 */
-	NONE(Shape.UNSHAPED, false),
+	NONE(Shape.UNSHAPED, false, true),
 	/**
 	 * A cross: -x
 	 */
-	WIRE_CROSS(Shape.CROSS, false),
+	WIRE_CROSS(Shape.CROSS, false, true),
 	
 	/**
 	 * A wire arrow : -&gt;
 	 */
-	WIRE_ARROW(Shape.ARROW, false),
+	WIRE_ARROW(Shape.ARROW, false, true),
 	
 	/**
 	 * A simple filled arrow : -|&gt;
 	 */
-	SOLID_ARROW(Shape.ARROW, true),
+	SOLID_ARROW(Shape.ARROW, true, false),
 	
 	/**
 	 * A filled diamond : -&lt;&gt;
 	 */
-	SOLID_DIAMOND(Shape.DIAMOND, true),
+	SOLID_DIAMOND(Shape.DIAMOND, true, false),
 	
 	/**
 	 * A filled diamond with foreground color : -&lt;@&gt;
 	 */
-	INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, true);
+	INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, false, true);
 	
 	
 
@@ -107,15 +107,18 @@ public abstract class LinkArtifact extends UMLArtifact {
 	private final boolean isInverted;
 	private final boolean isSolid;
 	private final Shape shape;
+	private final boolean isNavigabilityAdornment;
 
-	private LinkAdornment(final Shape shape, final boolean isSolid) {
-	    this(shape, isSolid, false);
+
+	private LinkAdornment(final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
+	    this(shape, isSolid, isNavigabilityAdronment, false);
 	}
 
-	private LinkAdornment(final Shape shape, final boolean isSolid,
+	private LinkAdornment(final Shape shape, final boolean isSolid, final boolean isNavigabilityAdornment,
 		final boolean isInverted) {
 	    this.shape = shape;
 	    this.isSolid = isSolid;
+	    this.isNavigabilityAdornment = isNavigabilityAdornment;
 	    this.isInverted = isInverted;
 	}
 
@@ -139,6 +142,17 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    return this.isInverted;
 	}
 
+	/**
+	 * Determine if the adornment is a navigability adornment : &gt; x or none
+	 * 
+	 * @return <ul>
+	 *         <li><b>True</b> if the adornment is a navigability one</li>
+	 *         <li><b>False</b> otherwise</li>
+	 *         </ul>
+	 */
+	public boolean isNavigabilityAdornment() {
+	    return this.isNavigabilityAdornment;
+	}
 	/** 
 	 * Determine if the shape is filled or not 
 	 * 
