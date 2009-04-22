@@ -162,14 +162,17 @@ public class UMLCanvas extends AbsolutePanel {
     public void addUMLEventListener(final UMLEventListener uMLEventListener) {
 	this.uMLEventListenerList.add(uMLEventListener);
     }
+
     /**
      * Remove the specified artifact from the canvas 
-     * @param artifact
+     * @param umlArtifact
      */
-    public void remove(final UMLArtifact artifact) {
-	removeRecursive(artifact);
-	if (artifact.isALink()) {
-	    ((LinkArtifact) artifact).removeCreatedDependency();
+    public void remove(final UMLArtifact umlArtifact) {
+	if(fireDeleteArtifactEvent(umlArtifact)) {
+	    removeRecursive(umlArtifact);
+	    if (umlArtifact.isALink()) {
+		((LinkArtifact) umlArtifact).removeCreatedDependency();
+	    }
 	}
     }
 
@@ -253,7 +256,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    newLink = null;
 	}
 
-	if (newLink != null && fireNewLinkEvent(newLink)) {
+	if (newLink != null && fireNewArtifactEvent(newLink)) {
 	    add(newLink);
 	}
     }
@@ -289,15 +292,34 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 	Log.trace("New Artifact event fired. Status : " + isThisOk);
 	return isThisOk;
-
     }
-
-    boolean fireNewLinkEvent(final LinkArtifact newLink) {
+    
+    boolean fireEditArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
 	for (final UMLEventListener listener : this.uMLEventListenerList) {
-	    isThisOk = listener.onNewLink(newLink) && isThisOk;
+	    // If one is not ok then it's not ok !
+	    isThisOk = listener.onEditUMLArtifact(umlArtifact) && isThisOk;
 	}
-	Log.trace("New Link event fired. Status : " + isThisOk);
+	Log.trace("New Artifact event fired. Status : " + isThisOk);
+	return isThisOk;
+    }    
+
+    boolean fireDeleteArtifactEvent(final UMLArtifact umlArtifact) {
+	boolean isThisOk = true;
+	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	    // If one is not ok then it's not ok !
+	    isThisOk = listener.onDeleteUMLArtifact(umlArtifact) && isThisOk;
+	}
+	Log.trace("Delete artifact event fired. Status : " + isThisOk);
+	return isThisOk;
+    }
+
+    boolean fireLinkKindChange(final LinkArtifact newLink, final RelationKind oldKind, final RelationKind newKind) {
+	boolean isThisOk = true;
+	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	    isThisOk = listener.onLinkKindChange(newLink, oldKind, newKind) && isThisOk;
+	}
+	Log.trace("Link kind chage event fired. Status : " + isThisOk);
 	return isThisOk;
     }
 
@@ -308,6 +330,9 @@ public class UMLCanvas extends AbsolutePanel {
 		    * direction.getXDirection(), this.selected.getLocation().getY()
 		    + OptionsManager.getMovingStep()
 		    * direction.getYDirection()));
+	    this.selected.rebuildGfxObject();
+	    this.selected.select();
+
 	}
     }
 
@@ -408,6 +433,7 @@ public class UMLCanvas extends AbsolutePanel {
 		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 		this.selected.moveTo(f);
 		this.selected.rebuildGfxObject();
+		this.selected.select();
 	    }
 
 	}
@@ -427,10 +453,12 @@ public class UMLCanvas extends AbsolutePanel {
 
     private void editItem(final GfxObject gfxObject) {
 	Log.trace("Edit request on " + gfxObject);
-	final UMLArtifact elem = getUMLArtifact(gfxObject);
-	if (elem != null) {
-	    Log.trace("Edit started on " + elem);
-	    elem.edit(gfxObject);
+	final UMLArtifact uMLArtifact = getUMLArtifact(gfxObject);
+	if (uMLArtifact != null) {
+	    Log.trace("Edit started on " + uMLArtifact);
+	    if(fireEditArtifactEvent(uMLArtifact)) {
+		uMLArtifact.edit(gfxObject);
+	    }
 	}
     }
 

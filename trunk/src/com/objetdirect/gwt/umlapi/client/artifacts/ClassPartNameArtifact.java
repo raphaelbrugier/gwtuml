@@ -24,14 +24,23 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     private GfxObject nameText;
     private String stereotype;
     private GfxObject stereotypeText;
-
     /**
-     * Constructor of ClassPartNameArtifact
+     * Constructor of ClassPartNameArtifact with only class name
      * 
      * @param className The name of the class
      */
     public ClassPartNameArtifact(final String className) {
+	this(className, "");
+    }
+    /**
+     * Constructor of ClassPartNameArtifact with class name and stereotype
+     * 
+     * @param className The name of the class
+     * @param stereotype The stereotype associated with the class
+     */
+    public ClassPartNameArtifact(final String className, final String stereotype) {
 	this.className = className;
+	this.stereotype = stereotype;
 	this.height = 0;
 	this.width = 0;
     }
@@ -62,7 +71,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	this.width = 0;
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
-	if (this.stereotype != null) {
+	if (this.stereotype != null && this.stereotype != "") {
 	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype);
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    this.stereotypeText);
@@ -99,9 +108,11 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 		OptionsManager.getTextLeftPadding(),
 		OptionsManager.getTextTopPadding() + this.height));
 	this.height += OptionsManager.getTextYTotalPadding();
-
+	if(this.stereotypeText != null) GfxManager.getPlatform().translate(this.stereotypeText, new Point((this.width - OptionsManager.getTextXTotalPadding() - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText))/2,0));
 	this.width += OptionsManager.getRectangleXTotalPadding();
 	this.height += OptionsManager.getRectangleYTotalPadding();
+	
+	
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
 		+ this.width + "x" + this.height);
     }
@@ -109,7 +120,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     @Override
     public void edit() {
 	if (this.stereotype == null) {
-	    this.stereotype = "<<Abstract>>";
+	    this.stereotype = "«Abstract»";
 	    this.classArtifact.rebuildGfxObject();
 	    edit(this.stereotypeText);
 	} else {

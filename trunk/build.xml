@@ -37,6 +37,7 @@
         <path refid="project.class.path"/>
       </classpath>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xss16M"/>
       <jvmarg value="-Xmx256M"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
@@ -72,7 +73,7 @@
     </java>
   </target>
 
-  <target name="build" depends="gwtc" description="Build this project" />
+  <target name="build" depends="javadoc,gwtc" description="Build this project" />
 
   <target name="war" depends="build" description="Create a war file">
     <zip destfile="UMLDrawer.war" basedir="war"/>
