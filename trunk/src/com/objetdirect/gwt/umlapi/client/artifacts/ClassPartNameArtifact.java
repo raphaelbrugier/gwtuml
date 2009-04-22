@@ -40,7 +40,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
      */
     public ClassPartNameArtifact(final String className, final String stereotype) {
 	this.className = className;
-	this.stereotype = stereotype;
+	this.stereotype = stereotype == "" ? "" : "«" + stereotype + "»";
 	this.height = 0;
 	this.width = 0;
     }
@@ -120,7 +120,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     @Override
     public void edit() {
 	if (this.stereotype == null) {
-	    this.stereotype = "«Abstract»";
+	    this.stereotype = "Abstract";
 	    this.classArtifact.rebuildGfxObject();
 	    edit(this.stereotypeText);
 	} else {
@@ -136,7 +136,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 		this, isTheStereotype);
 	String edited;
 	if (isTheStereotype) {
-	    edited = this.stereotype;
+	    edited = this.stereotype.replaceAll("»", "").replaceAll("«", "");
 	} else {
 	    edited = this.className;
 	}

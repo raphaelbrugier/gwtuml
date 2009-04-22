@@ -444,7 +444,18 @@ public class RelationLinkArtifact extends LinkArtifact {
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
 		ThemeManager.getHighlightedForegroundColor(), 2);
     }
-
+    /**
+     * Setter for the left and right cardinalities in {@link Relation}
+     * This does not update the graphical object
+     * 
+     * @param leftCardinality The left cardinality text to be set
+     * @param rightCardinality The right cardinality text to be set
+     */
+    public void setCardinalities(final String leftCardinality, final String rightCardinality) {
+	this.relation.setLeftCardinality(leftCardinality);
+	this.relation.setRightCardinality(rightCardinality);
+    }
+    
     /**
      * Setter for the leftCardinality in {@link Relation}
      * This does not update the graphical object
@@ -484,7 +495,52 @@ public class RelationLinkArtifact extends LinkArtifact {
     public void setName(final String name) {
 	this.relation.setName(name);
     }
-
+    
+    /**
+     * Reset the navigability of the left side to unknown <br />
+     * The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing
+     */
+    public void resetLeftNavigability() {
+	if(this.relation.getLeftAdornment().isNavigabilityAdornment()) {
+	    this.relation.setLeftAdornment(LinkAdornment.NONE);
+	}
+    }
+    /**
+     * Reset the navigability of the right side to unknown <br />
+     * The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing
+     */
+    public void resetRightNavigability() {
+	if(this.relation.getRightAdornment().isNavigabilityAdornment()) {
+	    this.relation.setRightAdornment(LinkAdornment.NONE);
+	}
+    }
+    /**
+     * Set the state of left navigability <br /> 
+     * The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
+     * To set the unknown state see {@link RelationLinkArtifact#resetLeftNavigability()}
+     * 
+     * @param isNavigable If true set the link's side to navigable otherwise set it to NOT navigable
+     * 
+     */
+    public void setLeftNavigability(final boolean isNavigable) {
+	if(this.relation.getLeftAdornment().isNavigabilityAdornment()) {
+	    this.relation.setLeftAdornment(isNavigable ? LinkAdornment.WIRE_ARROW : LinkAdornment.WIRE_CROSS);
+	}
+	
+    }
+    /**
+     * Set the state of right navigability <br /> 
+     * The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
+     * To set the unknown state see {@link RelationLinkArtifact#resetRightNavigability()}
+     * 
+     * @param isNavigable If true set the link's side to navigable otherwise set it to NOT navigable
+     * 
+     */
+    public void setRightNavigability(final boolean isNavigable) {
+	if(this.relation.getRightAdornment().isNavigabilityAdornment()) {
+	    this.relation.setRightAdornment(isNavigable ? LinkAdornment.WIRE_ARROW : LinkAdornment.WIRE_CROSS);
+	}
+    }
     /**
      * Setter of a part text
      * @param part The {@link RelationLinkArtifactPart} in which the text is to be updated 
@@ -846,4 +902,5 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    }
 	};
     }
+
 }
