@@ -149,7 +149,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 				.getTextHeightFor(editedGfxObject) + OptionsManager
 			.getRectangleTopPadding()), this.classWidth
 			- OptionsManager.getTextXTotalPadding()
-			- OptionsManager.getRectangleXTotalPadding(), false);
+			- OptionsManager.getRectangleXTotalPadding(), false, false);
     }
 
     /**

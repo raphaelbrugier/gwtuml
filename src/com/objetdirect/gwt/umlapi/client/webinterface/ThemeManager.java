@@ -157,7 +157,8 @@ public class ThemeManager {
      * @param theme The theme to sets current
      */
     public static void setCurrentTheme(final Theme theme) {
-	current_theme = theme;
+	if(theme == null) current_theme = Theme.NORMAL;
+	else current_theme = theme;
     }
     
     /**

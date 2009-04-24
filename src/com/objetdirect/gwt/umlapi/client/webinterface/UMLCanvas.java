@@ -1,8 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -43,6 +46,7 @@ public class UMLCanvas extends AbsolutePanel {
     private RelationKind activeLinking = null;
     private boolean dragOn = false; // Represent the dragging state
     private final Widget drawingCanvas; // Drawing canvas
+
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 	public void mouseClicked() {
 	    // Unused
@@ -96,13 +100,32 @@ public class UMLCanvas extends AbsolutePanel {
     private GfxObject movingLine;
     private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
     // Map of UMLArtifact with corresponding Graphical objects (group)
-    private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new HashSet<UMLArtifact>();
+    private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
     private Point offset; // Represent the offset between object coordinates and mouse
     private GfxObject outline = null; // Outline is used for drawing while drag and drop
     private final HashMap<Point, GfxObject> outlineDependencies = new HashMap<Point, GfxObject>();
     private UMLArtifact selected = null; // Represent the current UMLArtifact
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
+    private class ClassPair {
+	ClassArtifact c1;
+	ClassArtifact c2;
+	
+	private ClassPair(ClassArtifact c1, ClassArtifact c2) {
+	    this.c1 = c1;
+	    this.c2 = c2;
+	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+	    ClassPair cp = (ClassPair) obj;
+	    return ((this.c1 == cp.c1) && (this.c2 == cp.c2)) || ((this.c1 == cp.c2) && (this.c2 == cp.c1));
+	}
+    }
+    private final ArrayList<ClassPair> classRelations = new ArrayList<ClassPair>();
+    
     /**
      * Constructor of an {@link UMLCanvas} with default size 
      *
@@ -113,6 +136,7 @@ public class UMLCanvas extends AbsolutePanel {
 	setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH,
 		GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	initCanvas();
+	
     }
 
     /**
@@ -148,8 +172,9 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
 		    + artifact);
+	    if(artifact.getClass() == RelationLinkArtifact.class) this.classRelations.add(new ClassPair(((RelationLinkArtifact) artifact).getLeftClassArtifact(), ((RelationLinkArtifact) artifact).getRightClassArtifact()));
 	} else {
-	    Log.trace("Canvas not attached, queuing " + artifact);
+	    Log.debug("Canvas not attached, queuing " + artifact);
 	    this.objectsToBeAddedWhenAttached.add(artifact);
 	}
     }
@@ -249,9 +274,9 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 	else if (this.selected.getClass() == ClassArtifact.class
 		&& newSelected.getClass() == ClassArtifact.class) {
-	    newLink = new RelationLinkArtifact(
-		    (ClassArtifact) newSelected, (ClassArtifact) this.selected,
-		    this.activeLinking);
+	    ClassPair cp = new ClassPair((ClassArtifact) newSelected, (ClassArtifact) this.selected);
+	    int index = Collections.frequency(this.classRelations, cp);
+	    newLink = new RelationLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) this.selected, this.activeLinking, index);
 	} else {
 	    newLink = null;
 	}
@@ -322,6 +347,9 @@ public class UMLCanvas extends AbsolutePanel {
 	Log.trace("Link kind chage event fired. Status : " + isThisOk);
 	return isThisOk;
     }
+    Widget getDrawingCanvas() {
+        return this.drawingCanvas;
+    }
 
     void moveSelected(final Direction direction) {
 	if (this.selected != null) {
@@ -363,6 +391,7 @@ public class UMLCanvas extends AbsolutePanel {
 	super.onLoad();
 	Log.trace("Loading");
 	for (final UMLArtifact elementNotAdded : this.objectsToBeAddedWhenAttached) {
+	    Log.debug("Adding queued " + elementNotAdded);
 	    elementNotAdded.setCanvas(this);
 	    final long t = System.currentTimeMillis();
 	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas,

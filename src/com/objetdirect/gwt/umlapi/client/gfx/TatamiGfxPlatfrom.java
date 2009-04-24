@@ -231,7 +231,13 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)
      */
     public void moveTo(final GfxObject gfxO, final Point location) {
-	((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(location.getX(), location.getY());
+	((Path) getTatamiGraphicalObjectFrom(gfxO)).moveTo(pointConverter(location));
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    public void curveTo(final GfxObject gfxO, final Point location, final Point control) {
+	((Path) getTatamiGraphicalObjectFrom(gfxO)).qCurveTo(pointConverter(control), pointConverter(location));
     }
 
     /* (non-Javadoc)
@@ -346,5 +352,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     private GraphicObject getTatamiGraphicalObjectFrom(final GfxObject gfxO) {
 	return ((TatamiGfxObjectContainer) gfxO).getGraphicObject();
     }
-
+    private com.objetdirect.tatami.client.gfx.Point pointConverter(Point p) {
+	return new com.objetdirect.tatami.client.gfx.Point(p.getX(), p.getY());
+    }
 }

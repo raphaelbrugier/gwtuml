@@ -89,7 +89,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    methodText);
 	    GfxManager.getPlatform().setFont(methodText,
-		    OptionsManager.getFont());
+		    OptionsManager.getSmallFont());
 
 	    GfxManager.getPlatform().setStroke(methodText,
 		    ThemeManager.getBackgroundColor(), 0);
@@ -154,7 +154,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
-					    .getRectangleXTotalPadding(), false);
+					    .getRectangleXTotalPadding(), false, true);
 	}
     }
 

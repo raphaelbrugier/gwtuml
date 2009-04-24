@@ -49,7 +49,7 @@ public class NoteArtifact extends BoxArtifact {
 		+ OptionsManager.getTextYTotalPadding()
 		+ OptionsManager.getRectangleTopPadding(), this.width
 		- OptionsManager.getTextXTotalPadding()
-		- OptionsManager.getRectangleXTotalPadding(), true);
+		- OptionsManager.getRectangleXTotalPadding(), true, false);
 
     }
 
@@ -155,7 +155,7 @@ public class NoteArtifact extends BoxArtifact {
 		    noteLine);
 	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
 	    GfxManager.getPlatform()
-		    .setFont(textLine, OptionsManager.getFont());
+		    .setFont(textLine, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().setStroke(textLine,
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(textLine,

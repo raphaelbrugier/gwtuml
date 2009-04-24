@@ -114,6 +114,8 @@ public class OptionsManager {
     private static final int DIAMOND_WIDTH = 15;
     private static GfxFont font = new GfxFont("monospace", 10, GfxFont._NORMAL,
 	    GfxFont._NORMAL, GfxFont._NORMAL);
+    private static GfxFont smallFont = new GfxFont("monospace", 8, GfxFont._NORMAL,
+	    GfxFont._NORMAL, GfxFont._NORMAL);
     private static final int LEFT_RECT_PADDING = 4;
     private static final int LEFT_TEXT_PADDING = 1;
     private static final int MOVING_STEP = 20;
@@ -189,6 +191,15 @@ public class OptionsManager {
      */
     public static GfxFont getFont() {
 	return font;
+    }
+    
+    /**
+     * Getter for the application small font
+     * 
+     * @return the current application small font
+     */
+    public static GfxFont getSmallFont() {
+	return smallFont;
     }
 
     /**

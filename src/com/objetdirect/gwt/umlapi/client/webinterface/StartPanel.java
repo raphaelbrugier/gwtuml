@@ -141,15 +141,18 @@ public class StartPanel extends VerticalPanel {
 	    public void onResize(final ResizeEvent arg0) {
 		if (StartPanel.this.isResolutionAutoChkBox.getValue()) {
 		    if (StartPanel.this.drawerPanel != null) {
-			StartPanel.this.drawerPanel.setWidth(Window.getClientWidth() - 50);
-			StartPanel.this.drawerPanel.setHeight(Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50,
-				Window.getClientHeight() - 50);
+			Log.debug("Resizing to " + (Window.getClientWidth() - 50) + "x" + (Window.getClientHeight() - 50));
+                        StartPanel.this.drawerPanel.setWidth(Window.getClientWidth() - 50);
+                        StartPanel.this.drawerPanel.setHeight(Window.getClientHeight() - 50);
+			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);
+			
+			StartPanel.this.drawerPanel.getUMLCanvas().setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);
 			StartPanel.this.drawerPanel.clearShadow();
 			StartPanel.this.drawerPanel.makeShadow();
-			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getUMLCanvas(),
+			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getUMLCanvas().getDrawingCanvas(),
 				Window.getClientWidth() - 50,
 				Window.getClientHeight() - 50);
+			
 		    }
 		}
 	    }
@@ -190,7 +193,13 @@ public class StartPanel extends VerticalPanel {
 	this.add(this.qualityPanel);
 
 	this.loadingScreen.hide();
-	RootPanel.get().add(this);
+	if(History.getToken().equals("Demo")) {
+	    makeFirstDrawer();
+	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
+	} else {	
+	    RootPanel.get().add(this);
+	}
+	
     }
 
     void makeDrawerForHistory() {

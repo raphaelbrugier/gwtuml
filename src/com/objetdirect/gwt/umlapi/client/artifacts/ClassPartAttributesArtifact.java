@@ -85,7 +85,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    attributeText);
 	    GfxManager.getPlatform().setFont(attributeText,
-		    OptionsManager.getFont());
+		    OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().setStroke(attributeText,
 		    ThemeManager.getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(attributeText,
@@ -148,7 +148,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 				    .getRectangleTopPadding()), this.classWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
-					    .getRectangleXTotalPadding(), false);
+					    .getRectangleXTotalPadding(), false, true);
 	}
     }
 

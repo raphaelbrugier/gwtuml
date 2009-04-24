@@ -382,5 +382,10 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 	    final GfxObject gfxO) {
 	return ((IncubatorGfxObjectContainer) gfxO).getGraphicObject();
     }
-
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    public void curveTo(GfxObject gfxObject, Point location, Point control) {
+	lineTo(gfxObject, location);
+    }
 }
