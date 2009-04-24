@@ -44,11 +44,11 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 		if (x < 0) {
 		    gfxObjectListener.mouseRightClickPressed(
 			    IncubatorGfxObjectContainer
-				    .getPointedObject(-x, -y), -x, -y);
+				    .getPointedObject(-x, -y), new Point(-x, -y), null);
 		} else {
 		    gfxObjectListener.mouseLeftClickPressed(
 			    IncubatorGfxObjectContainer.getPointedObject(x, y),
-			    x, y);
+			    new Point(x, y), null);
 		}
 	    }
 
@@ -79,7 +79,7 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 	     */
 	    public void onMouseMove(final Widget sender, final int x,
 		    final int y) {
-		gfxObjectListener.mouseMoved(x, y);
+		gfxObjectListener.mouseMoved(new Point(x, y), null);
 	    }
 
 	    /* (non-Javadoc)
@@ -90,10 +90,10 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 		if (x < 0) {
 		    gfxObjectListener.mouseDblClicked(
 			    IncubatorGfxObjectContainer
-				    .getPointedObject(-x, -y), -x, -y);
+				    .getPointedObject(-x, -y), new Point(-x, -y), null);
 		} else {
 		    gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer
-			    .getPointedObject(x, y), x, y);
+			    .getPointedObject(x, y), new Point(x, y), null);
 		}
 	    }
 	};
@@ -102,7 +102,7 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 	     * @see com.google.gwt.user.client.ui.ClickListener#onClick(com.google.gwt.user.client.ui.Widget)
 	     */
 	    public void onClick(final Widget sender) {
-		gfxObjectListener.mouseClicked();
+		gfxObjectListener.mouseClicked(null);
 	    }
 	};
 	canvasBridge.addMouseListener(mouseListener);
