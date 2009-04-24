@@ -160,6 +160,15 @@ public abstract class GeometryPlatform {
 	return pointList;
     }
 
+    /**
+     * Get a point shifted orthogonally from the center of the line between point1 and point2 <br />
+     * It is used to draw quadratic Bezier curve for links
+     * 
+     * @param point1 First line {@link Point}
+     * @param point2 Second line {@link Point}
+     * @param shift Value of the shift between the returned {@link Point} and the center 
+     * @return The center shifted {@link Point}
+     */
     public Point getShiftedCenter(final Point point1,
 	    final Point point2, final int shift) {
 	double xDiff = point2.getX() - point1.getX();

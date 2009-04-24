@@ -1,16 +1,15 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -48,68 +47,62 @@ public class UMLCanvas extends AbsolutePanel {
     private final Widget drawingCanvas; // Drawing canvas
 
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
-	public void mouseClicked() {
-	    // Unused
+	public void mouseClicked(final Event event) {
+	    //Unused yet
 	}
 
-	public void mouseDblClicked(final GfxObject gfxObject, final int x,
-		final int y) {
+	public void mouseDblClicked(final GfxObject gfxObject, final Point location, final Event event) {
 	    editItem(gfxObject);
 	}
 
-	public void mouseLeftClickPressed(final GfxObject gfxObject,
-		final int x, final int y) {
-	    final Point realPoint = convertToRealPoint(x, y);
-	    if (UMLCanvas.this.outline == null) {
-		select(gfxObject);
-		if (UMLCanvas.this.selected != null && UMLCanvas.this.selected.isDraggable()) {
-		    take(realPoint);
-		    UMLCanvas.this.dragOn = true;
-		}
+	public void mouseLeftClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
+	    final Point realPoint = convertToRealPoint(location);
+	    if (UMLCanvas.this.dragOn == false) {
+		select(gfxObject, event.getCtrlKey(), event.getShiftKey());
+		UMLCanvas.this.dragOn = true;
+		UMLCanvas.this.dragOffset = realPoint.clonePoint();
 	    }
 	}
 
-	public void mouseMoved(final int x, final int y) {
-	    final Point realPoint = convertToRealPoint(x, y);
+	public void mouseMoved(final Point location, final Event event) {
+	    final Point realPoint = convertToRealPoint(location);
 	    if (UMLCanvas.this.dragOn) {
 		drag(realPoint);
 	    }
-	    if (UMLCanvas.this.activeLinking != null && UMLCanvas.this.selected != null) {
+	    if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
 		animateLinking(realPoint);
 
 	    }
 	}
 
-	public void mouseReleased(final GfxObject gfxObject, final int x,
-		final int y) {
-	    final Point realPoint = convertToRealPoint(x, y);
+	public void mouseReleased(final GfxObject gfxObject, final Point location, final Event event) {
+	    final Point realPoint = convertToRealPoint(location);
 	    if (UMLCanvas.this.dragOn) {
 		drop(realPoint);
 	    }
+	    unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
 	    UMLCanvas.this.dragOn = false;
 	}
 
-	public void mouseRightClickPressed(final GfxObject gfxObject,
-		final int x, final int y) {
-	    final Point realPoint = convertToRealPoint(x, y);
+	public void mouseRightClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
+	    final Point realPoint = convertToRealPoint(location);
 	    dropRightMenu(gfxObject, realPoint);
 	}
     };
 
-    private boolean isDeleting = false;
-    private GfxObject movingLine;
-    private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();
-    // Map of UMLArtifact with corresponding Graphical objects (group)
+    private final ArrayList<GfxObject> movingLines = new ArrayList<GfxObject>();
+    private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();    // Map of UMLArtifact with corresponding Graphical objects (group)
     private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
-    private Point offset; // Represent the offset between object coordinates and mouse
-    private GfxObject outline = null; // Outline is used for drawing while drag and drop
-    private final HashMap<Point, GfxObject> outlineDependencies = new HashMap<Point, GfxObject>();
-    private UMLArtifact selected = null; // Represent the current UMLArtifact
+    private final HashMap<UMLArtifact, GfxObject> outlines = new HashMap<UMLArtifact, GfxObject>(); // Map of outlines used for drawing while drag and drop
+    private final ArrayList<GfxObject> staticOutlineDependencies = new ArrayList<GfxObject>();
+    private final ArrayList<GfxObject> movingOutlineDependencies = new ArrayList<GfxObject>();
+    private final HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(); // Represent the selected UMLArtifacts and his moving dependencies points 
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
+    private Point dragOffset; 
     private class ClassPair {
 	ClassArtifact c1;
 	ClassArtifact c2;
-	
+
 	private ClassPair(ClassArtifact c1, ClassArtifact c2) {
 	    this.c1 = c1;
 	    this.c2 = c2;
@@ -125,7 +118,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
     private final ArrayList<ClassPair> classRelations = new ArrayList<ClassPair>();
-    
+
     /**
      * Constructor of an {@link UMLCanvas} with default size 
      *
@@ -136,7 +129,7 @@ public class UMLCanvas extends AbsolutePanel {
 	setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH,
 		GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	initCanvas();
-	
+
     }
 
     /**
@@ -233,11 +226,13 @@ public class UMLCanvas extends AbsolutePanel {
 	if (fireNewArtifactEvent(newClass)) {
 	    add(newClass);
 	    newClass.moveTo(location);
-	    if (this.selected != null) {
-		this.selected.unselect();
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
 	    }
+	    this.selectedArtifacts.clear();
 	    select(newClass.getGfxObject());
-	    take(location);
+	    this.selectedArtifacts.put(newClass, new ArrayList<Point>());
+	    this.dragOffset = location;
 	    drag(location);
 	    this.dragOn = true;
 	}
@@ -245,44 +240,45 @@ public class UMLCanvas extends AbsolutePanel {
 
     void addNewLink(final UMLArtifact newSelected) {
 	LinkArtifact newLink;
-	Log.info("selected " + this.selected.getClass() + " newSelected "
-		+ newSelected.getClass());
-	if (this.activeLinking == RelationKind.NOTE) {
-	    if (newSelected.getClass() == NoteArtifact.class) {
-		newLink = new LinkNoteArtifact((NoteArtifact) newSelected,
-			this.selected);
-	    } else if (this.selected.getClass() == NoteArtifact.class) {
-		newLink = new LinkNoteArtifact((NoteArtifact) this.selected,
-			newSelected);
-	    } else {
-		newLink = null;
-	    }
-	} else if (this.activeLinking == RelationKind.CLASSRELATION) {
-	    if (newSelected.getClass() == RelationLinkArtifact.class
-		    && this.selected.getClass() == ClassArtifact.class) {
-		newLink = new LinkClassRelationArtifact(
-			(ClassArtifact) this.selected,
-			(RelationLinkArtifact) newSelected);
-	    } else if (this.selected.getClass() == RelationLinkArtifact.class
-		    && newSelected.getClass() == ClassArtifact.class) {
-		newLink = new LinkClassRelationArtifact(
-			(ClassArtifact) newSelected,
-			(RelationLinkArtifact) this.selected);
-	    } else {
-		newLink = null;
-	    }
-	}
-	else if (this.selected.getClass() == ClassArtifact.class
-		&& newSelected.getClass() == ClassArtifact.class) {
-	    ClassPair cp = new ClassPair((ClassArtifact) newSelected, (ClassArtifact) this.selected);
-	    int index = Collections.frequency(this.classRelations, cp);
-	    newLink = new RelationLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) this.selected, this.activeLinking, index);
-	} else {
-	    newLink = null;
-	}
+	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 
-	if (newLink != null && fireNewArtifactEvent(newLink)) {
-	    add(newLink);
+	    if (this.activeLinking == RelationKind.NOTE) {
+		if (newSelected.getClass() == NoteArtifact.class) {
+		    newLink = new LinkNoteArtifact((NoteArtifact) newSelected,
+			    selectedArtifact);
+		} else if (selectedArtifact.getClass() == NoteArtifact.class) {
+		    newLink = new LinkNoteArtifact((NoteArtifact) selectedArtifact,
+			    newSelected);
+		} else {
+		    newLink = null;
+		}
+	    } else if (this.activeLinking == RelationKind.CLASSRELATION) {
+		if (newSelected.getClass() == RelationLinkArtifact.class
+			&& selectedArtifact.getClass() == ClassArtifact.class) {
+		    newLink = new LinkClassRelationArtifact(
+			    (ClassArtifact) selectedArtifact,
+			    (RelationLinkArtifact) newSelected);
+		} else if (selectedArtifact.getClass() == RelationLinkArtifact.class
+			&& newSelected.getClass() == ClassArtifact.class) {
+		    newLink = new LinkClassRelationArtifact(
+			    (ClassArtifact) newSelected,
+			    (RelationLinkArtifact) selectedArtifact);
+		} else {
+		    newLink = null;
+		}
+	    }
+	    else if (selectedArtifact.getClass() == ClassArtifact.class
+		    && newSelected.getClass() == ClassArtifact.class) {
+		ClassPair cp = new ClassPair((ClassArtifact) newSelected, (ClassArtifact) selectedArtifact);
+		int index = Collections.frequency(this.classRelations, cp);
+		newLink = new RelationLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selectedArtifact, this.activeLinking, index);
+	    } else {
+		newLink = null;
+	    }
+
+	    if (newLink != null && fireNewArtifactEvent(newLink)) {
+		add(newLink);
+	    }
 	}
     }
 
@@ -299,11 +295,13 @@ public class UMLCanvas extends AbsolutePanel {
 	if (fireNewArtifactEvent(newNote)) {
 	    add(newNote);
 	    newNote.moveTo(initPoint);
-	    if (this.selected != null) {
-		this.selected.unselect();
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
 	    }
+	    this.selectedArtifacts.clear();
 	    select(newNote.getGfxObject());
-	    take(initPoint);
+	    this.selectedArtifacts.put(newNote, new ArrayList<Point>());
+	    this.dragOffset = initPoint;
 	    drag(initPoint);
 	    this.dragOn = true;
 	}
@@ -318,7 +316,7 @@ public class UMLCanvas extends AbsolutePanel {
 	Log.trace("New Artifact event fired. Status : " + isThisOk);
 	return isThisOk;
     }
-    
+
     boolean fireEditArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
 	for (final UMLEventListener listener : this.uMLEventListenerList) {
@@ -348,31 +346,31 @@ public class UMLCanvas extends AbsolutePanel {
 	return isThisOk;
     }
     Widget getDrawingCanvas() {
-        return this.drawingCanvas;
+	return this.drawingCanvas;
     }
 
     void moveSelected(final Direction direction) {
-	if (this.selected != null) {
-	    this.selected.moveTo(new Point(this.selected.getLocation().getX()
-		    + OptionsManager.getMovingStep()
-		    * direction.getXDirection(), this.selected.getLocation().getY()
-		    + OptionsManager.getMovingStep()
-		    * direction.getYDirection()));
-	    this.selected.rebuildGfxObject();
-	    this.selected.select();
-
+	if (!this.selectedArtifacts.isEmpty()) {
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		if(selectedArtifact.isDraggable()) {	    
+		    selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX()
+			    + OptionsManager.getMovingStep()
+			    * direction.getXDirection(), selectedArtifact.getLocation().getY()
+			    + OptionsManager.getMovingStep()
+			    * direction.getYDirection()));
+		    selectedArtifact.rebuildGfxObject();
+		    selectedArtifact.select();
+		}
+	    }
 	}
     }
 
     void removeSelected() {
-	if (this.selected != null) {
-	    remove(this.selected);
+	if (!this.selectedArtifacts.isEmpty()) {
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		remove(selectedArtifact);
+	    }
 	}
-    }
-
-    void setDeleteMode() {
-	this.isDeleting = true;
-	CursorIconManager.setCursorIcon(PointerStyle.NOT_ALLOWED);
     }
 
     void toLinkMode(final RelationKind linkType) {
@@ -406,66 +404,124 @@ public class UMLCanvas extends AbsolutePanel {
 
     private void animateLinking(final Point location) {
 	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
-	    if (this.movingLine != null) {
-		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, this.movingLine);
+	    if (!this.movingLines.isEmpty()) {
+		for(GfxObject movingLine : this.movingLines) {
+		    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, movingLine);
+		}
 	    }
-	    this.movingLine = GfxManager.getPlatform().buildLine(this.selected.getCenter(), location);
-	    GfxManager.getPlatform().setStroke(this.movingLine,
-		    ThemeManager.getHighlightedForegroundColor(), 1);
-	    GfxManager.getPlatform().setStrokeStyle(this.movingLine, GfxStyle.DASH);
-	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.movingLine, Point.getOrigin());
-	    GfxManager.getPlatform().moveToBack(this.movingLine);
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), location);
+		GfxManager.getPlatform().setStroke(movingLine,
+			ThemeManager.getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStrokeStyle(movingLine, GfxStyle.DASH);
+		GfxManager.getPlatform().addToCanvas(this.drawingCanvas, movingLine, Point.getOrigin());
+		GfxManager.getPlatform().moveToBack(movingLine);
+		this.movingLines.add(movingLine);
+	    }
 	}
     }
 
-    private Point convertToRealPoint(final int x, final int y) {
-	return new Point(x + RootPanel.getBodyElement().getScrollLeft()
-		- getAbsoluteLeft(), y + RootPanel.getBodyElement().getScrollTop() - getAbsoluteTop());
+    private Point convertToRealPoint(final Point location) {
+	return Point.add(location, new Point( RootPanel.getBodyElement().getScrollLeft()
+		- getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop() - getAbsoluteTop()));
     }
 
     private void drag(final Point location) {
-	if (this.selected != null && this.selected.isDraggable()) {
-	    if (this.outline == null) {
-		this.outline = this.selected.getOutline();
-		GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.outline, Point.getOrigin());
-		this.selected.destroyGfxObjectWhithDependencies();
-		Log.trace("Adding outline for " + this.selected);
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-	    }
-	    final Point position = Point.subtract(location, this.offset);
-	    final Point translation = Point.subtract(position, GfxManager.getPlatform().getLocationFor(this.outline));
-	    position.translate(this.selected.getWidth() / 2, this.selected.getHeight()/ 2);
-	    GfxManager.getPlatform().translate(this.outline, translation);
-	    outlineDependencies(this.selected.getOutlineForDependencies(), position);
+	CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 
+	Point shift = Point.subtract(location, this.dragOffset);
+	if (!this.movingOutlineDependencies.isEmpty()) {
+	    for (final GfxObject outlineDependency : this.movingOutlineDependencies) {
+		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, outlineDependency);
+	    }
+	    this.movingOutlineDependencies.clear();
 	}
+	final boolean isOutlineBuildNeeded = this.outlines.isEmpty();
+	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
+	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
+	   final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
+	    GfxObject outline = null;
+	    if (selectedArtifact.isDraggable()) {
+		if (isOutlineBuildNeeded) {
+		    outline = selectedArtifact.getOutline();
+		    GfxManager.getPlatform().addToCanvas(this.drawingCanvas, outline, selectedArtifact.getLocation());
+		    selectedArtifact.destroyGfxObjectWhithDependencies();
+		    Log.trace("Adding outline for " + selectedArtifact);
+		    this.outlines.put(selectedArtifact, outline);
+		    if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+			selectedArtifactEntry.getValue().clear();
+
+			for (UMLArtifact dependantArtifact : selectedArtifact.getDependentUMLArtifacts().values()) {
+			    if(this.selectedArtifacts.containsKey(dependantArtifact)) {
+				Log.fatal("looking : " + selectedArtifact + " - " + dependantArtifact + " / " + alreadyAdded.get(selectedArtifact));
+				if(alreadyAdded.get(selectedArtifact) == null 
+					|| !alreadyAdded.get(selectedArtifact).equals(dependantArtifact)) {
+				    GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), dependantArtifact.getCenter());
+				    alreadyAdded.put(dependantArtifact, selectedArtifact);
+				    Log.fatal("adding : " + dependantArtifact + " - " + selectedArtifact);
+				    GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getHighlightedForegroundColor(), 1);
+				    GfxManager.getPlatform().setStrokeStyle(outlineDependency, GfxStyle.DASH);
+				    GfxManager.getPlatform().addToCanvas(this.drawingCanvas, outlineDependency, Point.getOrigin());
+				    GfxManager.getPlatform().moveToBack(outlineDependency);
+				    this.staticOutlineDependencies.add(outlineDependency);
+				}
+			    } else {
+				selectedArtifactEntry.getValue().add(dependantArtifact.getCenter());
+			    }
+			}
+		    }
+		}
+		else {
+		    outline = this.outlines.get(selectedArtifact);
+		}
+		
+		GfxManager.getPlatform().translate(outline, shift);
+		
+		
+		Point outlineCenter = Point.add(GfxManager.getPlatform().getLocationFor(outline), new Point(selectedArtifact.getWidth()/2, selectedArtifact.getHeight()/2));
+		if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+		    for (Point dependantArtifactCenter : selectedArtifactEntry.getValue()) {
+			GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(outlineCenter, dependantArtifactCenter);
+			GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getHighlightedForegroundColor(), 1);
+			GfxManager.getPlatform().setStrokeStyle(outlineDependency, GfxStyle.DASH);
+			GfxManager.getPlatform().addToCanvas(this.drawingCanvas, outlineDependency, Point.getOrigin());
+			GfxManager.getPlatform().moveToBack(outlineDependency);
+			this.movingOutlineDependencies.add(outlineDependency);
+		    }
+		}
+	    }
+	}
+	for(GfxObject staticOutlineDependency : this.staticOutlineDependencies) {
+	    GfxManager.getPlatform().translate(staticOutlineDependency, shift);
+	}
+	this.dragOffset = location.clonePoint();
     }
 
     private void drop(final Point location) {
-	if (this.selected != null && this.selected.isDraggable()) {
-	    if (this.outline != null) {
-		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-			this.outline);
-		this.outline = null;
-		for (final Entry<Point, GfxObject> entry : this.outlineDependencies
-			.entrySet()) {
-		    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-			    entry.getValue());
-		}
-		this.outlineDependencies.clear();
+	for(UMLArtifact selectedArtifact : UMLCanvas.this.selectedArtifacts.keySet()) {
+	    Point outlineLocation = GfxManager.getPlatform().getLocationFor(this.outlines.get(selectedArtifact));
+	    if (selectedArtifact.isDraggable() && !outlineLocation.equals(Point.getOrigin())) {
+		selectedArtifact.moveTo(outlineLocation);
+		selectedArtifact.rebuildGfxObject();
+		selectedArtifact.select();
 	    }
-
-	    final Point f = Point.subtract(location, this.offset);
-
-	    if (!f.equals(this.selected.getLocation())) {
-		Log.trace("Dropping at " + f + " for " + this.selected);
-		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-		this.selected.moveTo(f);
-		this.selected.rebuildGfxObject();
-		this.selected.select();
+	}
+	if (!this.outlines.isEmpty()) {
+	    for(GfxObject outline : this.outlines.values()) {
+		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, outline);
 	    }
+	    this.outlines.clear();
+	    for (final GfxObject outlineDependency : this.staticOutlineDependencies) {
+		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, outlineDependency);
+	    }
+	    this.staticOutlineDependencies.clear();
+	    for (final GfxObject outlineDependency : this.movingOutlineDependencies) {
+		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, outlineDependency);
+	    }
+	    this.movingOutlineDependencies.clear();
 
 	}
+	CursorIconManager.setCursorIcon(PointerStyle.AUTO);
     }
 
     private void dropRightMenu(final GfxObject gfxObject, final Point location) {
@@ -521,38 +577,12 @@ public class UMLCanvas extends AbsolutePanel {
 	Log.trace("Init canvas done");
     }
 
-    private void outlineDependencies(
-	    final ArrayList<Point> dependentArtifactLocations, final Point location) {
-
-	if (!this.outlineDependencies.isEmpty()) {
-	    for (final Entry<Point, GfxObject> entry : this.outlineDependencies
-		    .entrySet()) {
-		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-			entry.getValue());
-	    }
-	    this.outlineDependencies.clear();
-	}
-
-	for (final Point point : dependentArtifactLocations) {
-	    final GfxObject line = GfxManager.getPlatform().buildLine(point, location);
-	    GfxManager.getPlatform().setStroke(line,
-		    ThemeManager.getHighlightedForegroundColor(), 1);
-	    GfxManager.getPlatform().setStrokeStyle(line, GfxStyle.DASH);
-	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas, line, Point.getOrigin());
-	    GfxManager.getPlatform().moveToBack(line);
-	    this.outlineDependencies.put(point, line);
-	}
-
-    }
-
     private void removeRecursive(final UMLArtifact element) {
 	GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
 		element.getGfxObject());
 	this.objects.remove(element.getGfxObject());
 	element.setCanvas(null);
-	if (element == this.selected) {
-	    this.selected = null;
-	}
+	this.selectedArtifacts.remove(element);
 
 	for (final Entry<LinkArtifact, UMLArtifact> entry : element
 		.getDependentUMLArtifacts().entrySet()) {
@@ -567,48 +597,71 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void select(final GfxObject gfxObject) {
+	select(gfxObject, false, false);
+    }
+
+    private void select(final GfxObject gfxObject, boolean isCtrlKeyDown, boolean isShiftKeyDown) {
 	final UMLArtifact newSelected = getUMLArtifact(gfxObject);
 	Log.trace("Selecting : " + newSelected + " (" + gfxObject + ")");
-	if (this.isDeleting && newSelected != null) {
-	    remove(newSelected);
-	    this.isDeleting = false;
-	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-	    return;
-	}
 
 	if (newSelected == null) {
 	    this.activeLinking = null;
-	    if (this.movingLine != null) {
-		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-			this.movingLine);
-	    }
-	    this.isDeleting = false;
-	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-	}
-	if (this.selected != null) {
-	    if (this.activeLinking != null) {
-		addNewLink(newSelected);
-		this.activeLinking = null;
-		if (this.movingLine != null) {
-		    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-			    this.movingLine);
+	    if (!this.movingLines.isEmpty()) {
+		for(GfxObject movingLine : this.movingLines) {
+		    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, movingLine);
 		}
-		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+		this.movingLines.clear();
 	    }
-	    Log.trace("UnSelecting : " + this.selected);
-	    this.selected.unselect();
+	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
+	    }
+	    this.selectedArtifacts.clear();
+	} else {
+	    if (!this.selectedArtifacts.isEmpty()) {
+		if (this.activeLinking != null) {
+		    addNewLink(newSelected);
+		    this.activeLinking = null;
+		    for(GfxObject movingLine : this.movingLines) {
+			GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, movingLine);
+		    }
+		    this.movingLines.clear();
+		    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+		}
+		if(isCtrlKeyDown || isShiftKeyDown) {
+		    if(this.selectedArtifacts.containsKey(newSelected) && isCtrlKeyDown) {
+			this.selectedArtifacts.remove(newSelected);
+			newSelected.unselect();
+		    } else {
+			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
+			newSelected.select();
+		    }
+		} else {  
+		    if(!this.selectedArtifacts.containsKey(newSelected)) {
+			for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+			    selectedArtifact.unselect();
+			}
+			this.selectedArtifacts.clear();
+			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
+			newSelected.select();
+		    }
+		}
+	    } else {
+		this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
+		newSelected.select();
+	    }
 	}
-	this.selected = newSelected;
-	if (this.selected != null) {
-	    this.selected.select();
-	    Log.trace("Selecting really : " + this.selected);
-	}
-
     }
+    private void unselectOnRelease(final GfxObject gfxObject, boolean isCtrlKeyDown, boolean isShiftKeyDown) {	
 
-    private void take(final Point point) {
-	this.offset = Point.subtract(point, this.selected.getLocation());
-	Log.trace("Take at " + point + " with " + this.offset + " for "
-		+ this.selected);
+	final UMLArtifact newSelected = getUMLArtifact(gfxObject);
+	if(newSelected != null && !this.selectedArtifacts.isEmpty() && !(isCtrlKeyDown || isShiftKeyDown)) {
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
+	    }
+	    this.selectedArtifacts.clear();
+	    this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
+	    newSelected.select();
+	}
     }
 }

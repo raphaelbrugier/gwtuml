@@ -36,7 +36,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mouseClicked(final GraphicObject graphicObject,
 		    final Event e) {
-		gfxObjectListener.mouseClicked();
+		gfxObjectListener.mouseClicked(e);
 	    }
 
 	    /* (non-Javadoc)
@@ -45,8 +45,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	    public void mouseDblClicked(final GraphicObject graphicObject,
 		    final Event e) {
 		gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
-			.getContainerOf(graphicObject), DOM.eventGetClientX(e),
-			DOM.eventGetClientY(e));
+			.getContainerOf(graphicObject), new Point(DOM.eventGetClientX(e),
+			DOM.eventGetClientY(e)), e);
 	    }
 
 	    /* (non-Javadoc)
@@ -54,8 +54,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mouseMoved(final GraphicObject graphicObject,
 		    final Event e) {
-		gfxObjectListener.mouseMoved(DOM.eventGetClientX(e), DOM
-			.eventGetClientY(e));
+		gfxObjectListener.mouseMoved(new Point(DOM.eventGetClientX(e), DOM
+			.eventGetClientY(e)), e);
 	    }
 
 	    /* (non-Javadoc)
@@ -66,14 +66,15 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 		if (e.getButton() == NativeEvent.BUTTON_RIGHT) {
 		    gfxObjectListener
 			    .mouseRightClickPressed(TatamiGfxObjectContainer
-				    .getContainerOf(graphicObject), DOM
-				    .eventGetClientX(e), DOM.eventGetClientY(e));
+				    .getContainerOf(graphicObject), new Point(DOM
+				    .eventGetClientX(e), DOM.eventGetClientY(e)), e);
 		} else {
 		    gfxObjectListener
 			    .mouseLeftClickPressed(TatamiGfxObjectContainer
-				    .getContainerOf(graphicObject), DOM
-				    .eventGetClientX(e), DOM.eventGetClientY(e));
+				    .getContainerOf(graphicObject), new Point(DOM
+				    .eventGetClientX(e), DOM.eventGetClientY(e)), e);
 		}
+		e.getCtrlKey();
 	    }
 
 	    /* (non-Javadoc)
@@ -82,8 +83,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	    public void mouseReleased(final GraphicObject graphicObject,
 		    final Event e) {
 		gfxObjectListener.mouseReleased(TatamiGfxObjectContainer
-			.getContainerOf(graphicObject), DOM.eventGetClientX(e),
-			DOM.eventGetClientY(e));
+			.getContainerOf(graphicObject), new Point(DOM.eventGetClientX(e),
+			DOM.eventGetClientY(e)), e);
 	    }
 	};
 	((GraphicCanvas) canvas)
