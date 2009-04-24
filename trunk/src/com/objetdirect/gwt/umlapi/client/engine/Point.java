@@ -14,6 +14,7 @@ package com.objetdirect.gwt.umlapi.client.engine;
 public class Point {
     /**
      * This class method create a new point from the sum of the two {@link Point}s in parameter
+     * 
      * @param p1 First {@link Point} to add 
      * @param p2 Second {@link Point} to add
      * @return a new {@link Point} which is the result of the sum of the two other {@link Point}s coordinates. 
@@ -23,6 +24,7 @@ public class Point {
     }
     /**
      * This class method create a new point from the minimum of each coordinate of the two {@link Point}s in parameter
+     * 
      * @param p1 First {@link Point}
      * @param p2 Second {@link Point}
      * @return a new {@link Point} which is composed by the minimum of each coordinate of the two {@link Point}s
@@ -32,12 +34,23 @@ public class Point {
     }
     /**
      * This class method create a new point from the subtraction of the two {@link Point}s in parameter
+     * 
      * @param p1 First {@link Point}
      * @param p2 Second {@link Point} to subtract from the first
      * @return a new {@link Point} which is the result of the subtraction of the two other {@link Point}s coordinates. 
      */
     public static Point subtract(final Point p1, final Point p2) {
 	return new Point(p1.x - p2.x, p1.y - p2.y);
+    }   
+    /**
+     * This class method create a new point which is the middle of the two {@link Point}s in parameter
+     * 
+     * @param p1 First {@link Point}
+     * @param p2 Second {@link Point}
+     * @return a new {@link Point} which is the middle of the two other {@link Point}s coordinates. 
+     */
+    public static Point getMiddleOf(final Point p1, final Point p2) {
+	return new Point((p1.x + p2.x) / 2, (p1.y + p2.y)/2);
     }
 
     /**
@@ -161,7 +174,7 @@ public class Point {
      * @param dx
      *            the abscissa offset
      * @param dy
-     *            the ordinate offset
+     *            the ordinate offsetRel
      */
     public void translate(final int dx, final int dy) {
 	this.x += dx;

@@ -165,7 +165,16 @@ public interface GfxPlatform {
      * @param location The {@link Point} location to move to  
      */
     void moveTo(GfxObject gfxObject, Point location);
-
+    
+    /**
+     * Line a path from the current location to the {@link Point} location making a quadratic Bezier curve <br />
+     * controlled by the {@link Point} control  
+     * 
+     * @param gfxObject  The {@link GfxObject} containing the path
+     * @param location The {@link Point} location to curve to  
+     * @param control The {@link Point} controlling the quadratic Bezier curve  
+     */
+    void curveTo(final GfxObject gfxObject, final Point location, final Point control);
     /**
      * Move the {@link GfxObject} to the background 
      * 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.objetdirect.gwt.umlapi.client;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;

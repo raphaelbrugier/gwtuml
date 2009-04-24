@@ -1,5 +1,9 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -7,6 +11,11 @@ import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
 
 /**
@@ -48,21 +57,34 @@ public class Demo extends AbsolutePanel {
 	final ClassArtifact linkNoteArtifact		= new ClassArtifact("LinkNoteArtifact");
 	final ClassArtifact relationLinkArtifact	= new ClassArtifact("RelationLinkArtifact");
 	
-	uMLCanvas.			setLocation(new Point(350, FIRST_ROW));
-	uMLEventListener.		setLocation(new Point(50, FIRST_ROW-10));
-	uMLArtifact.			setLocation(new Point(600, FIRST_ROW-10));
-	externClass.			setLocation(new Point(70, SECOND_ROW-10));
-	boxArtifact.			setLocation(new Point(350, SECOND_ROW));
-	linkArtifact.			setLocation(new Point(800, SECOND_ROW));
+	uMLCanvas.			setLocation(new Point(435, FIRST_ROW));
+	uMLEventListener.		setLocation(new Point(10, FIRST_ROW-10));
+	uMLArtifact.			setLocation(new Point(770, FIRST_ROW));
+	externClass.			setLocation(new Point(140, SECOND_ROW));
+	boxArtifact.			setLocation(new Point(355, SECOND_ROW));
+	linkArtifact.			setLocation(new Point(850, MIDDLE_SECOND_THIRD_ROW));
 	classArtifact.			setLocation(new Point(100, THIRD_ROW));
-	noteArtifact.			setLocation(new Point(500, THIRD_ROW));
-	linkClassRelationArtifact.	setLocation(new Point(750, MIDDLE_THIRD_FOURTH_ROW));
-	linkNoteArtifact.		setLocation(new Point(650, THIRD_ROW));
-	relationLinkArtifact.		setLocation(new Point(900, THIRD_ROW));
-    	classPartArtifact.		setLocation(new Point(325, THIRD_ROW-10));
-	classPartAttributesArtifact.	setLocation(new Point(20, FOURTH_ROW));
-	classPartMethodsArtifact.	setLocation(new Point(300, FOURTH_ROW));
+	noteArtifact.			setLocation(new Point(550, THIRD_ROW));
+	linkClassRelationArtifact.	setLocation(new Point(800, FOURTH_ROW));
+	linkNoteArtifact.		setLocation(new Point(700, MIDDLE_THIRD_FOURTH_ROW));
+	relationLinkArtifact.		setLocation(new Point(950, MIDDLE_THIRD_FOURTH_ROW));
+    	classPartArtifact.		setLocation(new Point(325, THIRD_ROW-15));
+	classPartAttributesArtifact.	setLocation(new Point(50, FOURTH_ROW));
+	classPartMethodsArtifact.	setLocation(new Point(305, FOURTH_ROW));
 	classPartNameArtifact.		setLocation(new Point(525, FOURTH_ROW));
+	 
+	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onNewUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onEditUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onDeleteUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+
+	uMLCanvas.addAttribute(new Attribute(Visibility.PRIVATE, "HashMap<GfxObject,UMLArtifact>", "objects")); 
+	uMLCanvas.addMethod(new Method(Visibility.PUBLIC, "void", "add", Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	uMLCanvas.addMethod(new Method(Visibility.PUBLIC, "void", "remove", Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	
+	uMLArtifact.addAttribute(new Attribute(Visibility.PROTECTED, "GfxObject", "gfxObject"));
+	uMLArtifact.addMethod(new Method(Visibility.PUBLIC, "void", "edit", Arrays.asList(new Parameter("GfxObject", "editedGfxObject"))));
+	
+	classPartArtifact.addMethod(new Method(Visibility.PACKAGE, "void", "computeBounds", new ArrayList<Parameter>()));
 	
 	canvas.add(uMLCanvas);
 	canvas.add(uMLEventListener);
@@ -81,12 +103,18 @@ public class Demo extends AbsolutePanel {
 	canvas.add(relationLinkArtifact);
 	
 	
+	
+	
+	
+	
+	
 	final RelationLinkArtifact uMLCanvas_uMLEventListener 				= new RelationLinkArtifact(uMLCanvas, uMLEventListener, RelationKind.AGGREGATION);
 	final RelationLinkArtifact uMLEventListener_externClass				= new RelationLinkArtifact(uMLEventListener, externClass, RelationKind.REALIZATION);
 	final RelationLinkArtifact uMLCanvas_uMLArtifact 				= new RelationLinkArtifact(uMLCanvas, uMLArtifact, RelationKind.COMPOSITION);
 	final RelationLinkArtifact uMLArtifact_uMLArtifact 				= new RelationLinkArtifact(uMLArtifact, uMLArtifact, RelationKind.COMPOSITION);
 	final RelationLinkArtifact uMLArtifact_boxArtifact 				= new RelationLinkArtifact(uMLArtifact, boxArtifact, RelationKind.GENERALIZATION);
 	final RelationLinkArtifact uMLArtifact_linkArtifact 				= new RelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.GENERALIZATION);
+	final RelationLinkArtifact uMLArtifact_linkArtifact_2 				= new RelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.ASSOCIATION, 1);
 	final RelationLinkArtifact boxArtifact_classArtifact				= new RelationLinkArtifact(boxArtifact, classArtifact, RelationKind.GENERALIZATION);
 	final RelationLinkArtifact boxArtifact_classPartArtifact 			= new RelationLinkArtifact(boxArtifact, classPartArtifact, RelationKind.GENERALIZATION);
 	final RelationLinkArtifact boxArtifact_noteArtifact 				= new RelationLinkArtifact(boxArtifact, noteArtifact, RelationKind.GENERALIZATION);
@@ -100,13 +128,16 @@ public class Demo extends AbsolutePanel {
 	
 	uMLCanvas_uMLEventListener.setRightNavigability(false);
 	classArtifact_classPartArtifact.setCardinalities("1", "3");
-	
+	uMLArtifact_linkArtifact_2.setName("Links");
+	uMLArtifact_linkArtifact_2.setLeftCardinality("2");
+	uMLArtifact_linkArtifact_2.setRightCardinality("0..*");
 	canvas.add(uMLCanvas_uMLEventListener);
 	canvas.add(uMLEventListener_externClass);
 	canvas.add(uMLCanvas_uMLArtifact);
 	canvas.add(uMLArtifact_uMLArtifact);
 	canvas.add(uMLArtifact_boxArtifact);
 	canvas.add(uMLArtifact_linkArtifact);
+	canvas.add(uMLArtifact_linkArtifact_2);
 	canvas.add(boxArtifact_classArtifact);
 	canvas.add(boxArtifact_classPartArtifact);
 	canvas.add(boxArtifact_noteArtifact);

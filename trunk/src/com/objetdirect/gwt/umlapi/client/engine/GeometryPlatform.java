@@ -160,6 +160,25 @@ public abstract class GeometryPlatform {
 	return pointList;
     }
 
+    public Point getShiftedCenter(final Point point1,
+	    final Point point2, final int shift) {
+	double xDiff = point2.getX() - point1.getX();
+	if (xDiff == 0.) {
+	    xDiff = 0.00000001;
+	}
+	final double yDiff = point2.getY() - point1.getY();	
+	final double distance = Math.sqrt((Math.pow(xDiff, 2) + Math.pow(yDiff,2)));
+	final double slope = yDiff / xDiff;	
+	final double yShift = distance * (shift / 200.) / Math.sqrt(1. + Math.pow(slope, 2));
+	final double xShift = slope * yShift;
+	final double thalesConst = 0.5;
+	final Point shifted = point1.clonePoint();		
+	shifted.translate((xDiff * thalesConst) - xShift, (yDiff * thalesConst) + yShift);
+	return shifted;
+	
+    }
+    
+    
     protected abstract ArrayList<Point> getLineBetweenImpl(
 	    UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact);
 

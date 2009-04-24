@@ -6,6 +6,15 @@
 	background: #eee;
 	width: 100%;
 }
+.editor-small-field {
+	font: bold 10px Courrier;
+	border: 1px solid #0f0;
+}
+.editor-small-field-multiline {
+	font: bold 10px Courrier;
+	border: 1px solid #f00;
+	overflow: hidden;
+}
 .editor-field {
 	font: bold 14px Courrier;
 	border: 1px solid #0f0;

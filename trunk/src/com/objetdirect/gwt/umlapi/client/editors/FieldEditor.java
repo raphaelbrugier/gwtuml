@@ -63,9 +63,10 @@ public abstract class FieldEditor {
      * @param y The ordinate location of the edition {@link TextBox} 
      * @param w The width of the edition {@link TextBox} 
      * @param isItMultiLine A boolean to precise if the edition box allow multiple lines 
+     * @param isSmallFont Set to true if the edited part has a small font
      */
     public void startEdition(final String text, final int x, final int y,
-	    final int w, final boolean isItMultiLine) {
+	    final int w, final boolean isItMultiLine, final boolean isSmallFont) {
 	this.isMultiLine = isItMultiLine;
 	if (this.isMultiLine && this.height == 0) {
 	    Log.error("Must set height for multiline editors");
@@ -74,7 +75,9 @@ public abstract class FieldEditor {
 
 	this.editField = this.isMultiLine ? new TextArea() : new TextBox();
 	this.editField.setText(text);
-	this.editField.setStylePrimaryName("editor-field"
+	this.editField.setStylePrimaryName("editor"
+		+ (isSmallFont ? "-small" : "")
+		+ "-field"
 		+ (this.isMultiLine ? "-multiline" : ""));
 	this.editField.setWidth(w + "px");
 	if (this.isMultiLine) {
