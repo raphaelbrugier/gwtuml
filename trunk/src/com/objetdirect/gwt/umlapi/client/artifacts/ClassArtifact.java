@@ -174,9 +174,9 @@ public class ClassArtifact extends BoxArtifact {
 	    final GfxObject path = GfxManager.getPlatform().buildPath();
 	    GfxManager.getPlatform().setStrokeStyle(path, GfxStyle.DASH);
 	    GfxManager.getPlatform().setStroke(path,
-		    ThemeManager.getHighlightedForegroundColor(), 1);
+		    ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
 	    GfxManager.getPlatform().setFillColor(path,
-		    ThemeManager.getBackgroundColor());
+		    ThemeManager.getTheme().getBackgroundColor());
 	    GfxManager.getPlatform().addToVirtualGroup(vg, path);
 	    GfxManager.getPlatform().moveTo(path, Point.getOrigin());
 	    GfxManager.getPlatform().lineTo(path, new Point(getWidth(), 0));

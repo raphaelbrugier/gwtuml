@@ -62,9 +62,9 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	this.attributeRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.attributeRect);
 	GfxManager.getPlatform().setFillColor(this.attributeRect,
-		ThemeManager.getBackgroundColor());
+		ThemeManager.getTheme().getBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.getRectangleLeftPadding(),
 		OptionsManager.getRectangleTopPadding()));
@@ -87,9 +87,9 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().setFont(attributeText,
 		    OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().setStroke(attributeText,
-		    ThemeManager.getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(attributeText,
-		    ThemeManager.getForegroundColor());
+		    ThemeManager.getTheme().getForegroundColor());
 	    int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		    attributeText);
 	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(
@@ -210,7 +210,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
     @Override
     public void select() {
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
 
     @Override
@@ -221,7 +221,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
     @Override
     public void unselect() {
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
     private Command deleteCommand(final Attribute attribute) {

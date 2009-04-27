@@ -19,20 +19,27 @@ public class ThemeManager {
 	 */
 	NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
 		new GfxColor(0, 0, 0, 255), // Black
-		new GfxColor(0, 0, 255, 255)), // Blue
+		new GfxColor(0, 0, 255, 255), //Blue
+		new GfxColor(134, 171, 217, 255), // Soft Blue
+		new GfxColor(134, 171, 217, 100)), // Soft Blue Translucent
 
 		/**
 		 * Very dark theme color 
 		 */
 		DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
 			new GfxColor(255, 255, 255, 255), // White
-			new GfxColor(0, 255, 0, 255)), // Green
+			new GfxColor(0, 255, 0, 255), // Green
+			new GfxColor(134, 171, 217, 255), // Soft Blue
+			new GfxColor(134, 171, 217, 125)), // Soft Blue Translucent
+
 			/**
 			 * Aero try theme color 
 			 */
 			AERO("Aero", new GfxColor(26, 106, 155, 255), // Light Blue
 				new GfxColor(56, 192, 192, 255), // Teal
-				new GfxColor(255, 255, 255, 255)); // White
+				new GfxColor(255, 255, 255, 255), // White
+				new GfxColor(134, 171, 217, 255), // Soft Blue
+				new GfxColor(134, 171, 217, 125)); // Soft Blue Translucent
 
 	// NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
 	// new GfxColor(0, 0, 0, 255), // Black
@@ -64,14 +71,21 @@ public class ThemeManager {
 	private final GfxColor foregroundColor;
 	private final GfxColor highlightedForegroundColor;
 	private final String themeName;
+	private GfxColor selectBoxForegroundColor;
+	private GfxColor selectBoxBackgroundColor;
 
-	private Theme(final String themeName, final GfxColor backgroundColor,
+	private Theme(final String themeName, 
+		final GfxColor backgroundColor,
 		final GfxColor foregroundColor,
-		final GfxColor highlightedForegroundColor) {
+		final GfxColor highlightedForegroundColor, 
+		final GfxColor selectBoxForegroundColor, 
+		final GfxColor selectBoxBackgroundColor) {
 	    this.themeName = themeName;
 	    this.backgroundColor = backgroundColor;
 	    this.foregroundColor = foregroundColor;
 	    this.highlightedForegroundColor = highlightedForegroundColor;
+	    this.selectBoxForegroundColor = selectBoxForegroundColor;
+	    this.selectBoxBackgroundColor = selectBoxBackgroundColor;
 	}
 
 	/**
@@ -79,7 +93,7 @@ public class ThemeManager {
 	 * 
 	 * @return The theme background {@link GfxColor}
 	 */
-	public GfxColor getThemeBackgroundColor() {
+	public GfxColor getBackgroundColor() {
 	    return this.backgroundColor;
 	}
 
@@ -88,7 +102,7 @@ public class ThemeManager {
 	 * 
 	 * @return The theme foreground {@link GfxColor}
 	 */
-	public GfxColor getThemeForegroundColor() {
+	public GfxColor getForegroundColor() {
 	    if (opacity != 255) {
 		return new GfxColor(this.foregroundColor.getRed(), this.foregroundColor
 			.getGreen(), this.foregroundColor.getBlue(), opacity);
@@ -101,8 +115,24 @@ public class ThemeManager {
 	 * 
 	 * @return The theme highlighted foreground {@link GfxColor}
 	 */
-	public GfxColor getThemeHighlightedForegroundColor() {
+	public GfxColor getHighlightedForegroundColor() {
 	    return this.highlightedForegroundColor;
+	}
+	/**
+	 * Getter for the select box foreground {@link GfxColor}
+	 * 
+	 * @return the select box foreground {@link GfxColor}
+	 */
+	public GfxColor getSelectBoxForegroundColor() {
+	    return this.selectBoxForegroundColor;
+	}
+	/**
+	 * Getter for the select box background {@link GfxColor}
+	 * 
+	 * @return the select box background {@link GfxColor}
+	 */
+	public GfxColor getSelectBoxBackgroundColor() {
+	    return this.selectBoxBackgroundColor;
 	}
 
 	/* (non-Javadoc)
@@ -117,31 +147,16 @@ public class ThemeManager {
     private static Theme current_theme = Theme.NORMAL;
     private static int opacity = 255;
 
+
     /**
-     * Getter for the current theme background {@link GfxColor}
-     * 
-     * @return The current theme background {@link GfxColor}
+     * Getter for the current {@link Theme}
+     *
+     * @return the current {@link Theme}
      */
-    public static GfxColor getBackgroundColor() {
-	return current_theme.getThemeBackgroundColor();
+    public static Theme getTheme() {
+	return current_theme;
     }
-    /**
-     * Getter for the current theme foreground {@link GfxColor}
-     * 
-     * @return The current theme foreground {@link GfxColor}
-     */
-    public static GfxColor getForegroundColor() {
-	return current_theme.getThemeForegroundColor();
-    }
-    /**
-     * Getter for the current theme highlighted foreground {@link GfxColor}
-     * 
-     * @return The current theme highlighted foreground {@link GfxColor}
-     */
-    public static GfxColor getHighlightedForegroundColor() {
-	return current_theme.getThemeHighlightedForegroundColor();
-    }
- 
+
     /**
      * Getter for a theme name from a {@link Theme}
      * @param theme The theme to get the name
@@ -150,7 +165,7 @@ public class ThemeManager {
     public static String getThemeName(final Theme theme) {
 	return theme.toString();
     }
-    
+
     /**
      * Setter for the active {@link Theme}
      * 
@@ -160,7 +175,7 @@ public class ThemeManager {
 	if(theme == null) current_theme = Theme.NORMAL;
 	else current_theme = theme;
     }
-    
+
     /**
      * Setter for the foreground color opacity
      * 
