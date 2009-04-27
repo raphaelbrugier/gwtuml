@@ -3,9 +3,6 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.tools.ant.taskdefs.Concat;
-import org.apache.tools.ant.taskdefs.condition.IsReference;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -457,9 +454,9 @@ public class RelationLinkArtifact extends LinkArtifact {
     public void select() {
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
     /**
      * Setter for the left and right cardinalities in {@link Relation}
@@ -604,9 +601,9 @@ public class RelationLinkArtifact extends LinkArtifact {
     @Override
     public void unselect() {
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
     Anchor getAnchorType(final ClassArtifact classArtifact, final Point point) {
@@ -743,7 +740,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	}
 
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 
@@ -786,9 +783,9 @@ public class RelationLinkArtifact extends LinkArtifact {
 		    nameGfxObject);
 
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
-		    ThemeManager.getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
-		    ThemeManager.getForegroundColor());
+		    ThemeManager.getTheme().getForegroundColor());
 	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
 	    if(this.order == 0) {
 		GfxManager.getPlatform().translate(nameGfxObject, linkMiddle);
@@ -857,9 +854,9 @@ public class RelationLinkArtifact extends LinkArtifact {
 	.buildText(text);
 	GfxManager.getPlatform().setFont(textGfxObject, OptionsManager.getSmallFont());
 	GfxManager.getPlatform().setStroke(textGfxObject,
-		ThemeManager.getBackgroundColor(), 0);
+		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(textGfxObject,
-		ThemeManager.getForegroundColor());
+		ThemeManager.getTheme().getForegroundColor());
 	if (this.leftClassArtifact != this.rightClassArtifact) {
 	    Log.trace("Creating text : " + text + " at "
 		    + getTextX(textGfxObject, part.isLeft) + " : "

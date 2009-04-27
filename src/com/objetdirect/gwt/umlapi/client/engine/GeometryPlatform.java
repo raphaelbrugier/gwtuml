@@ -37,11 +37,11 @@ public abstract class GeometryPlatform {
 	final GfxObject path = GfxManager.getPlatform().buildPath();
 	int width = 0, lenght = 0;
 	GfxColor foreColor, backColor;
-	foreColor = ThemeManager.getForegroundColor();
+	foreColor = ThemeManager.getTheme().getForegroundColor();
 	if (adornment.isInverted()) {
-	    backColor = ThemeManager.getForegroundColor();
+	    backColor = ThemeManager.getTheme().getForegroundColor();
 	} else {
-	    backColor = ThemeManager.getBackgroundColor();
+	    backColor = ThemeManager.getTheme().getBackgroundColor();
 	}
 
 	switch (adornment.getShape()) {

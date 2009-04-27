@@ -84,10 +84,10 @@ public abstract class FieldEditor {
 	    this.editField.setHeight(this.height + "px");
 	}
 	DOM.setStyleAttribute(this.editField.getElement(), "backgroundColor",
-		ThemeManager.getBackgroundColor().toString());
-	DOM.setStyleAttribute(this.editField.getElement(), "color", ThemeManager
+		ThemeManager.getTheme().getBackgroundColor().toString());
+	DOM.setStyleAttribute(this.editField.getElement(), "color", ThemeManager.getTheme()
 		.getForegroundColor().toString());
-	DOM.setStyleAttribute(this.editField.getElement(), "selection", ThemeManager
+	DOM.setStyleAttribute(this.editField.getElement(), "selection", ThemeManager.getTheme()
 		.getBackgroundColor().toString()); // CSS 3 :'(
 	this.editField.addFocusHandler(new FocusHandler() {
 	    public void onFocus(final FocusEvent event) {

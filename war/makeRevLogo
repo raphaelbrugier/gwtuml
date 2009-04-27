@@ -1,0 +1,1 @@
+convert -font DejaVu-Sans-Bold -fill white -pointsize 17 -draw "text 337,47 $1" gwtumllogo_naked.png gwtumllogo_rev-ed.png

@@ -53,9 +53,9 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	this.nameRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.nameRect);
 	GfxManager.getPlatform().setFillColor(this.nameRect,
-		ThemeManager.getBackgroundColor());
+		ThemeManager.getTheme().getBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
 
 	// Centering name class :
 	GfxManager.getPlatform().translate(
@@ -78,9 +78,9 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	    GfxManager.getPlatform().setFont(this.stereotypeText,
 		    OptionsManager.getSmallCapsFont());
 	    GfxManager.getPlatform().setStroke(this.stereotypeText,
-		    ThemeManager.getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
-		    ThemeManager.getForegroundColor());
+		    ThemeManager.getTheme().getForegroundColor());
 	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
 	    this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
 
@@ -96,9 +96,9 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	GfxManager.getPlatform().setFont(this.nameText,
 		OptionsManager.getSmallCapsFont());
 	GfxManager.getPlatform().setStroke(this.nameText,
-		ThemeManager.getBackgroundColor(), 0);
+		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
-		ThemeManager.getForegroundColor());
+		ThemeManager.getTheme().getForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
 		+ OptionsManager.getTextXTotalPadding();
@@ -208,7 +208,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     @Override
     public void select() {
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
 
     /**
@@ -237,7 +237,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     @Override
     public void unselect() {
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
     private Command createStereotype() {

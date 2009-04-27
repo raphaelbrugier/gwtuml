@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import org.apache.tools.ant.taskdefs.Sleep;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -42,8 +44,11 @@ public class UMLCanvas extends AbsolutePanel {
      */
     private final static int FAR_AWAY = 9000;
     private long noteCount;
-    private RelationKind activeLinking = null;
+    private RelationKind activeLinking;
     private boolean dragOn = false; // Represent the dragging state
+    private boolean selectBoxOn = false; // Represent the select state
+    private Point selectBoxStartPoint; 
+    private GfxObject selectBox;
     private final Widget drawingCanvas; // Drawing canvas
 
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
@@ -57,10 +62,13 @@ public class UMLCanvas extends AbsolutePanel {
 
 	public void mouseLeftClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
 	    final Point realPoint = convertToRealPoint(location);
-	    if (UMLCanvas.this.dragOn == false) {
+	    if (UMLCanvas.this.dragOn == false && gfxObject != null) {
 		select(gfxObject, event.getCtrlKey(), event.getShiftKey());
 		UMLCanvas.this.dragOn = true;
 		UMLCanvas.this.dragOffset = realPoint.clonePoint();
+	    } else {
+		UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
+		UMLCanvas.this.selectBoxOn = true;
 	    }
 	}
 
@@ -69,16 +77,25 @@ public class UMLCanvas extends AbsolutePanel {
 	    if (UMLCanvas.this.dragOn) {
 		drag(realPoint);
 	    }
+	    else if(UMLCanvas.this.selectBoxOn) {
+		boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint);
+	    }
 	    if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
 		animateLinking(realPoint);
 
 	    }
 	}
 
+
 	public void mouseReleased(final GfxObject gfxObject, final Point location, final Event event) {
 	    final Point realPoint = convertToRealPoint(location);
 	    if (UMLCanvas.this.dragOn) {
 		drop(realPoint);
+	    } else if(UMLCanvas.this.selectBoxOn) {
+		if(UMLCanvas.this.selectBox != null) {
+		    GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
+		}
+		UMLCanvas.this.selectBoxOn = false;
 	    }
 	    unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
 	    UMLCanvas.this.dragOn = false;
@@ -118,7 +135,8 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
     private final ArrayList<ClassPair> classRelations = new ArrayList<ClassPair>();
-
+    
+    
     /**
      * Constructor of an {@link UMLCanvas} with default size 
      *
@@ -141,7 +159,9 @@ public class UMLCanvas extends AbsolutePanel {
     public UMLCanvas(final int width, final int height) {
 	Log.trace("Making " + width + " x " + height + " Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height,
-		ThemeManager.getBackgroundColor());
+		ThemeManager.getTheme().getBackgroundColor());
+	this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
+	
 	setPixelSize(width, height);
 	initCanvas();
     }
@@ -412,7 +432,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), location);
 		GfxManager.getPlatform().setStroke(movingLine,
-			ThemeManager.getHighlightedForegroundColor(), 1);
+			ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
 		GfxManager.getPlatform().setStrokeStyle(movingLine, GfxStyle.DASH);
 		GfxManager.getPlatform().addToCanvas(this.drawingCanvas, movingLine, Point.getOrigin());
 		GfxManager.getPlatform().moveToBack(movingLine);
@@ -439,7 +459,7 @@ public class UMLCanvas extends AbsolutePanel {
 	final boolean isOutlineBuildNeeded = this.outlines.isEmpty();
 	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
-	   final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
+	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
 	    GfxObject outline = null;
 	    if (selectedArtifact.isDraggable()) {
 		if (isOutlineBuildNeeded) {
@@ -453,13 +473,11 @@ public class UMLCanvas extends AbsolutePanel {
 
 			for (UMLArtifact dependantArtifact : selectedArtifact.getDependentUMLArtifacts().values()) {
 			    if(this.selectedArtifacts.containsKey(dependantArtifact)) {
-				Log.fatal("looking : " + selectedArtifact + " - " + dependantArtifact + " / " + alreadyAdded.get(selectedArtifact));
 				if(alreadyAdded.get(selectedArtifact) == null 
 					|| !alreadyAdded.get(selectedArtifact).equals(dependantArtifact)) {
 				    GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), dependantArtifact.getCenter());
 				    alreadyAdded.put(dependantArtifact, selectedArtifact);
-				    Log.fatal("adding : " + dependantArtifact + " - " + selectedArtifact);
-				    GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getHighlightedForegroundColor(), 1);
+				    GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
 				    GfxManager.getPlatform().setStrokeStyle(outlineDependency, GfxStyle.DASH);
 				    GfxManager.getPlatform().addToCanvas(this.drawingCanvas, outlineDependency, Point.getOrigin());
 				    GfxManager.getPlatform().moveToBack(outlineDependency);
@@ -474,15 +492,15 @@ public class UMLCanvas extends AbsolutePanel {
 		else {
 		    outline = this.outlines.get(selectedArtifact);
 		}
-		
+
 		GfxManager.getPlatform().translate(outline, shift);
-		
-		
+
+
 		Point outlineCenter = Point.add(GfxManager.getPlatform().getLocationFor(outline), new Point(selectedArtifact.getWidth()/2, selectedArtifact.getHeight()/2));
 		if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
 		    for (Point dependantArtifactCenter : selectedArtifactEntry.getValue()) {
 			GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(outlineCenter, dependantArtifactCenter);
-			GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getHighlightedForegroundColor(), 1);
+			GfxManager.getPlatform().setStroke(outlineDependency, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
 			GfxManager.getPlatform().setStrokeStyle(outlineDependency, GfxStyle.DASH);
 			GfxManager.getPlatform().addToCanvas(this.drawingCanvas, outlineDependency, Point.getOrigin());
 			GfxManager.getPlatform().moveToBack(outlineDependency);
@@ -663,5 +681,24 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
 	    newSelected.select();
 	}
+    }
+    private void boxSelector(final Point startPoint, final Point location) {
+	if(this.selectBox != null) {
+	    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, this.selectBox);
+	}
+
+	this.selectBox = GfxManager.getPlatform().buildPath();
+	GfxManager.getPlatform().moveTo(this.selectBox, startPoint);
+	GfxManager.getPlatform().lineTo(this.selectBox, new Point(location.getX(), startPoint.getY()));
+	GfxManager.getPlatform().lineTo(this.selectBox, location);
+	GfxManager.getPlatform().lineTo(this.selectBox, new Point(startPoint.getX(), location.getY()));
+	GfxManager.getPlatform().lineTo(this.selectBox, startPoint);
+	
+	
+	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.selectBox, Point.getOrigin());
+	GfxManager.getPlatform().setStroke(this.selectBox, ThemeManager.getTheme().getSelectBoxForegroundColor(), 2);
+	GfxManager.getPlatform().setFillColor(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor());
+	GfxManager.getPlatform().setOpacity(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor().getAlpha(), true);
+	
     }
 }

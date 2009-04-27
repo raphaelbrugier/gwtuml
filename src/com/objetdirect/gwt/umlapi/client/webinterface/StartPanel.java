@@ -49,7 +49,7 @@ public class StartPanel extends VerticalPanel {
     final HorizontalPanel gfxEnginePanel = new HorizontalPanel();
     final TextBox heightTxtBox = new TextBox();
     final CheckBox isResolutionAutoChkBox = new CheckBox(" Auto Resolution");
-    final Image logoImg = new Image("gwtumllogo.png");
+    final Image logoImg = new Image("gwtumllogo_rev-ed.png");
     final Label qualityLbl = new Label("Quality : ");
     final ListBox qualityListBox = new ListBox();
     final HorizontalPanel qualityPanel = new HorizontalPanel();

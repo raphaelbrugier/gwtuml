@@ -33,6 +33,16 @@ public class Point {
 	return new Point(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y));
     }
     /**
+     * This class method create a new point from the maximum of each coordinate of the two {@link Point}s in parameter
+     * 
+     * @param p1 First {@link Point}
+     * @param p2 Second {@link Point}
+     * @return a new {@link Point} which is composed by the maximum of each coordinate of the two {@link Point}s
+     */
+    public static Point max(final Point p1, final Point p2) {
+	return new Point(Math.max(p1.x, p2.x), Math.max(p1.y, p2.y));
+    }
+    /**
      * This class method create a new point from the subtraction of the two {@link Point}s in parameter
      * 
      * @param p1 First {@link Point}

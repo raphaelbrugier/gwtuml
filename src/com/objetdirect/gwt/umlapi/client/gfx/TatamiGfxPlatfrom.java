@@ -295,7 +295,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public void setOpacity(final GfxObject gfxO, final int opacity,
 	    final boolean isForBack) {
 	if (isForBack) {
-	    getTatamiGraphicalObjectFrom(gfxO).setOpacity(opacity);
+	    getTatamiGraphicalObjectFrom(gfxO).setOpacity((int) (((double) (opacity * 100)) / 255));
 	} else {
 
 	    final Color strokeColor = getTatamiGraphicalObjectFrom(gfxO)

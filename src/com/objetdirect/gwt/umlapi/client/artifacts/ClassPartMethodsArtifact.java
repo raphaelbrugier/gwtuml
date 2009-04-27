@@ -66,9 +66,9 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	this.methodRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.methodRect);
 	GfxManager.getPlatform().setFillColor(this.methodRect,
-		ThemeManager.getBackgroundColor());
+		ThemeManager.getTheme().getBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.getRectangleLeftPadding(),
 		OptionsManager.getRectangleTopPadding()));
@@ -92,9 +92,9 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 		    OptionsManager.getSmallFont());
 
 	    GfxManager.getPlatform().setStroke(methodText,
-		    ThemeManager.getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(methodText,
-		    ThemeManager.getForegroundColor());
+		    ThemeManager.getTheme().getForegroundColor());
 	    int thisMethodWidth = GfxManager.getPlatform().getTextWidthFor(
 		    methodText);
 	    int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(
@@ -221,7 +221,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
     @Override
     public void select() {
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
 
     @Override
@@ -232,7 +232,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
     @Override
     public void unselect() {
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getForegroundColor(), 1);
+		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
     private Command deleteCommand(final Method method) {
