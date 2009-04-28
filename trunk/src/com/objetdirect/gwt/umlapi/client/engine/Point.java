@@ -212,8 +212,20 @@ public class Point {
      */
     public boolean equals(Point point) {
 	return this.x == point.x && this.y == point.y;
-    }   
+    }
     
+    /**
+     * Point comparator, test if the abscissas and the ordinates of this point are BOTH superior to the parameter point
+     * 
+     * @param point The point to compare with
+     * @return <ul>
+     *         <li><b>True</b> if the abscissas and the ordinates are BOTH superiors</li>
+     *         <li><b>False</b> otherwise</li>
+     *         </ul>
+     */
+    public boolean isSuperiorTo(Point point) {
+	return this.x > point.x && this.y > point.y;
+    }
 
     /**
      * Clone a point

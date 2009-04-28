@@ -206,7 +206,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     }
 
     @Override
-    public void select() {
+    protected void select() {
 	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }

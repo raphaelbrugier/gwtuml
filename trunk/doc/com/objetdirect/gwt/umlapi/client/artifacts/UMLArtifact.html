@@ -288,11 +288,11 @@ This abstract class represent any uml artifact that can be displayed An
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#select()">select</A></B>()</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#select(boolean)">select</A></B>(boolean&nbsp;moveToFront)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method does the graphic changes to reflect that an artifact has been selected</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method does the graphic changes to reflect that an artifact has been selected.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -633,15 +633,15 @@ public void <B>removeDependency</B>(<A HREF="../../../../../../com/objetdirect/g
 </DL>
 <HR>
 
-<A NAME="select()"><!-- --></A><H3>
+<A NAME="select(boolean)"><!-- --></A><H3>
 select</H3>
 <PRE>
-public abstract void <B>select</B>()</PRE>
+public void <B>select</B>(boolean&nbsp;moveToFront)</PRE>
 <DL>
-<DD>This method does the graphic changes to reflect that an artifact has been selected
+<DD>This method does the graphic changes to reflect that an artifact has been selected.
 <P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>moveToFront</CODE> - Specifies if the graphical object must be brought to foreground (this parameter is ignored if this graphical object is a link)</DL>
 </DD>
 </DL>
 <HR>

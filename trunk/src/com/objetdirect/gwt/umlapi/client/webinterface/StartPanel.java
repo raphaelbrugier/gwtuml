@@ -119,8 +119,8 @@ public class StartPanel extends VerticalPanel {
 	this.gfxEngineListBox.addItem("Tatami GFX");
 	this.gfxEngineListBox.addItem("Incubator Canvas GFX");
 	this.gfxEngineListBox.addItem("GWT Canvas GFX");
-	this.geometryStyleListBox.addItem("Shape Based");
 	this.geometryStyleListBox.addItem("Linear");
+	this.geometryStyleListBox.addItem("Shape Based");
 	
 	for (final Theme theme : Theme.values()) {
 	    this.themeListBox.addItem(ThemeManager.getThemeName(theme));
@@ -145,8 +145,7 @@ public class StartPanel extends VerticalPanel {
 			Log.debug("Resizing to " + (Window.getClientWidth() - 50) + "x" + (Window.getClientHeight() - 50));
                         StartPanel.this.drawerPanel.setWidth(Window.getClientWidth() - 50);
                         StartPanel.this.drawerPanel.setHeight(Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);
-			
+			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);			
 			StartPanel.this.drawerPanel.getUMLCanvas().setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);
 			StartPanel.this.drawerPanel.clearShadow();
 			StartPanel.this.drawerPanel.makeShadow();
