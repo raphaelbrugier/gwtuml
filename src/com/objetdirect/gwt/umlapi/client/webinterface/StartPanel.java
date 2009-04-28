@@ -196,7 +196,10 @@ public class StartPanel extends VerticalPanel {
 	if(History.getToken().equals("Demo")) {
 	    makeFirstDrawer();
 	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
-	} else {	
+	} else if(History.getToken().equals("Drawer")) {	
+	    makeFirstDrawer();
+	    StartPanel.this.drawerPanel.addDefaultClass();
+	} else {
 	    RootPanel.get().add(this);
 	}
 	
