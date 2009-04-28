@@ -209,7 +209,7 @@ public abstract class UMLArtifact {
     public void moveTo(final Point newLocation) {
 	if(!isALink()) {
 	GfxManager.getPlatform().translate(getGfxObject(), Point.subtract(newLocation, getLocation()));
-	this.setLocation(newLocation);
+	this.location = newLocation;
 	}
 	else {
 	    Log.error("Can't move a line ! (moveTo called on " + this + ")");
@@ -233,7 +233,7 @@ public abstract class UMLArtifact {
 	for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts()
 		.entrySet()) {
 	    Log.trace("Rebuilding : " + dependentUMLArtifact);
-	    new Scheduler.Task(dependentUMLArtifact) {
+	    new Scheduler.Task(this, dependentUMLArtifact) {
 		@Override
 		public void process() {
 		    final long t2 = System.currentTimeMillis();
@@ -275,11 +275,13 @@ public abstract class UMLArtifact {
     }
 
     /**
-     * This method change the artifact current location but doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
-     * @param location
-     *            The new artifact location
+     * This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
+     * it doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
+     * 
+     * @param location The artifact initial location
      */
-    public void setLocation(final Point location) {
+    public void setInitialLocation(final Point location) {
+	if(this.isBuilt) Log.warn("Setting location of a builded artifact : " + this);
 	this.location = location;
     }
 

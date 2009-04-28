@@ -223,4 +223,12 @@ public class Point {
     public Point clonePoint() {
 	return new Point(this.x, this.y);
     }
+    /**
+     * This method tests if the point is at the origin
+     * 
+     * @return True if x and y are equals to 0;
+     */
+    public boolean isOrigin() {
+	return (this.x == 0 && this.y == 0);
+    }
 }

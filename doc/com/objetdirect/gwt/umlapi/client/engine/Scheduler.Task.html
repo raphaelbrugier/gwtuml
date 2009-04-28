@@ -130,7 +130,8 @@ This class represents a classic Task
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of Task without specific object</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#Scheduler.Task(java.lang.Object)">Scheduler.Task</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;subject)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#Scheduler.Task(java.lang.Object, java.lang.Object)">Scheduler.Task</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;owner,
+               <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;subject)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of Task with a specific object</TD>
@@ -203,15 +204,16 @@ public <B>Scheduler.Task</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="Scheduler.Task(java.lang.Object)"><!-- --></A><H3>
+<A NAME="Scheduler.Task(java.lang.Object, java.lang.Object)"><!-- --></A><H3>
 Scheduler.Task</H3>
 <PRE>
-public <B>Scheduler.Task</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;subject)</PRE>
+public <B>Scheduler.Task</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;owner,
+                      <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;subject)</PRE>
 <DL>
 <DD>Constructor of Task with a specific object
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>subject</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>owner</CODE> - Specifies the caller of this task for later use<DD><CODE>subject</CODE> - Specifies a parameter which can be used in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#process()"><CODE>process()</CODE></A></DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
