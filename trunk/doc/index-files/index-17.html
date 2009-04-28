@@ -86,7 +86,7 @@ Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/engine/Sched
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><B>Scheduler.Task</B></A> - Class in <A HREF="../com/objetdirect/gwt/umlapi/client/engine/package-summary.html">com.objetdirect.gwt.umlapi.client.engine</A><DD>This class represents a classic Task<DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#Scheduler.Task()"><B>Scheduler.Task()</B></A> - 
 Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Scheduler.Task</A>
 <DD>Constructor of Task without specific object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#Scheduler.Task(java.lang.Object)"><B>Scheduler.Task(Object)</B></A> - 
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html#Scheduler.Task(java.lang.Object, java.lang.Object)"><B>Scheduler.Task(Object, Object)</B></A> - 
 Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Scheduler.Task</A>
 <DD>Constructor of Task with a specific object
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#select()"><B>select()</B></A> - 
@@ -203,6 +203,10 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/Drawe
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html#setHeightForMultiLine(int)"><B>setHeightForMultiLine(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A>
 <DD>Setter for the <CODE>TextArea</CODE> height in case of multiple lines edition
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setInitialLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><B>setInitialLocation(Point)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
+<DD>This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
+ it doesn't translate the graphical object unlike <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>UMLArtifact.moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLeftAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><B>setLeftAdornment(LinkArtifact.LinkAdornment)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
 <DD>Setter for the left adornment
@@ -235,9 +239,6 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Rela
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)"><B>setLinkStyle(LinkArtifact.LinkStyle)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
 <DD>Setter for the link style
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><B>setLocation(Point)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
-<DD>This method change the artifact current location but doesn't translate the graphical object unlike <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>UMLArtifact.moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html#setMethods(java.util.ArrayList)"><B>setMethods(ArrayList&lt;Method&gt;)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Class</A>
 <DD>Setter for the methods

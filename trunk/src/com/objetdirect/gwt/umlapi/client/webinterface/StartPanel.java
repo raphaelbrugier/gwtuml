@@ -78,7 +78,7 @@ public class StartPanel extends VerticalPanel {
 	HotKeyManager.forceStaticInit();
 	setWidth("100%");
 	setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	setSpacing(10);
+	setSpacing(20);
 	this.startBtn.addClickHandler(new ClickHandler() {
 	    public void onClick(final ClickEvent event) {
 		makeFirstDrawer();
@@ -119,8 +119,9 @@ public class StartPanel extends VerticalPanel {
 	this.gfxEngineListBox.addItem("Tatami GFX");
 	this.gfxEngineListBox.addItem("Incubator Canvas GFX");
 	this.gfxEngineListBox.addItem("GWT Canvas GFX");
-	this.geometryStyleListBox.addItem("Linear");
 	this.geometryStyleListBox.addItem("Shape Based");
+	this.geometryStyleListBox.addItem("Linear");
+	
 	for (final Theme theme : Theme.values()) {
 	    this.themeListBox.addItem(ThemeManager.getThemeName(theme));
 	}
@@ -168,17 +169,21 @@ public class StartPanel extends VerticalPanel {
 	this.add(this.logoImg);
 	this.add(this.startBtn);
 	this.add(this.startDemoBtn);
+	
+	
+	if(History.getToken().equals("Advanced")) {
 	this.gfxEnginePanel.add(this.gfxEngineLbl);
 	this.gfxEnginePanel.add(this.gfxEngineListBox);
 	this.add(this.gfxEnginePanel);
 	this.geometryStylePanel.add(this.geometryStyleLbl);
 	this.geometryStylePanel.add(this.geometryStyleListBox);
 	this.add(this.geometryStylePanel);
+	}
 
 	this.themePanel.add(this.themeLbl);
 	this.themePanel.add(this.themeListBox);
 	this.add(this.themePanel);
-
+	if(History.getToken().equals("Advanced")) {
 	this.resolutionAutoPanel.add(this.isResolutionAutoChkBox);
 	this.add(this.resolutionAutoPanel);
 
@@ -187,7 +192,7 @@ public class StartPanel extends VerticalPanel {
 	this.resolutionPanel.add(this.crossLbl);
 	this.resolutionPanel.add(this.heightTxtBox);
 	this.add(this.resolutionPanel);
-
+	}
 	this.qualityPanel.add(this.qualityLbl);
 	this.qualityPanel.add(this.qualityListBox);
 	this.add(this.qualityPanel);

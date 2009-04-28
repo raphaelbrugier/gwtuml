@@ -60,7 +60,7 @@ public class DrawerPanel extends AbsolutePanel {
 
     void addDefaultClass() {
 	final ClassArtifact defaultclass = new ClassArtifact("Class 1");
-	defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
+	defaultclass.setInitialLocation(new Point(this.width / 2, this.height / 2));
 	this.uMLCanvas.add(defaultclass);
     }
 

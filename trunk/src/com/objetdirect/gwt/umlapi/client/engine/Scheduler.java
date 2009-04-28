@@ -1,6 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.engine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import com.google.gwt.user.client.Timer;
@@ -19,9 +21,7 @@ public class Scheduler {
      * @author Henri Darmet
      */
     public static abstract class Task extends Timer {
-	boolean done = false;
-
-	Task next;
+	Object owner;
 	Object subject;
 
 	/**
@@ -29,16 +29,18 @@ public class Scheduler {
 	 *
 	 */
 	public Task() {
-	    this(null);
+	    this(null, null);
 	}
 
 	/**
 	 * Constructor of Task with a specific object 
-	 *
-	 * @param subject
+	 * 
+	 * @param owner Specifies the caller of this task for later use
+	 * @param subject Specifies a parameter which can be used in {@link Task#process()}
 	 */
-	public Task(final Object subject) {
+	public Task(final Object owner, final Object subject) {
 	    this.subject = subject;
+	    this.owner = owner;
 	    Scheduler.register(this);
 	}
 
@@ -56,51 +58,46 @@ public class Scheduler {
 	    Scheduler.done(this);
 	}
     }
+    private static Task currentTask;
+    private static LinkedList<Task> queuedTasks = new LinkedList<Task>();
 
-    static Task first = null;
-    static Task last = null;
-    static Map<Object, Task> objects = new HashMap<Object, Task>();
-
-    static void done(final Task t) {
-	if (t != first) {
-	    throw new UMLDrawerException("Wrong task");
+    /**
+     * This method cancel all the queued task (the current will still be performed)
+     * @param owner 
+     */
+    public static void cancel(Object owner) {
+	if(currentTask != null && currentTask.owner.equals(owner)) {
+	    currentTask.cancel();
+	    queuedTasks.remove(currentTask);
+	    currentTask = null;
 	}
-
-	if (t.subject != null) {
-	    objects.remove(t.subject);
+	ArrayList<Task> taskToRemove = new ArrayList<Task>(); //Avoid concurrent modification
+	for (Task task : queuedTasks) {
+	    if(task.owner.equals(owner)) {
+		taskToRemove.add(task);
+	    }
 	}
-	first = t.next;
-	if (first == null) {
-	    last = null;
+	queuedTasks.removeAll(taskToRemove);
+    }
+    private static void done(final Task t) {
+	Task next = queuedTasks.poll(); 
+	if (next != null) {
+	    execute(next);
 	} else {
-	    execute(first);
+	    currentTask = null;
 	}
-
+	    
     }
 
-    static void register(final Task t) {
-	if (t.subject != null) {
-	    final Task old = objects.get(t.subject);
-	    if (old != null) {
-		return;
-	    }
-	    objects.put(t.subject, t);
-	}
-	if (last == null) {
-	    first = t;
-	    last = t;
-	    execute(t);
-	} else {
-	    last.next = t;
-	    last = t;
-	}
+    private static void register(final Task t) {	
+	if(currentTask == null) execute(t);
+	else queuedTasks.add(t);
+
     }
 
     private static void execute(final Task t) {
-	if (t.done) {
-	    done(t);
-	} else {
-	    t.schedule(5);
-	}
+	currentTask = t;
+	t.schedule(5);
     }
+
 }

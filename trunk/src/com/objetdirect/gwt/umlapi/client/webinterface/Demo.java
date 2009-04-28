@@ -55,21 +55,21 @@ public class Demo extends AbsolutePanel {
 	final ClassArtifact linkNoteArtifact		= new ClassArtifact("LinkNoteArtifact");
 	final ClassArtifact relationLinkArtifact	= new ClassArtifact("RelationLinkArtifact");
 	
-	uMLCanvas.			setLocation(new Point(435, FIRST_ROW));
-	uMLEventListener.		setLocation(new Point(10, FIRST_ROW-10));
-	uMLArtifact.			setLocation(new Point(770, FIRST_ROW));
-	externClass.			setLocation(new Point(140, SECOND_ROW));
-	boxArtifact.			setLocation(new Point(355, SECOND_ROW));
-	linkArtifact.			setLocation(new Point(850, MIDDLE_SECOND_THIRD_ROW));
-	classArtifact.			setLocation(new Point(100, THIRD_ROW));
-	noteArtifact.			setLocation(new Point(550, THIRD_ROW));
-	linkClassRelationArtifact.	setLocation(new Point(800, FOURTH_ROW));
-	linkNoteArtifact.		setLocation(new Point(700, MIDDLE_THIRD_FOURTH_ROW));
-	relationLinkArtifact.		setLocation(new Point(950, MIDDLE_THIRD_FOURTH_ROW));
-    	classPartArtifact.		setLocation(new Point(325, THIRD_ROW-15));
-	classPartAttributesArtifact.	setLocation(new Point(50, FOURTH_ROW));
-	classPartMethodsArtifact.	setLocation(new Point(305, FOURTH_ROW));
-	classPartNameArtifact.		setLocation(new Point(525, FOURTH_ROW));
+	uMLCanvas.			setInitialLocation(new Point(435, FIRST_ROW));
+	uMLEventListener.		setInitialLocation(new Point(10, FIRST_ROW-10));
+	uMLArtifact.			setInitialLocation(new Point(770, FIRST_ROW));
+	externClass.			setInitialLocation(new Point(140, SECOND_ROW));
+	boxArtifact.			setInitialLocation(new Point(355, SECOND_ROW));
+	linkArtifact.			setInitialLocation(new Point(850, MIDDLE_SECOND_THIRD_ROW));
+	classArtifact.			setInitialLocation(new Point(100, THIRD_ROW));
+	noteArtifact.			setInitialLocation(new Point(550, THIRD_ROW));
+	linkClassRelationArtifact.	setInitialLocation(new Point(800, FOURTH_ROW));
+	linkNoteArtifact.		setInitialLocation(new Point(700, MIDDLE_THIRD_FOURTH_ROW));
+	relationLinkArtifact.		setInitialLocation(new Point(950, MIDDLE_THIRD_FOURTH_ROW));
+    	classPartArtifact.		setInitialLocation(new Point(325, THIRD_ROW-15));
+	classPartAttributesArtifact.	setInitialLocation(new Point(50, FOURTH_ROW));
+	classPartMethodsArtifact.	setInitialLocation(new Point(305, FOURTH_ROW));
+	classPartNameArtifact.		setInitialLocation(new Point(525, FOURTH_ROW));
 	 
 	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onNewUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
 	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onEditUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
@@ -151,8 +151,8 @@ public class Demo extends AbsolutePanel {
 	final NoteArtifact titleNote 		= new NoteArtifact("Demo class diagram\nCanvas and artifact of gwtuml");
 	final NoteArtifact classPartNote 	= new NoteArtifact("ClassArtifact\nis cut in 3 parts\nfor code clarity");
 	
-	titleNote.	setLocation(new Point(15, 15));
-	classPartNote.	setLocation(new Point(30, MIDDLE_SECOND_THIRD_ROW));
+	titleNote.	setInitialLocation(new Point(15, 15));
+	classPartNote.	setInitialLocation(new Point(30, MIDDLE_SECOND_THIRD_ROW));
 	
 	canvas.add(titleNote);
 	canvas.add(classPartNote);
