@@ -260,9 +260,20 @@ public abstract class UMLArtifact {
     }
 
     /**
+     * This method does the graphic changes to reflect that an artifact has been selected.
+     * 
+     * @param moveToFront Specifies if the graphical object must be brought to foreground (this parameter is ignored if this graphical object is a link)
+     * 
+     */
+    public void select(boolean moveToFront) {
+	select();
+	if(moveToFront && !isALink()) toFront();
+    }
+    
+    /**
      * This method does the graphic changes to reflect that an artifact has been selected
      */
-    public abstract void select();
+    protected abstract void select();
 
     /**
      * Setter for the canvas
@@ -281,7 +292,7 @@ public abstract class UMLArtifact {
      * @param location The artifact initial location
      */
     public void setInitialLocation(final Point location) {
-	if(this.isBuilt) Log.warn("Setting location of a builded artifact : " + this);
+	if(this.isBuilt) Log.warn("Setting locatio of a builded artifact : " + this);
 	this.location = location;
     }
 
@@ -335,5 +346,4 @@ public abstract class UMLArtifact {
     }
 
     protected abstract void buildGfxObject();
-
 }

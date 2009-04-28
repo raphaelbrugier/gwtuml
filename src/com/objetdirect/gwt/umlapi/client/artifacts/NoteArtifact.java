@@ -117,8 +117,8 @@ public class NoteArtifact extends BoxArtifact {
     }
 
     @Override
-    public void select() {
-	GfxManager.getPlatform().moveToFront(this.gfxObject);
+    protected void select() {
+	
 	GfxManager.getPlatform().setStroke(this.borderPath,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.cornerPath,

@@ -41,19 +41,19 @@ public class UMLCanvas extends AbsolutePanel {
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
-    private final static int FAR_AWAY = 9000;
     private long noteCount;
     private RelationKind activeLinking;
     private Point selectBoxStartPoint; 
     private GfxObject selectBox;
     private final Widget drawingCanvas; // Drawing canvas
     private enum DragAndDropState {
-	TAKING, DRAGGING, NONE, SELECTBOX;
+	TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
     }
     private DragAndDropState dragAndDropState = DragAndDropState.NONE;
-    
-    protected Point currentMousePosition;
-    
+
+    private Point currentMousePosition;
+    private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
+
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 	private boolean mouseIsPressed = false; // Manage mouse state when releasing outside the listener
 	public void mouseClicked(final Event event) {
@@ -71,14 +71,14 @@ public class UMLCanvas extends AbsolutePanel {
 	    if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
 		return;
 	    }
-	    select(gfxObject, event.getCtrlKey(), event.getShiftKey());
 	    if(gfxObject != null) {
 		UMLCanvas.this.dragAndDropState = DragAndDropState.TAKING;
 		UMLCanvas.this.dragOffset = realPoint.clonePoint();
 		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		select(gfxObject, event.getCtrlKey(), event.getShiftKey());
 	    } else {
 		UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
-		UMLCanvas.this.dragAndDropState = DragAndDropState.SELECTBOX;
+		UMLCanvas.this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
 	    }
 	}
 
@@ -93,10 +93,13 @@ public class UMLCanvas extends AbsolutePanel {
 	    case DRAGGING:
 		drag(realPoint);
 		break;
-	    case SELECTBOX:
-		boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint);
+	    case PREPARING_SELECT_BOX:
+		UMLCanvas.this.dragAndDropState = DragAndDropState.SELECT_BOX;
+		UMLCanvas.this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(UMLCanvas.this.selectedArtifacts);
+	    case SELECT_BOX:
+		boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint, event.getCtrlKey(), event.getShiftKey());
 	    }
-	    
+
 	    if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
 		animateLinking(realPoint);
 
@@ -110,19 +113,22 @@ public class UMLCanvas extends AbsolutePanel {
 	    final Point realPoint = convertToRealPoint(location);
 	    this.mouseIsPressed = false;	    
 	    switch(UMLCanvas.this.dragAndDropState) {
+	    case SELECT_BOX:
+		if(UMLCanvas.this.selectBox != null) {
+		    GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
+		}
+		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+		break;
 	    case DRAGGING:
 		drop(realPoint);
 	    case TAKING:
 		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
-		break;
-	    case SELECTBOX:
-		if(UMLCanvas.this.selectBox != null) {
-		    GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
-		}
-		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+	    default:
+		unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
 	    }
-	    unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
+
 	}
 
 	public void mouseRightClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
@@ -403,7 +409,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    + OptionsManager.getMovingStep()
 			    * direction.getYDirection()));
 		    selectedArtifact.rebuildGfxObject();
-		    selectedArtifact.select();
+		    selectedArtifact.select(true);
 		}
 	    }
 	}
@@ -451,10 +457,10 @@ public class UMLCanvas extends AbsolutePanel {
 	    GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), location);
-		GfxManager.getPlatform().addToVirtualGroup(this.movingLines, movingLine);		
+		GfxManager.getPlatform().addToVirtualGroup(this.movingLines, movingLine);
+		GfxManager.getPlatform().setStrokeStyle(movingLine, GfxStyle.LONGDASHDOTDOT);
 	    }
-	    GfxManager.getPlatform().setStroke(this.movingLines,	ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
-	    GfxManager.getPlatform().setStrokeStyle(this.movingLines, GfxStyle.DASH);
+	    GfxManager.getPlatform().setStroke(this.movingLines, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);	    
 	    GfxManager.getPlatform().moveToBack(this.movingLines);
 	}
     }
@@ -502,7 +508,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void drag(final Point location) {
 	Point shift = Point.subtract(location, this.dragOffset);
 	this.totalDragShift.translate(shift);
-	
+
 	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
 	    GfxManager.getPlatform().clearVirtualGroup(this.movingOutlineDependencies);
 	}
@@ -531,7 +537,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    if (selectedArtifact.isDraggable()) {
 		selectedArtifact.moveTo(Point.add(selectedArtifact.getLocation(), this.totalDragShift));
 		selectedArtifact.rebuildGfxObject();
-		selectedArtifact.select();
+		selectedArtifact.select(true);
 	    }
 	}
 	this.totalDragShift = Point.getOrigin();
@@ -644,7 +650,7 @@ public class UMLCanvas extends AbsolutePanel {
 			newSelected.unselect();
 		    } else {
 			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-			newSelected.select();
+			newSelected.select(true);
 		    }
 		} else {  
 		    if(!this.selectedArtifacts.containsKey(newSelected)) {
@@ -653,12 +659,12 @@ public class UMLCanvas extends AbsolutePanel {
 			}
 			this.selectedArtifacts.clear();
 			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-			newSelected.select();
+			newSelected.select(true);
 		    }
 		}
 	    } else {
 		this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-		newSelected.select();
+		newSelected.select(true);
 	    }
 	}
     }
@@ -671,10 +677,16 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	    this.selectedArtifacts.clear();
 	    this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-	    newSelected.select();
+	    newSelected.select(true);
+	}
+	if(newSelected == null && !(isCtrlKeyDown || isShiftKeyDown)) {
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
+	    }
+	    this.selectedArtifacts.clear();
 	}
     }
-    private void boxSelector(final Point startPoint, final Point location) {
+    private void boxSelector(final Point startPoint, final Point location, boolean isCtrlDown, boolean isShiftDown) {
 	if(this.selectBox != null) {
 	    GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, this.selectBox);
 	}
@@ -685,12 +697,32 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxManager.getPlatform().lineTo(this.selectBox, location);
 	GfxManager.getPlatform().lineTo(this.selectBox, new Point(startPoint.getX(), location.getY()));
 	GfxManager.getPlatform().lineTo(this.selectBox, startPoint);
-
-
 	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.selectBox, Point.getOrigin());
 	GfxManager.getPlatform().setStroke(this.selectBox, ThemeManager.getTheme().getSelectBoxForegroundColor(), 2);
 	GfxManager.getPlatform().setFillColor(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor());
 	GfxManager.getPlatform().setOpacity(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor().getAlpha(), true);
-
+	Point min = Point.min(startPoint, location);
+	Point max = Point.max(startPoint, location);
+	for (UMLArtifact artifact : this.objects.values()) {
+	    if(artifact.isDraggable()) {
+		if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), min, max)) {	    
+		    boxSelect(artifact, !(this.previouslySelectedArtifacts.containsKey(artifact) && isCtrlDown));
+		} else {
+		    boxSelect(artifact, (isShiftDown || isCtrlDown) && this.previouslySelectedArtifacts.containsKey(artifact));
+		}
+	    }
+	}
+    }
+    private void boxSelect(UMLArtifact artifact, boolean isSelecting) {
+	if(isSelecting) {
+	    this.selectedArtifacts.put(artifact, new ArrayList<Point>());
+	    artifact.select(false);
+	} else {
+	    this.selectedArtifacts.remove(artifact);
+	    artifact.unselect();
+	}
+    }
+    private boolean isIn(Point artifactMin, Point artifactMax, Point selectMin, Point selectMax) {
+	return (selectMax.isSuperiorTo(artifactMin) && artifactMax.isSuperiorTo(selectMin));
     }
 }

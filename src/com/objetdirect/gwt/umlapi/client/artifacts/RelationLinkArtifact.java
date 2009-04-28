@@ -451,7 +451,7 @@ public class RelationLinkArtifact extends LinkArtifact {
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#select()
      */
     @Override
-    public void select() {
+    protected void select() {
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);

@@ -233,8 +233,8 @@ public class ClassArtifact extends BoxArtifact {
     }
 
     @Override
-    public void select() {
-	GfxManager.getPlatform().moveToFront(this.gfxObject);
+    protected void select() {
+	
 	this.className.select();
 	this.classAttributes.select();
 	this.classMethods.select();
