@@ -73,7 +73,7 @@ public class UMLDrawer implements EntryPoint {
 
 	appRootPanel.setSize("100%", "100%");
 	this.startPanel = new StartPanel(false);
-	if(!History.getToken().equals("Demo")) {
+	if(!(History.getToken().equals("Demo") || History.getToken().equals("Drawer"))) {
 	    History.newItem("Start");
 	}
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -98,7 +98,7 @@ public class UMLDrawer implements EntryPoint {
 			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	    }
 	});
-	if(!History.getToken().equals("Demo")) {
+	if(!(History.getToken().equals("Demo") || History.getToken().equals("Drawer"))) {
 	appRootPanel.add(this.startPanel, DockPanel.CENTER);
 	}
 	appRootPanel.add(log, DockPanel.SOUTH);
