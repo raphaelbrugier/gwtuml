@@ -1,10 +1,12 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
-import com.allen_sauer.gwt.log.client.Log;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -34,7 +36,9 @@ public class ContextMenu {
     };
     private final Command saveToSVG = new Command() {
 	public void execute() {
-	   saveTo(DOM.getInnerHTML((Element) ContextMenu.this.canvas.getElement().getFirstChildElement()));
+	    String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
+	    svg += DOM.getInnerHTML((Element) ContextMenu.this.canvas.getElement().getFirstChildElement());
+	   Window.open("data:image/svg," + svg, "SVG export", "");
 	}
     };
     private final UMLCanvas canvas;
@@ -110,7 +114,7 @@ public class ContextMenu {
 	    this.contextMenu.addSeparator();
 	}
 
-	this.contextMenu.addItem("Add new class", this.addNewClass);
+	this.contextMenu.addItem("Add new class", this.addNewClass); 
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relationKind : RelationKind.values()) {
@@ -121,23 +125,4 @@ public class ContextMenu {
 	this.contextMenu.addItem("Save to SVG", this.saveToSVG);
 	this.contextMenu.addItem("Help...", this.bringHelp);
     }
-    
-    /**
-     * @param toSave
-     */
-    private native void saveTo(String toSave) /*-{
-
-        ir=document.createElement('iframe');
-        ir.id='ifr';
-        ir.location='about:blank';
-        ir.style.display='none';
-        document.documentElement.appendChild(ir);
-        document.getElementById('ifr').contentWindow.document.open();
-        document.getElementById('ifr').contentWindow.document.write(toSave);
-        document.getElementById('ifr').contentWindow.document.close();
-        document.getElementById('ifr').contentWindow.document.location='data:image/svg, '+encodeURIComponent(toSave);
-        setTimeout(function(){documentElement.removeChild(ir)},1000);
-  
-  }-*/;
-    
 }

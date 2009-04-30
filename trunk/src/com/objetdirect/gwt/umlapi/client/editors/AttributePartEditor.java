@@ -3,7 +3,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
@@ -40,7 +39,6 @@ public class AttributePartEditor extends FieldEditor {
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
-	Log.fatal(newContent);
 	if (newContent.equals("")) {
 	    ((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
 	    ((ClassPartAttributesArtifact) this.artifact).getClassArtifact()
