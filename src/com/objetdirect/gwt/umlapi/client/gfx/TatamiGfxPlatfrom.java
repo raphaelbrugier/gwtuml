@@ -139,6 +139,14 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public GfxObject buildText(final String text) {
 	return new TatamiGfxObjectContainer(new Text(text));
     }
+    
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
+     */
+    public GfxObject buildText(final String text, final String decoration) {
+	return new TatamiGfxObjectContainer(new Text(text, decoration));
+    }
+
 
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildVirtualGroup()

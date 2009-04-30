@@ -15,10 +15,12 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -148,10 +150,10 @@ public class UMLCanvas extends AbsolutePanel {
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
     private class ClassPair {
-	ClassArtifact c1;
-	ClassArtifact c2;
+	NodeArtifact c1;
+	NodeArtifact c2;
 
-	private ClassPair(ClassArtifact c1, ClassArtifact c2) {
+	private ClassPair(NodeArtifact c1, NodeArtifact c2) {
 	    this.c1 = c1;
 	    this.c2 = c2;
 	}
@@ -287,6 +289,32 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragAndDropState = DragAndDropState.TAKING;
 	}
     }
+    /**
+     * Add a new object with default values to this canvas at the specified location
+     * 
+     * @param location The initial class location
+     * 
+     */
+    void addNewObject(final Point location) {
+	if (this.dragAndDropState != DragAndDropState.NONE) {
+	    return;
+	}
+	final ObjectArtifact newObject = new ObjectArtifact("Object "
+		+ ++classCount);
+	if (fireNewArtifactEvent(newObject)) {
+	    add(newObject);
+	    newObject.moveTo(location);
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
+	    }
+	    this.selectedArtifacts.clear();
+	    select(newObject.getGfxObject());
+	    this.selectedArtifacts.put(newObject, new ArrayList<Point>());
+	    this.dragOffset = location;
+	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+	    this.dragAndDropState = DragAndDropState.TAKING;
+	}
+    }
 
     void addNewLink(final UMLArtifact newSelected) {
 	LinkArtifact newLink;
@@ -304,12 +332,12 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 	    } else if (this.activeLinking == RelationKind.CLASSRELATION) {
 		if (newSelected.getClass() == RelationLinkArtifact.class
-			&& selectedArtifact.getClass() == ClassArtifact.class) {
+			&& selectedArtifact.getClass() == NodeArtifact.class) {
 		    newLink = new LinkClassRelationArtifact(
 			    (ClassArtifact) selectedArtifact,
 			    (RelationLinkArtifact) newSelected);
 		} else if (selectedArtifact.getClass() == RelationLinkArtifact.class
-			&& newSelected.getClass() == ClassArtifact.class) {
+			&& newSelected.getClass() == NodeArtifact.class) {
 		    newLink = new LinkClassRelationArtifact(
 			    (ClassArtifact) newSelected,
 			    (RelationLinkArtifact) selectedArtifact);
@@ -317,9 +345,9 @@ public class UMLCanvas extends AbsolutePanel {
 		    newLink = null;
 		}
 	    }
-	    else if (selectedArtifact.getClass() == ClassArtifact.class
-		    && newSelected.getClass() == ClassArtifact.class) {
-		ClassPair cp = new ClassPair((ClassArtifact) newSelected, (ClassArtifact) selectedArtifact);
+	    else if (selectedArtifact.getClass() == NodeArtifact.class
+		    && newSelected.getClass() == NodeArtifact.class) {
+		ClassPair cp = new ClassPair((NodeArtifact) newSelected, (NodeArtifact) selectedArtifact);
 		int index = Collections.frequency(this.classRelations, cp);
 		newLink = new RelationLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selectedArtifact, this.activeLinking, index);
 	    } else {

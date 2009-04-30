@@ -12,12 +12,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represent the upper Part of a {@link ClassArtifact}
+ * This class represent the upper Part of a {@link NodeArtifact}
  * It can hold a name and a stereotype
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class ClassPartNameArtifact extends ClassPartArtifact {
+public class ClassPartNameArtifact extends NodePartArtifact {
 
     private String className;
     private GfxObject nameRect;
@@ -50,7 +50,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	this.nameRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	this.nameRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.nameRect);
 	GfxManager.getPlatform().setFillColor(this.nameRect,
 		ThemeManager.getTheme().getBackgroundColor());
@@ -60,7 +60,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	// Centering name class :
 	GfxManager.getPlatform().translate(
 		this.textVirtualGroup, new Point(
-		OptionsManager.getRectangleLeftPadding() + (this.classWidth - this.width)
+		OptionsManager.getRectangleLeftPadding() + (this.nodeWidth - this.width)
 			/ 2, OptionsManager.getRectangleTopPadding()));
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
@@ -121,7 +121,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     public void edit() {
 	if (this.stereotype == null) {
 	    this.stereotype = "Abstract";
-	    this.classArtifact.rebuildGfxObject();
+	    this.nodeArtifact.rebuildGfxObject();
 	    edit(this.stereotypeText);
 	} else {
 	    edit(this.nameText);
@@ -140,14 +140,14 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	} else {
 	    edited = this.className;
 	}
-	editor.startEdition(edited, (this.classArtifact.getLocation().getX()
+	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
 		+ OptionsManager.getTextLeftPadding() + OptionsManager
 		.getRectangleLeftPadding()),
-		(this.classArtifact.getLocation().getY()
+		(this.nodeArtifact.getLocation().getY()
 			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()
 			- GfxManager.getPlatform()
 				.getTextHeightFor(editedGfxObject) + OptionsManager
-			.getRectangleTopPadding()), this.classWidth
+			.getRectangleTopPadding()), this.nodeWidth
 			- OptionsManager.getTextXTotalPadding()
 			- OptionsManager.getRectangleXTotalPadding(), false, false);
     }
@@ -168,11 +168,6 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 
     @Override
     public int[] getOpaque() {
-	return null;
-    }
-
-    @Override
-    public GfxObject getOutline() {
 	return null;
     }
 
@@ -222,8 +217,8 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
     }
 
     @Override
-    void setClassWidth(final int width) {
-	this.classWidth = width;
+    void setNodeWidth(final int width) {
+	this.nodeWidth = width;
     }
 
     /**
@@ -252,7 +247,7 @@ public class ClassPartNameArtifact extends ClassPartArtifact {
 	return new Command() {
 	    public void execute() {
 		ClassPartNameArtifact.this.stereotype = null;
-		ClassPartNameArtifact.this.classArtifact.rebuildGfxObject();
+		ClassPartNameArtifact.this.nodeArtifact.rebuildGfxObject();
 	    }
 	};
     }

@@ -8,8 +8,8 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-canvas-0.4.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dnd-r874.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-incubator-r1642.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-2.6.0.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-0.2.0-rc2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-462.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-r326.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-r798.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r462.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ClassArtifact.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -93,16 +93,17 @@ Class ClassArtifact</H2>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>
   <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
       <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">BoxArtifact</A>
-          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>ClassArtifact</B>
+          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>
+              <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>ClassArtifact</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>ClassArtifact</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">BoxArtifact</A></DL>
+<DT><PRE>public class <B>ClassArtifact</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></DL>
 </PRE>
 
 <P>
 This class is an artifact used to represent a class. <br>
- A class is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartArtifact</CODE></A> : <ul>
+ A class is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A> : <ul>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> For the name and stereotype part</li>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartAttributesArtifact</CODE></A> For the attribute list part</li>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartMethodsArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartMethodsArtifact</CODE></A> For the method list part</li>
@@ -136,14 +137,14 @@ This class is an artifact used to represent a class. <br>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#ClassArtifact(java.lang.String)">ClassArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassArtifact</CODE></A> with a name and without stereotype</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#ClassArtifact(java.lang.String, java.lang.String)">ClassArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className,
               <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartArtifact</CODE></A></TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -173,14 +174,6 @@ This class is an artifact used to represent a class. <br>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;editedGfxObject)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Request an edition on this artifact.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#getAttributes()">getAttributes</A></B>()</CODE>
 
@@ -197,27 +190,11 @@ This class is an artifact used to represent a class. <br>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#getHeight()">getHeight</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the Height</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#getMethods()">getMethods</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the methods</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#getOutline()">getOutline</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the outline of an artifact.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -227,38 +204,14 @@ This class is an artifact used to represent a class. <br>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the context menu.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#getWidth()">getWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the Width</TD>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_NodeArtifact"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#rebuildGfxObject()">rebuildGfxObject</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method does a rebuild of the graphical object of this artifact.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">UMLCanvas</A>&nbsp;canvas)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas
- Assign an artifact to his canvas</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html#unselect()">unselect</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method do the graphic changes to reflect that an artifact has been unselected</TD>
+<TD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#getHeight()">getHeight</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#getOutline()">getOutline</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#getWidth()">getWidth</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#rebuildGfxObject()">rebuildGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setCanvas</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#unselect()">unselect</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_BoxArtifact"><!-- --></A>
@@ -316,7 +269,7 @@ ClassArtifact</H3>
 <PRE>
 public <B>ClassArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className)</PRE>
 <DL>
-<DD>ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassArtifact</CODE></A> with a name and without stereotype
+<DD>ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype
 <P>
 <DL>
 <DT><B>Parameters:</B><DD><CODE>className</CODE> - The name of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor</DL>
@@ -329,7 +282,7 @@ ClassArtifact</H3>
 public <B>ClassArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className,
                      <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</PRE>
 <DL>
-<DD>ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartArtifact</CODE></A>
+<DD>ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A>
 <P>
 <DL>
 <DT><B>Parameters:</B><DD><CODE>className</CODE> - The name of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor<DD><CODE>stereotype</CODE> - The stereotype of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor</DL>
@@ -371,23 +324,6 @@ public void <B>addMethod</B>(<A HREF="../../../../../../com/objetdirect/gwt/umla
 </DL>
 <HR>
 
-<A NAME="edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
-edit</H3>
-<PRE>
-public void <B>edit</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;editedGfxObject)</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">UMLArtifact</A></CODE></B></DD>
-<DD>Request an edition on this artifact.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>editedGfxObject</CODE> - is the graphical object on which edition should occur</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getAttributes()"><!-- --></A><H3>
 getAttributes</H3>
 <PRE>
@@ -416,24 +352,6 @@ public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-e
 </DL>
 <HR>
 
-<A NAME="getHeight()"><!-- --></A><H3>
-getHeight</H3>
-<PRE>
-public int <B>getHeight</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getHeight()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the Height
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getHeight()">getHeight</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>This artifact total height</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getMethods()"><!-- --></A><H3>
 getMethods</H3>
 <PRE>
@@ -444,25 +362,6 @@ public <A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-ext
 <DD><DL>
 
 <DT><B>Returns:</B><DD>the list of methods of this class</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getOutline()"><!-- --></A><H3>
-getOutline</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getOutline</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutline()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the outline of an artifact. <br> 
- The outline is what is been drawn during drag and drop
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html#getOutline()">getOutline</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">BoxArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The graphical object of this outline</DL>
 </DD>
 </DL>
 <HR>
@@ -482,77 +381,6 @@ public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The context sub menu and the title of the sub menu<DT><B>See Also:</B><DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>MenuBarAndTitle</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getWidth()"><!-- --></A><H3>
-getWidth</H3>
-<PRE>
-public int <B>getWidth</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getWidth()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the Width
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getWidth()">getWidth</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>This artifact total width</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="rebuildGfxObject()"><!-- --></A><H3>
-rebuildGfxObject</H3>
-<PRE>
-public void <B>rebuildGfxObject</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#rebuildGfxObject()">UMLArtifact</A></CODE></B></DD>
-<DD>This method does a rebuild of the graphical object of this artifact. <br> 
- It is useful to reflect changes made on an artifact / uml component
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#rebuildGfxObject()">rebuildGfxObject</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)"><!-- --></A><H3>
-setCanvas</H3>
-<PRE>
-public void <B>setCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">UMLCanvas</A>&nbsp;canvas)</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">UMLArtifact</A></CODE></B></DD>
-<DD>Setter for the canvas
- Assign an artifact to his canvas
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setCanvas</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas this artifact belongs</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="unselect()"><!-- --></A><H3>
-unselect</H3>
-<PRE>
-public void <B>unselect</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">UMLArtifact</A></CODE></B></DD>
-<DD>This method do the graphic changes to reflect that an artifact has been unselected
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">unselect</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -587,7 +415,7 @@ public void <B>unselect</B>()</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/artifacts/ClassArtifact.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ClassArtifact.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

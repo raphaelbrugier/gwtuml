@@ -388,4 +388,13 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
     public void curveTo(GfxObject gfxObject, Point location, Point control) {
 	lineTo(gfxObject, location);
     }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String, java.lang.String)
+     */
+    @Override
+    public GfxObject buildText(String text, String decoration) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

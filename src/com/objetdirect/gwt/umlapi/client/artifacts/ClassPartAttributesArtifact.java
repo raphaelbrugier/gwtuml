@@ -21,12 +21,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represent the middle Part of a {@link ClassArtifact}
+ * This class represent the middle Part of a {@link NodeArtifact}
  * It can hold an attribute list
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class ClassPartAttributesArtifact extends ClassPartArtifact {
+public class ClassPartAttributesArtifact extends NodePartArtifact {
     private final Map<GfxObject, Attribute> attributeGfxObjects;
     private GfxObject attributeRect;
     private final List<Attribute> attributes;
@@ -59,7 +59,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	this.attributeRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	this.attributeRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.attributeRect);
 	GfxManager.getPlatform().setFillColor(this.attributeRect,
 		ThemeManager.getTheme().getBackgroundColor());
@@ -119,7 +119,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	final Attribute attributeToCreate = new Attribute(Visibility.PROTECTED,
 		"String", "attribute");
 	this.attributes.add(attributeToCreate);
-	this.classArtifact.rebuildGfxObject();
+	this.nodeArtifact.rebuildGfxObject();
 	this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
 	edit(this.lastGfxObject);
     }
@@ -136,16 +136,16 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	    editor
 		    .startEdition(
 			    attributeToChange.toString(),
-			    (this.classArtifact.getLocation().getX()
+			    (this.nodeArtifact.getLocation().getX()
 				    + OptionsManager.getTextLeftPadding() + OptionsManager
-				    .getRectangleLeftPadding()), (this.classArtifact
+				    .getRectangleLeftPadding()), (this.nodeArtifact
 				    .getLocation().getY()
-				    + this.classArtifact.className.getHeight()
+				    + ((ClassArtifact) this.nodeArtifact).className.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
 				    - GfxManager.getPlatform().getTextHeightFor(
 					    editedGfxObject) + OptionsManager
-				    .getRectangleTopPadding()), this.classWidth
+				    .getRectangleTopPadding()), this.nodeWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
 					    .getRectangleXTotalPadding(), false, true);
@@ -168,11 +168,6 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 
     @Override
     public int[] getOpaque() {
-	return null;
-    }
-
-    @Override
-    public GfxObject getOutline() {
 	return null;
     }
 
@@ -214,8 +209,8 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
     }
 
     @Override
-    void setClassWidth(final int width) {
-	this.classWidth = width;
+    void setNodeWidth(final int width) {
+	this.nodeWidth = width;
     }
 
     @Override
@@ -228,7 +223,7 @@ public class ClassPartAttributesArtifact extends ClassPartArtifact {
 	return new Command() {
 	    public void execute() {
 		remove(attribute);
-		ClassPartAttributesArtifact.this.classArtifact
+		ClassPartAttributesArtifact.this.nodeArtifact
 			.rebuildGfxObject();
 	    }
 	};

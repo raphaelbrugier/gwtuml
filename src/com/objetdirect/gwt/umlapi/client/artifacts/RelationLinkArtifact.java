@@ -262,8 +262,8 @@ public class RelationLinkArtifact extends LinkArtifact {
     /**
      * Constructor of {@link RelationLinkArtifact}
      * 
-     * @param left The left {@link ClassArtifact} of the relation
-     * @param right The right {@link ClassArtifact} of the relation
+     * @param left The left {@link NodeArtifact} of the relation
+     * @param right The right {@link NodeArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      */
     public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind) {
@@ -272,8 +272,8 @@ public class RelationLinkArtifact extends LinkArtifact {
     /**
      * Constructor of {@link RelationLinkArtifact}
      * 
-     * @param left The left {@link ClassArtifact} of the relation
-     * @param right The right {@link ClassArtifact} of the relation
+     * @param left The left {@link NodeArtifact} of the relation
+     * @param right The right {@link NodeArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      * @param order The order representing the number of relation already existing between the two artifacts
      */
@@ -344,20 +344,20 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Getter for the left {@link ClassArtifact} of this relation 
+     * Getter for the left {@link NodeArtifact} of this relation 
      * 
-     * @return the left {@link ClassArtifact} of this relation
+     * @return the left {@link NodeArtifact} of this relation
      */
-    public ClassArtifact getLeftClassArtifact() {
+    public NodeArtifact getLeftClassArtifact() {
 	return this.leftClassArtifact;
     }
 
     /**
-     * Getter for the right {@link ClassArtifact} of this relation 
+     * Getter for the right {@link NodeArtifact} of this relation 
      * 
-     * @return the right {@link ClassArtifact} of this relation
+     * @return the right {@link NodeArtifact} of this relation
      */
-    public ClassArtifact getRightClassArtifact() {
+    public NodeArtifact getRightClassArtifact() {
 	return this.rightClassArtifact;
     }
 

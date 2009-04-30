@@ -7,7 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
@@ -39,7 +39,7 @@ public class MethodPartEditor extends FieldEditor {
      */
     @Override
     protected void next() {
-	((ClassPartArtifact) this.artifact).edit();
+	((NodePartArtifact) this.artifact).edit();
     }
 
     /* (non-Javadoc)
@@ -49,7 +49,7 @@ public class MethodPartEditor extends FieldEditor {
     protected boolean updateUMLArtifact(final String newContent) {
 	if (newContent.equals("")) {
 	    ((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
-	    ((ClassPartMethodsArtifact) this.artifact).getClassArtifact()
+	    ((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
 		    .rebuildGfxObject();
 	    return false;
 	}
@@ -63,7 +63,7 @@ public class MethodPartEditor extends FieldEditor {
 	    this.methodToChange.setName(newMethod.getName());
 	    this.methodToChange.setReturnType(newMethod.getReturnType());
 	    this.methodToChange.setParameters(newMethod.getParameters());
-	    ((ClassPartMethodsArtifact) this.artifact).getClassArtifact()
+	    ((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {
 	    Window.alert(e.getMessage());
