@@ -18,6 +18,7 @@ public class ThemeManager {
 	 * The normal theme color
 	 */
 	NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
+		new GfxColor(255, 255, 255, 255), // White
 		new GfxColor(0, 0, 0, 255), // Black
 		new GfxColor(0, 0, 255, 255), //Blue
 		new GfxColor(134, 171, 217, 255), // Soft Blue
@@ -27,19 +28,21 @@ public class ThemeManager {
 		 * Very dark theme color 
 		 */
 		DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
+			 new GfxColor(25, 25, 25, 255), // Dark grey
 			new GfxColor(255, 255, 255, 255), // White
 			new GfxColor(0, 255, 0, 255), // Green
-			new GfxColor(134, 171, 217, 255), // Soft Blue
-			new GfxColor(134, 171, 217, 125)), // Soft Blue Translucent
+			new GfxColor(134, 0, 217, 255), // Soft pink
+			new GfxColor(134, 0, 217, 125)), // Soft pink Translucent
 
 			/**
-			 * Aero try theme color 
+			 * Clear theme color 
 			 */
-			AERO("Aero", new GfxColor(26, 106, 155, 255), // Light Blue
-				new GfxColor(56, 192, 192, 255), // Teal
-				new GfxColor(255, 255, 255, 255), // White
-				new GfxColor(134, 171, 217, 255), // Soft Blue
-				new GfxColor(134, 171, 217, 125)); // Soft Blue Translucent
+			CLEAR("Clear", new GfxColor(255, 255, 255, 255), // White
+				new GfxColor(225, 225, 255, 255), // Light blue
+				new GfxColor(25, 25, 25, 255), // Teal
+				new GfxColor(134, 171, 217, 255), // White
+				new GfxColor(154, 191, 237, 255), // Soft Blue
+				new GfxColor(114, 151, 197, 75)); // Soft Blue Translucent
 
 	// NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
 	// new GfxColor(0, 0, 0, 255), // Black
@@ -67,6 +70,7 @@ public class ThemeManager {
 	    return Theme.NORMAL;
 	}
 
+	private GfxColor canvasColor;
 	private final GfxColor backgroundColor;
 	private final GfxColor foregroundColor;
 	private final GfxColor highlightedForegroundColor;
@@ -74,18 +78,30 @@ public class ThemeManager {
 	private GfxColor selectBoxForegroundColor;
 	private GfxColor selectBoxBackgroundColor;
 
-	private Theme(final String themeName, 
+
+	private Theme(final String themeName,
+		final GfxColor canvasColor,
 		final GfxColor backgroundColor,
 		final GfxColor foregroundColor,
 		final GfxColor highlightedForegroundColor, 
 		final GfxColor selectBoxForegroundColor, 
 		final GfxColor selectBoxBackgroundColor) {
+	    this.canvasColor = canvasColor;
 	    this.themeName = themeName;
 	    this.backgroundColor = backgroundColor;
 	    this.foregroundColor = foregroundColor;
 	    this.highlightedForegroundColor = highlightedForegroundColor;
 	    this.selectBoxForegroundColor = selectBoxForegroundColor;
 	    this.selectBoxBackgroundColor = selectBoxBackgroundColor;
+	}
+
+	/**
+	 * Getter for the canvas background {@link GfxColor}
+	 *
+	 * @return the canvas background {@link GfxColor}
+	 */
+	public GfxColor getCanvasColor() {
+	    return this.canvasColor;
 	}
 
 	/**

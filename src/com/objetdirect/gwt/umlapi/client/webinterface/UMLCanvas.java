@@ -189,7 +189,7 @@ public class UMLCanvas extends AbsolutePanel {
     public UMLCanvas(final int width, final int height) {
 	Log.trace("Making " + width + " x " + height + " Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getCanvasColor());
 	this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
 
 	setPixelSize(width, height);
