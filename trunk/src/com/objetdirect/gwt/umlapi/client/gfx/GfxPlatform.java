@@ -86,7 +86,16 @@ public interface GfxPlatform {
      * @return The new text in a {@link GfxObject}
      */
     GfxObject buildText(String text);
-
+    
+    /**
+     * Build a Text containing text
+     * 
+     * @param text The text String used to make the Text {@link GfxObject}
+     * @param decoration The text decoration
+     * 
+     * @return The new text in a {@link GfxObject}
+     */
+     GfxObject buildText(final String text, final String decoration);
     /**
      * Build a virtual group
      *  

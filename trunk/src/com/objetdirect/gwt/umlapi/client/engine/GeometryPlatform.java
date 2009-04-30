@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment.Shape;
@@ -130,8 +131,8 @@ public abstract class GeometryPlatform {
     }
 
     /**
-     * This method calculates the point to draw a reflexive link (between a {@link ClassArtifact} and itself)  
-     * @param classArtifact The {@link ClassArtifact} which the reflexive link belongs
+     * This method calculates the point to draw a reflexive link (between a {@link NodeArtifact} and itself)  
+     * @param classArtifact The {@link NodeArtifact} which the reflexive link belongs
      * @return An {@link ArrayList} of the {@link Point}s computed to draw the path
      */
     public ArrayList<Point> getReflexiveLineFor(

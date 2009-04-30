@@ -7,8 +7,9 @@ import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
@@ -22,26 +23,40 @@ public class AttributePartEditor extends FieldEditor {
 
     /**
      * @param canvas
-     * @param artifact
+     * @param objectPartAttributesArtifact
      * @param attributeToChange
      */
     public AttributePartEditor(final UMLCanvas canvas,
-	    final ClassPartAttributesArtifact artifact,
+	    final ObjectPartAttributesArtifact objectPartAttributesArtifact,
 	    final Attribute attributeToChange) {
-	super(canvas, artifact);
+	super(canvas, objectPartAttributesArtifact);
+	this.attributeToChange = attributeToChange;
+    }
+
+    /**
+     * Constructor of 
+     *
+     * @param canvas
+     * @param classPartAttributesArtifact
+     * @param attributeToChange2
+     */
+    public AttributePartEditor(UMLCanvas canvas,
+	    ClassPartAttributesArtifact classPartAttributesArtifact,
+	    Attribute attributeToChange2) {
+	super(canvas, classPartAttributesArtifact);
 	this.attributeToChange = attributeToChange;
     }
 
     @Override
     protected void next() {
-	((ClassPartArtifact) this.artifact).edit();
+	((NodePartArtifact) this.artifact).edit();
     }
 
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (newContent.equals("")) {
 	    ((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
-	    ((ClassPartAttributesArtifact) this.artifact).getClassArtifact()
+	    ((ClassPartAttributesArtifact) this.artifact).getNodeArtifact()
 		    .rebuildGfxObject();
 	    return false;
 	}
@@ -81,7 +96,7 @@ public class AttributePartEditor extends FieldEditor {
 	    this.attributeToChange.setVisibility(visibility);
 	    this.attributeToChange.setName(name);
 	    this.attributeToChange.setType(type);
-	    ((ClassPartAttributesArtifact) this.artifact).getClassArtifact()
+	    ((ClassPartAttributesArtifact) this.artifact).getNodeArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {
 	    Window.alert(e.getMessage());

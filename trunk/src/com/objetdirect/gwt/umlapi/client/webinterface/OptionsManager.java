@@ -411,4 +411,4 @@ public class OptionsManager {
     public static void setQualityLevel(final QualityLevel qualityLevel) {
 	OptionsManager.qualityLevel = qualityLevel;
     }
-}
+   }

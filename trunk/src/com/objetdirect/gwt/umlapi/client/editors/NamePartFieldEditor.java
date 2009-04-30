@@ -4,6 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartNameArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
@@ -20,12 +21,26 @@ public class NamePartFieldEditor extends FieldEditor {
      * Constructor of the {@link NamePartFieldEditor} 
      *     
      * @param canvas The canvas on which is the artifact
-     * @param artifact The artifact being edited
+     * @param objectPartNameArtifact The artifact being edited
      * @param isTheStereotype This boolean determine if the edition is on the stereotype (True) or the class name (False)
      */
     public NamePartFieldEditor(final UMLCanvas canvas,
-	    final ClassPartNameArtifact artifact, final boolean isTheStereotype) {
-	super(canvas, artifact);
+	    final ObjectPartNameArtifact objectPartNameArtifact, final boolean isTheStereotype) {
+	super(canvas, objectPartNameArtifact);
+	this.isTheStereotype = isTheStereotype;
+    }
+
+    /**
+     * Constructor of 
+     *
+     * @param canvas
+     * @param classPartNameArtifact
+     * @param isTheStereotype
+     */
+    public NamePartFieldEditor(UMLCanvas canvas,
+	    ClassPartNameArtifact classPartNameArtifact,
+	    boolean isTheStereotype) {
+	super(canvas, classPartNameArtifact);
 	this.isTheStereotype = isTheStereotype;
     }
 
@@ -61,7 +76,7 @@ public class NamePartFieldEditor extends FieldEditor {
 		((ClassPartNameArtifact) this.artifact).setClassName(newContent);
 	    }
 	}
-	((ClassPartNameArtifact) this.artifact).getClassArtifact()
+	((ClassPartNameArtifact) this.artifact).getNodeArtifact()
 		.rebuildGfxObject();
 	return false;
     }

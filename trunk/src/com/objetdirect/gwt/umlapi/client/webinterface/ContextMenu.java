@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -22,6 +21,11 @@ public class ContextMenu {
     private final Command addNewClass = new Command() {
 	public void execute() {
 	    ContextMenu.this.canvas.addNewClass(ContextMenu.this.location);
+	}
+    };
+    private final Command addNewObject = new Command() {
+	public void execute() {
+	    ContextMenu.this.canvas.addNewObject(ContextMenu.this.location);
 	}
     };
     private final Command addNewNote = new Command() {
@@ -115,6 +119,7 @@ public class ContextMenu {
 	}
 
 	this.contextMenu.addItem("Add new class", this.addNewClass); 
+	this.contextMenu.addItem("Add new object", this.addNewObject); 
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relationKind : RelationKind.values()) {

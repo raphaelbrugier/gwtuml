@@ -22,12 +22,12 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represent the lower Part of a {@link ClassArtifact}
+ * This class represent the lower Part of a {@link NodeArtifact}
  * It can hold a method list
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class ClassPartMethodsArtifact extends ClassPartArtifact {
+public class ClassPartMethodsArtifact extends NodePartArtifact {
 
     private GfxObject lastGfxObject;
     private final Map<GfxObject, Method> methodGfxObjects;
@@ -63,7 +63,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	if (this.textVirtualGroup == null) {
 	    computeBounds();
 	}
-	this.methodRect = GfxManager.getPlatform().buildRect(this.classWidth, this.height);
+	this.methodRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.methodRect);
 	GfxManager.getPlatform().setFillColor(this.methodRect,
 		ThemeManager.getTheme().getBackgroundColor());
@@ -126,7 +126,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	methodToCreateParameters.add(new Parameter("String", "parameter1"));
 	this.methods.add(new Method(Visibility.PUBLIC, "void", "method",
 		methodToCreateParameters));
-	this.classArtifact.rebuildGfxObject();
+	this.nodeArtifact.rebuildGfxObject();
 	edit(this.lastGfxObject);
     }
 
@@ -141,17 +141,17 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	    editor
 		    .startEdition(
 			    methodToChange.toString(),
-			    (this.classArtifact.getLocation().getX()
+			    (this.nodeArtifact.getLocation().getX()
 				    + OptionsManager.getTextLeftPadding() + OptionsManager
-				    .getRectangleLeftPadding()), (this.classArtifact
+				    .getRectangleLeftPadding()), (this.nodeArtifact
 				    .getLocation().getY()
-				    + this.classArtifact.className.getHeight()
-				    + this.classArtifact.classAttributes.getHeight()
+				    + ((ClassArtifact) this.nodeArtifact).className.getHeight()
+				    + ((ClassArtifact) this.nodeArtifact).classAttributes.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY()
 				    - GfxManager.getPlatform().getTextHeightFor(
 					    editedGfxObject) + OptionsManager
-				    .getRectangleTopPadding()), this.classWidth
+				    .getRectangleTopPadding()), this.nodeWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
 					    .getRectangleXTotalPadding(), false, true);
@@ -174,11 +174,6 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 
     @Override
     public int[] getOpaque() {
-	return null;
-    }
-
-    @Override
-    public GfxObject getOutline() {
 	return null;
     }
 
@@ -225,8 +220,8 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
     }
 
     @Override
-    void setClassWidth(final int width) {
-	this.classWidth = width;
+    void setNodeWidth(final int width) {
+	this.nodeWidth = width;
     }
 
     @Override
@@ -239,7 +234,7 @@ public class ClassPartMethodsArtifact extends ClassPartArtifact {
 	return new Command() {
 	    public void execute() {
 		remove(method);
-		ClassPartMethodsArtifact.this.classArtifact.rebuildGfxObject();
+		ClassPartMethodsArtifact.this.nodeArtifact.rebuildGfxObject();
 	    }
 	};
     }
