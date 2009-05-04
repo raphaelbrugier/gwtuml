@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 
 /**

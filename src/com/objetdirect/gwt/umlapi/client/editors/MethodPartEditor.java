@@ -7,8 +7,8 @@ import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
-import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
