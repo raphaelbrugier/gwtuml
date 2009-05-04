@@ -74,7 +74,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 				    .getContainerOf(graphicObject), new Point(DOM
 				    .eventGetClientX(e), DOM.eventGetClientY(e)), e);
 		}
-		e.getCtrlKey();
 	    }
 
 	    /* (non-Javadoc)

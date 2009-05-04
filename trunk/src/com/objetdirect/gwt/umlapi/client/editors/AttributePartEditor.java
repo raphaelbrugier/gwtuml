@@ -7,8 +7,8 @@ import com.google.gwt.user.client.Window;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
-import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
@@ -38,11 +38,11 @@ public class AttributePartEditor extends FieldEditor {
      *
      * @param canvas
      * @param classPartAttributesArtifact
-     * @param attributeToChange2
+     * @param attributeToChange
      */
     public AttributePartEditor(UMLCanvas canvas,
 	    ClassPartAttributesArtifact classPartAttributesArtifact,
-	    Attribute attributeToChange2) {
+	    Attribute attributeToChange) {
 	super(canvas, classPartAttributesArtifact);
 	this.attributeToChange = attributeToChange;
     }

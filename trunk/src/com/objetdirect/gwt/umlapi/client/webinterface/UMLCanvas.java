@@ -15,10 +15,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
@@ -67,7 +67,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	public void mouseLeftClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
-	    if(this.mouseIsPressed) return;
+	    //if(this.mouseIsPressed) return;
 	    final Point realPoint = convertToRealPoint(location);
 	    this.mouseIsPressed = true;
 	    if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
@@ -76,12 +76,12 @@ public class UMLCanvas extends AbsolutePanel {
 	    if(gfxObject != null) {
 		UMLCanvas.this.dragAndDropState = DragAndDropState.TAKING;
 		UMLCanvas.this.dragOffset = realPoint.clonePoint();
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-		select(gfxObject, event.getCtrlKey(), event.getShiftKey());
+		CursorIconManager.setCursorIcon(PointerStyle.MOVE);		
 	    } else {
 		UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
 		UMLCanvas.this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
 	    }
+	    doSelection(gfxObject, event.getCtrlKey(), event.getShiftKey());
 	}
 
 	@SuppressWarnings("fallthrough")
@@ -111,9 +111,12 @@ public class UMLCanvas extends AbsolutePanel {
 
 	@SuppressWarnings("fallthrough")
 	public void mouseReleased(final GfxObject gfxObject, final Point location, final Event event) {
-	    if(!this.mouseIsPressed) return;
+	    //if(!this.mouseIsPressed) return;
 	    final Point realPoint = convertToRealPoint(location);
 	    this.mouseIsPressed = false;	    
+	    if(UMLCanvas.this.dragAndDropState == DragAndDropState.TAKING) {
+		unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
+	    }
 	    switch(UMLCanvas.this.dragAndDropState) {
 	    case SELECT_BOX:
 		if(UMLCanvas.this.selectBox != null) {
@@ -125,10 +128,8 @@ public class UMLCanvas extends AbsolutePanel {
 		drop(realPoint);
 	    case TAKING:
 		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+		default :
 		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
-	    default:
-		unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
 	    }
 
 	}
@@ -282,7 +283,7 @@ public class UMLCanvas extends AbsolutePanel {
 		selectedArtifact.unselect();
 	    }
 	    this.selectedArtifacts.clear();
-	    select(newClass.getGfxObject());
+	    doSelection(newClass.getGfxObject(), false, false);
 	    this.selectedArtifacts.put(newClass, new ArrayList<Point>());
 	    this.dragOffset = location;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
@@ -308,7 +309,7 @@ public class UMLCanvas extends AbsolutePanel {
 		selectedArtifact.unselect();
 	    }
 	    this.selectedArtifacts.clear();
-	    select(newObject.getGfxObject());
+	    doSelection(newObject.getGfxObject(), false, false);
 	    this.selectedArtifacts.put(newObject, new ArrayList<Point>());
 	    this.dragOffset = location;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
@@ -377,7 +378,7 @@ public class UMLCanvas extends AbsolutePanel {
 		selectedArtifact.unselect();
 	    }
 	    this.selectedArtifacts.clear();
-	    select(newNote.getGfxObject());
+	    doSelection(newNote.getGfxObject(), false, false);
 	    this.selectedArtifacts.put(newNote, new ArrayList<Point>());
 	    this.dragOffset = initPoint; 
 	    this.dragAndDropState = DragAndDropState.TAKING;
@@ -574,7 +575,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void dropRightMenu(final GfxObject gfxObject, final Point location) {
-	select(gfxObject);
+	doSelection(gfxObject, false, false);
 	final UMLArtifact elem = getUMLArtifact(gfxObject);
 	ContextMenu contextMenu;
 	if (elem != null) {
@@ -648,70 +649,70 @@ public class UMLCanvas extends AbsolutePanel {
 
     }
 
-    private void select(final GfxObject gfxObject) {
-	select(gfxObject, false, false);
-    }
-
-    private void select(final GfxObject gfxObject, boolean isCtrlKeyDown, boolean isShiftKeyDown) {
+    private void doSelection(final GfxObject gfxObject, boolean isCtrlKeyDown, boolean isShiftKeyDown) {
 	final UMLArtifact newSelected = getUMLArtifact(gfxObject);
 	Log.trace("Selecting : " + newSelected + " (" + gfxObject + ")");
-
-	if (newSelected == null) {
-	    this.activeLinking = null;
-	    GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
-	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-		selectedArtifact.unselect();
-	    }
-	    this.selectedArtifacts.clear();
-	} else {
-	    if (!this.selectedArtifacts.isEmpty()) {
-		if (this.activeLinking != null) {
-		    addNewLink(newSelected);
-		    this.activeLinking = null;
-		    GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
-		    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+	//New selection is null -> deselecting all selected artifacts and disabling linking mode
+	if(newSelected == null) {
+	    linkingModeOff();
+	    deselectAllArtifacts();   
+	} else { // New selection is not null
+	    if(this.selectedArtifacts.containsKey(newSelected)) { //New selection is already selected -> deselecting it if shift is not down
+		if(this.selectedArtifacts.size() != 1) { //New selection isn't the only one selected
+		    if(isCtrlKeyDown) { //If ctrl down deselecting only this one
+			deselectArtifact(newSelected);
+		    } 
+		    // This must be done on mouse release
+		    //else if(!isShiftKeyDown){ // If not and shift not down select this one only
+		    //	deselectAllArtifacts();
+		    //	selectArtifact(newSelected);
+		    //}//If shift down do nothing   
 		}
-		if(isCtrlKeyDown || isShiftKeyDown) {
-		    if(this.selectedArtifacts.containsKey(newSelected) && isCtrlKeyDown) {
-			this.selectedArtifacts.remove(newSelected);
-			newSelected.unselect();
-		    } else {
-			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-			newSelected.select(true);
+	    } else { //New selection is not selected
+		if (this.selectedArtifacts.isEmpty()) { //If nothing is selected -> selecting
+		    selectArtifact(newSelected);
+		} else { //Other artifacts are selected
+		    if (this.activeLinking != null) {//if linking mode on
+			addNewLink(newSelected);
+			linkingModeOff();
 		    }
-		} else {  
-		    if(!this.selectedArtifacts.containsKey(newSelected)) {
-			for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-			    selectedArtifact.unselect();
-			}
-			this.selectedArtifacts.clear();
-			this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-			newSelected.select(true);
+		    if(!isCtrlKeyDown && !isShiftKeyDown) { //If selection is not greedy ->deselect all
+			deselectAllArtifacts();
 		    }
+		    selectArtifact(newSelected);
 		}
-	    } else {
-		this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-		newSelected.select(true);
 	    }
 	}
     }
+    private void selectArtifact(UMLArtifact toSelect) {
+	this.selectedArtifacts.put(toSelect, new ArrayList<Point>());
+	toSelect.select(true);
+
+    }
+    private void deselectArtifact(UMLArtifact toDeselect) {
+	this.selectedArtifacts.remove(toDeselect);
+	toDeselect.unselect();	
+    }
+
+    private void deselectAllArtifacts() {
+	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+	    selectedArtifact.unselect();
+	}
+	this.selectedArtifacts.clear();	
+    }
+
     private void unselectOnRelease(final GfxObject gfxObject, boolean isCtrlKeyDown, boolean isShiftKeyDown) {	
 
 	final UMLArtifact newSelected = getUMLArtifact(gfxObject);
-	if(newSelected != null && !this.selectedArtifacts.isEmpty() && !(isCtrlKeyDown || isShiftKeyDown)) {
-	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-		selectedArtifact.unselect();
+	if(newSelected != null) {
+	    if(this.selectedArtifacts.containsKey(newSelected)) {
+		if(this.selectedArtifacts.size() != 1) {
+		    if(!isShiftKeyDown && !isCtrlKeyDown) { //Doing what have not been done on mouse press to allow multiple dragging
+			    deselectAllArtifacts();
+			    selectArtifact(newSelected);
+		    }
+		}
 	    }
-	    this.selectedArtifacts.clear();
-	    this.selectedArtifacts.put(newSelected, new ArrayList<Point>());
-	    newSelected.select(true);
-	}
-	if(newSelected == null && !(isCtrlKeyDown || isShiftKeyDown)) {
-	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-		selectedArtifact.unselect();
-	    }
-	    this.selectedArtifacts.clear();
 	}
     }
     private void boxSelector(final Point startPoint, final Point location, boolean isCtrlDown, boolean isShiftDown) {
@@ -752,5 +753,9 @@ public class UMLCanvas extends AbsolutePanel {
     }
     private boolean isIn(Point artifactMin, Point artifactMax, Point selectMin, Point selectMax) {
 	return (selectMax.isSuperiorTo(artifactMin) && artifactMax.isSuperiorTo(selectMin));
+    }
+    private void linkingModeOff() {
+	this.activeLinking = null;
+	GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
     }
 }

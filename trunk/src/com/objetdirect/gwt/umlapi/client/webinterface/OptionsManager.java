@@ -125,7 +125,7 @@ public class OptionsManager {
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
     private static final int RIGHT_RECT_PADDING = 4;
-    private static final int RIGHT_TEXT_PADDING = 1;
+    private static final int RIGHT_TEXT_PADDING = 10; //Depends on browser/os -> taking max needed
     private static GfxFont smallCapsFont = new GfxFont("monospace", 10,
 	    GfxFont._NORMAL, GfxFont.SMALL_CAPS, GfxFont._NORMAL);
     private static final int SOLID_ARROW_LENGTH = 30;

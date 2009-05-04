@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-incubator-r1642.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-r326.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-r798.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r462.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r463.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

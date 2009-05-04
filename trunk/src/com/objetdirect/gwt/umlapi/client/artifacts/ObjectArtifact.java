@@ -3,7 +3,6 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 
 /**
