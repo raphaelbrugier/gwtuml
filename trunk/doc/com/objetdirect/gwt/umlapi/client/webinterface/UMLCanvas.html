@@ -161,13 +161,14 @@ Class UMLCanvas</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html#UMLCanvas()">UMLCanvas</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html#UMLCanvas(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram)">UMLCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A>&nbsp;uMLDiagram)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A> with default size</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html#UMLCanvas(int, int)">UMLCanvas</A></B>(int&nbsp;width,
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html#UMLCanvas(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram, int, int)">UMLCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A>&nbsp;uMLDiagram,
+          int&nbsp;width,
           int&nbsp;height)</CODE>
 
 <BR>
@@ -198,6 +199,14 @@ Class UMLCanvas</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client"><CODE>UMLEventListener</CODE></A> to this canvas</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html#getUMLDiagram()">getUMLDiagram</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the uMLDiagram</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -283,26 +292,29 @@ Class UMLCanvas</H2>
 </TR>
 </TABLE>
 
-<A NAME="UMLCanvas()"><!-- --></A><H3>
+<A NAME="UMLCanvas(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram)"><!-- --></A><H3>
 UMLCanvas</H3>
 <PRE>
-public <B>UMLCanvas</B>()</PRE>
+public <B>UMLCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A>&nbsp;uMLDiagram)</PRE>
 <DL>
 <DD>Constructor of an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A> with default size
 <P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>uMLDiagram</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram</CODE></A> this <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A> is drawing</DL>
 </DL>
 <HR>
 
-<A NAME="UMLCanvas(int, int)"><!-- --></A><H3>
+<A NAME="UMLCanvas(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram, int, int)"><!-- --></A><H3>
 UMLCanvas</H3>
 <PRE>
-public <B>UMLCanvas</B>(int&nbsp;width,
+public <B>UMLCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A>&nbsp;uMLDiagram,
+                 int&nbsp;width,
                  int&nbsp;height)</PRE>
 <DL>
 <DD>Constructor of an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A> with the specified size
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>width</CODE> - The uml canvas width<DD><CODE>height</CODE> - The uml canvas height</DL>
+<DT><B>Parameters:</B><DD><CODE>uMLDiagram</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram</CODE></A> this <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A> is drawing<DD><CODE>width</CODE> - The uml canvas width<DD><CODE>height</CODE> - The uml canvas height</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -363,6 +375,20 @@ public void <B>removeUMLEventListener</B>(<A HREF="../../../../../../com/objetdi
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client"><CODE>UMLEventListener</CODE></A> to remove from this canvas</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getUMLDiagram()"><!-- --></A><H3>
+getUMLDiagram</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram</A> <B>getUMLDiagram</B>()</PRE>
+<DL>
+<DD>Getter for the uMLDiagram
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the uMLDiagram</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

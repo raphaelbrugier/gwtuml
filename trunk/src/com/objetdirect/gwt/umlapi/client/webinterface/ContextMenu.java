@@ -117,9 +117,12 @@ public class ContextMenu {
 	    this.contextMenu.addItem(this.specificRightMenu.getName(), specificSubMenu);
 	    this.contextMenu.addSeparator();
 	}
-
-	this.contextMenu.addItem("Add new class", this.addNewClass); 
-	this.contextMenu.addItem("Add new object", this.addNewObject); 
+	if(this.canvas.getUMLDiagram().getType().isClassType()) {
+	    this.contextMenu.addItem("Add new class", this.addNewClass);
+	}
+	if(this.canvas.getUMLDiagram().getType().isObjectType()) {
+	    this.contextMenu.addItem("Add new object", this.addNewObject);
+	}
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relationKind : RelationKind.values()) {
