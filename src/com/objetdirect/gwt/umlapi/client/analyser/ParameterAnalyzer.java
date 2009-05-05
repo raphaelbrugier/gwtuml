@@ -3,21 +3,21 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 
 /**
  * @author Henri Darmet
  */
 public class ParameterAnalyzer extends SyntaxAnalyzer {
 
-    Parameter param = new Parameter(null, null);
+    UMLParameter param = new UMLParameter(null, null);
 
     /**
-     * Getter for the {@link Parameter}
+     * Getter for the {@link UMLParameter}
      *
      * @return the parameter
      */
-    public Parameter getParameter() {
+    public UMLParameter getParameter() {
 	return this.param;
     }
 

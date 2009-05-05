@@ -3,7 +3,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ClassPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -72,29 +72,28 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (this.stereotype != null && this.stereotype != "") {
-	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype);
+	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype, new Point(
+		    OptionsManager.getTextLeftPadding(),
+		    OptionsManager.getTextTopPadding()));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    this.stereotypeText);
 	    GfxManager.getPlatform().setFont(this.stereotypeText,
-		    OptionsManager.getSmallCapsFont());
+		    OptionsManager.getFont());
 	    GfxManager.getPlatform().setStroke(this.stereotypeText,
 		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
 		    ThemeManager.getTheme().getForegroundColor());
 	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
-	    this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
-
-	    GfxManager.getPlatform().translate(this.stereotypeText, new Point(
-		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + this.height));
-
+	    this.height = GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
 	    this.width += OptionsManager.getTextXTotalPadding();
 	    this.height += OptionsManager.getTextYTotalPadding();
 	}
-	this.nameText = GfxManager.getPlatform().buildText(this.className);
+	this.nameText = GfxManager.getPlatform().buildText(this.className,  new Point(
+		OptionsManager.getTextLeftPadding(),
+		OptionsManager.getTextTopPadding() + this.height));
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
 	GfxManager.getPlatform().setFont(this.nameText,
-		OptionsManager.getSmallCapsFont());
+		OptionsManager.getFont());
 	GfxManager.getPlatform().setStroke(this.nameText,
 		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
@@ -104,9 +103,6 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		+ OptionsManager.getTextXTotalPadding();
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
-	GfxManager.getPlatform().translate(this.nameText, new Point(
-		OptionsManager.getTextLeftPadding(),
-		OptionsManager.getTextTopPadding() + this.height));
 	this.height += OptionsManager.getTextYTotalPadding();
 	if(this.stereotypeText != null) GfxManager.getPlatform().translate(this.stereotypeText, new Point((this.width - OptionsManager.getTextXTotalPadding() - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText))/2,0));
 	this.width += OptionsManager.getRectangleXTotalPadding();
@@ -119,20 +115,23 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
     @Override
     public void edit() {
-	if (this.stereotype == null) {
-	    this.stereotype = "Abstract";
+	if (this.stereotype == null || this.stereotype.equals("")) {
+	    this.stereotype = "«Abstract»";
 	    this.nodeArtifact.rebuildGfxObject();
 	    edit(this.stereotypeText);
 	} else {
 	    edit(this.nameText);
 	}
-
     }
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
 	final boolean isTheStereotype = editedGfxObject.equals(this.stereotypeText);
-	final NamePartFieldEditor editor = new NamePartFieldEditor(this.canvas,
+	if(!isTheStereotype && !editedGfxObject.equals(this.nameText)) {
+	    edit();
+	    return;
+	}
+	final ClassPartNameFieldEditor editor = new ClassPartNameFieldEditor(this.canvas,
 		this, isTheStereotype);
 	String edited;
 	if (isTheStereotype) {
@@ -144,9 +143,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		+ OptionsManager.getTextLeftPadding() + OptionsManager
 		.getRectangleLeftPadding()),
 		(this.nodeArtifact.getLocation().getY()
-			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()
-			- GfxManager.getPlatform()
-				.getTextHeightFor(editedGfxObject) + OptionsManager
+			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() + OptionsManager
 			.getRectangleTopPadding()), this.nodeWidth
 			- OptionsManager.getTextXTotalPadding()
 			- OptionsManager.getRectangleXTotalPadding(), false, false);

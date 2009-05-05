@@ -79,13 +79,14 @@ public interface GfxPlatform {
     GfxObject buildRect(int width, int height);
 
     /**
-     * Build a Text containing text
+     * Build a Text containing text and  make some platform specific adjustment
      * 
      * @param text The text String used to make the Text {@link GfxObject}
+     * @param location Initial position of the Text 
      * 
      * @return The new text in a {@link GfxObject}
      */
-    GfxObject buildText(String text);
+    GfxObject buildText(String text, Point location);
     
     /**
      * Build a Text containing text
@@ -94,8 +95,8 @@ public interface GfxPlatform {
      * @param decoration The text decoration
      * 
      * @return The new text in a {@link GfxObject}
-     */
-     GfxObject buildText(final String text, final String decoration);
+     *//*
+     GfxObject buildText(final String text, final String decoration);*/
     /**
      * Build a virtual group
      *  

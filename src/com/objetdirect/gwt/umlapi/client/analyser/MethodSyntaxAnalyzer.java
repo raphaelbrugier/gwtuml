@@ -6,9 +6,9 @@ import java.util.List;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
 /**
  * A method syntax analyzer
@@ -16,15 +16,15 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
  * @author Henri Darmet
  */
 public class MethodSyntaxAnalyzer extends SyntaxAnalyzer {
-    Method method = new Method(Visibility.PUBLIC, null, null, null);
-    List<Parameter> parameters = new ArrayList<Parameter>();
+    UMLClassMethod method = new UMLClassMethod(UMLVisibility.PUBLIC, null, null, null);
+    List<UMLParameter> parameters = new ArrayList<UMLParameter>();
 
     /**
-     * Getter for the {@link Method} 
+     * Getter for the {@link UMLClassMethod} 
      * 
      * @return The method
      */
-    public Method getMethod() {
+    public UMLClassMethod getMethod() {
 	return this.method;
     }
 
@@ -50,12 +50,12 @@ public class MethodSyntaxAnalyzer extends SyntaxAnalyzer {
 		return null;
 	    }
 	    if (token.getType() == LexicalFlag.VISIBILITY) {
-		this.method.setVisibility(Visibility.getVisibilityFromToken(token
+		this.method.setVisibility(UMLVisibility.getVisibilityFromToken(token
 			.getContent().charAt(0)));
 		setStatus(State.IDENTIFIER_EXPECTED);
 		return null;
 	    }
-	    this.method.setVisibility(Visibility.PACKAGE);
+	    this.method.setVisibility(UMLVisibility.PACKAGE);
 	case IDENTIFIER_EXPECTED:
 	    if (token == null) {
 		throwUnexpectedEOF();

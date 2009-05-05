@@ -222,7 +222,7 @@ This class allows to set and access configuration values
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getNoteCornerHeight()">getNoteCornerHeight</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner height</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -230,7 +230,7 @@ This class allows to set and access configuration values
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getNoteCornerWidth()">getNoteCornerWidth</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner width</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -383,6 +383,14 @@ This class allows to set and access configuration values
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the total text vertical padding</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getUnderlineShift()">getUnderlineShift</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the shift needed between the text and the underline shift</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -571,11 +579,11 @@ getNoteCornerHeight</H3>
 <PRE>
 public static int <B>getNoteCornerHeight</B>()</PRE>
 <DL>
-<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner height
+<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner height</DL>
+<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height</DL>
 </DD>
 </DL>
 <HR>
@@ -585,11 +593,11 @@ getNoteCornerWidth</H3>
 <PRE>
 public static int <B>getNoteCornerWidth</B>()</PRE>
 <DL>
-<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner width
+<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Note</CODE></A> corner width</DL>
+<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width</DL>
 </DD>
 </DL>
 <HR>
@@ -842,6 +850,20 @@ public static int <B>getTextYTotalPadding</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The total text vertical padding</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getUnderlineShift()"><!-- --></A><H3>
+getUnderlineShift</H3>
+<PRE>
+public static int <B>getUnderlineShift</B>()</PRE>
+<DL>
+<DD>Getter for the shift needed between the text and the underline shift
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the shift between the text and the underline shift</DL>
 </DD>
 </DL>
 <HR>

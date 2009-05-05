@@ -10,11 +10,11 @@ import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Parameter;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 /**
  * This class is an exemple of a static contruction of a uml diagram
@@ -55,9 +55,9 @@ public class Demo extends AbsolutePanel {
 	final ClassArtifact linkNoteArtifact		= new ClassArtifact("LinkNoteArtifact");
 	final ClassArtifact relationLinkArtifact	= new ClassArtifact("RelationLinkArtifact");
 	
-	uMLCanvas.			setInitialLocation(new Point(435, FIRST_ROW));
+	uMLCanvas.			setInitialLocation(new Point(500, FIRST_ROW));
 	uMLEventListener.		setInitialLocation(new Point(10, FIRST_ROW-10));
-	uMLArtifact.			setInitialLocation(new Point(770, FIRST_ROW));
+	uMLArtifact.			setInitialLocation(new Point(925, FIRST_ROW));
 	externClass.			setInitialLocation(new Point(140, SECOND_ROW));
 	boxArtifact.			setInitialLocation(new Point(355, SECOND_ROW));
 	linkArtifact.			setInitialLocation(new Point(850, MIDDLE_SECOND_THIRD_ROW));
@@ -71,18 +71,18 @@ public class Demo extends AbsolutePanel {
 	classPartMethodsArtifact.	setInitialLocation(new Point(305, FOURTH_ROW));
 	classPartNameArtifact.		setInitialLocation(new Point(525, FOURTH_ROW));
 	 
-	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onNewUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
-	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onEditUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
-	uMLEventListener.addMethod(new Method(Visibility.PUBLIC, "boolean", "onDeleteUMLArtifact", 	Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	uMLEventListener.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "boolean", "onNewUMLArtifact", 	Arrays.asList(new UMLParameter("UMLArtifact", "uMLArtifact"))));
+	uMLEventListener.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "boolean", "onEditUMLArtifact", 	Arrays.asList(new UMLParameter("UMLArtifact", "uMLArtifact"))));
+	uMLEventListener.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "boolean", "onDeleteUMLArtifact", 	Arrays.asList(new UMLParameter("UMLArtifact", "uMLArtifact"))));
 
-	uMLCanvas.addAttribute(new Attribute(Visibility.PRIVATE, "HashMap<GfxObject,UMLArtifact>", "objects")); 
-	uMLCanvas.addMethod(new Method(Visibility.PUBLIC, "void", "add", Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
-	uMLCanvas.addMethod(new Method(Visibility.PUBLIC, "void", "remove", Arrays.asList(new Parameter("UMLArtifact", "uMLArtifact"))));
+	uMLCanvas.addAttribute(new UMLClassAttribute(UMLVisibility.PRIVATE, "HashMap<GfxObject,UMLArtifact>", "objects")); 
+	uMLCanvas.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "void", "add", Arrays.asList(new UMLParameter("UMLArtifact", "uMLArtifact"))));
+	uMLCanvas.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "void", "remove", Arrays.asList(new UMLParameter("UMLArtifact", "uMLArtifact"))));
 	
-	uMLArtifact.addAttribute(new Attribute(Visibility.PROTECTED, "GfxObject", "gfxObject"));
-	uMLArtifact.addMethod(new Method(Visibility.PUBLIC, "void", "edit", Arrays.asList(new Parameter("GfxObject", "editedGfxObject"))));
+	uMLArtifact.addAttribute(new UMLClassAttribute(UMLVisibility.PROTECTED, "GfxObject", "gfxObject"));
+	uMLArtifact.addMethod(new UMLClassMethod(UMLVisibility.PUBLIC, "void", "edit", Arrays.asList(new UMLParameter("GfxObject", "editedGfxObject"))));
 	
-	classPartArtifact.addMethod(new Method(Visibility.PACKAGE, "void", "computeBounds", new ArrayList<Parameter>()));
+	classPartArtifact.addMethod(new UMLClassMethod(UMLVisibility.PACKAGE, "void", "computeBounds", new ArrayList<UMLParameter>()));
 	
 	canvas.add(uMLCanvas);
 	canvas.add(uMLEventListener);

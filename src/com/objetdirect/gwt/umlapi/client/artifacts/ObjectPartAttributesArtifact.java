@@ -10,36 +10,36 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.editors.AttributePartEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ObjectPartAttributesEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represent the middle Part of a {@link NodeArtifact}
+ * This object represent the middle Part of a {@link NodeArtifact}
  * It can hold an attribute list
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ObjectPartAttributesArtifact extends NodePartArtifact {
-    private final Map<GfxObject, Attribute> attributeGfxObjects;
+    private final Map<GfxObject, UMLObjectAttribute> attributeGfxObjects;
     private GfxObject attributeRect;
-    private final List<Attribute> attributes;
+    private final List<UMLObjectAttribute> attributes;
     private GfxObject lastGfxObject;
     
     /**
-     * Constructor of ClassPartAttributesArtifact
+     * Constructor of ObjectPartAttributesArtifact
      * It initializes the attribute list
      * 
      */
     public ObjectPartAttributesArtifact() {
-	this.attributes = new ArrayList<Attribute>();
-	this.attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
+	this.attributes = new ArrayList<UMLObjectAttribute>();
+	this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
 	this.height = 0;
 	this.width = 0;
     }
@@ -50,7 +50,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
      * 
      * @param attribute The new attribute to add
      */
-    public void add(final Attribute attribute) {
+    public void add(final UMLObjectAttribute attribute) {
 	this.attributes.add(attribute);
     }
 
@@ -79,9 +79,12 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 
-	for (final Attribute attribute : this.attributes) {
+	for (final UMLObjectAttribute attribute : this.attributes) {
 	    final GfxObject attributeText = GfxManager.getPlatform().buildText(
-		    attribute.toString());
+		    attribute.toString(), new Point(
+			    OptionsManager.getTextLeftPadding(),
+			    OptionsManager.getTextTopPadding() + this.height
+				    ));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    attributeText);
 	    GfxManager.getPlatform().setFont(attributeText,
@@ -94,11 +97,6 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 		    attributeText);
 	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(
 		    attributeText);
-	    GfxManager.getPlatform().translate(
-		    attributeText, new Point(
-		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + this.height
-			    + thisAttributeHeight));
 	    thisAttributeWidth += OptionsManager.getTextXTotalPadding();
 	    thisAttributeHeight += OptionsManager.getTextYTotalPadding();
 	    this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
@@ -116,8 +114,8 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     public void edit() {
-	final Attribute attributeToCreate = new Attribute(Visibility.PROTECTED,
-		"String", "attribute");
+	final UMLObjectAttribute attributeToCreate = new UMLObjectAttribute(UMLVisibility.PROTECTED,
+		"String", "attribute", "null");
 	this.attributes.add(attributeToCreate);
 	this.nodeArtifact.rebuildGfxObject();
 	this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
@@ -126,12 +124,12 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final Attribute attributeToChange = this.attributeGfxObjects
+	final UMLObjectAttribute attributeToChange = this.attributeGfxObjects
 		.get(editedGfxObject);
 	if (attributeToChange == null) {
 	    edit();
 	} else {
-	    final AttributePartEditor editor = new AttributePartEditor(this.canvas,
+	    final ObjectPartAttributesEditor editor = new ObjectPartAttributesEditor(this.canvas,
 		    this, attributeToChange);
 	    editor
 		    .startEdition(
@@ -140,11 +138,9 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 				    + OptionsManager.getTextLeftPadding() + OptionsManager
 				    .getRectangleLeftPadding()), (this.nodeArtifact
 				    .getLocation().getY()
-				    + ((ClassArtifact) this.nodeArtifact).className.getHeight()
+				    + ((ObjectArtifact) this.nodeArtifact).objectName.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
-					    editedGfxObject).getY()
-				    - GfxManager.getPlatform().getTextHeightFor(
-					    editedGfxObject) + OptionsManager
+					    editedGfxObject).getY() + OptionsManager
 				    .getRectangleTopPadding()), this.nodeWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
@@ -162,7 +158,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
      * 
      * @return The current attribute list
      */
-    public List<Attribute> getList() {
+    public List<UMLObjectAttribute> getList() {
 	return this.attributes;
     }
 
@@ -176,7 +172,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName("Attributes");
 
-	for (final Entry<GfxObject, Attribute> attribute : this.attributeGfxObjects
+	for (final Entry<GfxObject, UMLObjectAttribute> attribute : this.attributeGfxObjects
 		.entrySet()) {
 	    final MenuBar subsubMenu = new MenuBar(true);
 	    subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
@@ -198,7 +194,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
      * 
      * @param attribute The attribute to be removed
      */
-    public void remove(final Attribute attribute) {
+    public void remove(final UMLObjectAttribute attribute) {
 	this.attributes.remove(attribute);
     }
 
@@ -219,7 +215,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
-    private Command deleteCommand(final Attribute attribute) {
+    private Command deleteCommand(final UMLObjectAttribute attribute) {
 	return new Command() {
 	    public void execute() {
 		remove(attribute);

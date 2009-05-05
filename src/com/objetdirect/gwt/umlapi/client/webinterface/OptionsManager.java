@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
 
 /**
  * This class allows to set and access configuration values
@@ -106,17 +106,17 @@ public class OptionsManager {
 
     private static final int ARROW_LENGTH = 25;
     private static final int ARROW_WIDTH = 15;
-    private static final int BOTTOM_RECT_PADDING = 6;
-    private static final int BOTTOM_TEXT_PADDING = 2;    
+    private static final int BOTTOM_RECT_PADDING = 4;
+    private static final int BOTTOM_TEXT_PADDING = 1;    
     private static final int CROSS_LENGTH = 5;
     private static final int CROSS_WIDTH = 10;
     private static final int DIAMOND_LENGTH = 20;
     private static final int DIAMOND_WIDTH = 15;
     private static GfxFont font = new GfxFont("monospace", 10, GfxFont._NORMAL,
 	    GfxFont._NORMAL, GfxFont._NORMAL);
-    private static GfxFont smallFont = new GfxFont("monospace", 8, GfxFont._NORMAL,
-	    GfxFont._NORMAL, GfxFont._NORMAL);
-    private static final int LEFT_RECT_PADDING = 4;
+    private static GfxFont smallFont = new GfxFont("monospace", 9, GfxFont._NORMAL,
+	    GfxFont._NORMAL, GfxFont.LIGHTER);
+    private static final int LEFT_RECT_PADDING = 2;
     private static final int LEFT_TEXT_PADDING = 1;
     private static final int MOVING_STEP = 20;
     private static final int NOTE_CORNER_HEIGHT = 15;
@@ -124,15 +124,17 @@ public class OptionsManager {
     private static QualityLevel qualityLevel;
     private static final int REFLEXIVE_PATH_X_GAP = 25;
     private static final int REFLEXIVE_PATH_Y_GAP = 50;
-    private static final int RIGHT_RECT_PADDING = 4;
-    private static final int RIGHT_TEXT_PADDING = 10; //Depends on browser/os -> taking max needed
+    private static final int RIGHT_RECT_PADDING = 2;
+    private static final int RIGHT_TEXT_PADDING = 1; //Depends on browser/os -> taking max needed
     private static GfxFont smallCapsFont = new GfxFont("monospace", 10,
 	    GfxFont._NORMAL, GfxFont.SMALL_CAPS, GfxFont._NORMAL);
     private static final int SOLID_ARROW_LENGTH = 30;
     private static final int SOLID_ARROW_WIDTH = 20;
     private static final int TOP_RECT_PADDING = 4;
     private static final int TOP_TEXT_PADDING = 1;
-
+    private static final int UNDERLINE_SHIFT = 4;
+    
+    
     /**
      * Getter for the arrow length
      * 
@@ -212,18 +214,18 @@ public class OptionsManager {
     }
 
     /**
-     * Getter for the {@link Note} corner height
+     * Getter for the {@link UMLNote} corner height
      * 
-     * @return the {@link Note} corner height
+     * @return the {@link UMLNote} corner height
      */
     public static int getNoteCornerHeight() {
 	return NOTE_CORNER_HEIGHT;
     }
 
     /**
-     * Getter for the {@link Note} corner width
+     * Getter for the {@link UMLNote} corner width
      * 
-     * @return the {@link Note} corner width
+     * @return the {@link UMLNote} corner width
      */
     public static int getNoteCornerWidth() {
 	return NOTE_CORNER_WIDTH;
@@ -391,6 +393,14 @@ public class OptionsManager {
 	return TOP_TEXT_PADDING + BOTTOM_TEXT_PADDING;
     }
 
+    /**
+     * Getter for the shift needed between the text and the underline shift
+     *
+     * @return the shift between the text and the underline shift
+     */
+    public static int getUnderlineShift() {
+        return UNDERLINE_SHIFT;
+    }
     /**
      * Return true if the current quality level is almost the given level
      * 

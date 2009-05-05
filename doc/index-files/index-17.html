@@ -98,8 +98,8 @@ Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterfac
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html#setAlpha(int)"><B>setAlpha(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>
 <DD>Setter for the Alpha value
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html#setAttributes(java.util.ArrayList)"><B>setAttributes(ArrayList&lt;Attribute&gt;)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Class</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html#setAttributes(java.util.ArrayList)"><B>setAttributes(ArrayList&lt;UMLClassAttribute&gt;)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClass</A>
 <DD>Setter for the attributes
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html#setBlue(int)"><B>setBlue(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>
@@ -119,13 +119,13 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtif
  Assign an artifact to his canvas
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setCardinalities(java.lang.String, java.lang.String)"><B>setCardinalities(String, String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the left and right cardinalities in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the left and right cardinalities in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html#setClassName(java.lang.String)"><B>setClassName(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassPartNameArtifact</A>
 <DD>Setter for the class name
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html#setClassName(java.lang.String)"><B>setClassName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ObjectPartNameArtifact</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html#setClassName(java.lang.String)"><B>setClassName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObject</A>
 <DD>Setter for the class name
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/NoteArtifact.html#setContent(java.lang.String)"><B>setContent(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/NoteArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NoteArtifact</A>
@@ -186,22 +186,31 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEdito
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
 <DD>This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
  it doesn't translate the graphical object unlike <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>UMLArtifact.moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLeftAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><B>setLeftAdornment(LinkArtifact.LinkAdornment)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html#setInstance(java.lang.String)"><B>setInstance(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>
+<DD>Set the instance with a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html#setInstance(java.lang.Number)"><B>setInstance(Number)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>
+<DD>Set the instance with a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang"><CODE>Number</CODE></A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html#setInstanceName(java.lang.String)"><B>setInstanceName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObject</A>
+<DD>Setter for the instance name
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLeftAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><B>setLeftAdornment(LinkArtifact.LinkAdornment)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the left adornment
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftCardinality(java.lang.String)"><B>setLeftCardinality(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the leftCardinality in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the leftCardinality in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLeftCardinality(java.lang.String)"><B>setLeftCardinality(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLeftCardinality(java.lang.String)"><B>setLeftCardinality(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the leftCardinality
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftConstraint(java.lang.String)"><B>setLeftConstraint(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the leftConstraint in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the leftConstraint in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLeftConstraint(java.lang.String)"><B>setLeftConstraint(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLeftConstraint(java.lang.String)"><B>setLeftConstraint(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the leftConstraint
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftNavigability(boolean)"><B>setLeftNavigability(boolean)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
@@ -210,39 +219,45 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/Relation
  To set the unknown state see <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetLeftNavigability()"><CODE>RelationLinkArtifact.resetLeftNavigability()</CODE></A>
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftRole(java.lang.String)"><B>setLeftRole(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the leftRole in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the leftRole in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLeftRole(java.lang.String)"><B>setLeftRole(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLeftRole(java.lang.String)"><B>setLeftRole(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the leftRole
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)"><B>setLinkStyle(LinkArtifact.LinkStyle)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)"><B>setLinkStyle(LinkArtifact.LinkStyle)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the link style
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html#setMethods(java.util.ArrayList)"><B>setMethods(ArrayList&lt;Method&gt;)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Class</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html#setMethods(java.util.ArrayList)"><B>setMethods(ArrayList&lt;UMLClassMethod&gt;)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClass</A>
 <DD>Setter for the methods
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the name in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the name in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClass</A>
 <DD>Setter for the name
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Class</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassAttribute</A>
 <DD>Setter for the name
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>
 <DD>Setter for the name
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Parameter.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Parameter.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Parameter</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLParameter.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLParameter.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLParameter</A>
 <DD>Setter for the name
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the name
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html#setName(java.lang.String)"><B>setName(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">MenuBarAndTitle</A>
 <DD>&nbsp;
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html#setObjectAttributes(java.util.ArrayList)"><B>setObjectAttributes(ArrayList&lt;UMLObjectAttribute&gt;)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObject</A>
+<DD>Setter for the attributes
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html#setObjectName(java.lang.String)"><B>setObjectName(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ObjectPartNameArtifact</A>
+<DD>Setter for the object name
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)"><B>setOpacity(GfxObject, int, boolean)</B></A> - 
 Method in interface <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx">GfxPlatform</A>
 <DD>Setter for the opacity of a graphical object
@@ -255,8 +270,8 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/IncubatorGfxPl
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatfrom.html#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)"><B>setOpacity(GfxObject, int, boolean)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatfrom.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">TatamiGfxPlatfrom</A>
 <DD>&nbsp;
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html#setParameters(java.util.List)"><B>setParameters(List&lt;Parameter&gt;)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html#setParameters(java.util.List)"><B>setParameters(List&lt;UMLParameter&gt;)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>
 <DD>Setter for the parameters list
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setPartContent(com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart, java.lang.String)"><B>setPartContent(RelationLinkArtifact.RelationLinkArtifactPart, String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
@@ -273,28 +288,28 @@ Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterfac
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html#setRed(int)"><B>setRed(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>
 <DD>Setter for the Red value
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setRelationKind(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind)"><B>setRelationKind(Relation.RelationKind)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setRelationKind(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)"><B>setRelationKind(UMLRelation.RelationKind)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the relationKind
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html#setReturnType(java.lang.String)"><B>setReturnType(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html#setReturnType(java.lang.String)"><B>setReturnType(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>
 <DD>Setter for the return type
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setRightAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><B>setRightAdornment(LinkArtifact.LinkAdornment)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setRightAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><B>setRightAdornment(LinkArtifact.LinkAdornment)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the right adornment
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightCardinality(java.lang.String)"><B>setRightCardinality(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the rightCardinality in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the rightCardinality in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setRightCardinality(java.lang.String)"><B>setRightCardinality(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setRightCardinality(java.lang.String)"><B>setRightCardinality(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the rightCardinality
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightConstraint(java.lang.String)"><B>setRightConstraint(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the rightConstraint in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the rightConstraint in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setRightConstraint(java.lang.String)"><B>setRightConstraint(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setRightConstraint(java.lang.String)"><B>setRightConstraint(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the rightConstraint
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightNavigability(boolean)"><B>setRightNavigability(boolean)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
@@ -303,10 +318,10 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/Relation
  To set the unknown state see <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetRightNavigability()"><CODE>RelationLinkArtifact.resetRightNavigability()</CODE></A>
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightRole(java.lang.String)"><B>setRightRole(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact</A>
-<DD>Setter for the rightRole in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Relation</CODE></A>
+<DD>Setter for the rightRole in <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
  This does not update the graphical object
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html#setRightRole(java.lang.String)"><B>setRightRole(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Relation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Relation</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setRightRole(java.lang.String)"><B>setRightRole(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the rightRole
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html#setSize(int)"><B>setSize(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>
@@ -329,9 +344,13 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ClassPar
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html#setStereotype(java.lang.String)"><B>setStereotype(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ObjectPartNameArtifact</A>
 <DD>&nbsp;
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html#setStereotype(java.lang.String)"><B>setStereotype(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Class.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Class</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html#setStereotype(java.lang.String)"><B>setStereotype(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClass</A>
 <DD>Setter for the stereotype
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html#setStereotype(java.lang.String)"><B>setStereotype(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObject</A>
+<DD>/**
+ Setter for the stereotype
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setStroke(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxColor, int)"><B>setStroke(GfxObject, GfxColor, int)</B></A> - 
 Method in interface <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx">GfxPlatform</A>
 <DD>Setter of the stroke color and width for a graphical object
@@ -359,32 +378,32 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatf
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html#setStyle(java.lang.String)"><B>setStyle(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>
 <DD>Sets the style of the font
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)"><B>setText(Relation, String)</B></A> - 
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation, java.lang.String)"><B>setText(UMLRelation, String)</B></A> - 
 Method in enum <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact.RelationLinkArtifactPart</A>
 <DD>Setter to affect a text to a part of the relation <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLComponent</CODE></A>
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html#setText(java.lang.String)"><B>setText(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Note.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Note</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html#setText(java.lang.String)"><B>setText(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLNote</A>
 <DD>Setter for the text contained by the Note
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html#setType(java.lang.String)"><B>setType(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html#setType(java.lang.String)"><B>setType(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassAttribute</A>
 <DD>Setter for the type
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Parameter.html#setType(java.lang.String)"><B>setType(String)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Parameter.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Parameter</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLParameter.html#setType(java.lang.String)"><B>setType(String)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLParameter.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLParameter</A>
 <DD>Setter for the type
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html#setValidated(boolean)"><B>setValidated(boolean)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html#setValidated(boolean)"><B>setValidated(boolean)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassAttribute</A>
 <DD>Set the validation state
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html#setValidated(boolean)"><B>setValidated(boolean)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html#setValidated(boolean)"><B>setValidated(boolean)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>
 <DD>Set the validation state
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html#setVariant(java.lang.String)"><B>setVariant(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>
 <DD>Sets the variant of the font
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html#setVisibility(com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility)"><B>setVisibility(Visibility)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html#setVisibility(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility)"><B>setVisibility(UMLVisibility)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassAttribute</A>
 <DD>Set the visibility of the Attribute
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html#setVisibility(com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility)"><B>setVisibility(Visibility)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/Method.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Method</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html#setVisibility(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility)"><B>setVisibility(UMLVisibility)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>
 <DD>Setter for the visibility of the method
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html#setWeight(java.lang.String)"><B>setWeight(String)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>

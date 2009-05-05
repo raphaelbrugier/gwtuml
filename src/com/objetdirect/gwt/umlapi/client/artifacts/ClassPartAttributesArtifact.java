@@ -10,12 +10,12 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.editors.AttributePartEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ClassPartAttributesEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Visibility;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -27,9 +27,9 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ClassPartAttributesArtifact extends NodePartArtifact {
-    private final Map<GfxObject, Attribute> attributeGfxObjects;
+    private final Map<GfxObject, UMLClassAttribute> attributeGfxObjects;
     private GfxObject attributeRect;
-    private final List<Attribute> attributes;
+    private final List<UMLClassAttribute> attributes;
     private GfxObject lastGfxObject;
     
     /**
@@ -38,8 +38,8 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
      * 
      */
     public ClassPartAttributesArtifact() {
-	this.attributes = new ArrayList<Attribute>();
-	this.attributeGfxObjects = new LinkedHashMap<GfxObject, Attribute>();
+	this.attributes = new ArrayList<UMLClassAttribute>();
+	this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
 	this.height = 0;
 	this.width = 0;
     }
@@ -50,7 +50,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
      * 
      * @param attribute The new attribute to add
      */
-    public void add(final Attribute attribute) {
+    public void add(final UMLClassAttribute attribute) {
 	this.attributes.add(attribute);
     }
 
@@ -79,31 +79,21 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 
-	for (final Attribute attribute : this.attributes) {
+	for (final UMLClassAttribute attribute : this.attributes) {
 	    final GfxObject attributeText = GfxManager.getPlatform().buildText(
-		    attribute.toString());
-	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-		    attributeText);
-	    GfxManager.getPlatform().setFont(attributeText,
-		    OptionsManager.getSmallFont());
-	    GfxManager.getPlatform().setStroke(attributeText,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
-	    GfxManager.getPlatform().setFillColor(attributeText,
-		    ThemeManager.getTheme().getForegroundColor());
-	    int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
-		    attributeText);
-	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(
-		    attributeText);
-	    GfxManager.getPlatform().translate(
-		    attributeText, new Point(
-		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + this.height
-			    + thisAttributeHeight));
+		    attribute.toString(), new Point(
+			    OptionsManager.getTextLeftPadding(),
+			    OptionsManager.getTextTopPadding() + this.height));
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, attributeText);
+	    GfxManager.getPlatform().setFont(attributeText, OptionsManager.getSmallFont());
+	    GfxManager.getPlatform().setStroke(attributeText, ThemeManager.getTheme().getBackgroundColor(), 0);
+	    GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getTheme().getForegroundColor());
+	    int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(attributeText);
+	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(attributeText);
 	    thisAttributeWidth += OptionsManager.getTextXTotalPadding();
 	    thisAttributeHeight += OptionsManager.getTextYTotalPadding();
 	    this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	    this.height += thisAttributeHeight;
-
 	    this.attributeGfxObjects.put(attributeText, attribute);
 	    this.lastGfxObject = attributeText;
 	}
@@ -116,7 +106,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     public void edit() {
-	final Attribute attributeToCreate = new Attribute(Visibility.PROTECTED,
+	final UMLClassAttribute attributeToCreate = new UMLClassAttribute(UMLVisibility.PROTECTED,
 		"String", "attribute");
 	this.attributes.add(attributeToCreate);
 	this.nodeArtifact.rebuildGfxObject();
@@ -126,12 +116,12 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     public void edit(final GfxObject editedGfxObject) {
-	final Attribute attributeToChange = this.attributeGfxObjects
+	final UMLClassAttribute attributeToChange = this.attributeGfxObjects
 		.get(editedGfxObject);
 	if (attributeToChange == null) {
 	    edit();
 	} else {
-	    final AttributePartEditor editor = new AttributePartEditor(this.canvas,
+	    final ClassPartAttributesEditor editor = new ClassPartAttributesEditor(this.canvas,
 		    this, attributeToChange);
 	    editor
 		    .startEdition(
@@ -142,9 +132,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 				    .getLocation().getY()
 				    + ((ClassArtifact) this.nodeArtifact).className.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
-					    editedGfxObject).getY()
-				    - GfxManager.getPlatform().getTextHeightFor(
-					    editedGfxObject) + OptionsManager
+					    editedGfxObject).getY() + OptionsManager
 				    .getRectangleTopPadding()), this.nodeWidth
 				    - OptionsManager.getTextXTotalPadding()
 				    - OptionsManager
@@ -162,7 +150,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
      * 
      * @return The current attribute list
      */
-    public List<Attribute> getList() {
+    public List<UMLClassAttribute> getList() {
 	return this.attributes;
     }
 
@@ -176,7 +164,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName("Attributes");
 
-	for (final Entry<GfxObject, Attribute> attribute : this.attributeGfxObjects
+	for (final Entry<GfxObject, UMLClassAttribute> attribute : this.attributeGfxObjects
 		.entrySet()) {
 	    final MenuBar subsubMenu = new MenuBar(true);
 	    subsubMenu.addItem("Edit ", editCommand(attribute.getKey()));
@@ -198,7 +186,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
      * 
      * @param attribute The attribute to be removed
      */
-    public void remove(final Attribute attribute) {
+    public void remove(final UMLClassAttribute attribute) {
 	this.attributes.remove(attribute);
     }
 
@@ -219,7 +207,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
-    private Command deleteCommand(final Attribute attribute) {
+    private Command deleteCommand(final UMLClassAttribute attribute) {
 	return new Command() {
 	    public void execute() {
 		remove(attribute);

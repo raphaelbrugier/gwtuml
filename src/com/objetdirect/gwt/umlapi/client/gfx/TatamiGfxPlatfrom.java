@@ -135,16 +135,18 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
      */
-    public GfxObject buildText(final String text) {
-	return new TatamiGfxObjectContainer(new Text(text));
+    public GfxObject buildText(final String text, Point initLocation) {
+	Text txt = new Text(text);
+	txt.translate(initLocation.getX(), initLocation.getY() + (int) ((txt.getHeight() *  64.) / 100.));
+	return  new TatamiGfxObjectContainer(txt);
     }
     
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
-     */
+     *//*
     public GfxObject buildText(final String text, final String decoration) {
 	return new TatamiGfxObjectContainer(new Text(text, decoration));
-    }
+    }*/
 
 
     /* (non-Javadoc)
@@ -177,8 +179,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
      */
     public int getTextHeightFor(final GfxObject gfxO) {
 	if (gfxO != null) {
-	    return (int) (((Text) getTatamiGraphicalObjectFrom(gfxO))
-		    .getHeight() * 4 / 5); // Converting point to pixel
+	    return (int) ((((Text) getTatamiGraphicalObjectFrom(gfxO))
+		    .getHeight() *  8.) / 10.); // Converting point to pixel
 	}
 	return 0;
     }
@@ -188,8 +190,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
      */
     public int getTextWidthFor(final GfxObject gfxO) {
 	if (gfxO != null) {
-	    return (int) (((Text) getTatamiGraphicalObjectFrom(gfxO))
-		    .getWidth() * 4 / 5); // Converting point to pixel
+	    return (int) ((((Text) getTatamiGraphicalObjectFrom(gfxO))
+		    .getWidth() *  8.) / 10.);  // Converting point to pixel
 	}
 	return 0;
     }
@@ -199,6 +201,10 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
      */
     public Point getLocationFor(final GfxObject gfxO) {
 	if (gfxO != null) {
+	    if(getTatamiGraphicalObjectFrom(gfxO).getClass().equals(Text.class)) {
+		Text txt = (Text) getTatamiGraphicalObjectFrom(gfxO);
+		return new Point(txt.getX(),txt.getY() - (int) ((txt.getHeight() *  64.) / 100.));
+	    }
 	    return new Point(getTatamiGraphicalObjectFrom(gfxO).getX(), getTatamiGraphicalObjectFrom(gfxO).getY());
 	}
 	return Point.getOrigin();

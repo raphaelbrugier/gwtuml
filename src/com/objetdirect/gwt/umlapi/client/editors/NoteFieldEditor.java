@@ -1,11 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
- * This field editor is a specialized editor for {@link Note} editing
+ * This field editor is a specialized editor for {@link UMLNote} editing
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  *
  */

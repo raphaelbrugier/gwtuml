@@ -2,7 +2,7 @@ package com.objetdirect.gwt.umlapi.client;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 /**
  * This listener allow subscription on UML related events
