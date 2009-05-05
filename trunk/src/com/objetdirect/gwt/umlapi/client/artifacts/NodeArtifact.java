@@ -33,20 +33,20 @@ public abstract class NodeArtifact extends BoxArtifact {
     public void edit(final GfxObject editedGfxObject) {
 	for(NodePartArtifact nodePart : this.nodeParts) {
 	    if (editedGfxObject.equals(nodePart.getGfxObject())) {
-		nodePart.edit();
+		nodePart.edit(editedGfxObject);
 		return;
 	    }		
 	}
 
 	if (editedGfxObject.equals(getGfxObject())) {
 	    Log.warn("Selecting a virtual group : this should not happen !");
-	    this.nodeParts.peek().edit();
+	    this.nodeParts.peek().edit(editedGfxObject);
 	} else {
 	    GfxObject gfxObjectGroup = GfxManager.getPlatform().getGroup(editedGfxObject);
 	    if (gfxObjectGroup != null) {
 		for(NodePartArtifact nodePart : this.nodeParts) {
 		    if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
-			nodePart.edit();
+			nodePart.edit(editedGfxObject);
 			return;
 		    }		
 		}
@@ -54,13 +54,13 @@ public abstract class NodeArtifact extends BoxArtifact {
 		if (gfxObjectGroup != null) {
 		    for(NodePartArtifact nodePart : this.nodeParts) {
 			if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
-			    nodePart.edit();
+			    nodePart.edit(editedGfxObject);
 			    return;
 			}		
 		    }
 		    if (gfxObjectGroup.equals(getGfxObject())) {
 			Log.warn("Selecting the master virtual group : this should NOT happen !");
-			this.nodeParts.peek().edit();
+			this.nodeParts.peek().edit(editedGfxObject);
 		    } else {
 			Log.warn("No editable part found");
 		    }

@@ -2,8 +2,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Method;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 
 /**
@@ -54,18 +54,18 @@ public class ClassArtifact extends NodeArtifact {
     }
 
     /**
-     * Add an {@link Attribute} to this class
+     * Add an {@link UMLClassAttribute} to this class
      * @param attribute The attribute, sent to {@link ClassPartAttributesArtifact}
      */
-    public void addAttribute(final Attribute attribute) {
+    public void addAttribute(final UMLClassAttribute attribute) {
 	this.classAttributes.add(attribute);
     }
     /**
-     * Add a {@link Method} to this class
+     * Add a {@link UMLClassMethod} to this class
      * @param method The method, sent to {@link ClassPartMethodsArtifact}
      */
 
-    public void addMethod(final Method method) {
+    public void addMethod(final UMLClassMethod method) {
 	this.classMethods.add(method);
     }
 
@@ -74,7 +74,7 @@ public class ClassArtifact extends NodeArtifact {
      * 
      * @return the list of attributes of this class
      */
-    public List<Attribute> getAttributes() {
+    public List<UMLClassAttribute> getAttributes() {
 	return this.classAttributes.getList();
     }
 
@@ -91,7 +91,7 @@ public class ClassArtifact extends NodeArtifact {
      * 
      * @return the list of methods of this class
      */
-    public List<Method> getMethods() {
+    public List<UMLClassMethod> getMethods() {
 	return this.classMethods.getList();
     }
     

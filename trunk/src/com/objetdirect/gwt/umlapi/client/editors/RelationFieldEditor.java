@@ -2,11 +2,11 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
- * This field editor is a specialized editor for {@link Relation} editing
+ * This field editor is a specialized editor for {@link UMLRelation} editing
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  *
  */

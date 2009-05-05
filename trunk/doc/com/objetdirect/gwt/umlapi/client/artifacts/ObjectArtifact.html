@@ -102,11 +102,10 @@ Class ObjectArtifact</H2>
 </PRE>
 
 <P>
-This class is an artifact used to represent a class. <br>
- A class is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A> : <ul>
- <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> For the name and stereotype part</li>
- <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartAttributesArtifact</CODE></A> For the attribute list part</li>
- <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartMethodsArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartMethodsArtifact</CODE></A> For the method list part</li>
+This object is an artifact used to represent an object / instance of a object. <br>
+ A object is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A> : <ul>
+ <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartNameArtifact</CODE></A> For the name and stereotype part</li>
+ <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartAttributesArtifact</CODE></A> For the attribute list part</li>
  </ul>
 <P>
 
@@ -131,20 +130,20 @@ This class is an artifact used to represent a class. <br>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#ObjectArtifact()">ObjectArtifact</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default constructor, initializes the ClassArtifact with the name "Class"</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default constructor, initializes the ObjectArtifact with the name "Object"</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#ObjectArtifact(java.lang.String)">ObjectArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#ObjectArtifact(java.lang.String)">ObjectArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#ObjectArtifact(java.lang.String, java.lang.String)">ObjectArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className,
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#ObjectArtifact(java.lang.String, java.lang.String)">ObjectArtifact</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName,
                <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A></TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -159,14 +158,14 @@ This class is an artifact used to represent a class. <br>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#addAttribute(com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute)">addAttribute</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>&nbsp;attribute)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#addAttribute(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute)">addAttribute</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>&nbsp;attribute)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Attribute</CODE></A> to this class</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLObjectAttribute</CODE></A> to this object</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#getAttributes()">getAttributes</A></B>()</CODE>
 
 <BR>
@@ -175,7 +174,7 @@ This class is an artifact used to represent a class. <br>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#getClassName()">getClassName</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectArtifact.html#getObjectName()">getObjectName</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the name</TD>
@@ -243,7 +242,7 @@ ObjectArtifact</H3>
 <PRE>
 public <B>ObjectArtifact</B>()</PRE>
 <DL>
-<DD>Default constructor, initializes the ClassArtifact with the name "Class"
+<DD>Default constructor, initializes the ObjectArtifact with the name "Object"
 <P>
 </DL>
 <HR>
@@ -251,25 +250,25 @@ public <B>ObjectArtifact</B>()</PRE>
 <A NAME="ObjectArtifact(java.lang.String)"><!-- --></A><H3>
 ObjectArtifact</H3>
 <PRE>
-public <B>ObjectArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className)</PRE>
+public <B>ObjectArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</PRE>
 <DL>
-<DD>ClassArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype
+<DD>ObjectArtifact constructor, initializes the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> with a name and without stereotype
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>className</CODE> - The name of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor</DL>
+<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - The name of the object, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartNameArtifact</CODE></A> constructor</DL>
 </DL>
 <HR>
 
 <A NAME="ObjectArtifact(java.lang.String, java.lang.String)"><!-- --></A><H3>
 ObjectArtifact</H3>
 <PRE>
-public <B>ObjectArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;className,
+public <B>ObjectArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName,
                       <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</PRE>
 <DL>
-<DD>ClassArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A>
+<DD>ObjectArtifact constructor, initializes all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A>
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>className</CODE> - The name of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor<DD><CODE>stereotype</CODE> - The stereotype of the class, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> constructor</DL>
+<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - The name of the object, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartNameArtifact</CODE></A> constructor<DD><CODE>stereotype</CODE> - The stereotype of the object, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartNameArtifact</CODE></A> constructor</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -282,15 +281,15 @@ public <B>ObjectArtifact</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java
 </TR>
 </TABLE>
 
-<A NAME="addAttribute(com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute)"><!-- --></A><H3>
+<A NAME="addAttribute(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute)"><!-- --></A><H3>
 addAttribute</H3>
 <PRE>
-public void <B>addAttribute</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>&nbsp;attribute)</PRE>
+public void <B>addAttribute</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>&nbsp;attribute)</PRE>
 <DL>
-<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>Attribute</CODE></A> to this class
+<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLObjectAttribute</CODE></A> to this object
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>attribute</CODE> - The attribute, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartAttributesArtifact</CODE></A></DL>
+<DT><B>Parameters:</B><DD><CODE>attribute</CODE> - The attribute, sent to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ObjectPartAttributesArtifact</CODE></A></DL>
 </DD>
 </DL>
 <HR>
@@ -298,27 +297,27 @@ public void <B>addAttribute</B>(<A HREF="../../../../../../com/objetdirect/gwt/u
 <A NAME="getAttributes()"><!-- --></A><H3>
 getAttributes</H3>
 <PRE>
-public <A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/Attribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">Attribute</A>&gt; <B>getAttributes</B>()</PRE>
+public <A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObjectAttribute.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLObjectAttribute</A>&gt; <B>getAttributes</B>()</PRE>
 <DL>
 <DD>Getter for the attributes
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the list of attributes of this class</DL>
+<DT><B>Returns:</B><DD>the list of attributes of this object</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getClassName()"><!-- --></A><H3>
-getClassName</H3>
+<A NAME="getObjectName()"><!-- --></A><H3>
+getObjectName</H3>
 <PRE>
-public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getClassName</B>()</PRE>
+public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getObjectName</B>()</PRE>
 <DL>
 <DD>Getter for the name
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the name of this class</DL>
+<DT><B>Returns:</B><DD>the name of this object</DL>
 </DD>
 </DL>
 <HR>

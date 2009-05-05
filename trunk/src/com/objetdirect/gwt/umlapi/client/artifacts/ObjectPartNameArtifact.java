@@ -3,7 +3,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.editors.NamePartFieldEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ObjectPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -12,34 +12,34 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represent the upper Part of a {@link NodeArtifact}
+ * This object represent the upper Part of a {@link NodeArtifact}
  * It can hold a name and a stereotype
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ObjectPartNameArtifact extends NodePartArtifact {
 
-    private String className;
+    private String objectName;
     private GfxObject nameRect;
     private GfxObject nameText;
     private String stereotype;
     private GfxObject stereotypeText;
     /**
-     * Constructor of ClassPartNameArtifact with only class name
+     * Constructor of ObjectPartNameArtifact with only object name
      * 
-     * @param className The name of the class
+     * @param objectName The name of the object
      */
-    public ObjectPartNameArtifact(final String className) {
-	this(className, "");
+    public ObjectPartNameArtifact(final String objectName) {
+	this(objectName, "");
     }
     /**
-     * Constructor of ClassPartNameArtifact with class name and stereotype
+     * Constructor of ObjectPartNameArtifact with object name and stereotype
      * 
-     * @param className The name of the class
-     * @param stereotype The stereotype associated with the class
+     * @param objectName The name of the object
+     * @param stereotype The stereotype associated with the object
      */
-    public ObjectPartNameArtifact(final String className, final String stereotype) {
-	this.className = className;
+    public ObjectPartNameArtifact(final String objectName, final String stereotype) {
+	this.objectName = objectName;
 	this.stereotype = stereotype == "" ? "" : "«" + stereotype + "»";
 	this.height = 0;
 	this.width = 0;
@@ -57,7 +57,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getTheme().getForegroundColor(), 1);
 
-	// Centering name class :
+	// Centering name object :
 	GfxManager.getPlatform().translate(
 		this.textVirtualGroup, new Point(
 		OptionsManager.getRectangleLeftPadding() + (this.nodeWidth - this.width)
@@ -72,7 +72,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (this.stereotype != null && this.stereotype != "") {
-	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype);
+	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype, new Point(
+		    OptionsManager.getTextLeftPadding(),
+		    OptionsManager.getTextTopPadding()));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    this.stereotypeText);
 	    GfxManager.getPlatform().setStroke(this.stereotypeText,
@@ -81,31 +83,33 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		    ThemeManager.getTheme().getForegroundColor());
 	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
 	    this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
-
-	    GfxManager.getPlatform().translate(this.stereotypeText, new Point(
-		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + this.height));
-
 	    this.width += OptionsManager.getTextXTotalPadding();
 	    this.height += OptionsManager.getTextYTotalPadding();
 	}
-	this.nameText = GfxManager.getPlatform().buildText(this.className, "underline");
+	this.nameText = GfxManager.getPlatform().buildText(this.objectName, new Point(
+		OptionsManager.getTextLeftPadding(),
+		OptionsManager.getTextTopPadding() + this.height)/*, "underline" doesn't work yet in common browsers*/);
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
+	int yUnderline = this.height + GfxManager.getPlatform().getTextHeightFor(this.nameText) + OptionsManager.getTextTopPadding();
+	GfxObject underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.getTextLeftPadding(), yUnderline), new Point(OptionsManager.getTextLeftPadding() + GfxManager.getPlatform().getTextWidthFor(this.nameText), yUnderline));
+	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
+	
 	GfxManager.getPlatform().setFont(this.nameText,
-		OptionsManager.getSmallCapsFont());
+		OptionsManager.getFont());
 	GfxManager.getPlatform().setStroke(this.nameText,
 		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
+		ThemeManager.getTheme().getForegroundColor());
+	GfxManager.getPlatform().setStroke(underline,
+		ThemeManager.getTheme().getForegroundColor(), 1);
+	GfxManager.getPlatform().setFillColor(underline,
 		ThemeManager.getTheme().getForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
 		+ OptionsManager.getTextXTotalPadding();
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
-	GfxManager.getPlatform().translate(this.nameText, new Point(
-		OptionsManager.getTextLeftPadding(),
-		OptionsManager.getTextTopPadding() + this.height));
-	this.height += OptionsManager.getTextYTotalPadding();
+	this.height += OptionsManager.getTextYTotalPadding() + OptionsManager.getUnderlineShift();
 	if(this.stereotypeText != null) GfxManager.getPlatform().translate(this.stereotypeText, new Point((this.width - OptionsManager.getTextXTotalPadding() - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText))/2,0));
 	this.width += OptionsManager.getRectangleXTotalPadding();
 	this.height += OptionsManager.getRectangleYTotalPadding();
@@ -117,46 +121,46 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
     @Override
     public void edit() {
-	if (this.stereotype == null) {
-	    this.stereotype = "Abstract";
+	if (this.stereotype == null || this.stereotype.equals("")) {
+	    this.stereotype = "«Abstract»";
 	    this.nodeArtifact.rebuildGfxObject();
 	    edit(this.stereotypeText);
 	} else {
 	    edit(this.nameText);
 	}
-
     }
 
     @Override
-    public void edit(final GfxObject editedGfxObject) {
+    public void edit(final GfxObject editedGfxObject) {	
 	final boolean isTheStereotype = editedGfxObject.equals(this.stereotypeText);
-	final NamePartFieldEditor editor = new NamePartFieldEditor(this.canvas,
-		this, isTheStereotype);
+	if(!isTheStereotype && !editedGfxObject.equals(this.nameText)) {
+	    edit();
+	    return;
+	}
+	final ObjectPartNameFieldEditor editor = new ObjectPartNameFieldEditor(this.canvas, this, isTheStereotype);
 	String edited;
 	if (isTheStereotype) {
 	    edited = this.stereotype.replaceAll("»", "").replaceAll("«", "");
 	} else {
-	    edited = this.className;
+	    edited = this.objectName;
 	}
 	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
 		+ OptionsManager.getTextLeftPadding() + OptionsManager
 		.getRectangleLeftPadding()),
 		(this.nodeArtifact.getLocation().getY()
-			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()
-			- GfxManager.getPlatform()
-				.getTextHeightFor(editedGfxObject) + OptionsManager
+			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() + OptionsManager
 			.getRectangleTopPadding()), this.nodeWidth
 			- OptionsManager.getTextXTotalPadding()
 			- OptionsManager.getRectangleXTotalPadding(), false, false);
     }
 
     /**
-     * Getter for the class name
+     * Getter for the object name
      * 
-     * @return The class name
+     * @return The object name
      */
-    public String getClassName() {
-	return this.className;
+    public String getObjectName() {
+	return this.objectName;
     }
 
     @Override
@@ -205,13 +209,13 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     }
 
     /**
-     * Setter for the class name
+     * Setter for the object name
      * 
-     * @param className 
-     * 			The new name of the class 
+     * @param objectName 
+     * 			The new name of the object 
      */
-    public void setClassName(final String className) {
-	this.className = className;
+    public void setObjectName(final String objectName) {
+	this.objectName = objectName;
     }
 
     @Override

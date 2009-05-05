@@ -3,7 +3,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
@@ -202,7 +202,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
     }
 
-    protected Relation relation;
+    protected UMLRelation relation;
     protected Point leftPoint = Point.getOrigin();
     protected Point rightPoint = Point.getOrigin();
 

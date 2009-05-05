@@ -30,7 +30,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
@@ -67,7 +67,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	public void mouseLeftClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
-	    //if(this.mouseIsPressed) return;
+	    if(this.mouseIsPressed) return;
 	    final Point realPoint = convertToRealPoint(location);
 	    this.mouseIsPressed = true;
 	    if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
@@ -111,7 +111,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	@SuppressWarnings("fallthrough")
 	public void mouseReleased(final GfxObject gfxObject, final Point location, final Event event) {
-	    //if(!this.mouseIsPressed) return;
+	    if(!this.mouseIsPressed) return;
 	    final Point realPoint = convertToRealPoint(location);
 	    this.mouseIsPressed = false;	    
 	    if(UMLCanvas.this.dragAndDropState == DragAndDropState.TAKING) {

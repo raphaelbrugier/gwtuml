@@ -6,7 +6,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Note;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -23,7 +23,7 @@ public class NoteArtifact extends BoxArtifact {
     GfxObject cornerPath;
     int height;
     int width;
-    private final Note note;
+    private final UMLNote note;
 
     /**
      * Constructor of the NoteArtifact
@@ -33,7 +33,7 @@ public class NoteArtifact extends BoxArtifact {
     public NoteArtifact(final String content) {
 	this.height = 0;
 	this.width = 0;
-	this.note = new Note(content);
+	this.note = new UMLNote(content);
     }
 
     @Override
@@ -151,24 +151,15 @@ public class NoteArtifact extends BoxArtifact {
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.contentText);
 
 	for (final String noteLine : noteMultiLine) {
-	    final GfxObject textLine = GfxManager.getPlatform().buildText(
-		    noteLine);
-	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
-	    GfxManager.getPlatform()
-		    .setFont(textLine, OptionsManager.getSmallFont());
-	    GfxManager.getPlatform().setStroke(textLine,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
-	    GfxManager.getPlatform().setFillColor(textLine,
-		    ThemeManager.getTheme().getForegroundColor());
-	    int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
-	    int thisLineHeight = GfxManager.getPlatform()
-		    .getTextHeightFor(textLine);
-
-	    GfxManager.getPlatform().translate(
-		    textLine,
+	    final GfxObject textLine = GfxManager.getPlatform().buildText(noteLine, 
 		    new Point(OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding() + this.height
-			    + thisLineHeight));
+			    OptionsManager.getTextTopPadding() + this.height));
+	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
+	    GfxManager.getPlatform().setFont(textLine, OptionsManager.getSmallFont());
+	    GfxManager.getPlatform().setStroke(textLine, ThemeManager.getTheme().getBackgroundColor(), 0);
+	    GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getTheme().getForegroundColor());
+	    int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
+	    int thisLineHeight = GfxManager.getPlatform().getTextHeightFor(textLine);
 	    thisLineWidth += OptionsManager.getTextXTotalPadding();
 	    thisLineHeight += OptionsManager.getTextYTotalPadding();
 	    this.width = thisLineWidth > this.width ? thisLineWidth : this.width;

@@ -11,9 +11,9 @@ import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLComponent;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Relation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -40,7 +40,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getLeftCardinality();
 	    }
 
@@ -48,7 +48,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setLeftCardinality(text);
 	    }
 	},
@@ -60,7 +60,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getLeftConstraint();
 	    }
 
@@ -68,7 +68,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setLeftConstraint(text);
 	    }
 	},
@@ -80,7 +80,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getLeftRole();
 	    }
 
@@ -88,7 +88,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setLeftRole(text);
 	    }
 	},
@@ -100,7 +100,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getName();
 	    }
 
@@ -108,7 +108,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setName(text);
 	    }
 	},
@@ -121,7 +121,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getRightCardinality();
 	    }
 
@@ -129,7 +129,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setRightCardinality(text);
 	    }
 	},
@@ -141,7 +141,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getRightConstraint();
 	    }
 
@@ -149,7 +149,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setRightConstraint(text);
 	    }
 	},
@@ -161,7 +161,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation)
 	     */
 	    @Override
-	    public String getText(final Relation relation) {
+	    public String getText(final UMLRelation relation) {
 		return relation.getRightRole();
 	    }
 
@@ -169,7 +169,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	     * @see com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents.Relation, java.lang.String)
 	     */
 	    @Override
-	    public void setText(final Relation relation, final String text) {
+	    public void setText(final UMLRelation relation, final String text) {
 		relation.setRightRole(text);
 	    }
 	};
@@ -219,7 +219,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	 * @param relation The relation {@link UMLComponent} this enumeration is about
 	 * @return the text corresponding to this part
 	 */
-	public abstract String getText(Relation relation);
+	public abstract String getText(UMLRelation relation);
 
 	/**
 	 * Determine if this part is "Left"
@@ -239,7 +239,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	 * @param relation The relation {@link UMLComponent} this enumeration is about
 	 * @param text The text corresponding to this part
 	 */
-	public abstract void setText(Relation relation, String text);
+	public abstract void setText(UMLRelation relation, String text);
     }
 
     /**
@@ -279,7 +279,7 @@ public class RelationLinkArtifact extends LinkArtifact {
      */
     public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind, final int order) {
 	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
-	this.relation = new Relation(relationKind);
+	this.relation = new UMLRelation(relationKind);
 	this.leftClassArtifact = left;
 	left.addDependency(this, right);
 	this.rightClassArtifact = right;
@@ -459,7 +459,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
     /**
-     * Setter for the left and right cardinalities in {@link Relation}
+     * Setter for the left and right cardinalities in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param leftCardinality The left cardinality text to be set
@@ -471,7 +471,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the leftCardinality in {@link Relation}
+     * Setter for the leftCardinality in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param leftCardinality The leftCardinality text to be set
@@ -481,7 +481,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the leftConstraint in {@link Relation}
+     * Setter for the leftConstraint in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param leftConstraint The leftConstraint text to be set
@@ -491,7 +491,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the leftRole in {@link Relation}
+     * Setter for the leftRole in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param leftRole The leftRole text to be set
@@ -501,7 +501,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the name in {@link Relation}
+     * Setter for the name in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param name The name text to be set
@@ -566,7 +566,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the rightCardinality in {@link Relation}
+     * Setter for the rightCardinality in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param rightCardinality The rightCardinality text to be set
@@ -576,7 +576,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the rightConstraint in {@link Relation}
+     * Setter for the rightConstraint in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param rightConstraint The rightConstraint text to be set
@@ -586,7 +586,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     /**
-     * Setter for the rightRole in {@link Relation}
+     * Setter for the rightRole in {@link UMLRelation}
      * This does not update the graphical object
      * 
      * @param rightRole The rightRole text to be set
@@ -667,17 +667,16 @@ public class RelationLinkArtifact extends LinkArtifact {
 		case RIGHT:
 		    if (relative_point1.getY() > relative_point2.getY()) {
 			return relative_point1.getY()
-			+ OptionsManager.getRectangleBottomPadding()
-			+ textHeight + delta;
+			+ OptionsManager.getRectangleBottomPadding() + delta;
 		    }
-		    return relative_point1.getY()
+		    return relative_point1.getY() - textHeight
 		    - OptionsManager.getRectangleTopPadding() - delta;
 		case TOP:
-		    return relative_point1.getY()
+		    return relative_point1.getY() - textHeight
 		    - OptionsManager.getRectangleTopPadding() - delta;
 		case BOTTOM:
 		case UNKNOWN:
-		    return relative_point1.getY() + textHeight
+		    return relative_point1.getY()
 		    + OptionsManager.getRectangleBottomPadding() + delta;
 	}
 	return 0;
@@ -776,24 +775,20 @@ public class RelationLinkArtifact extends LinkArtifact {
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (this.relation.getName() != "") {
 	    Log.trace("Creating name");
+	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
+	    if(this.order != 0) {
+		linkMiddle = Point.getMiddleOf(curveControl, linkMiddle);
+	    }
 	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText(
-		    this.relation.getName());
+		    this.relation.getName(),linkMiddle);
 	    GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
-
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
 		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
 		    ThemeManager.getTheme().getForegroundColor());
-	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
-	    if(this.order == 0) {
-		GfxManager.getPlatform().translate(nameGfxObject, linkMiddle);
-	    } else {
-		GfxManager.getPlatform().translate(nameGfxObject, Point.getMiddleOf(curveControl, linkMiddle));
-	    }
 	    GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
-
 	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject,
 		    RelationLinkArtifactPart.NAME);
 	    this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
@@ -850,8 +845,10 @@ public class RelationLinkArtifact extends LinkArtifact {
 
     private GfxObject createText(final String text,
 	    final RelationLinkArtifactPart part) {
+
+
 	final GfxObject textGfxObject = GfxManager.getPlatform()
-	.buildText(text);
+	.buildText(text, Point.getOrigin());
 	GfxManager.getPlatform().setFont(textGfxObject, OptionsManager.getSmallFont());
 	GfxManager.getPlatform().setStroke(textGfxObject,
 		ThemeManager.getTheme().getBackgroundColor(), 0);
@@ -868,7 +865,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    if(part.isLeft) {
 		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftClassArtifact.getCenter(), new Point(OptionsManager.getArrowWidth() / 2 + OptionsManager.getTextLeftPadding(), -(this.leftClassArtifact.getHeight() + OptionsManager.getReflexivePathYGap())/2 + this.current_delta)));
 	    } else {
-		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftClassArtifact.getLocation(), new Point(this.leftClassArtifact.getWidth() + OptionsManager.getReflexivePathXGap() + OptionsManager.getTextLeftPadding(),  GfxManager.getPlatform().getTextHeightFor(textGfxObject) + this.current_delta)));
+		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftClassArtifact.getLocation(), new Point(this.leftClassArtifact.getWidth() + OptionsManager.getReflexivePathXGap() + OptionsManager.getTextLeftPadding(), this.current_delta)));
 	    }
 	    this.current_delta += 8;
 	}
@@ -878,7 +875,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	return textGfxObject;
     }
 
-    private Command changeToCommand(final Relation linkRelation, final RelationKind relationKind) {
+    private Command changeToCommand(final UMLRelation linkRelation, final RelationKind relationKind) {
 	return new Command() {
 	    public void execute() {
 		linkRelation.setRelationKind(relationKind);
@@ -908,7 +905,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	};
     }
 
-    private Command reverseCommand(final Relation linkRelation) {
+    private Command reverseCommand(final UMLRelation linkRelation) {
 	return new Command() {
 	    public void execute() {
 		linkRelation.reverse();
@@ -919,7 +916,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
 
-    private Command setNavigabilityCommand(final Relation relation, final boolean isLeft) {
+    private Command setNavigabilityCommand(final UMLRelation relation, final boolean isLeft) {
 	return new Command() {
 	    public void execute() {
 		if(isLeft) relation.setLeftAdornment(LinkAdornment.NONE);
@@ -930,7 +927,7 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
 
-    private Command setNavigabilityCommand(final Relation relation, final boolean isLeft, final boolean isNavigable) {
+    private Command setNavigabilityCommand(final UMLRelation relation, final boolean isLeft, final boolean isNavigable) {
 	return new Command() {
 	    public void execute() {
 		LinkAdornment adornment = isNavigable ? LinkAdornment.WIRE_ARROW : LinkAdornment.WIRE_CROSS;

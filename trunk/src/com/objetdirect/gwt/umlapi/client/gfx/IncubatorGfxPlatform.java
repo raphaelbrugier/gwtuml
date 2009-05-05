@@ -152,7 +152,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
      */
-    public GfxObject buildText(final String text) {
+    public GfxObject buildText(final String text, final Point location) {
 	// TODO Auto-generated method stub
 	return new IncubatorGfxObjectContainer(new Text(text));
     }
@@ -385,15 +385,6 @@ public class IncubatorGfxPlatform implements GfxPlatform {
      */
     public void curveTo(GfxObject gfxObject, Point location, Point control) {
 	lineTo(gfxObject, location);
-    }
-
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String, java.lang.String)
-     */
-    @Override
-    public GfxObject buildText(String text, String decoration) {
-	// TODO Auto-generated method stub
-	return null;
     }
 
 }

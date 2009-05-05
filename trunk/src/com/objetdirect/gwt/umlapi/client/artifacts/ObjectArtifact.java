@@ -2,91 +2,90 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.Attribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 
 /**
- * This class is an artifact used to represent a class. <br>
- * A class is divided in three {@link NodePartArtifact} : <ul>
- * <li>{@link ClassPartNameArtifact} For the name and stereotype part</li>
- * <li>{@link ClassPartAttributesArtifact} For the attribute list part</li>
- * <li>{@link ClassPartMethodsArtifact} For the method list part</li>
+ * This object is an artifact used to represent an object / instance of a object. <br>
+ * A object is divided in three {@link NodePartArtifact} : <ul>
+ * <li>{@link ObjectPartNameArtifact} For the name and stereotype part</li>
+ * <li>{@link ObjectPartAttributesArtifact} For the attribute list part</li>
  * </ul>
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ObjectArtifact extends NodeArtifact {
-    ObjectPartAttributesArtifact classAttributes;
-    ObjectPartNameArtifact className;
+    ObjectPartAttributesArtifact Attributes;
+    ObjectPartNameArtifact objectName;
 
     /**
-     * Default constructor, initializes the ClassArtifact with the name "Class"
+     * Default constructor, initializes the ObjectArtifact with the name "Object"
      */
     public ObjectArtifact() {
 	this("Object");
     }
     
     /**
-     * ClassArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
+     * ObjectArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
      * 
-     * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
+     * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
      */
-    public ObjectArtifact(final String className) {
-	this(className, "");
+    public ObjectArtifact(final String objectName) {
+	this(objectName, "");
     }
     /**
-     * ClassArtifact constructor, initializes all {@link NodePartArtifact}
+     * ObjectArtifact constructor, initializes all {@link NodePartArtifact}
      * 
-     * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
-     * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
+     * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
+     * @param stereotype The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
      */
-    public ObjectArtifact(final String className, final String stereotype) {
-	this.className = new ObjectPartNameArtifact(className, stereotype);
-	this.classAttributes = new ObjectPartAttributesArtifact();
-	this.nodeParts.add(this.className);
-	this.nodeParts.add(this.classAttributes);
-	this.className.setNodeArtifact(this);
-	this.classAttributes.setNodeArtifact(this);
+    public ObjectArtifact(final String objectName, final String stereotype) {
+	this.objectName = new ObjectPartNameArtifact(objectName, stereotype);
+	this.Attributes = new ObjectPartAttributesArtifact();
+	this.nodeParts.add(this.objectName);
+	this.nodeParts.add(this.Attributes);
+	this.objectName.setNodeArtifact(this);
+	this.Attributes.setNodeArtifact(this);
     }
 
     /**
-     * Add an {@link Attribute} to this class
-     * @param attribute The attribute, sent to {@link ClassPartAttributesArtifact}
+     * Add an {@link UMLObjectAttribute} to this object
+     * @param attribute The attribute, sent to {@link ObjectPartAttributesArtifact}
      */
-    public void addAttribute(final Attribute attribute) {
-	this.classAttributes.add(attribute);
+    public void addAttribute(final UMLObjectAttribute attribute) {
+	this.Attributes.add(attribute);
     }
 
     /**
      * Getter for the attributes
      * 
-     * @return the list of attributes of this class
+     * @return the list of attributes of this object
      */
-    public List<Attribute> getAttributes() {
-	return this.classAttributes.getList();
+    public List<UMLObjectAttribute> getAttributes() {
+	return this.Attributes.getList();
     }
 
     /**
      * Getter for the name
      * 
-     * @return the name of this class
+     * @return the name of this object
      */
-    public String getClassName() {
-	return this.className.getClassName();
+    public String getObjectName() {
+	return this.objectName.getObjectName();
     }
 
     @Override
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-	final MenuBarAndTitle classNameRightMenu = this.className.getRightMenu();
-	final MenuBarAndTitle classAttributesRightMenu = this.classAttributes
+	final MenuBarAndTitle objectNameRightMenu = this.objectName.getRightMenu();
+	final MenuBarAndTitle objectAttributesRightMenu = this.Attributes
 		.getRightMenu();
 
-	rightMenu.setName("Object " + this.className.getClassName());
+	rightMenu.setName("Object " + this.objectName.getObjectName());
 
-	rightMenu.addItem(classNameRightMenu.getName(), classNameRightMenu
+	rightMenu.addItem(objectNameRightMenu.getName(), objectNameRightMenu
 		.getSubMenu());
-	rightMenu.addItem(classAttributesRightMenu.getName(),
-		classAttributesRightMenu.getSubMenu());
+	rightMenu.addItem(objectAttributesRightMenu.getName(),
+		objectAttributesRightMenu.getSubMenu());
 
 
 	return rightMenu;
