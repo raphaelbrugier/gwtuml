@@ -52,10 +52,11 @@ public final class HotKeyManager {
      */
     public static void forceStaticInit() {
 	HelpManager.addHotkeyHelp("C", "Add a new class");
+	HelpManager.addHotkeyHelp("O", "Add a new object");
 	HelpManager.addHotkeyHelp("N", "Add a new note");
 	HelpManager.addHotkeyHelp("A", "Add a new aggregation");
 	HelpManager.addHotkeyHelp("L", "Add a new association");
-	HelpManager.addHotkeyHelp("Q", "Add a new composition");
+	HelpManager.addHotkeyHelp("K", "Add a new composition");
 	HelpManager.addHotkeyHelp("D", "Add a new dependency");
 	HelpManager.addHotkeyHelp("R", "Add a new generalization");
 	HelpManager.addHotkeyHelp("T", "Add a new note link");
@@ -104,7 +105,14 @@ public final class HotKeyManager {
 	final char keyCode = (char) DOM.eventGetKeyCode(event);
 	switch (keyCode) {
 	case 'C':
-	    activeCanvas.addNewClass();
+	    if(activeCanvas.getUMLDiagram().getType().isClassType()) {
+		activeCanvas.addNewClass();
+	    }
+	    break;
+	case 'O':
+	    if(activeCanvas.getUMLDiagram().getType().isObjectType()) {
+		activeCanvas.addNewObject();
+	    }
 	    break;
 	case 'N':
 	    activeCanvas.addNewNote();
@@ -115,7 +123,7 @@ public final class HotKeyManager {
 	case 'L':
 	    activeCanvas.toLinkMode(RelationKind.ASSOCIATION);
 	    break;
-	case 'O':
+	case 'K':
 	    activeCanvas.toLinkMode(RelationKind.COMPOSITION);
 	    break;
 	case 'D':

@@ -302,9 +302,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    editor
 	    .startEdition(editPart.getText(this.relation), GfxManager
 		    .getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager
-		    .getPlatform().getLocationFor(editedGfxObject).getY()
-		    - GfxManager.getPlatform().getTextHeightFor(
-			    editedGfxObject), GfxManager.getPlatform()
+		    .getPlatform().getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform()
 			    .getTextWidthFor(editedGfxObject)
 			    + OptionsManager.getRectangleXTotalPadding(), false, true);
 	}
@@ -319,8 +317,14 @@ public class RelationLinkArtifact extends LinkArtifact {
 	String defaultText;
 	switch (part) {
 	case NAME:
+	    String name = part.getText(this.relation);
+	    if(name == null || name.equals("")) {
 	    defaultText = this.leftClassArtifact.getClassName() + "-"
 	    + this.rightClassArtifact.getClassName();
+	    }
+	    else {
+		defaultText = name;
+	    }
 	    break;
 	case LEFT_CARDINALITY:
 	case RIGHT_CARDINALITY:

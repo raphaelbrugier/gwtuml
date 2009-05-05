@@ -5,7 +5,10 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
  * This panel is an intermediate panel that contains the graphic canvas <br>
@@ -34,11 +37,12 @@ public class DrawerPanel extends AbsolutePanel {
      * @param width The canvas width
      * @param height The canvas height
      * @param isShadowed If true draws a shadow around the canvas
+     * @param uMLDiagram The {@link UMLDiagram} the drawer is going to draw
      */
-    public DrawerPanel(final int width, final int height, final boolean isShadowed) {
+    public DrawerPanel(final int width, final int height, final boolean isShadowed, final UMLDiagram uMLDiagram) {
 	Log.trace("Creating drawer");
 
-	this.uMLCanvas = new UMLCanvas(width + 2, height);
+	this.uMLCanvas = new UMLCanvas(uMLDiagram, width + 2, height);
 	this.uMLCanvas.setStylePrimaryName("canvas");
 	this.add(this.uMLCanvas);
 	Log.trace("Canvas added");
@@ -58,11 +62,6 @@ public class DrawerPanel extends AbsolutePanel {
 	Log.trace("Init end");
     }
 
-    void addDefaultClass() {
-	final ClassArtifact defaultclass = new ClassArtifact("Class 1");
-	defaultclass.setInitialLocation(new Point(this.width / 2, this.height / 2));
-	this.uMLCanvas.add(defaultclass);
-    }
 
     void clearShadow() {
 	this.remove(this.bottomShadow);
@@ -146,6 +145,21 @@ public class DrawerPanel extends AbsolutePanel {
      */
     public final UMLCanvas getUMLCanvas() {
 	return this.uMLCanvas;
+    }
+
+ 
+    void addDefaultNode(Type type) {
+	if(type.isClassType()) {
+		final ClassArtifact defaultclass = new ClassArtifact("Class 1");
+		defaultclass.setInitialLocation(new Point(this.width / 2, this.height / 2));
+		this.uMLCanvas.add(defaultclass);
+	}
+	if(type.isObjectType()) {
+		final ObjectArtifact defaultobject = new ObjectArtifact("obj1:Object 1");
+		defaultobject.setInitialLocation(new Point(this.width / 3, this.height / 3));
+		this.uMLCanvas.add(defaultobject);
+	}
+	
     }
 
 }

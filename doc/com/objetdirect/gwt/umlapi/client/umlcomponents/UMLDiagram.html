@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-UMLComponent
+UMLDiagram
 </TITLE>
 
 
@@ -13,7 +13,7 @@ UMLComponent
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="UMLComponent";
+        parent.document.title="UMLDiagram";
     }
 }
 </SCRIPT>
@@ -38,7 +38,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/UMLComponent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/UMLDiagram.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="UMLComponent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="UMLDiagram.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -74,9 +74,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_Object">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -88,21 +88,18 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 com.objetdirect.gwt.umlapi.client.umlcomponents</FONT>
 <BR>
-Class UMLComponent</H2>
+Class UMLDiagram</H2>
 <PRE>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>UMLComponent</B>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>UMLDiagram</B>
 </PRE>
-<DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNode.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLNode</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLNote</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A></DD>
-</DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>UMLComponent</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
+<DT><PRE>public class <B>UMLDiagram</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
 
 <P>
-This abstract class represent any uml component
+This class represents an UML diagram
 <P>
 
 <P>
@@ -113,7 +110,24 @@ This abstract class represent any uml component
 <HR>
 
 <P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
 
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram.Type</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This enum lists all types of uml diagram that the application can draw</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -123,10 +137,10 @@ This abstract class represent any uml component
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html#UMLComponent()">UMLComponent</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html#UMLDiagram(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type)">UMLDiagram</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram.Type</A>&nbsp;type)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram</CODE></A></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -137,6 +151,14 @@ This abstract class represent any uml component
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram.Type</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html#getType()">getType</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram.Type</CODE></A></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -161,11 +183,38 @@ This abstract class represent any uml component
 </TR>
 </TABLE>
 
-<A NAME="UMLComponent()"><!-- --></A><H3>
-UMLComponent</H3>
+<A NAME="UMLDiagram(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type)"><!-- --></A><H3>
+UMLDiagram</H3>
 <PRE>
-public <B>UMLComponent</B>()</PRE>
+public <B>UMLDiagram</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram.Type</A>&nbsp;type)</PRE>
 <DL>
+<DD>Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram</CODE></A>
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>type</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram.Type</CODE></A> of the uml diagram</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getType()"><!-- --></A><H3>
+getType</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLDiagram.Type</A> <B>getType</B>()</PRE>
+<DL>
+<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram.Type</CODE></A>
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLDiagram.Type</CODE></A></DL>
+</DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
@@ -183,7 +232,7 @@ public <B>UMLComponent</B>()</PRE>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/UMLComponent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/UMLDiagram.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -198,11 +247,11 @@ public <B>UMLComponent</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.Type.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/umlcomponents/UMLComponent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="UMLComponent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/umlcomponents/UMLDiagram.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="UMLDiagram.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -219,9 +268,9 @@ public <B>UMLComponent</B>()</PRE>
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_Object">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

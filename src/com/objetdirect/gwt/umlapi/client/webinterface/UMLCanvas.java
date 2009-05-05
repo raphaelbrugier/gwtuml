@@ -30,6 +30,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
@@ -40,6 +41,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
 public class UMLCanvas extends AbsolutePanel {
 
     private static long classCount = 1;
+    private static long objectCount = 1;
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
@@ -55,6 +57,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     private Point currentMousePosition;
     private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
+    private UMLDiagram uMLDiagram;
 
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 	private boolean mouseIsPressed = false; // Manage mouse state when releasing outside the listener
@@ -173,23 +176,27 @@ public class UMLCanvas extends AbsolutePanel {
 
     /**
      * Constructor of an {@link UMLCanvas} with default size 
+     * 
+     * @param uMLDiagram The {@link UMLDiagram} this {@link UMLCanvas} is drawing 
      *
      */
-    public UMLCanvas() {
+    public UMLCanvas(UMLDiagram uMLDiagram) {
 	Log.trace("Making Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
 	setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH,
 		GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	initCanvas();
+	this.uMLDiagram = uMLDiagram;
     }
 
     /**
      * Constructor of an {@link UMLCanvas} with the specified size 
-     *
+     * 
+     * @param uMLDiagram The {@link UMLDiagram} this {@link UMLCanvas} is drawing 
      * @param width The uml canvas width
      * @param height The uml canvas height
      */
-    public UMLCanvas(final int width, final int height) {
+    public UMLCanvas(UMLDiagram uMLDiagram, final int width, final int height) {
 	Log.trace("Making " + width + " x " + height + " Canvas");
 	this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height,
 		ThemeManager.getTheme().getCanvasColor());
@@ -197,6 +204,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	setPixelSize(width, height);
 	initCanvas();
+	this.uMLDiagram = uMLDiagram;
     }
 
     /**
@@ -290,6 +298,15 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragAndDropState = DragAndDropState.TAKING;
 	}
     }
+
+    /**
+     * Add a new object with default values to this canvas to an invisible location (to hide it)
+     */
+    void addNewObject() {
+	addNewObject(this.currentMousePosition);
+
+    }
+    
     /**
      * Add a new object with default values to this canvas at the specified location
      * 
@@ -300,8 +317,8 @@ public class UMLCanvas extends AbsolutePanel {
 	if (this.dragAndDropState != DragAndDropState.NONE) {
 	    return;
 	}
-	final ObjectArtifact newObject = new ObjectArtifact("Object "
-		+ ++classCount);
+	final ObjectArtifact newObject = new ObjectArtifact("obj"+ ++objectCount +":Object "
+		+ objectCount);
 	if (fireNewArtifactEvent(newObject)) {
 	    add(newObject);
 	    newObject.moveTo(location);
@@ -450,6 +467,15 @@ public class UMLCanvas extends AbsolutePanel {
 		remove(selectedArtifact);
 	    }
 	}
+    }
+
+    /**
+     * Getter for the uMLDiagram
+     *
+     * @return the uMLDiagram
+     */
+    public UMLDiagram getUMLDiagram() {
+        return this.uMLDiagram;
     }
 
     void toLinkMode(final RelationKind linkType) {
