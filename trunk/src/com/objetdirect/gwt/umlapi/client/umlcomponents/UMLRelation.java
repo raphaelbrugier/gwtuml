@@ -50,7 +50,11 @@ public class UMLRelation extends UMLComponent {
 	/**
 	 * Class relation 
 	 */
-	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
+	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+	/**
+	 * Class Object instantiation
+	 */
+	INSTANTIATION("Instanciation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED);
 
 	private String name;
 	private LinkAdornment defaultLeftAdornment;

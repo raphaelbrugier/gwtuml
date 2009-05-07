@@ -58,10 +58,12 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("L", "Add a new association");
 	HelpManager.addHotkeyHelp("K", "Add a new composition");
 	HelpManager.addHotkeyHelp("D", "Add a new dependency");
-	HelpManager.addHotkeyHelp("R", "Add a new generalization");
+	HelpManager.addHotkeyHelp("G", "Add a new generalization");
+	HelpManager.addHotkeyHelp("R", "Add a new realization");
+	HelpManager.addHotkeyHelp("I", "Add a new instantiation");
 	HelpManager.addHotkeyHelp("T", "Add a new note link");
 	HelpManager.addHotkeyHelp("S", "Add a new class relation");
-	HelpManager.addHotkeyHelp("Del", "Add a new realization");
+	HelpManager.addHotkeyHelp("Del", "Remove selected object(s)");
 	HelpManager.addHotkeyHelp("Home", "Bring this help");
 	HelpManager.addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Down", "Move down selected object");
@@ -140,6 +142,9 @@ public final class HotKeyManager {
 	    break;
 	case 'S':
 	    activeCanvas.toLinkMode(RelationKind.CLASSRELATION);
+	    break;
+	case 'I':
+	    activeCanvas.toLinkMode(RelationKind.INSTANTIATION);
 	    break;
 	case KeyCodes.KEY_DELETE:
 	    activeCanvas.removeSelected();

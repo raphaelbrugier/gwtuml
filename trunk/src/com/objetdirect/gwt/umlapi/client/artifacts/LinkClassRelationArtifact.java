@@ -22,7 +22,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
      * @param classArtifact The class for the relation class 
      * @param relation The relation between the two other classes
      */
-    public LinkClassRelationArtifact(final ClassArtifact classArtifact,
+    protected LinkClassRelationArtifact(final ClassArtifact classArtifact,
 	    final RelationLinkArtifact relation) {
 	this.classArtifact = classArtifact;
 	this.classArtifact.addDependency(this, relation);
@@ -52,7 +52,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu
-		.setName("Class relation link " + this.classArtifact.getClassName());
+		.setName("Class relation link " + this.classArtifact.getName());
 	return rightMenu;
     }
 

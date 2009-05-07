@@ -79,9 +79,14 @@ public class ObjectPartAttributesEditor extends FieldEditor {
 		}
 		type = tk.getContent();
 	    }
+	    
+	    
 	    this.attributeToChange.setVisibility(visibility);
 	    this.attributeToChange.setName(name);
 	    this.attributeToChange.setType(type);
+	    if(!newContent.contains("=")) {
+		this.attributeToChange.setInstance("null");
+	    }
 	    ((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact()
 		    .rebuildGfxObject();
 	} catch (final UMLDrawerException e) {

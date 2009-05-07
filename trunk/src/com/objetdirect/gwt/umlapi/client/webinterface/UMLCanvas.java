@@ -153,26 +153,6 @@ public class UMLCanvas extends AbsolutePanel {
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
-    private class ClassPair {
-	NodeArtifact c1;
-	NodeArtifact c2;
-
-	private ClassPair(NodeArtifact c1, NodeArtifact c2) {
-	    this.c1 = c1;
-	    this.c2 = c2;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-	    ClassPair cp = (ClassPair) obj;
-	    return ((this.c1 == cp.c1) && (this.c2 == cp.c2)) || ((this.c1 == cp.c2) && (this.c2 == cp.c1));
-	}
-    }
-    private final ArrayList<ClassPair> classRelations = new ArrayList<ClassPair>();
-
 
     /**
      * Constructor of an {@link UMLCanvas} with default size 
@@ -214,7 +194,7 @@ public class UMLCanvas extends AbsolutePanel {
      */
     public void add(final UMLArtifact artifact) {
 	if (artifact == null) {
-	    Log.error("Adding null element to canvas");
+	    Log.info("Adding null element to canvas");
 	    return;
 	}
 	if (isAttached()) {
@@ -226,7 +206,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
 		    + artifact);
-	    if(artifact.getClass() == RelationLinkArtifact.class) this.classRelations.add(new ClassPair(((RelationLinkArtifact) artifact).getLeftClassArtifact(), ((RelationLinkArtifact) artifact).getRightClassArtifact()));
+	    
 	} else {
 	    Log.debug("Canvas not attached, queuing " + artifact);
 	    this.objectsToBeAddedWhenAttached.add(artifact);
@@ -335,47 +315,13 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     void addNewLink(final UMLArtifact newSelected) {
-	LinkArtifact newLink;
+	boolean isOneLinkOk = false;
 	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-
-	    if (this.activeLinking == RelationKind.NOTE) {
-		if (newSelected.getClass() == NoteArtifact.class) {
-		    newLink = new LinkNoteArtifact((NoteArtifact) newSelected,
-			    selectedArtifact);
-		} else if (selectedArtifact.getClass() == NoteArtifact.class) {
-		    newLink = new LinkNoteArtifact((NoteArtifact) selectedArtifact,
-			    newSelected);
-		} else {
-		    newLink = null;
-		}
-	    } else if (this.activeLinking == RelationKind.CLASSRELATION) {
-		if (newSelected.getClass() == RelationLinkArtifact.class
-			&& selectedArtifact.getClass() == NodeArtifact.class) {
-		    newLink = new LinkClassRelationArtifact(
-			    (ClassArtifact) selectedArtifact,
-			    (RelationLinkArtifact) newSelected);
-		} else if (selectedArtifact.getClass() == RelationLinkArtifact.class
-			&& newSelected.getClass() == NodeArtifact.class) {
-		    newLink = new LinkClassRelationArtifact(
-			    (ClassArtifact) newSelected,
-			    (RelationLinkArtifact) selectedArtifact);
-		} else {
-		    newLink = null;
-		}
-	    }
-	    else if (selectedArtifact.getClass() == NodeArtifact.class
-		    && newSelected.getClass() == NodeArtifact.class) {
-		ClassPair cp = new ClassPair((NodeArtifact) newSelected, (NodeArtifact) selectedArtifact);
-		int index = Collections.frequency(this.classRelations, cp);
-		newLink = new RelationLinkArtifact((ClassArtifact) newSelected, (ClassArtifact) selectedArtifact, this.activeLinking, index);
-	    } else {
-		newLink = null;
-	    }
-
-	    if (newLink != null && fireNewArtifactEvent(newLink)) {
-		add(newLink);
-	    }
+	    LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
+	    isOneLinkOk = isOneLinkOk || (newLink != null);
+	    add(newLink);
 	}
+	if(isOneLinkOk) linkingModeOff();
     }
 
     void addNewNote() {
@@ -700,7 +646,6 @@ public class UMLCanvas extends AbsolutePanel {
 		} else { //Other artifacts are selected
 		    if (this.activeLinking != null) {//if linking mode on
 			addNewLink(newSelected);
-			linkingModeOff();
 		    }
 		    if(!isCtrlKeyDown && !isShiftKeyDown) { //If selection is not greedy ->deselect all
 			deselectAllArtifacts();

@@ -91,6 +91,10 @@ Packages that use <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/clien
 <TD><A HREF="#com.objetdirect.gwt.umlapi.client.artifacts"><B>com.objetdirect.gwt.umlapi.client.artifacts</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#com.objetdirect.gwt.umlapi.client.engine"><B>com.objetdirect.gwt.umlapi.client.engine</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -135,7 +139,7 @@ Uses of <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifact
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></CODE></FONT></TD>
-<TD><CODE><B>RelationLinkArtifact.</B><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getLeftClassArtifact()">getLeftClassArtifact</A></B>()</CODE>
+<TD><CODE><B>RelationLinkArtifact.</B><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getLeftNodeArtifact()">getLeftNodeArtifact</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the left <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</TD>
@@ -151,10 +155,60 @@ Uses of <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifact
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></CODE></FONT></TD>
-<TD><CODE><B>RelationLinkArtifact.</B><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getRightClassArtifact()">getRightClassArtifact</A></B>()</CODE>
+<TD><CODE><B>RelationLinkArtifact.</B><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getRightNodeArtifact()">getRightNodeArtifact</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the right <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/package-summary.html">com.objetdirect.gwt.umlapi.client.artifacts</A> with parameters of type <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">RelationLinkArtifact</A></B>(<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
+                     <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
+                     <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind, int)">RelationLinkArtifact</A></B>(<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
+                     <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
+                     <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind,
+                     int&nbsp;order)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="com.objetdirect.gwt.umlapi.client.engine"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A> in <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/engine/package-summary.html">com.objetdirect.gwt.umlapi.client.engine</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/engine/package-summary.html">com.objetdirect.gwt.umlapi.client.engine</A> with parameters of type <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>GeometryPlatform.</B><B><A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/engine/GeometryPlatform.html#getReflexiveLineFor(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact)">getReflexiveLineFor</A></B>(<A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;nodeArtifact)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method calculates the point to draw a reflexive link (between a <A HREF="../../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> and itself)</TD>
 </TR>
 </TABLE>
 &nbsp;

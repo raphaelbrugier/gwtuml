@@ -1,9 +1,13 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import java.util.Collections;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
@@ -12,6 +16,65 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
  *
  */
 public abstract class LinkArtifact extends UMLArtifact {
+
+    /**
+     * Make a link between two {@link UMLArtifact}
+     * 
+     * @param uMLArtifact The first one of the two {@link UMLArtifact} to be linked
+     * @param uMLArtifactNew The second one of the two {@link UMLArtifact} to be linked
+     * @param relationKind The {@link RelationKind} of this link
+     * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
+     */
+    public static LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew, RelationKind relationKind) {
+	if (relationKind == RelationKind.NOTE) {
+		if (uMLArtifactNew.getClass() == NoteArtifact.class) {
+		    return new LinkNoteArtifact((NoteArtifact) uMLArtifactNew,
+			    uMLArtifact);
+		} 
+		if (uMLArtifact.getClass() == NoteArtifact.class) {
+		    return new LinkNoteArtifact((NoteArtifact) uMLArtifact,
+			    uMLArtifactNew);
+		}
+		return null;
+	    } else if (relationKind == RelationKind.CLASSRELATION) {
+		if (uMLArtifactNew.getClass() == RelationLinkArtifact.class
+			&& uMLArtifact.getClass() == ClassArtifact.class) {
+		    return new LinkClassRelationArtifact(
+			    (ClassArtifact) uMLArtifact,
+			    (RelationLinkArtifact) uMLArtifactNew);
+		} 
+		if (uMLArtifact.getClass() == RelationLinkArtifact.class
+			&& uMLArtifactNew.getClass() == ClassArtifact.class) {
+		    return new LinkClassRelationArtifact(
+			    (ClassArtifact) uMLArtifactNew,
+			    (RelationLinkArtifact) uMLArtifact);
+		}
+		 return null;
+		
+	    }
+	    else if (uMLArtifact.getClass() == ClassArtifact.class
+		    && uMLArtifactNew.getClass() == ClassArtifact.class) {
+		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
+		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+	    } 	    
+	    else if (uMLArtifact.getClass() == ObjectArtifact.class
+		    && uMLArtifactNew.getClass() == ObjectArtifact.class) {
+		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
+		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+	    }
+	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
+		    && uMLArtifactNew.getClass() == ObjectArtifact.class)) {
+		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
+		return new RelationLinkArtifact((NodeArtifact) uMLArtifact, (NodeArtifact) uMLArtifactNew, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+	    }
+	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
+		    && uMLArtifactNew.getClass() == ClassArtifact.class)) {
+		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
+		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+	    }
+		return null;
+	    
+    }
 
     /**
      * This enumeration list all the adornments that a relation could have
@@ -181,6 +244,10 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 * Long dash style : -- -- -- -- --
 	 */
 	LONG_DASHED(GfxStyle.LONGDASH),
+	/**
+	 * Dash dot style : -.-.-.-.-.- 
+	 */
+	DASHED_DOTTED(GfxStyle.DASHDOT),
 	/**
 	 * Solid style : ------------ 
 	 */

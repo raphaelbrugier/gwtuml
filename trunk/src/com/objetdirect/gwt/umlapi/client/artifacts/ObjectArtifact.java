@@ -69,7 +69,8 @@ public class ObjectArtifact extends NodeArtifact {
      * 
      * @return the name of this object
      */
-    public String getObjectName() {
+    @Override
+    public String getName() {
 	return this.objectName.getObjectName();
     }
 
