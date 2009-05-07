@@ -83,7 +83,8 @@ public class ClassArtifact extends NodeArtifact {
      * 
      * @return the name of this class
      */
-    public String getClassName() {
+    @Override
+    public String getName() {
 	return this.className.getClassName();
     }
     /**

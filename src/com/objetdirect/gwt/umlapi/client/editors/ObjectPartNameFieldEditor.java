@@ -58,6 +58,9 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
 	    if (newContent.equals("")) {
 		((ObjectPartNameArtifact) this.artifact).setObjectName("Object");
 	    } else {
+		if(!newContent.contains(":")) {
+		    ((ObjectPartNameArtifact) this.artifact).setObjectName(":" + newContent);
+		}
 		((ObjectPartNameArtifact) this.artifact).setObjectName(newContent);
 	    }
 	}

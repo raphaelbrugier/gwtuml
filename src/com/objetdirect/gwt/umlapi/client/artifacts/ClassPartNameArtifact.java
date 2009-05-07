@@ -59,9 +59,15 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 	// Centering name class :
 	GfxManager.getPlatform().translate(
-		this.textVirtualGroup, new Point(
-		OptionsManager.getRectangleLeftPadding() + (this.nodeWidth - this.width)
+		this.nameText, new Point(
+		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.getTextXTotalPadding())
 			/ 2, OptionsManager.getRectangleTopPadding()));
+	if(this.stereotypeText != null) {
+	GfxManager.getPlatform().translate(
+		this.stereotypeText, new Point(
+			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.getTextXTotalPadding())
+			/ 2, OptionsManager.getRectangleTopPadding()));
+	}
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
@@ -104,7 +110,6 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
 	this.height += OptionsManager.getTextYTotalPadding();
-	if(this.stereotypeText != null) GfxManager.getPlatform().translate(this.stereotypeText, new Point((this.width - OptionsManager.getTextXTotalPadding() - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText))/2,0));
 	this.width += OptionsManager.getRectangleXTotalPadding();
 	this.height += OptionsManager.getRectangleYTotalPadding();
 	

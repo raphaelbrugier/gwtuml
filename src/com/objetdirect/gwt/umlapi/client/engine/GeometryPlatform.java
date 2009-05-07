@@ -132,14 +132,14 @@ public abstract class GeometryPlatform {
 
     /**
      * This method calculates the point to draw a reflexive link (between a {@link NodeArtifact} and itself)  
-     * @param classArtifact The {@link NodeArtifact} which the reflexive link belongs
+     * @param nodeArtifact The {@link NodeArtifact} which the reflexive link belongs
      * @return An {@link ArrayList} of the {@link Point}s computed to draw the path
      */
     public ArrayList<Point> getReflexiveLineFor(
-	    final ClassArtifact classArtifact) {
-	final Point center = classArtifact.getCenter();
-	final int halfClassWidth = classArtifact.getWidth() / 2;
-	final int halfClassHeight = classArtifact.getHeight() / 2;
+	    final NodeArtifact nodeArtifact) {
+	final Point center = nodeArtifact.getCenter();
+	final int halfClassWidth = nodeArtifact.getWidth() / 2;
+	final int halfClassHeight = nodeArtifact.getHeight() / 2;
 	final ArrayList<Point> pointList = new ArrayList<Point>();
 	final Point point0 = center.clonePoint();
 	point0.translate(halfClassWidth, 0);

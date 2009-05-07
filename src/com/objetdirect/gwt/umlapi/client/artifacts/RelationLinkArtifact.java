@@ -19,7 +19,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
- * This class represents any relation artifact between two classes
+ * This node represents any relation artifact between two nodees
  *  
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
@@ -250,14 +250,15 @@ public class RelationLinkArtifact extends LinkArtifact {
     }
 
     protected GfxObject arrowVirtualGroup;
-    protected ClassArtifact leftClassArtifact;
+    protected NodeArtifact leftNodeArtifact;
     protected GfxObject line;
-    protected ClassArtifact relationClass;
-    protected ClassArtifact rightClassArtifact;
+    protected NodeArtifact relationNode;
+    protected NodeArtifact rightNodeArtifact;
     protected GfxObject textVirtualGroup;
     private int current_delta;
     private final HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart = new HashMap<RelationLinkArtifactPart, GfxObject>();
     private int order;
+    private boolean isBetweenObjects;
 
     /**
      * Constructor of {@link RelationLinkArtifact}
@@ -266,7 +267,7 @@ public class RelationLinkArtifact extends LinkArtifact {
      * @param right The right {@link NodeArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      */
-    public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind) {
+    public RelationLinkArtifact(final NodeArtifact left, final NodeArtifact right, final RelationKind relationKind) {
 	this(left,right, relationKind, 0);
     }
     /**
@@ -277,15 +278,16 @@ public class RelationLinkArtifact extends LinkArtifact {
      * @param relationKind The kind of relation this link is.
      * @param order The order representing the number of relation already existing between the two artifacts
      */
-    public RelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind, final int order) {
+    public RelationLinkArtifact(final NodeArtifact left, final NodeArtifact right, final RelationKind relationKind, final int order) {
 	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
 	this.relation = new UMLRelation(relationKind);
-	this.leftClassArtifact = left;
+	this.leftNodeArtifact = left;
 	left.addDependency(this, right);
-	this.rightClassArtifact = right;
+	this.rightNodeArtifact = right;
 	if (right != left) {
 	    right.addDependency(this, left);
 	}
+	this.isBetweenObjects = (left.getClass() == ObjectArtifact.class) && (right.getClass() == ObjectArtifact.class);
 	this.order = order;
 
     }
@@ -319,8 +321,8 @@ public class RelationLinkArtifact extends LinkArtifact {
 	case NAME:
 	    String name = part.getText(this.relation);
 	    if(name == null || name.equals("")) {
-	    defaultText = this.leftClassArtifact.getClassName() + "-"
-	    + this.rightClassArtifact.getClassName();
+	    defaultText = this.leftNodeArtifact.getName() + "-"
+	    + this.rightNodeArtifact.getName();
 	    }
 	    else {
 		defaultText = name;
@@ -352,8 +354,8 @@ public class RelationLinkArtifact extends LinkArtifact {
      * 
      * @return the left {@link NodeArtifact} of this relation
      */
-    public NodeArtifact getLeftClassArtifact() {
-	return this.leftClassArtifact;
+    public NodeArtifact getLeftNodeArtifact() {
+	return this.leftNodeArtifact;
     }
 
     /**
@@ -361,8 +363,8 @@ public class RelationLinkArtifact extends LinkArtifact {
      * 
      * @return the right {@link NodeArtifact} of this relation
      */
-    public NodeArtifact getRightClassArtifact() {
-	return this.rightClassArtifact;
+    public NodeArtifact getRightNodeArtifact() {
+	return this.rightNodeArtifact;
     }
 
     /*
@@ -376,10 +378,10 @@ public class RelationLinkArtifact extends LinkArtifact {
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 	rightMenu.setName(this.relation.getRelationKind().getName() + " "
-		+ this.leftClassArtifact.getClassName() + " "
+		+ this.leftNodeArtifact.getName() + " "
 		+ this.relation.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.relation.getRightAdornment().getShape().getIdiom(true) + " "
-		+ this.rightClassArtifact.getClassName());
+		+ this.rightNodeArtifact.getName());
 	final MenuBar leftSide = new MenuBar(true);
 	final MenuBar rightSide = new MenuBar(true);
 
@@ -429,8 +431,8 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    rightSide.addItem("Navigability", rightNavigability);
 	}
 
-	rightMenu.addItem(this.leftClassArtifact.getClassName() + " side", leftSide);
-	rightMenu.addItem(this.rightClassArtifact.getClassName() + " side", rightSide);
+	rightMenu.addItem(this.leftNodeArtifact.getName() + " side", leftSide);
+	rightMenu.addItem(this.rightNodeArtifact.getName() + " side", rightSide);
 	rightMenu.addItem("Reverse", reverseCommand(this.relation));
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relationKind : RelationKind.values()) {
@@ -447,8 +449,8 @@ public class RelationLinkArtifact extends LinkArtifact {
      */
     @Override
     public void removeCreatedDependency() {
-	this.leftClassArtifact.removeDependency(this);
-	this.rightClassArtifact.removeDependency(this);
+	this.leftNodeArtifact.removeDependency(this);
+	this.rightNodeArtifact.removeDependency(this);
     }
 
     /* (non-Javadoc)
@@ -610,16 +612,16 @@ public class RelationLinkArtifact extends LinkArtifact {
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
-    Anchor getAnchorType(final ClassArtifact classArtifact, final Point point) {
-	if (point.getX() == classArtifact.getLocation().getX()) {
+    Anchor getAnchorType(final NodeArtifact nodeArtifact, final Point point) {
+	if (point.getX() == nodeArtifact.getLocation().getX()) {
 	    return Anchor.LEFT;
-	} else if (point.getY() == classArtifact.getLocation().getY()) {
+	} else if (point.getY() == nodeArtifact.getLocation().getY()) {
 	    return Anchor.TOP;
-	} else if (point.getX() == classArtifact.getLocation().getX()
-		+ classArtifact.getWidth()) {
+	} else if (point.getX() == nodeArtifact.getLocation().getX()
+		+ nodeArtifact.getWidth()) {
 	    return Anchor.RIGHT;
-	} else if (point.getY() == classArtifact.getLocation().getY()
-		+ classArtifact.getHeight()) {
+	} else if (point.getY() == nodeArtifact.getLocation().getY()
+		+ nodeArtifact.getHeight()) {
 	    return Anchor.BOTTOM;
 	}
 	return Anchor.UNKNOWN;
@@ -634,7 +636,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    relative_point1 = this.rightPoint;
 	    relative_point2 = this.leftPoint;
 	}
-	switch (getAnchorType(isLeft ? this.leftClassArtifact : this.rightClassArtifact,
+	switch (getAnchorType(isLeft ? this.leftNodeArtifact : this.rightNodeArtifact,
 		relative_point1)) {
 		case LEFT:
 		    return relative_point1.getX() - textWidth
@@ -665,7 +667,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	final int textHeight = GfxManager.getPlatform().getTextHeightFor(text);
 	final int delta = this.current_delta;
 	this.current_delta += 8; // TODO : Fix Height
-	switch (getAnchorType(isLeft ? this.leftClassArtifact : this.rightClassArtifact,
+	switch (getAnchorType(isLeft ? this.leftNodeArtifact : this.rightNodeArtifact,
 		relative_point1)) {
 		case LEFT:
 		case RIGHT:
@@ -699,23 +701,23 @@ public class RelationLinkArtifact extends LinkArtifact {
 	|| this.relation.getRightCardinality()
 	+ this.relation.getRightConstraint()
 	+ this.relation.getRightRole() != "";
-	if (this.leftClassArtifact != this.rightClassArtifact) {
+	if (this.leftNodeArtifact != this.rightNodeArtifact) {
 	    if (isComputationNeededOnLeft && isComputationNeededOnRight) {
 		linePoints = GeometryManager.getPlatform().getLineBetween(
-			this.leftClassArtifact, this.rightClassArtifact);
+			this.leftNodeArtifact, this.rightNodeArtifact);
 		this.leftPoint = linePoints.get(0);
 		this.rightPoint = linePoints.get(1);
 	    } else if (isComputationNeededOnLeft) {
-		this.rightPoint = this.rightClassArtifact.getCenter();
+		this.rightPoint = this.rightNodeArtifact.getCenter();
 		this.leftPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftClassArtifact, this.rightPoint);
+			this.leftNodeArtifact, this.rightPoint);
 	    } else if (isComputationNeededOnRight) {
-		this.leftPoint = this.leftClassArtifact.getCenter();
+		this.leftPoint = this.leftNodeArtifact.getCenter();
 		this.rightPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftClassArtifact, this.leftPoint);
+			this.leftNodeArtifact, this.leftPoint);
 	    } else {
-		this.leftPoint = this.leftClassArtifact.getCenter();
-		this.rightPoint = this.rightClassArtifact.getCenter();
+		this.leftPoint = this.leftNodeArtifact.getCenter();
+		this.rightPoint = this.rightNodeArtifact.getCenter();
 	    }
 	    if(this.order == 0) {
 		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
@@ -730,7 +732,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    }
 	} else {
 	    linePoints = GeometryManager.getPlatform().getReflexiveLineFor(
-		    this.leftClassArtifact);
+		    this.leftNodeArtifact);
 	    this.leftPoint = linePoints.get(1);
 	    this.rightPoint = linePoints.get(2);
 	    this.line = GfxManager.getPlatform().buildPath();
@@ -751,7 +753,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform()
 	.addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
-	if (this.leftClassArtifact != this.rightClassArtifact) {
+	if (this.leftNodeArtifact != this.rightNodeArtifact) {
 	    if (isComputationNeededOnLeft) {
 		GfxManager.getPlatform().addToVirtualGroup(
 			this.arrowVirtualGroup,
@@ -777,17 +779,27 @@ public class RelationLinkArtifact extends LinkArtifact {
 	// Making the text group :
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
-	if (this.relation.getName() != "") {
+	if (this.relation.getName() != "" || this.relation.getRelationKind() == RelationKind.INSTANTIATION) {
 	    Log.trace("Creating name");
 	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
 	    if(this.order != 0) {
 		linkMiddle = Point.getMiddleOf(curveControl, linkMiddle);
 	    }
-	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText(
+	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText((this.relation.getRelationKind() == RelationKind.INSTANTIATION) ? "«InstanceOf»" :
 		    this.relation.getName(),linkMiddle);
 	    GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
+	    if(this.isBetweenObjects && this.relation.getRelationKind() != RelationKind.INSTANTIATION) {
+		int yUnderline = linkMiddle.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.getTextTopPadding();
+		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(linkMiddle.getX() + OptionsManager.getTextLeftPadding(), yUnderline), new Point(linkMiddle.getX() + OptionsManager.getTextLeftPadding() + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
+		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
+		GfxManager.getPlatform().setStroke(underline,
+			ThemeManager.getTheme().getForegroundColor(), 1);
+		GfxManager.getPlatform().setFillColor(underline,
+			ThemeManager.getTheme().getForegroundColor());
+		GfxManager.getPlatform().translate(underline, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
+	    }
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
 		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
@@ -858,7 +870,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(textGfxObject,
 		ThemeManager.getTheme().getForegroundColor());
-	if (this.leftClassArtifact != this.rightClassArtifact) {
+	if (this.leftNodeArtifact != this.rightNodeArtifact) {
 	    Log.trace("Creating text : " + text + " at "
 		    + getTextX(textGfxObject, part.isLeft) + " : "
 		    + getTextY(textGfxObject, part.isLeft));
@@ -867,9 +879,9 @@ public class RelationLinkArtifact extends LinkArtifact {
 		    getTextY(textGfxObject, part.isLeft)));
 	} else {	    
 	    if(part.isLeft) {
-		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftClassArtifact.getCenter(), new Point(OptionsManager.getArrowWidth() / 2 + OptionsManager.getTextLeftPadding(), -(this.leftClassArtifact.getHeight() + OptionsManager.getReflexivePathYGap())/2 + this.current_delta)));
+		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getCenter(), new Point(OptionsManager.getArrowWidth() / 2 + OptionsManager.getTextLeftPadding(), -(this.leftNodeArtifact.getHeight() + OptionsManager.getReflexivePathYGap())/2 + this.current_delta)));
 	    } else {
-		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftClassArtifact.getLocation(), new Point(this.leftClassArtifact.getWidth() + OptionsManager.getReflexivePathXGap() + OptionsManager.getTextLeftPadding(), this.current_delta)));
+		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getLocation(), new Point(this.leftNodeArtifact.getWidth() + OptionsManager.getReflexivePathXGap() + OptionsManager.getTextLeftPadding(), this.current_delta)));
 	    }
 	    this.current_delta += 8;
 	}

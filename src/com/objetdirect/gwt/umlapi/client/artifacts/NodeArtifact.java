@@ -24,7 +24,27 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLeve
  */
 public abstract class NodeArtifact extends BoxArtifact {
     LinkedList<NodePartArtifact> nodeParts = new LinkedList<NodePartArtifact>();
+    
+    static class NodePeer {
+	NodeArtifact c1;
+	NodeArtifact c2;
 
+	NodePeer(NodeArtifact c1, NodeArtifact c2) {
+	    this.c1 = c1;
+	    this.c2 = c2;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+	    NodePeer cp = (NodePeer) obj;
+	    return ((this.c1 == cp.c1) && (this.c2 == cp.c2)) || ((this.c1 == cp.c2) && (this.c2 == cp.c1));
+	}
+    }
+    static final ArrayList<NodePeer> nodeRelations = new ArrayList<NodePeer>();
+    
     private int width;
 
 
@@ -173,4 +193,10 @@ public abstract class NodeArtifact extends BoxArtifact {
 	    heightDelta += nodePart.getHeight();
 	}
     }
+    /**
+     * Getter for the name
+     * 
+     * @return the name of this node
+     */
+    public abstract String getName();
 }

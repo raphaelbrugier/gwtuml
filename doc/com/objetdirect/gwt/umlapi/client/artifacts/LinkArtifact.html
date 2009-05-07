@@ -222,6 +222,16 @@ This abstract class specialize an <A HREF="../../../../../../com/objetdirect/gwt
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#makeLinkBetween(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">makeLinkBetween</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;uMLArtifact,
+                <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;uMLArtifactNew,
+                <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make a link between two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>abstract &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#removeCreatedDependency()">removeCreatedDependency</A></B>()</CODE>
 
@@ -277,6 +287,22 @@ public <B>LinkArtifact</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="makeLinkBetween(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)"><!-- --></A><H3>
+makeLinkBetween</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A> <B>makeLinkBetween</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;uMLArtifact,
+                                           <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;uMLArtifactNew,
+                                           <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</PRE>
+<DL>
+<DD>Make a link between two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A>
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>uMLArtifact</CODE> - The first one of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> to be linked<DD><CODE>uMLArtifactNew</CODE> - The second one of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> to be linked<DD><CODE>relationKind</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation.RelationKind</CODE></A> of this link
+<DT><B>Returns:</B><DD>The created <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>LinkArtifact</CODE></A> linking uMLArtifact and uMLArtifactNew</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getHeight()"><!-- --></A><H3>
 getHeight</H3>

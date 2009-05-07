@@ -24,6 +24,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     private GfxObject nameText;
     private String stereotype;
     private GfxObject stereotypeText;
+    private GfxObject underline;
     /**
      * Constructor of ObjectPartNameArtifact with only object name
      * 
@@ -59,9 +60,20 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	// Centering name object :
 	GfxManager.getPlatform().translate(
-		this.textVirtualGroup, new Point(
-		OptionsManager.getRectangleLeftPadding() + (this.nodeWidth - this.width)
+		this.nameText, new Point(
+		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.getTextXTotalPadding())
 			/ 2, OptionsManager.getRectangleTopPadding()));
+	GfxManager.getPlatform().translate(
+		this.underline, new Point(
+			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.getTextXTotalPadding())
+			/ 2, OptionsManager.getRectangleTopPadding()));
+	if(this.stereotypeText != null) {
+	GfxManager.getPlatform().translate(
+		this.stereotypeText, new Point(
+			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.getTextXTotalPadding())
+			/ 2, OptionsManager.getRectangleTopPadding()));
+	
+	}
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
@@ -77,6 +89,8 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		    OptionsManager.getTextTopPadding()));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    this.stereotypeText);
+	    GfxManager.getPlatform().setFont(this.stereotypeText,
+		    OptionsManager.getFont());
 	    GfxManager.getPlatform().setStroke(this.stereotypeText,
 		    ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
@@ -91,8 +105,8 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		OptionsManager.getTextTopPadding() + this.height)/*, "underline" doesn't work yet in common browsers*/);
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
 	int yUnderline = this.height + GfxManager.getPlatform().getTextHeightFor(this.nameText) + OptionsManager.getTextTopPadding();
-	GfxObject underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.getTextLeftPadding(), yUnderline), new Point(OptionsManager.getTextLeftPadding() + GfxManager.getPlatform().getTextWidthFor(this.nameText), yUnderline));
-	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
+	this.underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.getTextLeftPadding(), yUnderline), new Point(OptionsManager.getTextLeftPadding() + GfxManager.getPlatform().getTextWidthFor(this.nameText), yUnderline));
+	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.underline);
 	
 	GfxManager.getPlatform().setFont(this.nameText,
 		OptionsManager.getFont());
@@ -100,9 +114,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		ThemeManager.getTheme().getBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
 		ThemeManager.getTheme().getForegroundColor());
-	GfxManager.getPlatform().setStroke(underline,
+	GfxManager.getPlatform().setStroke(this.underline,
 		ThemeManager.getTheme().getForegroundColor(), 1);
-	GfxManager.getPlatform().setFillColor(underline,
+	GfxManager.getPlatform().setFillColor(this.underline,
 		ThemeManager.getTheme().getForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
@@ -110,7 +124,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
 	this.height += OptionsManager.getTextYTotalPadding() + OptionsManager.getUnderlineShift();
-	if(this.stereotypeText != null) GfxManager.getPlatform().translate(this.stereotypeText, new Point((this.width - OptionsManager.getTextXTotalPadding() - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText))/2,0));
 	this.width += OptionsManager.getRectangleXTotalPadding();
 	this.height += OptionsManager.getRectangleYTotalPadding();
 	
