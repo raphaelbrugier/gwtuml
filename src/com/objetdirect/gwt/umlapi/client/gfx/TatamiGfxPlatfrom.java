@@ -3,6 +3,7 @@ package com.objetdirect.gwt.umlapi.client.gfx;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -11,6 +12,7 @@ import com.objetdirect.tatami.client.gfx.Font;
 import com.objetdirect.tatami.client.gfx.GraphicCanvas;
 import com.objetdirect.tatami.client.gfx.GraphicObject;
 import com.objetdirect.tatami.client.gfx.GraphicObjectListener;
+import com.objetdirect.tatami.client.gfx.ImageGfx;
 import com.objetdirect.tatami.client.gfx.Line;
 import com.objetdirect.tatami.client.gfx.Path;
 import com.objetdirect.tatami.client.gfx.Rect;
@@ -97,6 +99,13 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	Log.trace("Adding " + gfxO + " to " + gfxOGroup);
 	((VirtualGroup) getTatamiGraphicalObjectFrom(gfxOGroup))
 		.add(getTatamiGraphicalObjectFrom(gfxO));
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildImage(java.lang.String)
+     */
+    @Override
+    public GfxObject buildImage(String url) {
+	return new TatamiGfxObjectContainer(new ImageGfx(new Image(url)));
     }
 
     /* (non-Javadoc)
@@ -357,4 +366,6 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     private com.objetdirect.tatami.client.gfx.Point pointConverter(Point p) {
 	return new com.objetdirect.tatami.client.gfx.Point(p.getX(), p.getY());
     }
+
+
 }

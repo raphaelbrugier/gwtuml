@@ -47,6 +47,14 @@ public interface GfxPlatform {
      */
     void addToVirtualGroup(GfxObject gfxObjectGroup, GfxObject gfxObject);
 
+    /**
+     * Build an Image from his URL
+     * 
+     * @param url The image URL
+     * 
+     * @return The new image in a {@link GfxObject}
+     */
+    GfxObject buildImage(String url);
 
     /**
      * Build a line from {@link Point} p1 to {@link Point} p2
