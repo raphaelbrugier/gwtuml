@@ -211,7 +211,11 @@ public class StartPanel extends VerticalPanel {
 	this.add(this.qualityPanel);
 
 	this.loadingScreen.hide();
+	
 	if(History.getToken().equals("Demo")) {
+	    makeFirstDrawer(UMLDiagram.Type.HYBRID);
+	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
+	} else if(History.getToken().equals("AnimatedDemo")) {
 	    makeFirstDrawer(UMLDiagram.Type.HYBRID);
 	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
 	} else if(History.getToken().equals("Drawer")) {	

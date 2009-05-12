@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.webinterface.HistoryManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.StartPanel;
 
 /**
@@ -70,10 +71,11 @@ public class UMLDrawer implements EntryPoint {
 		"display", "none");
 
 	// appRootPanel.setSpacing(8);
-
+	HistoryManager historyManager = new HistoryManager();
+	historyManager.initHistory();
 	appRootPanel.setSize("100%", "100%");
 	this.startPanel = new StartPanel(false);
-	if(!(History.getToken().equals("Demo") || History.getToken().equals("Drawer"))) {
+	if((History.getToken().equals("Start") || History.getToken().equals(""))) {
 	    History.newItem("Start");
 	}
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -98,7 +100,7 @@ public class UMLDrawer implements EntryPoint {
 			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
 	    }
 	});
-	if(!(History.getToken().equals("Demo") || History.getToken().equals("Drawer"))) {
+	if((History.getToken().equals("Start") || History.getToken().equals(""))) {
 	appRootPanel.add(this.startPanel, DockPanel.CENTER);
 	}
 	appRootPanel.add(log, DockPanel.SOUTH);

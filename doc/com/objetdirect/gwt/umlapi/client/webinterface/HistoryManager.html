@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-HotKeyManager
+HistoryManager
 </TITLE>
 
 
@@ -13,7 +13,7 @@ HotKeyManager
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="HotKeyManager";
+        parent.document.title="HistoryManager";
     }
 }
 </SCRIPT>
@@ -38,7 +38,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HotKeyManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HistoryManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Keyboard.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="HotKeyManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="HistoryManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -74,9 +74,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -88,30 +88,44 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <FONT SIZE="-1">
 com.objetdirect.gwt.umlapi.client.webinterface</FONT>
 <BR>
-Class HotKeyManager</H2>
+Class HistoryManager</H2>
 <PRE>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>HotKeyManager</B>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>HistoryManager</B>
 </PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>ValueChangeHandler&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;, EventHandler</DD>
+</DL>
 <HR>
 <DL>
-<DT><PRE>public final class <B>HotKeyManager</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
+<DT><PRE>public class <B>HistoryManager</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements ValueChangeHandler&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</DL>
 </PRE>
-
-<P>
-This class is a bit hacky but allows a GWT application to have global key listeners <br>
- It also defines the hot keys for the drawer
-<P>
 
 <P>
 <DL>
 <DT><B>Author:</B></DT>
-  <DD>http://markmail.org/message/5ej3lijr4iupnhbz#query:global%20listener%20gwt+page:1+mid:5ej3lijr4iupnhbz+state:results</DD>
+  <DD>Florian Mounier (mounier-dot-florian.at.gmail'dot'com)</DD>
 </DL>
 <HR>
 
 <P>
 
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html#HistoryManager()">HistoryManager</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ========== METHOD SUMMARY =========== -->
 
 <A NAME="method_summary"><!-- --></A>
@@ -122,28 +136,19 @@ This class is a bit hacky but allows a GWT application to have global key listen
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#forceStaticInit()">forceStaticInit</A></B>()</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html#initHistory()">initHistory</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method must be called to ensure the class is statically initialized
- It fills up the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>HelpManager</CODE></A> too.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#isInputEnabled()">isInputEnabled</A></B>()</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)">onValueChange</A></B>(ValueChangeEvent&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;event)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter to the current state of hotkeys</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#setInputEnabled(boolean)">setInputEnabled</A></B>(boolean&nbsp;isEnabled)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the hotkey manager state.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -158,6 +163,23 @@ This class is a bit hacky but allows a GWT application to have global key listen
 &nbsp;
 <P>
 
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="HistoryManager()"><!-- --></A><H3>
+HistoryManager</H3>
+<PRE>
+public <B>HistoryManager</B>()</PRE>
+<DL>
+</DL>
+
 <!-- ============ METHOD DETAIL ========== -->
 
 <A NAME="method_detail"><!-- --></A>
@@ -168,43 +190,30 @@ This class is a bit hacky but allows a GWT application to have global key listen
 </TR>
 </TABLE>
 
-<A NAME="forceStaticInit()"><!-- --></A><H3>
-forceStaticInit</H3>
+<A NAME="initHistory()"><!-- --></A><H3>
+initHistory</H3>
 <PRE>
-public static void <B>forceStaticInit</B>()</PRE>
+public void <B>initHistory</B>()</PRE>
 <DL>
-<DD>This method must be called to ensure the class is statically initialized
- It fills up the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>HelpManager</CODE></A> too.
-<P>
+<DD><DL>
+</DL>
+</DD>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="isInputEnabled()"><!-- --></A><H3>
-isInputEnabled</H3>
+<A NAME="onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)"><!-- --></A><H3>
+onValueChange</H3>
 <PRE>
-public static boolean <B>isInputEnabled</B>()</PRE>
+public void <B>onValueChange</B>(ValueChangeEvent&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;event)</PRE>
 <DL>
-<DD>Getter to the current state of hotkeys
-<P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>true if it is enabled false otherwise</DL>
+<DT><B>Specified by:</B><DD><CODE>onValueChange</CODE> in interface <CODE>ValueChangeHandler&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</CODE></DL>
 </DD>
-</DL>
-<HR>
-
-<A NAME="setInputEnabled(boolean)"><!-- --></A><H3>
-setInputEnabled</H3>
-<PRE>
-public static void <B>setInputEnabled</B>(boolean&nbsp;isEnabled)</PRE>
-<DL>
-<DD>Set the hotkey manager state. This is used to disable hotkeys while editing for instance
-<P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>isEnabled</CODE> - The status : True to activate False to disable</DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -223,7 +232,7 @@ public static void <B>setInputEnabled</B>(boolean&nbsp;isEnabled)</PRE>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HotKeyManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HistoryManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -238,11 +247,11 @@ public static void <B>setInputEnabled</B>(boolean&nbsp;isEnabled)</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Keyboard.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="HotKeyManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HistoryManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="HistoryManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -259,9 +268,9 @@ public static void <B>setInputEnabled</B>(boolean&nbsp;isEnabled)</PRE>
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>
