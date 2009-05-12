@@ -386,4 +386,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	lineTo(gfxObject, location);
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildImage(java.lang.String)
+     */
+    @Override
+    public GfxObject buildImage(String url) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

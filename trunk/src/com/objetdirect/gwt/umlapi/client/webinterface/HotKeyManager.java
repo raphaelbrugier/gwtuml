@@ -67,7 +67,7 @@ public final class HotKeyManager {
 
     }
 
-    private static boolean inputEnabled;
+    private static boolean inputEnabled = true;
     /**
      * Getter to the current state of hotkeys
      * 
