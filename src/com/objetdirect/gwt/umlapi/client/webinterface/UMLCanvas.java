@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -16,12 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
@@ -55,93 +51,128 @@ public class UMLCanvas extends AbsolutePanel {
     }
     private DragAndDropState dragAndDropState = DragAndDropState.NONE;
 
-    private Point currentMousePosition;
+    private Point currentMousePosition = Point.getOrigin();
     private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
     private UMLDiagram uMLDiagram;
+    private boolean isMouseEnabled = true;
+
+    void setMouseEnabled(boolean isMouseEnabled) {
+	this.isMouseEnabled = isMouseEnabled;
+    }
+
 
     private final GfxObjectListener gfxObjectListener = new GfxObjectListener() {
-	private boolean mouseIsPressed = false; // Manage mouse state when releasing outside the listener
-	public void mouseClicked(final Event event) {
-	    //Unused yet
-	}
 
-	public void mouseDblClicked(final GfxObject gfxObject, final Point location, final Event event) {
-	    editItem(gfxObject);
-	}
-
-	public void mouseLeftClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
-	    if(this.mouseIsPressed) return;
-	    final Point realPoint = convertToRealPoint(location);
-	    this.mouseIsPressed = true;
-	    if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
-		return;
-	    }
-	    if(gfxObject != null) {
-		UMLCanvas.this.dragAndDropState = DragAndDropState.TAKING;
-		UMLCanvas.this.dragOffset = realPoint.clonePoint();
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);		
-	    } else {
-		UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
-		UMLCanvas.this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
-	    }
-	    doSelection(gfxObject, event.getCtrlKey(), event.getShiftKey());
-	}
-
-	@SuppressWarnings("fallthrough")
-	public void mouseMoved(final Point location, final Event event) {
-	    final Point realPoint = convertToRealPoint(location);
-	    UMLCanvas.this.currentMousePosition = realPoint;
-	    switch(UMLCanvas.this.dragAndDropState) {
-	    case TAKING:
-		take();
-		UMLCanvas.this.dragAndDropState = DragAndDropState.DRAGGING;
-	    case DRAGGING:
-		drag(realPoint);
-		break;
-	    case PREPARING_SELECT_BOX:
-		UMLCanvas.this.dragAndDropState = DragAndDropState.SELECT_BOX;
-		UMLCanvas.this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(UMLCanvas.this.selectedArtifacts);
-	    case SELECT_BOX:
-		boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint, event.getCtrlKey(), event.getShiftKey());
-	    }
-
-	    if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
-		animateLinking(realPoint);
-
+	@Override
+	public void mouseDoubleClicked(GfxObject graphicObject, Event event) {
+	    if(UMLCanvas.this.isMouseEnabled) {
+		Mouse.doubleClick(graphicObject, new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());
 	    }
 	}
 
-
-	@SuppressWarnings("fallthrough")
-	public void mouseReleased(final GfxObject gfxObject, final Point location, final Event event) {
-	    if(!this.mouseIsPressed) return;
-	    final Point realPoint = convertToRealPoint(location);
-	    this.mouseIsPressed = false;	    
-	    if(UMLCanvas.this.dragAndDropState == DragAndDropState.TAKING) {
-		unselectOnRelease(gfxObject, event.getCtrlKey(), event.getShiftKey());
+	@Override
+	public void mouseMoved(Event event) {
+	    if(UMLCanvas.this.isMouseEnabled) {
+		Mouse.move(new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());
 	    }
-	    switch(UMLCanvas.this.dragAndDropState) {
-	    case SELECT_BOX:
-		if(UMLCanvas.this.selectBox != null) {
-		    GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
-		}
-		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
-		break;
-	    case DRAGGING:
-		drop(realPoint);
-	    case TAKING:
-		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-		default :
-		UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
-	    }
-
 	}
 
-	public void mouseRightClickPressed(final GfxObject gfxObject, final Point location, final Event event) {
-	    final Point realPoint = convertToRealPoint(location);
-	    dropRightMenu(gfxObject, realPoint);
+	@Override
+	public void mousePressed(GfxObject graphicObject, Event event) {
+	    if(UMLCanvas.this.isMouseEnabled) {
+		Mouse.press(graphicObject, new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());
+	    }
 	}
+
+	@Override
+	public void mouseReleased(GfxObject graphicObject, Event event) {
+	    if(UMLCanvas.this.isMouseEnabled) {
+		Mouse.release(graphicObject, new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());
+	    }
+	}
+
     };
+
+    private boolean mouseIsPressed = false; // Manage mouse state when releasing outside the listener
+
+
+    void mouseDoubleClicked(final GfxObject gfxObject, final Point location) {
+	editItem(gfxObject);
+    }
+
+    void mouseLeftPressed(final GfxObject gfxObject, final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
+	if(this.mouseIsPressed) return;
+	final Point realPoint = convertToRealPoint(location);
+	this.mouseIsPressed = true;
+	if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
+	    return;
+	}
+	if(gfxObject != null) {
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.TAKING;
+	    UMLCanvas.this.dragOffset = realPoint.clonePoint();
+	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);		
+	} else {
+	    UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
+	}
+	doSelection(gfxObject, isCtrlDown, isShiftDown);
+    }
+
+    @SuppressWarnings("fallthrough")
+    void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
+	final Point realPoint = convertToRealPoint(location);
+	UMLCanvas.this.currentMousePosition = realPoint;
+	switch(UMLCanvas.this.dragAndDropState) {
+	case TAKING:
+	    take();
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.DRAGGING;
+	case DRAGGING:
+	    drag(realPoint);
+	    break;
+	case PREPARING_SELECT_BOX:
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.SELECT_BOX;
+	    UMLCanvas.this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(UMLCanvas.this.selectedArtifacts);
+	case SELECT_BOX:
+	    boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint, isCtrlDown, isShiftDown);
+	}
+
+	if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
+	    animateLinking(realPoint);
+
+	}
+    }
+
+
+    @SuppressWarnings("fallthrough")
+    void mouseReleased(final GfxObject gfxObject, final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
+	if(!this.mouseIsPressed) return;
+	final Point realPoint = convertToRealPoint(location);
+	this.mouseIsPressed = false;	    
+	if(UMLCanvas.this.dragAndDropState == DragAndDropState.TAKING) {
+	    unselectOnRelease(gfxObject, isCtrlDown, isShiftDown);
+	}
+	switch(UMLCanvas.this.dragAndDropState) {
+	case SELECT_BOX:
+	    if(UMLCanvas.this.selectBox != null) {
+		GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
+	    }
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+	    break;
+	case DRAGGING:
+	    drop(realPoint);
+	case TAKING:
+	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+	default :
+	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+	}
+
+    }
+
+    void mouseRightPressed(final GfxObject gfxObject, final Point location) {
+	final Point realPoint = convertToRealPoint(location);
+	dropRightMenu(gfxObject, realPoint);
+    }
+
 
     private GfxObject movingLines = GfxManager.getPlatform().buildVirtualGroup();
     private GfxObject movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
@@ -206,7 +237,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
 		    + artifact);
-	    
+
 	} else {
 	    Log.debug("Canvas not attached, queuing " + artifact);
 	    this.objectsToBeAddedWhenAttached.add(artifact);
@@ -247,7 +278,7 @@ public class UMLCanvas extends AbsolutePanel {
     /**
      * Add a new class with default values to this canvas to an invisible location (to hide it)
      */
-    void addNewClass() {
+    public void addNewClass() {
 	addNewClass(this.currentMousePosition);
 
     }
@@ -282,11 +313,11 @@ public class UMLCanvas extends AbsolutePanel {
     /**
      * Add a new object with default values to this canvas to an invisible location (to hide it)
      */
-    void addNewObject() {
+    public void addNewObject() {
 	addNewObject(this.currentMousePosition);
 
     }
-    
+
     /**
      * Add a new object with default values to this canvas at the specified location
      * 
@@ -421,7 +452,7 @@ public class UMLCanvas extends AbsolutePanel {
      * @return the uMLDiagram
      */
     public UMLDiagram getUMLDiagram() {
-        return this.uMLDiagram;
+	return this.uMLDiagram;
     }
 
     void toLinkMode(final RelationKind linkType) {
@@ -679,8 +710,8 @@ public class UMLCanvas extends AbsolutePanel {
 	    if(this.selectedArtifacts.containsKey(newSelected)) {
 		if(this.selectedArtifacts.size() != 1) {
 		    if(!isShiftKeyDown && !isCtrlKeyDown) { //Doing what have not been done on mouse press to allow multiple dragging
-			    deselectAllArtifacts();
-			    selectArtifact(newSelected);
+			deselectAllArtifacts();
+			selectArtifact(newSelected);
 		    }
 		}
 	    }
@@ -728,5 +759,15 @@ public class UMLCanvas extends AbsolutePanel {
     private void linkingModeOff() {
 	this.activeLinking = null;
 	GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
+    }
+    GfxObject getArtifactAt(Point location) {
+	for (UMLArtifact artifact : this.objects.values()) {
+	    if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), location, location)) {
+		Log.info("Artifact : " + artifact + " found"); 
+		return artifact.getGfxObject();
+	    }
+	}
+	Log.info("No Artifact Found !"); 
+	return null;
     }
 }

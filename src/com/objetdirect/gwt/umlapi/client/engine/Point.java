@@ -224,7 +224,7 @@ public class Point {
      *         </ul>
      */
     public boolean isSuperiorTo(Point point) {
-	return this.x > point.x && this.y > point.y;
+	return this.x >= point.x && this.y >= point.y;
     }
 
     /**

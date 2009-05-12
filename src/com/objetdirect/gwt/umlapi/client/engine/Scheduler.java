@@ -20,6 +20,7 @@ public class Scheduler {
     public static abstract class Task extends Timer {
 	Object owner;
 	Object subject;
+	private int delay;
 
 	/**
 	 * Constructor of Task without specific object
@@ -36,8 +37,19 @@ public class Scheduler {
 	 * @param subject Specifies a parameter which can be used in {@link Task#process()}
 	 */
 	public Task(final Object owner, final Object subject) {
+	    this(owner, subject,  5);
+	}
+	/**
+	 * Constructor of Task with a specific object 
+	 * 
+	 * @param owner Specifies the caller of this task for later use
+	 * @param subject Specifies a parameter which can be used in {@link Task#process()}
+	 * @param delay Specifies a delay for this task (default is 5ms)
+	 */
+	public Task(final Object owner, final Object subject, final int delay) {
 	    this.subject = subject;
 	    this.owner = owner;
+	    this.delay = delay;
 	    Scheduler.register(this);
 	}
 
@@ -63,14 +75,15 @@ public class Scheduler {
      * @param owner 
      */
     public static void cancel(Object owner) {
-	if(currentTask != null && currentTask.owner.equals(owner)) {
+	if(currentTask != null && currentTask.owner != null && currentTask.owner.equals(owner)) {
 	    currentTask.cancel();
 	    queuedTasks.remove(currentTask);
 	    currentTask = null;
 	}
 	ArrayList<Task> taskToRemove = new ArrayList<Task>(); //Avoid concurrent modification
 	for (Task task : queuedTasks) {
-	    if(task.owner.equals(owner)) {
+	    
+	    if(task != null && task.owner != null && task.owner.equals(owner)) {
 		taskToRemove.add(task);
 	    }
 	}
@@ -94,7 +107,7 @@ public class Scheduler {
 
     private static void execute(final Task t) {
 	currentTask = t;
-	t.schedule(5);
+	t.schedule(currentTask.delay);
     }
 
 }

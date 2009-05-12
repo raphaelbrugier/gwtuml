@@ -44,13 +44,12 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	    public void onMouseDown(final Widget sender, final int x,
 		    final int y) {
 		if (x < 0) {
-		    gfxObjectListener.mouseRightClickPressed(
+		    gfxObjectListener.mousePressed(
 			    IncubatorGfxObjectContainer
-				    .getPointedObject(-x, -y), new Point(-x, -y), null);
+				    .getPointedObject(-x, -y), null);
 		} else {
-		    gfxObjectListener.mouseLeftClickPressed(
-			    IncubatorGfxObjectContainer.getPointedObject(x, y),
-			    new Point(x, y), null);
+		    gfxObjectListener.mousePressed(
+			    IncubatorGfxObjectContainer.getPointedObject(x, y), null);
 		}
 	    }
 
@@ -73,7 +72,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	     */
 	    public void onMouseMove(final Widget sender, final int x,
 		    final int y) {
-		gfxObjectListener.mouseMoved(new Point(x, y), null);
+		gfxObjectListener.mouseMoved(null);
 	    }
 
 	    /* (non-Javadoc)
@@ -82,12 +81,12 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	    public void onMouseUp(final Widget sender, final int x, final int y) {
 		// TODO fix this hack :
 		if (x < 0) {
-		    gfxObjectListener.mouseDblClicked(
+		    gfxObjectListener.mouseDoubleClicked(
 			    IncubatorGfxObjectContainer
-				    .getPointedObject(-x, -y), new Point(-x, -y), null);
+				    .getPointedObject(-x, -y), null);
 		} else {
 		    gfxObjectListener.mouseReleased(IncubatorGfxObjectContainer
-			    .getPointedObject(x, y), new Point(x, y), null);
+			    .getPointedObject(x, y), null);
 		}
 	    }
 	};
@@ -96,7 +95,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	     * @see com.google.gwt.user.client.ui.ClickListener#onClick(com.google.gwt.user.client.ui.Widget)
 	     */
 	    public void onClick(final Widget sender) {
-		gfxObjectListener.mouseClicked(null);
+		// Unused
 	    }
 	};
 	Log.trace("adding mouseListener" + mouseListener);

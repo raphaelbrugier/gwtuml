@@ -1,12 +1,10 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.Window.ClosingHandler;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 
 /**
@@ -37,9 +35,6 @@ public final class HotKeyManager {
 
     }
 
-    private static UMLCanvas activeCanvas;
-
-    private static boolean isEnabled = true;
     static {
 	final WindowCloseHandlerImpl closeListener = new WindowCloseHandlerImpl();
 	Window.addWindowClosingHandler(closeListener);
@@ -72,22 +67,14 @@ public final class HotKeyManager {
 
     }
 
+    private static boolean inputEnabled;
     /**
      * Getter to the current state of hotkeys
      * 
      * @return true if it is enabled false otherwise
      */
-    public static boolean isEnabled() {
-	return isEnabled;
-    }
-
-    /**
-     * Setter for the active canvas (the one which will receive the hot keys)
-     *  
-     * @param canvas The active {@link UMLCanvas}
-     */
-    public static void setActiveCanvas(final UMLCanvas canvas) {
-	activeCanvas = canvas;
+    public static boolean isInputEnabled() {
+	return inputEnabled;
     }
 
     /**
@@ -95,80 +82,14 @@ public final class HotKeyManager {
      * 
      * @param isEnabled The status : True to activate False to disable 
      */
-    public static void setEnabled(final boolean isEnabled) {
-	HotKeyManager.isEnabled = isEnabled;
+    public static void setInputEnabled(final boolean isEnabled) {
+	inputEnabled = isEnabled;
     }
 
     @SuppressWarnings("unused")
     private static void onKeyDown(final Event event) {
-	if (!isEnabled) {
-	    return;
-	}
-	final char keyCode = (char) DOM.eventGetKeyCode(event);
-	switch (keyCode) {
-	case 'C':
-	    if(activeCanvas.getUMLDiagram().getType().isClassType()) {
-		activeCanvas.addNewClass();
-	    }
-	    break;
-	case 'O':
-	    if(activeCanvas.getUMLDiagram().getType().isObjectType()) {
-		activeCanvas.addNewObject();
-	    }
-	    break;
-	case 'N':
-	    activeCanvas.addNewNote();
-	    break;
-	case 'A':
-	    activeCanvas.toLinkMode(RelationKind.AGGREGATION);
-	    break;
-	case 'L':
-	    activeCanvas.toLinkMode(RelationKind.ASSOCIATION);
-	    break;
-	case 'K':
-	    activeCanvas.toLinkMode(RelationKind.COMPOSITION);
-	    break;
-	case 'D':
-	    activeCanvas.toLinkMode(RelationKind.DEPENDENCY);
-	    break;
-	case 'G':
-	    activeCanvas.toLinkMode(RelationKind.GENERALIZATION);
-	    break;
-	case 'R':
-	    activeCanvas.toLinkMode(RelationKind.REALIZATION);
-	    break;
-	case 'T':
-	    activeCanvas.toLinkMode(RelationKind.NOTE);
-	    break;
-	case 'S':
-	    activeCanvas.toLinkMode(RelationKind.CLASSRELATION);
-	    break;
-	case 'I':
-	    activeCanvas.toLinkMode(RelationKind.INSTANTIATION);
-	    break;
-	case KeyCodes.KEY_DELETE:
-	    activeCanvas.removeSelected();
-	    break;
-	case KeyCodes.KEY_HOME:
-	    HelpManager.bringHelpPopup();
-	}
-	if (event.getCtrlKey()) {
-	    switch (keyCode) {
-	    case KeyCodes.KEY_UP:
-		activeCanvas.moveSelected(Direction.UP);
-		break;
-	    case KeyCodes.KEY_DOWN:
-		activeCanvas.moveSelected(Direction.DOWN);
-		break;
-	    case KeyCodes.KEY_LEFT:
-		activeCanvas.moveSelected(Direction.LEFT);
-		break;
-	    case KeyCodes.KEY_RIGHT:
-		activeCanvas.moveSelected(Direction.RIGHT);
-		break;
-	    default:
-		break;
-	    }
+	if(isInputEnabled()) {
+	    Keyboard.push((char) DOM.eventGetKeyCode(event), event.getCtrlKey(), event.getAltKey(), event.getShiftKey());
 	}
     }
 

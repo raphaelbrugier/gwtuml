@@ -43,7 +43,7 @@ public abstract class FieldEditor {
     public FieldEditor(final UMLCanvas canvas, final UMLArtifact artifact) {
 	this.canvas = canvas;
 	this.artifact = artifact;
-	HotKeyManager.setEnabled(false);
+	HotKeyManager.setInputEnabled(false);
     }
 
     /**
@@ -125,7 +125,7 @@ public abstract class FieldEditor {
 	this.canvas.remove(this.editField);
 	this.editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
-	HotKeyManager.setEnabled(true);
+	HotKeyManager.setInputEnabled(true);
     }
 
     protected abstract void next();
@@ -141,7 +141,7 @@ public abstract class FieldEditor {
 	this.canvas.remove(this.editField);
 	this.editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
-	HotKeyManager.setEnabled(true);
+	HotKeyManager.setInputEnabled(true);
 	if (isStillNextable) {
 	    next();
 	}

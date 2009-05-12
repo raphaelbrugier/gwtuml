@@ -1,7 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Widget;
@@ -36,7 +35,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mouseClicked(final GraphicObject graphicObject,
 		    final Event e) {
-		gfxObjectListener.mouseClicked(e);
+		// This app doesn't need click event
 	    }
 
 	    /* (non-Javadoc)
@@ -44,9 +43,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mouseDblClicked(final GraphicObject graphicObject,
 		    final Event e) {
-		gfxObjectListener.mouseDblClicked(TatamiGfxObjectContainer
-			.getContainerOf(graphicObject), new Point(DOM.eventGetClientX(e),
-			DOM.eventGetClientY(e)), e);
+		gfxObjectListener.mouseDoubleClicked(TatamiGfxObjectContainer
+			.getContainerOf(graphicObject), e);
 	    }
 
 	    /* (non-Javadoc)
@@ -54,8 +52,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mouseMoved(final GraphicObject graphicObject,
 		    final Event e) {
-		gfxObjectListener.mouseMoved(new Point(DOM.eventGetClientX(e), DOM
-			.eventGetClientY(e)), e);
+		gfxObjectListener.mouseMoved(e);
 	    }
 
 	    /* (non-Javadoc)
@@ -63,17 +60,9 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	     */
 	    public void mousePressed(final GraphicObject graphicObject,
 		    final Event e) {
-		if (e.getButton() == NativeEvent.BUTTON_RIGHT) {
 		    gfxObjectListener
-			    .mouseRightClickPressed(TatamiGfxObjectContainer
-				    .getContainerOf(graphicObject), new Point(DOM
-				    .eventGetClientX(e), DOM.eventGetClientY(e)), e);
-		} else {
-		    gfxObjectListener
-			    .mouseLeftClickPressed(TatamiGfxObjectContainer
-				    .getContainerOf(graphicObject), new Point(DOM
-				    .eventGetClientX(e), DOM.eventGetClientY(e)), e);
-		}
+			    .mousePressed(TatamiGfxObjectContainer
+				    .getContainerOf(graphicObject), e);
 	    }
 
 	    /* (non-Javadoc)
@@ -82,8 +71,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	    public void mouseReleased(final GraphicObject graphicObject,
 		    final Event e) {
 		gfxObjectListener.mouseReleased(TatamiGfxObjectContainer
-			.getContainerOf(graphicObject), new Point(DOM.eventGetClientX(e),
-			DOM.eventGetClientY(e)), e);
+			.getContainerOf(graphicObject), e);
 	    }
 	};
 	((GraphicCanvas) canvas)
