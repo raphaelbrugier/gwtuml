@@ -2,7 +2,6 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.Collections;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;

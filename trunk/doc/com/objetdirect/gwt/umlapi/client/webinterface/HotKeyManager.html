@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/LoadingScreen.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Keyboard.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="HotKeyManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -132,7 +132,7 @@ This class is a bit hacky but allows a GWT application to have global key listen
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#isEnabled()">isEnabled</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#isInputEnabled()">isInputEnabled</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter to the current state of hotkeys</TD>
@@ -140,15 +140,7 @@ This class is a bit hacky but allows a GWT application to have global key listen
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#setActiveCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setActiveCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">UMLCanvas</A>&nbsp;canvas)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the active canvas (the one which will receive the hot keys)</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;isEnabled)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#setInputEnabled(boolean)">setInputEnabled</A></B>(boolean&nbsp;isEnabled)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the hotkey manager state.</TD>
@@ -190,10 +182,10 @@ public static void <B>forceStaticInit</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="isEnabled()"><!-- --></A><H3>
-isEnabled</H3>
+<A NAME="isInputEnabled()"><!-- --></A><H3>
+isInputEnabled</H3>
 <PRE>
-public static boolean <B>isEnabled</B>()</PRE>
+public static boolean <B>isInputEnabled</B>()</PRE>
 <DL>
 <DD>Getter to the current state of hotkeys
 <P>
@@ -204,23 +196,10 @@ public static boolean <B>isEnabled</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="setActiveCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)"><!-- --></A><H3>
-setActiveCanvas</H3>
+<A NAME="setInputEnabled(boolean)"><!-- --></A><H3>
+setInputEnabled</H3>
 <PRE>
-public static void <B>setActiveCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">UMLCanvas</A>&nbsp;canvas)</PRE>
-<DL>
-<DD>Setter for the active canvas (the one which will receive the hot keys)
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The active <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>UMLCanvas</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setEnabled(boolean)"><!-- --></A><H3>
-setEnabled</H3>
-<PRE>
-public static void <B>setEnabled</B>(boolean&nbsp;isEnabled)</PRE>
+public static void <B>setInputEnabled</B>(boolean&nbsp;isEnabled)</PRE>
 <DL>
 <DD>Set the hotkey manager state. This is used to disable hotkeys while editing for instance
 <P>
@@ -260,7 +239,7 @@ public static void <B>setEnabled</B>(boolean&nbsp;isEnabled)</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/HelpManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/LoadingScreen.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Keyboard.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="HotKeyManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

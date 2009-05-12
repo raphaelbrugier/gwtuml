@@ -58,7 +58,8 @@ public class StartPanel extends VerticalPanel {
     final Label resolutionLbl = new Label("Resolution : ");
     final HorizontalPanel resolutionPanel = new HorizontalPanel();
 
-    final Button startDemoBtn = new Button("... Or start the Demo");
+    final Button startDemoBtn = new Button("... Or start the Demo ...");
+    final Button startAnimateDemoBtn = new Button("... Or start the Animated Demo !");
     final Label themeLbl = new Label("Theme : ");
     final ListBox themeListBox = new ListBox();
     final HorizontalPanel themePanel = new HorizontalPanel();
@@ -88,24 +89,31 @@ public class StartPanel extends VerticalPanel {
 		new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
 	    }
 	});
+	this.startAnimateDemoBtn.addClickHandler(new ClickHandler() {
+	    public void onClick(final ClickEvent event) {
+		makeFirstDrawer(UMLDiagram.Type.HYBRID);
+		History.newItem("AnimatedDemo", false);
+		new AnimatedDemo(StartPanel.this.drawerPanel.getUMLCanvas());
+	    }
+	});
 	History.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Drawer")) {
 		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
 		    StartPanel.this.drawerPanel.addDefaultNode(UMLDiagram.Type.HYBRID);
 		}
-	    }
-
-	});
-	History.addValueChangeHandler(new ValueChangeHandler<String>() {
-	    public void onValueChange(final ValueChangeEvent<String> event) {
 		if (event.getValue().equals("Demo")) {
 		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
 		    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
 		}
+		if (event.getValue().equals("AnimatedDemo")) {
+		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
+		    new AnimatedDemo(StartPanel.this.drawerPanel.getUMLCanvas());
+		}
 	    }
 
 	});
+
 	this.gfxEnginePanel.setSpacing(5);
 	this.geometryStylePanel.setSpacing(5);
 	this.themePanel.setSpacing(5);
@@ -174,7 +182,7 @@ public class StartPanel extends VerticalPanel {
 	    this.add(startBtn);
 	}
 	this.add(this.startDemoBtn);
-
+	this.add(this.startAnimateDemoBtn);
 
 	if(History.getToken().equals("Advanced")) {
 	    this.gfxEnginePanel.add(this.gfxEngineLbl);

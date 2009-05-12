@@ -56,7 +56,7 @@ public class DrawerPanel extends AbsolutePanel {
 	// different point than (0,0) tatami ? dojo ? chrome ?
 	// example : this.setSpacing(50);
 	Log.trace("Setting active canvas");
-	HotKeyManager.setActiveCanvas(this.uMLCanvas);
+	Session.setActiveCanvas(this.uMLCanvas);
 	Log.trace("Disabling browser events");
 	UMLDrawerHelper.disableBrowserEvents();
 	Log.trace("Init end");

@@ -6,7 +6,6 @@ package com.objetdirect.gwt.umlapi.client.engine;
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
