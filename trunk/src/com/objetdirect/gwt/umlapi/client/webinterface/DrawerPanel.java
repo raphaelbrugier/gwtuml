@@ -1,14 +1,18 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 /**
  * This panel is an intermediate panel that contains the graphic canvas <br>
@@ -30,25 +34,30 @@ public class DrawerPanel extends AbsolutePanel {
     private SimplePanel rightShadow;
     private SimplePanel topRightCornerShadow;
     private int width;
-
-    /**
-     * Constructor of a drawer panel
-     *
-     * @param width The canvas width
-     * @param height The canvas height
-     * @param isShadowed If true draws a shadow around the canvas
-     * @param uMLDiagram The {@link UMLDiagram} the drawer is going to draw
-     */
-    public DrawerPanel(final int width, final int height, final boolean isShadowed, final UMLDiagram uMLDiagram) {
+    
+    
+    public DrawerPanel() {
+	ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
+	GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
+	GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
+	if(OptionsManager.get("AutoResolution") == 0) {
+	this.width = OptionsManager.get("Width");
+	this.height = OptionsManager.get("Height");
+	} else {
+	    this.width = Window.getClientWidth() - 50;
+		this.height = Window.getClientHeight() - 50;    
+	}	
+	
+	boolean isShadowed = OptionsManager.get("Shadowed") == 1;
 	Log.trace("Creating drawer");
 
-	this.uMLCanvas = new UMLCanvas(uMLDiagram, width + 2, height);
+	this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width + 2, this.height);
 	this.uMLCanvas.setStylePrimaryName("canvas");
 	this.add(this.uMLCanvas);
 	Log.trace("Canvas added");
 	if(isShadowed) {
-	    this.width = width + 2;// Border Size
-	    this.height = height + 2;// Border Size
+	    this.width += 2;// Border Size
+	    this.height += 2;// Border Size
 	    Log.trace("Making shadow");
 	    makeShadow();
 	}
@@ -61,6 +70,7 @@ public class DrawerPanel extends AbsolutePanel {
 	UMLDrawerHelper.disableBrowserEvents();
 	Log.trace("Init end");
     }
+
 
 
     void clearShadow() {
@@ -148,7 +158,8 @@ public class DrawerPanel extends AbsolutePanel {
     }
 
  
-    void addDefaultNode(Type type) {
+    void addDefaultNode() {
+	Type type = UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"));
 	if(type.isClassType()) {
 		final ClassArtifact defaultclass = new ClassArtifact("Class 1");
 		defaultclass.setInitialLocation(new Point(this.width / 2, this.height / 2));

@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Mouse.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="OptionsManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -74,7 +74,7 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -100,6 +100,42 @@ Class OptionsManager</H2>
 
 <P>
 This class allows to set and access configuration values
+ 
+ Default ones are :
+ 
+ ArrowLength -> 25 <br />
+ ArrowWidth -> 15 <br />
+ CrossLength -> 5 <br />
+ CrossWidth -> 10 <br />
+ DiamondLength -> 20 <br />
+ DiamondWidth -> 15 <br />
+ SolidArrowLength -> 30 <br />
+ SolidArrowWidth -> 20 <br />
+ RectangleTopPadding -> 4 <br />
+ RectangleBottomPadding -> 4 <br />
+ RectangleLeftPadding -> 2 <br />
+ RectangleRightPadding -> 2 <br />
+ TextTopPadding -> 1 <br />
+ TextBottomPadding -> 1 <br />
+ TextLeftPadding -> 1 <br />
+ TextRightPadding -> 1 <br />
+ ReflexivePathXGap -> 25 <br />
+ ReflexivePathYGap -> 50 <br />
+ NoteCornerHeight -> 15 <br />
+ NoteCornerWidth -> 15 <br />
+ MovingStep -> 20 <br />
+ UnderlineShift -> 4 <br />
+ QualityLevel -> 30 <br />
+ FontSize -> 10 <br />
+ SmallFontSize -> 9 <br />
+ DiagramType -> 2 <br />
+ GraphicEngine -> 0 <br />
+ GeometryStyle -> 0 <br />
+ Theme -> 0 <br />
+ AutoResolution -> 0 <br />
+ Width -> 800 <br />
+ Height -> 800 <br />
+ Shadowed -> 1
 <P>
 
 <P>
@@ -110,24 +146,7 @@ This class allows to set and access configuration values
 <HR>
 
 <P>
-<!-- ======== NESTED CLASS SUMMARY ======== -->
 
-<A NAME="nested_class_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Nested Class Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This enumeration lists the available quality level for the drawer</TD>
-</TR>
-</TABLE>
-&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -154,51 +173,11 @@ This class allows to set and access configuration values
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getArrowLength()">getArrowLength</A></B>()</CODE>
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#get(java.lang.String)">get</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the arrow length</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getArrowWidth()">getArrowWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the arrow width</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getCrossLength()">getCrossLength</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the cross length</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getCrossWidth()">getCrossWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the cross width</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getDiamondLength()">getDiamondLength</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the diamond length</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getDiamondWidth()">getDiamondWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the diamond width</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the option optionName</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -206,111 +185,7 @@ This class allows to set and access configuration values
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getFont()">getFont</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the application font</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getMovingStep()">getMovingStep</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the artifact key moving step</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getNoteCornerHeight()">getNoteCornerHeight</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getNoteCornerWidth()">getNoteCornerWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getQualityLevel()">getQualityLevel</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the current <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>OptionsManager.QualityLevel</CODE></A></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleBottomPadding()">getRectangleBottomPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the rectangle bottom padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleLeftPadding()">getRectangleLeftPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the rectangle left padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleRightPadding()">getRectangleRightPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the rectangle right padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleTopPadding()">getRectangleTopPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the rectangle top padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleXTotalPadding()">getRectangleXTotalPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the total rectangle horizontal padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getRectangleYTotalPadding()">getRectangleYTotalPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the total rectangle vertical padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getReflexivePathXGap()">getReflexivePathXGap</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the horizontal gap for reflexive relations</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getReflexivePathYGap()">getReflexivePathYGap</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the vertical gap for reflexive relations</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getSmallCapsFont()">getSmallCapsFont</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the application font with small caps</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the normal application font</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -318,95 +193,32 @@ This class allows to set and access configuration values
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getSmallFont()">getSmallFont</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the application small font</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getSolidArrowLength()">getSolidArrowLength</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the solid arrow length</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getSolidArrowWidth()">getSolidArrowWidth</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the solid arrow width</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextBottomPadding()">getTextBottomPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the text bottom padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextLeftPadding()">getTextLeftPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the text left padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextRightPadding()">getTextRightPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the text right padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextTopPadding()">getTextTopPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the text top padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextXTotalPadding()">getTextXTotalPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the total text horizontal padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getTextYTotalPadding()">getTextYTotalPadding</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the total text vertical padding</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#getUnderlineShift()">getUnderlineShift</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the shift needed between the text and the underline shift</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#qualityLevelIsAlmost(com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel)">qualityLevelIsAlmost</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A>&nbsp;level)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return true if the current quality level is almost the given level</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the small application font</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#setQualityLevel(com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel)">setQualityLevel</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A>&nbsp;qualityLevel)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#initialize()">initialize</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the current <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>OptionsManager.QualityLevel</CODE></A></TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#set(java.lang.String, java.lang.Integer)">set</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName,
+    <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;optionValue)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the option optionName</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html#toURL()">toURL</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Export all options in a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> which has the URI parameter format</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -448,86 +260,41 @@ public <B>OptionsManager</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="getArrowLength()"><!-- --></A><H3>
-getArrowLength</H3>
+<A NAME="initialize()"><!-- --></A><H3>
+initialize</H3>
 <PRE>
-public static int <B>getArrowLength</B>()</PRE>
+public static void <B>initialize</B>()</PRE>
 <DL>
-<DD>Getter for the arrow length
-<P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>the arrow length</DL>
+</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getArrowWidth()"><!-- --></A><H3>
-getArrowWidth</H3>
+<A NAME="get(java.lang.String)"><!-- --></A><H3>
+get</H3>
 <PRE>
-public static int <B>getArrowWidth</B>()</PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>get</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName)</PRE>
 <DL>
-<DD>Getter for the arrow width
+<DD>Getter for the option optionName
 <P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>the arrow width</DL>
+<DT><B>Parameters:</B><DD><CODE>optionName</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> name of the option
+<DT><B>Returns:</B><DD>The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang"><CODE>Integer</CODE></A> value of this option</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getCrossLength()"><!-- --></A><H3>
-getCrossLength</H3>
+<A NAME="set(java.lang.String, java.lang.Integer)"><!-- --></A><H3>
+set</H3>
 <PRE>
-public static final int <B>getCrossLength</B>()</PRE>
+public static void <B>set</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName,
+                       <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;optionValue)</PRE>
 <DL>
-<DD>Getter for the cross length
+<DD>Setter for the option optionName
 <P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>the cross length</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getCrossWidth()"><!-- --></A><H3>
-getCrossWidth</H3>
-<PRE>
-public static final int <B>getCrossWidth</B>()</PRE>
-<DL>
-<DD>Getter for the cross width
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the cross width</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getDiamondLength()"><!-- --></A><H3>
-getDiamondLength</H3>
-<PRE>
-public static int <B>getDiamondLength</B>()</PRE>
-<DL>
-<DD>Getter for the diamond length
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the diamond length</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getDiamondWidth()"><!-- --></A><H3>
-getDiamondWidth</H3>
-<PRE>
-public static int <B>getDiamondWidth</B>()</PRE>
-<DL>
-<DD>Getter for the diamond width
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the diamond width</DL>
+<DT><B>Parameters:</B><DD><CODE>optionName</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> name of the option<DD><CODE>optionValue</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang"><CODE>Integer</CODE></A> new value of this option</DL>
 </DD>
 </DL>
 <HR>
@@ -537,11 +304,11 @@ getFont</H3>
 <PRE>
 public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A> <B>getFont</B>()</PRE>
 <DL>
-<DD>Getter for the application font
+<DD>Getter for the normal application font
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the current application font</DL>
+<DT><B>Returns:</B><DD>a new font corresponding to the normal font</DL>
 </DD>
 </DL>
 <HR>
@@ -551,346 +318,25 @@ getSmallFont</H3>
 <PRE>
 public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A> <B>getSmallFont</B>()</PRE>
 <DL>
-<DD>Getter for the application small font
+<DD>Getter for the small application font
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the current application small font</DL>
+<DT><B>Returns:</B><DD>a new font corresponding to the small font</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getMovingStep()"><!-- --></A><H3>
-getMovingStep</H3>
+<A NAME="toURL()"><!-- --></A><H3>
+toURL</H3>
 <PRE>
-public static int <B>getMovingStep</B>()</PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toURL</B>()</PRE>
 <DL>
-<DD>Getter for the artifact key moving step
+<DD>Export all options in a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> which has the URI parameter format
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the moving step</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getNoteCornerHeight()"><!-- --></A><H3>
-getNoteCornerHeight</H3>
-<PRE>
-public static int <B>getNoteCornerHeight</B>()</PRE>
-<DL>
-<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner height</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getNoteCornerWidth()"><!-- --></A><H3>
-getNoteCornerWidth</H3>
-<PRE>
-public static int <B>getNoteCornerWidth</B>()</PRE>
-<DL>
-<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLNote.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLNote</CODE></A> corner width</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getQualityLevel()"><!-- --></A><H3>
-getQualityLevel</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A> <B>getQualityLevel</B>()</PRE>
-<DL>
-<DD>Getter for the current <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>OptionsManager.QualityLevel</CODE></A>
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the current <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>OptionsManager.QualityLevel</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleBottomPadding()"><!-- --></A><H3>
-getRectangleBottomPadding</H3>
-<PRE>
-public static int <B>getRectangleBottomPadding</B>()</PRE>
-<DL>
-<DD>Getter for the rectangle bottom padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The rectangle bottom padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleLeftPadding()"><!-- --></A><H3>
-getRectangleLeftPadding</H3>
-<PRE>
-public static int <B>getRectangleLeftPadding</B>()</PRE>
-<DL>
-<DD>Getter for the rectangle left padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The rectangle left padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleRightPadding()"><!-- --></A><H3>
-getRectangleRightPadding</H3>
-<PRE>
-public static int <B>getRectangleRightPadding</B>()</PRE>
-<DL>
-<DD>Getter for the rectangle right padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The rectangle right padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleTopPadding()"><!-- --></A><H3>
-getRectangleTopPadding</H3>
-<PRE>
-public static int <B>getRectangleTopPadding</B>()</PRE>
-<DL>
-<DD>Getter for the rectangle top padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The rectangle top padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleXTotalPadding()"><!-- --></A><H3>
-getRectangleXTotalPadding</H3>
-<PRE>
-public static int <B>getRectangleXTotalPadding</B>()</PRE>
-<DL>
-<DD>Getter for the total rectangle horizontal padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The total rectangle horizontal padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRectangleYTotalPadding()"><!-- --></A><H3>
-getRectangleYTotalPadding</H3>
-<PRE>
-public static int <B>getRectangleYTotalPadding</B>()</PRE>
-<DL>
-<DD>Getter for the total rectangle vertical padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The total rectangle vertical padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getReflexivePathXGap()"><!-- --></A><H3>
-getReflexivePathXGap</H3>
-<PRE>
-public static int <B>getReflexivePathXGap</B>()</PRE>
-<DL>
-<DD>Getter for the horizontal gap for reflexive relations
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the horizontal gap for reflexive relations</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getReflexivePathYGap()"><!-- --></A><H3>
-getReflexivePathYGap</H3>
-<PRE>
-public static int <B>getReflexivePathYGap</B>()</PRE>
-<DL>
-<DD>Getter for the vertical gap for reflexive relations
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the vertical gap for reflexive relations</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getSmallCapsFont()"><!-- --></A><H3>
-getSmallCapsFont</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A> <B>getSmallCapsFont</B>()</PRE>
-<DL>
-<DD>Getter for the application font with small caps
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the current application font with small caps</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getSolidArrowLength()"><!-- --></A><H3>
-getSolidArrowLength</H3>
-<PRE>
-public static int <B>getSolidArrowLength</B>()</PRE>
-<DL>
-<DD>Getter for the solid arrow length
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the arrow length</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getSolidArrowWidth()"><!-- --></A><H3>
-getSolidArrowWidth</H3>
-<PRE>
-public static int <B>getSolidArrowWidth</B>()</PRE>
-<DL>
-<DD>Getter for the solid arrow width
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the arrow width</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextBottomPadding()"><!-- --></A><H3>
-getTextBottomPadding</H3>
-<PRE>
-public static int <B>getTextBottomPadding</B>()</PRE>
-<DL>
-<DD>Getter for the text bottom padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The text bottom padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextLeftPadding()"><!-- --></A><H3>
-getTextLeftPadding</H3>
-<PRE>
-public static int <B>getTextLeftPadding</B>()</PRE>
-<DL>
-<DD>Getter for the text left padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The text left padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextRightPadding()"><!-- --></A><H3>
-getTextRightPadding</H3>
-<PRE>
-public static int <B>getTextRightPadding</B>()</PRE>
-<DL>
-<DD>Getter for the text right padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The text right padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextTopPadding()"><!-- --></A><H3>
-getTextTopPadding</H3>
-<PRE>
-public static int <B>getTextTopPadding</B>()</PRE>
-<DL>
-<DD>Getter for the text top padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The text top padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextXTotalPadding()"><!-- --></A><H3>
-getTextXTotalPadding</H3>
-<PRE>
-public static int <B>getTextXTotalPadding</B>()</PRE>
-<DL>
-<DD>Getter for the total text horizontal padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The total text horizontal padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTextYTotalPadding()"><!-- --></A><H3>
-getTextYTotalPadding</H3>
-<PRE>
-public static int <B>getTextYTotalPadding</B>()</PRE>
-<DL>
-<DD>Getter for the total text vertical padding
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The total text vertical padding</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getUnderlineShift()"><!-- --></A><H3>
-getUnderlineShift</H3>
-<PRE>
-public static int <B>getUnderlineShift</B>()</PRE>
-<DL>
-<DD>Getter for the shift needed between the text and the underline shift
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the shift between the text and the underline shift</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="qualityLevelIsAlmost(com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel)"><!-- --></A><H3>
-qualityLevelIsAlmost</H3>
-<PRE>
-public static boolean <B>qualityLevelIsAlmost</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A>&nbsp;level)</PRE>
-<DL>
-<DD>Return true if the current quality level is almost the given level
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>level</CODE> - The level to compare with
-<DT><B>Returns:</B><DD>True if the current quality level is almost the given level, False otherwise</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setQualityLevel(com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel)"><!-- --></A><H3>
-setQualityLevel</H3>
-<PRE>
-public static void <B>setQualityLevel</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface">OptionsManager.QualityLevel</A>&nbsp;qualityLevel)</PRE>
-<DL>
-<DD>Setter for the current <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>OptionsManager.QualityLevel</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>qualityLevel</CODE> - the qualityLevel to set</DL>
+<DT><B>Returns:</B><DD>The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> containing the parameters in the format : parameterName=parameterValue</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -925,7 +371,7 @@ public static void <B>setQualityLevel</B>(<A HREF="../../../../../../com/objetdi
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/Mouse.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/QualityLevel.html" title="enum in com.objetdirect.gwt.umlapi.client.webinterface"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/webinterface/OptionsManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="OptionsManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -945,7 +391,7 @@ public static void <B>setQualityLevel</B>(<A HREF="../../../../../../com/objetdi
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>

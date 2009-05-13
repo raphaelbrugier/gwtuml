@@ -116,4 +116,21 @@ public class ClassArtifact extends NodeArtifact {
 
 	return rightMenu;
     }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
+     */
+    @Override
+    public void fromURL(String url) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	return this.getClass().getName() + ":" + this.className.getClassName() + "," + this.getLocation();
+    }
 }

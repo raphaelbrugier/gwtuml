@@ -13,10 +13,9 @@ import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
 /**
  * This abstract class represent any uml artifact that can be displayed An
@@ -142,7 +141,7 @@ public abstract class UMLArtifact {
     public ArrayList<Point> getOutlineForDependencies() {
 
 	final ArrayList<Point> points = new ArrayList<Point>();
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+	if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 	    for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts()
 		    .entrySet()) {
 		if (dependentUMLArtifact.getValue() != null) {
@@ -305,6 +304,20 @@ public abstract class UMLArtifact {
     }
     
     /**
+     * This method transform the parameters of the object to a string
+     * 
+     * @return The String containing the parameters
+     */
+    public abstract String toURL();
+    
+    /**
+     * This method assign the object parameters from a String created by toURL
+     * 
+     * @param uRL The string created by toURL to assign arguments from
+     */
+    public abstract void fromURL(String uRL);
+    
+    /**
      * This method do the graphic changes to reflect that an artifact has been unselected
      */
     public abstract void unselect();
@@ -318,11 +331,11 @@ public abstract class UMLArtifact {
     }
 
     void buildGfxObjectWithAnimation() {
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.VERY_HIGH)) {
+	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    ThemeManager.setForegroundOpacityTo(0);
 	}
 	buildGfxObject();
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.VERY_HIGH)) {
+	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    for (int i = 25; i < 256; i += 25) {
 		final int j = i;
 		new Scheduler.Task() {

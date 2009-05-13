@@ -21,25 +21,35 @@ public class UMLDiagram {
 	/**
 	 * For a class diagram
 	 */
-	CLASS("class", true, false),
+	CLASS("class", true, false, 0),
 	/**
 	 * For an object diagram
 	 */
-	OBJECT("object", false, true),
+	OBJECT("object", false, true, 1),
 	/**
 	 * For a class and object diagram
 	 */
-	HYBRID("class and object", true, true);
+	HYBRID("class and object", true, true, 2);
 	
 	private boolean isClassType;
 	private boolean isObjectType;
 	private String name;
+	private Integer index;
 
+	/**
+	 * Getter for the index
+	 *
+	 * @return the index
+	 */
+	public Integer getIndex() {
+	    return this.index;
+	}
 
-	private Type(String name, boolean isClassType, boolean isObjectType) {
+	private Type(String name, boolean isClassType, boolean isObjectType, Integer index) {
 	    this.name = name;
 	    this.isClassType = isClassType;
 	    this.isObjectType = isObjectType;
+	    this.index = index;
 	}
 
 	/**
@@ -68,6 +78,20 @@ public class UMLDiagram {
 	public boolean isObjectType() {
 	    return this.isObjectType;
 	}	
+	/**
+	 * Return a the UMLDiagram type that corresponds to the index
+	 * 
+	 * @param uMLDiagramIndex the index corresponding to the diagram to retrieve
+	 * @return The {@link UMLDiagram.Type} corresponding to the index
+	 */
+	public static UMLDiagram.Type getUMLDiagramFromIndex(final int uMLDiagramIndex) {
+	    for (final UMLDiagram.Type type : UMLDiagram.Type.values()) {
+		if (type.index == uMLDiagramIndex) {
+		    return type;
+		}
+	    }
+	    return UMLDiagram.Type.HYBRID;
+	}
     }
     private Type type;
     

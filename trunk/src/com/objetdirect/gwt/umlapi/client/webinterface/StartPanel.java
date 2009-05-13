@@ -5,8 +5,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -16,19 +14,11 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.objetdirect.gwt.umlapi.client.UMLDrawer;
-import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
-import com.objetdirect.gwt.umlapi.client.engine.LinearGeometry;
-import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
-import com.objetdirect.gwt.umlapi.client.gfx.GWTCanvasGfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
-import com.objetdirect.gwt.umlapi.client.gfx.IncubatorGfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.TatamiGfxPlatfrom;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
 
 /**
@@ -42,7 +32,6 @@ public class StartPanel extends VerticalPanel {
 
     final Label crossLbl = new Label("x");
     final Label geometryStyleLbl = new Label("Geometry Style : ");
-
     final ListBox geometryStyleListBox = new ListBox();
     final HorizontalPanel geometryStylePanel = new HorizontalPanel();
     final Label gfxEngineLbl = new Label("Graphics Engine : ");
@@ -82,38 +71,6 @@ public class StartPanel extends VerticalPanel {
 	setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	setSpacing(20);
 
-	this.startDemoBtn.addClickHandler(new ClickHandler() {
-	    public void onClick(final ClickEvent event) {
-		makeFirstDrawer(UMLDiagram.Type.HYBRID);
-		History.newItem("Demo", false);
-		new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
-	    }
-	});
-	this.startAnimateDemoBtn.addClickHandler(new ClickHandler() {
-	    public void onClick(final ClickEvent event) {
-		makeFirstDrawer(UMLDiagram.Type.HYBRID);
-		History.newItem("AnimatedDemo", false);
-		new AnimatedDemo(StartPanel.this.drawerPanel.getUMLCanvas());
-	    }
-	});
-	History.addValueChangeHandler(new ValueChangeHandler<String>() {
-	    public void onValueChange(final ValueChangeEvent<String> event) {
-		if (event.getValue().equals("Drawer")) {
-		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
-		    StartPanel.this.drawerPanel.addDefaultNode(UMLDiagram.Type.HYBRID);
-		}
-		if (event.getValue().equals("Demo")) {
-		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
-		    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
-		}
-		if (event.getValue().equals("AnimatedDemo")) {
-		    makeDrawerForHistory(UMLDiagram.Type.HYBRID);
-		    new AnimatedDemo(StartPanel.this.drawerPanel.getUMLCanvas());
-		}
-	    }
-
-	});
-
 	this.gfxEnginePanel.setSpacing(5);
 	this.geometryStylePanel.setSpacing(5);
 	this.themePanel.setSpacing(5);
@@ -140,6 +97,7 @@ public class StartPanel extends VerticalPanel {
 
 	this.widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 	this.heightTxtBox.setText("" + (Window.getClientHeight() - 50));
+
 	Window.addResizeHandler(new ResizeHandler() {
 	    public void onResize(final ResizeEvent arg0) {
 		if (StartPanel.this.isResolutionAutoChkBox.getValue()) {
@@ -170,19 +128,28 @@ public class StartPanel extends VerticalPanel {
 	this.add(this.logoImg);
 	for(final UMLDiagram.Type type : UMLDiagram.Type.values()) {   
 	    final Button startBtn = new Button("Start new UML " + type.getName() + " diagram...");
-	    startBtn.addClickHandler(new ClickHandler() 
-	    {
-		public void onClick(final ClickEvent event) {
-		    makeFirstDrawer(type);
-		    History.newItem("Drawer", false);
-		    StartPanel.this.drawerPanel.addDefaultNode(type);
-
+	    this.add(startBtn);
+	    startBtn.addClickHandler(new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+		    setOptions("Drawer", type);
 		}
 	    });
-	    this.add(startBtn);
 	}
 	this.add(this.startDemoBtn);
+	this.startDemoBtn.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		setOptions("Demo", UMLDiagram.Type.HYBRID);
+	    }
+	});
 	this.add(this.startAnimateDemoBtn);
+	this.startAnimateDemoBtn.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		setOptions("AnimatedDemo", UMLDiagram.Type.HYBRID);
+	    }
+	});
 
 	if(History.getToken().equals("Advanced")) {
 	    this.gfxEnginePanel.add(this.gfxEngineLbl);
@@ -209,86 +176,33 @@ public class StartPanel extends VerticalPanel {
 	this.qualityPanel.add(this.qualityLbl);
 	this.qualityPanel.add(this.qualityListBox);
 	this.add(this.qualityPanel);
-
 	this.loadingScreen.hide();
-	
-	if(History.getToken().equals("Demo")) {
-	    makeFirstDrawer(UMLDiagram.Type.HYBRID);
-	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
-	} else if(History.getToken().equals("AnimatedDemo")) {
-	    makeFirstDrawer(UMLDiagram.Type.HYBRID);
-	    new Demo(StartPanel.this.drawerPanel.getUMLCanvas());
-	} else if(History.getToken().equals("Drawer")) {	
-	    makeFirstDrawer(UMLDiagram.Type.HYBRID);
-	    StartPanel.this.drawerPanel.addDefaultNode(UMLDiagram.Type.HYBRID);
-	} else {
-	    RootPanel.get().add(this);
-	}
-
     }
 
-    void makeDrawerForHistory(UMLDiagram.Type type) {
+    private void setOptions(String newHistoryToken, Type type) {
+	OptionsManager.set("DiagramType", type.getIndex());
+	if(History.getToken().equals("Advanced")) {
+	    OptionsManager.set("GraphicEngine", this.gfxEngineListBox.getSelectedIndex());
+	    OptionsManager.set("GeometryStyle", this.geometryStyleListBox.getSelectedIndex());
+	    OptionsManager.set("Theme", this.themeListBox.getSelectedIndex());
+	    OptionsManager.set("QualityLevel", this.qualityListBox.getSelectedIndex());
+	    OptionsManager.set("AutoResolution", this.isResolutionAutoChkBox.getValue() ? 1 : 0);
 
-	UMLDrawer.clearAppRootPanel();
-	this.loadingScreen.show();
-	int w;
-	int h;
-	try {
-	    w = Integer.parseInt(this.widthTxtBox.getText());
-	    h = Integer.parseInt(this.heightTxtBox.getText());
-	} catch (final Exception ex) {
-	    Log.warn("Unreadable resolution " + this.widthTxtBox.getText() + "x"
-		    + this.heightTxtBox.getText() + "! (Hist)");
-	    w = 800;
-	    h = 600;
+	    int w;
+	    int h;
+	    try {
+		w = Integer.parseInt(this.widthTxtBox.getText());
+		h = Integer.parseInt(this.heightTxtBox.getText());
+	    } catch (final Exception ex) {
+		Log.warn("Unreadable resolution " + this.widthTxtBox.getText() + "x"
+			+ this.heightTxtBox.getText() + "!");
+		w = 800;
+		h = 600;
+	    } 
+	    OptionsManager.set("Width",  w);
+	    OptionsManager.set("Height",  h);
 	}
-	this.drawerPanel = new DrawerPanel(w, h, true, new UMLDiagram(type));
-	this.loadingScreen.hide();
+	History.newItem(newHistoryToken + "?" + OptionsManager.toURL());
 
-	UMLDrawer.addtoAppRootPanel(this.drawerPanel);
-
-    }
-
-    void makeFirstDrawer(UMLDiagram.Type uMLDiagramType) {
-	ThemeManager.setCurrentTheme(Theme.getThemeFromName(this.themeListBox
-		.getItemText(this.themeListBox.getSelectedIndex())));
-	if (this.gfxEngineListBox.getItemText(this.gfxEngineListBox.getSelectedIndex())
-		.equalsIgnoreCase("Tatami GFX")) {
-	    GfxManager.setPlatform(new TatamiGfxPlatfrom());
-	} else if (this.gfxEngineListBox.getItemText(
-		this.gfxEngineListBox.getSelectedIndex()).equalsIgnoreCase(
-		"Incubator Canvas GFX")) {
-	    GfxManager.setPlatform(new IncubatorGfxPlatform());
-	} else {
-	    GfxManager.setPlatform(new GWTCanvasGfxPlatform());
-	}
-
-	if (this.geometryStyleListBox.getItemText(
-		this.geometryStyleListBox.getSelectedIndex()).equalsIgnoreCase(
-		"Linear")) {
-	    GeometryManager.setPlatform(new LinearGeometry());
-	} else {
-	    GeometryManager.setPlatform(new ShapeGeometry());
-	}
-	OptionsManager.setQualityLevel(QualityLevel
-		.getQualityFromName(this.qualityListBox.getItemText(this.qualityListBox
-			.getSelectedIndex())));
-	instance.removeFromParent();
-	this.loadingScreen.show();
-	int w;
-	int h;
-	try {
-	    w = Integer.parseInt(this.widthTxtBox.getText());
-	    h = Integer.parseInt(this.heightTxtBox.getText());
-	} catch (final Exception ex) {
-	    Log.warn("Unreadable resolution " + this.widthTxtBox.getText() + "x"
-		    + this.heightTxtBox.getText() + "!");
-	    w = 800;
-	    h = 600;
-	} 
-	this.drawerPanel = new DrawerPanel(w, h, true, new UMLDiagram(uMLDiagramType));
-
-	this.loadingScreen.hide();
-	UMLDrawer.addtoAppRootPanel(this.drawerPanel);
     }
 }

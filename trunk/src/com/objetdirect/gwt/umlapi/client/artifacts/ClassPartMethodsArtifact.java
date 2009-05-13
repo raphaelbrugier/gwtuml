@@ -70,8 +70,8 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	GfxManager.getPlatform().setStroke(this.methodRect,
 		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
-		OptionsManager.getRectangleLeftPadding(),
-		OptionsManager.getRectangleTopPadding()));
+		OptionsManager.get("RectangleLeftPadding"),
+		OptionsManager.get("RectangleTopPadding")));
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
 
@@ -86,8 +86,8 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	for (final UMLClassMethod method : this.methods) {
 	    final GfxObject methodText = GfxManager.getPlatform().buildText(
 		    method.toString(), new Point(
-			    OptionsManager.getTextLeftPadding(),
-			    OptionsManager.getTextTopPadding() + this.height
+			    OptionsManager.get("TextLeftPadding"),
+			    OptionsManager.get("TextTopPadding") + this.height
 				    ));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    methodText);
@@ -102,16 +102,16 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		    methodText);
 	    int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(
 		    methodText);
-	    thisMethodWidth += OptionsManager.getTextXTotalPadding();
-	    thisMethodHeight += OptionsManager.getTextYTotalPadding();
+	    thisMethodWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
+	    thisMethodHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	    this.width = thisMethodWidth > this.width ? thisMethodWidth : this.width;
 	    this.height += thisMethodHeight;
 
 	    this.methodGfxObjects.put(methodText, method);
 	    this.lastGfxObject = methodText;
 	}
-	this.width += OptionsManager.getRectangleXTotalPadding();
-	this.height += OptionsManager.getRectangleYTotalPadding();
+	this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
+	this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
 		+ this.width + "x" + this.height);
@@ -139,17 +139,17 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		    .startEdition(
 			    methodToChange.toString(),
 			    (this.nodeArtifact.getLocation().getX()
-				    + OptionsManager.getTextLeftPadding() + OptionsManager
-				    .getRectangleLeftPadding()), (this.nodeArtifact
+				    + OptionsManager.get("TextLeftPadding") + OptionsManager
+				    .get("RectangleLeftPadding")), (this.nodeArtifact
 				    .getLocation().getY()
 				    + ((ClassArtifact) this.nodeArtifact).className.getHeight()
 				    + ((ClassArtifact) this.nodeArtifact).classAttributes.getHeight()
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY() + OptionsManager
-				    .getRectangleTopPadding()), this.nodeWidth
-				    - OptionsManager.getTextXTotalPadding()
+				    .get("RectangleTopPadding")), this.nodeWidth
+				    - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
 				    - OptionsManager
-					    .getRectangleXTotalPadding(), false, true);
+					    .get("RectangleXTotalPadding"), false, true);
 	}
     }
 

@@ -12,6 +12,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
@@ -29,7 +30,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -427,9 +427,9 @@ public class UMLCanvas extends AbsolutePanel {
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		if(selectedArtifact.isDraggable()) {		
 		    selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX()
-			    + OptionsManager.getMovingStep()
+			    + OptionsManager.get("MovingStep")
 			    * direction.getXDirection(), selectedArtifact.getLocation().getY()
-			    + OptionsManager.getMovingStep()
+			    + OptionsManager.get("MovingStep")
 			    * direction.getYDirection()));
 		    selectedArtifact.rebuildGfxObject();
 		    selectedArtifact.select(true);
@@ -485,7 +485,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void animateLinking(final Point location) {
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+	if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 	    GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), location);
@@ -516,7 +516,7 @@ public class UMLCanvas extends AbsolutePanel {
 		selectedArtifact.destroyGfxObjectWhithDependencies();
 		Log.trace("Adding outline for " + selectedArtifact);
 		//Drawing lines only translating during with drag
-		if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+		if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 		    selectedArtifactEntry.getValue().clear();	
 
 		    for (UMLArtifact dependantArtifact : selectedArtifact.getDependentUMLArtifacts().values()) {
@@ -541,14 +541,14 @@ public class UMLCanvas extends AbsolutePanel {
 	Point shift = Point.subtract(location, this.dragOffset);
 	this.totalDragShift.translate(shift);
 
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+	if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 	    GfxManager.getPlatform().clearVirtualGroup(this.movingOutlineDependencies);
 	}
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
 	    if (selectedArtifact.isDraggable()) {
 		Point outlineOfSelectedCenter = Point.add(selectedArtifact.getCenter(), this.totalDragShift);
-		if (OptionsManager.qualityLevelIsAlmost(QualityLevel.HIGH)) {
+		if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 		    for (Point dependantArtifactCenter : selectedArtifactEntry.getValue()) {
 			GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(outlineOfSelectedCenter, dependantArtifactCenter);
 			GfxManager.getPlatform().addToVirtualGroup(this.movingOutlineDependencies, outlineDependency);
@@ -769,5 +769,22 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 	Log.info("No Artifact Found !"); 
 	return null;
+    }
+
+    /**
+     * This method calls {@link UMLArtifact#toURL()} on all artifacts of this canvas and concatenate it in a String separated by a semicolon
+     * 
+     * @return The concatenated String from all {@link UMLArtifact#toURL()}
+     */
+    public String toUrl() {	
+	StringBuilder url = new StringBuilder();
+	for(UMLArtifact uMLArtifact : this.objects.values()) {
+	    String artifactString = uMLArtifact.toURL();
+	    if(artifactString != null && !artifactString.equals("")) {
+		url.append(artifactString);
+		url.append(";");
+	    }
+	}	
+	return UMLDrawerHelper.encodeBase64(url.toString());
     }
 }

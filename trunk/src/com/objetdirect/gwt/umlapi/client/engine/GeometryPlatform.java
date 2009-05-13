@@ -46,21 +46,21 @@ public abstract class GeometryPlatform {
 
 	switch (adornment.getShape()) {
 	case DIAMOND:
-	    width = OptionsManager.getDiamondWidth();
-	    lenght = OptionsManager.getDiamondLength();
+	    width = OptionsManager.get("DiamondWidth");
+	    lenght = OptionsManager.get("DiamondLength");
 	    break;
 	case ARROW:
 	    if (adornment.isSolid()) {
-		width = OptionsManager.getSolidArrowWidth();
-		lenght = OptionsManager.getSolidArrowLength();
+		width = OptionsManager.get("SolidArrowWidth");
+		lenght = OptionsManager.get("SolidArrowLength");
 	    } else {
-		width = OptionsManager.getArrowWidth();
-		lenght = OptionsManager.getArrowLength();
+		width = OptionsManager.get("ArrowWidth");
+		lenght = OptionsManager.get("ArrowLength");
 	    }
 	    break;
 	case CROSS:
-		width = OptionsManager.getCrossWidth();
-		lenght = OptionsManager.getCrossLength();
+		width = OptionsManager.get("CrossWidth");
+		lenght = OptionsManager.get("CrossLength");
 		break;
 	}
 
@@ -143,15 +143,15 @@ public abstract class GeometryPlatform {
 	final Point point0 = center.clonePoint();
 	point0.translate(halfClassWidth, 0);
 	final Point point1 = point0.clonePoint();
-	point1.translate(OptionsManager.getReflexivePathXGap(), 0);
+	point1.translate(OptionsManager.get("ReflexivePathXGap"), 0);
 	final Point point2 = point1.clonePoint();
 	point2.translate(0, -halfClassHeight
-		- OptionsManager.getReflexivePathYGap());
+		- OptionsManager.get("ReflexivePathYGap"));
 	final Point point3 = point2.clonePoint();
 	point3.translate(-halfClassWidth
-		- OptionsManager.getReflexivePathXGap(), 0);
+		- OptionsManager.get("ReflexivePathXGap"), 0);
 	final Point point4 = point3.clonePoint();
-	point4.translate(0, OptionsManager.getReflexivePathYGap());
+	point4.translate(0, OptionsManager.get("ReflexivePathYGap"));
 	pointList.add(point0);
 	pointList.add(point1);
 	pointList.add(point2);

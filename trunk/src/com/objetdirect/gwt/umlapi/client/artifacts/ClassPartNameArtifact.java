@@ -60,13 +60,13 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	// Centering name class :
 	GfxManager.getPlatform().translate(
 		this.nameText, new Point(
-		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.getTextXTotalPadding())
-			/ 2, OptionsManager.getRectangleTopPadding()));
+		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding"))
+			/ 2, OptionsManager.get("RectangleTopPadding")));
 	if(this.stereotypeText != null) {
 	GfxManager.getPlatform().translate(
 		this.stereotypeText, new Point(
-			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.getTextXTotalPadding())
-			/ 2, OptionsManager.getRectangleTopPadding()));
+			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding"))
+			/ 2, OptionsManager.get("RectangleTopPadding")));
 	}
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
     }
@@ -79,8 +79,8 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (this.stereotype != null && this.stereotype != "") {
 	    this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype, new Point(
-		    OptionsManager.getTextLeftPadding(),
-		    OptionsManager.getTextTopPadding()));
+		    OptionsManager.get("TextLeftPadding"),
+		    OptionsManager.get("TextTopPadding")));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    this.stereotypeText);
 	    GfxManager.getPlatform().setFont(this.stereotypeText,
@@ -91,12 +91,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		    ThemeManager.getTheme().getForegroundColor());
 	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
 	    this.height = GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
-	    this.width += OptionsManager.getTextXTotalPadding();
-	    this.height += OptionsManager.getTextYTotalPadding();
+	    this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
+	    this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	}
 	this.nameText = GfxManager.getPlatform().buildText(this.className,  new Point(
-		OptionsManager.getTextLeftPadding(),
-		OptionsManager.getTextTopPadding() + this.height));
+		OptionsManager.get("TextLeftPadding"),
+		OptionsManager.get("TextTopPadding") + this.height));
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
 	GfxManager.getPlatform().setFont(this.nameText,
 		OptionsManager.getFont());
@@ -106,12 +106,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		ThemeManager.getTheme().getForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
-		+ OptionsManager.getTextXTotalPadding();
+		+ OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
-	this.height += OptionsManager.getTextYTotalPadding();
-	this.width += OptionsManager.getRectangleXTotalPadding();
-	this.height += OptionsManager.getRectangleYTotalPadding();
+	this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+	this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
+	this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 	
 	
 	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
@@ -145,13 +145,13 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	    edited = this.className;
 	}
 	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
-		+ OptionsManager.getTextLeftPadding() + OptionsManager
-		.getRectangleLeftPadding()),
+		+ OptionsManager.get("TextLeftPadding") + OptionsManager
+		.get("RectangleLeftPadding")),
 		(this.nodeArtifact.getLocation().getY()
 			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() + OptionsManager
-			.getRectangleTopPadding()), this.nodeWidth
-			- OptionsManager.getTextXTotalPadding()
-			- OptionsManager.getRectangleXTotalPadding(), false, false);
+			.get("RectangleTopPadding")), this.nodeWidth
+			- OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
+			- OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, false);
     }
 
     /**
@@ -261,5 +261,4 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	    }
 	};
     }
-
 }
