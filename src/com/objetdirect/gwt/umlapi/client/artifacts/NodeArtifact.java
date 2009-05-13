@@ -9,9 +9,8 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
 /**
  * This class is an artifact used to represent a class. <br>
@@ -106,7 +105,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 
     @Override
     public GfxObject getOutline() {
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.NORMAL)) {
+	if (QualityLevel.IsAlmost(QualityLevel.NORMAL)) {
 	    final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		final List<Integer> widthList = new ArrayList<Integer>();
 		// Computing text bounds :

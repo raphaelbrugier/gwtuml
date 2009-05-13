@@ -8,7 +8,7 @@ package com.objetdirect.gwt.umlapi.client.gfx;
  */
 public class GfxManager {
     private static GfxPlatform instance;
-    
+
     /**
      * Getter of the current {@link GfxPlatform} instance
      * 
@@ -17,7 +17,7 @@ public class GfxManager {
     public static GfxPlatform getPlatform() {
 	return instance;
     }
-    
+
     /**
      * Setter of the current {@link GfxPlatform} instance
      * 
@@ -25,5 +25,27 @@ public class GfxManager {
      */
     public static void setPlatform(final GfxPlatform gfxPlateform) {
 	instance = gfxPlateform;
+    }
+
+    /**
+     * Set the current {@link GfxPlatform} from its index 
+     * 
+     * @param platformIndex The platform index of the new one
+     */
+    public static void setPlatform(int platformIndex) {
+	//FIXME: Find a better way
+	switch(platformIndex) {
+	case 0:
+	    setPlatform(new TatamiGfxPlatfrom());
+	    break;
+	case 1:
+	    setPlatform(new IncubatorGfxPlatform());
+	    break;
+	case 2:
+	    setPlatform(new GWTCanvasGfxPlatform());
+	    break;
+	default:
+	    setPlatform(new TatamiGfxPlatfrom());
+	}
     }
 }

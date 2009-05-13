@@ -9,7 +9,11 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+
 
 
 /**
@@ -19,12 +23,21 @@ import com.google.gwt.user.client.History;
 public class HistoryManager implements ValueChangeHandler<String> {
     private static String lastHistoryAnchor = "";
     private static HashMap<String, String> lastHistoryParametersList = new HashMap<String, String>();
+    private static SimplePanel applicationPanel = new SimplePanel();
 
-    public void initHistory() {
+
+
+    /**
+     * Initialize the history management and therefore the application 
+     * 
+     * @param appRootPanel The panel on which we can put the pages
+     */
+    public void initApplication(DockPanel appRootPanel) {
 	History.addValueChangeHandler(this);
-	if(!History.getToken().equals("")) {
-	    parseHistoryToken(History.getToken());
-	}
+	appRootPanel.add(applicationPanel, DockPanel.CENTER);
+	applicationPanel.setSize("100%", "100%");
+	parseHistoryToken(History.getToken());
+	processHistory();
     }
 
     /* (non-Javadoc)
@@ -34,6 +47,34 @@ public class HistoryManager implements ValueChangeHandler<String> {
     public void onValueChange(ValueChangeEvent<String> event) {
 	String historyToken = event.getValue();	
 	parseHistoryToken(historyToken);
+	processHistory();
+    }
+
+
+    private void processHistory() {
+	applicationPanel.clear();
+	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+	
+	OptionsManager.setAllFromURL(lastHistoryParametersList);
+	
+	if(lastHistoryAnchor.equals("Drawer")) {
+	    DrawerPanel drawerPanel = new DrawerPanel();
+	    drawerPanel.addDefaultNode();
+	    applicationPanel.add(drawerPanel);
+	} else if(lastHistoryAnchor.equals("Demo")) {
+	    DrawerPanel drawerPanel = new DrawerPanel();
+	    new Demo(drawerPanel.getUMLCanvas());
+	    applicationPanel.add(drawerPanel);
+	} else if(lastHistoryAnchor.equals("AnimatedDemo")) {
+	    DrawerPanel drawerPanel = new DrawerPanel();
+	    new AnimatedDemo(drawerPanel.getUMLCanvas());
+	    applicationPanel.add(drawerPanel);
+	} else { 
+	    if(!lastHistoryAnchor.equals("Start")) {
+		History.newItem("Start", false);
+	    }
+	    applicationPanel.add(new StartPanel(false));
+	}
     }
 
     private void parseHistoryToken(String historyToken) {
@@ -51,11 +92,5 @@ public class HistoryManager implements ValueChangeHandler<String> {
 		}
 	    }
 	}
-	Log.fatal("Page : " +lastHistoryAnchor);
-	for (Entry<String, String> param : lastHistoryParametersList.entrySet()) {
-	    Log.fatal("K : " + param.getKey() + " V : " + param.getValue());
-
-	}
     }
 }
-

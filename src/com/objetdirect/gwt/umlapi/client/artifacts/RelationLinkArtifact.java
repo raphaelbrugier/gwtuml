@@ -306,7 +306,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 		    .getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager
 		    .getPlatform().getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform()
 			    .getTextWidthFor(editedGfxObject)
-			    + OptionsManager.getRectangleXTotalPadding(), false, true);
+			    + OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
     }
 
@@ -640,19 +640,19 @@ public class RelationLinkArtifact extends LinkArtifact {
 		relative_point1)) {
 		case LEFT:
 		    return relative_point1.getX() - textWidth
-		    - OptionsManager.getRectangleLeftPadding();
+		    - OptionsManager.get("RectangleLeftPadding");
 		case RIGHT:
 		    return relative_point1.getX()
-		    + OptionsManager.getRectangleRightPadding();
+		    + OptionsManager.get("RectangleRightPadding");
 		case TOP:
 		case BOTTOM:
 		case UNKNOWN:
 		    if (relative_point1.getX() < relative_point2.getX()) {
 			return relative_point1.getX() - textWidth
-			- OptionsManager.getRectangleLeftPadding();
+			- OptionsManager.get("RectangleLeftPadding");
 		    }
 		    return relative_point1.getX()
-		    + OptionsManager.getRectangleRightPadding();
+		    + OptionsManager.get("RectangleRightPadding");
 	}
 	return 0;
     }
@@ -673,17 +673,17 @@ public class RelationLinkArtifact extends LinkArtifact {
 		case RIGHT:
 		    if (relative_point1.getY() > relative_point2.getY()) {
 			return relative_point1.getY()
-			+ OptionsManager.getRectangleBottomPadding() + delta;
+			+ OptionsManager.get("RectangleBottomPadding") + delta;
 		    }
 		    return relative_point1.getY() - textHeight
-		    - OptionsManager.getRectangleTopPadding() - delta;
+		    - OptionsManager.get("RectangleTopPadding") - delta;
 		case TOP:
 		    return relative_point1.getY() - textHeight
-		    - OptionsManager.getRectangleTopPadding() - delta;
+		    - OptionsManager.get("RectangleTopPadding") - delta;
 		case BOTTOM:
 		case UNKNOWN:
 		    return relative_point1.getY()
-		    + OptionsManager.getRectangleBottomPadding() + delta;
+		    + OptionsManager.get("RectangleBottomPadding") + delta;
 	}
 	return 0;
     }
@@ -791,8 +791,8 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
 	    if(this.isBetweenObjects && this.relation.getRelationKind() != RelationKind.INSTANTIATION) {
-		int yUnderline = linkMiddle.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.getTextTopPadding();
-		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(linkMiddle.getX() + OptionsManager.getTextLeftPadding(), yUnderline), new Point(linkMiddle.getX() + OptionsManager.getTextLeftPadding() + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
+		int yUnderline = linkMiddle.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.get("TextTopPadding");
+		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding"), yUnderline), new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
 		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
 		GfxManager.getPlatform().setStroke(underline,
 			ThemeManager.getTheme().getForegroundColor(), 1);
@@ -879,9 +879,9 @@ public class RelationLinkArtifact extends LinkArtifact {
 		    getTextY(textGfxObject, part.isLeft)));
 	} else {	    
 	    if(part.isLeft) {
-		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getCenter(), new Point(OptionsManager.getArrowWidth() / 2 + OptionsManager.getTextLeftPadding(), -(this.leftNodeArtifact.getHeight() + OptionsManager.getReflexivePathYGap())/2 + this.current_delta)));
+		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getCenter(), new Point(OptionsManager.get("ArrowWidth") / 2 + OptionsManager.get("TextLeftPadding"), -(this.leftNodeArtifact.getHeight() + OptionsManager.get("ReflexivePathYGap"))/2 + this.current_delta)));
 	    } else {
-		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getLocation(), new Point(this.leftNodeArtifact.getWidth() + OptionsManager.getReflexivePathXGap() + OptionsManager.getTextLeftPadding(), this.current_delta)));
+		GfxManager.getPlatform().translate(textGfxObject, Point.add(this.leftNodeArtifact.getLocation(), new Point(this.leftNodeArtifact.getWidth() + OptionsManager.get("ReflexivePathXGap") + OptionsManager.get("TextLeftPadding"), this.current_delta)));
 	    }
 	    this.current_delta += 8;
 	}
@@ -952,6 +952,22 @@ public class RelationLinkArtifact extends LinkArtifact {
 		rebuildGfxObject();
 	    }
 	};
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
+     */
+    @Override
+    public void fromURL(String url) {
+	// TODO Auto-generated method stub
+	
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

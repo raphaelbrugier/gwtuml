@@ -2,12 +2,14 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
@@ -45,6 +47,14 @@ public class ContextMenu {
 	   Window.open("data:image/svg," + svg, "SVG export", "");
 	}
     };
+    private final Command exportToURL = new Command() {
+	public void execute() {
+	    String url = Session.getActiveCanvas().toUrl();
+	    Log.fatal(url);
+	    Log.fatal(UMLDrawerHelper.decodeBase64(url));
+	    
+	}
+    };
     private final UMLCanvas canvas;
     private PopupMenu contextMenu;
 
@@ -57,6 +67,7 @@ public class ContextMenu {
     private final MenuBarAndTitle specificRightMenu;
 
     private final Point location;
+
 
 
     /**
@@ -131,6 +142,7 @@ public class ContextMenu {
 	this.contextMenu.addItem("Add relation", linkSubMenu);
 	this.contextMenu.addSeparator();
 	this.contextMenu.addItem("Save to SVG", this.saveToSVG);
+	this.contextMenu.addItem("Export to URL", this.exportToURL);
 	this.contextMenu.addItem("Help...", this.bringHelp);
     }
 }

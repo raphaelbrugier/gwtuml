@@ -17,7 +17,7 @@ public class ThemeManager {
 	/**
 	 * The normal theme color
 	 */
-	NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
+	NORMAL("Normal", 0, new GfxColor(255, 255, 255, 255), // White
 		new GfxColor(255, 255, 255, 255), // White
 		new GfxColor(0, 0, 0, 255), // Black
 		new GfxColor(0, 0, 255, 255), //Blue
@@ -27,7 +27,7 @@ public class ThemeManager {
 		/**
 		 * Very dark theme color 
 		 */
-		DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
+		DARK("Dark", 1, new GfxColor(0, 0, 0, 255), // Black
 			 new GfxColor(25, 25, 25, 255), // Dark grey
 			new GfxColor(255, 255, 255, 255), // White
 			new GfxColor(0, 255, 0, 255), // Green
@@ -37,7 +37,7 @@ public class ThemeManager {
 			/**
 			 * Clear theme color 
 			 */
-			CLEAR("Clear", new GfxColor(255, 255, 255, 255), // White
+			CLEAR("Clear", 2, new GfxColor(255, 255, 255, 255), // White
 				new GfxColor(225, 225, 255, 255), // Light blue
 				new GfxColor(25, 25, 25, 255), // Teal
 				new GfxColor(134, 171, 217, 255), // White
@@ -54,6 +54,20 @@ public class ThemeManager {
 	// new GfxColor(56, 192, 192, 255), // Teal
 	// new GfxColor(255, 255, 255, 255)); // White
 
+	/**
+	 * Getter for the {@link Theme} from his index
+	 * 
+	 * @param themeIndex The index corresponding to a {@link ThemeManager}
+	 * @return The {@link Theme} if it has been found the default theme otherwise
+	 */
+	public static Theme getThemeFromIndex(final int themeIndex) {
+	    for (final Theme theme : Theme.values()) {
+		if (theme.index == themeIndex) {
+		    return theme;
+		}
+	    }
+	    return Theme.NORMAL;
+	}
 
 	/**
 	 * Getter for the {@link Theme} from his String name
@@ -77,9 +91,9 @@ public class ThemeManager {
 	private final String themeName;
 	private GfxColor selectBoxForegroundColor;
 	private GfxColor selectBoxBackgroundColor;
+	private int index;
 
-
-	private Theme(final String themeName,
+	private Theme(final String themeName, final int index,
 		final GfxColor canvasColor,
 		final GfxColor backgroundColor,
 		final GfxColor foregroundColor,
@@ -88,6 +102,7 @@ public class ThemeManager {
 		final GfxColor selectBoxBackgroundColor) {
 	    this.canvasColor = canvasColor;
 	    this.themeName = themeName;
+	    this.index = index;
 	    this.backgroundColor = backgroundColor;
 	    this.foregroundColor = foregroundColor;
 	    this.highlightedForegroundColor = highlightedForegroundColor;

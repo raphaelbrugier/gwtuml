@@ -243,4 +243,18 @@ public class Point {
     public boolean isOrigin() {
 	return (this.x == 0 && this.y == 0);
     }
+    /**
+     * Parse a {@link Point} from a String created with toString()
+     * 
+     * @param pointString The String containing the point in the form : (x,y) 
+     * @return A new {@link Point} containing the coordinates read from the String or the origin if there is a problem
+     */
+    public static Point parse(String pointString) {
+	if(pointString.matches("([0-9]+,[0-9]+)")) {
+	    pointString.replaceAll("[()]", "");
+	    String[] coordinates = pointString.split(",");
+	    return new Point(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));	    
+	}
+	return Point.getOrigin();
+    }
 }

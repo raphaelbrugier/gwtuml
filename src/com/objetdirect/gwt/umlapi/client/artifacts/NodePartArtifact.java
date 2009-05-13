@@ -72,4 +72,20 @@ public abstract class NodePartArtifact extends BoxArtifact {
     }
     
     abstract void setNodeWidth(int width);
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
+     */
+    @Override
+    public void fromURL(String url) {
+	// TODO Auto-generated method stub
+	
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	// TODO Auto-generated method stub
+	return "";
+    }
 }

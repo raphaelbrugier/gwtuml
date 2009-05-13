@@ -9,8 +9,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager.QualityLevel;
 
 /**
  * This artifact represent a note
@@ -40,16 +40,16 @@ public class NoteArtifact extends BoxArtifact {
     public void edit(final GfxObject editedGfxObject) {
 	final NoteFieldEditor editor = new NoteFieldEditor(this.canvas, this);
 	editor.setHeightForMultiLine(this.height
-		- OptionsManager.getTextYTotalPadding()
-		- OptionsManager.getRectangleYTotalPadding());
+		- OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding")
+		- OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding"));
 	editor.startEdition(this.note.getText(), getLocation().getX()
-		+ OptionsManager.getTextLeftPadding()
-		+ OptionsManager.getRectangleLeftPadding(), getLocation()
+		+ OptionsManager.get("TextLeftPadding")
+		+ OptionsManager.get("RectangleLeftPadding"), getLocation()
 		.getY()
-		+ OptionsManager.getTextYTotalPadding()
-		+ OptionsManager.getRectangleTopPadding(), this.width
-		- OptionsManager.getTextXTotalPadding()
-		- OptionsManager.getRectangleXTotalPadding(), true, false);
+		+ OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding")
+		+ OptionsManager.get("RectangleTopPadding"), this.width
+		- OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
+		- OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), true, false);
 
     }
 
@@ -83,7 +83,7 @@ public class NoteArtifact extends BoxArtifact {
 
     @Override
     public GfxObject getOutline() {
-	if (OptionsManager.qualityLevelIsAlmost(QualityLevel.NORMAL)) {
+	if (QualityLevel.IsAlmost(QualityLevel.NORMAL)) {
 	    final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 	    final GfxObject outlineBorderPath = getBorderPath();
 	    final GfxObject outlineCornerPath = getCornerPath();
@@ -152,21 +152,21 @@ public class NoteArtifact extends BoxArtifact {
 
 	for (final String noteLine : noteMultiLine) {
 	    final GfxObject textLine = GfxManager.getPlatform().buildText(noteLine, 
-		    new Point(OptionsManager.getTextLeftPadding(),
-			    OptionsManager.getTextTopPadding() + this.height));
+		    new Point(OptionsManager.get("TextLeftPadding"),
+			    OptionsManager.get("TextTopPadding") + this.height));
 	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
 	    GfxManager.getPlatform().setFont(textLine, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().setStroke(textLine, ThemeManager.getTheme().getBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getTheme().getForegroundColor());
 	    int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
 	    int thisLineHeight = GfxManager.getPlatform().getTextHeightFor(textLine);
-	    thisLineWidth += OptionsManager.getTextXTotalPadding();
-	    thisLineHeight += OptionsManager.getTextYTotalPadding();
+	    thisLineWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
+	    thisLineHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	    this.width = thisLineWidth > this.width ? thisLineWidth : this.width;
 	    this.height += thisLineHeight;
 	}
-	this.height += OptionsManager.getRectangleYTotalPadding();
-	this.width += OptionsManager.getRectangleXTotalPadding() + getCornerWidth();
+	this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+	this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding") + getCornerWidth();
 
     }
 
@@ -178,8 +178,8 @@ public class NoteArtifact extends BoxArtifact {
 	this.cornerPath = getCornerPath();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.cornerPath);
 	GfxManager.getPlatform().translate(this.contentText, new Point(
-		OptionsManager.getRectangleLeftPadding(),
-		OptionsManager.getRectangleTopPadding()));
+		OptionsManager.get("RectangleLeftPadding"),
+		OptionsManager.get("RectangleTopPadding")));
 	GfxManager.getPlatform().moveToFront(this.contentText);
     }
 
@@ -224,10 +224,28 @@ public class NoteArtifact extends BoxArtifact {
     }
 
     private int getCornerHeight() {
-	return OptionsManager.getNoteCornerHeight();
+	return OptionsManager.get("NoteCornerHeight");
     }
 
     private int getCornerWidth() {
-	return OptionsManager.getNoteCornerWidth();
+	return OptionsManager.get("NoteCornerWidth");
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
+     */
+    @Override
+    public void fromURL(String url) {
+	String[] params = url.split(",");
+	this.note.setText(params[0]);
+	this.setInitialLocation(Point.parse(params[1]));	
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	return this.getClass().getName() + ":" + this.note.getText() + "," + this.getLocation();
     }
 }
