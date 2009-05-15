@@ -314,11 +314,11 @@ This abstract class represent any uml artifact that can be displayed An
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setInitialLocation(com.objetdirect.gwt.umlapi.client.engine.Point)">setInitialLocation</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)">setLocation</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
- it doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+ It doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -676,16 +676,16 @@ public void <B>setCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umla
 </DL>
 <HR>
 
-<A NAME="setInitialLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-setInitialLocation</H3>
+<A NAME="setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+setLocation</H3>
 <PRE>
-public void <B>setInitialLocation</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+public void <B>setLocation</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
 <DL>
-<DD>This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
- it doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
+<DD>This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+ It doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>location</CODE> - The artifact initial location</DL>
+<DT><B>Parameters:</B><DD><CODE>location</CODE> - The artifact  location</DL>
 </DD>
 </DL>
 <HR>

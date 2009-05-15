@@ -73,7 +73,10 @@ public class DrawerPanel extends AbsolutePanel {
 	this.add(this.down, this.getWidth() / 2, this.getHeight() - 10 - 28);
 	this.add(this.left, 10, this.getHeight() / 2);
 	this.add(this.right, this.getWidth() - 10 - 28, this.getHeight() / 2);
-	
+	this.up.setStylePrimaryName("direction-buttons");
+	this.down.setStylePrimaryName("direction-buttons");
+	this.left.setStylePrimaryName("direction-buttons");
+	this.right.setStylePrimaryName("direction-buttons");
 	this.up.addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(ClickEvent event) {
@@ -200,12 +203,12 @@ public class DrawerPanel extends AbsolutePanel {
 	Type type = UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"));
 	if(type.isClassType()) {
 		final ClassArtifact defaultclass = new ClassArtifact("Class 1");
-		defaultclass.setInitialLocation(new Point(this.width / 2, this.height / 2));
+		defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
 		this.uMLCanvas.add(defaultclass);
 	}
 	if(type.isObjectType()) {
 		final ObjectArtifact defaultobject = new ObjectArtifact("obj1:Object 1");
-		defaultobject.setInitialLocation(new Point(this.width / 3, this.height / 3));
+		defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
 		this.uMLCanvas.add(defaultobject);
 	}
 	

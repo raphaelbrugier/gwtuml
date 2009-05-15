@@ -29,7 +29,7 @@ public class AnimatedDemo extends AbsolutePanel {
 	     GfxManager.getPlatform().addToCanvas(Session.getActiveCanvas().getDrawingCanvas(), cursor, new Point(0, 0));
 	 }
 	 public static void move(final Point newLocation) {
-	     GfxManager.getPlatform().translate(cursor, Point.subtract(newLocation, location));
+	     GfxManager.getPlatform().translate(cursor, Point.substract(newLocation, location));
 	     location = newLocation.clonePoint();
 	 }
     	 public static void rem() {

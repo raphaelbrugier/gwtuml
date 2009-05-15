@@ -213,9 +213,9 @@ public abstract class GeometryPlatform {
 	final Point down = root.clonePoint();
 	up.translate(-xShift, yShift);
 	down.translate(xShift, -yShift);
-	final Point diamondTail = Point.subtract(root, Point.subtract(point1, root));
-	final Point crossUp = Point.subtract(diamondTail, Point.subtract(down, diamondTail));
-	final Point crossDown = Point.subtract(diamondTail, Point.subtract(up, diamondTail));
+	final Point diamondTail = Point.substract(root, Point.substract(point1, root));
+	final Point crossUp = Point.substract(diamondTail, Point.substract(down, diamondTail));
+	final Point crossDown = Point.substract(diamondTail, Point.substract(up, diamondTail));
 	
 
 	arrowPoints.add(up); // 0

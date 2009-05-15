@@ -207,7 +207,7 @@ public abstract class UMLArtifact {
      */
     public void moveTo(final Point newLocation) {
 	if(!isALink()) {
-	GfxManager.getPlatform().translate(getGfxObject(), Point.subtract(newLocation, getLocation()));
+	GfxManager.getPlatform().translate(getGfxObject(), Point.substract(newLocation, getLocation()));
 	this.location = newLocation;
 	}
 	else {
@@ -285,13 +285,12 @@ public abstract class UMLArtifact {
     }
 
     /**
-     * This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
-     * it doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
+     * This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+     * It doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
      * 
-     * @param location The artifact initial location
+     * @param location The artifact  location
      */
-    public void setInitialLocation(final Point location) {
-	if(this.isBuilt) Log.warn("Setting locatio of a builded artifact : " + this);
+    public void setLocation(final Point location) {
 	this.location = location;
     }
 
