@@ -24,6 +24,7 @@ public class HistoryManager implements ValueChangeHandler<String> {
     private static String lastHistoryAnchor = "";
     private static HashMap<String, String> lastHistoryParametersList = new HashMap<String, String>();
     private static SimplePanel applicationPanel = new SimplePanel();
+    private static String urlDiagram = "";
 
 
 
@@ -59,7 +60,11 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	
 	if(lastHistoryAnchor.equals("Drawer")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
+	    if(urlDiagram.equals("")) {
 	    drawerPanel.addDefaultNode();
+	    } else {
+		Session.getActiveCanvas().fromURL(urlDiagram);
+	    }	    
 	    applicationPanel.add(drawerPanel);
 	} else if(lastHistoryAnchor.equals("Demo")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
@@ -83,14 +88,31 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	lastHistoryParametersList.clear();
 	if(parts.length > 1) {
 	    String[] params = parts[1].split("&");
-
 	    for (int i = 0; i < params.length; i++) {
 		String argument = params[i];
 		String[] paramVar = argument.split("=");
-		if(paramVar.length > 0&& paramVar[0].length() > 0) {
+		if(paramVar.length > 0 && paramVar[0].length() > 0) {
+		    if(!paramVar[0].equals("diagram64")) {
 		    lastHistoryParametersList.put(paramVar[0], paramVar.length > 1 ? paramVar[1] : "");
+		    } else {
+			urlDiagram  = paramVar.length > 1 ? paramVar[1] : "";
+		    }
 		}
 	    }
 	}
+    }
+
+    static void addDiagram(String url) {
+	String historyToken = History.getToken();
+	String newHistoryTokenString = new String(historyToken);
+	if(!historyToken.contains("?")) {
+	    newHistoryTokenString += "?";
+	} else {
+	    if(!historyToken.endsWith("&")) {
+		 newHistoryTokenString += "&";
+	    }
+	}
+	newHistoryTokenString += "diagram64=" + url;
+	History.newItem(newHistoryTokenString, false);
     }
 }

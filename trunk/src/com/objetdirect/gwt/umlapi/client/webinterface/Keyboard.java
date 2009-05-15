@@ -73,6 +73,10 @@ public class Keyboard {
 	case 'I':
 	    Session.getActiveCanvas().toLinkMode(RelationKind.INSTANTIATION);
 	    break;
+	case 'U':
+	    String url = Session.getActiveCanvas().toUrl();
+	    HistoryManager.addDiagram(url);
+	    break;
 	case KeyCodes.KEY_DELETE:
 	    Session.getActiveCanvas().removeSelected();
 	    break;

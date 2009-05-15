@@ -66,7 +66,7 @@ public class StartPanel extends VerticalPanel {
 	this.loadingScreen = new LoadingScreen();
 	this.loadingScreen.show();
 	Log.trace("Starting App");
-	HotKeyManager.forceStaticInit();
+	
 	setWidth("100%");
 	setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	setSpacing(20);
@@ -181,11 +181,11 @@ public class StartPanel extends VerticalPanel {
 
     private void setOptions(String newHistoryToken, Type type) {
 	OptionsManager.set("DiagramType", type.getIndex());
+	OptionsManager.set("Theme", this.themeListBox.getSelectedIndex());
+	OptionsManager.set("QualityLevel", this.qualityListBox.getSelectedIndex());
 	if(History.getToken().equals("Advanced")) {
 	    OptionsManager.set("GraphicEngine", this.gfxEngineListBox.getSelectedIndex());
 	    OptionsManager.set("GeometryStyle", this.geometryStyleListBox.getSelectedIndex());
-	    OptionsManager.set("Theme", this.themeListBox.getSelectedIndex());
-	    OptionsManager.set("QualityLevel", this.qualityListBox.getSelectedIndex());
 	    OptionsManager.set("AutoResolution", this.isResolutionAutoChkBox.getValue() ? 1 : 0);
 
 	    int w;

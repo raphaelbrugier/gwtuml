@@ -246,6 +246,6 @@ public class NoteArtifact extends BoxArtifact {
      */
     @Override
     public String toURL() {
-	return this.getClass().getName() + ":" + this.note.getText() + "," + this.getLocation();
+	return "Note§" + this.note.getText() + "!" + this.getLocation();
     }
 }
