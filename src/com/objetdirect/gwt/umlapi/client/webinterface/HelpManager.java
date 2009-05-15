@@ -39,6 +39,6 @@ public class HelpManager {
 		    + entry.getValue() + "</td></tr>");
 	}
 	htmlContent.append("</table>");
-	//MessageBox.info("Help", htmlContent.toString());
+	MessageBox.info("Help", htmlContent.toString());
     }
 }

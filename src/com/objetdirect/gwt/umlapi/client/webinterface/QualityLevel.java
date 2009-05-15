@@ -74,7 +74,7 @@ public enum QualityLevel {
 	     * @return True if the current quality level is almost the given level, False otherwise
 	     */
 	    public static boolean IsAlmost(final QualityLevel level) {
-	        return OptionsManager.get("QualityLevel") < level.index; 
+	        return OptionsManager.get("QualityLevel") <= level.index; 
 	    }
 
 

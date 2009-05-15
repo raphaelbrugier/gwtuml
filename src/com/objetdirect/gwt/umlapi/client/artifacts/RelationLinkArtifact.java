@@ -847,6 +847,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 		    createText(this.relation.getRightRole(),
 			    RelationLinkArtifactPart.RIGHT_ROLE));
 	}
+	
 	GfxManager.getPlatform().moveToBack(this.gfxObject);
     }
 

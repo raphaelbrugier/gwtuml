@@ -174,9 +174,10 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
 
-    private GfxObject movingLines = GfxManager.getPlatform().buildVirtualGroup();
-    private GfxObject movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
-    private GfxObject outlines = GfxManager.getPlatform().buildVirtualGroup();
+    private final GfxObject movingLines = GfxManager.getPlatform().buildVirtualGroup();
+    private final GfxObject movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
+    private final GfxObject outlines = GfxManager.getPlatform().buildVirtualGroup();
+    private final GfxObject allObjects = GfxManager.getPlatform().buildVirtualGroup();
     private final Map<GfxObject, UMLArtifact> objects = new HashMap<GfxObject, UMLArtifact>();	// Map of UMLArtifact with corresponding Graphical objects (group)
     private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 
@@ -231,9 +232,8 @@ public class UMLCanvas extends AbsolutePanel {
 	if (isAttached()) {
 	    artifact.setCanvas(this);
 	    final long t = System.currentTimeMillis();
-	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas,
-		    artifact.initializeGfxObject(),
-		    artifact.getLocation());
+	    GfxManager.getPlatform().addToVirtualGroup(this.allObjects, artifact.initializeGfxObject());
+	    GfxManager.getPlatform().translate(artifact.getGfxObject(), artifact.getLocation());
 	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
 		    + artifact);
@@ -440,7 +440,8 @@ public class UMLCanvas extends AbsolutePanel {
 
     void removeSelected() {
 	if (!this.selectedArtifacts.isEmpty()) {
-	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+	    final HashMap<UMLArtifact, ArrayList<Point>> selectedBeforeRemovalArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(this.selectedArtifacts);
+	    for(final UMLArtifact selectedArtifact : selectedBeforeRemovalArtifacts.keySet()) {
 		remove(selectedArtifact);
 	    }
 	}
@@ -474,9 +475,8 @@ public class UMLCanvas extends AbsolutePanel {
 	    Log.debug("Adding queued " + elementNotAdded);
 	    elementNotAdded.setCanvas(this);
 	    final long t = System.currentTimeMillis();
-	    GfxManager.getPlatform().addToCanvas(this.drawingCanvas,
-		    elementNotAdded.initializeGfxObject(),
-		    elementNotAdded.getLocation());
+	    GfxManager.getPlatform().addToVirtualGroup(this.allObjects, elementNotAdded.initializeGfxObject());
+	    GfxManager.getPlatform().translate(elementNotAdded.getGfxObject(), elementNotAdded.getLocation());
 	    this.objects.put(elementNotAdded.getGfxObject(), elementNotAdded);
 	    Log.debug("([" + (System.currentTimeMillis() - t)
 		    + "ms]) to add queued " + elementNotAdded);
@@ -608,7 +608,7 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxObject currentGfxObject = gfxObject;
 	GfxObject gfxOParentGroup = GfxManager.getPlatform().getGroup(
 		currentGfxObject);
-	while (gfxOParentGroup != null) {
+	while (gfxOParentGroup != null && !gfxOParentGroup.equals(this.allObjects)) {
 	    currentGfxObject = gfxOParentGroup;
 	    gfxOParentGroup = GfxManager.getPlatform().getGroup(
 		    currentGfxObject);
@@ -627,6 +627,7 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas,
 		this.gfxObjectListener);
 	this.noteCount = 0;
+	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.allObjects, Point.getOrigin());
 	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.movingLines, Point.getOrigin());
 	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.outlines, Point.getOrigin());
 	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.movingOutlineDependencies, Point.getOrigin());
@@ -634,8 +635,8 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void removeRecursive(final UMLArtifact element) {
-	GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas,
-		element.getGfxObject());
+	GfxManager.getPlatform().removeFromVirtualGroup(this.allObjects,
+		element.getGfxObject(), false);
 	this.objects.remove(element.getGfxObject());
 	element.setCanvas(null);
 	this.selectedArtifacts.remove(element);
@@ -665,11 +666,6 @@ public class UMLCanvas extends AbsolutePanel {
 		    if(isCtrlKeyDown) { //If ctrl down deselecting only this one
 			deselectArtifact(newSelected);
 		    } 
-		    // This must be done on mouse release
-		    //else if(!isShiftKeyDown){ // If not and shift not down select this one only
-		    //	deselectAllArtifacts();
-		    //	selectArtifact(newSelected);
-		    //}//If shift down do nothing   
 		}
 	    } else { //New selection is not selected
 		if (this.selectedArtifacts.isEmpty()) { //If nothing is selected -> selecting
@@ -697,6 +693,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     private void deselectAllArtifacts() {
+
 	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 	    selectedArtifact.unselect();
 	}
@@ -771,10 +768,14 @@ public class UMLCanvas extends AbsolutePanel {
 	return null;
     }
 
+    /**
+     * Create a diagram from the URL {@link String} previously generated by {@link UMLCanvas#toUrl()}
+     * 
+     * @param url The {@link String} previously generated by {@link UMLCanvas#toUrl()}
+     */
     public void fromURL(String url) {
 	String diagram = UMLDrawerHelper.decodeBase64(url);
 	diagram = diagram.substring(0, diagram.lastIndexOf(";"));
-	Log.fatal(diagram);
 	String[] diagramArtifacts = diagram.split(";");
 	for (final String artifactWithParameters : diagramArtifacts) {
 	    if(!artifactWithParameters.equals("")) {
@@ -782,7 +783,7 @@ public class UMLCanvas extends AbsolutePanel {
 		if(artifactParameters.length > 1) {
 		    String artifact = artifactParameters[0];
 		    String[] parameters = artifactParameters[1].split("!");
-		    
+
 		    if(artifact.equals("Class")) {
 			ClassArtifact classArtifact = new ClassArtifact(parameters[0], parameters[1].equals("null") ? "" : parameters[1]);
 			classArtifact.setInitialLocation(Point.parse(parameters[2]));
@@ -814,7 +815,34 @@ public class UMLCanvas extends AbsolutePanel {
 		url.append(";");
 	    }
 	}	
-	
+
 	return UMLDrawerHelper.encodeBase64(url.toString());
+    }
+
+    void moveAll(final Direction direction) {
+	final int step = 10;
+	if(QualityLevel.IsAlmost(QualityLevel.HIGH)) {
+	    if(direction.getXDirection() != 0) {
+		for(int i = 0 ; i < (this.drawingCanvas.getOffsetWidth() / 2) ; i += step) {
+		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
+			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, new Point(step * direction.getXDirection(),
+				step * direction.getYDirection()));
+		    }
+		    };
+		}
+	    } else {
+		for(int i = 0 ; i < (this.drawingCanvas.getOffsetHeight() / 2) ; i += step) {
+		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
+			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, new Point(step * direction.getXDirection(),
+				step * direction.getYDirection()));
+		    }
+		    };
+		}
+	    }
+
+	} else {
+	    GfxManager.getPlatform().translate(this.allObjects, new Point((this.drawingCanvas.getOffsetWidth() / 2) * direction.getXDirection(),
+		    (this.drawingCanvas.getOffsetHeight() / 2) * direction.getYDirection()));
+	}
     }
 }

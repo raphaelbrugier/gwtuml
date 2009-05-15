@@ -29,7 +29,7 @@ public class Mouse {
 	    int triggerButton, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown,
 	    boolean isMetaKey) {
 	if(imEnabled) {
-	    Log.trace("Mouse moved to " + location + " with button " + triggerButton + " ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
+	//    Log.trace("Mouse moved to " + location + " with button " + triggerButton + " ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
 	    Session.getActiveCanvas().mouseMoved(location, isCtrlDown, isShiftDown);
 
 	}
