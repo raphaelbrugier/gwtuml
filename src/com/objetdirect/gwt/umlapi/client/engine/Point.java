@@ -3,6 +3,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
+import com.allen_sauer.gwt.log.client.Log;
+
 /**
  * This useful simple class represent a geometric 2D point <br> 
  * It avoids to have all the time two parameters x and y for locations <br>
@@ -250,9 +252,8 @@ public class Point {
      * @return A new {@link Point} containing the coordinates read from the String or the origin if there is a problem
      */
     public static Point parse(String pointString) {
-	if(pointString.matches("([0-9]+,[0-9]+)")) {
-	    pointString.replaceAll("[()]", "");
-	    String[] coordinates = pointString.split(",");
+	if(pointString.matches("\\([0-9]+,[0-9]+\\)")) {
+	    String[] coordinates = pointString.replaceAll("[\\(\\)]", "").split(",");
 	    return new Point(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));	    
 	}
 	return Point.getOrigin();

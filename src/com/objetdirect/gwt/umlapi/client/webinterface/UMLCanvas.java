@@ -771,6 +771,35 @@ public class UMLCanvas extends AbsolutePanel {
 	return null;
     }
 
+    public void fromURL(String url) {
+	String diagram = UMLDrawerHelper.decodeBase64(url);
+	diagram = diagram.substring(0, diagram.lastIndexOf(";"));
+	Log.fatal(diagram);
+	String[] diagramArtifacts = diagram.split(";");
+	for (final String artifactWithParameters : diagramArtifacts) {
+	    if(!artifactWithParameters.equals("")) {
+		String[] artifactParameters = artifactWithParameters.split("§");
+		if(artifactParameters.length > 1) {
+		    String artifact = artifactParameters[0];
+		    String[] parameters = artifactParameters[1].split("!");
+		    
+		    if(artifact.equals("Class")) {
+			ClassArtifact classArtifact = new ClassArtifact(parameters[0], parameters[1].equals("null") ? "" : parameters[1]);
+			classArtifact.setInitialLocation(Point.parse(parameters[2]));
+			add(classArtifact);
+		    } else if(artifact.equals("Object")) {
+			ObjectArtifact objectArtifact = new ObjectArtifact(parameters[0], parameters[1].equals("null") ? "" : parameters[1]);
+			objectArtifact.setInitialLocation(Point.parse(parameters[2]));
+			add(objectArtifact);
+		    } else if(artifact.equals("Note")) {
+			NoteArtifact noteArtifact = new NoteArtifact(parameters[0]);
+			noteArtifact.setInitialLocation(Point.parse(parameters[1]));
+			add(noteArtifact);
+		    }
+		}
+	    }
+	}
+    }
     /**
      * This method calls {@link UMLArtifact#toURL()} on all artifacts of this canvas and concatenate it in a String separated by a semicolon
      * 
@@ -785,6 +814,7 @@ public class UMLCanvas extends AbsolutePanel {
 		url.append(";");
 	    }
 	}	
+	
 	return UMLDrawerHelper.encodeBase64(url.toString());
     }
 }

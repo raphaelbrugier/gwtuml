@@ -50,8 +50,7 @@ public class ContextMenu {
     private final Command exportToURL = new Command() {
 	public void execute() {
 	    String url = Session.getActiveCanvas().toUrl();
-	    Log.fatal(url);
-	    Log.fatal(UMLDrawerHelper.decodeBase64(url));
+	    HistoryManager.addDiagram(url);
 	    
 	}
     };

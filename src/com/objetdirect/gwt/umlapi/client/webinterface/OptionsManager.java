@@ -34,7 +34,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * NoteCornerWidth -> 15 <br />
  * MovingStep -> 20 <br />
  * UnderlineShift -> 4 <br />
- * QualityLevel -> 30 <br />
+ * QualityLevel -> 1 <br />
  * FontSize -> 10 <br />
  * SmallFontSize -> 9 <br />
  * DiagramType -> 2 <br />
@@ -52,6 +52,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
 public class OptionsManager {
 
     private static HashMap<String, Integer> optionsList = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> defaultOptionsList;
 
     public static void initialize() {
 	optionsList.put("ArrowLength", 25);
@@ -84,11 +85,11 @@ public class OptionsManager {
 
 	optionsList.put("UnderlineShift", 4);
 
-	optionsList.put("QualityLevel", 30);
+	optionsList.put("QualityLevel", 1);
 
 	optionsList.put("FontSize", 10);
 	optionsList.put("SmallFontSize", 9);
-	
+
 	optionsList.put("DiagramType", 2);
 	optionsList.put("GraphicEngine", 0);	
 	optionsList.put("GeometryStyle",  0);	
@@ -97,6 +98,7 @@ public class OptionsManager {
 	optionsList.put("Width",  800);
 	optionsList.put("Height",  800);
 	optionsList.put("Shadowed",  1);
+	defaultOptionsList = new HashMap<String, Integer>(optionsList);
     }
 
     /**
@@ -114,7 +116,7 @@ public class OptionsManager {
 	}
 	return value;	
     }
-    
+
     /**
      * Setter for the option optionName
      * 
@@ -122,11 +124,11 @@ public class OptionsManager {
      * @param optionValue The {@link Integer} new value of this option
      */
     public static void set(String optionName, Integer optionValue) {
-	
+
 	if(!optionsList.containsKey(optionName)) {
 	    Log.error("Unknown option : " + optionName);
 	} else {
-	optionsList.put(optionName, optionValue);
+	    optionsList.put(optionName, optionValue);
 	}
     }
 
@@ -140,13 +142,13 @@ public class OptionsManager {
     static void setAllFromURL(HashMap<String, String> options) {
 	for (Entry<String, String> option : options.entrySet()) {    
 	    if(optionsList.containsKey(option.getKey())) {
-		
+
 		try {
 		    optionsList.put(option.getKey(), Integer.parseInt(option.getValue()));
 		} catch (Exception ex) {
 		    Log.warn("Unreadable argument : " + option.getKey());
 		}
-		
+
 	    }
 	}
     }
@@ -168,7 +170,7 @@ public class OptionsManager {
 	return new GfxFont("monospace", optionsList.get("SmallFontSize"), GfxFont._NORMAL,
 		GfxFont._NORMAL, GfxFont.LIGHTER);
     }
-    
+
     /**
      * Export all options in a {@link String} which has the URI parameter format
      * 
@@ -177,10 +179,12 @@ public class OptionsManager {
     public static String toURL() {
 	StringBuilder urlParameters = new StringBuilder();
 	for (Entry<String, Integer> option : optionsList.entrySet()) {
-	    urlParameters.append(option.getKey());
-	    urlParameters.append("=");
-	    urlParameters.append(option.getValue());
-	    urlParameters.append("&");
+	    if(defaultOptionsList.get(option.getKey()) != option. getValue() ) {
+		urlParameters.append(option.getKey());
+		urlParameters.append("=");
+		urlParameters.append(option.getValue());
+		urlParameters.append("&");
+	    }
 	}
 	return urlParameters.toString();
     }

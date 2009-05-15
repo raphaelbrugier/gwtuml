@@ -11,19 +11,19 @@ public enum QualityLevel {
 	 /**
 	 * Highest quality level requires JIT JavaScript Compile
 	 */
-	VERY_HIGH("Very High", "Slow", 40),
+	VERY_HIGH("Very High", "Slow", 0),
 	 /**
 	 * It is the best compromise quality level available for medium to fast PCs/browsers
 	 */
-	HIGH("High", "For good pc and browser", 30), 
+	HIGH("High", "For good pc and browser", 1), 
 	 /**
 	 * It is the normal quality, worths a try if High is slow
 	 */
-	NORMAL("Normal", "Recommended for real browser", 20),
+	NORMAL("Normal", "Recommended for real browser", 2),
 	 /**
 	 * Lowest quality but not so fast by the way
 	 */
-	LOW("Low", "For very old pc and IE users", 10);
+	LOW("Low", "For very old pc and IE users", 3);
 
 
 	/**
@@ -74,7 +74,7 @@ public enum QualityLevel {
 	     * @return True if the current quality level is almost the given level, False otherwise
 	     */
 	    public static boolean IsAlmost(final QualityLevel level) {
-	        return OptionsManager.get("QualityLevel") >= level.index; 
+	        return OptionsManager.get("QualityLevel") < level.index; 
 	    }
 
 

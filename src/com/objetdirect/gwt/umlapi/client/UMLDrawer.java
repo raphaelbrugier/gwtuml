@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.webinterface.HistoryManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
@@ -34,6 +35,7 @@ public class UMLDrawer implements EntryPoint {
     public void gwt_main() {
 	Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
 	OptionsManager.initialize();
+	HotKeyManager.forceStaticInit();
 	HistoryManager historyManager = new HistoryManager();
 	historyManager.initApplication(appRootPanel);
 	

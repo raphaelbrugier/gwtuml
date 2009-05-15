@@ -58,6 +58,7 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("I", "Add a new instantiation");
 	HelpManager.addHotkeyHelp("T", "Add a new note link");
 	HelpManager.addHotkeyHelp("S", "Add a new class relation");
+	HelpManager.addHotkeyHelp("U", "Update URL with current diagram");
 	HelpManager.addHotkeyHelp("Del", "Remove selected object(s)");
 	HelpManager.addHotkeyHelp("Home", "Bring this help");
 	HelpManager.addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
