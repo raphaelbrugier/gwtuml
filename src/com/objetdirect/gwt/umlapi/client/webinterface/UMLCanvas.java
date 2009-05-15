@@ -52,6 +52,17 @@ public class UMLCanvas extends AbsolutePanel {
     private DragAndDropState dragAndDropState = DragAndDropState.NONE;
 
     private Point currentMousePosition = Point.getOrigin();
+    private Point canvasOffset = Point.getOrigin();
+    /**
+     * Getter for the canvasOffset
+     *
+     * @return the canvasOffset
+     */
+    public Point getCanvasOffset() {
+	return this.canvasOffset;
+    }
+
+
     private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
     private UMLDiagram uMLDiagram;
     private boolean isMouseEnabled = true;
@@ -233,6 +244,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    artifact.setCanvas(this);
 	    final long t = System.currentTimeMillis();
 	    GfxManager.getPlatform().addToVirtualGroup(this.allObjects, artifact.initializeGfxObject());
+
 	    GfxManager.getPlatform().translate(artifact.getGfxObject(), artifact.getLocation());
 	    this.objects.put(artifact.getGfxObject(), artifact);
 	    Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add "
@@ -297,7 +309,7 @@ public class UMLCanvas extends AbsolutePanel {
 		+ ++classCount);
 	if (fireNewArtifactEvent(newClass)) {
 	    add(newClass);
-	    newClass.moveTo(location);
+	    newClass.moveTo(Point.substract(location, this.canvasOffset));
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		selectedArtifact.unselect();
 	    }
@@ -332,7 +344,7 @@ public class UMLCanvas extends AbsolutePanel {
 		+ objectCount);
 	if (fireNewArtifactEvent(newObject)) {
 	    add(newObject);
-	    newObject.moveTo(location);
+	    newObject.moveTo(Point.substract(location, this.canvasOffset));
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		selectedArtifact.unselect();
 	    }
@@ -360,21 +372,21 @@ public class UMLCanvas extends AbsolutePanel {
 
     }
 
-    void addNewNote(final Point initPoint) {
+    void addNewNote(final Point location) {
 	if (this.dragAndDropState != DragAndDropState.NONE) {
 	    return;
 	}
 	final NoteArtifact newNote = new NoteArtifact("Note " + ++this.noteCount);
 	if (fireNewArtifactEvent(newNote)) {
 	    add(newNote);
-	    newNote.moveTo(initPoint);
+	    newNote.moveTo(Point.substract(location, this.canvasOffset));
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 		selectedArtifact.unselect();
 	    }
 	    this.selectedArtifacts.clear();
 	    doSelection(newNote.getGfxObject(), false, false);
 	    this.selectedArtifacts.put(newNote, new ArrayList<Point>());
-	    this.dragOffset = initPoint; 
+	    this.dragOffset = location; 
 	    this.dragAndDropState = DragAndDropState.TAKING;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 	}
@@ -488,7 +500,7 @@ public class UMLCanvas extends AbsolutePanel {
 	if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 	    GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
 	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), location);
+		GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), Point.substract(location, this.canvasOffset));
 		GfxManager.getPlatform().addToVirtualGroup(this.movingLines, movingLine);
 		GfxManager.getPlatform().setStrokeStyle(movingLine, GfxStyle.LONGDASHDOTDOT);
 	    }
@@ -504,7 +516,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 
     private void take() {
-	GfxManager.getPlatform().translate(this.outlines, Point.subtract(Point.getOrigin(),GfxManager.getPlatform().getLocationFor(this.outlines)));
+	GfxManager.getPlatform().translate(this.outlines, Point.substract(this.canvasOffset,GfxManager.getPlatform().getLocationFor(this.outlines)));
 	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
@@ -538,7 +550,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}
     }
     private void drag(final Point location) {
-	Point shift = Point.subtract(location, this.dragOffset);
+	Point shift = Point.substract(location, this.dragOffset);
 	this.totalDragShift.translate(shift);
 
 	if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
@@ -729,8 +741,9 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxManager.getPlatform().setStroke(this.selectBox, ThemeManager.getTheme().getSelectBoxForegroundColor(), 2);
 	GfxManager.getPlatform().setFillColor(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor());
 	GfxManager.getPlatform().setOpacity(this.selectBox, ThemeManager.getTheme().getSelectBoxBackgroundColor().getAlpha(), true);
-	Point min = Point.min(startPoint, location);
-	Point max = Point.max(startPoint, location);
+	Point min = Point.substract(Point.min(startPoint, location), this.canvasOffset);
+	Point max = Point.substract(Point.max(startPoint, location), this.canvasOffset);
+
 	for (UMLArtifact artifact : this.objects.values()) {
 	    if(artifact.isDraggable()) {
 		if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), min, max)) {	    
@@ -786,15 +799,15 @@ public class UMLCanvas extends AbsolutePanel {
 
 		    if(artifact.equals("Class")) {
 			ClassArtifact classArtifact = new ClassArtifact(parameters[0], parameters[1].equals("null") ? "" : parameters[1]);
-			classArtifact.setInitialLocation(Point.parse(parameters[2]));
+			classArtifact.setLocation(Point.parse(parameters[2]));
 			add(classArtifact);
 		    } else if(artifact.equals("Object")) {
 			ObjectArtifact objectArtifact = new ObjectArtifact(parameters[0], parameters[1].equals("null") ? "" : parameters[1]);
-			objectArtifact.setInitialLocation(Point.parse(parameters[2]));
+			objectArtifact.setLocation(Point.parse(parameters[2]));
 			add(objectArtifact);
 		    } else if(artifact.equals("Note")) {
 			NoteArtifact noteArtifact = new NoteArtifact(parameters[0]);
-			noteArtifact.setInitialLocation(Point.parse(parameters[1]));
+			noteArtifact.setLocation(Point.parse(parameters[1]));
 			add(noteArtifact);
 		    }
 		}
@@ -821,28 +834,44 @@ public class UMLCanvas extends AbsolutePanel {
 
     void moveAll(final Direction direction) {
 	final int step = 10;
+	final Point totalTranslation = new Point((this.drawingCanvas.getOffsetWidth() / 2) * direction.getXDirection(),
+		(this.drawingCanvas.getOffsetHeight() / 2) * direction.getYDirection());
 	if(QualityLevel.IsAlmost(QualityLevel.HIGH)) {
+	    final Point totalTranslated = Point.getOrigin();
 	    if(direction.getXDirection() != 0) {
-		for(int i = 0 ; i < (this.drawingCanvas.getOffsetWidth() / 2) ; i += step) {
+		for(int i = 0 ; i < (this.drawingCanvas.getOffsetWidth() / 2) - step ; i += step) {
 		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
-			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, new Point(step * direction.getXDirection(),
-				step * direction.getYDirection()));
+			Point translation =  new Point(step * direction.getXDirection(), step * direction.getYDirection());
+			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
+			UMLCanvas.this.canvasOffset.translate(translation);
+			totalTranslated.translate(translation);
 		    }
 		    };
 		}
 	    } else {
-		for(int i = 0 ; i < (this.drawingCanvas.getOffsetHeight() / 2) ; i += step) {
+		for(int i = 0 ; i < (this.drawingCanvas.getOffsetHeight() / 2) - step; i += step) {
 		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
-			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, new Point(step * direction.getXDirection(),
-				step * direction.getYDirection()));
+			Point translation =  new Point(step * direction.getXDirection(), step * direction.getYDirection());
+			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
+			UMLCanvas.this.canvasOffset.translate(translation);
+			totalTranslated.translate(translation);
 		    }
-		    };
+		    };		    
 		}
 	    }
-
+	    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
+		Point translation =  Point.substract(totalTranslation, totalTranslated);
+		GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
+		UMLCanvas.this.canvasOffset.translate(translation);
+		totalTranslated.translate(translation);
+	    }
+	    };
 	} else {
-	    GfxManager.getPlatform().translate(this.allObjects, new Point((this.drawingCanvas.getOffsetWidth() / 2) * direction.getXDirection(),
-		    (this.drawingCanvas.getOffsetHeight() / 2) * direction.getYDirection()));
+	    GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, totalTranslation);
+	    UMLCanvas.this.canvasOffset.translate(totalTranslation);
 	}
+	    GfxManager.getPlatform().translate(UMLCanvas.this.outlines, totalTranslation);
+	    GfxManager.getPlatform().translate(UMLCanvas.this.movingLines, totalTranslation);
+	    GfxManager.getPlatform().translate(UMLCanvas.this.movingOutlineDependencies, totalTranslation);
     }
 }

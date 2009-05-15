@@ -51,7 +51,7 @@ public class Point {
      * @param p2 Second {@link Point} to subtract from the first
      * @return a new {@link Point} which is the result of the subtraction of the two other {@link Point}s coordinates. 
      */
-    public static Point subtract(final Point p1, final Point p2) {
+    public static Point substract(final Point p1, final Point p2) {
 	return new Point(p1.x - p2.x, p1.y - p2.y);
     }   
     /**

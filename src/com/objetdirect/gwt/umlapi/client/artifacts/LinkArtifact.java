@@ -279,12 +279,6 @@ public abstract class LinkArtifact extends UMLArtifact {
     }
 
     @Override
-    public Point getLocation() {
-	//FIXME : Location is not right but it must be (0,0) to add the link at the right place
-	return Point.getOrigin(); //Point.min(this.leftPoint, this.rightPoint);
-    }
-
-    @Override
     public int[] getOpaque() {
 	return null;
     }

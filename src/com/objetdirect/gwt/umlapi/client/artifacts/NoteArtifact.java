@@ -238,7 +238,7 @@ public class NoteArtifact extends BoxArtifact {
     public void fromURL(String url) {
 	String[] params = url.split(",");
 	this.note.setText(params[0]);
-	this.setInitialLocation(Point.parse(params[1]));	
+	this.setLocation(Point.parse(params[1]));	
     }
 
     /* (non-Javadoc)

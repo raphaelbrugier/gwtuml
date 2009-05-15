@@ -33,7 +33,7 @@ public class LinearGeometry extends GeometryPlatform {
     @Override
     public Point getPointForLineImpl(final UMLArtifact uMLArtifact,
 	    final Point targetCenter) {
-	final Point targetInFrameReference = Point.subtract(targetCenter,
+	final Point targetInFrameReference = Point.substract(targetCenter,
 		uMLArtifact.getLocation());
 	final Point point = Point.getOrigin();
 	final int constA = uMLArtifact.getHeight()

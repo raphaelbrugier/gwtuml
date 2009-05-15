@@ -194,10 +194,6 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/Drawe
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html#setHeightForMultiLine(int)"><B>setHeightForMultiLine(int)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A>
 <DD>Setter for the <CODE>TextArea</CODE> height in case of multiple lines edition
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setInitialLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><B>setInitialLocation(Point)</B></A> - 
-Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
-<DD>This method sets the current artifact initial location, it must not be called after the artifact is added on canvas : <br /> 
- it doesn't translate the graphical object unlike <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>UMLArtifact.moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html#setInputEnabled(boolean)"><B>setInputEnabled(boolean)</B></A> - 
 Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/HotKeyManager.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">HotKeyManager</A>
 <DD>Set the hotkey manager state.
@@ -242,6 +238,10 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLR
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html#setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)"><B>setLinkStyle(LinkArtifact.LinkStyle)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation</A>
 <DD>Setter for the link style
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)"><B>setLocation(Point)</B></A> - 
+Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
+<DD>This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+ It doesn't translate the graphical object unlike <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>UMLArtifact.moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html#setMethods(java.util.ArrayList)"><B>setMethods(ArrayList&lt;UMLClassMethod&gt;)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClass.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClass</A>
 <DD>Setter for the methods
@@ -479,7 +479,7 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEdito
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/StartPanel.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><B>StartPanel</B></A> - Class in <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/package-summary.html">com.objetdirect.gwt.umlapi.client.webinterface</A><DD>This class is the index panel displaying drawer options and logo<DT><A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/StartPanel.html#StartPanel(boolean)"><B>StartPanel(boolean)</B></A> - 
 Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/StartPanel.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">StartPanel</A>
 <DD>Constructor of the <A HREF="../com/objetdirect/gwt/umlapi/client/webinterface/StartPanel.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>StartPanel</CODE></A>
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Point.html#subtract(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><B>subtract(Point, Point)</B></A> - 
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/engine/Point.html#substract(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><B>substract(Point, Point)</B></A> - 
 Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>
 <DD>This class method create a new point from the subtraction of the two <A HREF="../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/analyser/SyntaxAnalyzer.html" title="class in com.objetdirect.gwt.umlapi.client.analyser"><B>SyntaxAnalyzer</B></A> - Class in <A HREF="../com/objetdirect/gwt/umlapi/client/analyser/package-summary.html">com.objetdirect.gwt.umlapi.client.analyser</A><DD>&nbsp;<DT><A HREF="../com/objetdirect/gwt/umlapi/client/analyser/SyntaxAnalyzer.html#SyntaxAnalyzer()"><B>SyntaxAnalyzer()</B></A> - 
