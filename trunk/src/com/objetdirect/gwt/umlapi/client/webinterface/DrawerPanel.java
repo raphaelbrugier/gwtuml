@@ -1,8 +1,11 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -35,6 +38,10 @@ public class DrawerPanel extends AbsolutePanel {
     private SimplePanel topRightCornerShadow;
     private int width;
     
+    private final Button up = new Button("⋏");//≺≻⋎⋏
+    private final Button down = new Button("⋎");//≺≻⋎⋏
+    private final Button left = new Button("≺");//≺≻⋎⋏
+    private final Button right = new Button("≻");//≺≻⋎⋏
     
     public DrawerPanel() {
 	ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
@@ -61,6 +68,37 @@ public class DrawerPanel extends AbsolutePanel {
 	    Log.trace("Making shadow");
 	    makeShadow();
 	}
+	
+	this.add(this.up, this.getWidth() / 2, 10);
+	this.add(this.down, this.getWidth() / 2, this.getHeight() - 10 - 28);
+	this.add(this.left, 10, this.getHeight() / 2);
+	this.add(this.right, this.getWidth() - 10 - 28, this.getHeight() / 2);
+	
+	this.up.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		Session.getActiveCanvas().moveAll(Direction.DOWN);
+	    }
+	});
+	this.down.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		Session.getActiveCanvas().moveAll(Direction.UP);
+	    }
+	});
+	this.left.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		Session.getActiveCanvas().moveAll(Direction.RIGHT);
+	    }
+	});
+	this.right.addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(ClickEvent event) {
+		Session.getActiveCanvas().moveAll(Direction.LEFT);
+	    }
+	});
+	
 	// TODO : under chrome redraw doesn't work if the canvas is at a
 	// different point than (0,0) tatami ? dojo ? chrome ?
 	// example : this.setSpacing(50);

@@ -49,9 +49,7 @@ public class ContextMenu {
     };
     private final Command exportToURL = new Command() {
 	public void execute() {
-	    String url = Session.getActiveCanvas().toUrl();
-	    HistoryManager.addDiagram(url);
-	    
+	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());	    
 	}
     };
     private final UMLCanvas canvas;
