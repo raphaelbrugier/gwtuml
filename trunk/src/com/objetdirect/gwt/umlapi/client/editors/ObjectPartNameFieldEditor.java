@@ -3,7 +3,10 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
+import java.util.List;
+
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
@@ -43,27 +46,23 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (this.isTheStereotype) {
-	    if (newContent.equals("")) {
-		((ObjectPartNameArtifact) this.artifact).setStereotype(null);
+	    String newStereotype = UMLObject.parseStereotype(newContent.replaceAll("[«»]", ""));
+	    if (newStereotype.equals("")) {
+		((ObjectPartNameArtifact) this.artifact).setStereotype("");
 	    } else {
-		if (!(newContent.startsWith("«") && newContent.endsWith("»"))) {
-		    ((ObjectPartNameArtifact) this.artifact).setStereotype("«"
-			    + newContent + "»");
-		} else {
-		    ((ObjectPartNameArtifact) this.artifact)
-			    .setStereotype(newContent);
-		}
+		((ObjectPartNameArtifact) this.artifact).setStereotype("«"
+			+ newStereotype + "»");
 	    }
 	} else {
-	    if (newContent.equals("")) {
+	    List<String> newNameInstance = UMLObject.parseName(newContent);
+	    if (newNameInstance.get(1).equals("")) {
 		((ObjectPartNameArtifact) this.artifact).setObjectName("Object");
 	    } else {
-		if(!newContent.contains(":")) {
-		    ((ObjectPartNameArtifact) this.artifact).setObjectName(":" + newContent);
-		}
-		((ObjectPartNameArtifact) this.artifact).setObjectName(newContent);
+		((ObjectPartNameArtifact) this.artifact).setObjectName(newNameInstance.get(1));
 	    }
+	    ((ObjectPartNameArtifact) this.artifact).setInstanceName(newNameInstance.get(0));
 	}
+	
 	((ObjectPartNameArtifact) this.artifact).getNodeArtifact()
 		.rebuildGfxObject();
 	return false;

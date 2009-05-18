@@ -3,7 +3,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
-import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * This useful simple class represent a geometric 2D point <br> 
@@ -84,6 +83,7 @@ public class Point {
      * @param y The point ordinate
      */
     public Point(final double x, final double y) {
+	super();
 	this.x = (int) Math.round(x);
 	this.y = (int) Math.round(y);
     }
@@ -94,6 +94,7 @@ public class Point {
      * @param y The point ordinate
      */
     public Point(final double x, final int y) {
+	super();
 	this.x = (int) Math.round(x);
 	this.y = y;
     }
@@ -104,6 +105,7 @@ public class Point {
      * @param y The point ordinate
      */
     public Point(final int x, final double y) {
+	super();
 	this.x = x;
 	this.y = (int) Math.round(y);
     }
@@ -114,6 +116,7 @@ public class Point {
      * @param y The point ordinate
      */
     public Point(final int x, final int y) {
+	super();
 	this.x = x;
 	this.y = y;
     }

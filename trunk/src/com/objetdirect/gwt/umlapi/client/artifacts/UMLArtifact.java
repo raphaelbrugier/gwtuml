@@ -1,7 +1,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -25,13 +25,69 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class UMLArtifact {
+    
+    
+    private static int idCount = 0;
+    private static TreeMap<Integer, UMLArtifact> artifactById = new TreeMap<Integer, UMLArtifact>();
+    /**
+     * Static getter of an {@link UMLArtifact} from its id
+     * 
+     * @param artifactId The id of the artifact to retrieve 
+     * @return the artifact corresponding to this id
+     */
+    public static UMLArtifact getArtifactById(int artifactId) {
+        return artifactById.get(artifactId);
+    }
+    /**
+     * Static getter of the id sorted {@link UMLArtifact} TreeMap
+     *  
+     * @return the artifact list ordered by id 
+     */
+    public static TreeMap<Integer, UMLArtifact> getArtifactList() {
+        return artifactById;
+    }
+    /**
+     * Remove an artifact from the artifact by id list
+     * 
+     * @param idToRemove The id of the artifact to remove
+     * 
+     */
+    public static void removeArtifactById(Integer idToRemove) {
+	artifactById.remove(idToRemove);
+	
+    }
+    private int id;
+
     protected UMLCanvas canvas;
     protected GfxObject gfxObject;
 
     private final HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     private boolean isBuilt = false;
     private Point location = Point.getOrigin();
-
+    
+    /**
+     * Constructor of UMLArtifact <br>
+     * This constructor must be called by super() because it's here we assign the artifact id 
+     *
+     */
+    public UMLArtifact() {
+	super();
+	this.id = idCount++;
+	artifactById.put(this.id, this);
+	}
+    /**
+     * Setter of UMLArtifact id <br>
+     * This method must only be use for recovering an old diagram
+     *  
+     * @param id The old id of the artifact we are recovering 
+     *
+     */
+    public void setId(int id) {
+	artifactById.remove(this.id);
+	this.id = id;
+	idCount = Math.max(this.id + 1, idCount);	
+	artifactById.put(this.id, this);
+	}
     /**
      * This method destroys this artifact's graphical object and all
      * dependencies graphical objects. <br> 
@@ -103,7 +159,16 @@ public abstract class UMLArtifact {
      * @return This artifact total height
      */
     public abstract int getHeight();
-
+    
+    /**
+     * Getter for the artifact id
+     *
+     * @return the unique id of this artifact
+     */
+    public int getId() {
+        return this.id;
+    }
+    
     /**
      * Getter for the location
      * 
@@ -309,13 +374,7 @@ public abstract class UMLArtifact {
      */
     public abstract String toURL();
     
-    /**
-     * This method assign the object parameters from a String created by toURL
-     * 
-     * @param uRL The string created by toURL to assign arguments from
-     */
-    public abstract void fromURL(String uRL);
-    
+   
     /**
      * This method do the graphic changes to reflect that an artifact has been unselected
      */
@@ -358,4 +417,5 @@ public abstract class UMLArtifact {
     }
 
     protected abstract void buildGfxObject();
+
 }

@@ -16,6 +16,18 @@ public class Mouse {
 
     private static boolean imEnabled = true;
 
+    /**
+     * This method represent a double click with the mouse. <br />
+     * It's automatically called on double click but can also be called manually for testing purpose
+     *  
+     * @param gfxObject The object on which this event has occurred
+     * @param location The location of the event
+     * @param triggerButton A number representing which button has triggered the event
+     * @param isCtrlDown True if ctrl key was down during the event
+     * @param isAltDown True if alt key was down during the event
+     * @param isShiftDown True if shift key was down during the event
+     * @param isMetaKey True if meta key (Win key / Home key) was down during the event
+     */
     public static void doubleClick(GfxObject gfxObject, Point location,
 	    int triggerButton, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown,
 	    boolean isMetaKey) {
@@ -24,7 +36,17 @@ public class Mouse {
 	    Session.getActiveCanvas().mouseDoubleClicked(gfxObject, location);
 	}
     }
-
+    /**
+     * This method represent a movement with the mouse. <br />
+     * It's automatically called on mouse move but can also be called manually for testing purpose
+     * 
+     * @param location The location of the event
+     * @param triggerButton A number representing which button has triggered the event
+     * @param isCtrlDown True if ctrl key was down during the event
+     * @param isAltDown True if alt key was down during the event
+     * @param isShiftDown True if shift key was down during the event
+     * @param isMetaKey True if meta key (Win key / Home key) was down during the event
+     */
     public static void move(Point location,
 	    int triggerButton, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown,
 	    boolean isMetaKey) {
@@ -34,7 +56,18 @@ public class Mouse {
 
 	}
     }
-
+    /**
+     * This method represent a mouse press with the mouse. <br />
+     * It's automatically called on mouse press but can also be called manually for testing purpose
+     *  
+     * @param gfxObject The object on which this event has occurred
+     * @param location The location of the event
+     * @param triggerButton A number representing which button has triggered the event
+     * @param isCtrlDown True if ctrl key was down during the event
+     * @param isAltDown True if alt key was down during the event
+     * @param isShiftDown True if shift key was down during the event
+     * @param isMetaKey True if meta key (Win key / Home key) was down during the event
+     */
     public static void press(GfxObject gfxObject, Point location,
 	    int triggerButton, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown,
 	    boolean isMetaKey) {
@@ -48,7 +81,18 @@ public class Mouse {
 
 	}
     }
-
+    /**
+     * This method represent a mouse release with the mouse. <br />
+     * It's automatically called on release but can also be called manually for testing purpose
+     *  
+     * @param gfxObject The object on which this event has occurred
+     * @param location The location of the event
+     * @param triggerButton A number representing which button has triggered the event
+     * @param isCtrlDown True if ctrl key was down during the event
+     * @param isAltDown True if alt key was down during the event
+     * @param isShiftDown True if shift key was down during the event
+     * @param isMetaKey True if meta key (Win key / Home key) was down during the event
+     */
     public static void release(GfxObject gfxObject, Point location,
 	    int triggerButton, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown,
 	    boolean isMetaKey) {

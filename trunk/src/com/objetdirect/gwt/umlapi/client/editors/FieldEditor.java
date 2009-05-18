@@ -41,6 +41,7 @@ public abstract class FieldEditor {
      * @param artifact The artifact being edited
      */
     public FieldEditor(final UMLCanvas canvas, final UMLArtifact artifact) {
+	super();
 	this.canvas = canvas;
 	this.artifact = artifact;
 	HotKeyManager.setInputEnabled(false);

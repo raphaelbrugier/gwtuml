@@ -38,6 +38,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
      * 
      */
     public ClassPartAttributesArtifact() {
+	super();
 	this.attributes = new ArrayList<UMLClassAttribute>();
 	this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
 	this.height = 0;
@@ -231,5 +232,18 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		edit(gfxo);
 	    }
 	};
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	StringBuilder attributesURL = new StringBuilder();
+	for(UMLClassAttribute attribute : this.attributes) {
+	    attributesURL.append(attribute);
+	    attributesURL.append("%");
+	}
+	return attributesURL.toString();
     }
 }

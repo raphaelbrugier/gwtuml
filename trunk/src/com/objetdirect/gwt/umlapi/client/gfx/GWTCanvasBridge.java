@@ -12,6 +12,7 @@ class GWTCanvasBridge implements CanvasBridge {
     private final Canvas gwtCanvas;
 
     public GWTCanvasBridge(final int width, final int height) {
+	super();
 	this.gwtCanvas = new Canvas(width, height);
     }
 

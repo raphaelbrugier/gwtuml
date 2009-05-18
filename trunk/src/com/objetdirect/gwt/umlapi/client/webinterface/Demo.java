@@ -37,6 +37,7 @@ public class Demo extends AbsolutePanel {
      * @param canvas The {@link UMLCanvas} where to add the demo uml artifacts 
      */
     public Demo(final UMLCanvas canvas) {
+	super();
 	Log.trace("Creating demo");
 	
 	final ClassArtifact uMLCanvas 			= new ClassArtifact("UMLCanvas");

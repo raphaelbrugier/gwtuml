@@ -40,6 +40,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
      * 
      */
     public ClassPartMethodsArtifact() {
+	super();
 	this.methods = new ArrayList<UMLClassMethod>();
 	this.methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
 	// List<Parameter> methodParameters = new ArrayList<Parameter>();
@@ -248,5 +249,18 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		edit(gfxo);
 	    }
 	};
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	StringBuilder methodsURL = new StringBuilder();
+	for(UMLClassMethod method : this.methods) {
+	    methodsURL.append(method);
+	    methodsURL.append("%");
+	}
+	return methodsURL.toString();
     }
 }

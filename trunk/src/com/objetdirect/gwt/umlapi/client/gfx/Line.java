@@ -8,6 +8,7 @@ class Line extends IncubatorGfxObject {
     private final int w;
 
     public Line(final int x1, final int y1, final int x2, final int y2) {
+	super();
 	this.x = x1;
 	this.y = y1;
 	this.w = x2 - x1;

@@ -3,8 +3,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -16,7 +14,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
@@ -27,8 +24,6 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class StartPanel extends VerticalPanel {
-
-    private static StartPanel instance = null;
 
     final Label crossLbl = new Label("x");
     final Label geometryStyleLbl = new Label("Geometry Style : ");
@@ -61,7 +56,7 @@ public class StartPanel extends VerticalPanel {
      * @param isFromHistory
      */
     public StartPanel(final boolean isFromHistory) {
-	instance = this;
+	super();
 	this.loadingScreen = new LoadingScreen();
 	this.loadingScreen.show();
 	Log.trace("Starting App");

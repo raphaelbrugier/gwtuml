@@ -3,10 +3,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
-import com.objetdirect.gwt.umlapi.client.gfx.GWTCanvasGfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.IncubatorGfxPlatform;
-import com.objetdirect.gwt.umlapi.client.gfx.TatamiGfxPlatfrom;
 
 /**
  * This class permits to load one implementation of the geometry system and use it

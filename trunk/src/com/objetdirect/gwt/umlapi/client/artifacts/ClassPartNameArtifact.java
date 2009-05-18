@@ -7,6 +7,7 @@ import com.objetdirect.gwt.umlapi.client.editors.ClassPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -19,7 +20,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  */
 public class ClassPartNameArtifact extends NodePartArtifact {
 
-    private String className;
+    private UMLClass uMLclass;
     private GfxObject nameRect;
     private GfxObject nameText;
     private String stereotype;
@@ -39,8 +40,9 @@ public class ClassPartNameArtifact extends NodePartArtifact {
      * @param stereotype The stereotype associated with the class
      */
     public ClassPartNameArtifact(final String className, final String stereotype) {
-	this.className = className;
-	this.stereotype = stereotype == "" ? "" : "«" + stereotype + "»";
+	super();
+	this.uMLclass = new UMLClass(className);
+	this.stereotype = stereotype.equals("") ? "" : "«" + stereotype + "»";
 	this.height = 0;
 	this.width = 0;
     }
@@ -94,7 +96,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	    this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 	    this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	}
-	this.nameText = GfxManager.getPlatform().buildText(this.className,  new Point(
+	this.nameText = GfxManager.getPlatform().buildText(this.uMLclass.getName(),  new Point(
 		OptionsManager.get("TextLeftPadding"),
 		OptionsManager.get("TextTopPadding") + this.height));
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
@@ -142,7 +144,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	if (isTheStereotype) {
 	    edited = this.stereotype.replaceAll("»", "").replaceAll("«", "");
 	} else {
-	    edited = this.className;
+	    edited = this.uMLclass.getName();
 	}
 	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
 		+ OptionsManager.get("TextLeftPadding") + OptionsManager
@@ -160,7 +162,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
      * @return The class name
      */
     public String getClassName() {
-	return this.className;
+	return this.uMLclass.getName();
     }
 
     @Override
@@ -194,7 +196,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
      * @return the stereotype
      */
     public String getStereotype() {
-	return this.stereotype;
+	return this.stereotype.replaceAll("»", "").replaceAll("«", "");
     }
 
     @Override
@@ -215,7 +217,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
      * 			The new name of the class 
      */
     public void setClassName(final String className) {
-	this.className = className;
+	this.uMLclass.setName(className);
     }
 
     @Override
@@ -260,5 +262,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		edit(gfxo);
 	    }
 	};
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	return this.getClassName() + "!" + this.getStereotype();
     }
 }

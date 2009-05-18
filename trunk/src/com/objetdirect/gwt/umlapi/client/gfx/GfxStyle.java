@@ -61,6 +61,7 @@ public final class GfxStyle {
      * @param style The text style 
      */
     public GfxStyle(final String style) {
+	super();
 	this.style = style;
     }
 

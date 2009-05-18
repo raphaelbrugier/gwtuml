@@ -78,6 +78,7 @@ public class GfxFont {
      */
     public GfxFont(final String family, final int size, final String style,
 	    final String variant, final String weight) {
+	super();
 	this.family = family;
 	this.size = size;
 	this.style = style;

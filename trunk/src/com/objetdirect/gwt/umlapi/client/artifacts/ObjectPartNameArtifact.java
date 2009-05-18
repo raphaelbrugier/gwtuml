@@ -7,6 +7,7 @@ import com.objetdirect.gwt.umlapi.client.editors.ObjectPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -19,7 +20,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  */
 public class ObjectPartNameArtifact extends NodePartArtifact {
 
-    private String objectName;
+    private UMLObject uMLObject;
     private GfxObject nameRect;
     private GfxObject nameText;
     private String stereotype;
@@ -28,20 +29,23 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     /**
      * Constructor of ObjectPartNameArtifact with only object name
      * 
+     * @param objectInstance The name of the instance of the object
      * @param objectName The name of the object
      */
-    public ObjectPartNameArtifact(final String objectName) {
-	this(objectName, "");
+    public ObjectPartNameArtifact(final String objectInstance, final String objectName) {
+	this(objectInstance, objectName, "");
     }
     /**
      * Constructor of ObjectPartNameArtifact with object name and stereotype
      * 
+     * @param objectInstance The name of the instance of the object
      * @param objectName The name of the object
      * @param stereotype The stereotype associated with the object
      */
-    public ObjectPartNameArtifact(final String objectName, final String stereotype) {
-	this.objectName = objectName;
-	this.stereotype = stereotype == "" ? "" : "«" + stereotype + "»";
+    public ObjectPartNameArtifact(final String objectInstance, final String objectName, final String stereotype) {
+	super();
+	this.uMLObject = new UMLObject(objectInstance, objectName);
+	this.stereotype = stereotype.equals("") ? "" : "«" + stereotype + "»";
 	this.height = 0;
 	this.width = 0;
     }
@@ -100,7 +104,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	    this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 	    this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	}
-	this.nameText = GfxManager.getPlatform().buildText(this.objectName, new Point(
+	this.nameText = GfxManager.getPlatform().buildText(this.uMLObject.toString(), new Point(
 		OptionsManager.get("TextLeftPadding"),
 		OptionsManager.get("TextTopPadding") + this.height)/*, "underline" doesn't work yet in common browsers*/);
 	GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
@@ -155,7 +159,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	if (isTheStereotype) {
 	    edited = this.stereotype.replaceAll("»", "").replaceAll("«", "");
 	} else {
-	    edited = this.objectName;
+	    edited = this.uMLObject.toString();
 	}
 	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
 		+ OptionsManager.get("TextLeftPadding") + OptionsManager
@@ -173,7 +177,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
      * @return The object name
      */
     public String getObjectName() {
-	return this.objectName;
+	return this.uMLObject.toString();
     }
 
     @Override
@@ -228,9 +232,19 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
      * 			The new name of the object 
      */
     public void setObjectName(final String objectName) {
-	this.objectName = objectName;
+	this.uMLObject.setObjectName(objectName);
     }
 
+    /**
+     * Setter for the object instance name
+     * 
+     * @param instanceName 
+     * 			The new instance name of the object 
+     */
+    public void setInstanceName(final String instanceName) {
+	this.uMLObject.setInstanceName(instanceName);
+    }
+    
     @Override
     void setNodeWidth(final int width) {
 	this.nodeWidth = width;
@@ -273,5 +287,12 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		edit(gfxo);
 	    }
 	};
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	return this.getObjectName() + "!" + this.getStereotype();
     }
 }

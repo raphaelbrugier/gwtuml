@@ -4,7 +4,7 @@
 package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartNameArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
@@ -16,19 +16,6 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 public class ClassPartNameFieldEditor extends FieldEditor {
 
     private final boolean isTheStereotype;
-    
-    /**
-     * Constructor of the {@link ClassPartNameFieldEditor} 
-     *     
-     * @param canvas The canvas on which is the artifact
-     * @param objectPartNameArtifact The artifact being edited
-     * @param isTheStereotype This boolean determine if the edition is on the stereotype (True) or the class name (False)
-     */
-    public ClassPartNameFieldEditor(final UMLCanvas canvas,
-	    final ObjectPartNameArtifact objectPartNameArtifact, final boolean isTheStereotype) {
-	super(canvas, objectPartNameArtifact);
-	this.isTheStereotype = isTheStereotype;
-    }
 
     /**
      * Constructor of 
@@ -58,26 +45,23 @@ public class ClassPartNameFieldEditor extends FieldEditor {
     @Override
     protected boolean updateUMLArtifact(final String newContent) {
 	if (this.isTheStereotype) {
-	    if (newContent.equals("")) {
-		((ClassPartNameArtifact) this.artifact).setStereotype(null);
+	    String newStereotype = UMLClass.parseNameOrStereotype(newContent.replaceAll("[«»]", ""));
+	    if (newStereotype.equals("")) {
+		((ClassPartNameArtifact) this.artifact).setStereotype("");
 	    } else {
-		if (!(newContent.startsWith("«") && newContent.endsWith("»"))) {
-		    ((ClassPartNameArtifact) this.artifact).setStereotype("«"
-			    + newContent + "»");
-		} else {
-		    ((ClassPartNameArtifact) this.artifact)
-			    .setStereotype(newContent);
-		}
+		((ClassPartNameArtifact) this.artifact).setStereotype("«"
+			+ newStereotype + "»");
 	    }
 	} else {
-	    if (newContent.equals("")) {
+	    String newName = UMLClass.parseNameOrStereotype(newContent);
+	    if (newName.equals("")) {
 		((ClassPartNameArtifact) this.artifact).setClassName("Class");
 	    } else {
-		((ClassPartNameArtifact) this.artifact).setClassName(newContent);
+		((ClassPartNameArtifact) this.artifact).setClassName(newName);
 	    }
 	}
 	((ClassPartNameArtifact) this.artifact).getNodeArtifact()
-		.rebuildGfxObject();
+	.rebuildGfxObject();
 	return false;
     }
 }

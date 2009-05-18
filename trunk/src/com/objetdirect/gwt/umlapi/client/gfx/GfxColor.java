@@ -93,6 +93,7 @@ public class GfxColor {
      * @param a Alpha (transparency) value (0-255)
      */
     public GfxColor(final int r, final int g, final int b, final int a) {
+	super();
 	this.r = r;
 	this.g = g;
 	this.b = b;

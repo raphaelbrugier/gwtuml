@@ -108,6 +108,7 @@ public final class HotKeyManager {
      * Prevent instantiation. 
      */
     private HotKeyManager() {
+	super();
 	// This constructor should not be called
     }
 }

@@ -15,6 +15,7 @@ public class UMLNote extends UMLComponent {
      * @param text The text contained by the Note
      */
     public UMLNote(final String text) {
+	super();
 	this.text = text;
     }
 

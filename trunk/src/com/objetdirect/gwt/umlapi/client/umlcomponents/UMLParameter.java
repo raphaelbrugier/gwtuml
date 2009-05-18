@@ -21,6 +21,7 @@ public class UMLParameter {
      *            Name of the parameter
      */
     public UMLParameter(final String type, final String name) {
+	super();
 	this.type = type;
 	this.name = name;
     }
@@ -75,7 +76,7 @@ public class UMLParameter {
      */
     @Override
     public String toString() {
-	final StringBuffer f = new StringBuffer();
+	final StringBuilder f = new StringBuilder();
 	f.append(this.name);
 	if (this.type != null) {
 	    f.append(" : ");

@@ -12,7 +12,6 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.webinterface.HistoryManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;

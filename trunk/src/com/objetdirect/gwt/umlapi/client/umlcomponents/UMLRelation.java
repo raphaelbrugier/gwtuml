@@ -62,12 +62,12 @@ public class UMLRelation extends UMLComponent {
 	private String defaultLeftCardinality;
 	private String defaultRightCardinality;
 	private LinkStyle defaultLinkStyle;
-	
+
 	private RelationKind(final String name, 
 		final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
 		final String defaultLeftCardinality, final String defaultRightCardinality,
 		final LinkStyle defaultLinkStyle) {
-	    
+
 	    this.name = name;
 	    this.defaultLeftAdornment = defaultLeftAdornment;
 	    this.defaultRightAdornment = defaultRightAdornment;
@@ -76,6 +76,20 @@ public class UMLRelation extends UMLComponent {
 	    this.defaultLinkStyle = defaultLinkStyle;
 	}
 
+	/**
+	 * Static getter of a {@link RelationKind} by its name
+	 *  
+	 * @param relationKindName The name of the {@link RelationKind} to retrieve
+	 * @return The {@link RelationKind} that has relationKindName for name or null if not found
+	 */
+	public static RelationKind getRelationKindFromName(String relationKindName) {
+	    for(RelationKind relationKind : RelationKind.values()) {
+		if(relationKind.getName().equals(relationKindName)) {
+		    return relationKind;
+		}
+	    }
+	    return null;
+	}
 	/**
 	 * Getter for the defaultLeftAdornment
 	 *
@@ -130,6 +144,7 @@ public class UMLRelation extends UMLComponent {
 	    return this.name;
 	}
 
+
     }
 
     private String leftCardinality;
@@ -150,6 +165,7 @@ public class UMLRelation extends UMLComponent {
      * @param relationKind : The type of this relation
      */
     public UMLRelation(final RelationKind relationKind) {
+	super();
 	this.relationKind = relationKind;
 	this.linkStyle = relationKind.getDefaultLinkStyle();
 	this.leftAdornment = relationKind.getDefaultLeftAdornment();
@@ -169,7 +185,7 @@ public class UMLRelation extends UMLComponent {
      * @return the link style
      */
     public LinkStyle getLinkStyle() {
-        return this.linkStyle;
+	return this.linkStyle;
     }
 
     /**
@@ -178,7 +194,7 @@ public class UMLRelation extends UMLComponent {
      * @param linkStyle the link style to set
      */
     public void setLinkStyle(LinkStyle linkStyle) {
-        this.linkStyle = linkStyle;
+	this.linkStyle = linkStyle;
     }
 
     /**
@@ -187,7 +203,7 @@ public class UMLRelation extends UMLComponent {
      * @return the left adornment
      */
     public LinkAdornment getLeftAdornment() {
-        return this.leftAdornment;
+	return this.leftAdornment;
     }
 
     /**
@@ -196,7 +212,7 @@ public class UMLRelation extends UMLComponent {
      * @return the right adornment
      */
     public LinkAdornment getRightAdornment() {
-        return this.rightAdornment;
+	return this.rightAdornment;
     }
 
     /**
@@ -277,7 +293,7 @@ public class UMLRelation extends UMLComponent {
      * @param leftAdornment the left adornment to set
      */
     public void setLeftAdornment(LinkAdornment leftAdornment) {
-        this.leftAdornment = leftAdornment;
+	this.leftAdornment = leftAdornment;
     }
 
     /**
@@ -286,7 +302,7 @@ public class UMLRelation extends UMLComponent {
      * @param rightAdornment the right adornment to set
      */
     public void setRightAdornment(LinkAdornment rightAdornment) {
-        this.rightAdornment = rightAdornment;
+	this.rightAdornment = rightAdornment;
     }
 
     /**

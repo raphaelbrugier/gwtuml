@@ -22,8 +22,9 @@ public class LinkClassRelationArtifact extends LinkArtifact {
      * @param classArtifact The class for the relation class 
      * @param relation The relation between the two other classes
      */
-    protected LinkClassRelationArtifact(final ClassArtifact classArtifact,
+    public LinkClassRelationArtifact(final ClassArtifact classArtifact,
 	    final RelationLinkArtifact relation) {
+	super();
 	this.classArtifact = classArtifact;
 	this.classArtifact.addDependency(this, relation);
 	this.relationLinkArtifact = relation;
@@ -84,21 +85,12 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
-     */
-    @Override
-    public void fromURL(String url) {
-	// TODO Auto-generated method stub
-	
-    }
 
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
      */
     @Override
     public String toURL() {
-	// TODO Auto-generated method stub
-	return null;
+	return "LinkClassRelation§" + this.classArtifact.getId() + "!" + this.relationLinkArtifact.getId();
     }
 }

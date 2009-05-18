@@ -20,6 +20,7 @@ public class LoadingScreen {
      *
      */
     public LoadingScreen() {
+	super();
 	final Image loader = new Image("ajax-loader.gif");
 	this.loadingPanel = new HorizontalPanel();
 	this.loadingPanel

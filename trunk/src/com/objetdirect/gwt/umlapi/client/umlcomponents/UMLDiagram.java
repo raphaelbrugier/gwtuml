@@ -101,6 +101,7 @@ public class UMLDiagram {
      * @param type The {@link Type} of the uml diagram
      */
     public UMLDiagram(Type type) {
+	super();
 	this.type = type;
     }
 

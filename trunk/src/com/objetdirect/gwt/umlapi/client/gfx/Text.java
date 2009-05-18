@@ -4,6 +4,7 @@ class Text extends IncubatorGfxObject {
     private final String text;
 
     public Text(final String text) {
+	super();
 	this.text = text;
     }
 

@@ -85,31 +85,31 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * No adornment -
 	 */
-	NONE(Shape.UNSHAPED, false, true),
+	NONE("None", Shape.UNSHAPED, false, true),
 	/**
 	 * A cross: -x
 	 */
-	WIRE_CROSS(Shape.CROSS, false, true),
+	WIRE_CROSS("WireCross", Shape.CROSS, false, true),
 	
 	/**
 	 * A wire arrow : -&gt;
 	 */
-	WIRE_ARROW(Shape.ARROW, false, true),
+	WIRE_ARROW("WireArrow", Shape.ARROW, false, true),
 	
 	/**
 	 * A simple filled arrow : -|&gt;
 	 */
-	SOLID_ARROW(Shape.ARROW, true, false),
+	SOLID_ARROW("SolidArrow", Shape.ARROW, true, false),
 	
 	/**
 	 * A filled diamond : -&lt;&gt;
 	 */
-	SOLID_DIAMOND(Shape.DIAMOND, true, false),
+	SOLID_DIAMOND("SolidDiamond", Shape.DIAMOND, true, false),
 	
 	/**
 	 * A filled diamond with foreground color : -&lt;@&gt;
 	 */
-	INVERTED_SOLID_DIAMOND(Shape.DIAMOND, true, false, true);
+	INVERTED_SOLID_DIAMOND("InvertedSolidDiamond", Shape.DIAMOND, true, false, true);
 	
 	
 
@@ -170,14 +170,39 @@ public abstract class LinkArtifact extends UMLArtifact {
 	private final boolean isSolid;
 	private final Shape shape;
 	private final boolean isNavigabilityAdornment;
+	private final String name;
 
 
-	private LinkAdornment(final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
-	    this(shape, isSolid, isNavigabilityAdronment, false);
+	/**
+	 * Getter for the name
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+	    return this.name;
+	}
+	/**
+	 * Static getter of a {@link LinkAdornment} by its name
+	 *  
+	 * @param linkAdornmentName The name of the {@link LinkAdornment} to retrieve
+	 * @return The {@link LinkAdornment} that has linkAdornmentName for name or null if not found
+	 */
+	public static LinkAdornment getLinkAdornmentFromName(String linkAdornmentName) {
+	    for(LinkAdornment linkAdornment : LinkAdornment.values()) {
+		if(linkAdornment.getName().equals(linkAdornmentName)) {
+		    return linkAdornment;
+		}
+	    }
+	    return null;
+	}
+	
+	private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
+	    this(name, shape, isSolid, isNavigabilityAdronment, false);
 	}
 
-	private LinkAdornment(final Shape shape, final boolean isSolid, final boolean isNavigabilityAdornment,
+	private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdornment,
 		final boolean isInverted) {
+	    this.name = name;
 	    this.shape = shape;
 	    this.isSolid = isSolid;
 	    this.isNavigabilityAdornment = isNavigabilityAdornment;
@@ -238,23 +263,48 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * Dash style : - - - - - 
 	 */
-	DASHED(GfxStyle.DASH),
+	DASHED("Dashed", GfxStyle.DASH),
 	/**
 	 * Long dash style : -- -- -- -- --
 	 */
-	LONG_DASHED(GfxStyle.LONGDASH),
+	LONG_DASHED("LongDashed", GfxStyle.LONGDASH),
 	/**
 	 * Dash dot style : -.-.-.-.-.- 
 	 */
-	DASHED_DOTTED(GfxStyle.DASHDOT),
+	DASHED_DOTTED("DashedDotted", GfxStyle.DASHDOT),
 	/**
 	 * Solid style : ------------ 
 	 */
-	SOLID(GfxStyle.NONE);
+	SOLID("Solid", GfxStyle.NONE);
 
 	private final GfxStyle style;
-
-	private LinkStyle(final GfxStyle style) {
+	private final String name;
+	
+	/**
+	 * Getter for the {@link LinkStyle} name
+	 *
+	 * @return the {@link LinkStyle} name
+	 */
+	public String getName() {
+	    return this.name;
+	}
+	/**
+	 * Static getter of a {@link LinkStyle} by its name
+	 *  
+	 * @param linkStyleName The name of the {@link LinkStyle} to retrieve
+	 * @return The {@link LinkStyle} that has linkStyleName for name or null if not found
+	 */
+	public static LinkStyle getLinkStyleFromName(String linkStyleName) {
+	    for(LinkStyle linkStyle : LinkStyle.values()) {
+		if(linkStyle.getName().equals(linkStyleName)) {
+		    return linkStyle;
+		}
+	    }
+	    return null;
+	}
+	
+	private LinkStyle(final String name, final GfxStyle style) {
+	    this.name = name;
 	    this.style = style;
 	}
 
