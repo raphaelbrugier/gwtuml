@@ -21,6 +21,7 @@ class TatamiGfxObjectContainer extends GfxObject {
     private final GraphicObject graphicObject;
 
     public TatamiGfxObjectContainer(final GraphicObject graphicObject) {
+	super();
 	if (graphicObject == null) {
 	    Log.error("Creating a Tcontainer of a null object");
 	}

@@ -29,6 +29,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	NodeArtifact c2;
 
 	NodePeer(NodeArtifact c1, NodeArtifact c2) {
+	    super();
 	    this.c1 = c1;
 	    this.c2 = c2;
 	}

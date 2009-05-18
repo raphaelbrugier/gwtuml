@@ -42,6 +42,7 @@ public class ClassArtifact extends NodeArtifact {
      * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
      */
     public ClassArtifact(final String className, final String stereotype) {
+	super();
 	this.className = new ClassPartNameArtifact(className, stereotype);
 	this.classAttributes = new ClassPartAttributesArtifact();
 	this.classMethods = new ClassPartMethodsArtifact();	
@@ -105,7 +106,7 @@ public class ClassArtifact extends NodeArtifact {
 	final MenuBarAndTitle classMethodsRightMenu = this.classMethods
 		.getRightMenu();
 
-	rightMenu.setName("Class " + this.className.getClassName());
+	rightMenu.setName("Class" + this.className.getClassName());
 
 	rightMenu.addItem(classNameRightMenu.getName(), classNameRightMenu
 		.getSubMenu());
@@ -117,20 +118,13 @@ public class ClassArtifact extends NodeArtifact {
 	return rightMenu;
     }
 
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
-     */
-    @Override
-    public void fromURL(String url) {
-	// TODO Auto-generated method stub
-	
-    }
 
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
      */
     @Override
     public String toURL() {
-	return "Class§" + this.className.getClassName() + "!" + (this.className.getStereotype().equals("") ? "null" : this.className.getStereotype()) + "!" + this.getLocation();
+	return "Class§" + this.getLocation() + "!" + this.className.toURL() + "!" + this.classAttributes.toURL() + "!" + this.classMethods.toURL();
+	
     }
 }

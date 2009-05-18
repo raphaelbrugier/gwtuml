@@ -31,6 +31,7 @@ public class NoteArtifact extends BoxArtifact {
      * 			The text contained by the note
      */
     public NoteArtifact(final String content) {
+	super();
 	this.height = 0;
 	this.width = 0;
 	this.note = new UMLNote(content);
@@ -231,17 +232,7 @@ public class NoteArtifact extends BoxArtifact {
 	return OptionsManager.get("NoteCornerWidth");
     }
 
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
-     */
-    @Override
-    public void fromURL(String url) {
-	String[] params = url.split(",");
-	this.note.setText(params[0]);
-	this.setLocation(Point.parse(params[1]));	
-    }
-
-    /* (non-Javadoc)
+     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
      */
     @Override

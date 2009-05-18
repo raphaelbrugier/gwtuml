@@ -42,6 +42,7 @@ public class AnimatedDemo extends AbsolutePanel {
      * @param canvas The {@link UMLCanvas} where to add the demo uml artifacts 
      */
     public AnimatedDemo(final UMLCanvas canvas) {
+	super();
 	Log.trace("Creating Animated demo");
 
 	DeferredCommand.addCommand(new Command() {

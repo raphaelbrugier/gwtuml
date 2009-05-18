@@ -47,6 +47,7 @@ public class Scheduler {
 	 * @param delay Specifies a delay for this task (default is 5ms)
 	 */
 	public Task(final Object owner, final Object subject, final int delay) {
+	    super();
 	    this.subject = subject;
 	    this.owner = owner;
 	    this.delay = delay;

@@ -3,15 +3,10 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.google.gwt.user.client.Window;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
@@ -22,6 +17,8 @@ public class ClassPartAttributesEditor extends FieldEditor {
     UMLClassAttribute attributeToChange;
 
     /**
+     * Constructor of ClassPartAttributesEditor
+     * 
      * @param canvas
      * @param objectPartAttributesArtifact
      * @param attributeToChange
@@ -34,7 +31,7 @@ public class ClassPartAttributesEditor extends FieldEditor {
     }
 
     /**
-     * Constructor of 
+     * Constructor of ClassPartAttributesEditor
      *
      * @param canvas
      * @param classPartAttributesArtifact
@@ -60,47 +57,14 @@ public class ClassPartAttributesEditor extends FieldEditor {
 		    .rebuildGfxObject();
 	    return false;
 	}
+	UMLClassAttribute newAttribute = UMLClassAttribute.parseAttribute(newContent);
 
-	final LexicalAnalyzer lex = new LexicalAnalyzer(newContent);
-	try {
-	    String type = null;
-	    String name = null;
-	    UMLVisibility visibility = UMLVisibility.PACKAGE;
-	    LexicalAnalyzer.Token tk = lex.getToken();
-	    if (tk != null && tk.getType() != LexicalFlag.VISIBILITY) {
-		visibility = UMLVisibility.PACKAGE;
-	    } else if (tk != null) {
-		visibility = UMLVisibility.getVisibilityFromToken(tk.getContent()
-			.charAt(0));
-		tk = lex.getToken();
-	    }
-	    if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		throw new UMLDrawerException(
-			"invalid format : must match 'identifier:type'");
-	    }
-	    name = tk.getContent();
-	    tk = lex.getToken();
-	    if (tk != null) {
-		if (tk.getType() != LexicalFlag.SIGN
-			|| !tk.getContent().equals(":")) {
-		    throw new UMLDrawerException(
-			    "invalid format : must match 'identifier:type'");
-		}
-		tk = lex.getToken();
-		if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		    throw new UMLDrawerException(
-			    "invalid format : must match 'identifier:type'");
-		}
-		type = tk.getContent();
-	    }
-	    this.attributeToChange.setVisibility(visibility);
-	    this.attributeToChange.setName(name);
-	    this.attributeToChange.setType(type);
+	this.attributeToChange.setVisibility(newAttribute.getVisibility());
+	this.attributeToChange.setName(newAttribute.getName());
+	this.attributeToChange.setType(newAttribute.getType());
+	
 	    ((ClassPartAttributesArtifact) this.artifact).getNodeArtifact()
-		    .rebuildGfxObject();
-	} catch (final UMLDrawerException e) {
-	    Window.alert(e.getMessage());
-	}
+	    .rebuildGfxObject();
 	return true;
     }
 }

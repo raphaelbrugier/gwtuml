@@ -54,6 +54,10 @@ public class OptionsManager {
     private static HashMap<String, Integer> optionsList = new HashMap<String, Integer>();
     private static HashMap<String, Integer> defaultOptionsList;
 
+    /**
+     * This method must be called at the start of the app because it initializes all the global properties
+     * 
+     */
     public static void initialize() {
 	optionsList.put("ArrowLength", 25);
 	optionsList.put("ArrowWidth", 15);

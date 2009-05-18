@@ -1,6 +1,12 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
+import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
 
 /**
  * This class represent a method in a class
@@ -20,6 +26,27 @@ public class UMLClassMethod {
 
     private UMLVisibility visibility;
 
+    /**
+     * Parse a method from a {@link String}
+     * 
+     * @param methodToParse The string containing an {@link UMLClassMethod} obtained with {@link UMLClassMethod#toString()}
+     * 
+     * @return The new parsed {@link UMLClassMethod} or an empty one if there was a problem
+     */
+    public static UMLClassMethod parseMethod(String methodToParse) {
+	final LexicalAnalyzer lex = new LexicalAnalyzer(methodToParse);
+	
+	try {
+	    final MethodSyntaxAnalyzer methodSyntaxAnalyser = new MethodSyntaxAnalyzer();
+	    methodSyntaxAnalyser.process(lex, null);
+	    return methodSyntaxAnalyser.getMethod();
+
+	} catch (final UMLDrawerException e) {
+	    Log.error(e.getMessage());
+	}
+	return new UMLClassMethod(UMLVisibility.PACKAGE, "", "", new ArrayList<UMLParameter>());
+    }
+    
     /**
      * Constructor of the method
      * 
@@ -154,7 +181,7 @@ public class UMLClassMethod {
      */
     @Override
     public String toString() {
-	final StringBuffer f = new StringBuffer();
+	final StringBuilder f = new StringBuilder();
 	f.append(this.visibility);
 	f.append(this.name);
 	f.append("(");
@@ -176,4 +203,5 @@ public class UMLClassMethod {
 	}
 	return f.toString();
     }
+
 }

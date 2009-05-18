@@ -38,6 +38,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
      * 
      */
     public ObjectPartAttributesArtifact() {
+	super();
 	this.attributes = new ArrayList<UMLObjectAttribute>();
 	this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
 	this.height = 0;
@@ -115,7 +116,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
     @Override
     public void edit() {
 	final UMLObjectAttribute attributeToCreate = new UMLObjectAttribute(UMLVisibility.PROTECTED,
-		"String", "attribute", "null");
+		"String", "attribute", "\"null\"");
 	this.attributes.add(attributeToCreate);
 	this.nodeArtifact.rebuildGfxObject();
 	this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
@@ -239,5 +240,18 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 		edit(gfxo);
 	    }
 	};
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
+     */
+    @Override
+    public String toURL() {
+	StringBuilder attributesURL = new StringBuilder();
+	for(UMLObjectAttribute attribute : this.attributes) {
+	    attributesURL.append(attribute);
+	    attributesURL.append("%");
+	}
+	return attributesURL.toString();
     }
 }

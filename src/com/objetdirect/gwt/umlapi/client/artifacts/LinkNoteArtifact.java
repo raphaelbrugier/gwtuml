@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -25,6 +24,7 @@ public class LinkNoteArtifact extends LinkArtifact {
      * @param target The uml artifact the note is pointing to
      */
     public LinkNoteArtifact(final NoteArtifact note, final UMLArtifact target) {
+	super();
 	this.note = note;
 	this.note.addDependency(this, target);
 	this.target = target;
@@ -85,21 +85,12 @@ public class LinkNoteArtifact extends LinkArtifact {
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }
 
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
-     */
-    @Override
-    public void fromURL(String url) {
-	// TODO Auto-generated method stub
-	
-    }
 
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
      */
     @Override
     public String toURL() {
-	// TODO Auto-generated method stub
-	return null;
+	return "LinkNote§" + this.note.getId() + "!" + this.target.getId();
     }
 }

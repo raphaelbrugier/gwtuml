@@ -18,6 +18,7 @@ public class MenuBarAndTitle {
      *
      */
     public MenuBarAndTitle() {
+	super();
 	this.subMenu = new MenuBar(true);
     }
 

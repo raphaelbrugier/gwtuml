@@ -7,11 +7,9 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.WindowResizeListener;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.objetdirect.gwt.umlapi.client.UMLDrawer;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
@@ -55,6 +53,7 @@ public class DrawerPanel extends AbsolutePanel {
      *
      */
     public DrawerPanel() {
+	super();
 	ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
 	GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
 	GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
@@ -102,6 +101,7 @@ public class DrawerPanel extends AbsolutePanel {
 
 	};
 	Window.addResizeHandler(this.resizeHandler);
+
 
 	this.add(this.up, this.getWidth() / 2, 10);
 	this.add(this.down, this.getWidth() / 2, this.getHeight() - 10 - 28);
@@ -236,12 +236,12 @@ public class DrawerPanel extends AbsolutePanel {
     void addDefaultNode() {
 	Type type = UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"));
 	if(type.isClassType()) {
-	    final ClassArtifact defaultclass = new ClassArtifact("Class 1");
+	    final ClassArtifact defaultclass = new ClassArtifact("Class1");
 	    defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
 	    this.uMLCanvas.add(defaultclass);
 	}
 	if(type.isObjectType()) {
-	    final ObjectArtifact defaultobject = new ObjectArtifact("obj1:Object 1");
+	    final ObjectArtifact defaultobject = new ObjectArtifact("obj1", "Object1");
 	    defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
 	    this.uMLCanvas.add(defaultobject);
 	}

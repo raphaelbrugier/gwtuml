@@ -128,7 +128,8 @@ This abstract class represent any uml artifact that can be displayed An
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#UMLArtifact()">UMLArtifact</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of UMLArtifact <br>
+ This constructor must be called by super() because it's here we assign the artifact id</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -159,11 +160,19 @@ This abstract class represent any uml artifact that can be displayed An
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#fromURL(java.lang.String)">fromURL</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;uRL)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactById(int)">getArtifactById</A></B>(int&nbsp;artifactId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method assign the object parameters from a String created by toURL</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Static getter of an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> from its id</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/util/TreeMap.html?is-external=true" title="class or interface in java.util">TreeMap</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>,<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactList()">getArtifactList</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Static getter of the id sorted <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> TreeMap</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -196,6 +205,14 @@ This abstract class represent any uml artifact that can be displayed An
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the Height</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getId()">getId</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the artifact id</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -288,6 +305,14 @@ This abstract class represent any uml artifact that can be displayed An
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeArtifactById(java.lang.Integer)">removeArtifactById</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;idToRemove)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove an artifact from the artifact by id list</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeDependency(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact)">removeDependency</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A>&nbsp;dependentUMLArtifact)</CODE>
 
@@ -310,6 +335,15 @@ This abstract class represent any uml artifact that can be displayed An
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas
  Assign an artifact to his canvas</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setId(int)">setId</A></B>(int&nbsp;id)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter of UMLArtifact id <br>
+ This method must only be use for recovering an old diagram</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -372,6 +406,9 @@ UMLArtifact</H3>
 <PRE>
 public <B>UMLArtifact</B>()</PRE>
 <DL>
+<DD>Constructor of UMLArtifact <br>
+ This constructor must be called by super() because it's here we assign the artifact id
+<P>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -383,6 +420,61 @@ public <B>UMLArtifact</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getArtifactById(int)"><!-- --></A><H3>
+getArtifactById</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A> <B>getArtifactById</B>(int&nbsp;artifactId)</PRE>
+<DL>
+<DD>Static getter of an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> from its id
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>artifactId</CODE> - The id of the artifact to retrieve
+<DT><B>Returns:</B><DD>the artifact corresponding to this id</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getArtifactList()"><!-- --></A><H3>
+getArtifactList</H3>
+<PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/util/TreeMap.html?is-external=true" title="class or interface in java.util">TreeMap</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>,<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&gt; <B>getArtifactList</B>()</PRE>
+<DL>
+<DD>Static getter of the id sorted <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> TreeMap
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the artifact list ordered by id</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeArtifactById(java.lang.Integer)"><!-- --></A><H3>
+removeArtifactById</H3>
+<PRE>
+public static void <B>removeArtifactById</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;idToRemove)</PRE>
+<DL>
+<DD>Remove an artifact from the artifact by id list
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>idToRemove</CODE> - The id of the artifact to remove</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setId(int)"><!-- --></A><H3>
+setId</H3>
+<PRE>
+public void <B>setId</B>(int&nbsp;id)</PRE>
+<DL>
+<DD>Setter of UMLArtifact id <br>
+ This method must only be use for recovering an old diagram
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>id</CODE> - The old id of the artifact we are recovering</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="destroyGfxObjectWhithDependencies()"><!-- --></A><H3>
 destroyGfxObjectWhithDependencies</H3>
@@ -466,6 +558,20 @@ public abstract int <B>getHeight</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>This artifact total height</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getId()"><!-- --></A><H3>
+getId</H3>
+<PRE>
+public int <B>getId</B>()</PRE>
+<DL>
+<DD>Getter for the artifact id
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the unique id of this artifact</DL>
 </DD>
 </DL>
 <HR>
@@ -714,19 +820,6 @@ public abstract <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The String containing the parameters</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="fromURL(java.lang.String)"><!-- --></A><H3>
-fromURL</H3>
-<PRE>
-public abstract void <B>fromURL</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;uRL)</PRE>
-<DL>
-<DD>This method assign the object parameters from a String created by toURL
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>uRL</CODE> - The string created by toURL to assign arguments from</DL>
 </DD>
 </DL>
 <HR>

@@ -17,6 +17,7 @@ class IncubatorCanvasBridge implements CanvasBridge {
     private final GWTCanvasWithListeners gwtCanvasWithListeners;
 
     public IncubatorCanvasBridge(final int width, final int height) {
+	super();
 	this.gwtCanvasWithListeners = new GWTCanvasWithListeners(width, height);
     }
 

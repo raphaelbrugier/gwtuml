@@ -3,10 +3,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.google.gwt.user.client.Window;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
-import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
@@ -50,24 +46,16 @@ public class ClassPartMethodsEditor extends FieldEditor {
 	if (newContent.equals("")) {
 	    ((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
 	    ((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
-		    .rebuildGfxObject();
+	    .rebuildGfxObject();
 	    return false;
 	}
-
-	final LexicalAnalyzer lex = new LexicalAnalyzer(newContent);
-	try {
-	    final MethodSyntaxAnalyzer ma = new MethodSyntaxAnalyzer();
-	    ma.process(lex, null);
-	    final UMLClassMethod newMethod = ma.getMethod();
-	    this.methodToChange.setVisibility(newMethod.getVisibility());
-	    this.methodToChange.setName(newMethod.getName());
-	    this.methodToChange.setReturnType(newMethod.getReturnType());
-	    this.methodToChange.setParameters(newMethod.getParameters());
-	    ((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
-		    .rebuildGfxObject();
-	} catch (final UMLDrawerException e) {
-	    Window.alert(e.getMessage());
-	}
+	UMLClassMethod newMethod = UMLClassMethod.parseMethod(newContent);
+	this.methodToChange.setVisibility(newMethod.getVisibility());
+	this.methodToChange.setName(newMethod.getName());
+	this.methodToChange.setReturnType(newMethod.getReturnType());
+	this.methodToChange.setParameters(newMethod.getParameters());
+	((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
+	.rebuildGfxObject();
 	return true;
 
     }

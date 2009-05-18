@@ -2,14 +2,12 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import org.gwt.mosaic.ui.client.PopupMenu;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
@@ -86,6 +84,7 @@ public class ContextMenu {
      */
     public ContextMenu(final Point location, final UMLCanvas canvas,
 	    final MenuBarAndTitle specificRightMenu) {
+	super();
 	this.location = location;
 	this.canvas = canvas;
 	this.specificRightMenu = specificRightMenu;

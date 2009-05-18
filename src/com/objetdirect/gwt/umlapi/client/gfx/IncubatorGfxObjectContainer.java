@@ -42,6 +42,7 @@ class IncubatorGfxObjectContainer extends GfxObject {
 
     public IncubatorGfxObjectContainer(
 	    final IncubatorGfxObject incubatorGfxObject) {
+	super();
 	if (incubatorGfxObject == null) {
 	    Log.error("Creating a Icontainer of a null object");
 	}

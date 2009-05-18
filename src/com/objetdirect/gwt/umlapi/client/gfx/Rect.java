@@ -7,6 +7,7 @@ class Rect extends IncubatorGfxObject {
     private int w = 0;
 
     public Rect(final int w, final int h) {
+	super();
 	this.w = w;
 	this.h = h;
     }

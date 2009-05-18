@@ -111,6 +111,7 @@ public class LexicalAnalyzer {
 	 * @param content
 	 */
 	public Token(final LexicalFlag type, final String content) {
+	    super();
 	    this.type = type;
 	    this.content = content;
 	}
@@ -141,7 +142,7 @@ public class LexicalAnalyzer {
     LexicalFlag status = LexicalFlag.UNDEFINED;
     String text;
 
-    StringBuffer tokenStringBuffer = new StringBuffer();
+    StringBuilder tokenStringBuilder = new StringBuilder();
 
     /**
      * Constructor of LexicalAnalyzer
@@ -149,6 +150,7 @@ public class LexicalAnalyzer {
      * @param text
      */
     public LexicalAnalyzer(final String text) {
+	super();
 	this.text = text;
 	this.ptr = 0;
     }
@@ -162,7 +164,7 @@ public class LexicalAnalyzer {
 	Token token = null;
 	while (token == null) {
 	    if (this.ptr >= this.text.length()) {
-		if (this.tokenStringBuffer.length() > 0) {
+		if (this.tokenStringBuilder.length() > 0) {
 		    token = processEOF();
 		    if (token != null) {
 			return token;
@@ -177,10 +179,10 @@ public class LexicalAnalyzer {
     }
 
     Token consume(final LexicalFlag consumeStatus, final char c) {
-	this.tokenStringBuffer.append(c);
+	this.tokenStringBuilder.append(c);
 	this.ptr++;
-	final String content = this.tokenStringBuffer.toString();
-	this.tokenStringBuffer = new StringBuffer();
+	final String content = this.tokenStringBuilder.toString();
+	this.tokenStringBuilder = new StringBuilder();
 	this.status = LexicalFlag.UNDEFINED;
 	return new Token(consumeStatus, content);
     }
@@ -191,14 +193,14 @@ public class LexicalAnalyzer {
     }
 
     Token inject(final LexicalFlag injectStatus) {
-	final String content = this.tokenStringBuffer.toString();
-	this.tokenStringBuffer = new StringBuffer();
+	final String content = this.tokenStringBuilder.toString();
+	this.tokenStringBuilder = new StringBuilder();
 	this.status = LexicalFlag.UNDEFINED;
 	return new Token(injectStatus, content);
     }
 
     Token process(final LexicalFlag processStatus, final char c) {
-	this.tokenStringBuffer.append(c);
+	this.tokenStringBuilder.append(c);
 	this.ptr++;
 	this.status = processStatus;
 	return null;
@@ -238,7 +240,7 @@ public class LexicalAnalyzer {
 	    } else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_') {
 		return process(LexicalFlag.IDENTIFIER, c);
 	    } else if (c == '#' || c == '(' || c == ')' || c == ',' || c == '{'
-		    || c == '}' || c == ':' || c == '[' || c == ']') {
+		    || c == '}' || c == ':' || c == '[' || c == ']' || c == '=') {
 		return consume(LexicalFlag.SIGN, c);
 	    } else if (c == '<' || c == '>') {
 		return process(LexicalFlag.SIGN_CONTINUED, c);

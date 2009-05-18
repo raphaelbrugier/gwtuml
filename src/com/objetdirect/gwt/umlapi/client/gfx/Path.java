@@ -11,6 +11,7 @@ class Path extends IncubatorGfxObject {
 	private final int yp;
 
 	public Point(final int x, final int y, final Path path) {
+	    super();
 	    this.xp = x;
 	    this.yp = y;
 	    this.path = path;
@@ -35,6 +36,7 @@ class Path extends IncubatorGfxObject {
     private final ArrayList<Point> pathPoints = new ArrayList<Point>();
 
     public Path() {
+	super();
 	this.x = 0;
 	this.y = 0;
     }

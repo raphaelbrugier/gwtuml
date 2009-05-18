@@ -140,6 +140,6 @@ public class MethodSyntaxAnalyzer extends SyntaxAnalyzer {
 	    return token;
 
 	}
-	throw new UMLDrawerException("Invalid syntax status : " + getStatus());
+	throw new UMLDrawerException("Invalid method format : " + getStatus());
     }
 }

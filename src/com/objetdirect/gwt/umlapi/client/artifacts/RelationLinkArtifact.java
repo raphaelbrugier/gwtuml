@@ -279,6 +279,7 @@ public class RelationLinkArtifact extends LinkArtifact {
      * @param order The order representing the number of relation already existing between the two artifacts
      */
     public RelationLinkArtifact(final NodeArtifact left, final NodeArtifact right, final RelationKind relationKind, final int order) {
+	super();
 	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
 	this.relation = new UMLRelation(relationKind);
 	this.leftNodeArtifact = left;
@@ -389,7 +390,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 		.values()) {
 
 	    final MenuBar editDelete = new MenuBar(true);
-	    if (relationLinkArtifactPart.getText(this.relation) != "") {
+	    if (!relationLinkArtifactPart.getText(this.relation).equals("")) {
 		editDelete.addItem("Edit",
 			editCommand(relationLinkArtifactPart));
 		editDelete.addItem("Delete",
@@ -695,12 +696,12 @@ public class RelationLinkArtifact extends LinkArtifact {
 	this.gfxObjectPart.clear();
 	ArrayList<Point> linePoints = new ArrayList<Point>();
 	final boolean isComputationNeededOnLeft = this.relation.getLeftAdornment() != LinkAdornment.NONE
-	|| this.relation.getLeftCardinality() + this.relation.getLeftConstraint()
-	+ this.relation.getLeftRole() != "";
+	|| !(this.relation.getLeftCardinality() + this.relation.getLeftConstraint()
+	+ this.relation.getLeftRole()).equals("");
 	final boolean isComputationNeededOnRight = this.relation.getRightAdornment() != LinkAdornment.NONE
-	|| this.relation.getRightCardinality()
+	|| !(this.relation.getRightCardinality()
 	+ this.relation.getRightConstraint()
-	+ this.relation.getRightRole() != "";
+	+ this.relation.getRightRole()).equals("");
 	if (this.leftNodeArtifact != this.rightNodeArtifact) {
 	    if (isComputationNeededOnLeft && isComputationNeededOnRight) {
 		linePoints = GeometryManager.getPlatform().getLineBetween(
@@ -779,7 +780,7 @@ public class RelationLinkArtifact extends LinkArtifact {
 	// Making the text group :
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
-	if (this.relation.getName() != "" || this.relation.getRelationKind() == RelationKind.INSTANTIATION) {
+	if (!this.relation.getName().equals("") || this.relation.getRelationKind() == RelationKind.INSTANTIATION) {
 	    Log.trace("Creating name");
 	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
 	    if(this.order != 0) {
@@ -810,38 +811,38 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 	}
 	this.current_delta = 0;
-	if (this.relation.getLeftCardinality() != "") {
+	if (!this.relation.getLeftCardinality().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getLeftCardinality(),
 			    RelationLinkArtifactPart.LEFT_CARDINALITY));
 	}
-	if (this.relation.getLeftConstraint() != "") {
+	if (!this.relation.getLeftConstraint().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getLeftConstraint(),
 			    RelationLinkArtifactPart.LEFT_CONSTRAINT));
 	}
-	if (this.relation.getLeftRole() != "") {
+	if (!this.relation.getLeftRole().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getLeftRole(),
 			    RelationLinkArtifactPart.LEFT_ROLE));
 	}
 	this.current_delta = 0;
-	if (this.relation.getRightCardinality() != "") {
+	if (!this.relation.getRightCardinality().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getRightCardinality(),
 			    RelationLinkArtifactPart.RIGHT_CARDINALITY));
 	}
-	if (this.relation.getRightConstraint() != "") {
+	if (!this.relation.getRightConstraint().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getRightConstraint(),
 			    RelationLinkArtifactPart.RIGHT_CONSTRAINT));
 	}
-	if (this.relation.getRightRole() != "") {
+	if (!this.relation.getRightRole().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
 		    this.textVirtualGroup,
 		    createText(this.relation.getRightRole(),
@@ -954,21 +955,56 @@ public class RelationLinkArtifact extends LinkArtifact {
 	    }
 	};
     }
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#fromURL(java.lang.String)
-     */
-    @Override
-    public void fromURL(String url) {
-	// TODO Auto-generated method stub
-	
-    }
+
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
      */
     @Override
     public String toURL() {
-	// TODO Auto-generated method stub
-	return null;
+	return "ClassRelationLink§" + this.leftNodeArtifact.getId() + "!" + this.rightNodeArtifact.getId() + "!"
+	+ this.relation.getRelationKind().getName() + "!"
+	+ this.relation.getName() + "!"	
+	+ this.relation.getLinkStyle().getName() + "!"	
+	+ this.relation.getLeftAdornment().getName() + "!"
+	+ this.relation.getLeftCardinality() + "!"
+	+ this.relation.getLeftConstraint() + "!"
+	+ this.relation.getLeftRole() + "!"
+	+ this.relation.getRightAdornment().getName() + "!"
+	+ this.relation.getRightCardinality() + "!"
+	+ this.relation.getRightConstraint() + "!"
+	+ this.relation.getRightRole();
     }
-
+    /**
+     * Setter for the relation {@link RelationKind}
+     * 
+     * @param relationKind The {@link RelationKind} to be set
+     */
+    public void setRelationKind(RelationKind relationKind) {
+	this.relation.setRelationKind(relationKind);	
+    }
+    /**
+     * Setter for the relation {@link LinkStyle}
+     * 
+     * @param linkStyle The {@link LinkStyle} to be set
+     */
+    public void setLinkStyle(LinkStyle linkStyle) {
+	this.relation.setLinkStyle(linkStyle);	
+    }
+    /**
+     * Setter for the relation left {@link LinkAdornment}
+     * 
+     * @param leftAdornment The left {@link LinkAdornment} to be set
+     */
+    public void setLeftAdornment(LinkAdornment leftAdornment) {
+	this.relation.setLeftAdornment(leftAdornment);
+    }
+    /**
+     * Setter for the relation right {@link LinkAdornment}
+     * 
+     * @param rightAdornment The right{@link LinkAdornment} to be set
+     */
+    public void setRightAdornment(LinkAdornment rightAdornment) {
+	this.relation.setRightAdornment(rightAdornment);
+    }
 }
+

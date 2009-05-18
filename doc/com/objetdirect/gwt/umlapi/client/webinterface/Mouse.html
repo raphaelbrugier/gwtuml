@@ -143,7 +143,7 @@ Class Mouse</H2>
             boolean&nbsp;isMetaKey)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method represent a double click with the mouse.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -164,7 +164,7 @@ Class Mouse</H2>
      boolean&nbsp;isMetaKey)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method represent a movement with the mouse.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -178,7 +178,7 @@ Class Mouse</H2>
       boolean&nbsp;isMetaKey)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method represent a mouse press with the mouse.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -192,7 +192,7 @@ Class Mouse</H2>
         boolean&nbsp;isMetaKey)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method represent a mouse release with the mouse.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -253,8 +253,11 @@ public static void <B>doubleClick</B>(<A HREF="../../../../../../com/objetdirect
                                boolean&nbsp;isShiftDown,
                                boolean&nbsp;isMetaKey)</PRE>
 <DL>
+<DD>This method represent a double click with the mouse. <br />
+ It's automatically called on double click but can also be called manually for testing purpose
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The object on which this event has occurred<DD><CODE>location</CODE> - The location of the event<DD><CODE>triggerButton</CODE> - A number representing which button has triggered the event<DD><CODE>isCtrlDown</CODE> - True if ctrl key was down during the event<DD><CODE>isAltDown</CODE> - True if alt key was down during the event<DD><CODE>isShiftDown</CODE> - True if shift key was down during the event<DD><CODE>isMetaKey</CODE> - True if meta key (Win key / Home key) was down during the event</DL>
 </DD>
 </DL>
 <HR>
@@ -269,8 +272,11 @@ public static void <B>move</B>(<A HREF="../../../../../../com/objetdirect/gwt/um
                         boolean&nbsp;isShiftDown,
                         boolean&nbsp;isMetaKey)</PRE>
 <DL>
+<DD>This method represent a movement with the mouse. <br />
+ It's automatically called on mouse move but can also be called manually for testing purpose
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>location</CODE> - The location of the event<DD><CODE>triggerButton</CODE> - A number representing which button has triggered the event<DD><CODE>isCtrlDown</CODE> - True if ctrl key was down during the event<DD><CODE>isAltDown</CODE> - True if alt key was down during the event<DD><CODE>isShiftDown</CODE> - True if shift key was down during the event<DD><CODE>isMetaKey</CODE> - True if meta key (Win key / Home key) was down during the event</DL>
 </DD>
 </DL>
 <HR>
@@ -286,8 +292,11 @@ public static void <B>press</B>(<A HREF="../../../../../../com/objetdirect/gwt/u
                          boolean&nbsp;isShiftDown,
                          boolean&nbsp;isMetaKey)</PRE>
 <DL>
+<DD>This method represent a mouse press with the mouse. <br />
+ It's automatically called on mouse press but can also be called manually for testing purpose
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The object on which this event has occurred<DD><CODE>location</CODE> - The location of the event<DD><CODE>triggerButton</CODE> - A number representing which button has triggered the event<DD><CODE>isCtrlDown</CODE> - True if ctrl key was down during the event<DD><CODE>isAltDown</CODE> - True if alt key was down during the event<DD><CODE>isShiftDown</CODE> - True if shift key was down during the event<DD><CODE>isMetaKey</CODE> - True if meta key (Win key / Home key) was down during the event</DL>
 </DD>
 </DL>
 <HR>
@@ -303,8 +312,11 @@ public static void <B>release</B>(<A HREF="../../../../../../com/objetdirect/gwt
                            boolean&nbsp;isShiftDown,
                            boolean&nbsp;isMetaKey)</PRE>
 <DL>
+<DD>This method represent a mouse release with the mouse. <br />
+ It's automatically called on release but can also be called manually for testing purpose
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The object on which this event has occurred<DD><CODE>location</CODE> - The location of the event<DD><CODE>triggerButton</CODE> - A number representing which button has triggered the event<DD><CODE>isCtrlDown</CODE> - True if ctrl key was down during the event<DD><CODE>isAltDown</CODE> - True if alt key was down during the event<DD><CODE>isShiftDown</CODE> - True if shift key was down during the event<DD><CODE>isMetaKey</CODE> - True if meta key (Win key / Home key) was down during the event</DL>
 </DD>
 </DL>
 <HR>
