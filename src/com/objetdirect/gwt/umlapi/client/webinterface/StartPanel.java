@@ -53,7 +53,6 @@ public class StartPanel extends VerticalPanel {
     final ListBox themeListBox = new ListBox();
     final HorizontalPanel themePanel = new HorizontalPanel();
     final TextBox widthTxtBox = new TextBox();
-    private DrawerPanel drawerPanel;
     private final LoadingScreen loadingScreen;
 
     /**
@@ -98,26 +97,7 @@ public class StartPanel extends VerticalPanel {
 	this.widthTxtBox.setText("" + (Window.getClientWidth() - 50));
 	this.heightTxtBox.setText("" + (Window.getClientHeight() - 50));
 
-	Window.addResizeHandler(new ResizeHandler() {
-	    public void onResize(final ResizeEvent arg0) {
-		if (StartPanel.this.isResolutionAutoChkBox.getValue()) {
-		    if (StartPanel.this.drawerPanel != null) {
-			Log.debug("Resizing to " + (Window.getClientWidth() - 50) + "x" + (Window.getClientHeight() - 50));
-			StartPanel.this.drawerPanel.setWidth(Window.getClientWidth() - 50);
-			StartPanel.this.drawerPanel.setHeight(Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);			
-			StartPanel.this.drawerPanel.getUMLCanvas().setPixelSize(Window.getClientWidth() - 50, Window.getClientHeight() - 50);
-			StartPanel.this.drawerPanel.clearShadow();
-			StartPanel.this.drawerPanel.makeShadow();
-			GfxManager.getPlatform().setSize(StartPanel.this.drawerPanel.getUMLCanvas().getDrawingCanvas(),
-				Window.getClientWidth() - 50,
-				Window.getClientHeight() - 50);
 
-		    }
-		}
-	    }
-
-	});
 	this.widthTxtBox.setWidth("50px");
 	this.heightTxtBox.setWidth("50px");
 	for (final QualityLevel qlvl : QualityLevel.values()) {
