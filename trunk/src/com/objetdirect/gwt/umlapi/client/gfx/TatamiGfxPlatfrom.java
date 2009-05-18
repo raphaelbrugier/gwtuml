@@ -319,8 +319,8 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setSize(com.google.gwt.user.client.ui.Widget, int, int)
      */
-    public void setSize(final Widget canvas, final int width, final int height) {
-	canvas.setSize(width + "px", height + "px");
+    public void setSize(final Widget canvas, final int width, final int height) {	
+	((GraphicCanvas) canvas).setDimensions(width, height);
     }
 
     /* (non-Javadoc)

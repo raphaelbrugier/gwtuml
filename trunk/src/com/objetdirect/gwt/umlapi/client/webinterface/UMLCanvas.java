@@ -115,16 +115,16 @@ public class UMLCanvas extends AbsolutePanel {
 	if(this.mouseIsPressed) return;
 	final Point realPoint = convertToRealPoint(location);
 	this.mouseIsPressed = true;
-	if (UMLCanvas.this.dragAndDropState == DragAndDropState.DRAGGING) {
+	if (this.dragAndDropState == DragAndDropState.DRAGGING) {
 	    return;
 	}
 	if(gfxObject != null) {
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.TAKING;
-	    UMLCanvas.this.dragOffset = realPoint.clonePoint();
+	    this.dragAndDropState = DragAndDropState.TAKING;
+	    this.dragOffset = realPoint.clonePoint();
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);		
 	} else {
-	    UMLCanvas.this.selectBoxStartPoint = realPoint.clonePoint();
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
+	    this.selectBoxStartPoint = realPoint.clonePoint();
+	    this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
 	}
 	doSelection(gfxObject, isCtrlDown, isShiftDown);
     }
@@ -132,8 +132,8 @@ public class UMLCanvas extends AbsolutePanel {
     @SuppressWarnings("fallthrough")
     void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 	final Point realPoint = convertToRealPoint(location);
-	UMLCanvas.this.currentMousePosition = realPoint;
-	switch(UMLCanvas.this.dragAndDropState) {
+	this.currentMousePosition = realPoint;
+	switch(this.dragAndDropState) {
 	case TAKING:
 	    take();
 	    UMLCanvas.this.dragAndDropState = DragAndDropState.DRAGGING;
@@ -141,13 +141,13 @@ public class UMLCanvas extends AbsolutePanel {
 	    drag(realPoint);
 	    break;
 	case PREPARING_SELECT_BOX:
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.SELECT_BOX;
-	    UMLCanvas.this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(UMLCanvas.this.selectedArtifacts);
+	    this.dragAndDropState = DragAndDropState.SELECT_BOX;
+	    this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(this.selectedArtifacts);
 	case SELECT_BOX:
-	    boxSelector(UMLCanvas.this.selectBoxStartPoint, realPoint, isCtrlDown, isShiftDown);
+	    boxSelector(this.selectBoxStartPoint, realPoint, isCtrlDown, isShiftDown);
 	}
 
-	if (UMLCanvas.this.activeLinking != null && !UMLCanvas.this.selectedArtifacts.isEmpty()) {
+	if (this.activeLinking != null && !this.selectedArtifacts.isEmpty()) {
 	    animateLinking(realPoint);
 
 	}
@@ -159,22 +159,22 @@ public class UMLCanvas extends AbsolutePanel {
 	if(!this.mouseIsPressed) return;
 	final Point realPoint = convertToRealPoint(location);
 	this.mouseIsPressed = false;	    
-	if(UMLCanvas.this.dragAndDropState == DragAndDropState.TAKING) {
+	if(this.dragAndDropState == DragAndDropState.TAKING) {
 	    unselectOnRelease(gfxObject, isCtrlDown, isShiftDown);
 	}
-	switch(UMLCanvas.this.dragAndDropState) {
+	switch(this.dragAndDropState) {
 	case SELECT_BOX:
-	    if(UMLCanvas.this.selectBox != null) {
-		GfxManager.getPlatform().removeFromCanvas(UMLCanvas.this.drawingCanvas, UMLCanvas.this.selectBox);
+	    if(this.selectBox != null) {
+		GfxManager.getPlatform().removeFromCanvas(this.drawingCanvas, this.selectBox);
 	    }
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+	    this.dragAndDropState = DragAndDropState.NONE;
 	    break;
 	case DRAGGING:
 	    drop(realPoint);
 	case TAKING:
 	    CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 	default :
-	    UMLCanvas.this.dragAndDropState = DragAndDropState.NONE;
+	    this.dragAndDropState = DragAndDropState.NONE;
 	}
 
     }

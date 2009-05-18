@@ -3,10 +3,15 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.WindowResizeListener;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.objetdirect.gwt.umlapi.client.UMLDrawer;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
@@ -37,29 +42,35 @@ public class DrawerPanel extends AbsolutePanel {
     private SimplePanel rightShadow;
     private SimplePanel topRightCornerShadow;
     private int width;
-    
+
     private final Button up = new Button("⋏");//≺≻⋎⋏
     private final Button down = new Button("⋎");//≺≻⋎⋏
     private final Button left = new Button("≺");//≺≻⋎⋏
     private final Button right = new Button("≻");//≺≻⋎⋏
-    
+
+    private final ResizeHandler resizeHandler;
+
+    /**
+     * Default constructor of a DrawerPanel
+     *
+     */
     public DrawerPanel() {
 	ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
 	GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
 	GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
 	if(OptionsManager.get("AutoResolution") == 0) {
-	this.width = OptionsManager.get("Width");
-	this.height = OptionsManager.get("Height");
+	    this.width = OptionsManager.get("Width");
+	    this.height = OptionsManager.get("Height");
 	} else {
 	    this.width = Window.getClientWidth() - 50;
-		this.height = Window.getClientHeight() - 50;    
+	    this.height = Window.getClientHeight() - 50;    
 	}	
-	
+
 	boolean isShadowed = OptionsManager.get("Shadowed") == 1;
 	Log.trace("Creating drawer");
 
 	this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width + 2, this.height);
-	this.uMLCanvas.setStylePrimaryName("canvas");
+	
 	this.add(this.uMLCanvas);
 	Log.trace("Canvas added");
 	if(isShadowed) {
@@ -67,8 +78,31 @@ public class DrawerPanel extends AbsolutePanel {
 	    this.height += 2;// Border Size
 	    Log.trace("Making shadow");
 	    makeShadow();
+	} else {
+	    this.uMLCanvas.setStylePrimaryName("canvas");
 	}
-	
+
+	this.resizeHandler = new ResizeHandler() {
+	    public void onResize(final ResizeEvent resizeEvent) {
+		if (OptionsManager.get("AutoResolution") == 1) {
+		    DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+		    DrawerPanel.this.width = resizeEvent.getWidth() - 50;
+		    DrawerPanel.this.height = resizeEvent.getHeight() - 50;
+		    DrawerPanel.this.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);			
+		    DrawerPanel.this.getUMLCanvas().setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
+		    GfxManager.getPlatform().setSize(Session.getActiveCanvas().getDrawingCanvas(), DrawerPanel.this.width, DrawerPanel.this.height);
+		    DrawerPanel.this.clearShadow();
+		    DrawerPanel.this.makeShadow();
+		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.up, DrawerPanel.this.getWidth() / 2, 10);
+		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.down, DrawerPanel.this.getWidth() / 2, DrawerPanel.this.getHeight() - 10 - 28);
+		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.left, 10, DrawerPanel.this.getHeight() / 2);
+		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.right, DrawerPanel.this.getWidth() - 10 - 28, DrawerPanel.this.getHeight() / 2);
+		}
+	    }
+
+	};
+	Window.addResizeHandler(this.resizeHandler);
+
 	this.add(this.up, this.getWidth() / 2, 10);
 	this.add(this.down, this.getWidth() / 2, this.getHeight() - 10 - 28);
 	this.add(this.left, 10, this.getHeight() / 2);
@@ -101,7 +135,7 @@ public class DrawerPanel extends AbsolutePanel {
 		Session.getActiveCanvas().moveAll(Direction.LEFT);
 	    }
 	});
-	
+
 	// TODO : under chrome redraw doesn't work if the canvas is at a
 	// different point than (0,0) tatami ? dojo ? chrome ?
 	// example : this.setSpacing(50);
@@ -187,7 +221,7 @@ public class DrawerPanel extends AbsolutePanel {
      * @param width the width to set
      */
     public final void setWidth(int width) {
-	this.width = width;
+	this.width = width; 
     }
     /**
      * Getter for the uMLCanvas
@@ -198,20 +232,18 @@ public class DrawerPanel extends AbsolutePanel {
 	return this.uMLCanvas;
     }
 
- 
+
     void addDefaultNode() {
 	Type type = UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"));
 	if(type.isClassType()) {
-		final ClassArtifact defaultclass = new ClassArtifact("Class 1");
-		defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
-		this.uMLCanvas.add(defaultclass);
+	    final ClassArtifact defaultclass = new ClassArtifact("Class 1");
+	    defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
+	    this.uMLCanvas.add(defaultclass);
 	}
 	if(type.isObjectType()) {
-		final ObjectArtifact defaultobject = new ObjectArtifact("obj1:Object 1");
-		defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
-		this.uMLCanvas.add(defaultobject);
+	    final ObjectArtifact defaultobject = new ObjectArtifact("obj1:Object 1");
+	    defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
+	    this.uMLCanvas.add(defaultobject);
 	}
-	
     }
-
 }

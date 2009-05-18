@@ -7,12 +7,16 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 
 
 
@@ -37,8 +41,10 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	History.addValueChangeHandler(this);
 	appRootPanel.add(applicationPanel, DockPanel.CENTER);
 	applicationPanel.setSize("100%", "100%");
+
 	parseHistoryToken(History.getToken());
 	processHistory();
+	
     }
 
     /* (non-Javadoc)
