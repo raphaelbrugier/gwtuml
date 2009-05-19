@@ -12,6 +12,15 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  */
 public abstract class BoxArtifact extends UMLArtifact {
 
+    /**
+     * Constructor of BoxArtifact
+     *
+     * @param toBeAdded True if the artifact must be added in artifact list
+     */
+    public BoxArtifact(boolean toBeAdded) {
+	super(toBeAdded);
+    }
+
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOpaque()
      */

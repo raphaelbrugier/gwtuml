@@ -1,5 +1,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -17,7 +18,15 @@ public abstract class NodePartArtifact extends BoxArtifact {
     protected int height;
     protected GfxObject textVirtualGroup;
     protected int width;
-    
+
+    /**
+     * Constructor of NodePartArtifact
+     *
+     */
+    public NodePartArtifact() {
+	super(false);
+    }
+
     @Override
     public void buildGfxObjectWithAnimation() {
 	buildGfxObject();

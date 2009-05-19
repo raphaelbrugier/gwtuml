@@ -1,5 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
+import com.allen_sauer.gwt.log.client.Log;
+
+
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
@@ -85,7 +88,7 @@ public class GfxColor {
     }
 
     /**
-     * Constructor of 
+     * Constructor of a color
      *
      * @param r Red value (0-255)
      * @param g Green value (0-255)
@@ -99,7 +102,38 @@ public class GfxColor {
 	this.b = b;
 	this.a = a;
     }
+    /**
+     * Constructor of a color
+     * 
+     * @param hexString A standard hex {@link String} for a color (supports : aaa, #bbb, abcd, #abcd, 123456, #123456, 12345678, #12345678) 
 
+     */
+    @SuppressWarnings("fallthrough")
+    public GfxColor(final String hexString) {
+	super();	
+	String hexColor;
+	if(hexString.startsWith("#")) {
+	    hexColor = hexString.substring(1);
+	} else {
+	    hexColor = hexString;
+	}
+	this.a = 255;
+	switch(hexColor.length()) {
+	case 4:
+	    this.a = Integer.decode("#" + hexColor.substring(3, 4) + hexColor.substring(3, 4));
+	case 3:
+	    this.r = Integer.decode("#" + hexColor.substring(0, 1) + hexColor.substring(0, 1));
+	    this.g = Integer.decode("#" + hexColor.substring(1, 2) + hexColor.substring(1, 2));
+	    this.b = Integer.decode("#" + hexColor.substring(2, 3) + hexColor.substring(2, 3));
+	break;
+	case 8:
+	    this.a = Integer.decode("#" + hexColor.substring(6, 8));
+	case 6:
+		this.r = Integer.decode("#" + hexColor.substring(0, 2));
+		this.g = Integer.decode("#" + hexColor.substring(2, 4));
+		this.b = Integer.decode("#" + hexColor.substring(4, 6));		
+	}
+    }
     /**
      * Getter for the Alpha value 
      * 

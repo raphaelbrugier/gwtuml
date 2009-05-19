@@ -25,8 +25,8 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class UMLArtifact {
-    
-    
+
+
     private static int idCount = 0;
     private static TreeMap<Integer, UMLArtifact> artifactById = new TreeMap<Integer, UMLArtifact>();
     /**
@@ -36,7 +36,7 @@ public abstract class UMLArtifact {
      * @return the artifact corresponding to this id
      */
     public static UMLArtifact getArtifactById(int artifactId) {
-        return artifactById.get(artifactId);
+	return artifactById.get(artifactId);
     }
     /**
      * Static getter of the id sorted {@link UMLArtifact} TreeMap
@@ -44,7 +44,7 @@ public abstract class UMLArtifact {
      * @return the artifact list ordered by id 
      */
     public static TreeMap<Integer, UMLArtifact> getArtifactList() {
-        return artifactById;
+	return artifactById;
     }
     /**
      * Remove an artifact from the artifact by id list
@@ -54,7 +54,7 @@ public abstract class UMLArtifact {
      */
     public static void removeArtifactById(Integer idToRemove) {
 	artifactById.remove(idToRemove);
-	
+
     }
     private int id;
 
@@ -64,17 +64,19 @@ public abstract class UMLArtifact {
     private final HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     private boolean isBuilt = false;
     private Point location = Point.getOrigin();
-    
+
     /**
      * Constructor of UMLArtifact <br>
      * This constructor must be called by super() because it's here we assign the artifact id 
      *
      */
-    public UMLArtifact() {
+    public UMLArtifact(boolean toBeAdded) {
 	super();
-	this.id = idCount++;
-	artifactById.put(this.id, this);
+	if(toBeAdded) {
+	    this.id = idCount++;
+	    artifactById.put(this.id, this);
 	}
+    }
     /**
      * Setter of UMLArtifact id <br>
      * This method must only be use for recovering an old diagram
@@ -87,7 +89,7 @@ public abstract class UMLArtifact {
 	this.id = id;
 	idCount = Math.max(this.id + 1, idCount);	
 	artifactById.put(this.id, this);
-	}
+    }
     /**
      * This method destroys this artifact's graphical object and all
      * dependencies graphical objects. <br> 
@@ -141,7 +143,7 @@ public abstract class UMLArtifact {
     public GfxObject getGfxObject() {
 	if (this.gfxObject == null) {
 	    throw new UMLDrawerException(
-		    "Must Initialize before getting gfxObjects");
+	    "Must Initialize before getting gfxObjects");
 	}
 	if (!this.isBuilt) {
 	    final long t = System.currentTimeMillis();
@@ -159,16 +161,16 @@ public abstract class UMLArtifact {
      * @return This artifact total height
      */
     public abstract int getHeight();
-    
+
     /**
      * Getter for the artifact id
      *
      * @return the unique id of this artifact
      */
     public int getId() {
-        return this.id;
+	return this.id;
     }
-    
+
     /**
      * Getter for the location
      * 
@@ -272,13 +274,13 @@ public abstract class UMLArtifact {
      */
     public void moveTo(final Point newLocation) {
 	if(!isALink()) {
-	GfxManager.getPlatform().translate(getGfxObject(), Point.substract(newLocation, getLocation()));
-	this.location = newLocation;
+	    GfxManager.getPlatform().translate(getGfxObject(), Point.substract(newLocation, getLocation()));
+	    this.location = newLocation;
 	}
 	else {
 	    Log.error("Can't move a line ! (moveTo called on " + this + ")");
 	}
-	    
+
     }
 
 
@@ -333,7 +335,7 @@ public abstract class UMLArtifact {
 	select();
 	if(moveToFront && !isALink()) toFront();
     }
-    
+
     /**
      * This method does the graphic changes to reflect that an artifact has been selected
      */
@@ -366,20 +368,20 @@ public abstract class UMLArtifact {
     public String toString() {
 	return UMLDrawerHelper.getShortName(this);
     }
-    
+
     /**
      * This method transform the parameters of the object to a string
      * 
      * @return The String containing the parameters
      */
     public abstract String toURL();
-    
-   
+
+
     /**
      * This method do the graphic changes to reflect that an artifact has been unselected
      */
     public abstract void unselect();
-    
+
 
     void addDependency(final LinkArtifact dependentUMLArtifact,
 	    final UMLArtifact linkedUMLArtifact) {
@@ -400,7 +402,7 @@ public abstract class UMLArtifact {
 		    @Override
 		    public void process() {
 			GfxManager.getPlatform()
-				.setOpacity(UMLArtifact.this.gfxObject, j, false);
+			.setOpacity(UMLArtifact.this.gfxObject, j, false);
 		    }
 		};
 	    }
