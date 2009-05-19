@@ -31,7 +31,7 @@ public class NoteArtifact extends BoxArtifact {
      * 			The text contained by the note
      */
     public NoteArtifact(final String content) {
-	super();
+	super(true);
 	this.height = 0;
 	this.width = 0;
 	this.note = new UMLNote(content);
@@ -237,6 +237,6 @@ public class NoteArtifact extends BoxArtifact {
      */
     @Override
     public String toURL() {
-	return "Note§" + this.note.getText() + "!" + this.getLocation();
+	return "Note$" + this.note.getText() + "!" + this.getLocation();
     }
 }

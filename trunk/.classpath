@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-r328.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r463-rip.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-r834.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

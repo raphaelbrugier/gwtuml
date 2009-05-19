@@ -91,6 +91,6 @@ public class LinkNoteArtifact extends LinkArtifact {
      */
     @Override
     public String toURL() {
-	return "LinkNote§" + this.note.getId() + "!" + this.target.getId();
+	return "LinkNote$" + this.note.getId() + "!" + this.target.getId();
     }
 }

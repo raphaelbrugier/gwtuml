@@ -806,7 +806,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 	    for (final String artifactWithParameters : diagramArtifacts) {
 		if(!artifactWithParameters.equals("")) {
-		    String[] artifactAndParameters = artifactWithParameters.split("§");
+		    String[] artifactAndParameters = artifactWithParameters.split("\\$");
 		    if(artifactAndParameters.length > 1) {
 			String[] artifactAndId = artifactAndParameters[0].split("]");
 			String[] parameters = artifactAndParameters[1].split("!",-1);

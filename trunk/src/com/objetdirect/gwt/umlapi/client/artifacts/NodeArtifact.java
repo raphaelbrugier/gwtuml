@@ -22,6 +22,14 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class NodeArtifact extends BoxArtifact {
+    
+    /**
+     * Constructor of NodeArtifact
+     *
+     */
+    public NodeArtifact() {
+	super(true);
+    }
     LinkedList<NodePartArtifact> nodeParts = new LinkedList<NodePartArtifact>();
     
     static class NodePeer {

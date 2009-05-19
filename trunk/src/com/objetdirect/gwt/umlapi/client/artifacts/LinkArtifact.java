@@ -17,6 +17,13 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 public abstract class LinkArtifact extends UMLArtifact {
 
     /**
+     * Constructor of LinkArtifact
+     */
+    public LinkArtifact() {
+	super(true);
+    }
+
+    /**
      * Make a link between two {@link UMLArtifact}
      * 
      * @param uMLArtifact The first one of the two {@link UMLArtifact} to be linked

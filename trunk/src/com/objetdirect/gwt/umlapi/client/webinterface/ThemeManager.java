@@ -28,7 +28,7 @@ public class ThemeManager {
 		 * Very dark theme color 
 		 */
 		DARK("Dark", 1, new GfxColor(0, 0, 0, 255), // Black
-			 new GfxColor(25, 25, 25, 255), // Dark grey
+			new GfxColor(25, 25, 25, 255), // Dark grey
 			new GfxColor(255, 255, 255, 255), // White
 			new GfxColor(0, 255, 0, 255), // Green
 			new GfxColor(134, 0, 217, 255), // Soft pink
@@ -42,17 +42,18 @@ public class ThemeManager {
 				new GfxColor(25, 25, 25, 255), // Teal
 				new GfxColor(134, 171, 217, 255), // White
 				new GfxColor(154, 191, 237, 255), // Soft Blue
-				new GfxColor(114, 151, 197, 75)); // Soft Blue Translucent
+				new GfxColor(114, 151, 197, 75)), // Soft Blue Translucent
 
-	// NORMAL("Normal", new GfxColor(255, 255, 255, 255), // White
-	// new GfxColor(0, 0, 0, 255), // Black
-	// new GfxColor(0, 0, 255, 255)), // Blue
-	// DARK("Dark", new GfxColor(0, 0, 0, 255), // Black
-	// new GfxColor(255, 255, 255, 255), // White
-	// new GfxColor(0, 255, 0, 255)), // Green
-	// AERO("Aero", new GfxColor(26, 106, 155, 255), // Light Blue
-	// new GfxColor(56, 192, 192, 255), // Teal
-	// new GfxColor(255, 255, 255, 255)); // White
+
+				/**
+				 * Pinky theme color 
+				 */
+				PINKY("Pinky", 3, new GfxColor("C992FE"),
+					new GfxColor("FC00F1"), 
+					new GfxColor("590055"), 
+					new GfxColor("FE005E"), 
+					new GfxColor("2D0059"), 
+					new GfxColor("65428822"));
 
 	/**
 	 * Getter for the {@link Theme} from his index

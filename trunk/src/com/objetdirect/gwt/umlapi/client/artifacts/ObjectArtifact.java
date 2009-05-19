@@ -101,6 +101,6 @@ public class ObjectArtifact extends NodeArtifact {
      */
     @Override
     public String toURL() {
-	return "Object§" + this.getLocation() + "!" + this.objectName.toURL() + "!" + this.objectAttributes.toURL();
+	return "Object$" + this.getLocation() + "!" + this.objectName.toURL() + "!" + this.objectAttributes.toURL();
     }
 }
