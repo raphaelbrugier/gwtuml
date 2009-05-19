@@ -46,6 +46,7 @@ public final class HotKeyManager {
      * It fills up the {@link HelpManager} too.
      */
     public static void forceStaticInit() {
+	HelpManager.addHotkeyHelp("H", "Bring this help");
 	HelpManager.addHotkeyHelp("C", "Add a new class");
 	HelpManager.addHotkeyHelp("O", "Add a new object");
 	HelpManager.addHotkeyHelp("N", "Add a new note");
@@ -60,7 +61,6 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("S", "Add a new class relation");
 	HelpManager.addHotkeyHelp("U", "Update URL with current diagram");
 	HelpManager.addHotkeyHelp("Del", "Remove selected object(s)");
-	HelpManager.addHotkeyHelp("Home", "Bring this help");
 	HelpManager.addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Down", "Move down selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Left", "Move left selected object");

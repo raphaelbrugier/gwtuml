@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectRelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -95,14 +95,13 @@ Class RelationLinkArtifact</H2>
       <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A>
           <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>RelationLinkArtifact</B>
 </PRE>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassRelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassRelationLinkArtifact</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/InstantiationRelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">InstantiationRelationLinkArtifact</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectRelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ObjectRelationLinkArtifact</A></DD>
+</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>RelationLinkArtifact</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A></DL>
+<DT><PRE>public abstract class <B>RelationLinkArtifact</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A></DL>
 </PRE>
-
-<P>
-This node represents any relation artifact between two nodees
-<P>
 
 <P>
 <DL>
@@ -149,21 +148,11 @@ This node represents any relation artifact between two nodees
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">RelationLinkArtifact</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
-                     <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
-                     <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact)">RelationLinkArtifact</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;n1,
+                     <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;n2)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind, int)">RelationLinkArtifact</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
-                     <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
-                     <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind,
-                     int&nbsp;order)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A></TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of RelationLinkArtifact</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -178,219 +167,11 @@ This node represents any relation artifact between two nodees
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;editedGfxObject)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Request an edition on this artifact.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#edit(com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart)">edit</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact.RelationLinkArtifactPart</A>&nbsp;part)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Request an edition on a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact.RelationLinkArtifactPart</CODE></A> and set if the text is empty a default text</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getLeftNodeArtifact()">getLeftNodeArtifact</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the left <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">MenuBarAndTitle</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getRightMenu()">getRightMenu</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the context menu.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#getRightNodeArtifact()">getRightNodeArtifact</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the right <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#removeCreatedDependency()">removeCreatedDependency</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method add an extra dependency removal for link <br> 
- to tell other artifact that they don't need to be still dependent on this line</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetLeftNavigability()">resetLeftNavigability</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reset the navigability of the left side to unknown <br />
- The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetRightNavigability()">resetRightNavigability</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reset the navigability of the right side to unknown <br />
- The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setCardinalities(java.lang.String, java.lang.String)">setCardinalities</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftCardinality,
-                 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightCardinality)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the left and right cardinalities in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)">setLeftAdornment</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkAdornment.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkAdornment</A>&nbsp;leftAdornment)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the relation left <CODE>LinkAdornment</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftCardinality(java.lang.String)">setLeftCardinality</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftCardinality)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the leftCardinality in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftConstraint(java.lang.String)">setLeftConstraint</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftConstraint)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the leftConstraint in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftNavigability(boolean)">setLeftNavigability</A></B>(boolean&nbsp;isNavigable)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the state of left navigability <br /> 
- The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
- To set the unknown state see <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetLeftNavigability()"><CODE>resetLeftNavigability()</CODE></A></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLeftRole(java.lang.String)">setLeftRole</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftRole)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the leftRole in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)">setLinkStyle</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkStyle.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkStyle</A>&nbsp;linkStyle)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the relation <CODE>LinkStyle</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setName(java.lang.String)">setName</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the name in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setPartContent(com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart, java.lang.String)">setPartContent</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact.RelationLinkArtifactPart</A>&nbsp;part,
                <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;newContent)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter of a part text</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRelationKind(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">setRelationKind</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the relation <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation.RelationKind</CODE></A></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)">setRightAdornment</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkAdornment.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkAdornment</A>&nbsp;rightAdornment)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the relation right <CODE>LinkAdornment</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightCardinality(java.lang.String)">setRightCardinality</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightCardinality)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the rightCardinality in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightConstraint(java.lang.String)">setRightConstraint</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightConstraint)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the rightConstraint in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightNavigability(boolean)">setRightNavigability</A></B>(boolean&nbsp;isNavigable)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the state of right navigability <br /> 
- The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
- To set the unknown state see <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetRightNavigability()"><CODE>resetRightNavigability()</CODE></A></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#setRightRole(java.lang.String)">setRightRole</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightRole)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the rightRole in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#toURL()">toURL</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method transform the parameters of the object to a string</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#unselect()">unselect</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method do the graphic changes to reflect that an artifact has been unselected</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_LinkArtifact"><!-- --></A>
@@ -399,7 +180,7 @@ This node represents any relation artifact between two nodees
 <TH ALIGN="left"><B>Methods inherited from class <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getHeight()">getHeight</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getOpaque()">getOpaque</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getOutline()">getOutline</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getWidth()">getWidth</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#isALink()">isALink</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#isDraggable()">isDraggable</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#makeLinkBetween(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">makeLinkBetween</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getHeight()">getHeight</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getOpaque()">getOpaque</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getOutline()">getOutline</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#getWidth()">getWidth</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#isALink()">isALink</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#isDraggable()">isDraggable</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#makeLinkBetween(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)">makeLinkBetween</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#removeCreatedDependency()">removeCreatedDependency</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_UMLArtifact"><!-- --></A>
@@ -408,7 +189,7 @@ This node represents any relation artifact between two nodees
 <TH ALIGN="left"><B>Methods inherited from class <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#destroyGfxObjectWhithDependencies()">destroyGfxObjectWhithDependencies</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactById(int)">getArtifactById</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactList()">getArtifactList</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getCenter()">getCenter</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getDependentUMLArtifacts()">getDependentUMLArtifacts</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getGfxObject()">getGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getId()">getId</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getLocation()">getLocation</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutlineForDependencies()">getOutlineForDependencies</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#initializeGfxObject()">initializeGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)">moveTo</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#rebuildGfxObject()">rebuildGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeArtifactById(java.lang.Integer)">removeArtifactById</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeDependency(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact)">removeDependency</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#select(boolean)">select</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setCanvas</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setId(int)">setId</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)">setLocation</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#destroyGfxObjectWhithDependencies()">destroyGfxObjectWhithDependencies</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactById(int)">getArtifactById</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactList()">getArtifactList</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getCenter()">getCenter</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getDependentUMLArtifacts()">getDependentUMLArtifacts</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getGfxObject()">getGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getId()">getId</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getLocation()">getLocation</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutlineForDependencies()">getOutlineForDependencies</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getRightMenu()">getRightMenu</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#initializeGfxObject()">initializeGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)">moveTo</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#rebuildGfxObject()">rebuildGfxObject</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeArtifactById(java.lang.Integer)">removeArtifactById</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#removeDependency(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact)">removeDependency</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#select(boolean)">select</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas)">setCanvas</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setId(int)">setId</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)">setLocation</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toString()">toString</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()">toURL</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">unselect</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -433,32 +214,16 @@ This node represents any relation artifact between two nodees
 </TR>
 </TABLE>
 
-<A NAME="RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)"><!-- --></A><H3>
+<A NAME="RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact)"><!-- --></A><H3>
 RelationLinkArtifact</H3>
 <PRE>
-public <B>RelationLinkArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
-                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
-                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</PRE>
+public <B>RelationLinkArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;n1,
+                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;n2)</PRE>
 <DL>
-<DD>Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A>
+<DD>Constructor of RelationLinkArtifact
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>left</CODE> - The left <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of the relation<DD><CODE>right</CODE> - The right <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of the relation<DD><CODE>relationKind</CODE> - The kind of relation this link is.</DL>
-</DL>
-<HR>
-
-<A NAME="RelationLinkArtifact(com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind, int)"><!-- --></A><H3>
-RelationLinkArtifact</H3>
-<PRE>
-public <B>RelationLinkArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;left,
-                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A>&nbsp;right,
-                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind,
-                            int&nbsp;order)</PRE>
-<DL>
-<DD>Constructor of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact</CODE></A>
-<P>
-<DL>
-<DT><B>Parameters:</B><DD><CODE>left</CODE> - The left <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of the relation<DD><CODE>right</CODE> - The right <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of the relation<DD><CODE>relationKind</CODE> - The kind of relation this link is.<DD><CODE>order</CODE> - The order representing the number of relation already existing between the two artifacts</DL>
+<DT><B>Parameters:</B><DD><CODE>n1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A><DD><CODE>n2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>LinkArtifact</CODE></A></DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -471,230 +236,6 @@ public <B>RelationLinkArtifact</B>(<A HREF="../../../../../../com/objetdirect/gw
 </TR>
 </TABLE>
 
-<A NAME="edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
-edit</H3>
-<PRE>
-public void <B>edit</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;editedGfxObject)</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">UMLArtifact</A></CODE></B></DD>
-<DD>Request an edition on this artifact.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#edit(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">edit</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>editedGfxObject</CODE> - is the graphical object on which edition should occur</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="edit(com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart)"><!-- --></A><H3>
-edit</H3>
-<PRE>
-public void <B>edit</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">RelationLinkArtifact.RelationLinkArtifactPart</A>&nbsp;part)</PRE>
-<DL>
-<DD>Request an edition on a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact.RelationLinkArtifactPart</CODE></A> and set if the text is empty a default text
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>part</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact.RelationLinkArtifactPart</CODE></A> to edit</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLeftNodeArtifact()"><!-- --></A><H3>
-getLeftNodeArtifact</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A> <B>getLeftNodeArtifact</B>()</PRE>
-<DL>
-<DD>Getter for the left <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the left <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRightNodeArtifact()"><!-- --></A><H3>
-getRightNodeArtifact</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">NodeArtifact</A> <B>getRightNodeArtifact</B>()</PRE>
-<DL>
-<DD>Getter for the right <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the right <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> of this relation</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRightMenu()"><!-- --></A><H3>
-getRightMenu</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface">MenuBarAndTitle</A> <B>getRightMenu</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getRightMenu()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the context menu. <br> 
- Each artifact has his own context menu which is built during right click
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getRightMenu()">getRightMenu</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The context sub menu and the title of the sub menu<DT><B>See Also:</B><DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/webinterface/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.webinterface"><CODE>MenuBarAndTitle</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeCreatedDependency()"><!-- --></A><H3>
-removeCreatedDependency</H3>
-<PRE>
-public void <B>removeCreatedDependency</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#removeCreatedDependency()">LinkArtifact</A></CODE></B></DD>
-<DD>This method add an extra dependency removal for link <br> 
- to tell other artifact that they don't need to be still dependent on this line
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html#removeCreatedDependency()">removeCreatedDependency</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setCardinalities(java.lang.String, java.lang.String)"><!-- --></A><H3>
-setCardinalities</H3>
-<PRE>
-public void <B>setCardinalities</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftCardinality,
-                             <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightCardinality)</PRE>
-<DL>
-<DD>Setter for the left and right cardinalities in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>leftCardinality</CODE> - The left cardinality text to be set<DD><CODE>rightCardinality</CODE> - The right cardinality text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLeftCardinality(java.lang.String)"><!-- --></A><H3>
-setLeftCardinality</H3>
-<PRE>
-public void <B>setLeftCardinality</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftCardinality)</PRE>
-<DL>
-<DD>Setter for the leftCardinality in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>leftCardinality</CODE> - The leftCardinality text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLeftConstraint(java.lang.String)"><!-- --></A><H3>
-setLeftConstraint</H3>
-<PRE>
-public void <B>setLeftConstraint</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftConstraint)</PRE>
-<DL>
-<DD>Setter for the leftConstraint in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>leftConstraint</CODE> - The leftConstraint text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLeftRole(java.lang.String)"><!-- --></A><H3>
-setLeftRole</H3>
-<PRE>
-public void <B>setLeftRole</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;leftRole)</PRE>
-<DL>
-<DD>Setter for the leftRole in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>leftRole</CODE> - The leftRole text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setName(java.lang.String)"><!-- --></A><H3>
-setName</H3>
-<PRE>
-public void <B>setName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</PRE>
-<DL>
-<DD>Setter for the name in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="resetLeftNavigability()"><!-- --></A><H3>
-resetLeftNavigability</H3>
-<PRE>
-public void <B>resetLeftNavigability</B>()</PRE>
-<DL>
-<DD>Reset the navigability of the left side to unknown <br />
- The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="resetRightNavigability()"><!-- --></A><H3>
-resetRightNavigability</H3>
-<PRE>
-public void <B>resetRightNavigability</B>()</PRE>
-<DL>
-<DD>Reset the navigability of the right side to unknown <br />
- The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLeftNavigability(boolean)"><!-- --></A><H3>
-setLeftNavigability</H3>
-<PRE>
-public void <B>setLeftNavigability</B>(boolean&nbsp;isNavigable)</PRE>
-<DL>
-<DD>Set the state of left navigability <br /> 
- The left side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
- To set the unknown state see <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetLeftNavigability()"><CODE>resetLeftNavigability()</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>isNavigable</CODE> - If true set the link's side to navigable otherwise set it to NOT navigable</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRightNavigability(boolean)"><!-- --></A><H3>
-setRightNavigability</H3>
-<PRE>
-public void <B>setRightNavigability</B>(boolean&nbsp;isNavigable)</PRE>
-<DL>
-<DD>Set the state of right navigability <br /> 
- The right side must not be a generalization, realization, aggregation or composition otherwise this method do nothing <br />
- To set the unknown state see <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html#resetRightNavigability()"><CODE>resetRightNavigability()</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>isNavigable</CODE> - If true set the link's side to navigable otherwise set it to NOT navigable</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setPartContent(com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart, java.lang.String)"><!-- --></A><H3>
 setPartContent</H3>
 <PRE>
@@ -705,135 +246,6 @@ public void <B>setPartContent</B>(<A HREF="../../../../../../com/objetdirect/gwt
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>part</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>RelationLinkArtifact.RelationLinkArtifactPart</CODE></A> in which the text is to be updated<DD><CODE>newContent</CODE> - The new text to set for this part</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRightCardinality(java.lang.String)"><!-- --></A><H3>
-setRightCardinality</H3>
-<PRE>
-public void <B>setRightCardinality</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightCardinality)</PRE>
-<DL>
-<DD>Setter for the rightCardinality in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rightCardinality</CODE> - The rightCardinality text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRightConstraint(java.lang.String)"><!-- --></A><H3>
-setRightConstraint</H3>
-<PRE>
-public void <B>setRightConstraint</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightConstraint)</PRE>
-<DL>
-<DD>Setter for the rightConstraint in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rightConstraint</CODE> - The rightConstraint text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRightRole(java.lang.String)"><!-- --></A><H3>
-setRightRole</H3>
-<PRE>
-public void <B>setRightRole</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;rightRole)</PRE>
-<DL>
-<DD>Setter for the rightRole in <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation</CODE></A>
- This does not update the graphical object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rightRole</CODE> - The rightRole text to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="unselect()"><!-- --></A><H3>
-unselect</H3>
-<PRE>
-public void <B>unselect</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">UMLArtifact</A></CODE></B></DD>
-<DD>This method do the graphic changes to reflect that an artifact has been unselected
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">unselect</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toURL()"><!-- --></A><H3>
-toURL</H3>
-<PRE>
-public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toURL</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()">UMLArtifact</A></CODE></B></DD>
-<DD>This method transform the parameters of the object to a string
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()">toURL</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The String containing the parameters</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRelationKind(com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind)"><!-- --></A><H3>
-setRelationKind</H3>
-<PRE>
-public void <B>setRelationKind</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLRelation.RelationKind</A>&nbsp;relationKind)</PRE>
-<DL>
-<DD>Setter for the relation <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation.RelationKind</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>relationKind</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLRelation.RelationKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLRelation.RelationKind</CODE></A> to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLinkStyle(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle)"><!-- --></A><H3>
-setLinkStyle</H3>
-<PRE>
-public void <B>setLinkStyle</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkStyle.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkStyle</A>&nbsp;linkStyle)</PRE>
-<DL>
-<DD>Setter for the relation <CODE>LinkStyle</CODE>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>linkStyle</CODE> - The <CODE>LinkStyle</CODE> to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLeftAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><!-- --></A><H3>
-setLeftAdornment</H3>
-<PRE>
-public void <B>setLeftAdornment</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkAdornment.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkAdornment</A>&nbsp;leftAdornment)</PRE>
-<DL>
-<DD>Setter for the relation left <CODE>LinkAdornment</CODE>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>leftAdornment</CODE> - The left <CODE>LinkAdornment</CODE> to be set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRightAdornment(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment)"><!-- --></A><H3>
-setRightAdornment</H3>
-<PRE>
-public void <B>setRightAdornment</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.LinkAdornment.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts">LinkArtifact.LinkAdornment</A>&nbsp;rightAdornment)</PRE>
-<DL>
-<DD>Setter for the relation right <CODE>LinkAdornment</CODE>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rightAdornment</CODE> - The right<CODE>LinkAdornment</CODE> to be set</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -867,7 +279,7 @@ public void <B>setRightAdornment</B>(<A HREF="../../../../../../com/objetdirect/
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ObjectRelationLinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.RelationLinkArtifactPart.html" title="enum in com.objetdirect.gwt.umlapi.client.artifacts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/artifacts/RelationLinkArtifact.html" target="_top"><B>FRAMES</B></A>  &nbsp;

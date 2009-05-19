@@ -1,7 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.Collections;
-
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
@@ -43,40 +41,37 @@ public abstract class LinkArtifact extends UMLArtifact {
 		}
 		return null;
 	    } else if (relationKind == RelationKind.CLASSRELATION) {
-		if (uMLArtifactNew.getClass() == RelationLinkArtifact.class
+		if (uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class
 			&& uMLArtifact.getClass() == ClassArtifact.class) {
 		    return new LinkClassRelationArtifact(
 			    (ClassArtifact) uMLArtifact,
-			    (RelationLinkArtifact) uMLArtifactNew);
+			    (ClassRelationLinkArtifact) uMLArtifactNew);
 		} 
-		if (uMLArtifact.getClass() == RelationLinkArtifact.class
+		if (uMLArtifact.getClass() == ClassRelationLinkArtifact.class
 			&& uMLArtifactNew.getClass() == ClassArtifact.class) {
 		    return new LinkClassRelationArtifact(
 			    (ClassArtifact) uMLArtifactNew,
-			    (RelationLinkArtifact) uMLArtifact);
+			    (ClassRelationLinkArtifact) uMLArtifact);
 		}
 		 return null;
 		
 	    }
 	    else if (uMLArtifact.getClass() == ClassArtifact.class
 		    && uMLArtifactNew.getClass() == ClassArtifact.class) {
-		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
-		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+		return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, relationKind);
+		
 	    } 	    
 	    else if (uMLArtifact.getClass() == ObjectArtifact.class
 		    && uMLArtifactNew.getClass() == ObjectArtifact.class) {
-		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
-		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+		return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
 	    }
 	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
-		    && uMLArtifactNew.getClass() == ObjectArtifact.class)) {
-		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
-		return new RelationLinkArtifact((NodeArtifact) uMLArtifact, (NodeArtifact) uMLArtifactNew, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+		    && uMLArtifactNew.getClass() == ObjectArtifact.class)) {		
+		return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, relationKind);
 	    }
 	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
 		    && uMLArtifactNew.getClass() == ClassArtifact.class)) {
-		NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact);
-		return new RelationLinkArtifact((NodeArtifact) uMLArtifactNew, (NodeArtifact) uMLArtifact, relationKind, Collections.frequency(NodeArtifact.nodeRelations, newNodePeer));
+		return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
 	    }
 		return null;
 	    

@@ -5,6 +5,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
  * This class represent an uml relation between two {@link UMLClass}es
@@ -22,39 +23,39 @@ public class UMLRelation extends UMLComponent {
 	/**
 	 * Aggregation relation
 	 */
-	AGGREGATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
+	AGGREGATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
 	/**
 	 * Association relation
 	 */
-	ASSOCIATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "0..*", "0..*", LinkStyle.SOLID),
+	ASSOCIATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "0..*", "0..*", LinkStyle.SOLID, Type.HYBRID),
 	/**
 	 * Composition relation
 	 */
-	COMPOSITION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
+	COMPOSITION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
 	/**
 	 * Dependency relation
 	 */
-	DEPENDENCY("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED),
+	DEPENDENCY("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED, Type.HYBRID),
 	/**
 	 * Generalization relation
 	 */
-	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
 	/**
 	 * Realization relation
 	 */
-	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED), 
+	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED, Type.CLASS), 
 	/**
 	 * Note relation
 	 */
-	NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+	NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.HYBRID),
 	/**
 	 * Class relation 
 	 */
-	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
 	/**
 	 * Class Object instantiation
 	 */
-	INSTANTIATION("Instanciation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED);
+	INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED, Type.HYBRID);
 
 	private String name;
 	private LinkAdornment defaultLeftAdornment;
@@ -62,11 +63,12 @@ public class UMLRelation extends UMLComponent {
 	private String defaultLeftCardinality;
 	private String defaultRightCardinality;
 	private LinkStyle defaultLinkStyle;
+	private Type requiredType;
 
 	private RelationKind(final String name, 
 		final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
 		final String defaultLeftCardinality, final String defaultRightCardinality,
-		final LinkStyle defaultLinkStyle) {
+		final LinkStyle defaultLinkStyle, final Type requiredType) {
 
 	    this.name = name;
 	    this.defaultLeftAdornment = defaultLeftAdornment;
@@ -74,8 +76,21 @@ public class UMLRelation extends UMLComponent {
 	    this.defaultLeftCardinality = defaultLeftCardinality;
 	    this.defaultRightCardinality = defaultRightCardinality;
 	    this.defaultLinkStyle = defaultLinkStyle;
+	    this.requiredType = requiredType;
 	}
 
+	/**
+	 * Tells if a {@link RelationKind} can be on a diagram depending on its type
+	 * 
+	 * @param diagramType The current diagram type
+	 * 
+	 * @return True if this {@link RelationKind} can be put on this diagramType
+	 */
+	public boolean isForDiagram(Type diagramType) {
+	    if(this == INSTANTIATION) return diagramType.isHybridType();
+	    return diagramType.isClassType() && this.requiredType.isClassType() ||
+	    		diagramType.isObjectType() && this.requiredType.isObjectType();
+	}
 	/**
 	 * Static getter of a {@link RelationKind} by its name
 	 *  

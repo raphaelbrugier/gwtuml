@@ -53,7 +53,16 @@ public class ThemeManager {
 					new GfxColor("590055"), 
 					new GfxColor("FE005E"), 
 					new GfxColor("2D0059"), 
-					new GfxColor("65428822"));
+					new GfxColor("65428822")),
+					/**
+					 * Grey-ish theme color 
+					 */
+					GREYISH("Greyish", 4, new GfxColor("fff"),
+						new GfxColor("222"), 
+						new GfxColor("999"), 
+						new GfxColor("d22"), 
+						new GfxColor("2D0059"), 
+						new GfxColor("65428822"));
 
 	/**
 	 * Getter for the {@link Theme} from his index

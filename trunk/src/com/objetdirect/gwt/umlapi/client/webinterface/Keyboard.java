@@ -59,19 +59,27 @@ public class Keyboard {
 	    Session.getActiveCanvas().toLinkMode(RelationKind.DEPENDENCY);
 	    break;
 	case 'G':
-	    Session.getActiveCanvas().toLinkMode(RelationKind.GENERALIZATION);
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+		Session.getActiveCanvas().toLinkMode(RelationKind.GENERALIZATION);
+	    }
 	    break;
 	case 'R':
-	    Session.getActiveCanvas().toLinkMode(RelationKind.REALIZATION);
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+		Session.getActiveCanvas().toLinkMode(RelationKind.REALIZATION);
+	    }
 	    break;
 	case 'T':
 	    Session.getActiveCanvas().toLinkMode(RelationKind.NOTE);
 	    break;
 	case 'S':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
 	    Session.getActiveCanvas().toLinkMode(RelationKind.CLASSRELATION);
+	    }
 	    break;
 	case 'I':
-	    Session.getActiveCanvas().toLinkMode(RelationKind.INSTANTIATION);
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isHybridType()) {
+		Session.getActiveCanvas().toLinkMode(RelationKind.INSTANTIATION);
+	    }
 	    break;
 	case 'U':
 	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
@@ -79,7 +87,7 @@ public class Keyboard {
 	case KeyCodes.KEY_DELETE:
 	    Session.getActiveCanvas().removeSelected();
 	    break;
-	case KeyCodes.KEY_HOME:
+	case 'H':
 	    HelpManager.bringHelpPopup();
 	}
 	if(isCtrlDown) {

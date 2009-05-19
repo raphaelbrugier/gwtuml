@@ -15,12 +15,14 @@ import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
@@ -31,9 +33,11 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
@@ -683,11 +687,14 @@ public class UMLCanvas extends AbsolutePanel {
 	    linkingModeOff();
 	    deselectAllArtifacts();   
 	} else { // New selection is not null
-	    if(this.selectedArtifacts.containsKey(newSelected)) { //New selection is already selected -> deselecting it if shift is not down
+	    if(this.selectedArtifacts.containsKey(newSelected)) { //New selection is already selected -> deselecting it if ctrl is down
+		if (this.activeLinking != null) {//if linking mode on
+			addNewLink(newSelected);
+		    }
 		if(this.selectedArtifacts.size() != 1) { //New selection isn't the only one selected
 		    if(isCtrlKeyDown) { //If ctrl down deselecting only this one
 			deselectArtifact(newSelected);
-		    } 
+		    }
 		}
 	    } else { //New selection is not selected
 		if (this.selectedArtifacts.isEmpty()) { //If nothing is selected -> selecting
@@ -819,7 +826,7 @@ public class UMLCanvas extends AbsolutePanel {
 			}
 			UMLArtifact newArtifact = null;
 			if(artifact.equals("Class")) {
-			    newArtifact = new ClassArtifact(parameters[1], parameters[2]);
+			    newArtifact = new ClassArtifact(UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
 			    newArtifact.setLocation(Point.parse(parameters[0]));
 			    if(parameters[3].length() > 1) {
 				String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
@@ -835,7 +842,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    }
 
 			} else if(artifact.equals("Object")) {
-			    newArtifact = new ObjectArtifact(parameters[1], parameters[2]);
+			    newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), UMLObject.parseName(parameters[1]).get(1), UMLObject.parseStereotype(parameters[2]));
 			    newArtifact.setLocation(Point.parse(parameters[0]));
 			    if(parameters[3].length() > 1) {
 				String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
@@ -870,7 +877,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    } catch(Exception ex) {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
-			    newArtifact = new LinkClassRelationArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (RelationLinkArtifact) UMLArtifact.getArtifactById(relationId));
+			    newArtifact = new LinkClassRelationArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ClassRelationLinkArtifact) UMLArtifact.getArtifactById(relationId));
 
 
 			} else if(artifact.equals("ClassRelationLink")) {
@@ -882,20 +889,52 @@ public class UMLCanvas extends AbsolutePanel {
 			    } catch(Exception ex) {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
-			    newArtifact = new RelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId), (ClassArtifact) UMLArtifact.getArtifactById(classRigthId), RelationKind.getRelationKindFromName(parameters[2]));
-			    ((RelationLinkArtifact) newArtifact).setName(parameters[3]);
-			    ((RelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-			    ((RelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-			    ((RelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
-			    ((RelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
-			    ((RelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
-			    ((RelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
-			    ((RelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
-			    ((RelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
-			    ((RelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
+			    newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId), (ClassArtifact) UMLArtifact.getArtifactById(classRigthId), RelationKind.getRelationKindFromName(parameters[2]));
+			    ((ClassRelationLinkArtifact) newArtifact).setName(parameters[3]);
+			    ((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+			    ((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+			    ((ClassRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
+			    ((ClassRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
+			    ((ClassRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
+			    ((ClassRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
+			    ((ClassRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
+			    ((ClassRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
+			    ((ClassRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
+			    
+			    
+			} else if(artifact.equals("ObjectRelationLink")) {
+			    Integer objectLeftId = 0;
+			    Integer objectRigthId = 0; 
+			    try {
+				objectLeftId = Integer.parseInt(parameters[0]);
+				objectRigthId = Integer.parseInt(parameters[1]);
+			    } catch(Exception ex) {
+				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+			    }
+			    newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId), (ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), RelationKind.getRelationKindFromName(parameters[2]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
+			    
+			    
+			} else if(artifact.equals("InstantiationRelationLink")) {
+				    Integer classId = 0;
+				    Integer objectId = 0; 
+				    try {
+					classId = Integer.parseInt(parameters[0]);
+					objectId = Integer.parseInt(parameters[1]);
+				    } catch(Exception ex) {
+					Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+				    }
+				    newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ObjectArtifact) UMLArtifact.getArtifactById(objectId), RelationKind.INSTANTIATION);
 			}
-
-
 			if(newArtifact != null) {
 			    newArtifact.setId(id);
 			    add(newArtifact);

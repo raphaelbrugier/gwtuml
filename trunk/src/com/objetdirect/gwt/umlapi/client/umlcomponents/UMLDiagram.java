@@ -78,6 +78,16 @@ public class UMLDiagram {
 	public boolean isObjectType() {
 	    return this.isObjectType;
 	}	
+	
+	/**
+	 * This method allows to know if a diagram can draw class diagram and object diagram type objects
+	 *
+	 * @return True if the diagram can draw class diagram and object diagram objects
+	 */
+	public boolean isHybridType() {
+	    return this.isClassType && this.isObjectType;
+	}
+	
 	/**
 	 * Return a the UMLDiagram type that corresponds to the index
 	 * 

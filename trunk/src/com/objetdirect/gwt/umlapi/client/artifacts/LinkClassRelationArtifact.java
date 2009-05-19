@@ -15,7 +15,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 public class LinkClassRelationArtifact extends LinkArtifact {
     ClassArtifact classArtifact;
     GfxObject line = null;
-    RelationLinkArtifact relationLinkArtifact;
+    ClassRelationLinkArtifact relationLinkArtifact;
 
     /**
      * Constructor of LinkClassRelationArtifact
@@ -23,7 +23,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
      * @param relation The relation between the two other classes
      */
     public LinkClassRelationArtifact(final ClassArtifact classArtifact,
-	    final RelationLinkArtifact relation) {
+	    final ClassRelationLinkArtifact relation) {
 	super();
 	this.classArtifact = classArtifact;
 	this.classArtifact.addDependency(this, relation);

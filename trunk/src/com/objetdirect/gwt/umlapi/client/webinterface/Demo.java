@@ -6,9 +6,9 @@ import java.util.Arrays;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
@@ -107,23 +107,23 @@ public class Demo extends AbsolutePanel {
 	
 	
 	
-	final RelationLinkArtifact uMLCanvas_uMLEventListener 				= new RelationLinkArtifact(uMLCanvas, uMLEventListener, RelationKind.AGGREGATION);
-	final RelationLinkArtifact uMLEventListener_externClass				= new RelationLinkArtifact(uMLEventListener, externClass, RelationKind.REALIZATION);
-	final RelationLinkArtifact uMLCanvas_uMLArtifact 				= new RelationLinkArtifact(uMLCanvas, uMLArtifact, RelationKind.COMPOSITION);
-	final RelationLinkArtifact uMLArtifact_uMLArtifact 				= new RelationLinkArtifact(uMLArtifact, uMLArtifact, RelationKind.COMPOSITION);
-	final RelationLinkArtifact uMLArtifact_boxArtifact 				= new RelationLinkArtifact(uMLArtifact, boxArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact uMLArtifact_linkArtifact 				= new RelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact uMLArtifact_linkArtifact_2 				= new RelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.ASSOCIATION, 1);
-	final RelationLinkArtifact boxArtifact_classArtifact				= new RelationLinkArtifact(boxArtifact, classArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact boxArtifact_classPartArtifact 			= new RelationLinkArtifact(boxArtifact, classPartArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact boxArtifact_noteArtifact 				= new RelationLinkArtifact(boxArtifact, noteArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact linkArtifact_relationLinkArtifact 			= new RelationLinkArtifact(linkArtifact, relationLinkArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact linkArtifact_linkClassRelationArtifact 		= new RelationLinkArtifact(linkArtifact, linkClassRelationArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact linkArtifact_linkNoteArtifact 			= new RelationLinkArtifact(linkArtifact, linkNoteArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact classPartArtifact_classPartAttributesArtifact	= new RelationLinkArtifact(classPartArtifact, classPartAttributesArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact classPartArtifact_classPartMethodsArtifact 		= new RelationLinkArtifact(classPartArtifact, classPartMethodsArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact classPartArtifact_classPartNameArtifact 		= new RelationLinkArtifact(classPartArtifact, classPartNameArtifact, RelationKind.GENERALIZATION);
-	final RelationLinkArtifact classArtifact_classPartArtifact 			= new RelationLinkArtifact(classArtifact, classPartArtifact, RelationKind.COMPOSITION);
+	final ClassRelationLinkArtifact uMLCanvas_uMLEventListener 				= new ClassRelationLinkArtifact(uMLCanvas, uMLEventListener, RelationKind.AGGREGATION);
+	final ClassRelationLinkArtifact uMLEventListener_externClass				= new ClassRelationLinkArtifact(uMLEventListener, externClass, RelationKind.REALIZATION);
+	final ClassRelationLinkArtifact uMLCanvas_uMLArtifact 				= new ClassRelationLinkArtifact(uMLCanvas, uMLArtifact, RelationKind.COMPOSITION);
+	final ClassRelationLinkArtifact uMLArtifact_uMLArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, uMLArtifact, RelationKind.COMPOSITION);
+	final ClassRelationLinkArtifact uMLArtifact_boxArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, boxArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact uMLArtifact_linkArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact uMLArtifact_linkArtifact_2 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.ASSOCIATION);
+	final ClassRelationLinkArtifact boxArtifact_classArtifact				= new ClassRelationLinkArtifact(boxArtifact, classArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact boxArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(boxArtifact, classPartArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact boxArtifact_noteArtifact 				= new ClassRelationLinkArtifact(boxArtifact, noteArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact linkArtifact_relationLinkArtifact 			= new ClassRelationLinkArtifact(linkArtifact, relationLinkArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact linkArtifact_linkClassRelationArtifact 		= new ClassRelationLinkArtifact(linkArtifact, linkClassRelationArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact linkArtifact_linkNoteArtifact 			= new ClassRelationLinkArtifact(linkArtifact, linkNoteArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartAttributesArtifact	= new ClassRelationLinkArtifact(classPartArtifact, classPartAttributesArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartMethodsArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartMethodsArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartNameArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartNameArtifact, RelationKind.GENERALIZATION);
+	final ClassRelationLinkArtifact classArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(classArtifact, classPartArtifact, RelationKind.COMPOSITION);
 	
 	uMLCanvas_uMLEventListener.setRightNavigability(false);
 	classArtifact_classPartArtifact.setCardinalities("1", "3");

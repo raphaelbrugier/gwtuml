@@ -42,7 +42,7 @@ public class ContextMenu {
 	public void execute() {
 	    String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
 	    svg += DOM.getInnerHTML((Element) ContextMenu.this.canvas.getElement().getFirstChildElement());
-	   Window.open("data:image/svg," + svg, "SVG export", "");
+	    Window.open("data:image/svg," + svg, "SVG export", "");
 	}
     };
     private final Command exportToURL = new Command() {
@@ -74,7 +74,7 @@ public class ContextMenu {
     public ContextMenu(final Point location, final UMLCanvas canvas) {
 	this(location, canvas, null);
     }
-    
+
     /**
      * Constructor of ContextMenu with a specific context menu part
      *
@@ -133,7 +133,9 @@ public class ContextMenu {
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final RelationKind relationKind : RelationKind.values()) {
-	    linkSubMenu.addItem(relationKind.getName(), addRelation(relationKind));
+	    if(relationKind.isForDiagram(Session.getActiveCanvas().getUMLDiagram().getType())) {
+		linkSubMenu.addItem(relationKind.getName(), addRelation(relationKind));
+	    }
 	}
 	this.contextMenu.addItem("Add relation", linkSubMenu);
 	this.contextMenu.addSeparator();
