@@ -1,6 +1,5 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
-import com.allen_sauer.gwt.log.client.Log;
 
 
 /**

@@ -19,7 +19,7 @@ public class RelationFieldEditor extends FieldEditor {
      *     
      * @param canvas The canvas on which is the artifact
      * @param artifact The artifact being edited
-     * @param relationshipPart The {@link RelationLinkArtifactPart} of  {@link RelationLinkArtifact} on which edition has been requested
+     * @param relationshipPart The {@link RelationLinkArtifact.RelationLinkArtifactPart} of  {@link RelationLinkArtifact} on which edition has been requested
      */
     public RelationFieldEditor(final UMLCanvas canvas,
 	    final RelationLinkArtifact artifact,
@@ -46,4 +46,5 @@ public class RelationFieldEditor extends FieldEditor {
 	this.artifact.rebuildGfxObject();
 	return false;
     }
+    
 }

@@ -211,7 +211,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
      * @return the stereotype
      */
     public String getStereotype() {
-	return this.stereotype;
+	return this.stereotype.replaceAll("»", "").replaceAll("«", "");
     }
 
     @Override

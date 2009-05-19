@@ -68,7 +68,8 @@ public abstract class UMLArtifact {
     /**
      * Constructor of UMLArtifact <br>
      * This constructor must be called by super() because it's here we assign the artifact id 
-     *
+     * 
+     * @param toBeAdded True if the artifact can be add to the artifact list
      */
     public UMLArtifact(boolean toBeAdded) {
 	super();
