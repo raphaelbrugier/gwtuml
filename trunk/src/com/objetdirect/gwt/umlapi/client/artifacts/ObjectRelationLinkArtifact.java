@@ -16,7 +16,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.Session;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 
 /**
@@ -226,7 +225,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      */
     @Override
     protected void select() {
-	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
+	super.select();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
@@ -365,6 +364,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      */
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,

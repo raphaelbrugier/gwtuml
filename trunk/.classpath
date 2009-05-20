@@ -11,6 +11,14 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-r328.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r463-rip.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-r834.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-1.0-sdk-1.2.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-appengine-1.0.1.final.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-core-1.1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-jpa-1.1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.cobogw.gwt-1.2.4.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

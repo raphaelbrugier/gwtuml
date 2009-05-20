@@ -1,20 +1,32 @@
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
@@ -41,10 +53,25 @@ public class DrawerPanel extends AbsolutePanel {
     private SimplePanel topRightCornerShadow;
     private int width;
 
-    private final Button up = new Button("⋏");//≺≻⋎⋏
-    private final Button down = new Button("⋎");//≺≻⋎⋏
-    private final Button left = new Button("≺");//≺≻⋎⋏
-    private final Button right = new Button("≻");//≺≻⋎⋏
+    //≺≻⋎⋏    
+    FocusPanel topLeft = new FocusPanel();
+    FocusPanel top= new FocusPanel();
+    FocusPanel topRight = new FocusPanel();
+    FocusPanel right = new FocusPanel();
+    FocusPanel bottomRight = new FocusPanel();
+    FocusPanel bottom = new FocusPanel();
+    FocusPanel bottomLeft = new FocusPanel();
+    FocusPanel left = new FocusPanel();
+    private final HashMap<FocusPanel, Direction> directionPanels = new HashMap<FocusPanel, Direction>() {{
+	put(DrawerPanel.this.topLeft, Direction.UP_LEFT);
+	put(DrawerPanel.this.top, Direction.UP);
+	put(DrawerPanel.this.topRight, Direction.UP_RIGHT);
+	put(DrawerPanel.this.right, Direction.RIGHT);
+	put(DrawerPanel.this.bottomRight, Direction.DOWN_RIGHT);
+	put(DrawerPanel.this.bottom, Direction.DOWN);
+	put(DrawerPanel.this.bottomLeft, Direction.DOWN_LEFT);
+	put(DrawerPanel.this.left, Direction.LEFT);
+    }};
 
     private final ResizeHandler resizeHandler;
 
@@ -68,13 +95,97 @@ public class DrawerPanel extends AbsolutePanel {
 	boolean isShadowed = OptionsManager.get("Shadowed") == 1;
 	Log.trace("Creating drawer");
 
-	this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width + 2, this.height);
-	
+	this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width, this.height);
+
 	this.add(this.uMLCanvas);
+
+	final int size = 15;
+
+	this.topLeft.setPixelSize(size, size);
+	this.top.setPixelSize(getWidth() - 2 * size, size);
+	this.topRight.setPixelSize(size, size);
+	this.right.setPixelSize(size, getHeight() - 2 * size);
+	this.bottomRight.setPixelSize(size, size);
+	this.bottom.setPixelSize(getWidth() - 2 * size, size);
+	this.bottomLeft.setPixelSize(size, size);
+	this.left.setPixelSize(size, getHeight() - 2 * size);
+
+	for (Entry<FocusPanel, Direction> panelEntry: this.directionPanels.entrySet()) {
+	    final FocusPanel panel = panelEntry.getKey();
+	    final Direction direction = panelEntry.getValue();
+	    DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getSelectBoxBackgroundColor().toString());
+	    DOM.setStyleAttribute(panel.getElement(), "opacity", "0.1");
+	    panel.addMouseOverHandler(new MouseOverHandler() {	
+		@Override
+		public void onMouseOver(MouseOverEvent event) {
+		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(true);
+		    Scheduler.cancel("Desopacifying");
+		    for (final FocusPanel allPanel : DrawerPanel.this.directionPanels.keySet()) {
+			DOM.setStyleAttribute(allPanel.getElement(), "opacity", "0.1");
+		    }
+		    for(double d = 0.1; d < 0.75 ; d+=0.05) {
+			final double opacity = d;
+			new Scheduler.Task("Opacifying") {@Override public void process() {			     
+			    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(opacity));
+			}};
+		    }
+		    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {		
+			DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(5));
+		    }};
+		}
+	    });
+	    panel.addMouseOutHandler(new MouseOutHandler() {	
+		@Override
+		public void onMouseOut(MouseOutEvent event) {
+		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(false);
+		    Scheduler.cancel("Opacifying");
+		    for (final FocusPanel allPanel : DrawerPanel.this.directionPanels.keySet()) {
+			DOM.setStyleAttribute(allPanel.getElement(), "opacity", "0.1");
+		    }
+
+		    for(double d = 0.75; d < 0.1 ; d-=0.05) {
+			final double opacity = d;
+			new Scheduler.Task("Desopacifying") {@Override public void process() {			     
+			    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(opacity));
+			}};
+		    }
+
+		}
+	    });
+	    panel.addMouseDownHandler(new MouseDownHandler() {
+		@Override
+		public void onMouseDown(MouseDownEvent event) {
+		    Point location = new Point(event.getClientX(), event.getClientY());
+		    Mouse.press(DrawerPanel.this.uMLCanvas.getArtifactAt(location), location, event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+		}
+	    });
+	    panel.addMouseUpHandler(new MouseUpHandler() {
+		@Override
+		public void onMouseUp(MouseUpEvent event) {
+		    Point location = new Point(event.getClientX(), event.getClientY());
+		    Mouse.release(DrawerPanel.this.uMLCanvas.getArtifactAt(location), location, event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+		}
+	    });
+	    panel.addMouseMoveHandler(new MouseMoveHandler() {
+		@Override
+		public void onMouseMove(MouseMoveEvent event) {
+		    Mouse.move(new Point(event.getClientX(), event.getClientY()), event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+		}
+	    });
+	}
+
+	add(this.topLeft, 0, 0);
+	add(this.top, size, 0);
+	add(this.topRight, getWidth() - size, 0);
+	add(this.right, getWidth() - size, size);
+	add(this.bottomRight, getWidth() - size, getHeight() - size);
+	add(this.bottom, size, getHeight() - size);
+	add(this.bottomLeft, 0, getHeight() - size);
+	add(this.left, 0, size);
+
+
 	Log.trace("Canvas added");
 	if(isShadowed) {
-	    this.width += 2;// Border Size
-	    this.height += 2;// Border Size
 	    Log.trace("Making shadow");
 	    makeShadow();
 	} else {
@@ -92,49 +203,18 @@ public class DrawerPanel extends AbsolutePanel {
 		    GfxManager.getPlatform().setSize(Session.getActiveCanvas().getDrawingCanvas(), DrawerPanel.this.width, DrawerPanel.this.height);
 		    DrawerPanel.this.clearShadow();
 		    DrawerPanel.this.makeShadow();
+		    /*
 		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.up, DrawerPanel.this.getWidth() / 2, 10);
 		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.down, DrawerPanel.this.getWidth() / 2, DrawerPanel.this.getHeight() - 10 - 28);
 		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.left, 10, DrawerPanel.this.getHeight() / 2);
 		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.right, DrawerPanel.this.getWidth() - 10 - 28, DrawerPanel.this.getHeight() / 2);
+		     */
 		}
 	    }
 
 	};
 	Window.addResizeHandler(this.resizeHandler);
 
-
-	this.add(this.up, this.getWidth() / 2, 10);
-	this.add(this.down, this.getWidth() / 2, this.getHeight() - 10 - 28);
-	this.add(this.left, 10, this.getHeight() / 2);
-	this.add(this.right, this.getWidth() - 10 - 28, this.getHeight() / 2);
-	this.up.setStylePrimaryName("direction-buttons");
-	this.down.setStylePrimaryName("direction-buttons");
-	this.left.setStylePrimaryName("direction-buttons");
-	this.right.setStylePrimaryName("direction-buttons");
-	this.up.addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(ClickEvent event) {
-		Session.getActiveCanvas().moveAll(Direction.DOWN);
-	    }
-	});
-	this.down.addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(ClickEvent event) {
-		Session.getActiveCanvas().moveAll(Direction.UP);
-	    }
-	});
-	this.left.addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(ClickEvent event) {
-		Session.getActiveCanvas().moveAll(Direction.RIGHT);
-	    }
-	});
-	this.right.addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(ClickEvent event) {
-		Session.getActiveCanvas().moveAll(Direction.LEFT);
-	    }
-	});
 
 	// TODO : under chrome redraw doesn't work if the canvas is at a
 	// different point than (0,0) tatami ? dojo ? chrome ?

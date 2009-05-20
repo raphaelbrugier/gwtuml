@@ -324,6 +324,14 @@ public abstract class LinkArtifact extends UMLArtifact {
     protected Point leftPoint = Point.getOrigin();
     protected Point rightPoint = Point.getOrigin();
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getCenter()
+     */
+    @Override
+    public Point getCenter() {
+        return Point.getMiddleOf(this.leftPoint, this.rightPoint);
+    }
+    
     @Override
     public int getHeight() {
 	return this.leftPoint.getY() < this.rightPoint.getY() ? this.rightPoint.getY()

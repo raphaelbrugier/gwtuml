@@ -201,6 +201,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     protected void select() {
+	super.select();
 	GfxManager.getPlatform().setStroke(this.attributeRect,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
@@ -212,6 +213,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.attributeRect,
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }

@@ -90,7 +90,7 @@ public final class HotKeyManager {
     @SuppressWarnings("unused")
     private static void onKeyDown(final Event event) {
 	if(isInputEnabled()) {
-	    Keyboard.push((char) DOM.eventGetKeyCode(event), event.getCtrlKey(), event.getAltKey(), event.getShiftKey());
+	    Keyboard.push((char) DOM.eventGetKeyCode(event), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());
 	}
     }
 

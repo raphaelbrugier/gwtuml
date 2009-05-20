@@ -159,6 +159,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 
     @Override
     protected void select() {
+	super.select();
 	for(NodePartArtifact nodePart : this.nodeParts) {
 	    nodePart.select();
 	}
@@ -174,6 +175,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 
     @Override
     public void unselect() {
+	super.unselect();
 	for(NodePartArtifact nodePart : this.nodeParts) {
 	    nodePart.unselect();
 	}
