@@ -207,6 +207,25 @@ public class Point {
     }
     
     /**
+     * Multiply the coordinates of a point by the specified factor
+     * 
+     * @param factor The factor to multiply by
+     */
+    public void multiplyBy(final int factor) {
+	this.x *= factor;
+	this.y *= factor;
+    }
+    
+    /**
+     * Divide the coordinates of a point by the specified factor
+     * 
+     * @param divisor The divisor to divide by
+     */
+    public void divideBy(final int divisor) {
+	this.x /= divisor;
+	this.y /= divisor;
+    }
+    /**
      * Point comparator, test if the abscissas and the ordinates are equals
      * 
      * @param point The point to compare with

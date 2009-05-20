@@ -207,6 +207,15 @@ public class UMLCanvas extends AbsolutePanel {
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
+    private boolean isMouseStillInDirectionPanel = false;
+    /**
+     * Setter for the isMouseStillInDirectionPanel
+     *
+     * @param isMouseStillInDirectionPanel the isMouseStillInDirectionPanel to set
+     */
+    void setMouseStillInDirectionPanel(boolean isMouseStillInDirectionPanel) {
+	this.isMouseStillInDirectionPanel = isMouseStillInDirectionPanel;
+    }
 
     /**
      * Constructor of an {@link UMLCanvas} with default size 
@@ -449,15 +458,17 @@ public class UMLCanvas extends AbsolutePanel {
 
     void moveSelected(final Direction direction) {
 	if (!this.selectedArtifacts.isEmpty()) {
-	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-		if(selectedArtifact.isDraggable()) {		
-		    selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX()
-			    + OptionsManager.get("MovingStep")
-			    * direction.getXDirection(), selectedArtifact.getLocation().getY()
-			    + OptionsManager.get("MovingStep")
-			    * direction.getYDirection()));
-		    selectedArtifact.rebuildGfxObject();
-		    selectedArtifact.select(true);
+	    for(final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		if(selectedArtifact.isDraggable()) {
+		    new Scheduler.Task("MovingSelected") {@Override public void process() {
+			selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX()
+				+ direction.getSpeed()				
+				* direction.getXDirection(), selectedArtifact.getLocation().getY()
+				+ direction.getSpeed()
+				* direction.getYDirection()));
+			selectedArtifact.rebuildGfxObject();
+		    }
+		    };
 		}
 	    }
 	}
@@ -533,7 +544,7 @@ public class UMLCanvas extends AbsolutePanel {
 	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
-	    Scheduler.cancel(selectedArtifact);
+	    Scheduler.cancel("RebuildingDependencyFor"+selectedArtifact);
 	    if (selectedArtifact.isDraggable()) {
 		GfxObject outline = selectedArtifact.getOutline();
 		GfxManager.getPlatform().addToVirtualGroup(this.outlines, outline);
@@ -593,8 +604,7 @@ public class UMLCanvas extends AbsolutePanel {
 	for(UMLArtifact selectedArtifact : UMLCanvas.this.selectedArtifacts.keySet()) {
 	    if (selectedArtifact.isDraggable()) {
 		selectedArtifact.moveTo(Point.add(selectedArtifact.getLocation(), this.totalDragShift));
-		selectedArtifact.rebuildGfxObject();
-		selectedArtifact.select(true);
+		selectedArtifact.rebuildGfxObject();		
 	    }
 	}
 	this.totalDragShift = Point.getOrigin();
@@ -689,8 +699,8 @@ public class UMLCanvas extends AbsolutePanel {
 	} else { // New selection is not null
 	    if(this.selectedArtifacts.containsKey(newSelected)) { //New selection is already selected -> deselecting it if ctrl is down
 		if (this.activeLinking != null) {//if linking mode on
-			addNewLink(newSelected);
-		    }
+		    addNewLink(newSelected);
+		}
 		if(this.selectedArtifacts.size() != 1) { //New selection isn't the only one selected
 		    if(isCtrlKeyDown) { //If ctrl down deselecting only this one
 			deselectArtifact(newSelected);
@@ -711,12 +721,22 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	}
     }
-    private void selectArtifact(UMLArtifact toSelect) {
+    /**
+     * Select an artifact and put it in the artifact list
+     * 
+     * @param toSelect The artifact to be selected
+     */
+    public void selectArtifact(UMLArtifact toSelect) {
 	this.selectedArtifacts.put(toSelect, new ArrayList<Point>());
 	toSelect.select(true);
 
     }
-    private void deselectArtifact(UMLArtifact toDeselect) {
+    /**
+     * Deselect an artifact and put it in the artifact list
+     * 
+     * @param toDeselect The artifact to be deselected
+     */
+    public void deselectArtifact(UMLArtifact toDeselect) {
 	this.selectedArtifacts.remove(toDeselect);
 	toDeselect.unselect();	
     }
@@ -786,6 +806,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void linkingModeOff() {
 	this.activeLinking = null;
 	GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
+	CursorIconManager.setCursorIcon(PointerStyle.AUTO);
     }
     GfxObject getArtifactAt(Point location) {
 	for (UMLArtifact artifact : this.objects.values()) {
@@ -900,8 +921,8 @@ public class UMLCanvas extends AbsolutePanel {
 			    ((ClassRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
 			    ((ClassRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
 			    ((ClassRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
-			    
-			    
+
+
 			} else if(artifact.equals("ObjectRelationLink")) {
 			    Integer objectLeftId = 0;
 			    Integer objectRigthId = 0; 
@@ -922,18 +943,18 @@ public class UMLCanvas extends AbsolutePanel {
 			    ((ObjectRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
 			    ((ObjectRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
 			    ((ObjectRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
-			    
-			    
+
+
 			} else if(artifact.equals("InstantiationRelationLink")) {
-				    Integer classId = 0;
-				    Integer objectId = 0; 
-				    try {
-					classId = Integer.parseInt(parameters[0]);
-					objectId = Integer.parseInt(parameters[1]);
-				    } catch(Exception ex) {
-					Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-				    }
-				    newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ObjectArtifact) UMLArtifact.getArtifactById(objectId), RelationKind.INSTANTIATION);
+			    Integer classId = 0;
+			    Integer objectId = 0; 
+			    try {
+				classId = Integer.parseInt(parameters[0]);
+				objectId = Integer.parseInt(parameters[1]);
+			    } catch(Exception ex) {
+				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+			    }
+			    newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ObjectArtifact) UMLArtifact.getArtifactById(objectId), RelationKind.INSTANTIATION);
 			}
 			if(newArtifact != null) {
 			    newArtifact.setId(id);
@@ -968,45 +989,30 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     void moveAll(final Direction direction) {
-	final int step = 10;
-	final Point totalTranslation = new Point((this.drawingCanvas.getOffsetWidth() / 2) * direction.getXDirection(),
-		(this.drawingCanvas.getOffsetHeight() / 2) * direction.getYDirection());
-	if(QualityLevel.IsAlmost(QualityLevel.HIGH)) {
-	    final Point totalTranslated = Point.getOrigin();
-	    if(direction.getXDirection() != 0) {
-		for(int i = 0 ; i < (this.drawingCanvas.getOffsetWidth() / 2) - step ; i += step) {
-		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
-			Point translation =  new Point(step * direction.getXDirection(), step * direction.getYDirection());
-			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
-			UMLCanvas.this.canvasOffset.translate(translation);
-			totalTranslated.translate(translation);
-		    }
-		    };
-		}
-	    } else {
-		for(int i = 0 ; i < (this.drawingCanvas.getOffsetHeight() / 2) - step; i += step) {
-		    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
-			Point translation =  new Point(step * direction.getXDirection(), step * direction.getYDirection());
-			GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
-			UMLCanvas.this.canvasOffset.translate(translation);
-			totalTranslated.translate(translation);
-		    }
-		    };		    
-		}
-	    }
-	    new Scheduler.Task(this, this.allObjects) {@Override public void process() {
-		Point translation =  Point.substract(totalTranslation, totalTranslated);
+	    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
+		Point translation =  new Point(direction.getXShift(), direction.getYShift());
 		GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
 		UMLCanvas.this.canvasOffset.translate(translation);
-		totalTranslated.translate(translation);
+		GfxManager.getPlatform().translate(UMLCanvas.this.outlines, translation);
+		GfxManager.getPlatform().translate(UMLCanvas.this.movingLines, translation);
+		GfxManager.getPlatform().translate(UMLCanvas.this.movingOutlineDependencies, translation);
 	    }
 	    };
+
+	if(this.isMouseStillInDirectionPanel) {
+	    new Scheduler.Task("MovingAllArtifactsRecursive", 5) {@Override public void process() {
+		moveAll(direction);
+	    }};
 	} else {
-	    GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, totalTranslation);
-	    UMLCanvas.this.canvasOffset.translate(totalTranslation);
+	    Scheduler.cancel("MovingAllArtifactsRecursive");
 	}
-	GfxManager.getPlatform().translate(UMLCanvas.this.outlines, totalTranslation);
-	GfxManager.getPlatform().translate(UMLCanvas.this.movingLines, totalTranslation);
-	GfxManager.getPlatform().translate(UMLCanvas.this.movingOutlineDependencies, totalTranslation);
+	
+    }
+
+
+    void selectAll() {
+	for (UMLArtifact artifact : this.objects.values()) {
+	    selectArtifact(artifact);
+	}	
     }
 }

@@ -9,13 +9,8 @@
 .direction-buttons {
 	border: 0px solid;
 	background: #fff;
-	font: bold 18px Courrier;
 }
-.direction-buttons:hover{
-	border: 1px solid #000;
-	background: #fff;
-	font: bold 18px Courrier;
-}
+
 .editor-small-field {
 	font: bold 10px Courrier;
 	border: 1px solid #0f0;

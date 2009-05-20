@@ -25,10 +25,28 @@ public enum Direction {
     /**
      * Up direction
      */
-    UP(0, -1);
+    UP(0, -1),
+    /**
+     * Down direction
+     */
+    UP_LEFT(-1, -1),
+    /**
+     * Left direction
+     */
+    UP_RIGHT(1, -1),
+    /**
+     * Right direction
+     */
+    DOWN_LEFT(-1, 1),
+    /**
+     * Up direction
+     */
+    DOWN_RIGHT(1, 1);
+
 
     private int xDirection;
     private int yDirection;
+    private int speed = 1;
 
     private Direction(final int x, final int y) {
 	this.xDirection = x;
@@ -69,6 +87,35 @@ public enum Direction {
      */
     public final void setYDirection(final int direction) {
         this.yDirection = direction;
+    }
+
+    /**
+     * Getter for the speed
+     *
+     * @return the speed
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Setter for the speed
+     *
+     * @param speed the speed to set
+     * 
+     * @return This instance 
+     */
+    public Direction withSpeed(int speed) {
+        this.speed = speed;
+        return this;
+    }
+
+
+    public double getXShift() {
+	return this.xDirection * this.speed;
+    }
+    public double getYShift() {
+	return this.yDirection * this.speed;
     }
 
 }

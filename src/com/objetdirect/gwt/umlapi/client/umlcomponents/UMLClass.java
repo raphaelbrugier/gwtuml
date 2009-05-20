@@ -39,6 +39,7 @@ public class UMLClass extends UMLNode  {
      * @return The new parsed name or stereotype or an empty one if there was a problem
      */
     public static String parseNameOrStereotype(String stringToParse) {
+	if(stringToParse.equals("")) return "";
 	final LexicalAnalyzer lex = new LexicalAnalyzer(stringToParse);
 	try {
 	    LexicalAnalyzer.Token tk = lex.getToken();

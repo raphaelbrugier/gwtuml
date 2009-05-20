@@ -26,7 +26,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
  */
 public abstract class UMLArtifact {
 
-
+    protected boolean isSelected = false;
     private static int idCount = 0;
     private static TreeMap<Integer, UMLArtifact> artifactById = new TreeMap<Integer, UMLArtifact>();
     /**
@@ -294,13 +294,14 @@ public abstract class UMLArtifact {
 	final long t = System.currentTimeMillis();
 	GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
 	buildGfxObjectWithAnimation();
+	if(this.isSelected) select();
 
 	Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build "
 		+ this);
 	for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : getDependentUMLArtifacts()
 		.entrySet()) {
 	    Log.trace("Rebuilding : " + dependentUMLArtifact);
-	    new Scheduler.Task(this, dependentUMLArtifact) {
+	    new Scheduler.Task("RebuildingDependencyFor"+this) {
 		@Override
 		public void process() {
 		    final long t2 = System.currentTimeMillis();
@@ -340,7 +341,12 @@ public abstract class UMLArtifact {
     /**
      * This method does the graphic changes to reflect that an artifact has been selected
      */
-    protected abstract void select();
+    protected void select() {
+	this.isSelected = true;
+	for (Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.dependentUMLArtifacts.entrySet()) {
+	    if(dependentUMLArtifact.getValue().isSelected) this.canvas.selectArtifact(dependentUMLArtifact.getKey());
+	}
+    }
 
     /**
      * Setter for the canvas
@@ -381,7 +387,9 @@ public abstract class UMLArtifact {
     /**
      * This method do the graphic changes to reflect that an artifact has been unselected
      */
-    public abstract void unselect();
+    public void unselect() {
+	this.isSelected = false;
+    }
 
 
     void addDependency(final LinkArtifact dependentUMLArtifact,
@@ -399,7 +407,7 @@ public abstract class UMLArtifact {
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    for (int i = 25; i < 256; i += 25) {
 		final int j = i;
-		new Scheduler.Task() {
+		new Scheduler.Task("OpacityArtifactAnimation") {
 		    @Override
 		    public void process() {
 			GfxManager.getPlatform()

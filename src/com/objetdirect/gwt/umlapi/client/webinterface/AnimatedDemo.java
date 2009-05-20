@@ -56,17 +56,17 @@ public class AnimatedDemo extends AbsolutePanel {
 		final Point classOrigin = new Point(50, 50);
 		final Point classTarget = new Point(350, 150);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.move(classOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(classOrigin);
 		}};
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Keyboard.push('C');
 		}};
 		
 		move(classOrigin, classTarget);			
 
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.press(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Mouse.release(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(Point.getOrigin());
@@ -76,18 +76,18 @@ public class AnimatedDemo extends AbsolutePanel {
 		final Point objectTarget = new Point(50, 400);
 		final Point object = new Point(55, 410);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.move(objectOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(objectOrigin);
 		}};
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Keyboard.push('O');
 		}};
 
 		move(objectOrigin, objectTarget);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.press(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Mouse.release(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(object);
@@ -98,13 +98,13 @@ public class AnimatedDemo extends AbsolutePanel {
 
 		
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Keyboard.push('I');
 		}};
 		
 		move(classTarget, object);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.press(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Mouse.release(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(object);
@@ -112,31 +112,31 @@ public class AnimatedDemo extends AbsolutePanel {
 
 		final Point selectBoxOrigin = new Point(40, 100);
 		final Point selectBoxTarget = new Point(500, 500);
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.press(null, selectBoxOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(selectBoxOrigin);
 		}};
 		
 		move(selectBoxOrigin, selectBoxTarget);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.release(null, selectBoxTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(selectBoxTarget);
 		}};
 
 		final Point allTarget = new Point(500, 350);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.press(Session.getActiveCanvas().getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(classTarget);
 		}};
 		move(classTarget, allTarget);
 		
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		    Mouse.release(Session.getActiveCanvas().getArtifactAt(allTarget), allTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(allTarget);
 		}};
-		new Scheduler.Task(this, this, DELAY) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", DELAY) {@Override public void process() {
 		Cursor.rem();
 		Session.getActiveCanvas().setMouseEnabled(true);
 		HotKeyManager.setInputEnabled(true);
@@ -153,7 +153,7 @@ public class AnimatedDemo extends AbsolutePanel {
 	if(origin.getX() < target.getX()) {
 	    for(int x = origin.getX() ; x < target.getX() ; x+=step) {
 		final int xx = x;
-		new Scheduler.Task(this, this, delay) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", delay) {@Override public void process() {
 		    Point to = new Point(xx, origin.getY());
 		    Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(to);
@@ -163,7 +163,7 @@ public class AnimatedDemo extends AbsolutePanel {
 	} else {
 	    for(int x = origin.getX() ; x > target.getX() ; x-=step) {
 		final int xx = x;
-		new Scheduler.Task(this, this, delay) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", delay) {@Override public void process() {
 		    Point to = new Point(xx, origin.getY());
 		    Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(to);
@@ -173,7 +173,7 @@ public class AnimatedDemo extends AbsolutePanel {
 	if(origin.getY() < target.getY()) {
 	    for(int y = origin.getY() ; y < target.getY() ; y+=step) {
 		final int yy = y;
-		new Scheduler.Task(this, this, delay) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", delay) {@Override public void process() {
 		    Point to = new Point(target.getX(), yy);
 		    Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(to);
@@ -182,7 +182,7 @@ public class AnimatedDemo extends AbsolutePanel {
 	} else {
 	    for(int y = origin.getY() ; y > target.getY() ; y-=step) {
 		final int yy = y;
-		new Scheduler.Task(this, this, delay) {@Override public void process() {
+		new Scheduler.Task("AnimatedDemo", delay) {@Override public void process() {
 		    Point to = new Point(target.getX(), yy);
 		    Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
 		    Cursor.move(to);

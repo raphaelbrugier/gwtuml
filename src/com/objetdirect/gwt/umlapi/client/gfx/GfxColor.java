@@ -1,5 +1,8 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 
 /**
@@ -124,13 +127,13 @@ public class GfxColor {
 	    this.r = Integer.decode("#" + hexColor.substring(0, 1) + hexColor.substring(0, 1));
 	    this.g = Integer.decode("#" + hexColor.substring(1, 2) + hexColor.substring(1, 2));
 	    this.b = Integer.decode("#" + hexColor.substring(2, 3) + hexColor.substring(2, 3));
-	break;
+	    break;
 	case 8:
 	    this.a = Integer.decode("#" + hexColor.substring(6, 8));
 	case 6:
-		this.r = Integer.decode("#" + hexColor.substring(0, 2));
-		this.g = Integer.decode("#" + hexColor.substring(2, 4));
-		this.b = Integer.decode("#" + hexColor.substring(4, 6));		
+	    this.r = Integer.decode("#" + hexColor.substring(0, 2));
+	    this.g = Integer.decode("#" + hexColor.substring(2, 4));
+	    this.b = Integer.decode("#" + hexColor.substring(4, 6));		
 	}
     }
     /**
@@ -150,7 +153,7 @@ public class GfxColor {
     public int getBlue() {
 	return this.b;
     }
-    
+
     /**
      * Getter for the Green value 
      * 
@@ -159,7 +162,7 @@ public class GfxColor {
     public int getGreen() {
 	return this.g;
     }
-    
+
     /**
      * Getter for the Red value 
      * 
@@ -210,7 +213,51 @@ public class GfxColor {
      */
     @Override
     public String toString() {
-	return "#" + Integer.toHexString(this.r) + Integer.toHexString(this.g)
-		+ Integer.toHexString(this.b);
+
+	return "#" + (this.r < 15 ? "0" : "") + Integer.toHexString(this.r) + (this.g < 15 ? "0" : "") + Integer.toHexString(this.g) +
+	(this.b < 15 ? "0" : "") + Integer.toHexString(this.b);
+    }
+
+    
+    /**
+     * Convert r g b values in h s v values and returns it as a list of {@link Integer}
+     * 
+     * @return The hsv Integers {@link List}
+     */
+    public List<Integer> toHSV() {
+	double h = 0;
+	double s = 0;
+	double v = 0;
+	double red = ( this.r / 255 );                     //RGB from 0 to 255
+	double green = ( this.g / 255 );
+	double blue = ( this.b / 255 );
+
+	double min = Math.min(Math.min(red, green), blue);    //Min. value of RGB
+	double max = Math.max(Math.max(red, green), blue);    //Max. value of RGB
+	double delta = max - min;             //Delta RGB value
+
+	v = max;
+
+	if ( delta == 0 )                     //This is a gray, no chroma...
+	{
+	    h = 0;                                //HSV results from 0 to 1
+	    s = 0;
+	}
+	else                                    //Chromatic data...
+	{
+	    s = delta / max;
+
+	    double deltaRed = ( ( ( max - red ) / 6 ) + ( delta / 2 ) ) / delta;
+	    double deltaGreen = ( ( ( max - green ) / 6 ) + ( delta / 2 ) ) / delta;
+	    double deltaBlue = ( ( ( max - blue ) / 6 ) + ( delta / 2 ) ) / delta;
+
+	    if      ( red == max ) h = deltaBlue - deltaGreen;
+	    else if ( green == max ) h = ( 1 / 3 ) + deltaRed - deltaBlue;
+	    else if ( blue == max ) h = ( 2 / 3 ) + deltaGreen - deltaRed;
+
+	    if ( h < 0 )  h += 1;
+	    if ( h > 1 )  h -= 1;
+	}
+	return Arrays.asList((int) Math.round(h * 360), (int) Math.round(s * 100), (int) Math.round(v * 100));
     }
 }

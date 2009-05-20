@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -114,7 +112,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
      */
     @Override
     protected void select() {
-	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
+	super.select();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
@@ -127,6 +125,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
      */
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,

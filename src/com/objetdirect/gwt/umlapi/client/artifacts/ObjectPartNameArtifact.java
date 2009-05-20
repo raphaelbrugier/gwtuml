@@ -221,6 +221,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
     @Override
     protected void select() {
+	super.select();
 	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
@@ -260,6 +261,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.nameRect,
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }

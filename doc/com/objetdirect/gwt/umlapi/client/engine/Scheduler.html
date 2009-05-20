@@ -155,10 +155,10 @@ This class is usefull to queue tasks
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.html#cancel(java.lang.Object)">cancel</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;owner)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.html#cancel(java.lang.String)">cancel</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;groupId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method cancel all the queued task (the current will still be performed)</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method cancel all the queued task (the current might still be performed)</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -200,15 +200,15 @@ public <B>Scheduler</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="cancel(java.lang.Object)"><!-- --></A><H3>
+<A NAME="cancel(java.lang.String)"><!-- --></A><H3>
 cancel</H3>
 <PRE>
-public static void <B>cancel</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;owner)</PRE>
+public static void <B>cancel</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;groupId)</PRE>
 <DL>
-<DD>This method cancel all the queued task (the current will still be performed)
+<DD>This method cancel all the queued task (the current might still be performed)
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>owner</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>groupId</CODE> - The groupId of the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Scheduler.Task.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Scheduler.Task</CODE></A>s to cancel</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

@@ -18,15 +18,16 @@ public class Keyboard {
      * @param keyCode
      */
     public static void push(final char keyCode) {
-	push(keyCode, false, false, false);
+	push(keyCode, false, false, false, false);
     }
     /**
      * @param keyCode 
      * @param isCtrlDown 
      * @param isAltDown 
      * @param isShiftDown 
+     * @param isMetaDown 
      */
-    public static void push(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown) {
+    public static void push(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
 	if (!imEnabled) {
 	    Log.trace("Keyboard pushed but disabled");
 	    return;
@@ -47,7 +48,12 @@ public class Keyboard {
 	    Session.getActiveCanvas().addNewNote();
 	    break;
 	case 'A':
-	    Session.getActiveCanvas().toLinkMode(RelationKind.AGGREGATION);
+	    if(isCtrlDown) {
+		Session.getActiveCanvas().selectAll();
+	    }
+	    else {
+		Session.getActiveCanvas().toLinkMode(RelationKind.AGGREGATION);
+	    }
 	    break;
 	case 'L':
 	    Session.getActiveCanvas().toLinkMode(RelationKind.ASSOCIATION);
@@ -73,7 +79,7 @@ public class Keyboard {
 	    break;
 	case 'S':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
-	    Session.getActiveCanvas().toLinkMode(RelationKind.CLASSRELATION);
+		Session.getActiveCanvas().toLinkMode(RelationKind.CLASSRELATION);
 	    }
 	    break;
 	case 'I':
@@ -90,24 +96,29 @@ public class Keyboard {
 	case 'H':
 	    HelpManager.bringHelpPopup();
 	}
-	if(isCtrlDown) {
-	    switch (keyCode) {
-	    case KeyCodes.KEY_UP:
-		Session.getActiveCanvas().moveSelected(Direction.UP);
-		break;
-	    case KeyCodes.KEY_DOWN:
-		Session.getActiveCanvas().moveSelected(Direction.DOWN);
-		break;
-	    case KeyCodes.KEY_LEFT:
-		Session.getActiveCanvas().moveSelected(Direction.LEFT);
-		break;
-	    case KeyCodes.KEY_RIGHT:
-		Session.getActiveCanvas().moveSelected(Direction.RIGHT);
-		break;
-	    default:
-		break;
-	    }
+	int speed = 50;
+	if(isCtrlDown) speed /= 2;
+	if(isAltDown) speed /= 3;
+	if(isMetaDown) speed /= 4;
+	if(isShiftDown) speed /= 5;
+
+	switch (keyCode) {
+	case KeyCodes.KEY_UP:
+	    Session.getActiveCanvas().moveSelected(Direction.UP.withSpeed(speed));
+	    break;
+	case KeyCodes.KEY_DOWN:
+	    Session.getActiveCanvas().moveSelected(Direction.DOWN.withSpeed(speed));
+	    break;
+	case KeyCodes.KEY_LEFT:
+	    Session.getActiveCanvas().moveSelected(Direction.LEFT.withSpeed(speed));
+	    break;
+	case KeyCodes.KEY_RIGHT:
+	    Session.getActiveCanvas().moveSelected(Direction.RIGHT.withSpeed(speed));
+	    break;
+	default:
+	    break;
 	}
+
     }
     /**
      * Getter to the current state of {@link Keyboard}

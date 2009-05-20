@@ -18,38 +18,26 @@ public class Scheduler {
      * @author Henri Darmet
      */
     public static abstract class Task extends Timer {
-	Object owner;
-	Object subject;
+	private String groupId;
 	private int delay;
 
 	/**
-	 * Constructor of Task without specific object
-	 *
-	 */
-	public Task() {
-	    this(null, null);
-	}
-
-	/**
 	 * Constructor of Task with a specific object 
 	 * 
-	 * @param owner Specifies the caller of this task for later use
-	 * @param subject Specifies a parameter which can be used in {@link Task#process()}
+	 * @param groupId A {@link String} to identify a task group
 	 */
-	public Task(final Object owner, final Object subject) {
-	    this(owner, subject,  5);
+	public Task(final String groupId) {
+	    this(groupId, 5);
 	}
 	/**
 	 * Constructor of Task with a specific object 
 	 * 
-	 * @param owner Specifies the caller of this task for later use
-	 * @param subject Specifies a parameter which can be used in {@link Task#process()}
+	 * @param groupId A {@link String} to identify a task group
 	 * @param delay Specifies a delay for this task (default is 5ms)
 	 */
-	public Task(final Object owner, final Object subject, final int delay) {
+	public Task(final String groupId, final int delay) {
 	    super();
-	    this.subject = subject;
-	    this.owner = owner;
+	    this.groupId = groupId;
 	    this.delay = delay;
 	    Scheduler.register(this);
 	}
@@ -72,11 +60,12 @@ public class Scheduler {
     private static LinkedList<Task> queuedTasks = new LinkedList<Task>();
 
     /**
-     * This method cancel all the queued task (the current will still be performed)
-     * @param owner 
+     * This method cancel all the queued task (the current might still be performed)
+     * 
+     * @param groupId The groupId of the {@link Task}s to cancel
      */
-    public static void cancel(Object owner) {
-	if(currentTask != null && currentTask.owner != null && currentTask.owner.equals(owner)) {
+    public static void cancel(String groupId) {
+	if(currentTask != null && currentTask.groupId.equals(groupId)) {
 	    currentTask.cancel();
 	    queuedTasks.remove(currentTask);
 	    currentTask = null;
@@ -84,7 +73,7 @@ public class Scheduler {
 	ArrayList<Task> taskToRemove = new ArrayList<Task>(); //Avoid concurrent modification
 	for (Task task : queuedTasks) {
 	    
-	    if(task != null && task.owner != null && task.owner.equals(owner)) {
+	    if(task != null && task.groupId.equals(groupId)) {
 		taskToRemove.add(task);
 	    }
 	}

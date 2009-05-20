@@ -119,7 +119,7 @@ public class NoteArtifact extends BoxArtifact {
 
     @Override
     protected void select() {
-	
+	super.select();
 	GfxManager.getPlatform().setStroke(this.borderPath,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.cornerPath,
@@ -138,6 +138,7 @@ public class NoteArtifact extends BoxArtifact {
 
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.borderPath,
 		ThemeManager.getTheme().getForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.cornerPath,

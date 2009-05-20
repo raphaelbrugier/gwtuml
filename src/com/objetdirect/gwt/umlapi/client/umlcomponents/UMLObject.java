@@ -41,6 +41,7 @@ public class UMLObject extends UMLNode  {
      * @return The new parsed stereotype or an empty one if there was a problem
      */
     public static String parseStereotype(String stereotypeToParse) {
+	if(stereotypeToParse.equals("")) return "";
 	final LexicalAnalyzer lex = new LexicalAnalyzer(stereotypeToParse);
 	try {
 	    LexicalAnalyzer.Token tk = lex.getToken();
@@ -62,7 +63,7 @@ public class UMLObject extends UMLNode  {
      * @return The new parsed name or an empty one if there was a problem
      */
     public static List<String> parseName(String nameToParse) {
-
+	if(nameToParse.equals("")) return Arrays.asList("", "");
 	final LexicalAnalyzer lex = new LexicalAnalyzer(nameToParse);
 	String instance = "";
 	String name = "";

@@ -70,6 +70,7 @@ public class LinkNoteArtifact extends LinkArtifact {
 
     @Override
     protected void select() {
+	super.select();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
     }
@@ -81,6 +82,7 @@ public class LinkNoteArtifact extends LinkArtifact {
 
     @Override
     public void unselect() {
+	super.unselect();
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getForegroundColor(), 1);
     }

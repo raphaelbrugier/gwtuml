@@ -32,7 +32,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * ReflexivePathYGap -> 50 <br />
  * NoteCornerHeight -> 15 <br />
  * NoteCornerWidth -> 15 <br />
- * MovingStep -> 20 <br />
  * UnderlineShift -> 4 <br />
  * QualityLevel -> 1 <br />
  * FontSize -> 10 <br />
@@ -84,8 +83,6 @@ public class OptionsManager {
 
 	optionsList.put("NoteCornerHeight", 15);
 	optionsList.put("NoteCornerWidth", 15);
-
-	optionsList.put("MovingStep", 20);
 
 	optionsList.put("UnderlineShift", 4);
 
