@@ -20,10 +20,10 @@ public class LinearGeometry extends GeometryPlatform {
 	final ArrayList<Point> pointList = new ArrayList<Point>();
 	pointList.add(getPointForLine(firstUMLArtifact, new Point(
 		secondUMLArtifact.getCenter().getX(), secondUMLArtifact
-			.getCenter().getY())));
+		.getCenter().getY())));
 	pointList.add(getPointForLine(secondUMLArtifact, new Point(
 		firstUMLArtifact.getCenter().getX(), firstUMLArtifact
-			.getCenter().getY())));
+		.getCenter().getY())));
 	return pointList;
     }
 
@@ -37,35 +37,56 @@ public class LinearGeometry extends GeometryPlatform {
 		uMLArtifact.getLocation());
 	final Point point = Point.getOrigin();
 	final int constA = uMLArtifact.getHeight()
-		* targetInFrameReference.getX();
+	* targetInFrameReference.getX();
 	final int constB = uMLArtifact.getWidth()
-		* targetInFrameReference.getY();
+	* targetInFrameReference.getY();
 	final int constC = uMLArtifact.getHeight() * uMLArtifact.getWidth();
 	if (constA > constB) {
 	    if (constA > constC - constB) {
 		point.setX(uMLArtifact.getWidth());
-		point.setY((constC - constB - constA)
-			/ (uMLArtifact.getWidth() - 2 * targetInFrameReference
-				.getX()));
+		if(uMLArtifact.getWidth() - 2 * targetInFrameReference
+			.getX() != 0) {
+		    point.setY((constC - constB - constA)
+			    / (uMLArtifact.getWidth() - 2 * targetInFrameReference
+				    .getX())); 
+		} else {
+		    point.setY(0);
+		}
+
 	    } else {
-		point.setX((constA - constB)
-			/ (uMLArtifact.getHeight() - 2 * targetInFrameReference
-				.getY()));
+		if(uMLArtifact.getHeight() - 2 * targetInFrameReference
+			.getY() != 0) {
+		    point.setX((constA - constB)
+			    / (uMLArtifact.getHeight() - 2 * targetInFrameReference
+				    .getY()));
+		} else {
+		    point.setX(0);
+		}
 		point.setY(0);
 	    }
 	} else {
 	    if (constA > constC - constB) {
-		point.setX((constC + constA - constB - 2
-			* uMLArtifact.getHeight()
-			* targetInFrameReference.getX())
-			/ (uMLArtifact.getHeight() - 2 * targetInFrameReference
-				.getY()));
+		if(uMLArtifact.getHeight() - 2 * targetInFrameReference
+			.getY() != 0) {
+		    point.setX((constC + constA - constB - 2
+			    * uMLArtifact.getHeight()
+			    * targetInFrameReference.getX())
+			    / (uMLArtifact.getHeight() - 2 * targetInFrameReference
+				    .getY()));
+		} else {
+		    point.setX(0);
+		}
 		point.setY(uMLArtifact.getHeight());
 	    } else {
 		point.setX(0);
-		point.setY((constB - constA)
-			/ (uMLArtifact.getWidth() - 2 * targetInFrameReference
-				.getX()));
+		if(uMLArtifact.getWidth() - 2 * targetInFrameReference
+			.getX() != 0) {
+		    point.setY((constB - constA)
+			    / (uMLArtifact.getWidth() - 2 * targetInFrameReference
+				    .getX()));
+		} else {
+		    point.setY(0);
+		}
 	    }
 	}
 	return Point.add(point, uMLArtifact.getLocation());

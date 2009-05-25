@@ -119,10 +119,6 @@ public class DrawerPanel extends AbsolutePanel {
 		@Override
 		public void onMouseOver(MouseOverEvent event) {
 		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(true);
-		    Scheduler.cancel("Desopacifying");
-		    for (final FocusPanel allPanel : DrawerPanel.this.directionPanels.keySet()) {
-			DOM.setStyleAttribute(allPanel.getElement(), "opacity", "0.1");
-		    }
 		    for(double d = 0.1; d < 0.75 ; d+=0.05) {
 			final double opacity = d;
 			new Scheduler.Task("Opacifying") {@Override public void process() {			     
@@ -138,18 +134,12 @@ public class DrawerPanel extends AbsolutePanel {
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
 		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(false);
-		    Scheduler.cancel("Opacifying");
-		    for (final FocusPanel allPanel : DrawerPanel.this.directionPanels.keySet()) {
-			DOM.setStyleAttribute(allPanel.getElement(), "opacity", "0.1");
-		    }
-
-		    for(double d = 0.75; d < 0.1 ; d-=0.05) {
+		    for(double d = 0.75; d > 0.1 ; d-=0.05) {
 			final double opacity = d;
 			new Scheduler.Task("Desopacifying") {@Override public void process() {			     
 			    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(opacity));
 			}};
 		    }
-
 		}
 	    });
 	    panel.addMouseDownHandler(new MouseDownHandler() {
