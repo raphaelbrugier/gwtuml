@@ -64,6 +64,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     private Point currentMousePosition = Point.getOrigin();
     private Point canvasOffset = Point.getOrigin();
+    private Point duringDragOffset = Point.getOrigin();
     /**
      * Getter for the canvasOffset
      *
@@ -155,7 +156,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragAndDropState = DragAndDropState.SELECT_BOX;
 	    this.previouslySelectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(this.selectedArtifacts);
 	case SELECT_BOX:
-	    boxSelector(this.selectBoxStartPoint, realPoint, isCtrlDown, isShiftDown);
+	    boxSelector(Point.add(this.selectBoxStartPoint, this.duringDragOffset), realPoint, isCtrlDown, isShiftDown);
 	}
 
 	if (this.activeLinking != null && !this.selectedArtifacts.isEmpty()) {
@@ -169,7 +170,8 @@ public class UMLCanvas extends AbsolutePanel {
     void mouseReleased(final GfxObject gfxObject, final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 	if(!this.mouseIsPressed) return;
 	final Point realPoint = convertToRealPoint(location);
-	this.mouseIsPressed = false;	    
+	this.mouseIsPressed = false;
+	this.duringDragOffset = Point.getOrigin();
 	if(this.dragAndDropState == DragAndDropState.TAKING) {
 	    unselectOnRelease(gfxObject, isCtrlDown, isShiftDown);
 	}
@@ -542,6 +544,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void take() {
 	GfxManager.getPlatform().translate(this.outlines, Point.substract(this.canvasOffset,GfxManager.getPlatform().getLocationFor(this.outlines)));
 	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
+	
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
 	    Scheduler.cancel("RebuildingDependencyFor"+selectedArtifact);
@@ -583,7 +586,7 @@ public class UMLCanvas extends AbsolutePanel {
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
 	    if (selectedArtifact.isDraggable()) {
-		Point outlineOfSelectedCenter = Point.add(selectedArtifact.getCenter(), this.totalDragShift);
+		Point outlineOfSelectedCenter = Point.substract(Point.add(selectedArtifact.getCenter(), this.totalDragShift), this.duringDragOffset);
 		if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 		    for (Point dependantArtifactCenter : selectedArtifactEntry.getValue()) {
 			GfxObject outlineDependency  = GfxManager.getPlatform().buildLine(outlineOfSelectedCenter, dependantArtifactCenter);
@@ -603,7 +606,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void drop(final Point location) {
 	for(UMLArtifact selectedArtifact : UMLCanvas.this.selectedArtifacts.keySet()) {
 	    if (selectedArtifact.isDraggable()) {
-		selectedArtifact.moveTo(Point.add(selectedArtifact.getLocation(), this.totalDragShift));
+		selectedArtifact.moveTo(Point.substract(Point.add(selectedArtifact.getLocation(), this.totalDragShift), this.duringDragOffset));
 		selectedArtifact.rebuildGfxObject();		
 	    }
 	}
@@ -990,10 +993,11 @@ public class UMLCanvas extends AbsolutePanel {
 
     void moveAll(final Direction direction) {
 	    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
-		Point translation =  new Point(direction.getXShift(), direction.getYShift());
+		Point translation =  new Point(-direction.getXShift(), -direction.getYShift());
 		GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
 		UMLCanvas.this.canvasOffset.translate(translation);
-		GfxManager.getPlatform().translate(UMLCanvas.this.outlines, translation);
+		UMLCanvas.this.duringDragOffset.translate(translation);
+		mouseMoved(UMLCanvas.this.currentMousePosition, false, false);
 		GfxManager.getPlatform().translate(UMLCanvas.this.movingLines, translation);
 		GfxManager.getPlatform().translate(UMLCanvas.this.movingOutlineDependencies, translation);
 	    }

@@ -50,6 +50,12 @@ public class ContextMenu {
 	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());	    
 	}
     };
+    private final Command clearDiagram = new Command() {
+	public void execute() {
+	    ContextMenu.this.canvas.selectAll();
+	    ContextMenu.this.canvas.removeSelected();
+	}
+    };
     private final UMLCanvas canvas;
     private PopupMenu contextMenu;
 
@@ -141,6 +147,7 @@ public class ContextMenu {
 	this.contextMenu.addSeparator();
 	this.contextMenu.addItem("Save to SVG", this.saveToSVG);
 	this.contextMenu.addItem("Export to URL", this.exportToURL);
+	this.contextMenu.addItem("Clear diagram", this.clearDiagram);
 	this.contextMenu.addItem("Help...", this.bringHelp);
     }
 }
