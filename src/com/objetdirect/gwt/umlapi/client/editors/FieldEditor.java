@@ -85,11 +85,11 @@ public abstract class FieldEditor {
 	    this.editField.setHeight(this.height + "px");
 	}
 	DOM.setStyleAttribute(this.editField.getElement(), "backgroundColor",
-		ThemeManager.getTheme().getBackgroundColor().toString());
+		ThemeManager.getTheme().getDefaultBackgroundColor().toString());
 	DOM.setStyleAttribute(this.editField.getElement(), "color", ThemeManager.getTheme()
-		.getForegroundColor().toString());
+		.getDefaultForegroundColor().toString());
 	DOM.setStyleAttribute(this.editField.getElement(), "selection", ThemeManager.getTheme()
-		.getBackgroundColor().toString()); // CSS 3 :'(
+		.getDefaultBackgroundColor().toString()); // CSS 3 :'(
 	this.editField.addFocusHandler(new FocusHandler() {
 	    public void onFocus(final FocusEvent event) {
 		Log.trace("Focus on " + this);

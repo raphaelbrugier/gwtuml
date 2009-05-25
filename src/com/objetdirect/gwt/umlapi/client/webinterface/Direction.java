@@ -9,50 +9,60 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
+
 public enum Direction {
     /**
      * Down direction
      */
-    DOWN(0, 1),
+    DOWN(0, 1, "⬇"),
     /**
      * Left direction
      */
-    LEFT(-1, 0),
+    LEFT(-1, 0, "⬅"),
     /**
      * Right direction
      */
-    RIGHT(1, 0),
+    RIGHT(1, 0, "➡"),
     /**
      * Up direction
      */
-    UP(0, -1),
+    UP(0, -1, "⬆"),
     /**
      * Down direction
      */
-    UP_LEFT(-1, -1),
+    UP_LEFT(-1, -1, "⬉"),
     /**
      * Left direction
      */
-    UP_RIGHT(1, -1),
+    UP_RIGHT(1, -1, "⬈"),
     /**
      * Right direction
      */
-    DOWN_LEFT(-1, 1),
+    DOWN_LEFT(-1, 1, "⬋"),
     /**
      * Up direction
      */
-    DOWN_RIGHT(1, 1);
+    DOWN_RIGHT(1, 1, "⬊");
 
 
     private int xDirection;
     private int yDirection;
     private int speed = 1;
-
-    private Direction(final int x, final int y) {
+    private String idiom = "x";
+    
+    private Direction(final int x, final int y, final String idiom) {
 	this.xDirection = x;
 	this.yDirection = y;
+	this.idiom = idiom;
     }
-
+    /**
+     * Getter for the idiom for this direction
+     *
+     * @return the idiom of this Direction
+     */
+    public final String getIdiom() {
+        return this.idiom;
+    }
     /**
      * Getter for the abscissa direction
      *
@@ -109,13 +119,31 @@ public enum Direction {
         this.speed = speed;
         return this;
     }
-
+    public static int getDependingOnQualityLevelSpeed() {
+	int speedModified = 5 * (OptionsManager.get("QualityLevel") + 1);
+	return speedModified;
+    }
+    public static int getDependingOnModifierSpeed(boolean isCtrlDown, boolean isAltDown, boolean isMetaDown, boolean isShiftDown) {
+	int speedModified = 50;
+	if(isCtrlDown) speedModified /= 2;
+	if(isAltDown) speedModified /= 3;
+	if(isMetaDown) speedModified /= 4;
+	if(isShiftDown) speedModified /= 5;
+	return speedModified;
+    }
 
     public double getXShift() {
 	return this.xDirection * this.speed;
     }
     public double getYShift() {
 	return this.yDirection * this.speed;
+    }
+    /* (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return "Direction : " + super.toString() + " x : " + getXDirection() + " y : " + getYDirection() + " wth speed = " + this.speed;
     }
 
 }

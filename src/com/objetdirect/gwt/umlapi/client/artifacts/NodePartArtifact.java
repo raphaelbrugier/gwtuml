@@ -63,21 +63,6 @@ public abstract class NodePartArtifact extends BoxArtifact {
     void setNodeArtifact(final NodeArtifact nodeArtifact) {
         this.nodeArtifact = nodeArtifact;
     }
-    /* (non-Javadoc)
-     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOutline()
-     */
-    @Override
-    public GfxObject getOutline() {
-	final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-	final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, getHeight());
-	GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
-	GfxManager.getPlatform().setStroke(rect,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
-	GfxManager.getPlatform().setFillColor(rect,
-		ThemeManager.getTheme().getBackgroundColor());
-	GfxManager.getPlatform().addToVirtualGroup(vg, rect);
-	return vg;
-    }
-    
+
     abstract void setNodeWidth(int width);
 }

@@ -7,6 +7,7 @@ import com.objetdirect.gwt.umlapi.client.editors.ObjectPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
@@ -58,9 +59,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	this.nameRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.nameRect);
 	GfxManager.getPlatform().setFillColor(this.nameRect,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getObjectBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectForegroundColor(), 1);
 
 	// Centering name object :
 	GfxManager.getPlatform().translate(
@@ -96,9 +97,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	    GfxManager.getPlatform().setFont(this.stereotypeText,
 		    OptionsManager.getFont());
 	    GfxManager.getPlatform().setStroke(this.stereotypeText,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getObjectBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(this.stereotypeText,
-		    ThemeManager.getTheme().getForegroundColor());
+		    ThemeManager.getTheme().getObjectForegroundColor());
 	    this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
 	    this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
 	    this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -115,13 +116,13 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	GfxManager.getPlatform().setFont(this.nameText,
 		OptionsManager.getFont());
 	GfxManager.getPlatform().setStroke(this.nameText,
-		ThemeManager.getTheme().getBackgroundColor(), 0);
+		ThemeManager.getTheme().getObjectBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
-		ThemeManager.getTheme().getForegroundColor());
+		ThemeManager.getTheme().getObjectForegroundColor());
 	GfxManager.getPlatform().setStroke(this.underline,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectForegroundColor(), 1);
 	GfxManager.getPlatform().setFillColor(this.underline,
-		ThemeManager.getTheme().getForegroundColor());
+		ThemeManager.getTheme().getObjectForegroundColor());
 	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
 		+ OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -223,7 +224,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 2);
     }
 
     /**
@@ -263,7 +264,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.nameRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectForegroundColor(), 1);
     }
 
     private Command createStereotype() {
@@ -296,5 +297,20 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
     @Override
     public String toURL() {
 	return this.getObjectName() + "!" + this.getStereotype();
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOutline()
+     */
+    @Override
+    public GfxObject getOutline() {
+	final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+	final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, getHeight());
+	GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
+	GfxManager.getPlatform().setStroke(rect,
+		ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 1);
+	GfxManager.getPlatform().setFillColor(rect,
+		ThemeManager.getTheme().getObjectBackgroundColor());
+	GfxManager.getPlatform().addToVirtualGroup(vg, rect);
+	return vg;
     }
 }

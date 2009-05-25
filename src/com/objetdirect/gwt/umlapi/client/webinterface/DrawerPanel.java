@@ -20,6 +20,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -53,7 +55,6 @@ public class DrawerPanel extends AbsolutePanel {
     private SimplePanel topRightCornerShadow;
     private int width;
 
-    //≺≻⋎⋏    
     FocusPanel topLeft = new FocusPanel();
     FocusPanel top= new FocusPanel();
     FocusPanel topRight = new FocusPanel();
@@ -62,6 +63,7 @@ public class DrawerPanel extends AbsolutePanel {
     FocusPanel bottom = new FocusPanel();
     FocusPanel bottomLeft = new FocusPanel();
     FocusPanel left = new FocusPanel();
+    
     private final HashMap<FocusPanel, Direction> directionPanels = new HashMap<FocusPanel, Direction>() {{
 	put(DrawerPanel.this.topLeft, Direction.UP_LEFT);
 	put(DrawerPanel.this.top, Direction.UP);
@@ -72,6 +74,7 @@ public class DrawerPanel extends AbsolutePanel {
 	put(DrawerPanel.this.bottomLeft, Direction.DOWN_LEFT);
 	put(DrawerPanel.this.left, Direction.LEFT);
     }};
+    private final HashMap<FocusPanel, Label> directionLabels = new HashMap<FocusPanel, Label>();
 
     private final ResizeHandler resizeHandler;
 
@@ -99,61 +102,70 @@ public class DrawerPanel extends AbsolutePanel {
 
 	this.add(this.uMLCanvas);
 
-	final int size = 15;
-
-	this.topLeft.setPixelSize(size, size);
-	this.top.setPixelSize(getWidth() - 2 * size, size);
-	this.topRight.setPixelSize(size, size);
-	this.right.setPixelSize(size, getHeight() - 2 * size);
-	this.bottomRight.setPixelSize(size, size);
-	this.bottom.setPixelSize(getWidth() - 2 * size, size);
-	this.bottomLeft.setPixelSize(size, size);
-	this.left.setPixelSize(size, getHeight() - 2 * size);
+	final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
+	
+	final HashMap<FocusPanel, Point> panelsSizes = makeDirectionPanelsSizes(directionPanelSizes);
+	final HashMap<FocusPanel, Point> panelsPositions =  makeDirectionPanelsPositions(directionPanelSizes);
+	    
+	    
 
 	for (Entry<FocusPanel, Direction> panelEntry: this.directionPanels.entrySet()) {
 	    final FocusPanel panel = panelEntry.getKey();
 	    final Direction direction = panelEntry.getValue();
-	    DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getSelectBoxBackgroundColor().toString());
-	    DOM.setStyleAttribute(panel.getElement(), "opacity", "0.1");
+	    DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getDirectionPanelColor().toString());
+	    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(((double) OptionsManager.get("DirectionPanelOpacity")) / 100));
 	    panel.addMouseOverHandler(new MouseOverHandler() {	
 		@Override
-		public void onMouseOver(MouseOverEvent event) {
-		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(true);
-		    for(double d = 0.1; d < 0.75 ; d+=0.05) {
-			final double opacity = d;
-			new Scheduler.Task("Opacifying") {@Override public void process() {			     
+		public void onMouseOver(final MouseOverEvent event) {
+
+		    for(double d = ((double) OptionsManager.get("DirectionPanelOpacity")) / 100 ; d <= ((double) OptionsManager.get("DirectionPanelMaxOpacity")) / 100; d += 0.05) {
+			final double opacity = Math.ceil(d*100)/100;
+
+			new Scheduler.Task("Opacifying") {@Override public void process() {
 			    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(opacity));
 			}};
 		    }
-		    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {		
-			DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(5));
+		    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
+			Scheduler.cancel("MovingAllArtifactsRecursive");
+			DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Direction.getDependingOnQualityLevelSpeed()), true);
 		    }};
 		}
 	    });
 	    panel.addMouseOutHandler(new MouseOutHandler() {	
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
-		    DrawerPanel.this.uMLCanvas.setMouseStillInDirectionPanel(false);
-		    for(double d = 0.75; d > 0.1 ; d-=0.05) {
-			final double opacity = d;
-			new Scheduler.Task("Desopacifying") {@Override public void process() {			     
-			    DOM.setStyleAttribute(panel.getElement(), "opacity", Double.toString(opacity));
-			}};
+		    Scheduler.cancel("Opacifying");
+		    Scheduler.cancel("MovingAllArtifacts");
+		    Scheduler.cancel("MovingAllArtifactsRecursive");
+		    for(final FocusPanel onePanel : DrawerPanel.this.directionPanels.keySet()) {
+			double currentOpacity = 0;
+			try {
+			    currentOpacity = Math.ceil(Double.parseDouble(DOM.getStyleAttribute(onePanel.getElement(), "opacity"))*100)/100;
+			} catch (Exception ex) {
+			    Log.error("Unable to parse element opacity : " + ex);
+			}
+			for(double d = currentOpacity ; d >= ((double) OptionsManager.get("DirectionPanelOpacity")) / 100 ; d -= 0.05) {
+			    final double opacity = Math.ceil(d*100)/100;
+
+			    new Scheduler.Task("Desopacifying") {@Override public void process() {
+				DOM.setStyleAttribute(onePanel.getElement(), "opacity", Double.toString(opacity));
+			    }};
+			}
 		    }
 		}
 	    });
 	    panel.addMouseDownHandler(new MouseDownHandler() {
 		@Override
 		public void onMouseDown(MouseDownEvent event) {
-		    Point location = new Point(event.getClientX(), event.getClientY());
-		    Mouse.press(DrawerPanel.this.uMLCanvas.getArtifactAt(location), location, event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+		    DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getDirectionPanelPressedColor().toString());
+		    Scheduler.cancel("MovingAllArtifactsRecursive");
 		}
 	    });
 	    panel.addMouseUpHandler(new MouseUpHandler() {
 		@Override
 		public void onMouseUp(MouseUpEvent event) {
-		    Point location = new Point(event.getClientX(), event.getClientY());
-		    Mouse.release(DrawerPanel.this.uMLCanvas.getArtifactAt(location), location, event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+		    DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getDirectionPanelColor().toString());
+		    DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Math.min(DrawerPanel.this.uMLCanvas.getOffsetHeight(), DrawerPanel.this.uMLCanvas.getOffsetWidth())), false);
 		}
 	    });
 	    panel.addMouseMoveHandler(new MouseMoveHandler() {
@@ -162,18 +174,20 @@ public class DrawerPanel extends AbsolutePanel {
 		    Mouse.move(new Point(event.getClientX(), event.getClientY()), event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
 		}
 	    });
+	    Label label = new Label(direction.getIdiom()); 
+	    this.directionLabels.put(panel, label);
+            DOM.setStyleAttribute(label.getElement(), "fontWeight", "bold");
+            
+            Point panelPosition = panelsPositions.get(panel);
+            Point panelSize = panelsSizes.get(panel);
+            
+	    this.add(label, panelPosition.getX() + panelSize.getX() * (1-Math.abs(direction.getXDirection())) / 2 , panelPosition.getY() +  panelSize.getY() * (1-Math.abs(direction.getYDirection())) / 2 );
+	    
+	    panel.setPixelSize(panelSize.getX(), panelSize.getY());
+	    this.add(panel, panelPosition.getX(), panelPosition.getY());
+
 	}
-
-	add(this.topLeft, 0, 0);
-	add(this.top, size, 0);
-	add(this.topRight, getWidth() - size, 0);
-	add(this.right, getWidth() - size, size);
-	add(this.bottomRight, getWidth() - size, getHeight() - size);
-	add(this.bottom, size, getHeight() - size);
-	add(this.bottomLeft, 0, getHeight() - size);
-	add(this.left, 0, size);
-
-
+	
 	Log.trace("Canvas added");
 	if(isShadowed) {
 	    Log.trace("Making shadow");
@@ -193,12 +207,17 @@ public class DrawerPanel extends AbsolutePanel {
 		    GfxManager.getPlatform().setSize(Session.getActiveCanvas().getDrawingCanvas(), DrawerPanel.this.width, DrawerPanel.this.height);
 		    DrawerPanel.this.clearShadow();
 		    DrawerPanel.this.makeShadow();
-		    /*
-		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.up, DrawerPanel.this.getWidth() / 2, 10);
-		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.down, DrawerPanel.this.getWidth() / 2, DrawerPanel.this.getHeight() - 10 - 28);
-		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.left, 10, DrawerPanel.this.getHeight() / 2);
-		    DrawerPanel.this.setWidgetPosition(DrawerPanel.this.right, DrawerPanel.this.getWidth() - 10 - 28, DrawerPanel.this.getHeight() / 2);
-		     */
+		    final HashMap<FocusPanel, Point> panelsNewSizes = makeDirectionPanelsSizes(directionPanelSizes);
+		    final HashMap<FocusPanel, Point> panelsNewPositions =  makeDirectionPanelsPositions(directionPanelSizes);
+		    for (Entry<FocusPanel, Direction> panelEntry: DrawerPanel.this.directionPanels.entrySet()) {
+			    final FocusPanel panel = panelEntry.getKey();
+			    final Direction direction = panelEntry.getValue();
+	            Point panelPosition = panelsNewPositions.get(panel);
+	            Point panelSize = panelsNewSizes.get(panel);
+		    setWidgetPosition(DrawerPanel.this.directionLabels.get(panel), panelPosition.getX() + panelSize.getX() * (1-Math.abs(direction.getXDirection())) / 2 , panelPosition.getY() +  panelSize.getY() * (1-Math.abs(direction.getYDirection())) / 2 );
+		    panel.setPixelSize(panelSize.getX(), panelSize.getY());
+		   setWidgetPosition(panel, panelPosition.getX(), panelPosition.getY());
+		} 
 		}
 	    }
 
@@ -214,6 +233,34 @@ public class DrawerPanel extends AbsolutePanel {
 	Log.trace("Disabling browser events");
 	UMLDrawerHelper.disableBrowserEvents();
 	Log.trace("Init end");
+    }
+
+    private HashMap<FocusPanel, Point> makeDirectionPanelsPositions(final int directionPanelSizes) {
+	return new HashMap<FocusPanel, Point>() {{
+		put(DrawerPanel.this.topLeft, Point.getOrigin());
+		put(DrawerPanel.this.top, new Point(directionPanelSizes, 0));
+		put(DrawerPanel.this.topRight, new Point(getWidth() - directionPanelSizes, 0));
+		put(DrawerPanel.this.right, new Point(getWidth() - directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.bottomRight, new Point(getWidth() - directionPanelSizes, getHeight() - directionPanelSizes));
+		put(DrawerPanel.this.bottom, new Point(directionPanelSizes, getHeight() - directionPanelSizes));
+		put(DrawerPanel.this.bottomLeft, new Point(0, getHeight() - directionPanelSizes));
+		put(DrawerPanel.this.left, new Point(0, directionPanelSizes));
+	    }};
+    }
+
+
+
+    private HashMap<FocusPanel, Point> makeDirectionPanelsSizes(final int directionPanelSizes) {
+	return  new HashMap<FocusPanel, Point>() {{
+		put(DrawerPanel.this.topLeft, new Point(directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.top, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.topRight, new Point(directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.right, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
+		put(DrawerPanel.this.bottomRight, new Point(directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.bottom, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.bottomLeft, new Point(directionPanelSizes, directionPanelSizes));
+		put(DrawerPanel.this.left, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
+	    }};
     }
 
 
@@ -316,4 +363,14 @@ public class DrawerPanel extends AbsolutePanel {
 	    this.uMLCanvas.add(defaultobject);
 	}
     }
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#onAttach()
+     */
+    @Override
+    protected void onAttach() {
+        // TODO Auto-generated method stub
+        super.onAttach();
+
+    }
 }
+

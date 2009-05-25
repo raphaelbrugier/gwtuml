@@ -14,6 +14,7 @@ import com.objetdirect.gwt.umlapi.client.editors.ClassPartMethodsEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
@@ -67,9 +68,9 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	this.methodRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.methodRect);
 	GfxManager.getPlatform().setFillColor(this.methodRect,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getClassBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getClassForegroundColor(), 1);
 	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.get("RectangleLeftPadding"),
 		OptionsManager.get("RectangleTopPadding")));
@@ -96,9 +97,9 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		    OptionsManager.getSmallFont());
 
 	    GfxManager.getPlatform().setStroke(methodText,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getClassBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(methodText,
-		    ThemeManager.getTheme().getForegroundColor());
+		    ThemeManager.getTheme().getClassForegroundColor());
 	    int thisMethodWidth = GfxManager.getPlatform().getTextWidthFor(
 		    methodText);
 	    int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(
@@ -213,7 +214,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
     }
 
     @Override
@@ -225,7 +226,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.methodRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getClassForegroundColor(), 1);
     }
 
     private Command deleteCommand(final UMLClassMethod method) {
@@ -264,5 +265,20 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	    methodsURL.append("%");
 	}
 	return methodsURL.toString();
+    }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOutline()
+     */
+    @Override
+    public GfxObject getOutline() {
+	final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+	final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, getHeight());
+	GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
+	GfxManager.getPlatform().setStroke(rect,
+		ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
+	GfxManager.getPlatform().setFillColor(rect,
+		ThemeManager.getTheme().getClassBackgroundColor());
+	GfxManager.getPlatform().addToVirtualGroup(vg, rect);
+	return vg;
     }
 }

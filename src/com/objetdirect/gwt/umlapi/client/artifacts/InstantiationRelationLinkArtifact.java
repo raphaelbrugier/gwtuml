@@ -114,9 +114,9 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
     }
 
 
@@ -127,9 +127,9 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
     }  
 
     @Override
@@ -171,7 +171,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	    }
 
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 
@@ -206,9 +206,9 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getInstantiationBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
-		    ThemeManager.getTheme().getForegroundColor());
+		    ThemeManager.getTheme().getInstantiationForegroundColor());
 	    GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
 	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject,
 		    RelationLinkArtifactPart.NAME);

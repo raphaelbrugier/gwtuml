@@ -99,6 +99,12 @@ public class OptionsManager {
 	optionsList.put("Width",  800);
 	optionsList.put("Height",  800);
 	optionsList.put("Shadowed",  1);
+	
+	optionsList.put("DirectionPanelOpacity",  10);
+	optionsList.put("DirectionPanelMaxOpacity",  75);
+	
+	optionsList.put("DirectionPanelSizes",  15);
+	
 	defaultOptionsList = new HashMap<String, Integer>(optionsList);
     }
 

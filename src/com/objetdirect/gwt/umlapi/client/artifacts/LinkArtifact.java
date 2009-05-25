@@ -61,7 +61,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 		return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, relationKind);
 		
 	    } 	    
-	    else if (uMLArtifact.getClass() == ObjectArtifact.class
+	    else if (relationKind != RelationKind.GENERALIZATION && relationKind != RelationKind.REALIZATION && uMLArtifact.getClass() == ObjectArtifact.class
 		    && uMLArtifactNew.getClass() == ObjectArtifact.class) {
 		return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
 	    }
