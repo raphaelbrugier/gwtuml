@@ -284,4 +284,13 @@ public interface GfxPlatform {
      * @param offset The {@link Point} containing the two offset dimensions
      */
     void translate(GfxObject gfxObject, Point offset);
+    
+    /**
+     * Rotate a graphical object with the given angle in radians and center
+     * 
+     * @param gfxObject The {@link GfxObject} to be rotated
+     * @param angle The angle of rotation in radians
+     * @param center The center {@link Point} of the rotation 
+     */
+    void rotate(final GfxObject gfxObject, final float angle, final Point center);
 }

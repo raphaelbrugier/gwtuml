@@ -209,6 +209,7 @@ public class UMLCanvas extends AbsolutePanel {
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
+    private GfxObject arrowsVirtualGroup;
 
     /**
      * Constructor of an {@link UMLCanvas} with default size 
@@ -1006,5 +1007,42 @@ public class UMLCanvas extends AbsolutePanel {
 	for (UMLArtifact artifact : this.objects.values()) {
 	    selectArtifact(artifact);
 	}	
+    }
+
+    void makeArrows(int width, int height) {	
+	final int arrowSize = 6;
+	this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.arrowsVirtualGroup, Point.getOrigin());
+	ArrayList<GfxObject> arrowList = new ArrayList<GfxObject>();   
+	for(float f = 0 ; f < 360 ; f += 45) {
+		GfxObject arrow = GfxManager.getPlatform().buildPath();
+		arrowList.add(arrow);
+		GfxManager.getPlatform().moveTo(arrow, Point.getOrigin());
+		GfxManager.getPlatform().lineTo(arrow, new Point(arrowSize, 0));
+		GfxManager.getPlatform().lineTo(arrow, new Point(2 * arrowSize, arrowSize));
+		GfxManager.getPlatform().lineTo(arrow, new Point(arrowSize, 2 * arrowSize));
+		GfxManager.getPlatform().lineTo(arrow, new Point(0, 2 * arrowSize));
+		GfxManager.getPlatform().lineTo(arrow, new Point(arrowSize, arrowSize));
+		GfxManager.getPlatform().lineTo(arrow, Point.getOrigin());
+		GfxManager.getPlatform().setFillColor(arrow, ThemeManager.getTheme().getDefaultForegroundColor());
+		GfxManager.getPlatform().setStroke(arrow, ThemeManager.getTheme().getDefaultForegroundColor(), 1);
+		GfxManager.getPlatform().rotate(arrow, f, new Point(arrowSize, arrowSize));
+		GfxManager.getPlatform().addToVirtualGroup(this.arrowsVirtualGroup, arrow);
+	}
+	
+	GfxManager.getPlatform().translate(arrowList.get(0), new Point(width - 2 * arrowSize - 2, height / 2 - arrowSize - 2)); // right
+	GfxManager.getPlatform().translate(arrowList.get(1), new Point(width - 2 * arrowSize - 2, height - 2 * arrowSize - 2)); // bottom right
+	GfxManager.getPlatform().translate(arrowList.get(2), new Point(width / 2  - arrowSize - 2, height - 2 * arrowSize - 2)); // bottom
+	GfxManager.getPlatform().translate(arrowList.get(3), new Point(2, height - 2 * arrowSize - 2)); // bottom left
+	GfxManager.getPlatform().translate(arrowList.get(4), new Point(2, height / 2 - arrowSize - 2)); // left
+	GfxManager.getPlatform().translate(arrowList.get(5), new Point(2, 2)); // up left
+	GfxManager.getPlatform().translate(arrowList.get(6), new Point(width / 2  - arrowSize - 2, 2)); // up
+	GfxManager.getPlatform().translate(arrowList.get(7), new Point(width - 2 * arrowSize - 2, 2)); // up right
+	
+	
+    }
+ void clearArrows() {
+	GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
+	
     }
 }

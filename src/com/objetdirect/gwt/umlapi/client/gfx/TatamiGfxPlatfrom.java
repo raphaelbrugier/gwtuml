@@ -349,7 +349,12 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public void translate(final GfxObject gfxO, final Point location) {
 	getTatamiGraphicalObjectFrom(gfxO).translate(location.getX(), location.getY());
     }
-
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#translate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    public void rotate(final GfxObject gfxO, final float angle, final Point center) {
+	getTatamiGraphicalObjectFrom(gfxO).rotate(angle, pointConverter(center));
+    }
     private Color convertColor(final GfxColor gfxColor) {
 	return new Color(gfxColor.getRed(), gfxColor.getGreen(), gfxColor
 		.getBlue(), gfxColor.getAlpha());

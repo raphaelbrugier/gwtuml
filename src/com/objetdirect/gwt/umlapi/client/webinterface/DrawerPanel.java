@@ -63,7 +63,7 @@ public class DrawerPanel extends AbsolutePanel {
     FocusPanel bottom = new FocusPanel();
     FocusPanel bottomLeft = new FocusPanel();
     FocusPanel left = new FocusPanel();
-    
+
     private final HashMap<FocusPanel, Direction> directionPanels = new HashMap<FocusPanel, Direction>() {{
 	put(DrawerPanel.this.topLeft, Direction.UP_LEFT);
 	put(DrawerPanel.this.top, Direction.UP);
@@ -74,7 +74,6 @@ public class DrawerPanel extends AbsolutePanel {
 	put(DrawerPanel.this.bottomLeft, Direction.DOWN_LEFT);
 	put(DrawerPanel.this.left, Direction.LEFT);
     }};
-    private final HashMap<FocusPanel, Label> directionLabels = new HashMap<FocusPanel, Label>();
 
     private final ResizeHandler resizeHandler;
 
@@ -99,15 +98,15 @@ public class DrawerPanel extends AbsolutePanel {
 	Log.trace("Creating drawer");
 
 	this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width, this.height);
-
+	this.uMLCanvas.makeArrows(this.width, this.height);
 	this.add(this.uMLCanvas);
 
 	final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
-	
+
 	final HashMap<FocusPanel, Point> panelsSizes = makeDirectionPanelsSizes(directionPanelSizes);
 	final HashMap<FocusPanel, Point> panelsPositions =  makeDirectionPanelsPositions(directionPanelSizes);
-	    
-	    
+
+
 
 	for (Entry<FocusPanel, Direction> panelEntry: this.directionPanels.entrySet()) {
 	    final FocusPanel panel = panelEntry.getKey();
@@ -174,20 +173,13 @@ public class DrawerPanel extends AbsolutePanel {
 		    Mouse.move(new Point(event.getClientX(), event.getClientY()), event.getNativeButton(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
 		}
 	    });
-	    Label label = new Label(direction.getIdiom()); 
-	    this.directionLabels.put(panel, label);
-            DOM.setStyleAttribute(label.getElement(), "fontWeight", "bold");
-            
-            Point panelPosition = panelsPositions.get(panel);
-            Point panelSize = panelsSizes.get(panel);
-            
-	    this.add(label, panelPosition.getX() + panelSize.getX() * (1-Math.abs(direction.getXDirection())) / 2 , panelPosition.getY() +  panelSize.getY() * (1-Math.abs(direction.getYDirection())) / 2 );
-	    
+	    Point panelPosition = panelsPositions.get(panel);
+	    Point panelSize = panelsSizes.get(panel);
 	    panel.setPixelSize(panelSize.getX(), panelSize.getY());
 	    this.add(panel, panelPosition.getX(), panelPosition.getY());
 
 	}
-	
+
 	Log.trace("Canvas added");
 	if(isShadowed) {
 	    Log.trace("Making shadow");
@@ -209,15 +201,14 @@ public class DrawerPanel extends AbsolutePanel {
 		    DrawerPanel.this.makeShadow();
 		    final HashMap<FocusPanel, Point> panelsNewSizes = makeDirectionPanelsSizes(directionPanelSizes);
 		    final HashMap<FocusPanel, Point> panelsNewPositions =  makeDirectionPanelsPositions(directionPanelSizes);
-		    for (Entry<FocusPanel, Direction> panelEntry: DrawerPanel.this.directionPanels.entrySet()) {
-			    final FocusPanel panel = panelEntry.getKey();
-			    final Direction direction = panelEntry.getValue();
-	            Point panelPosition = panelsNewPositions.get(panel);
-	            Point panelSize = panelsNewSizes.get(panel);
-		    setWidgetPosition(DrawerPanel.this.directionLabels.get(panel), panelPosition.getX() + panelSize.getX() * (1-Math.abs(direction.getXDirection())) / 2 , panelPosition.getY() +  panelSize.getY() * (1-Math.abs(direction.getYDirection())) / 2 );
-		    panel.setPixelSize(panelSize.getX(), panelSize.getY());
-		   setWidgetPosition(panel, panelPosition.getX(), panelPosition.getY());
-		} 
+		    for (FocusPanel panel: DrawerPanel.this.directionPanels.keySet()) {
+			Point panelPosition = panelsNewPositions.get(panel);
+			Point panelSize = panelsNewSizes.get(panel);
+			panel.setPixelSize(panelSize.getX(), panelSize.getY());
+			setWidgetPosition(panel, panelPosition.getX(), panelPosition.getY());
+		    } 
+		    DrawerPanel.this.uMLCanvas.clearArrows();
+		    DrawerPanel.this.uMLCanvas.makeArrows(DrawerPanel.this.width, DrawerPanel.this.height);
 		}
 	    }
 
@@ -237,30 +228,30 @@ public class DrawerPanel extends AbsolutePanel {
 
     private HashMap<FocusPanel, Point> makeDirectionPanelsPositions(final int directionPanelSizes) {
 	return new HashMap<FocusPanel, Point>() {{
-		put(DrawerPanel.this.topLeft, Point.getOrigin());
-		put(DrawerPanel.this.top, new Point(directionPanelSizes, 0));
-		put(DrawerPanel.this.topRight, new Point(getWidth() - directionPanelSizes, 0));
-		put(DrawerPanel.this.right, new Point(getWidth() - directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.bottomRight, new Point(getWidth() - directionPanelSizes, getHeight() - directionPanelSizes));
-		put(DrawerPanel.this.bottom, new Point(directionPanelSizes, getHeight() - directionPanelSizes));
-		put(DrawerPanel.this.bottomLeft, new Point(0, getHeight() - directionPanelSizes));
-		put(DrawerPanel.this.left, new Point(0, directionPanelSizes));
-	    }};
+	    put(DrawerPanel.this.topLeft, Point.getOrigin());
+	    put(DrawerPanel.this.top, new Point(directionPanelSizes, 0));
+	    put(DrawerPanel.this.topRight, new Point(getWidth() - directionPanelSizes, 0));
+	    put(DrawerPanel.this.right, new Point(getWidth() - directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.bottomRight, new Point(getWidth() - directionPanelSizes, getHeight() - directionPanelSizes));
+	    put(DrawerPanel.this.bottom, new Point(directionPanelSizes, getHeight() - directionPanelSizes));
+	    put(DrawerPanel.this.bottomLeft, new Point(0, getHeight() - directionPanelSizes));
+	    put(DrawerPanel.this.left, new Point(0, directionPanelSizes));
+	}};
     }
 
 
 
     private HashMap<FocusPanel, Point> makeDirectionPanelsSizes(final int directionPanelSizes) {
 	return  new HashMap<FocusPanel, Point>() {{
-		put(DrawerPanel.this.topLeft, new Point(directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.top, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.topRight, new Point(directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.right, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
-		put(DrawerPanel.this.bottomRight, new Point(directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.bottom, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.bottomLeft, new Point(directionPanelSizes, directionPanelSizes));
-		put(DrawerPanel.this.left, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
-	    }};
+	    put(DrawerPanel.this.topLeft, new Point(directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.top, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.topRight, new Point(directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.right, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
+	    put(DrawerPanel.this.bottomRight, new Point(directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.bottom, new Point(getWidth() - 2 * directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.bottomLeft, new Point(directionPanelSizes, directionPanelSizes));
+	    put(DrawerPanel.this.left, new Point(directionPanelSizes, getHeight() - 2 * directionPanelSizes));
+	}};
     }
 
 
@@ -368,8 +359,8 @@ public class DrawerPanel extends AbsolutePanel {
      */
     @Override
     protected void onAttach() {
-        // TODO Auto-generated method stub
-        super.onAttach();
+	// TODO Auto-generated method stub
+	super.onAttach();
 
     }
 }

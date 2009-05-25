@@ -396,4 +396,13 @@ public class GWTCanvasGfxPlatform implements GfxPlatform {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#rotate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, float, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    @Override
+    public void rotate(GfxObject gfxObject, float angle, Point center) {
+	// TODO Auto-generated method stub
+	
+    }
 }
