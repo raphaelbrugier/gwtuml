@@ -14,6 +14,7 @@ import com.objetdirect.gwt.umlapi.client.editors.ClassPartAttributesEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
@@ -63,9 +64,9 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	this.attributeRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.attributeRect);
 	GfxManager.getPlatform().setFillColor(this.attributeRect,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getClassBackgroundColor());
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getClassForegroundColor(), 1);
 	GfxManager.getPlatform().translate(this.textVirtualGroup, new Point(
 		OptionsManager.get("RectangleLeftPadding"),
 		OptionsManager.get("RectangleTopPadding")));
@@ -87,8 +88,8 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 			    OptionsManager.get("TextTopPadding") + this.height));
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, attributeText);
 	    GfxManager.getPlatform().setFont(attributeText, OptionsManager.getSmallFont());
-	    GfxManager.getPlatform().setStroke(attributeText, ThemeManager.getTheme().getBackgroundColor(), 0);
-	    GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getTheme().getForegroundColor());
+	    GfxManager.getPlatform().setStroke(attributeText, ThemeManager.getTheme().getClassBackgroundColor(), 0);
+	    GfxManager.getPlatform().setFillColor(attributeText, ThemeManager.getTheme().getClassForegroundColor());
 	    int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(attributeText);
 	    int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(attributeText);
 	    thisAttributeWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -195,7 +196,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
     }
 
     @Override
@@ -207,7 +208,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.attributeRect,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getClassForegroundColor(), 1);
     }
 
     private Command deleteCommand(final UMLClassAttribute attribute) {
@@ -248,4 +249,20 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	}
 	return attributesURL.toString();
     }
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getOutline()
+     */
+    @Override
+    public GfxObject getOutline() {
+	final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
+	final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, getHeight());
+	GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
+	GfxManager.getPlatform().setStroke(rect,
+		ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
+	GfxManager.getPlatform().setFillColor(rect,
+		ThemeManager.getTheme().getClassBackgroundColor());
+	GfxManager.getPlatform().addToVirtualGroup(vg, rect);
+	return vg;
+    }
+    
 }

@@ -49,7 +49,13 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      */
     public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final RelationKind relationKind) {
 	super(left, right);
-	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
+	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) {
+	    Log.error("Making a relation artifact for : " + relationKind.getName());
+	}
+	if(relationKind == RelationKind.GENERALIZATION || relationKind == RelationKind.REALIZATION) {
+	    Log.error("Making an object relation artifact for : " + relationKind.getName());
+	}
+	
 	this.relation = new UMLRelation(relationKind);
 	this.leftObjectArtifact = left;
 	left.addDependency(this, right);
@@ -227,9 +233,9 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getObjectRelationHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getObjectRelationHighlightedForegroundColor(), 2);
     }
     /**
      * Setter for the left and right cardinalities in {@link UMLRelation}
@@ -366,9 +372,9 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);
     }
 
     Anchor getAnchorType(final ObjectArtifact objectArtifact, final Point point) {
@@ -504,7 +510,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	}
 
 	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 
@@ -554,15 +560,15 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding"), yUnderline), new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
 		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
 		GfxManager.getPlatform().setStroke(underline,
-			ThemeManager.getTheme().getForegroundColor(), 1);
+			ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);
 		GfxManager.getPlatform().setFillColor(underline,
-			ThemeManager.getTheme().getForegroundColor());
+			ThemeManager.getTheme().getObjectRelationForegroundColor());
 		GfxManager.getPlatform().translate(underline, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
 	    }
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
-		    ThemeManager.getTheme().getBackgroundColor(), 0);
+		    ThemeManager.getTheme().getObjectRelationBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
-		    ThemeManager.getTheme().getForegroundColor());
+		    ThemeManager.getTheme().getObjectRelationForegroundColor());
 	    GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
 	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject,
 		    RelationLinkArtifactPart.NAME);
@@ -603,9 +609,9 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	.buildText(text, Point.getOrigin());
 	GfxManager.getPlatform().setFont(textGfxObject, OptionsManager.getSmallFont());
 	GfxManager.getPlatform().setStroke(textGfxObject,
-		ThemeManager.getTheme().getBackgroundColor(), 0);
+		ThemeManager.getTheme().getObjectRelationBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(textGfxObject,
-		ThemeManager.getTheme().getForegroundColor());
+		ThemeManager.getTheme().getObjectRelationForegroundColor());
 	if (this.leftObjectArtifact != this.rightObjectArtifact) {
 	    Log.trace("Creating text : " + text + " at "
 		    + getTextX(textGfxObject, part.isLeft()) + " : "

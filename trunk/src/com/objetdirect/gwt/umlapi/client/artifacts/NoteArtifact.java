@@ -95,9 +95,9 @@ public class NoteArtifact extends BoxArtifact {
 	    GfxManager.getPlatform().setStrokeStyle(outlineCornerPath,
 		    GfxStyle.DASH);
 	    GfxManager.getPlatform().setStroke(outlineBorderPath,
-		    ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
+		    ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
 	    GfxManager.getPlatform().setStroke(outlineCornerPath,
-		    ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
+		    ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
 	    return vg;
 	}
 	return super.getOutline();
@@ -121,9 +121,9 @@ public class NoteArtifact extends BoxArtifact {
     protected void select() {
 	super.select();
 	GfxManager.getPlatform().setStroke(this.borderPath,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.cornerPath,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 2);
+		ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
     }
 
     /**
@@ -140,9 +140,9 @@ public class NoteArtifact extends BoxArtifact {
     public void unselect() {
 	super.unselect();
 	GfxManager.getPlatform().setStroke(this.borderPath,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getNoteForegroundColor(), 1);
 	GfxManager.getPlatform().setStroke(this.cornerPath,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getNoteForegroundColor(), 1);
     }
 
     void createNoteText() {
@@ -158,8 +158,8 @@ public class NoteArtifact extends BoxArtifact {
 			    OptionsManager.get("TextTopPadding") + this.height));
 	    GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
 	    GfxManager.getPlatform().setFont(textLine, OptionsManager.getSmallFont());
-	    GfxManager.getPlatform().setStroke(textLine, ThemeManager.getTheme().getBackgroundColor(), 0);
-	    GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getTheme().getForegroundColor());
+	    GfxManager.getPlatform().setStroke(textLine, ThemeManager.getTheme().getNoteBackgroundColor(), 0);
+	    GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getTheme().getNoteForegroundColor());
 	    int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
 	    int thisLineHeight = GfxManager.getPlatform().getTextHeightFor(textLine);
 	    thisLineWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -196,9 +196,9 @@ public class NoteArtifact extends BoxArtifact {
 	GfxManager.getPlatform().lineTo(thisBorderPath, new Point(0, this.height));
 	GfxManager.getPlatform().lineTo(thisBorderPath, Point.getOrigin());
 	GfxManager.getPlatform().setFillColor(thisBorderPath,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getNoteBackgroundColor());
 	GfxManager.getPlatform().setStroke(thisBorderPath,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getNoteForegroundColor(), 1);
 	return thisBorderPath;
     }
 
@@ -211,9 +211,9 @@ public class NoteArtifact extends BoxArtifact {
 	GfxManager.getPlatform().lineTo(thisCornerPath, new Point(this.width,
 		getCornerHeight()));
 	GfxManager.getPlatform().setFillColor(thisCornerPath,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getNoteBackgroundColor());
 	GfxManager.getPlatform().setStroke(thisCornerPath,
-		ThemeManager.getTheme().getForegroundColor(), 1);
+		ThemeManager.getTheme().getNoteForegroundColor(), 1);
 	return thisCornerPath;
     }
 

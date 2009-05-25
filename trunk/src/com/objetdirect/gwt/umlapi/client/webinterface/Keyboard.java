@@ -96,12 +96,8 @@ public class Keyboard {
 	case 'H':
 	    HelpManager.bringHelpPopup();
 	}
-	int speed = 50;
-	if(isCtrlDown) speed /= 2;
-	if(isAltDown) speed /= 3;
-	if(isMetaDown) speed /= 4;
-	if(isShiftDown) speed /= 5;
 
+	int speed = Direction.getDependingOnModifierSpeed(isCtrlDown, isAltDown, isMetaDown, isShiftDown);
 	switch (keyCode) {
 	case KeyCodes.KEY_UP:
 	    Session.getActiveCanvas().moveSelected(Direction.UP.withSpeed(speed));

@@ -209,15 +209,6 @@ public class UMLCanvas extends AbsolutePanel {
     private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
-    private boolean isMouseStillInDirectionPanel = false;
-    /**
-     * Setter for the isMouseStillInDirectionPanel
-     *
-     * @param isMouseStillInDirectionPanel the isMouseStillInDirectionPanel to set
-     */
-    void setMouseStillInDirectionPanel(boolean isMouseStillInDirectionPanel) {
-	this.isMouseStillInDirectionPanel = isMouseStillInDirectionPanel;
-    }
 
     /**
      * Constructor of an {@link UMLCanvas} with default size 
@@ -530,7 +521,7 @@ public class UMLCanvas extends AbsolutePanel {
 		GfxManager.getPlatform().addToVirtualGroup(this.movingLines, movingLine);
 		GfxManager.getPlatform().setStrokeStyle(movingLine, GfxStyle.LONGDASHDOTDOT);
 	    }
-	    GfxManager.getPlatform().setStroke(this.movingLines, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);	    
+	    GfxManager.getPlatform().setStroke(this.movingLines, ThemeManager.getTheme().getDefaultHighlightedForegroundColor(), 1);	    
 	    GfxManager.getPlatform().moveToBack(this.movingLines);
 	}
     }
@@ -544,7 +535,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void take() {
 	GfxManager.getPlatform().translate(this.outlines, Point.substract(this.canvasOffset,GfxManager.getPlatform().getLocationFor(this.outlines)));
 	final HashMap<UMLArtifact, UMLArtifact> alreadyAdded = new HashMap<UMLArtifact, UMLArtifact>();
-	
+	this.duringDragOffset = Point.getOrigin();
 	for(final Entry<UMLArtifact, ArrayList<Point>> selectedArtifactEntry : this.selectedArtifacts.entrySet()) {
 	    final UMLArtifact selectedArtifact = selectedArtifactEntry.getKey();
 	    Scheduler.cancel("RebuildingDependencyFor"+selectedArtifact);
@@ -593,10 +584,10 @@ public class UMLCanvas extends AbsolutePanel {
 			GfxManager.getPlatform().addToVirtualGroup(this.movingOutlineDependencies, outlineDependency);
 			GfxManager.getPlatform().setStrokeStyle(outlineDependency, GfxStyle.DASH);
 		    }
-		    GfxManager.getPlatform().setStroke(this.movingOutlineDependencies, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
+		    GfxManager.getPlatform().setStroke(this.movingOutlineDependencies, ThemeManager.getTheme().getDefaultHighlightedForegroundColor(), 1);
 		    GfxManager.getPlatform().moveToBack(this.movingOutlineDependencies);
 		}
-		GfxManager.getPlatform().setStroke(this.outlines, ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
+		GfxManager.getPlatform().setStroke(this.outlines, ThemeManager.getTheme().getDefaultHighlightedForegroundColor(), 1);
 	    }
 	}
 	GfxManager.getPlatform().translate(this.outlines, shift);
@@ -991,7 +982,7 @@ public class UMLCanvas extends AbsolutePanel {
 	return UMLDrawerHelper.encodeBase64(url.toString());
     }
 
-    void moveAll(final Direction direction) {
+    void moveAll(final Direction direction, boolean isRecursive) {
 	    new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
 		Point translation =  new Point(-direction.getXShift(), -direction.getYShift());
 		GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
@@ -1003,14 +994,11 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	    };
 
-	if(this.isMouseStillInDirectionPanel) {
+	if(isRecursive) {
 	    new Scheduler.Task("MovingAllArtifactsRecursive", 5) {@Override public void process() {
-		moveAll(direction);
+		moveAll(direction, true);
 	    }};
-	} else {
-	    Scheduler.cancel("MovingAllArtifactsRecursive");
 	}
-	
     }
 
 

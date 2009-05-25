@@ -44,9 +44,9 @@ public abstract class BoxArtifact extends UMLArtifact {
 	final GfxObject rect = GfxManager.getPlatform().buildRect(getWidth(), getHeight());
 	GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
 	GfxManager.getPlatform().setStroke(rect,
-		ThemeManager.getTheme().getHighlightedForegroundColor(), 1);
+		ThemeManager.getTheme().getDefaultHighlightedForegroundColor(), 1);
 	GfxManager.getPlatform().setFillColor(rect,
-		ThemeManager.getTheme().getBackgroundColor());
+		ThemeManager.getTheme().getDefaultBackgroundColor());
 	GfxManager.getPlatform().addToVirtualGroup(vg, rect);
 	return vg;
     }
