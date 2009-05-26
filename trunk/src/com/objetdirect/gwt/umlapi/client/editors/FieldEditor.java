@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.TextBoxBase;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager;
+import com.objetdirect.gwt.umlapi.client.webinterface.Session;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
@@ -30,9 +31,17 @@ public abstract class FieldEditor {
     protected UMLArtifact artifact;
     protected UMLCanvas canvas;
     protected String content;
-    protected TextBoxBase editField;
+    protected static TextBoxBase editField;
     protected int height = 0;
     protected boolean isMultiLine;
+    /**
+     * Getter for the editField
+     *
+     * @return the editField
+     */
+    public static TextBoxBase getEditField() {
+        return editField;
+    }
 
     /**
      * Constructor of the FieldEditor
@@ -74,37 +83,37 @@ public abstract class FieldEditor {
 	}
 	this.content = text;
 
-	this.editField = this.isMultiLine ? new TextArea() : new TextBox();
-	this.editField.setText(text);
-	this.editField.setStylePrimaryName("editor"
+	editField = this.isMultiLine ? new TextArea() : new TextBox();
+	editField.setText(text);
+	editField.setStylePrimaryName("editor"
 		+ (isSmallFont ? "-small" : "")
 		+ "-field"
 		+ (this.isMultiLine ? "-multiline" : ""));
-	this.editField.setWidth(w + "px");
+	editField.setWidth(w + "px");
 	if (this.isMultiLine) {
-	    this.editField.setHeight(this.height + "px");
+	    editField.setHeight(this.height + "px");
 	}
-	DOM.setStyleAttribute(this.editField.getElement(), "backgroundColor",
+	DOM.setStyleAttribute(editField.getElement(), "backgroundColor",
 		ThemeManager.getTheme().getDefaultBackgroundColor().toString());
-	DOM.setStyleAttribute(this.editField.getElement(), "color", ThemeManager.getTheme()
+	DOM.setStyleAttribute(editField.getElement(), "color", ThemeManager.getTheme()
 		.getDefaultForegroundColor().toString());
-	DOM.setStyleAttribute(this.editField.getElement(), "selection", ThemeManager.getTheme()
+	DOM.setStyleAttribute(editField.getElement(), "selection", ThemeManager.getTheme()
 		.getDefaultBackgroundColor().toString()); // CSS 3 :'(
-	this.editField.addFocusHandler(new FocusHandler() {
+	editField.addFocusHandler(new FocusHandler() {
 	    public void onFocus(final FocusEvent event) {
 		Log.trace("Focus on " + this);
 
 	    }
 
 	});
-	this.editField.addBlurHandler(new BlurHandler() {
+	editField.addBlurHandler(new BlurHandler() {
 	    public void onBlur(final BlurEvent event) {
 		Log.trace("Focus lost on " + this);
 		validate(false);
 	    }
 
 	});
-	this.editField.addKeyUpHandler(new KeyUpHandler() {
+	editField.addKeyUpHandler(new KeyUpHandler() {
 	    public void onKeyUp(final KeyUpEvent event) {
 		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 		    if (!FieldEditor.this.isMultiLine || event.isAnyModifierKeyDown()) {
@@ -116,15 +125,16 @@ public abstract class FieldEditor {
 		}
 	    }
 	});
-	this.canvas.add(this.editField, x, y);
-	this.editField.selectAll();
-	this.editField.setFocus(true);
+	
+	this.canvas.add(editField, x + Session.getActiveCanvas().getCanvasOffset().getX(), y + Session.getActiveCanvas().getCanvasOffset().getY());
+	editField.selectAll();
+	editField.setFocus(true);
 	UMLDrawerHelper.enableBrowserEvents();
     }
 
     protected void cancel() {
-	this.canvas.remove(this.editField);
-	this.editField = null;
+	this.canvas.remove(editField);
+	editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setInputEnabled(true);
     }
@@ -135,12 +145,12 @@ public abstract class FieldEditor {
 
     protected void validate(final boolean isNextable) {
 	boolean isStillNextable = isNextable;
-	final String newContent = this.editField.getText();
+	final String newContent = editField.getText();
 	if (!newContent.equals(this.content)) {
 	    isStillNextable = updateUMLArtifact(newContent) && isStillNextable;
 	}
-	this.canvas.remove(this.editField);
-	this.editField = null;
+	this.canvas.remove(editField);
+	editField = null;
 	UMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setInputEnabled(true);
 	if (isStillNextable) {

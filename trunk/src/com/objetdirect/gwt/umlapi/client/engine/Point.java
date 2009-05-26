@@ -274,7 +274,7 @@ public class Point {
      * @return A new {@link Point} containing the coordinates read from the String or the origin if there is a problem
      */
     public static Point parse(String pointString) {
-	if(pointString.matches("\\([0-9]+,[0-9]+\\)")) {
+	if(pointString.matches("\\(\\-?[0-9]+,\\-?[0-9]+\\)")) {
 	    String[] coordinates = pointString.replaceAll("[\\(\\)]", "").split(",");
 	    return new Point(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));	    
 	}

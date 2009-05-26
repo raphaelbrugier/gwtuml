@@ -41,16 +41,16 @@ public class NoteArtifact extends BoxArtifact {
     public void edit(final GfxObject editedGfxObject) {
 	final NoteFieldEditor editor = new NoteFieldEditor(this.canvas, this);
 	editor.setHeightForMultiLine(this.height
-		- OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding")
-		- OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding"));
+		- OptionsManager.get("TextTopPadding") - OptionsManager.get("TextBottomPadding")
+		- OptionsManager.get("RectangleTopPadding") - OptionsManager.get("RectangleBottomPadding"));
 	editor.startEdition(this.note.getText(), getLocation().getX()
 		+ OptionsManager.get("TextLeftPadding")
 		+ OptionsManager.get("RectangleLeftPadding"), getLocation()
 		.getY()
 		+ OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding")
 		+ OptionsManager.get("RectangleTopPadding"), this.width
-		- OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
-		- OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), true, false);
+		- OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
+		- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), true, false);
 
     }
 

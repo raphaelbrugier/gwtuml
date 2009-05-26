@@ -144,7 +144,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 				    + GfxManager.getPlatform().getLocationFor(
 					    editedGfxObject).getY() + OptionsManager
 				    .get("RectangleTopPadding")), this.nodeWidth
-				    - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
+				    - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
 				    - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding")
 				    , false, true);
 	}
