@@ -43,8 +43,9 @@ public class UMLClassMethod {
 
 	} catch (final UMLDrawerException e) {
 	    Log.error(e.getMessage());
+	    
 	}
-	return new UMLClassMethod(UMLVisibility.PACKAGE, "", "", new ArrayList<UMLParameter>());
+	return null;
     }
     
     /**

@@ -21,7 +21,7 @@
 	overflow: hidden;
 }
 .editor-field {
-	font: bold 14px Courrier;
+	font: bold 12px Courrier;
 	border: 1px solid #0f0;
 }
 .editor-field-multiline {

@@ -63,12 +63,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	// Centering name class :
 	GfxManager.getPlatform().translate(
 		this.nameText, new Point(
-		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding"))
+		 (this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding"))
 			/ 2, OptionsManager.get("RectangleTopPadding")));
 	if(this.stereotypeText != null) {
 	GfxManager.getPlatform().translate(
 		this.stereotypeText, new Point(
-			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding"))
+			(this.nodeWidth -  GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding"))
 			/ 2, OptionsManager.get("RectangleTopPadding")));
 	}
 	GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
@@ -150,11 +150,11 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	editor.startEdition(edited, (this.nodeArtifact.getLocation().getX()
 		+ OptionsManager.get("TextLeftPadding") + OptionsManager
 		.get("RectangleLeftPadding")),
-		(this.nodeArtifact.getLocation().getY()
-			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() + OptionsManager
-			.get("RectangleTopPadding")), this.nodeWidth
-			- OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding")
-			- OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, false);
+		this.nodeArtifact.getLocation().getY()
+			+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() /*+ OptionsManager
+			.get("RectangleTopPadding")*/, this.nodeWidth
+			- OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
+			- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false, false);
     }
 
     /**

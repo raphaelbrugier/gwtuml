@@ -50,13 +50,19 @@ public class ClassPartMethodsEditor extends FieldEditor {
 	    return false;
 	}
 	UMLClassMethod newMethod = UMLClassMethod.parseMethod(newContent);
-	this.methodToChange.setVisibility(newMethod.getVisibility());
-	this.methodToChange.setName(newMethod.getName());
-	this.methodToChange.setReturnType(newMethod.getReturnType());
-	this.methodToChange.setParameters(newMethod.getParameters());
+	if(newMethod != null) {
+	    this.methodToChange.setVisibility(newMethod.getVisibility());
+	    this.methodToChange.setName(newMethod.getName());
+	    this.methodToChange.setReturnType(newMethod.getReturnType());
+	    this.methodToChange.setParameters(newMethod.getParameters());
+	    ((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
+	    .rebuildGfxObject();
+	    return true;
+	}
+	((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
 	((ClassPartMethodsArtifact) this.artifact).getNodeArtifact()
 	.rebuildGfxObject();
-	return true;
+	return false;
 
     }
 }
