@@ -126,6 +126,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     void mouseLeftPressed(final GfxObject gfxObject, final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 	if(this.mouseIsPressed) return;
+	this.duringDragOffset = Point.getOrigin();
 	final Point realPoint = convertToRealPoint(location);
 	this.mouseIsPressed = true;
 	if (this.dragAndDropState == DragAndDropState.DRAGGING) {
@@ -172,7 +173,7 @@ public class UMLCanvas extends AbsolutePanel {
 	if(!this.mouseIsPressed) return;
 	final Point realPoint = convertToRealPoint(location);
 	this.mouseIsPressed = false;
-	this.duringDragOffset = Point.getOrigin();
+	
 	if(this.dragAndDropState == DragAndDropState.TAKING) {
 	    unselectOnRelease(gfxObject, isCtrlDown, isShiftDown);
 	}
@@ -604,6 +605,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	}
 	this.totalDragShift = Point.getOrigin();
+	this.duringDragOffset = Point.getOrigin();
 	GfxManager.getPlatform().clearVirtualGroup(this.outlines);
 	GfxManager.getPlatform().clearVirtualGroup(this.movingOutlineDependencies);
     }
