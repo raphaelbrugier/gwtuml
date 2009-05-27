@@ -82,7 +82,7 @@ public class UMLObject extends UMLNode  {
      * 
      * @param nameToParse The string containing a name
      * 
-     * @return The new parsed name or an empty one if there was a problem
+     * @return The list of the new parsed name and instance or an empty one if there was a problem
      */
     public static List<String> parseName(String nameToParse) {
 	if(nameToParse.equals("")) return Arrays.asList("", "");

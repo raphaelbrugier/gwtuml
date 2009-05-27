@@ -45,6 +45,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -372,6 +373,11 @@ public class DrawerPanel extends AbsolutePanel {
 	    final ObjectArtifact defaultobject = new ObjectArtifact("obj1", "Object1");
 	    defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
 	    this.uMLCanvas.add(defaultobject);
+	}
+	if(type == Type.SEQUENCE) {
+	    final LifeLineArtifact defaultLifeLineArtifact = new LifeLineArtifact("LifeLine1", "ll1");
+	    defaultLifeLineArtifact.setLocation(new Point(this.width / 2, this.height / 2));
+	    this.uMLCanvas.add(defaultLifeLineArtifact);
 	}
     }
     /* (non-Javadoc)

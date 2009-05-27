@@ -129,10 +129,10 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		ThemeManager.getTheme().getClassBackgroundColor(), 0);
 	GfxManager.getPlatform().setFillColor(this.nameText,
 		ThemeManager.getTheme().getClassForegroundColor());
-	final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(
+	final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(
 		this.nameText)
 		+ OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-	this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
+	this.width = thisNameWidth > this.width ? thisNameWidth : this.width;
 	this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
 	this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 	this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");

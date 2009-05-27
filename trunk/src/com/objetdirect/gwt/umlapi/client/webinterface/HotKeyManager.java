@@ -72,6 +72,7 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("C", "Add a new class");
 	HelpManager.addHotkeyHelp("O", "Add a new object");
 	HelpManager.addHotkeyHelp("N", "Add a new note");
+	HelpManager.addHotkeyHelp("F", "Add a new life line");
 	HelpManager.addHotkeyHelp("A", "Add a new aggregation");
 	HelpManager.addHotkeyHelp("L", "Add a new association");
 	HelpManager.addHotkeyHelp("K", "Add a new composition");

@@ -27,6 +27,7 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 /**
@@ -66,6 +67,11 @@ public class Keyboard {
 		Session.getActiveCanvas().addNewObject();
 	    }
 	    break;
+	case 'F':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType() == Type.SEQUENCE) {
+		Session.getActiveCanvas().addNewLifeLine();
+	    }
+	    break;
 	case 'N':
 	    Session.getActiveCanvas().addNewNote();
 	    break;
@@ -74,17 +80,25 @@ public class Keyboard {
 		Session.getActiveCanvas().selectAll();
 	    }
 	    else {
-		Session.getActiveCanvas().toLinkMode(RelationKind.AGGREGATION);
+		if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
+		    Session.getActiveCanvas().toLinkMode(RelationKind.AGGREGATION);
+		}
 	    }
 	    break;
 	case 'L':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
 	    Session.getActiveCanvas().toLinkMode(RelationKind.ASSOCIATION);
+	    }
 	    break;
 	case 'K':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
 	    Session.getActiveCanvas().toLinkMode(RelationKind.COMPOSITION);
+	    }
 	    break;
 	case 'D':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
 	    Session.getActiveCanvas().toLinkMode(RelationKind.DEPENDENCY);
+	    }
 	    break;
 	case 'G':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {

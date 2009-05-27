@@ -39,6 +39,7 @@ import com.objetdirect.gwt.umlapi.client.UMLEventListener;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
@@ -60,6 +61,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
@@ -72,6 +74,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     private static long classCount = 1;
     private static long objectCount = 1;
+    private static long lifeLineCount = 1;
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
@@ -328,7 +331,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     /**
-     * Add a new class with default values to this canvas to an invisible location (to hide it)
+     * Add a new class with default values to this canvas to an the current mouse position
      */
     public void addNewClass() {
 	addNewClass(this.currentMousePosition);
@@ -363,7 +366,7 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     /**
-     * Add a new object with default values to this canvas to an invisible location (to hide it)
+     * Add a new object with default values to this canvas to the current mouse position
      */
     public void addNewObject() {
 	addNewObject(this.currentMousePosition);
@@ -373,7 +376,7 @@ public class UMLCanvas extends AbsolutePanel {
     /**
      * Add a new object with default values to this canvas at the specified location
      * 
-     * @param location The initial class location
+     * @param location The initial object location
      * 
      */
     void addNewObject(final Point location) {
@@ -396,7 +399,38 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragAndDropState = DragAndDropState.TAKING;
 	}
     }
+    /**
+     * Add a new lifeLine with default values to this canvas to the current mouse position
+     */
+    public void addNewLifeLine() {
+	addNewLifeLine(this.currentMousePosition);
 
+    }
+    /**
+     * Add a new life life with default values to this canvas at the specified location
+     * 
+     * @param location The initial life line location
+     * 
+     */
+    void addNewLifeLine(final Point location) {
+	if (this.dragAndDropState != DragAndDropState.NONE) {
+	    return;
+	}
+	final LifeLineArtifact newLifeLine = new LifeLineArtifact("LifeLine"+ ++lifeLineCount, "ll" + lifeLineCount);
+	if (fireNewArtifactEvent(newLifeLine)) {
+	    add(newLifeLine);
+	    newLifeLine.moveTo(Point.substract(location, this.canvasOffset));
+	    for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+		selectedArtifact.unselect();
+	    }
+	    this.selectedArtifacts.clear();
+	    doSelection(newLifeLine.getGfxObject(), false, false);
+	    this.selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
+	    this.dragOffset = location;
+	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+	    this.dragAndDropState = DragAndDropState.TAKING;
+	}
+    }
     void addNewLink(final UMLArtifact newSelected) {
 	boolean isOneLinkOk = false;
 	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
@@ -881,6 +915,7 @@ public class UMLCanvas extends AbsolutePanel {
 				    ((ClassArtifact) newArtifact).addMethod(UMLClassMethod.parseMethod(method));
 				}
 			    }
+			    
 
 			} else if(artifact.equals("Object")) {
 			    newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), UMLObject.parseName(parameters[1]).get(1), UMLObject.parseStereotype(parameters[2]));
@@ -892,9 +927,15 @@ public class UMLCanvas extends AbsolutePanel {
 				}
 			    }
 
+			    
+			} else if(artifact.equals("LifeLine")) {
+			    newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(0), UMLLifeLine.parseName(parameters[1]).get(1));
+			    newArtifact.setLocation(Point.parse(parameters[0]));
+			    
+			    
 			} else if(artifact.equals("Note")) {
-			    newArtifact = new NoteArtifact(parameters[0]);
-			    newArtifact.setLocation(Point.parse(parameters[1]));
+			    newArtifact = new NoteArtifact(parameters[1]);
+			    newArtifact.setLocation(Point.parse(parameters[0]));
 
 
 			} else if(artifact.equals("LinkNote")) {

@@ -67,6 +67,9 @@ public class ThemeManager {
 		new GfxColor(255, 255, 255, 255), // White
 		new GfxColor(0, 0, 0, 255), // Black
 		new GfxColor(0, 0, 255, 255), //Blue
+		new GfxColor(255, 255, 255, 255), // White
+		new GfxColor(0, 0, 0, 255), // Black
+		new GfxColor(0, 0, 255, 255), //Blue
 		new GfxColor(134, 171, 217, 255), // Soft Blue
 		new GfxColor(134, 171, 217, 100), // Soft Blue Translucent
 		new GfxColor(134, 171, 217, 255), // Soft Blue
@@ -75,6 +78,9 @@ public class ThemeManager {
 		 * Very dark theme color 
 		 */
 		DARK("Dark", 1, new GfxColor(0, 0, 0, 255), // Black
+			new GfxColor(25, 25, 25, 255), // Dark grey
+			new GfxColor(255, 255, 255, 255), // White
+			new GfxColor(0, 255, 0, 255), // Green
 			new GfxColor(25, 25, 25, 255), // Dark grey
 			new GfxColor(255, 255, 255, 255), // White
 			new GfxColor(0, 255, 0, 255), // Green
@@ -122,6 +128,9 @@ public class ThemeManager {
 				new GfxColor("C8F4CF"), //Object background
 				new GfxColor("000"), //Object foreground
 				new GfxColor("00f"), //Object highlight
+				new GfxColor("C8F4CF"), //LifeLine background
+				new GfxColor("000"), //LifeLine foreground
+				new GfxColor("00f"), //LifeLine highlight
 				new GfxColor("fff"), //Instantiation link background
 				new GfxColor("000"), //Instantiation link foreground
 				new GfxColor("0f0"), //Instantiation link highlight
@@ -161,6 +170,9 @@ public class ThemeManager {
 					new GfxColor("#FC00F1"), 
 					new GfxColor("#590055"), 
 					new GfxColor("#FE005E"), 
+					new GfxColor("#FC00F1"),  
+					new GfxColor("#590055"), 
+					new GfxColor("#FE005E"), 
 					new GfxColor("#FC00F1"), 
 					new GfxColor("#590055"), 
 					new GfxColor("#FE005E"), 
@@ -194,6 +206,9 @@ public class ThemeManager {
 						new GfxColor("999"), 
 						new GfxColor("d22"), 
 						new GfxColor("222"), 
+						new GfxColor("999"), 
+						new GfxColor("d22"), 
+						new GfxColor("222"),
 						new GfxColor("999"), 
 						new GfxColor("d22"), 
 						new GfxColor("222"), 
@@ -255,6 +270,9 @@ public class ThemeManager {
 	private final GfxColor objectBackgroundColor;
 	private final GfxColor objectForegroundColor;
 	private final GfxColor objectHighlightedForegroundColor;
+	private final GfxColor lifeLineBackgroundColor;
+	private final GfxColor lifeLineForegroundColor;
+	private final GfxColor lifeLineHighlightedForegroundColor;
 	private final GfxColor instantiationBackgroundColor;
 	private final GfxColor instantiationForegroundColor;
 	private final GfxColor instantiationHighlightedForegroundColor;
@@ -290,6 +308,9 @@ public class ThemeManager {
 		final GfxColor objectBackgroundColor,
 		final GfxColor objectForegroundColor,
 		final GfxColor objectHighlightedForegroundColor,
+		final GfxColor lifeLineBackgroundColor,
+		final GfxColor lifeLineForegroundColor,
+		final GfxColor lifeLineHighlightedForegroundColor,
 		final GfxColor instantiationBackgroundColor,
 		final GfxColor instantiationForegroundColor,
 		final GfxColor instantiationHighlightedForegroundColor,
@@ -324,6 +345,9 @@ public class ThemeManager {
 		this.objectBackgroundColor = objectBackgroundColor;
 		this.objectForegroundColor = objectForegroundColor;
 		this.objectHighlightedForegroundColor = objectHighlightedForegroundColor;
+		this.lifeLineBackgroundColor = lifeLineBackgroundColor;
+		this.lifeLineForegroundColor = lifeLineForegroundColor;
+		this.lifeLineHighlightedForegroundColor = lifeLineHighlightedForegroundColor;
 		this.instantiationBackgroundColor = instantiationBackgroundColor;
 		this.instantiationForegroundColor = instantiationForegroundColor;
 		this.instantiationHighlightedForegroundColor = instantiationHighlightedForegroundColor;
@@ -432,6 +456,32 @@ public class ThemeManager {
 	 */
 	public GfxColor getClassHighlightedForegroundColor() {
 	    return this.classHighlightedForegroundColor;
+	}
+	/**
+	 * Getter for the lifeLineBackgroundColor
+	 *
+	 * @return the lifeLineBackgroundColor
+	 */
+	public GfxColor getLifeLineBackgroundColor() {
+	    return this.lifeLineBackgroundColor;
+	}
+
+	/**
+	 * Getter for the lifeLineForegroundColor
+	 *
+	 * @return the lifeLineForegroundColor
+	 */
+	public GfxColor getLifeLineForegroundColor() {
+	    return this.lifeLineForegroundColor;
+	}
+
+	/**
+	 * Getter for the lifeLineHighlightedForegroundColor
+	 *
+	 * @return the lifeLineHighlightedForegroundColor
+	 */
+	public GfxColor getLifeLineHighlightedForegroundColor() {
+	    return this.lifeLineHighlightedForegroundColor;
 	}
 
 	/**
