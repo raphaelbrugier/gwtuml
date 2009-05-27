@@ -51,7 +51,11 @@ public class UMLDiagram {
 	/**
 	 * For a class and object diagram
 	 */
-	HYBRID("class and object", true, true, 2);
+	HYBRID("class and object", true, true, 2),
+	/**
+	 * For a sequence diagram
+	 */
+	SEQUENCE("sequence", false, false, 3);
 	
 	private boolean isClassType;
 	private boolean isObjectType;
@@ -108,7 +112,16 @@ public class UMLDiagram {
 	 */
 	public boolean isHybridType() {
 	    return this.isClassType && this.isObjectType;
+	}	
+	/**
+	 * This method allows to know if a diagram can draw class diagram and object diagram type objects
+	 *
+	 * @return True if the diagram can draw class diagram and object diagram objects
+	 */
+	public boolean isClassOrObjectType() {
+	    return this.isClassType || this.isObjectType;
 	}
+	
 	
 	/**
 	 * Return a the UMLDiagram type that corresponds to the index

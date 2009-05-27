@@ -31,6 +31,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
 
 /**
@@ -48,6 +49,11 @@ public class ContextMenu {
     private final Command addNewObject = new Command() {
 	public void execute() {
 	    ContextMenu.this.canvas.addNewObject(ContextMenu.this.location);
+	}
+    };
+    private final Command addNewLifeLine = new Command() {
+	public void execute() {
+	    ContextMenu.this.canvas.addNewLifeLine(ContextMenu.this.location);
 	}
     };
     private final Command addNewNote = new Command() {
@@ -157,6 +163,9 @@ public class ContextMenu {
 	}
 	if(this.canvas.getUMLDiagram().getType().isObjectType()) {
 	    this.contextMenu.addItem("Add new object", this.addNewObject);
+	}
+	if(this.canvas.getUMLDiagram().getType() == Type.SEQUENCE) {
+	    this.contextMenu.addItem("Add new life line", this.addNewLifeLine);
 	}
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
