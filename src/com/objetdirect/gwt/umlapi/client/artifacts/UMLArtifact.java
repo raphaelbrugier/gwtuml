@@ -366,7 +366,7 @@ public abstract class UMLArtifact {
     protected void select() {
 	this.isSelected = true;
 	for (Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.dependentUMLArtifacts.entrySet()) {
-	    if(dependentUMLArtifact.getValue().isSelected) this.canvas.selectArtifact(dependentUMLArtifact.getKey());
+	    if(!dependentUMLArtifact.getValue().equals(this) && dependentUMLArtifact.getValue().isSelected) this.canvas.selectArtifact(dependentUMLArtifact.getKey());
 	}
     }
 

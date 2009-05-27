@@ -1,6 +1,3 @@
-/**
- * 
- */
 /*
  *    This file is part of the GWTUML project
  *    and was written by Mounier Florian <mounier-dot-florian.at.gmail'dot'com> 
@@ -212,10 +209,13 @@ public class Point {
      *            the abscissa offset
      * @param dy
      *            the ordinate offsetRel
+     *           
+     * @return This point
      */
-    public void translate(final int dx, final int dy) {
+    public Point translate(final int dx, final int dy) {
 	this.x += dx;
 	this.y += dy;
+	return this;
     }
     
     /**

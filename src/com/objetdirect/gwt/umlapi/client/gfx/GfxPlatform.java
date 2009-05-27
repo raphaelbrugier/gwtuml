@@ -107,7 +107,15 @@ public interface GfxPlatform {
      * @return The new rectangle in a {@link GfxObject}
      */
     GfxObject buildRect(int width, int height);
-
+    
+    /**
+     * Build a circle with the specified radius
+     * 
+     * @param radius The circle radius
+     * 
+     * @return The new circle in a {@link GfxObject}
+     */
+    GfxObject buildCircle(int radius);
     /**
      * Build a Text containing text and  make some platform specific adjustment
      * 
@@ -215,6 +223,17 @@ public interface GfxPlatform {
      * @param control The {@link Point} controlling the quadratic Bezier curve  
      */
     void curveTo(final GfxObject gfxObject, final Point location, final Point control);
+    
+    /**
+     * Line a path from the current location to the {@link Point} location making a Bezier curve <br />
+     * controlled by the {@link Point} controls  
+     * 
+     * @param gfxObject  The {@link GfxObject} containing the path
+     * @param location The {@link Point} location to curve to  
+     * @param control1 The first {@link Point} controlling the Bezier curve
+     * @param control2 The second {@link Point} controlling the Bezier curve  
+     */
+    void curveTo(final GfxObject gfxObject, final Point location, final Point control1, final Point control2);
     /**
      * Move the {@link GfxObject} to the background 
      * 

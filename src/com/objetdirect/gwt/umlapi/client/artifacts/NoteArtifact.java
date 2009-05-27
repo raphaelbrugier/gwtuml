@@ -223,7 +223,7 @@ public class NoteArtifact extends BoxArtifact {
 		ThemeManager.getTheme().getNoteForegroundColor(), 1);
 	return thisBorderPath;
     }
-
+    
     protected GfxObject getCornerPath() {
 	final GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();
 	GfxManager.getPlatform().moveTo(thisCornerPath,

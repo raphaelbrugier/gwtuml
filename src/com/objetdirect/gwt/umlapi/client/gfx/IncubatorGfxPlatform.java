@@ -426,4 +426,23 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	
     }
 
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    @Override
+    public void curveTo(GfxObject gfxObject, Point location, Point control1,
+	    Point control2) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildCircle(int)
+     */
+    @Override
+    public GfxObject buildCircle(int radius) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

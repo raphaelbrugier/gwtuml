@@ -22,11 +22,16 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
@@ -36,11 +41,41 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
  */
 public abstract class LinkArtifact extends UMLArtifact {
 
+    static class UMLArtifactPeer {
+	UMLArtifact uMLArtifact1;
+	UMLArtifact uMLArtifact2;
+
+	UMLArtifactPeer(UMLArtifact uMLArtifact1, UMLArtifact uMLArtifact2) {
+	    super();
+	    this.uMLArtifact1 = uMLArtifact1;
+	    this.uMLArtifact2 = uMLArtifact2;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+	    UMLArtifactPeer peer = (UMLArtifactPeer) obj;
+	    return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2)) || ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
+	}
+    }
+    static final ArrayList<UMLArtifactPeer> uMLArtifactRelations = new ArrayList<UMLArtifactPeer>();
+
+
+
     /**
-     * Constructor of LinkArtifact
+     * Constructor of RelationLinkArtifact
+     * 
+     * @param uMLArtifact1 First {@link UMLArtifact}
+     * @param uMLArtifact2 Second {@link UMLArtifact}
+     *
      */
-    public LinkArtifact() {
+    public LinkArtifact(UMLArtifact uMLArtifact1, UMLArtifact uMLArtifact2) {
 	super(true);
+	LinkArtifact.UMLArtifactPeer newPeer = new LinkArtifact.UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
+	this.order = Collections.frequency(LinkArtifact.uMLArtifactRelations, newPeer);
+	LinkArtifact.uMLArtifactRelations.add(newPeer);
     }
 
     /**
@@ -53,50 +88,50 @@ public abstract class LinkArtifact extends UMLArtifact {
      */
     public static LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew, RelationKind relationKind) {
 	if (relationKind == RelationKind.NOTE) {
-		if (uMLArtifactNew.getClass() == NoteArtifact.class) {
-		    return new LinkNoteArtifact((NoteArtifact) uMLArtifactNew,
-			    uMLArtifact);
-		} 
-		if (uMLArtifact.getClass() == NoteArtifact.class) {
-		    return new LinkNoteArtifact((NoteArtifact) uMLArtifact,
-			    uMLArtifactNew);
-		}
-		return null;
-	    } else if (relationKind == RelationKind.CLASSRELATION) {
-		if (uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class
-			&& uMLArtifact.getClass() == ClassArtifact.class) {
-		    return new LinkClassRelationArtifact(
-			    (ClassArtifact) uMLArtifact,
-			    (ClassRelationLinkArtifact) uMLArtifactNew);
-		} 
-		if (uMLArtifact.getClass() == ClassRelationLinkArtifact.class
-			&& uMLArtifactNew.getClass() == ClassArtifact.class) {
-		    return new LinkClassRelationArtifact(
-			    (ClassArtifact) uMLArtifactNew,
-			    (ClassRelationLinkArtifact) uMLArtifact);
-		}
-		 return null;
-		
+	    if (uMLArtifactNew.getClass() == NoteArtifact.class) {
+		return new LinkNoteArtifact((NoteArtifact) uMLArtifactNew,
+			uMLArtifact);
+	    } 
+	    if (uMLArtifact.getClass() == NoteArtifact.class) {
+		return new LinkNoteArtifact((NoteArtifact) uMLArtifact,
+			uMLArtifactNew);
 	    }
-	    else if (uMLArtifact.getClass() == ClassArtifact.class
+	    return null;
+	} else if (relationKind == RelationKind.CLASSRELATION) {
+	    if (uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class
+		    && uMLArtifact.getClass() == ClassArtifact.class) {
+		return new LinkClassRelationArtifact(
+			(ClassArtifact) uMLArtifact,
+			(ClassRelationLinkArtifact) uMLArtifactNew);
+	    } 
+	    if (uMLArtifact.getClass() == ClassRelationLinkArtifact.class
 		    && uMLArtifactNew.getClass() == ClassArtifact.class) {
-		return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, relationKind);
-		
-	    } 	    
-	    else if (relationKind != RelationKind.GENERALIZATION && relationKind != RelationKind.REALIZATION && uMLArtifact.getClass() == ObjectArtifact.class
-		    && uMLArtifactNew.getClass() == ObjectArtifact.class) {
-		return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
+		return new LinkClassRelationArtifact(
+			(ClassArtifact) uMLArtifactNew,
+			(ClassRelationLinkArtifact) uMLArtifact);
 	    }
-	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
-		    && uMLArtifactNew.getClass() == ObjectArtifact.class)) {		
-		return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, relationKind);
-	    }
-	    else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
-		    && uMLArtifactNew.getClass() == ClassArtifact.class)) {
-		return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
-	    }
-		return null;
-	    
+	    return null;
+
+	}
+	else if (uMLArtifact.getClass() == ClassArtifact.class
+		&& uMLArtifactNew.getClass() == ClassArtifact.class) {
+	    return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, relationKind);
+
+	} 	    
+	else if (relationKind != RelationKind.GENERALIZATION && relationKind != RelationKind.REALIZATION && uMLArtifact.getClass() == ObjectArtifact.class
+		&& uMLArtifactNew.getClass() == ObjectArtifact.class) {
+	    return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
+	}
+	else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
+		&& uMLArtifactNew.getClass() == ObjectArtifact.class)) {		
+	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, relationKind);
+	}
+	else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
+		&& uMLArtifactNew.getClass() == ClassArtifact.class)) {
+	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
+	}
+	return null;
+
     }
 
     /**
@@ -105,7 +140,7 @@ public abstract class LinkArtifact extends UMLArtifact {
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     public enum LinkAdornment {
-	
+
 	/**
 	 * No adornment -
 	 */
@@ -114,28 +149,35 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 * A cross: -x
 	 */
 	WIRE_CROSS("WireCross", Shape.CROSS, false, true),
-	
+
 	/**
 	 * A wire arrow : -&gt;
 	 */
 	WIRE_ARROW("WireArrow", Shape.ARROW, false, true),
-	
+
 	/**
 	 * A simple filled arrow : -|&gt;
 	 */
 	SOLID_ARROW("SolidArrow", Shape.ARROW, true, false),
-	
+
 	/**
 	 * A filled diamond : -&lt;&gt;
 	 */
 	SOLID_DIAMOND("SolidDiamond", Shape.DIAMOND, true, false),
-	
+	/**
+	 * A filled circle : -o;
+	 */
+	SOLID_CIRCLE("SolidCircle", Shape.CIRCLE, true, false),
 	/**
 	 * A filled diamond with foreground color : -&lt;@&gt;
 	 */
-	INVERTED_SOLID_DIAMOND("InvertedSolidDiamond", Shape.DIAMOND, true, false, true);
-	
-	
+	INVERTED_SOLID_DIAMOND("InvertedSolidDiamond", Shape.DIAMOND, true, false, true), 
+	/**
+	 * A filled circle with foreground color : -@;
+	 */
+	INVERTED_SOLID_CIRCLE("InvertedSolidCircle", Shape.CIRCLE, true, false, true) ;
+
+
 
 	/**
 	 * This sub enumeration specify the global shape of the adornment
@@ -157,10 +199,14 @@ public abstract class LinkArtifact extends UMLArtifact {
 	     */
 	    DIAMOND("<>"),
 	    /**
+	     * Circle type
+	     */
+	    CIRCLE("o"),
+	    /**
 	     * No shape
 	     */
 	    UNSHAPED("");
-	    
+
 	    private final String idiom;
 
 	    private Shape(final String idiom) {
@@ -179,7 +225,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    /**
 	     * Specific Getter for the idiom which change shape orientation between left &lt; and right &gt; 
 	     * 
-	     * @param isRight : if the shape is oriented to the right
+	     * @param isRight : if the shape is oriented to the rightDIAMOND
 	     * @return a string that represent the shape textually in the right orientation : for right arrow  &gt; 
 	     */
 	    public String getIdiom(final boolean isRight) {
@@ -219,7 +265,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    }
 	    return null;
 	}
-	
+
 	private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
 	    this(name, shape, isSolid, isNavigabilityAdronment, false);
 	}
@@ -240,7 +286,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    return this.shape;
 	}
 
-	
+
 	/** 
 	 * Determine if the shape is inverted or not (ie : the fill color is the foreground color)
 	 * 
@@ -283,7 +329,7 @@ public abstract class LinkArtifact extends UMLArtifact {
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     public enum LinkStyle {
-	
+
 	/**
 	 * Dash style : - - - - - 
 	 */
@@ -303,7 +349,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	private final GfxStyle style;
 	private final String name;
-	
+
 	/**
 	 * Getter for the {@link LinkStyle} name
 	 *
@@ -326,7 +372,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	    }
 	    return null;
 	}
-	
+
 	private LinkStyle(final String name, final GfxStyle style) {
 	    this.name = name;
 	    this.style = style;
@@ -342,18 +388,20 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
     }
 
-    protected UMLRelation relation;
+
     protected Point leftPoint = Point.getOrigin();
     protected Point rightPoint = Point.getOrigin();
-
+    protected int order;
+    Point curveControl;
+    protected boolean isSelfLink = false;
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#getCenter()
      */
     @Override
     public Point getCenter() {
-        return Point.getMiddleOf(this.leftPoint, this.rightPoint);
+	return Point.getMiddleOf(this.leftPoint, this.rightPoint);
     }
-    
+
     @Override
     public int getHeight() {
 	return this.leftPoint.getY() < this.rightPoint.getY() ? this.rightPoint.getY()
@@ -386,9 +434,60 @@ public abstract class LinkArtifact extends UMLArtifact {
 	return false;
     }
 
-   /**
-    * This method add an extra dependency removal for link <br> 
-    * to tell other artifact that they don't need to be still dependent on this line
-    */
+    /**
+     * This method add an extra dependency removal for link <br> 
+     * to tell other artifact that they don't need to be still dependent on this line
+     */
     public abstract void removeCreatedDependency();
+
+    protected GfxObject getLine() {
+	if(this.isSelfLink) this.order ++;
+	int factor = 50 * ((this.order + 1)/2);
+	factor *= (this.order % 2) == 0 ? -1 : 1;
+	this.curveControl = GeometryManager.getPlatform().getShiftedCenter(this.leftPoint, this.rightPoint, factor*10);
+	GfxObject line;
+	if(!this.isSelfLink) {
+	    if(OptionsManager.get("AngularLinks") == 1) {
+		line = GfxManager.getPlatform().buildPath();
+		GfxManager.getPlatform().moveTo(line, this.leftPoint);
+		GfxManager.getPlatform().lineTo(line, new Point(this.leftPoint.getX(), this.rightPoint.getY()));
+		GfxManager.getPlatform().lineTo(line, this.rightPoint);
+		GfxManager.getPlatform().setOpacity(line, 0, true);
+	    } else {
+		if(this.order == 0) {
+		    line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
+		} else {
+		    line = GfxManager.getPlatform().buildPath();
+		    GfxManager.getPlatform().moveTo(line, this.leftPoint);
+		    GfxManager.getPlatform().curveTo(line, this.rightPoint, this.curveControl);
+		    GfxManager.getPlatform().setOpacity(line, 0, true);
+		}
+	    }
+	} else {
+	    if(OptionsManager.get("AngularLinks") == 1) {
+		line = GfxManager.getPlatform().buildPath();
+		Point leftShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
+		Point rightShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
+		GfxManager.getPlatform().moveTo(line, this.leftPoint);
+		GfxManager.getPlatform().lineTo(line, leftShiftedPoint);
+		GfxManager.getPlatform().lineTo(line, new Point(leftShiftedPoint.getX(), rightShiftedPoint.getY()));
+		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
+		GfxManager.getPlatform().lineTo(line, this.leftPoint);
+	    } else {
+		Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());
+		Point pointsDiff = Point.substract(this.rightPoint, this.leftPoint);
+		if(pointsDiff.getX() < pointsDiff.getY()) {
+		    this.rightPoint.translate(0, pointsDiff.getX() - pointsDiff.getY());
+		    line = GfxManager.getPlatform().buildCircle(pointsDiff.getX());
+		} else {
+		    this.leftPoint.translate(pointsDiff.getX() - pointsDiff.getY(), 0);
+		    line = GfxManager.getPlatform().buildCircle(pointsDiff.getY());
+		}
+		GfxManager.getPlatform().translate(line, edge);
+	    }
+	    GfxManager.getPlatform().setOpacity(line, 0, true);
+	}
+	return line;
+    }
+
 }

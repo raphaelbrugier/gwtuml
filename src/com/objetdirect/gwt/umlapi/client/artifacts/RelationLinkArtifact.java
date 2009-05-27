@@ -1,6 +1,3 @@
-/**
- * 
- */
 /*
  *    This file is part of the GWTUML project
  *    and was written by Mounier Florian <mounier-dot-florian.at.gmail'dot'com> 
@@ -37,6 +34,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
  *
  */
 public abstract class RelationLinkArtifact extends LinkArtifact {
+    /**
+     * Constructor of RelationLinkArtifact
+     *
+     * @param nodeArtifact1 
+     * @param nodeArtifact2
+     */
+    public RelationLinkArtifact(NodeArtifact nodeArtifact1, NodeArtifact nodeArtifact2) {
+	super(nodeArtifact1, nodeArtifact2);
+    }
+
     /**
      * This enumeration list all text part of a RelationLinkArtifact
      * 
@@ -253,21 +260,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	 */
 	public abstract void setText(UMLRelation relation, String text);
     }
-    protected int order;
-
-    /**
-     * Constructor of RelationLinkArtifact
-     * 
-     * @param n1 First {@link NodeArtifact}
-     * @param n2 Second {@link LinkArtifact}
-     *
-     */
-    public RelationLinkArtifact(NodeArtifact n1, NodeArtifact n2) {
-	super();
-	NodeArtifact.NodePeer newNodePeer = new NodeArtifact.NodePeer(n1, n2);
-	this.order = Collections.frequency(NodeArtifact.nodeRelations, newNodePeer);
-	NodeArtifact.nodeRelations.add(newNodePeer);
-    }
+    protected UMLRelation relation;    
+    
     /**
      * Setter of a part text
      * @param part The {@link RelationLinkArtifactPart} in which the text is to be updated 

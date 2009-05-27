@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.tatami.client.gfx.Circle;
 import com.objetdirect.tatami.client.gfx.Color;
 import com.objetdirect.tatami.client.gfx.Font;
 import com.objetdirect.tatami.client.gfx.GraphicCanvas;
@@ -150,7 +151,12 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public GfxObject buildRect(final int width, final int height) {
 	return new TatamiGfxObjectContainer(new Rect(width, height));
     }
-
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildRect(int, int)
+     */
+    public GfxObject buildCircle(final int radius) {
+	return new TatamiGfxObjectContainer(new Circle(radius));
+    }
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
      */
@@ -272,7 +278,12 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public void curveTo(final GfxObject gfxO, final Point location, final Point control) {
 	((Path) getTatamiGraphicalObjectFrom(gfxO)).qCurveTo(pointConverter(control), pointConverter(location));
     }
-
+    /* (non-Javadoc)
+     * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)
+     */
+    public void curveTo(final GfxObject gfxO, final Point location, final Point control1, final Point control2) {
+	((Path) getTatamiGraphicalObjectFrom(gfxO)).curveTo(pointConverter(control1), pointConverter(control2), pointConverter(location));
+    }
     /* (non-Javadoc)
      * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
      */

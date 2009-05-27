@@ -46,7 +46,7 @@ public class LinkNoteArtifact extends LinkArtifact {
      * @param target The uml artifact the note is pointing to
      */
     public LinkNoteArtifact(final NoteArtifact note, final UMLArtifact target) {
-	super();
+	super(note, target);
 	this.note = note;
 	this.note.addDependency(this, target);
 	this.target = target;

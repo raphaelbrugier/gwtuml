@@ -46,7 +46,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
      */
     public LinkClassRelationArtifact(final ClassArtifact classArtifact,
 	    final ClassRelationLinkArtifact relation) {
-	super();
+	super(classArtifact, relation);
 	this.classArtifact = classArtifact;
 	this.classArtifact.addDependency(this, relation);
 	this.relationLinkArtifact = relation;
