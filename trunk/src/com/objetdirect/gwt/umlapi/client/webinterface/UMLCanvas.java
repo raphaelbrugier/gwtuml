@@ -929,7 +929,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 			    
 			} else if(artifact.equals("LifeLine")) {
-			    newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(0), UMLLifeLine.parseName(parameters[1]).get(1));
+			    newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
 			    newArtifact.setLocation(Point.parse(parameters[0]));
 			    
 			    

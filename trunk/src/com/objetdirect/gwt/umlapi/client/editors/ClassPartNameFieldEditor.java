@@ -1,6 +1,3 @@
-/**
- * 
- */
 /*
  *    This file is part of the GWTUML project
  *    and was written by Mounier Florian <mounier-dot-florian.at.gmail'dot'com> 

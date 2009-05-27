@@ -66,6 +66,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * Width -> 800 <br />
  * Height -> 800 <br />
  * Shadowed -> 1
+ * AngularLinks -> 0
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  *
@@ -126,7 +127,7 @@ public class OptionsManager {
 	optionsList.put("DirectionPanelMaxOpacity",  75);
 	
 	optionsList.put("DirectionPanelSizes",  15);
-	
+	optionsList.put("AngularLinks",  0);
 	defaultOptionsList = new HashMap<String, Integer>(optionsList);
     }
 

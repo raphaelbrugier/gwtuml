@@ -175,6 +175,14 @@ This interface normalize all the methods used on and by a graphical object for a
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildCircle(int)">buildCircle</A></B>(int&nbsp;radius)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a circle with the specified radius</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildImage(java.lang.String)">buildImage</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;url)</CODE>
 
 <BR>
@@ -241,6 +249,18 @@ This interface normalize all the methods used on and by a graphical object for a
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a quadratic Bezier curve <br />
  controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> control</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)">curveTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control1,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controls</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -572,6 +592,20 @@ buildRect</H3>
 </DL>
 <HR>
 
+<A NAME="buildCircle(int)"><!-- --></A><H3>
+buildCircle</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildCircle</B>(int&nbsp;radius)</PRE>
+<DL>
+<DD>Build a circle with the specified radius
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>radius</CODE> - The circle radius
+<DT><B>Returns:</B><DD>The new circle in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="buildText(java.lang.String, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
 buildText</H3>
 <PRE>
@@ -740,6 +774,23 @@ void <B>curveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to curve to<DD><CODE>control</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the quadratic Bezier curve</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+curveTo</H3>
+<PRE>
+void <B>curveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control1,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control2)</PRE>
+<DL>
+<DD>Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controls
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to curve to<DD><CODE>control1</CODE> - The first <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the Bezier curve<DD><CODE>control2</CODE> - The second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the Bezier curve</DL>
 </DD>
 </DL>
 <HR>
