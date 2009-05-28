@@ -46,9 +46,6 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class ClassRelationLinkArtifact extends RelationLinkArtifact {
-
-
-
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
@@ -72,9 +69,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
      * @param relationKind The kind of relation this link is.
      */
     public ClassRelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind) {
-	super(left, right);
-	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
-	this.relation = new UMLRelation(relationKind);
+	super(left, right, relationKind);
+
 	this.leftClassArtifact = left;
 	left.addDependency(this, right);
 	this.rightClassArtifact = right;
@@ -84,7 +80,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	else {
 	    this.isSelfLink = true;
 	}
-
     }
 
     @Override
@@ -179,10 +174,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		+ this.rightClassArtifact.getName());
 	final MenuBar leftSide = new MenuBar(true);
 	final MenuBar rightSide = new MenuBar(true);
-
 	for (final RelationLinkArtifactPart relationLinkArtifactPart : RelationLinkArtifactPart
 		.values()) {
-
 	    final MenuBar editDelete = new MenuBar(true);
 	    if (!relationLinkArtifactPart.getText(this.relation).equals("")) {
 		editDelete.addItem("Edit",
@@ -225,7 +218,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	    rightNavigability.addItem("Unknown", setNavigabilityCommand(this.relation, false));
 	    rightSide.addItem("Navigability", rightNavigability);
 	}
-
 	rightMenu.addItem(this.leftClassArtifact.getName() + " side", leftSide);
 	rightMenu.addItem(this.rightClassArtifact.getName() + " side", rightSide);
 	rightMenu.addItem("Reverse", reverseCommand(this.relation));
@@ -417,7 +409,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     }
 
     int getTextX(final GfxObject text, final boolean isLeft) {
-
 	Point relative_point1 = this.leftPoint;
 	Point relative_point2 = this.rightPoint;
 	final int textWidth = GfxManager.getPlatform().getTextWidthFor(text);
@@ -480,92 +471,43 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     protected void buildGfxObject() {
 	this.gfxObjectPart.clear();
-
-	final boolean isComputationNeededOnLeft = this.relation.getLeftAdornment() != LinkAdornment.NONE
-	|| !(this.relation.getLeftCardinality()
-		+ this.relation.getLeftConstraint()
-		+ this.relation.getLeftRole()).equals("");
-	final boolean isComputationNeededOnRight = this.relation.getRightAdornment() != LinkAdornment.NONE
-	|| !(this.relation.getRightCardinality()
-		+ this.relation.getRightConstraint()
-		+ this.relation.getRightRole()).equals("");
-	if (!this.isSelfLink) {	   	    
-	    this.leftPoint = this.leftClassArtifact.getCenter();
-	    this.rightPoint = this.rightClassArtifact.getCenter();
-	    if(OptionsManager.get("AngularLinks") ==1) {
-		
-		if(this.leftPoint.getY() > this.rightPoint.getY()) {
-		    int sign = this.leftPoint.getX() > this.rightPoint.getX() ? -1 : 1;
-		    this.leftPoint.translate(sign * this.leftClassArtifact.getWidth()/2, 0);
-		    this.rightPoint.translate(0, this.rightClassArtifact.getHeight()/2);
-		} else {
-		    int sign = this.rightPoint.getX() > this.leftPoint.getX() ? -1 : 1;
-		    this.rightPoint.translate(sign * this.rightClassArtifact.getWidth()/2, 0);
-		    this.leftPoint.translate(0, this.leftClassArtifact.getHeight()/2);
-		}
-	    }
-	}
-	else {
-	    this.leftPoint = this.leftClassArtifact.getCenter().translate(0, -this.leftClassArtifact.getHeight() / 2);
-	    this.rightPoint = this.leftClassArtifact.getCenter().translate(this.leftClassArtifact.getWidth() / 2, 0);
-	}
+	
 	this.line = getLine();
 
-	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
+	GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 
 	// Making arrows group :
 	this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
-	if (isComputationNeededOnLeft) {	
-	    if (!this.isSelfLink) {
-		if(OptionsManager.get("AngularLinks") == 0) {
-		    this.leftPoint = GeometryManager.getPlatform().getPointForLine(this.leftClassArtifact, this.rightPoint);
-		}
-	    }
-	    GfxManager.getPlatform().addToVirtualGroup(
-		    this.arrowVirtualGroup,
-		    GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.leftDirectionPoint, this.relation.getLeftAdornment()));
+	GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.leftDirectionPoint, this.relation.getLeftAdornment());
+	GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.rightDirectionPoint, this.relation.getRightAdornment());
+	
+	if(leftArrow != null) { 
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, leftArrow);
 	}
-	if (isComputationNeededOnRight) {
-	    if (!this.isSelfLink) {
-		if(OptionsManager.get("AngularLinks") == 0) {
-		    this.rightPoint = GeometryManager.getPlatform().getPointForLine(this.leftClassArtifact, this.leftPoint);
-		}
-	    }
-	    GfxManager.getPlatform().addToVirtualGroup(
-		    this.arrowVirtualGroup,
-		    GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.rightDirectionPoint, this.relation.getRightAdornment()));
-	} 
-
+	if(rightArrow != null) {
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, rightArrow);
+	}
 	// Making the text group :
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (!this.relation.getName().equals("")) {
 	    Log.trace("Creating name");
-	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
-	    if(this.isSelfLink) {
-		linkMiddle = new Point((this.leftPoint.getX() + this.rightPoint.getX() + OptionsManager.get("ReflexivePathXGap"))/2, this.leftPoint.getY() - OptionsManager.get("ReflexivePathYGap"));
-	    }
-	    else if(this.order != 0) {
-		linkMiddle = Point.getMiddleOf(this.curveControl, linkMiddle);
-	    }
-	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText(this.relation.getName(), linkMiddle);
+	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText(this.relation.getName(), this.nameAnchorPoint);
 	    GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
-	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-		    nameGfxObject);
-
+	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, nameGfxObject);
 	    GfxManager.getPlatform().setStroke(nameGfxObject,
 		    ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
 	    GfxManager.getPlatform().setFillColor(nameGfxObject,
 		    ThemeManager.getTheme().getClassRelationForegroundColor());
 	    GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
-	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject,
-		    RelationLinkArtifactPart.NAME);
+	    RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationLinkArtifactPart.NAME);
 	    this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 	}
+	
+	
 	this.current_delta = 0;
 	if (!this.relation.getLeftCardinality().equals("")) {
 	    GfxManager.getPlatform().addToVirtualGroup(
@@ -619,8 +561,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
     private GfxObject createText(final String text,
 	    final RelationLinkArtifactPart part) {
-
-
 	final GfxObject textGfxObject = GfxManager.getPlatform()
 	.buildText(text, Point.getOrigin());
 	GfxManager.getPlatform().setFont(textGfxObject, OptionsManager.getSmallFont());

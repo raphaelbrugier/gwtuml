@@ -70,7 +70,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      * @param relationKind The kind of relation this link is.
      */
     public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final RelationKind relationKind) {
-	super(left, right);
+	super(left, right, relationKind);
 	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) {
 	    Log.error("Making a relation artifact for : " + relationKind.getName());
 	}
@@ -477,109 +477,39 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 
     @Override
     protected void buildGfxObject() {
-	Point curveControl = Point.getOrigin();
-
 	this.gfxObjectPart.clear();
-	ArrayList<Point> linePoints = new ArrayList<Point>();
-	final boolean isComputationNeededOnLeft = this.relation.getLeftAdornment() != LinkAdornment.NONE
-	|| !(this.relation.getLeftCardinality() + this.relation.getLeftConstraint()
-		+ this.relation.getLeftRole()).equals("");
-	final boolean isComputationNeededOnRight = this.relation.getRightAdornment() != LinkAdornment.NONE
-	|| !(this.relation.getRightCardinality()
-		+ this.relation.getRightConstraint()
-		+ this.relation.getRightRole()).equals("");
-	if (this.leftObjectArtifact != this.rightObjectArtifact) {
-	    if (isComputationNeededOnLeft && isComputationNeededOnRight) {
-		linePoints = GeometryManager.getPlatform().getLineBetween(
-			this.leftObjectArtifact, this.rightObjectArtifact);
-		this.leftPoint = linePoints.get(0);
-		this.rightPoint = linePoints.get(1);
-	    } else if (isComputationNeededOnLeft) {
-		this.rightPoint = this.rightObjectArtifact.getCenter();
-		this.leftPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftObjectArtifact, this.rightPoint);
-	    } else if (isComputationNeededOnRight) {
-		this.leftPoint = this.leftObjectArtifact.getCenter();
-		this.rightPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftObjectArtifact, this.leftPoint);
-	    } else {
-		this.leftPoint = this.leftObjectArtifact.getCenter();
-		this.rightPoint = this.rightObjectArtifact.getCenter();
-	    }
-	    if(this.order == 0) {
-		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-	    } else {
-		int factor = 50 * ((this.order + 1)/2);
-		factor *= (this.order % 2) == 0 ? -1 : 1;
-		curveControl = GeometryManager.getPlatform().getShiftedCenter(this.leftPoint, this.rightPoint, factor);
-		this.line = GfxManager.getPlatform().buildPath();
-		GfxManager.getPlatform().moveTo(this.line, this.leftPoint);
-		GfxManager.getPlatform().curveTo(this.line, this.rightPoint, curveControl);
-		GfxManager.getPlatform().setOpacity(this.line, 0, true);
-	    }
-	} else {
-	    linePoints = GeometryManager.getPlatform().getReflexiveLineFor(
-		    this.leftObjectArtifact);
-	    this.leftPoint = linePoints.get(1);
-	    this.rightPoint = linePoints.get(2);
-	    this.line = GfxManager.getPlatform().buildPath();
-	    GfxManager.getPlatform().moveTo(this.line, linePoints.get(0));
-	    GfxManager.getPlatform().lineTo(this.line, linePoints.get(1));
-	    GfxManager.getPlatform().lineTo(this.line, linePoints.get(2));
-	    GfxManager.getPlatform().lineTo(this.line, linePoints.get(3));
-	    GfxManager.getPlatform().lineTo(this.line, linePoints.get(4));
-	    GfxManager.getPlatform().setOpacity(this.line, 0, true);
-	}
+	
+	this.line = getLine();
 
-	GfxManager.getPlatform().setStroke(this.line,
-		ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);
+	GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
 
 	// Making arrows group :
 	this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform()
-	.addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
-	if (this.leftObjectArtifact != this.rightObjectArtifact) {
-	    if (isComputationNeededOnLeft) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.leftPoint,this.rightPoint, this.relation.getLeftAdornment()) :
-			    GeometryManager.getPlatform().buildAdornment(this.leftPoint, curveControl, this.relation.getLeftAdornment()));
-	    }
-	    if (isComputationNeededOnRight) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.relation.getRightAdornment()) :
-			    GeometryManager.getPlatform().buildAdornment(this.rightPoint, curveControl, this.relation.getRightAdornment()));
-	    }
-	} else {
-	    if (isComputationNeededOnLeft) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			GeometryManager.getPlatform().buildAdornment(
-				linePoints.get(4), linePoints.get(3),
-				this.relation.getLeftAdornment()));
-	    }
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+	GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.leftDirectionPoint, this.relation.getLeftAdornment());
+	GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.rightDirectionPoint, this.relation.getRightAdornment());
+	
+	if(leftArrow != null) { 
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, leftArrow);
 	}
-
+	if(rightArrow != null) {
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, rightArrow);
+	}
 	// Making the text group :
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
-	if (!this.relation.getName().equals("") || this.relation.getRelationKind() == RelationKind.INSTANTIATION) {
+	if (!this.relation.getName().equals("")) {
 	    Log.trace("Creating name");
-	    Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
-	    if(this.order != 0) {
-		linkMiddle = Point.getMiddleOf(curveControl, linkMiddle);
-	    }
 	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText((this.relation.getRelationKind() == RelationKind.INSTANTIATION) ? "«InstanceOf»" :
-		this.relation.getName(),linkMiddle);
+		this.relation.getName(),this.nameAnchorPoint);
 	    GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
 	    if(this.relation.getRelationKind() != RelationKind.INSTANTIATION) {
-		int yUnderline = linkMiddle.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.get("TextTopPadding");
-		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding"), yUnderline), new Point(linkMiddle.getX() + OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
+		int yUnderline = this.nameAnchorPoint.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.get("TextTopPadding");
+		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(this.nameAnchorPoint.getX() + OptionsManager.get("TextLeftPadding"), yUnderline), new Point(this.nameAnchorPoint.getX() + OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
 		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
 		GfxManager.getPlatform().setStroke(underline,
 			ThemeManager.getTheme().getObjectRelationForegroundColor(), 1);

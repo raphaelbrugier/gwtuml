@@ -63,7 +63,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
      * @param relationKind The kind of relation this link is.
      */
     public InstantiationRelationLinkArtifact(final ClassArtifact left, final ObjectArtifact right, final RelationKind relationKind) {
-	super(left, right);
+	super(left, right, relationKind);
 	if(relationKind != RelationKind.INSTANTIATION) Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
 	this.relation = new UMLRelation(relationKind);
 	this.classArtifact = left;

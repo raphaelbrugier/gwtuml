@@ -53,6 +53,7 @@ public abstract class GeometryPlatform {
      */
     public GfxObject buildAdornment(final Point target, final Point origin,
 	    final LinkAdornment adornment) {
+	if(adornment == LinkAdornment.NONE) return null;
 	final GfxObject path = GfxManager.getPlatform().buildPath();
 	int width = 0, lenght = 0;
 	GfxColor foreColor, backColor;
