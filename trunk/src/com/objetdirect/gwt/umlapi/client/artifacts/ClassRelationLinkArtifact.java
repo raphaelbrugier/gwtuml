@@ -256,7 +256,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     protected void select() {
 	super.select();
-	
+
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getClassRelationHighlightedForegroundColor(), 2);
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
@@ -480,43 +480,36 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     protected void buildGfxObject() {
 	this.gfxObjectPart.clear();
-	
+
 	final boolean isComputationNeededOnLeft = this.relation.getLeftAdornment() != LinkAdornment.NONE
-						|| !(this.relation.getLeftCardinality() + this.relation.getLeftConstraint()
-							+ this.relation.getLeftRole()).equals("");
+	|| !(this.relation.getLeftCardinality()
+		+ this.relation.getLeftConstraint()
+		+ this.relation.getLeftRole()).equals("");
 	final boolean isComputationNeededOnRight = this.relation.getRightAdornment() != LinkAdornment.NONE
-						|| !(this.relation.getRightCardinality()
-							+ this.relation.getRightConstraint()
-								+ this.relation.getRightRole()).equals("");
-	
-	ArrayList<Point> linePoints = new ArrayList<Point>();
-	if (!this.isSelfLink) {	   
-	    if (isComputationNeededOnLeft && isComputationNeededOnRight) {
-		linePoints = GeometryManager.getPlatform().getLineBetween(
-			this.leftClassArtifact, this.rightClassArtifact);
-		this.leftPoint = linePoints.get(0);
-		this.rightPoint = linePoints.get(1);
-	    } else if (isComputationNeededOnLeft) {
-		this.rightPoint = this.rightClassArtifact.getCenter();
-		this.leftPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftClassArtifact, this.rightPoint);
-	    } else if (isComputationNeededOnRight) {
-		this.leftPoint = this.leftClassArtifact.getCenter();
-		this.rightPoint = GeometryManager.getPlatform().getPointForLine(
-			this.leftClassArtifact, this.leftPoint);
-	    } else {
-		this.leftPoint = this.leftClassArtifact.getCenter();
-		this.rightPoint = this.rightClassArtifact.getCenter();
+	|| !(this.relation.getRightCardinality()
+		+ this.relation.getRightConstraint()
+		+ this.relation.getRightRole()).equals("");
+	if (!this.isSelfLink) {	   	    
+	    this.leftPoint = this.leftClassArtifact.getCenter();
+	    this.rightPoint = this.rightClassArtifact.getCenter();
+	    if(OptionsManager.get("AngularLinks") ==1) {
+		
+		if(this.leftPoint.getY() > this.rightPoint.getY()) {
+		    int sign = this.leftPoint.getX() > this.rightPoint.getX() ? -1 : 1;
+		    this.leftPoint.translate(sign * this.leftClassArtifact.getWidth()/2, 0);
+		    this.rightPoint.translate(0, this.rightClassArtifact.getHeight()/2);
+		} else {
+		    int sign = this.rightPoint.getX() > this.leftPoint.getX() ? -1 : 1;
+		    this.rightPoint.translate(sign * this.rightClassArtifact.getWidth()/2, 0);
+		    this.leftPoint.translate(0, this.leftClassArtifact.getHeight()/2);
+		}
 	    }
 	}
 	else {
-		    this.leftPoint = this.leftClassArtifact.getCenter().translate(0, -this.leftClassArtifact.getHeight() / 2);
-		    this.rightPoint = this.leftClassArtifact.getCenter().translate(this.leftClassArtifact.getWidth() / 2, 0);
+	    this.leftPoint = this.leftClassArtifact.getCenter().translate(0, -this.leftClassArtifact.getHeight() / 2);
+	    this.rightPoint = this.leftClassArtifact.getCenter().translate(this.leftClassArtifact.getWidth() / 2, 0);
 	}
 	this.line = getLine();
-	  
-	
-	 
 
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
@@ -525,37 +518,27 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	// Making arrows group :
 	this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-	GfxManager.getPlatform()
-	.addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
-	if (this.leftClassArtifact != this.rightClassArtifact) {
-	    if (isComputationNeededOnLeft) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.leftPoint,this.rightPoint, this.relation.getLeftAdornment()) :
-			    GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.curveControl, this.relation.getLeftAdornment()));
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+	if (isComputationNeededOnLeft) {	
+	    if (!this.isSelfLink) {
+		if(OptionsManager.get("AngularLinks") == 0) {
+		    this.leftPoint = GeometryManager.getPlatform().getPointForLine(this.leftClassArtifact, this.rightPoint);
+		}
 	    }
-	    if (isComputationNeededOnRight) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.relation.getRightAdornment()) :
-			    GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.curveControl, this.relation.getRightAdornment()));
-	    }
-	} else {
-	    if (isComputationNeededOnLeft) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			GeometryManager.getPlatform().buildAdornment(
-				this.leftPoint, Point.add(this.leftPoint, new Point(0,-1)),
-				this.relation.getLeftAdornment()));
-	    }
-	    if (isComputationNeededOnRight) {
-		GfxManager.getPlatform().addToVirtualGroup(
-			this.arrowVirtualGroup,
-			GeometryManager.getPlatform().buildAdornment(
-				this.rightPoint, Point.add(this.rightPoint, new Point(1,0)),
-				this.relation.getRightAdornment()));
-	    }
+	    GfxManager.getPlatform().addToVirtualGroup(
+		    this.arrowVirtualGroup,
+		    GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.leftDirectionPoint, this.relation.getLeftAdornment()));
 	}
+	if (isComputationNeededOnRight) {
+	    if (!this.isSelfLink) {
+		if(OptionsManager.get("AngularLinks") == 0) {
+		    this.rightPoint = GeometryManager.getPlatform().getPointForLine(this.leftClassArtifact, this.leftPoint);
+		}
+	    }
+	    GfxManager.getPlatform().addToVirtualGroup(
+		    this.arrowVirtualGroup,
+		    GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.rightDirectionPoint, this.relation.getRightAdornment()));
+	} 
 
 	// Making the text group :
 	this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();

@@ -391,6 +391,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 
     protected Point leftPoint = Point.getOrigin();
     protected Point rightPoint = Point.getOrigin();
+    protected Point leftDirectionPoint = Point.getOrigin();
+    protected Point rightDirectionPoint = Point.getOrigin();
     protected int order;
     Point curveControl;
     protected boolean isSelfLink = false;
@@ -433,7 +435,9 @@ public abstract class LinkArtifact extends UMLArtifact {
     public boolean isDraggable() {
 	return false;
     }
-
+    
+    
+    
     /**
      * This method add an extra dependency removal for link <br> 
      * to tell other artifact that they don't need to be still dependent on this line
@@ -444,19 +448,29 @@ public abstract class LinkArtifact extends UMLArtifact {
 	if(this.isSelfLink) this.order ++;
 	int factor = 50 * ((this.order + 1)/2);
 	factor *= (this.order % 2) == 0 ? -1 : 1;
-	this.curveControl = GeometryManager.getPlatform().getShiftedCenter(this.leftPoint, this.rightPoint, factor*10);
+	this.curveControl = GeometryManager.getPlatform().getShiftedCenter(this.leftPoint, this.rightPoint, factor);
 	GfxObject line;
 	if(!this.isSelfLink) {
 	    if(OptionsManager.get("AngularLinks") == 1) {
 		line = GfxManager.getPlatform().buildPath();
 		GfxManager.getPlatform().moveTo(line, this.leftPoint);
-		GfxManager.getPlatform().lineTo(line, new Point(this.leftPoint.getX(), this.rightPoint.getY()));
+		if(this.leftPoint.getY() < this.rightPoint.getY()) {
+		    this.leftDirectionPoint = this.rightDirectionPoint = new Point(this.leftPoint.getX(), this.rightPoint.getY());
+		} else {
+		    this.leftDirectionPoint = this.rightDirectionPoint = new Point(this.rightPoint.getX(), this.leftPoint.getY());
+		}
+		GfxManager.getPlatform().lineTo(line, this.leftDirectionPoint);
 		GfxManager.getPlatform().lineTo(line, this.rightPoint);
 		GfxManager.getPlatform().setOpacity(line, 0, true);
 	    } else {
+		
 		if(this.order == 0) {
 		    line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
+		    this.leftDirectionPoint = this.rightPoint;
+		    this.rightDirectionPoint = this.leftPoint;
 		} else {
+		    this.leftDirectionPoint = this.curveControl;
+		    this.rightDirectionPoint = this.curveControl;
 		    line = GfxManager.getPlatform().buildPath();
 		    GfxManager.getPlatform().moveTo(line, this.leftPoint);
 		    GfxManager.getPlatform().curveTo(line, this.rightPoint, this.curveControl);
@@ -466,14 +480,16 @@ public abstract class LinkArtifact extends UMLArtifact {
 	} else {
 	    if(OptionsManager.get("AngularLinks") == 1) {
 		line = GfxManager.getPlatform().buildPath();
-		Point leftShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
-		Point rightShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
+		Point rightShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
+		Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
+		this.leftDirectionPoint = leftShiftedPoint;
+		this.rightDirectionPoint = rightShiftedPoint;
 		GfxManager.getPlatform().moveTo(line, this.leftPoint);
 		GfxManager.getPlatform().lineTo(line, leftShiftedPoint);
-		GfxManager.getPlatform().lineTo(line, new Point(leftShiftedPoint.getX(), rightShiftedPoint.getY()));
+		GfxManager.getPlatform().lineTo(line, new Point(rightShiftedPoint.getX(), leftShiftedPoint.getY()));
 		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
-		GfxManager.getPlatform().lineTo(line, this.leftPoint);
-	    } else {
+		GfxManager.getPlatform().lineTo(line, this.rightPoint);
+	    } else {		
 		Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());
 		Point pointsDiff = Point.substract(this.rightPoint, this.leftPoint);
 		if(pointsDiff.getX() < pointsDiff.getY()) {
@@ -483,7 +499,11 @@ public abstract class LinkArtifact extends UMLArtifact {
 		    this.leftPoint.translate(pointsDiff.getX() - pointsDiff.getY(), 0);
 		    line = GfxManager.getPlatform().buildCircle(pointsDiff.getY());
 		}
-		GfxManager.getPlatform().translate(line, edge);
+		Point rightShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
+		Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
+		this.leftDirectionPoint = leftShiftedPoint;
+		this.rightDirectionPoint = rightShiftedPoint;
+		GfxManager.getPlatform().translate(line, edge);		
 	    }
 	    GfxManager.getPlatform().setOpacity(line, 0, true);
 	}
