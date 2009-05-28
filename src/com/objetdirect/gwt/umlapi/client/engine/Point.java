@@ -302,4 +302,13 @@ public class Point {
 	}
 	return Point.getOrigin();
     }
+    /**
+     * Get the absolute value of the two coordinates
+     * 
+     * @param point The point to get the absolute coordinates
+     * @return  A new {@link Point} containing the absolute coordinates
+     */
+    public static Point abs(Point point) {	
+	return new Point(Math.abs(point.getX()), Math.abs(point.getY()));
+    }
 }

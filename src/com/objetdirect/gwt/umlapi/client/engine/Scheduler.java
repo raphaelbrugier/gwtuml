@@ -30,14 +30,14 @@ import com.google.gwt.user.client.Timer;
 /**
  * This class is usefull to queue tasks 
  * 
- * @author Henri Darmet
+ * @author Henri Darmet, Florian Mounier
  *
  */
 public class Scheduler {
     /**
      * This class represents a classic Task
      * 
-     * @author Henri Darmet
+     * @author Henri Darmet, Florian Mounier
      */
     public static abstract class Task extends Timer {
 	private String groupId;

@@ -49,9 +49,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
-    protected enum Anchor {
-	BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
-    }
+
 
     protected GfxObject arrowVirtualGroup;
     protected ClassArtifact leftClassArtifact;
@@ -393,20 +391,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
     }
 
-    Anchor getAnchorType(final ClassArtifact classArtifact, final Point point) {
-	if (point.getX() == classArtifact.getLocation().getX()) {
-	    return Anchor.LEFT;
-	} else if (point.getY() == classArtifact.getLocation().getY()) {
-	    return Anchor.TOP;
-	} else if (point.getX() == classArtifact.getLocation().getX()
-		+ classArtifact.getWidth()) {
-	    return Anchor.RIGHT;
-	} else if (point.getY() == classArtifact.getLocation().getY()
-		+ classArtifact.getHeight()) {
-	    return Anchor.BOTTOM;
-	}
-	return Anchor.UNKNOWN;
-    }
+
 
     int getTextX(final GfxObject text, final boolean isLeft) {
 	Point relative_point1 = this.leftPoint;
@@ -416,16 +401,15 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	    relative_point1 = this.rightPoint;
 	    relative_point2 = this.leftPoint;
 	}
-	switch (getAnchorType(isLeft ? this.leftClassArtifact : this.rightClassArtifact,
-		relative_point1)) {
+	switch (isLeft ? this.leftDirection: this.rightDirection) {
 		case LEFT:
 		    return relative_point1.getX() - textWidth
 		    - OptionsManager.get("RectangleLeftPadding");
 		case RIGHT:
 		    return relative_point1.getX()
 		    + OptionsManager.get("RectangleRightPadding");
-		case TOP:
-		case BOTTOM:
+		case UP:
+		case DOWN:
 		case UNKNOWN:
 		    if (relative_point1.getX() < relative_point2.getX()) {
 			return relative_point1.getX() - textWidth
@@ -447,8 +431,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	final int textHeight = GfxManager.getPlatform().getTextHeightFor(text);
 	final int delta = this.current_delta;
 	this.current_delta += 8; // TODO : Fix Height
-	switch (getAnchorType(isLeft ? this.leftClassArtifact : this.rightClassArtifact,
-		relative_point1)) {
+	switch (isLeft ? this.leftDirection: this.rightDirection) {
 		case LEFT:
 		case RIGHT:
 		    if (relative_point1.getY() > relative_point2.getY()) {
@@ -457,10 +440,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		    }
 		    return relative_point1.getY() - textHeight
 		    - OptionsManager.get("RectangleTopPadding") - delta;
-		case TOP:
+		case UP:
 		    return relative_point1.getY() - textHeight
 		    - OptionsManager.get("RectangleTopPadding") - delta;
-		case BOTTOM:
+		case DOWN:
 		case UNKNOWN:
 		    return relative_point1.getY()
 		    + OptionsManager.get("RectangleBottomPadding") + delta;

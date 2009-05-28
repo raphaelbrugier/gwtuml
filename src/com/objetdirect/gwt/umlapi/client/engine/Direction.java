@@ -20,7 +20,9 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client.webinterface;
+package com.objetdirect.gwt.umlapi.client.engine;
+
+import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
  * This enumeration lists all orthogonal directions and gives the movements factors
@@ -61,7 +63,11 @@ public enum Direction {
     /**
      * Up direction
      */
-    DOWN_RIGHT(1, 1, "⬊");
+    DOWN_RIGHT(1, 1, "⬊"),
+    /**
+     * Unknown direction
+     */
+    UNKNOWN(0, 0, "?");
 
 
     private int xDirection;
@@ -151,9 +157,35 @@ public enum Direction {
 	return speedModified;
     }
 
+    /**
+     * @param opposite
+     * @return
+     */
+    public boolean isOppositeOf(Direction opposite) {
+	return ((this.xDirection == -opposite.xDirection) && (this.yDirection == -opposite.yDirection));
+    }
+    /**
+     * @return
+     */
+    public boolean isHorizontal() {
+	return this.yDirection == 0 && this.xDirection != 0;
+    }
+    /**
+     * @return
+     */
+    public boolean isVertical() {
+	return this.xDirection == 0 && this.yDirection != 0;
+    }
+    
+    /**
+     * @return
+     */
     public double getXShift() {
 	return this.xDirection * this.speed;
     }
+    /**
+     * @return
+     */
     public double getYShift() {
 	return this.yDirection * this.speed;
     }

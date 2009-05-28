@@ -301,6 +301,10 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
 
     private GfxObject getPeerLine() {
+	ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(this.leftNodeArtifact, this.rightNodeArtifact);
+	this.leftPoint = points.get(0);
+	this.rightPoint = points.get(1);
+	computeDirectionsType();
 	return OptionsManager.get("AngularLinks") == 1 ? getPeerAngularLine() : getPeerRightLine();
     }
 
@@ -309,23 +313,18 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
     }
 
     private GfxObject getSelfRightLine() {
-	this.leftPoint = this.leftNodeArtifact.getCenter().translate(0, -this.leftNodeArtifact.getHeight() / 2);
-	this.rightPoint = this.leftNodeArtifact.getCenter().translate(this.leftNodeArtifact.getWidth() / 2, 0);
+	int radius = (this.order + 1 ) * OptionsManager.get("ReflexivePathXGap");
+	
+	
+	this.leftPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth() - radius, 0);
+	this.rightPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth(), radius);
 	GfxObject line;
-	Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());
-	Point pointsDiff = Point.substract(this.rightPoint, this.leftPoint);
-	if(pointsDiff.getX() < pointsDiff.getY()) {
-	    this.rightPoint.translate(0, pointsDiff.getX() - pointsDiff.getY());
-	    line = GfxManager.getPlatform().buildCircle(pointsDiff.getX());
-	} else {
-	    this.leftPoint.translate(pointsDiff.getX() - pointsDiff.getY(), 0);
-	    line = GfxManager.getPlatform().buildCircle(pointsDiff.getY());
-	}
-	Point rightShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
-	Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
-	this.leftDirectionPoint = leftShiftedPoint;
-	this.rightDirectionPoint = rightShiftedPoint;
-	this.nameAnchorPoint = new Point((this.leftPoint.getX() + this.rightPoint.getX() + OptionsManager.get("ReflexivePathXGap"))/2, this.leftPoint.getY() - OptionsManager.get("ReflexivePathYGap"));
+	Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());	
+	line = GfxManager.getPlatform().buildCircle((this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"));
+	computeDirectionsType();
+	this.leftDirectionPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
+	this.rightDirectionPoint = Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
+	this.nameAnchorPoint = Point.add(edge, new Point(0, - (this.order + 1 ) * OptionsManager.get("ReflexivePathXGap")));
 	GfxManager.getPlatform().translate(line, edge);
 	GfxManager.getPlatform().setOpacity(line, 0, true);
 
@@ -335,9 +334,10 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
     private GfxObject getSelfAngularLine() {
 	this.leftPoint = this.leftNodeArtifact.getCenter().translate(0, -this.leftNodeArtifact.getHeight() / 2);
 	this.rightPoint = this.leftNodeArtifact.getCenter().translate(this.leftNodeArtifact.getWidth() / 2, 0);
+	computeDirectionsType();
 	GfxObject line = GfxManager.getPlatform().buildPath();
-	Point rightShiftedPoint =  Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
-	Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathYGap")));
+	Point rightShiftedPoint =  Point.add(this.rightPoint, new Point((this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"), 0));
+	Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, - (this.order + 1 ) * OptionsManager.get("ReflexivePathYGap")));
 	this.leftDirectionPoint = leftShiftedPoint;
 	this.rightDirectionPoint = rightShiftedPoint;
 	GfxManager.getPlatform().moveTo(line, this.leftPoint);
@@ -346,16 +346,11 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
 	GfxManager.getPlatform().lineTo(line, this.rightPoint);
 	GfxManager.getPlatform().setOpacity(line, 0, true);
-	this.nameAnchorPoint = new Point((this.leftPoint.getX() + this.rightPoint.getX() + OptionsManager.get("ReflexivePathXGap"))/2, this.leftPoint.getY() - OptionsManager.get("ReflexivePathYGap"));
+	this.nameAnchorPoint = new Point((this.leftPoint.getX() + this.rightPoint.getX() + (this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"))/2, this.leftPoint.getY() - (this.order + 1 ) * OptionsManager.get("ReflexivePathYGap"));
 	return line;
     }
 
     private GfxObject getPeerRightLine() {
-	
-	ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(this.leftNodeArtifact, this.rightNodeArtifact);
-	this.leftPoint = points.get(0);
-	this.rightPoint = points.get(1);
-	
 	GfxObject line;
 	this.nameAnchorPoint = Point.getMiddleOf(this.leftPoint, this.rightPoint);
 	if(this.order == 0) {
@@ -377,28 +372,22 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
     }
 
     private GfxObject getPeerAngularLine() {
+	Log.warn(this.leftDirection +" - " + this.rightDirection); 
 	this.leftPoint = this.leftNodeArtifact.getCenter();
 	this.rightPoint = this.rightNodeArtifact.getCenter();
-	if(this.leftPoint.getY() > this.rightPoint.getY()) {
-	    int sign = this.leftPoint.getX() > this.rightPoint.getX() ? -1 : 1;
-	    this.leftPoint.translate(sign * this.leftNodeArtifact.getWidth()/2, 0);
-	    this.rightPoint.translate(0, this.rightNodeArtifact.getHeight()/2);
-	} else {
-	    int sign = this.rightPoint.getX() > this.leftPoint.getX() ? -1 : 1;
-	    this.rightPoint.translate(sign * this.rightNodeArtifact.getWidth()/2, 0);
-	    this.leftPoint.translate(0, this.leftNodeArtifact.getHeight()/2);
-	}
+
+	this.leftPoint.translate(this.leftDirection.getXDirection() * this.leftNodeArtifact.getWidth()/2, this.leftDirection.getYDirection() * this.leftNodeArtifact.getHeight()/2);
+	this.rightPoint.translate(this.rightDirection.getXDirection() * this.rightNodeArtifact.getWidth()/2, this.rightDirection.getYDirection() * this.rightNodeArtifact.getHeight()/2);
+
+	Point intermediate = Point.abs(Point.substract(this.rightPoint,  this.leftDirection.isOppositeOf(this.rightDirection) ? Point.getMiddleOf(this.leftPoint, this.rightPoint) : this.leftPoint));
 	GfxObject line = GfxManager.getPlatform().buildPath();
 
-	if(this.leftPoint.getY() < this.rightPoint.getY()) {
-	    this.leftDirectionPoint = this.rightDirectionPoint = new Point(this.leftPoint.getX(), this.rightPoint.getY());
-	    this.nameAnchorPoint = Point.getMiddleOf(this.leftDirectionPoint, this.rightPoint);
-	} else {
-	    this.leftDirectionPoint = this.rightDirectionPoint = new Point(this.rightPoint.getX(), this.leftPoint.getY());
-	    this.nameAnchorPoint = Point.getMiddleOf(this.leftDirectionPoint, this.leftPoint);
-	}
+	this.leftDirectionPoint = Point.add(this.leftPoint, new Point(this.leftDirection.getXDirection() * intermediate.getX(), this.leftDirection.getYDirection() * intermediate.getY())); 
+	this.rightDirectionPoint = Point.add(this.rightPoint, new Point(this.rightDirection.getXDirection() * intermediate.getX(), this.rightDirection.getYDirection() * intermediate.getY()));
+
 	GfxManager.getPlatform().moveTo(line, this.leftPoint);
 	GfxManager.getPlatform().lineTo(line, this.leftDirectionPoint);
+	GfxManager.getPlatform().lineTo(line, this.rightDirectionPoint);
 	GfxManager.getPlatform().lineTo(line, this.rightPoint);
 	GfxManager.getPlatform().setOpacity(line, 0, true);
 
