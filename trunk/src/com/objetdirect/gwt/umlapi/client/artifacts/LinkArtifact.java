@@ -25,6 +25,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -61,6 +62,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
     }
     static final ArrayList<UMLArtifactPeer> uMLArtifactRelations = new ArrayList<UMLArtifactPeer>();
+    private UMLArtifact leftUMLArtifact;
+    private UMLArtifact rightUMLArtifact;
 
 
 
@@ -73,6 +76,8 @@ public abstract class LinkArtifact extends UMLArtifact {
      */
     public LinkArtifact(UMLArtifact uMLArtifact1, UMLArtifact uMLArtifact2) {
 	super(true);
+	this.leftUMLArtifact = uMLArtifact1;
+	this.rightUMLArtifact = uMLArtifact2;
 	LinkArtifact.UMLArtifactPeer newPeer = new LinkArtifact.UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
 	this.order = Collections.frequency(LinkArtifact.uMLArtifactRelations, newPeer);
 	LinkArtifact.uMLArtifactRelations.add(newPeer);
@@ -433,9 +438,30 @@ public abstract class LinkArtifact extends UMLArtifact {
     public boolean isDraggable() {
 	return false;
     }
-    
-    
-    
+
+    protected Direction leftDirection = Direction.UNKNOWN;
+    protected Direction rightDirection = Direction.UNKNOWN;
+
+    protected void computeDirectionsType() {	
+	this.leftDirection = computeDirectionType(this.leftPoint, this.leftUMLArtifact);
+	this.rightDirection = computeDirectionType(this.rightPoint, this.rightUMLArtifact);	
+    }
+
+    private Direction computeDirectionType(Point point, UMLArtifact uMLArtifact) {
+	if (point.getX() == uMLArtifact.getLocation().getX()) {
+	    return Direction.LEFT;
+	} else if (point.getY() == uMLArtifact.getLocation().getY()) {
+	    return Direction.UP;
+	} else if (point.getX() == uMLArtifact.getLocation().getX()
+		+ uMLArtifact.getWidth()) {
+	    return Direction.RIGHT;
+	} else if (point.getY() == uMLArtifact.getLocation().getY()
+		+ uMLArtifact.getHeight()) {
+	    return Direction.DOWN;
+	} 
+	return Direction.UNKNOWN;
+
+    }
     /**
      * This method add an extra dependency removal for link <br> 
      * to tell other artifact that they don't need to be still dependent on this line
