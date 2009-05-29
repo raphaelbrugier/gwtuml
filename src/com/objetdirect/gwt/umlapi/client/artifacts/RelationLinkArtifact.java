@@ -292,6 +292,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
 
     protected GfxObject getLine() {
+	
 	if(this.isSelfLink) {
 	    return getSelfLine();
 	}
@@ -304,7 +305,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(this.leftNodeArtifact, this.rightNodeArtifact);
 	this.leftPoint = points.get(0);
 	this.rightPoint = points.get(1);
-	computeDirectionsType();
+	computeDirectionsType(OptionsManager.get("AngularLinks") == 1 );
 	return OptionsManager.get("AngularLinks") == 1 ? getPeerAngularLine() : getPeerRightLine();
     }
 
@@ -314,27 +315,23 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
     private GfxObject getSelfRightLine() {
 	int radius = (this.order + 1 ) * OptionsManager.get("ReflexivePathXGap");
-	
-	
 	this.leftPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth() - radius, 0);
 	this.rightPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth(), radius);
-	GfxObject line;
+	computeDirectionsType(false);
 	Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());	
-	line = GfxManager.getPlatform().buildCircle((this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"));
-	computeDirectionsType();
+	GfxObject line = GfxManager.getPlatform().buildCircle((this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"));
 	this.leftDirectionPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
 	this.rightDirectionPoint = Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
 	this.nameAnchorPoint = Point.add(edge, new Point(0, - (this.order + 1 ) * OptionsManager.get("ReflexivePathXGap")));
 	GfxManager.getPlatform().translate(line, edge);
 	GfxManager.getPlatform().setOpacity(line, 0, true);
-
 	return line;
     }
 
     private GfxObject getSelfAngularLine() {
 	this.leftPoint = this.leftNodeArtifact.getCenter().translate(0, -this.leftNodeArtifact.getHeight() / 2);
 	this.rightPoint = this.leftNodeArtifact.getCenter().translate(this.leftNodeArtifact.getWidth() / 2, 0);
-	computeDirectionsType();
+	computeDirectionsType(false);
 	GfxObject line = GfxManager.getPlatform().buildPath();
 	Point rightShiftedPoint =  Point.add(this.rightPoint, new Point((this.order + 1 ) * OptionsManager.get("ReflexivePathXGap"), 0));
 	Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, - (this.order + 1 ) * OptionsManager.get("ReflexivePathYGap")));
@@ -371,11 +368,18 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	return line;
     }
 
-    private GfxObject getPeerAngularLine() {
-	Log.warn(this.leftDirection +" - " + this.rightDirection); 
-	this.leftPoint = this.leftNodeArtifact.getCenter();
-	this.rightPoint = this.rightNodeArtifact.getCenter();
+    private GfxObject getPeerAngularLine() {	
 
+	this.leftPoint = Point.add(this.leftNodeArtifact.getCenter(), new Point(
+		Math.abs(this.leftDirection.getYDirection()) * (-this.leftNodeArtifact.getWidth() / 2 + ((this.leftNodeArtifact.getWidth() / (this.leftNodeArtifact.getDependenciesCount(this.leftDirection) + 1))) * (this.leftNodeArtifact.getDependencyIndexOf(this, this.leftDirection)+1)),
+		Math.abs(this.leftDirection.getXDirection())  * (-this.leftNodeArtifact.getHeight() / 2 + ((this.leftNodeArtifact.getHeight() / (this.leftNodeArtifact.getDependenciesCount(this.leftDirection) + 1))) * (this.leftNodeArtifact.getDependencyIndexOf(this, this.leftDirection)+1))
+		));
+	this.rightPoint = Point.add(this.rightNodeArtifact.getCenter(), new Point(
+		Math.abs(this.rightDirection.getYDirection()) * (-this.rightNodeArtifact.getWidth() / 2 + ((this.rightNodeArtifact.getWidth() / (this.rightNodeArtifact.getDependenciesCount(this.rightDirection) + 1))) * (this.rightNodeArtifact.getDependencyIndexOf(this, this.rightDirection)+1)),
+		Math.abs(this.rightDirection.getXDirection())  * (-this.rightNodeArtifact.getHeight() / 2 + ((this.rightNodeArtifact.getHeight() / (this.rightNodeArtifact.getDependenciesCount(this.rightDirection) + 1))) * (this.rightNodeArtifact.getDependencyIndexOf(this, this.rightDirection)+1))
+		));
+	
+	
 	this.leftPoint.translate(this.leftDirection.getXDirection() * this.leftNodeArtifact.getWidth()/2, this.leftDirection.getYDirection() * this.leftNodeArtifact.getHeight()/2);
 	this.rightPoint.translate(this.rightDirection.getXDirection() * this.rightNodeArtifact.getWidth()/2, this.rightDirection.getYDirection() * this.rightNodeArtifact.getHeight()/2);
 
