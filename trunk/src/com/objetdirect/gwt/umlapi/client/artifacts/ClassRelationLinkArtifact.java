@@ -455,7 +455,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     protected void buildGfxObject() {
 	if(this.isTheOneRebuilding) return;
-	Log.fatal("Building really : " + this);
 	this.gfxObjectPart.clear();
 	
 	this.line = getLine();
