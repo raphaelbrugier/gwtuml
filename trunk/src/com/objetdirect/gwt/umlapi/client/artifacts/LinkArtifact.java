@@ -246,7 +246,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	private final Shape shape;
 	private final boolean isNavigabilityAdornment;
 	private final String name;
-
+	protected final boolean dontCompute = false;
 
 	/**
 	 * Getter for the name
@@ -442,9 +442,51 @@ public abstract class LinkArtifact extends UMLArtifact {
     protected Direction leftDirection = Direction.UNKNOWN;
     protected Direction rightDirection = Direction.UNKNOWN;
 
-    protected void computeDirectionsType() {	
+    protected boolean isTheOneRebuilding = false;
+    private boolean doesntHaveToBeComputed;
+    private static boolean isAlreadyBeSorted = false;
+    protected void computeDirectionsType(boolean isForAngular) {
+	if(this.doesntHaveToBeComputed) return;
+	this.isTheOneRebuilding = true;
+
+
+	Direction oldLeftDirection = this.leftDirection;
+	Direction oldRightDirection = this.rightDirection;
+
 	this.leftDirection = computeDirectionType(this.leftPoint, this.leftUMLArtifact);
 	this.rightDirection = computeDirectionType(this.rightPoint, this.rightUMLArtifact);	
+
+	if(isForAngular) {
+	    if(this.leftDirection != oldLeftDirection) {
+		this.leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
+		this.leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
+		this.leftUMLArtifact.addDirectionDependecy(this.leftDirection, this);
+		this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection,  this);
+		this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
+	    } else {
+		if(!isAlreadyBeSorted) {
+		    isAlreadyBeSorted = true;	    
+		    this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection,  this);
+		    this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
+		    isAlreadyBeSorted = false;
+		}
+	    }
+	    if(this.rightDirection != oldRightDirection) {
+		this.rightUMLArtifact.removeDirectionDependecy(this.rightDirection, this);
+		this.rightUMLArtifact.rebuildDirectionDependencies(oldRightDirection);
+		this.rightUMLArtifact.addDirectionDependecy(this.rightDirection, this);
+		this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection,  this);
+		this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
+	    }else {
+		if(!isAlreadyBeSorted) {	
+		    isAlreadyBeSorted = true;
+		    this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection,  this);
+		    this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
+		    isAlreadyBeSorted = false;
+		}
+	    }
+	}
+	this.isTheOneRebuilding = false;
     }
 
     private Direction computeDirectionType(Point point, UMLArtifact uMLArtifact) {
@@ -467,6 +509,10 @@ public abstract class LinkArtifact extends UMLArtifact {
      * to tell other artifact that they don't need to be still dependent on this line
      */
     public abstract void removeCreatedDependency();
+
+    void doesntHaveToBeComputed(boolean state) {
+	this.doesntHaveToBeComputed = state;	
+    }
 
 
 }

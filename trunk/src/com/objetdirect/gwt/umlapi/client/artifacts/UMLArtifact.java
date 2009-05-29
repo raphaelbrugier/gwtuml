@@ -22,13 +22,18 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
@@ -82,6 +87,11 @@ public abstract class UMLArtifact {
 
     protected UMLCanvas canvas;
     protected GfxObject gfxObject;
+
+    private final LinkedList<LinkArtifact> upDependencies = new LinkedList<LinkArtifact>();
+    private final LinkedList<LinkArtifact> downDependencies = new LinkedList<LinkArtifact>();
+    private final LinkedList<LinkArtifact> leftDependencies = new LinkedList<LinkArtifact>();
+    private final LinkedList<LinkArtifact> rightDependencies = new LinkedList<LinkArtifact>();
 
     private final HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     private boolean isBuilt = false;
@@ -347,6 +357,10 @@ public abstract class UMLArtifact {
     public void removeDependency(final LinkArtifact dependentUMLArtifact) {
 	Log.trace(this + "removing depency with" + dependentUMLArtifact);
 	this.dependentUMLArtifacts.remove(dependentUMLArtifact);
+	this.upDependencies.remove(dependentUMLArtifact);
+	this.downDependencies.remove(dependentUMLArtifact);
+	this.leftDependencies.remove(dependentUMLArtifact);
+	this.rightDependencies.remove(dependentUMLArtifact);
     }
 
     /**
@@ -418,13 +432,57 @@ public abstract class UMLArtifact {
 	    final UMLArtifact linkedUMLArtifact) {
 	Log.trace(this + "adding depency with" + dependentUMLArtifact + " - "
 		+ linkedUMLArtifact);
-	getDependentUMLArtifacts().put(dependentUMLArtifact, linkedUMLArtifact);
+	this.dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
     }
+
+    protected void addDirectionDependecy(final Direction direction, LinkArtifact linkArtifact) {	
+	getDirectionList(direction).add(linkArtifact);
+    }
+    protected void sortDirectionDependecy(final Direction direction, LinkArtifact linkArtifact) {	
+	Collections.sort(getDirectionList(direction), new Comparator<LinkArtifact>() {
+
+	    @Override
+	    public int compare(LinkArtifact link1, LinkArtifact link2) {
+		Point artifact1Location = UMLArtifact.this.dependentUMLArtifacts.get(link1).getLocation();
+		Point artifact2Location = UMLArtifact.this.dependentUMLArtifacts.get(link2).getLocation();
+
+		Integer int1 = direction.getXDirection() != 0 ? artifact1Location.getY() : artifact1Location.getX();
+		Integer int2 = direction.getXDirection() != 0 ? artifact2Location.getY() : artifact2Location.getX();
+
+		return int1.compareTo(int2);
+	    }
+	});
+    }
+    protected void removeDirectionDependecy(Direction direction, LinkArtifact linkArtifact) {	
+	getDirectionList(direction).remove(linkArtifact);
+    }
+    protected int getDependencyIndexOf(LinkArtifact linkArtifact, Direction direction) {
+	return getDirectionList(direction).indexOf(linkArtifact);
+    }
+
+    protected int getDependenciesCount(Direction direction) {
+	return getDirectionList(direction).size(); 
+    }
+    private LinkedList<LinkArtifact> getDirectionList(Direction direction) {
+	switch(direction) {
+	case UP:
+	    return this.upDependencies;
+	case DOWN:
+	    return this.downDependencies;
+	case LEFT:
+	    return this.leftDependencies;
+	case RIGHT:
+	    return this.rightDependencies;
+	}
+	return this.upDependencies;
+    }
+
 
     void buildGfxObjectWithAnimation() {
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    ThemeManager.setForegroundOpacityTo(0);
 	}
+	if(isALink()) Log.warn("Rebuild a link : " + this);
 	buildGfxObject();
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    for (int i = 25; i < 256; i += 25) {
@@ -450,5 +508,15 @@ public abstract class UMLArtifact {
     }
 
     protected abstract void buildGfxObject();
+
+    protected void rebuildDirectionDependencies(Direction direction) {
+	final LinkedList<LinkArtifact> directionDependenciesList = new LinkedList<LinkArtifact>(getDirectionList(direction));
+	if(direction == Direction.UNKNOWN) return ;
+	for (LinkArtifact directionLink : directionDependenciesList) {
+	    directionLink.doesntHaveToBeComputed(true);	    
+	    directionLink.rebuildGfxObject();
+	    directionLink.doesntHaveToBeComputed(false);
+	}
+    }
 
 }

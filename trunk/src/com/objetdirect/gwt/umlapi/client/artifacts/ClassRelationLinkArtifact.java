@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.editors.RelationFieldEditor;
+import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -453,6 +454,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
     @Override
     protected void buildGfxObject() {
+	if(this.isTheOneRebuilding) return;
+	Log.fatal("Building really : " + this);
 	this.gfxObjectPart.clear();
 	
 	this.line = getLine();

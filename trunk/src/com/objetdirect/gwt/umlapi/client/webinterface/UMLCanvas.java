@@ -436,6 +436,7 @@ public class UMLCanvas extends AbsolutePanel {
 	boolean isOneLinkOk = false;
 	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 	    LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
+
 	    isOneLinkOk = isOneLinkOk || (newLink != null);
 	    add(newLink);
 	}
