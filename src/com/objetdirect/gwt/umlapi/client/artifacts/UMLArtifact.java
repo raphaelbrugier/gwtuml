@@ -482,7 +482,7 @@ public abstract class UMLArtifact {
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    ThemeManager.setForegroundOpacityTo(0);
 	}
-	if(isALink()) Log.warn("Rebuild a link : " + this);
+	
 	buildGfxObject();
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 	    for (int i = 25; i < 256; i += 25) {

@@ -484,7 +484,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 		    this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
 		    isAlreadyBeSorted = false;
 		}
-	    }
+
+}
 	}
 	this.isTheOneRebuilding = false;
     }
