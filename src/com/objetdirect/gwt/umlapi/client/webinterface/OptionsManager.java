@@ -67,6 +67,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * Height -> 800 <br />
  * Shadowed -> 1
  * AngularLinks -> 0
+ * Advanced -> 0
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  *
@@ -128,6 +129,7 @@ public class OptionsManager {
 	
 	optionsList.put("DirectionPanelSizes",  15);
 	optionsList.put("AngularLinks",  0);
+	optionsList.put("Advanced",  0);
 	defaultOptionsList = new HashMap<String, Integer>(optionsList);
     }
 
@@ -192,7 +194,7 @@ public class OptionsManager {
 		GfxFont._NORMAL, GfxFont._NORMAL);
     }
     /** 
-     * Getter for the small application font
+     * Getter for the small application font&
      * 
      * @return a new font corresponding to the small font 
      */

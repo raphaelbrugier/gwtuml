@@ -25,8 +25,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import org.gwt.mosaic.ui.client.MessageBox;
-
 /**
  * This class supply an easy way to bring help about the drawer
  * 
@@ -58,6 +56,7 @@ public class HelpManager {
 		    + entry.getValue() + "</td></tr>");
 	}
 	htmlContent.append("</table>");
-	MessageBox.info("Help", htmlContent.toString());
+	
+	//MessageBox.info("Help", htmlContent.toString());
     }
 }

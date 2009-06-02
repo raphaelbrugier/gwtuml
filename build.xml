@@ -69,6 +69,7 @@
       <jvmarg value="-Xmx256M"/>
       <arg value="-startupUrl"/>
       <arg value="UMLDrawer.html"/>
+      <arg line="-style PRETTY"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
     </java>
