@@ -22,7 +22,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.webinterface;
 
-import org.gwt.mosaic.ui.client.PopupMenu;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
@@ -30,6 +29,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
+import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
