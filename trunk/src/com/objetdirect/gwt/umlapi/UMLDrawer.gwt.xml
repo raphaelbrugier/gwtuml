@@ -13,6 +13,7 @@
 
       <!-- Other module inherits                                      -->
 	    <inherits name='com.google.gwt.widgetideas.GWTCanvas'/>
+	    <inherits name="com.google.gwt.widgetideas.GlassPanel"/>
    	    <inherits name='com.objetdirect.tatami.Tatami' />
    	    <inherits name='gwt.canvas.gwt-canvas'/>
         <stylesheet src="gwt/standard/Mosaic.css" />

@@ -40,22 +40,23 @@ public class UMLDiagram {
 	/**
 	 * For a class diagram
 	 */
-	CLASS("class", true, false, 0),
+	CLASS("class", true, false, false, 0),
 	/**
 	 * For an object diagram
 	 */
-	OBJECT("object", false, true, 1),
+	OBJECT("object", false, true, false, 1),
 	/**
 	 * For a class and object diagram
 	 */
-	HYBRID("class and object", true, true, 2),
+	HYBRID("class and object", true, true, false, 2),
 	/**
 	 * For a sequence diagram
 	 */
-	SEQUENCE("sequence", false, false, 3);
+	SEQUENCE("sequence", false, false, true, 3);
 	
 	private boolean isClassType;
 	private boolean isObjectType;
+	private boolean isSequenceType;
 	private String name;
 	private Integer index;
 
@@ -68,10 +69,11 @@ public class UMLDiagram {
 	    return this.index;
 	}
 
-	private Type(String name, boolean isClassType, boolean isObjectType, Integer index) {
+	private Type(String name, boolean isClassType, boolean isObjectType, boolean isSequenceType, Integer index) {
 	    this.name = name;
 	    this.isClassType = isClassType;
 	    this.isObjectType = isObjectType;
+	    this.isSequenceType = isSequenceType;
 	    this.index = index;
 	}
 
@@ -119,7 +121,14 @@ public class UMLDiagram {
 	    return this.isClassType || this.isObjectType;
 	}
 	
-	
+	/**
+	 * This method allows to know if a diagram can draw sequence diagram type objects
+	 *
+	 * @return True if the diagram can draw sequence diagram objects
+	 */
+	public boolean isSequenceType() {
+	    return this.isSequenceType;
+	}	
 	/**
 	 * Return a the UMLDiagram type that corresponds to the index
 	 * 

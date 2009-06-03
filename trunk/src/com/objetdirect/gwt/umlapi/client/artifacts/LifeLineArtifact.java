@@ -45,7 +45,7 @@ public class LifeLineArtifact extends BoxArtifact {
     private final UMLLifeLine uMLLifeLine;
     private GfxObject lifeLineText;
     private GfxObject lifeLineRect;
-    private int lineLength = 100;
+    private int lineLength = 0;
     private GfxObject lifeLineLine;
     /**
      * Constructor of the LifeLineArtifact
@@ -174,7 +174,7 @@ public class LifeLineArtifact extends BoxArtifact {
     protected void buildGfxObject() {
 	this.rectHeight = 0;
 	this.width = 0;
-
+	this.lineLength = OptionsManager.get("LifeLineSpacing") * (getAllDirectionsDependenciesCount() + 3);
 	this.lifeLineText = GfxManager.getPlatform().buildText(this.uMLLifeLine.toString(),  new Point(
 		OptionsManager.get("RectangleLeftPadding") + OptionsManager.get("TextLeftPadding"),
 		OptionsManager.get("RectangleTopPadding") + OptionsManager.get("TextTopPadding")));
@@ -247,4 +247,5 @@ public class LifeLineArtifact extends BoxArtifact {
     public void setInstance(String instance) {
 	this.uMLLifeLine.setInstance(instance);
     }
+
 }

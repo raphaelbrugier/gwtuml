@@ -148,7 +148,7 @@ public class StartPanel extends VerticalPanel {
 	    }
 	});
 
-	if(History.getToken().equals("Advanced")) {
+	if(OptionsManager.get("Advanced") == 1) {
 	    this.gfxEnginePanel.add(this.gfxEngineLbl);
 	    this.gfxEnginePanel.add(this.gfxEngineListBox);
 	    this.add(this.gfxEnginePanel);
@@ -160,7 +160,7 @@ public class StartPanel extends VerticalPanel {
 	this.themePanel.add(this.themeLbl);
 	this.themePanel.add(this.themeListBox);
 	this.add(this.themePanel);
-	if(History.getToken().equals("Advanced")) {
+	if(OptionsManager.get("Advanced") == 1) {
 	    this.resolutionAutoPanel.add(this.isResolutionAutoChkBox);
 	    this.add(this.resolutionAutoPanel);
 
@@ -180,7 +180,7 @@ public class StartPanel extends VerticalPanel {
 	OptionsManager.set("DiagramType", type.getIndex());
 	OptionsManager.set("Theme", this.themeListBox.getSelectedIndex());
 	OptionsManager.set("QualityLevel", this.qualityListBox.getSelectedIndex());
-	if(History.getToken().equals("Advanced")) {
+	if(OptionsManager.get("Advanced") == 1) {
 	    OptionsManager.set("GraphicEngine", this.gfxEngineListBox.getSelectedIndex());
 	    OptionsManager.set("GeometryStyle", this.geometryStyleListBox.getSelectedIndex());
 	    OptionsManager.set("AutoResolution", this.isResolutionAutoChkBox.getValue() ? 1 : 0);

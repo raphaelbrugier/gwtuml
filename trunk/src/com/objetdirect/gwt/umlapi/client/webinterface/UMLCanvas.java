@@ -65,7 +65,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
 
 /**
@@ -80,7 +80,7 @@ public class UMLCanvas extends AbsolutePanel {
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
      */
     private long noteCount;
-    private RelationKind activeLinking;
+    private LinkKind activeLinking;
     private Point selectBoxStartPoint; 
     private GfxObject selectBox;
     private final Widget drawingCanvas; // Drawing canvas
@@ -498,7 +498,7 @@ public class UMLCanvas extends AbsolutePanel {
 	return isThisOk;
     }
 
-    boolean fireLinkKindChange(final LinkArtifact newLink, final RelationKind oldKind, final RelationKind newKind) {
+    boolean fireLinkKindChange(final LinkArtifact newLink, final LinkKind oldKind, final LinkKind newKind) {
 	boolean isThisOk = true;
 	for (final UMLEventListener listener : this.uMLEventListenerList) {
 	    isThisOk = listener.onLinkKindChange(newLink, oldKind, newKind) && isThisOk;
@@ -546,7 +546,7 @@ public class UMLCanvas extends AbsolutePanel {
 	return this.uMLDiagram;
     }
 
-    void toLinkMode(final RelationKind linkType) {
+    void toLinkMode(final LinkKind linkType) {
 	this.activeLinking = linkType;
 	CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
     }
@@ -973,7 +973,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    } catch(Exception ex) {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
-			    newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId), (ClassArtifact) UMLArtifact.getArtifactById(classRigthId), RelationKind.getRelationKindFromName(parameters[2]));
+			    newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId), (ClassArtifact) UMLArtifact.getArtifactById(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
 			    ((ClassRelationLinkArtifact) newArtifact).setName(parameters[3]);
 			    ((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 			    ((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
@@ -995,7 +995,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    } catch(Exception ex) {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
-			    newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId), (ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), RelationKind.getRelationKindFromName(parameters[2]));
+			    newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId), (ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
 			    ((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
 			    ((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 			    ((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
@@ -1017,7 +1017,7 @@ public class UMLCanvas extends AbsolutePanel {
 			    } catch(Exception ex) {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
-			    newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ObjectArtifact) UMLArtifact.getArtifactById(objectId), RelationKind.INSTANTIATION);
+			    newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId), (ObjectArtifact) UMLArtifact.getArtifactById(objectId), LinkKind.INSTANTIATION);
 			}
 			if(newArtifact != null) {
 			    newArtifact.setId(id);

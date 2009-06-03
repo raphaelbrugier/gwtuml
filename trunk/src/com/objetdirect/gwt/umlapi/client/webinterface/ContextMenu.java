@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This class manages the right click context drop menu
@@ -139,7 +139,7 @@ public class ContextMenu {
 	});
     }
 
-    private Command addRelation(final RelationKind relation) {
+    private Command addRelation(final LinkKind relation) {
 	return new Command() {
 	    public void execute() {
 		ContextMenu.this.canvas.toLinkMode(relation);
@@ -169,7 +169,7 @@ public class ContextMenu {
 	}
 	this.contextMenu.addItem("Add new note", this.addNewNote);
 	final MenuBar linkSubMenu = new MenuBar(true);
-	for (final RelationKind relationKind : RelationKind.values()) {
+	for (final LinkKind relationKind : LinkKind.values()) {
 	    if(relationKind.isForDiagram(Session.getActiveCanvas().getUMLDiagram().getType())) {
 		linkSubMenu.addItem(relationKind.getName(), addRelation(relationKind));
 	    }

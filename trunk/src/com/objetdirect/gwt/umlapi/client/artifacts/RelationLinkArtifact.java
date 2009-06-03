@@ -33,7 +33,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLComponent;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
@@ -50,11 +50,11 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
      * @param nodeArtifact2
      * @param relationKind 
      */
-    public RelationLinkArtifact(NodeArtifact nodeArtifact1, NodeArtifact nodeArtifact2, final RelationKind relationKind) {
+    public RelationLinkArtifact(NodeArtifact nodeArtifact1, NodeArtifact nodeArtifact2, final LinkKind relationKind) {
 	super(nodeArtifact1, nodeArtifact2);
 	this.leftNodeArtifact = nodeArtifact1;
 	this.rightNodeArtifact = nodeArtifact2;
-	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
+	if(relationKind == LinkKind.NOTE || relationKind == LinkKind.CLASSRELATION) Log.error("Making a relation artifact for : " + relationKind.getName());
 	this.relation = new UMLRelation(relationKind);	
     }
 

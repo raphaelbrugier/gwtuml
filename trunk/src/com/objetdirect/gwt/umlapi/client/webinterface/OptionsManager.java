@@ -130,6 +130,8 @@ public class OptionsManager {
 	optionsList.put("DirectionPanelSizes",  15);
 	optionsList.put("AngularLinks",  0);
 	optionsList.put("Advanced",  0);
+	
+	optionsList.put("LifeLineSpacing",  25);
 	defaultOptionsList = new HashMap<String, Integer>(optionsList);
     }
 

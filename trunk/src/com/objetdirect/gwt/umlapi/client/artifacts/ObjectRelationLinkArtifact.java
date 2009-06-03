@@ -35,7 +35,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -69,12 +69,12 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      * @param right The right {@link ObjectArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      */
-    public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final RelationKind relationKind) {
+    public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
 	super(left, right, relationKind);
-	if(relationKind == RelationKind.NOTE || relationKind == RelationKind.CLASSRELATION) {
+	if(relationKind == LinkKind.NOTE || relationKind == LinkKind.CLASSRELATION) {
 	    Log.error("Making a relation artifact for : " + relationKind.getName());
 	}
-	if(relationKind == RelationKind.GENERALIZATION || relationKind == RelationKind.REALIZATION) {
+	if(relationKind == LinkKind.GENERALIZATION_RELATION || relationKind == LinkKind.REALIZATION_RELATION) {
 	    Log.error("Making an object relation artifact for : " + relationKind.getName());
 	}
 	
@@ -165,7 +165,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-	rightMenu.setName(this.relation.getRelationKind().getName() + " "
+	rightMenu.setName(this.relation.getLinkKind().getName() + " "
 		+ this.leftObjectArtifact.getName() + " "
 		+ this.relation.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.relation.getRightAdornment().getShape().getIdiom(true) + " "
@@ -227,7 +227,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	rightMenu.addItem(this.rightObjectArtifact.getName() + " side", rightSide);
 	rightMenu.addItem("Reverse", reverseCommand(this.relation));
 	final MenuBar linkSubMenu = new MenuBar(true);
-	for (final RelationKind relationKind : RelationKind.values()) {
+	for (final LinkKind relationKind : LinkKind.values()) {
 	    if(relationKind.isForDiagram(UMLDiagram.Type.OBJECT)) {
 		linkSubMenu.addItem(relationKind.getName(), changeToCommand(this.relation, relationKind));
 	    }
@@ -502,12 +502,12 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
 	if (!this.relation.getName().equals("")) {
 	    Log.trace("Creating name");
-	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText((this.relation.getRelationKind() == RelationKind.INSTANTIATION) ? "«InstanceOf»" :
+	    final GfxObject nameGfxObject = GfxManager.getPlatform().buildText((this.relation.getLinkKind() == LinkKind.INSTANTIATION) ? "«InstanceOf»" :
 		this.relation.getName(),this.nameAnchorPoint);
 	    GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
 	    GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 		    nameGfxObject);
-	    if(this.relation.getRelationKind() != RelationKind.INSTANTIATION) {
+	    if(this.relation.getLinkKind() != LinkKind.INSTANTIATION) {
 		int yUnderline = this.nameAnchorPoint.getY() + GfxManager.getPlatform().getTextHeightFor(nameGfxObject) + OptionsManager.get("TextTopPadding");
 		GfxObject underline = GfxManager.getPlatform().buildLine(new Point(this.nameAnchorPoint.getX() + OptionsManager.get("TextLeftPadding"), yUnderline), new Point(this.nameAnchorPoint.getX() + OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameGfxObject), yUnderline));
 		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, underline);
@@ -585,10 +585,10 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	return textGfxObject;
     }
 
-    private Command changeToCommand(final UMLRelation linkRelation, final RelationKind relationKind) {
+    private Command changeToCommand(final UMLRelation linkRelation, final LinkKind relationKind) {
 	return new Command() {
 	    public void execute() {
-		linkRelation.setRelationKind(relationKind);
+		linkRelation.setLinkKind(relationKind);
 		linkRelation.setLinkStyle(relationKind.getDefaultLinkStyle());
 		linkRelation.setLeftAdornment(relationKind.getDefaultLeftAdornment());
 		linkRelation.setRightAdornment(relationKind.getDefaultRightAdornment());
@@ -654,7 +654,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     public String toURL() {
 	return "ObjectRelationLink$" + this.leftObjectArtifact.getId() + "!" + this.rightObjectArtifact.getId() + "!"
-	+ this.relation.getRelationKind().getName() + "!"
+	+ this.relation.getLinkKind().getName() + "!"
 	+ this.relation.getName() + "!"	
 	+ this.relation.getLinkStyle().getName() + "!"	
 	+ this.relation.getLeftAdornment().getName() + "!"
@@ -667,12 +667,12 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	+ this.relation.getRightRole();
     }
     /**
-     * Setter for the relation {@link RelationKind}
+     * Setter for the relation {@link LinkKind}
      * 
-     * @param relationKind The {@link RelationKind} to be set
+     * @param relationKind The {@link LinkKind} to be set
      */
-    public void setRelationKind(RelationKind relationKind) {
-	this.relation.setRelationKind(relationKind);	
+    public void setRelationKind(LinkKind relationKind) {
+	this.relation.setLinkKind(relationKind);	
     }
     /**
      * Setter for the relation {@link LinkArtifact.LinkStyle}
