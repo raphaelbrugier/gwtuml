@@ -27,6 +27,9 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.Window.ClosingHandler;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 
 /**
@@ -73,22 +76,27 @@ public final class HotKeyManager {
 	HelpManager.addHotkeyHelp("O", "Add a new object");
 	HelpManager.addHotkeyHelp("N", "Add a new note");
 	HelpManager.addHotkeyHelp("F", "Add a new life line");
-	HelpManager.addHotkeyHelp("A", "Add a new aggregation");
-	HelpManager.addHotkeyHelp("L", "Add a new association");
-	HelpManager.addHotkeyHelp("K", "Add a new composition");
-	HelpManager.addHotkeyHelp("D", "Add a new dependency");
-	HelpManager.addHotkeyHelp("G", "Add a new generalization");
-	HelpManager.addHotkeyHelp("R", "Add a new realization");
-	HelpManager.addHotkeyHelp("I", "Add a new instantiation");
+	HelpManager.addHotkeyHelp("A", "Add a new aggregation relation");
+	HelpManager.addHotkeyHelp("L", "Add a new association relation");
+	HelpManager.addHotkeyHelp("K", "Add a new composition relation");
+	HelpManager.addHotkeyHelp("D", "Add a new dependency relation");
+	HelpManager.addHotkeyHelp("G", "Add a new generalization relation");
+	HelpManager.addHotkeyHelp("R", "Add a new realization relation");
+	HelpManager.addHotkeyHelp("I", "Add a new instantiation relation");
 	HelpManager.addHotkeyHelp("T", "Add a new note link");
-	HelpManager.addHotkeyHelp("S", "Add a new class relation");
+	HelpManager.addHotkeyHelp("E", "Add a new class relation");
+	HelpManager.addHotkeyHelp("M", "Add a new asynchronous message");
+	HelpManager.addHotkeyHelp("P", "Add a new synchronous message");
+	HelpManager.addHotkeyHelp("B", "Add a new object creation message");
+	HelpManager.addHotkeyHelp("J", "Add a new lost message");
+	HelpManager.addHotkeyHelp("Y", "Add a new found message");
 	HelpManager.addHotkeyHelp("U", "Update URL with current diagram");
 	HelpManager.addHotkeyHelp("Del", "Remove selected object(s)");
 	HelpManager.addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Down", "Move down selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Left", "Move left selected object");
 	HelpManager.addHotkeyHelp("Ctrl]+[Right", "Move right selected object");
-
+		
     }
 
     private static boolean inputEnabled = true;

@@ -31,161 +31,13 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class UMLRelation extends UMLComponent {
-    /**
-     * This enumeration lists all the relations type between two {@link UMLClass}es
-     * 
-     * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-     *
-     */
-    public enum RelationKind {
-	/**
-	 * Aggregation relation
-	 */
-	AGGREGATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
-	/**
-	 * Association relation
-	 */
-	ASSOCIATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "0..*", "0..*", LinkStyle.SOLID, Type.HYBRID),
-	/**
-	 * Composition relation
-	 */
-	COMPOSITION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
-	/**
-	 * Dependency relation
-	 */
-	DEPENDENCY("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED, Type.HYBRID),
-	/**
-	 * Generalization relation
-	 */
-	GENERALIZATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
-	/**
-	 * Realization relation
-	 */
-	REALIZATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED, Type.CLASS), 
-	/**
-	 * Note relation
-	 */
-	NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.HYBRID),
-	/**
-	 * Class relation 
-	 */
-	CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
-	/**
-	 * Class Object instantiation
-	 */
-	INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED, Type.HYBRID);
-
-	private String name;
-	private LinkAdornment defaultLeftAdornment;
-	private LinkAdornment defaultRightAdornment;
-	private String defaultLeftCardinality;
-	private String defaultRightCardinality;
-	private LinkStyle defaultLinkStyle;
-	private Type requiredType;
-
-	private RelationKind(final String name, 
-		final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
-		final String defaultLeftCardinality, final String defaultRightCardinality,
-		final LinkStyle defaultLinkStyle, final Type requiredType) {
-
-	    this.name = name;
-	    this.defaultLeftAdornment = defaultLeftAdornment;
-	    this.defaultRightAdornment = defaultRightAdornment;
-	    this.defaultLeftCardinality = defaultLeftCardinality;
-	    this.defaultRightCardinality = defaultRightCardinality;
-	    this.defaultLinkStyle = defaultLinkStyle;
-	    this.requiredType = requiredType;
-	}
-
-	/**
-	 * Tells if a {@link RelationKind} can be on a diagram depending on its type
-	 * 
-	 * @param diagramType The current diagram type
-	 * 
-	 * @return True if this {@link RelationKind} can be put on this diagramType
-	 */
-	public boolean isForDiagram(Type diagramType) {
-	    if(this == INSTANTIATION) return diagramType.isHybridType();
-	    return diagramType.isClassType() && this.requiredType.isClassType() ||
-	    		diagramType.isObjectType() && this.requiredType.isObjectType();
-	}
-	/**
-	 * Static getter of a {@link RelationKind} by its name
-	 *  
-	 * @param relationKindName The name of the {@link RelationKind} to retrieve
-	 * @return The {@link RelationKind} that has relationKindName for name or null if not found
-	 */
-	public static RelationKind getRelationKindFromName(String relationKindName) {
-	    for(RelationKind relationKind : RelationKind.values()) {
-		if(relationKind.getName().equals(relationKindName)) {
-		    return relationKind;
-		}
-	    }
-	    return null;
-	}
-	/**
-	 * Getter for the defaultLeftAdornment
-	 *
-	 * @return the defaultLeftAdornment
-	 */
-	public LinkAdornment getDefaultLeftAdornment() {
-	    return this.defaultLeftAdornment;
-	}
-
-	/**
-	 * Getter for the defaultRightAdornment
-	 *
-	 * @return the defaultRightAdornment
-	 */
-	public LinkAdornment getDefaultRightAdornment() {
-	    return this.defaultRightAdornment;
-	}
-
-	/**
-	 * Getter for the defaultLeftCardinality
-	 *
-	 * @return the defaultLeftCardinality
-	 */
-	public String getDefaultLeftCardinality() {
-	    return this.defaultLeftCardinality;
-	}
-
-	/**
-	 * Getter for the defaultRightCardinality
-	 *
-	 * @return the defaultRightCardinality
-	 */
-	public String getDefaultRightCardinality() {
-	    return this.defaultRightCardinality;
-	}
-
-	/**
-	 * Getter for the defaultLinkStyle
-	 *
-	 * @return the defaultLinkStyle
-	 */
-	public LinkStyle getDefaultLinkStyle() {
-	    return this.defaultLinkStyle;
-	}
-
-	/**
-	 * Getter for the name
-	 * 
-	 * @return the name
-	 */
-	public String getName() {
-	    return this.name;
-	}
-
-
-    }
+public class UMLRelation extends UMLLink {
+ 
 
     private String leftCardinality;
     private String leftConstraint;
     private String leftRole;
     private String name;
-    private RelationKind relationKind;
     private String rightCardinality;
     private String rightConstraint;
     private String rightRole;
@@ -198,9 +50,8 @@ public class UMLRelation extends UMLComponent {
      *
      * @param relationKind : The type of this relation
      */
-    public UMLRelation(final RelationKind relationKind) {
-	super();
-	this.relationKind = relationKind;
+    public UMLRelation(final LinkKind relationKind) {
+	super(relationKind);
 	this.linkStyle = relationKind.getDefaultLinkStyle();
 	this.leftAdornment = relationKind.getDefaultLeftAdornment();
 	this.rightAdornment = relationKind.getDefaultRightAdornment();
@@ -285,14 +136,6 @@ public class UMLRelation extends UMLComponent {
 	return this.name;
     }
 
-    /**
-     * Getter for the relationKind
-     * 
-     * @return the relationKind
-     */
-    public RelationKind getRelationKind() {
-	return this.relationKind;
-    }
 
     /**
      * Getter for the rightCardinality
@@ -377,16 +220,6 @@ public class UMLRelation extends UMLComponent {
      */
     public void setName(final String name) {
 	this.name = name;
-    }
-
-    /**
-     * Setter for the relationKind
-     * 
-     * @param relationKind
-     *            the relationKind to set
-     */
-    public void setRelationKind(final RelationKind relationKind) {
-	this.relationKind = relationKind;
     }
 
     /**

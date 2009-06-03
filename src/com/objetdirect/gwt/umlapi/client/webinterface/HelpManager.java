@@ -25,6 +25,11 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.widgetideas.client.GlassPanel;
+
 /**
  * This class supply an easy way to bring help about the drawer
  * 
@@ -56,7 +61,12 @@ public class HelpManager {
 		    + entry.getValue() + "</td></tr>");
 	}
 	htmlContent.append("</table>");
-	
+	PopupPanel pop = new PopupPanel(true);
+	 // Attach (display) the glass panel
+	  RootPanel.get().add(new GlassPanel(true), 0, 0);
+	HTML htmlHTMLContent = new HTML(htmlContent.toString());
+	pop.add(htmlHTMLContent);
+	pop.center();
 	//MessageBox.info("Help", htmlContent.toString());
     }
 }

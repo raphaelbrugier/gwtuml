@@ -26,7 +26,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -79,48 +79,75 @@ public class Keyboard {
 	    }
 	    else {
 		if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
-		    Session.getActiveCanvas().toLinkMode(RelationKind.AGGREGATION);
+		    Session.getActiveCanvas().toLinkMode(LinkKind.AGGREGATION_RELATION);
 		}
 	    }
 	    break;
 	case 'L':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
-	    Session.getActiveCanvas().toLinkMode(RelationKind.ASSOCIATION);
+	    Session.getActiveCanvas().toLinkMode(LinkKind.ASSOCIATION_RELATION);
 	    }
 	    break;
 	case 'K':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
-	    Session.getActiveCanvas().toLinkMode(RelationKind.COMPOSITION);
+	    Session.getActiveCanvas().toLinkMode(LinkKind.COMPOSITION_RELATION);
 	    }
 	    break;
 	case 'D':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
-	    Session.getActiveCanvas().toLinkMode(RelationKind.DEPENDENCY);
+	    Session.getActiveCanvas().toLinkMode(LinkKind.DEPENDENCY_RELATION);
 	    }
 	    break;
 	case 'G':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
-		Session.getActiveCanvas().toLinkMode(RelationKind.GENERALIZATION);
+		Session.getActiveCanvas().toLinkMode(LinkKind.GENERALIZATION_RELATION);
 	    }
 	    break;
 	case 'R':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
-		Session.getActiveCanvas().toLinkMode(RelationKind.REALIZATION);
+		Session.getActiveCanvas().toLinkMode(LinkKind.REALIZATION_RELATION);
 	    }
 	    break;
 	case 'T':
-	    Session.getActiveCanvas().toLinkMode(RelationKind.NOTE);
+	    Session.getActiveCanvas().toLinkMode(LinkKind.NOTE);
 	    break;
 	case 'S':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
-		Session.getActiveCanvas().toLinkMode(RelationKind.CLASSRELATION);
+		Session.getActiveCanvas().toLinkMode(LinkKind.CLASSRELATION);
 	    }
 	    break;
 	case 'I':
 	    if(Session.getActiveCanvas().getUMLDiagram().getType().isHybridType()) {
-		Session.getActiveCanvas().toLinkMode(RelationKind.INSTANTIATION);
+		Session.getActiveCanvas().toLinkMode(LinkKind.INSTANTIATION);
 	    }
 	    break;
+	case 'M':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+		Session.getActiveCanvas().toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
+	    }
+	    break;
+	case 'P':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+		Session.getActiveCanvas().toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
+	    }
+	    break;
+	case 'B':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+		Session.getActiveCanvas().toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
+	    }
+	    break;
+	case 'J':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+		Session.getActiveCanvas().toLinkMode(LinkKind.LOST_MESSAGE);
+	    }
+	    break;
+	    
+	case 'Y':
+	    if(Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+		Session.getActiveCanvas().toLinkMode(LinkKind.FOUND_MESSAGE);
+	    }
+	    break;
+	    
 	case 'U':
 	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
 	    break;

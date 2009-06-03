@@ -36,7 +36,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This class is an exemple of a static contruction of a uml diagram
@@ -129,23 +129,23 @@ public class Demo extends AbsolutePanel {
 	
 	
 	
-	final ClassRelationLinkArtifact uMLCanvas_uMLEventListener 				= new ClassRelationLinkArtifact(uMLCanvas, uMLEventListener, RelationKind.AGGREGATION);
-	final ClassRelationLinkArtifact uMLEventListener_externClass				= new ClassRelationLinkArtifact(uMLEventListener, externClass, RelationKind.REALIZATION);
-	final ClassRelationLinkArtifact uMLCanvas_uMLArtifact 				= new ClassRelationLinkArtifact(uMLCanvas, uMLArtifact, RelationKind.COMPOSITION);
-	final ClassRelationLinkArtifact uMLArtifact_uMLArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, uMLArtifact, RelationKind.COMPOSITION);
-	final ClassRelationLinkArtifact uMLArtifact_boxArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, boxArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact uMLArtifact_linkArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact uMLArtifact_linkArtifact_2 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, RelationKind.ASSOCIATION);
-	final ClassRelationLinkArtifact boxArtifact_classArtifact				= new ClassRelationLinkArtifact(boxArtifact, classArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact boxArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(boxArtifact, classPartArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact boxArtifact_noteArtifact 				= new ClassRelationLinkArtifact(boxArtifact, noteArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact linkArtifact_relationLinkArtifact 			= new ClassRelationLinkArtifact(linkArtifact, relationLinkArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact linkArtifact_linkClassRelationArtifact 		= new ClassRelationLinkArtifact(linkArtifact, linkClassRelationArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact linkArtifact_linkNoteArtifact 			= new ClassRelationLinkArtifact(linkArtifact, linkNoteArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact classPartArtifact_classPartAttributesArtifact	= new ClassRelationLinkArtifact(classPartArtifact, classPartAttributesArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact classPartArtifact_classPartMethodsArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartMethodsArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact classPartArtifact_classPartNameArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartNameArtifact, RelationKind.GENERALIZATION);
-	final ClassRelationLinkArtifact classArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(classArtifact, classPartArtifact, RelationKind.COMPOSITION);
+	final ClassRelationLinkArtifact uMLCanvas_uMLEventListener 				= new ClassRelationLinkArtifact(uMLCanvas, uMLEventListener, LinkKind.AGGREGATION_RELATION);
+	final ClassRelationLinkArtifact uMLEventListener_externClass				= new ClassRelationLinkArtifact(uMLEventListener, externClass, LinkKind.REALIZATION_RELATION);
+	final ClassRelationLinkArtifact uMLCanvas_uMLArtifact 				= new ClassRelationLinkArtifact(uMLCanvas, uMLArtifact, LinkKind.COMPOSITION_RELATION);
+	final ClassRelationLinkArtifact uMLArtifact_uMLArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, uMLArtifact, LinkKind.COMPOSITION_RELATION);
+	final ClassRelationLinkArtifact uMLArtifact_boxArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, boxArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact uMLArtifact_linkArtifact 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact uMLArtifact_linkArtifact_2 				= new ClassRelationLinkArtifact(uMLArtifact, linkArtifact, LinkKind.ASSOCIATION_RELATION);
+	final ClassRelationLinkArtifact boxArtifact_classArtifact				= new ClassRelationLinkArtifact(boxArtifact, classArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact boxArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(boxArtifact, classPartArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact boxArtifact_noteArtifact 				= new ClassRelationLinkArtifact(boxArtifact, noteArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact linkArtifact_relationLinkArtifact 			= new ClassRelationLinkArtifact(linkArtifact, relationLinkArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact linkArtifact_linkClassRelationArtifact 		= new ClassRelationLinkArtifact(linkArtifact, linkClassRelationArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact linkArtifact_linkNoteArtifact 			= new ClassRelationLinkArtifact(linkArtifact, linkNoteArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartAttributesArtifact	= new ClassRelationLinkArtifact(classPartArtifact, classPartAttributesArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartMethodsArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartMethodsArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact classPartArtifact_classPartNameArtifact 		= new ClassRelationLinkArtifact(classPartArtifact, classPartNameArtifact, LinkKind.GENERALIZATION_RELATION);
+	final ClassRelationLinkArtifact classArtifact_classPartArtifact 			= new ClassRelationLinkArtifact(classArtifact, classPartArtifact, LinkKind.COMPOSITION_RELATION);
 	
 	uMLCanvas_uMLEventListener.setRightNavigability(false);
 	classArtifact_classPartArtifact.setCardinalities("1", "3");

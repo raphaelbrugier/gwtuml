@@ -24,7 +24,7 @@ package com.objetdirect.gwt.umlapi.client;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This listener allow subscription on UML related events
@@ -76,14 +76,14 @@ public interface UMLEventListener {
      * This method is called when a link kind change
      * 
      * @param linkArtifact The link which type is changing
-     * @param oldKind The old {@link RelationKind}
-     * @param newKind The old {@link RelationKind}
+     * @param oldKind The old {@link LinkKind}
+     * @param newKind The old {@link LinkKind}
      * 
      * @return <ul>
      *         <li><b>True</b> to confirm the link kind change</li>
      *         <li><b>False</b> to prevent it</li>
      *         </ul>
      */
-    public boolean onLinkKindChange(LinkArtifact linkArtifact, RelationKind oldKind, RelationKind newKind);
+    public boolean onLinkKindChange(LinkArtifact linkArtifact, LinkKind oldKind, LinkKind newKind);
 
 }

@@ -31,7 +31,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -62,9 +62,9 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
      * @param right The right {@link ObjectArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      */
-    public InstantiationRelationLinkArtifact(final ClassArtifact left, final ObjectArtifact right, final RelationKind relationKind) {
+    public InstantiationRelationLinkArtifact(final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
 	super(left, right, relationKind);
-	if(relationKind != RelationKind.INSTANTIATION) Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
+	if(relationKind != LinkKind.INSTANTIATION) Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
 	this.relation = new UMLRelation(relationKind);
 	this.classArtifact = left;
 	left.addDependency(this, right);
@@ -107,7 +107,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-	rightMenu.setName(this.relation.getRelationKind().getName() + " "
+	rightMenu.setName(this.relation.getLinkKind().getName() + " "
 		+ this.classArtifact.getName() + " "
 		+ this.relation.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.relation.getRightAdornment().getShape().getIdiom(true) + " "

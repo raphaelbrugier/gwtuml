@@ -36,7 +36,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -67,7 +67,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
      * @param right The right {@link ClassArtifact} of the relation
      * @param relationKind The kind of relation this link is.
      */
-    public ClassRelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final RelationKind relationKind) {
+    public ClassRelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
 	super(left, right, relationKind);
 
 	this.leftClassArtifact = left;
@@ -166,7 +166,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-	rightMenu.setName(this.relation.getRelationKind().getName() + " "
+	rightMenu.setName(this.relation.getLinkKind().getName() + " "
 		+ this.leftClassArtifact.getName() + " "
 		+ this.relation.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.relation.getRightAdornment().getShape().getIdiom(true) + " "
@@ -221,7 +221,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	rightMenu.addItem(this.rightClassArtifact.getName() + " side", rightSide);
 	rightMenu.addItem("Reverse", reverseCommand(this.relation));
 	final MenuBar linkSubMenu = new MenuBar(true);
-	for (final RelationKind relationKind : RelationKind.values()) {
+	for (final LinkKind relationKind : LinkKind.values()) {
 	    if(relationKind.isForDiagram(UMLDiagram.Type.CLASS)) { 
 		linkSubMenu.addItem(relationKind.getName(), changeToCommand(this.relation, relationKind));
 	    }
@@ -574,10 +574,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	return textGfxObject;
     }
 
-    private Command changeToCommand(final UMLRelation linkRelation, final RelationKind relationKind) {
+    private Command changeToCommand(final UMLRelation linkRelation, final LinkKind relationKind) {
 	return new Command() {
 	    public void execute() {
-		linkRelation.setRelationKind(relationKind);
+		linkRelation.setLinkKind(relationKind);
 		linkRelation.setLinkStyle(relationKind.getDefaultLinkStyle());
 		linkRelation.setLeftAdornment(relationKind.getDefaultLeftAdornment());
 		linkRelation.setRightAdornment(relationKind.getDefaultRightAdornment());
@@ -643,7 +643,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
     @Override
     public String toURL() {
 	return "ClassRelationLink$" + this.leftClassArtifact.getId() + "!" + this.rightClassArtifact.getId() + "!"
-	+ this.relation.getRelationKind().getName() + "!"
+	+ this.relation.getLinkKind().getName() + "!"
 	+ this.relation.getName() + "!"	
 	+ this.relation.getLinkStyle().getName() + "!"	
 	+ this.relation.getLeftAdornment().getName() + "!"
@@ -656,12 +656,12 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	+ this.relation.getRightRole();
     }
     /**
-     * Setter for the relation {@link RelationKind}
+     * Setter for the relation {@link LinkKind}
      * 
-     * @param relationKind The {@link RelationKind} to be set
+     * @param relationKind The {@link LinkKind} to be set
      */
-    public void setRelationKind(RelationKind relationKind) {
-	this.relation.setRelationKind(relationKind);	
+    public void setRelationKind(LinkKind relationKind) {
+	this.relation.setLinkKind(relationKind);	
     }
     /**
      * Setter for the relation {@link LinkArtifact.LinkStyle}

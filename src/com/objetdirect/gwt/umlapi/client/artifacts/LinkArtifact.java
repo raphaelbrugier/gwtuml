@@ -31,7 +31,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation.RelationKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
@@ -88,11 +88,11 @@ public abstract class LinkArtifact extends UMLArtifact {
      * 
      * @param uMLArtifact The first one of the two {@link UMLArtifact} to be linked
      * @param uMLArtifactNew The second one of the two {@link UMLArtifact} to be linked
-     * @param relationKind The {@link RelationKind} of this link
+     * @param linkKind The {@link LinkKind} of this link
      * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
      */
-    public static LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew, RelationKind relationKind) {
-	if (relationKind == RelationKind.NOTE) {
+    public static LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew, LinkKind linkKind) {
+	if (linkKind == LinkKind.NOTE) {
 	    if (uMLArtifactNew.getClass() == NoteArtifact.class) {
 		return new LinkNoteArtifact((NoteArtifact) uMLArtifactNew,
 			uMLArtifact);
@@ -102,7 +102,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 			uMLArtifactNew);
 	    }
 	    return null;
-	} else if (relationKind == RelationKind.CLASSRELATION) {
+	} else if (linkKind == LinkKind.CLASSRELATION) {
 	    if (uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class
 		    && uMLArtifact.getClass() == ClassArtifact.class) {
 		return new LinkClassRelationArtifact(
@@ -120,21 +120,26 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
 	else if (uMLArtifact.getClass() == ClassArtifact.class
 		&& uMLArtifactNew.getClass() == ClassArtifact.class) {
-	    return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, relationKind);
+	    return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
 
 	} 	    
-	else if (relationKind != RelationKind.GENERALIZATION && relationKind != RelationKind.REALIZATION && uMLArtifact.getClass() == ObjectArtifact.class
+	else if (linkKind != LinkKind.GENERALIZATION_RELATION && linkKind != LinkKind.REALIZATION_RELATION && uMLArtifact.getClass() == ObjectArtifact.class
 		&& uMLArtifactNew.getClass() == ObjectArtifact.class) {
-	    return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
+	    return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 	}
-	else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
+	else if (linkKind == LinkKind.INSTANTIATION && (uMLArtifact.getClass() == ClassArtifact.class
 		&& uMLArtifactNew.getClass() == ObjectArtifact.class)) {		
-	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, relationKind);
+	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
 	}
-	else if (relationKind == RelationKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
+	else if (linkKind == LinkKind.INSTANTIATION && (uMLArtifact.getClass() == ObjectArtifact.class
 		&& uMLArtifactNew.getClass() == ClassArtifact.class)) {
-	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, relationKind);
+	    return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 	}
+	else if (uMLArtifact.getClass() == LifeLineArtifact.class
+		&& uMLArtifactNew.getClass() == LifeLineArtifact.class) {
+	    return new MessageLinkArtifact((LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+
+	} 
 	return null;
 
     }

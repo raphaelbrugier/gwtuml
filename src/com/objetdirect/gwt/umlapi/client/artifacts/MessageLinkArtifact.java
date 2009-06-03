@@ -24,14 +24,19 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.Collections;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.editors.MessageFieldEditor;
+import com.objetdirect.gwt.umlapi.client.engine.Direction;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
+import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage.MessageKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
@@ -40,7 +45,7 @@ import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  *
  */
-public abstract class MessageLinkArtifact extends LinkArtifact {
+public class MessageLinkArtifact extends LinkArtifact {
 
     /**
      * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -59,7 +64,7 @@ public abstract class MessageLinkArtifact extends LinkArtifact {
      * @param right The right {@link LifeLineArtifact} of the message
      * @param messageKind The kind of message this link is.
      */
-    public MessageLinkArtifact(LifeLineArtifact left, final LifeLineArtifact right, final MessageKind messageKind) {
+    public MessageLinkArtifact(LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
 	super(left, right);
 	this.message = new UMLMessage(messageKind);
 	this.leftLifeLineArtifact = left;
@@ -110,7 +115,7 @@ public abstract class MessageLinkArtifact extends LinkArtifact {
     @Override
     public MenuBarAndTitle getRightMenu() {
 	final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-	rightMenu.setName(this.message.getMessageKind().getName() + " "
+	rightMenu.setName(this.message.getLinkKind().getName() + " "
 		+ this.leftLifeLineArtifact.getContent() + " "
 		+ this.message.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.message.getRightAdornment().getShape().getIdiom(true) + " "
@@ -118,8 +123,10 @@ public abstract class MessageLinkArtifact extends LinkArtifact {
 
 	rightMenu.addItem("Reverse", reverseCommand(this.message));
 	final MenuBar linkSubMenu = new MenuBar(true);
-	for (final MessageKind messageKind : MessageKind.values()) {
+	for (final LinkKind messageKind : LinkKind.values()) {
+	    if(messageKind.isForDiagram(Type.SEQUENCE)) {
 		linkSubMenu.addItem(messageKind.getName(), changeToCommand(this.message, messageKind));
+	    }
 	}
 	rightMenu.addItem("Change to", linkSubMenu);
 	return rightMenu;
@@ -173,15 +180,32 @@ public abstract class MessageLinkArtifact extends LinkArtifact {
 
     @Override
     protected void buildGfxObject() {
+	if(!this.leftLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
+	    this.leftLifeLineArtifact.addAllDirectionsDependecy(this);
+	}
+	if(!this.rightLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
+	    this.rightLifeLineArtifact.addAllDirectionsDependecy(this);
+	}
+	
+	this.leftPoint = Point.add(this.leftLifeLineArtifact.getCenter(), new Point(0, this.leftLifeLineArtifact.getHeight()/2));
+	this.rightPoint = Point.add(this.rightLifeLineArtifact.getCenter(), new Point(0, this.rightLifeLineArtifact.getHeight()/2));
+	this.leftPoint.translate(0, (this.leftLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
+	this.rightPoint.translate(0, (this.rightLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
+	this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
+	GfxManager.getPlatform().setStroke(this.line,
+		ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+	GfxManager.getPlatform().setStrokeStyle(this.line, this.message.getLinkStyle().getGfxStyle());
+	GfxManager.getPlatform().moveToBack(this.gfxObject);
 	
     }
 
 
 
-    private Command changeToCommand(final UMLMessage linkMessage, final MessageKind messageKind) {
+    private Command changeToCommand(final UMLMessage linkMessage, final LinkKind messageKind) {
 	return new Command() {
 	    public void execute() {
-		linkMessage.setMessageKind(messageKind);
+		linkMessage.setLinkKind(messageKind);
 		linkMessage.setLinkStyle(messageKind.getDefaultLinkStyle());
 		linkMessage.setLeftAdornment(messageKind.getDefaultLeftAdornment());
 		linkMessage.setRightAdornment(messageKind.getDefaultRightAdornment());
@@ -237,19 +261,19 @@ public abstract class MessageLinkArtifact extends LinkArtifact {
     @Override
     public String toURL() {
 	return "MessageLink$" + this.leftLifeLineArtifact.getId() + "!" + this.rightLifeLineArtifact.getId() + "!"
-	+ this.message.getMessageKind().getName() + "!"
+	+ this.message.getLinkKind().getName() + "!"
 	+ this.message.getName() + "!"	
 	+ this.message.getLinkStyle().getName() + "!"	
 	+ this.message.getLeftAdornment().getName() + "!"
 	+ this.message.getRightAdornment().getName();
     }
     /**
-     * Setter for the message {@link MessageKind}
+     * Setter for the message {@link LinkKind}
      * 
-     * @param messageKind The {@link MessageKind} to be set
+     * @param messageKind The {@link LinkKind} to be set
      */
-    public void setMessageKind(MessageKind messageKind) {
-	this.message.setMessageKind(messageKind);	
+    public void setMessageKind(LinkKind messageKind) {
+	this.message.setLinkKind(messageKind);	
     }
     /**
      * Setter for the message {@link LinkArtifact.LinkStyle}

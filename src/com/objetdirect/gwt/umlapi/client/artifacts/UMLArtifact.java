@@ -67,7 +67,6 @@ public abstract class UMLArtifact {
     }
     /**
      * Static getter of the id sorted {@link UMLArtifact} TreeMap
-     *  
      * @return the artifact list ordered by id 
      */
     public static TreeMap<Integer, UMLArtifact> getArtifactList() {
@@ -92,6 +91,7 @@ public abstract class UMLArtifact {
     private final LinkedList<LinkArtifact> downDependencies = new LinkedList<LinkArtifact>();
     private final LinkedList<LinkArtifact> leftDependencies = new LinkedList<LinkArtifact>();
     private final LinkedList<LinkArtifact> rightDependencies = new LinkedList<LinkArtifact>();
+    private final LinkedList<LinkArtifact> allDependencies = new LinkedList<LinkArtifact>();
 
     private final HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
     private boolean isBuilt = false;
@@ -361,6 +361,7 @@ public abstract class UMLArtifact {
 	this.downDependencies.remove(dependentUMLArtifact);
 	this.leftDependencies.remove(dependentUMLArtifact);
 	this.rightDependencies.remove(dependentUMLArtifact);
+	this.allDependencies.remove(dependentUMLArtifact);
     }
 
     /**
@@ -438,6 +439,12 @@ public abstract class UMLArtifact {
     protected void addDirectionDependecy(final Direction direction, LinkArtifact linkArtifact) {	
 	getDirectionList(direction).add(linkArtifact);
     }
+    protected void addAllDirectionsDependecy(LinkArtifact linkArtifact) {
+	this.allDependencies.add(linkArtifact);
+    }    
+    protected void removeAllDirectionsDependecy(LinkArtifact linkArtifact) {	
+	this.allDependencies.remove(linkArtifact);
+    }
     protected void sortDirectionDependecy(final Direction direction, LinkArtifact linkArtifact) {	
 	Collections.sort(getDirectionList(direction), new Comparator<LinkArtifact>() {
 
@@ -453,13 +460,26 @@ public abstract class UMLArtifact {
 	    }
 	});
     }
+    protected void removeDirectionDependecy(LinkArtifact linkArtifact) {	
+	this.allDependencies.remove(linkArtifact);
+    }
     protected void removeDirectionDependecy(Direction direction, LinkArtifact linkArtifact) {	
 	getDirectionList(direction).remove(linkArtifact);
     }
     protected int getDependencyIndexOf(LinkArtifact linkArtifact, Direction direction) {
 	return getDirectionList(direction).indexOf(linkArtifact);
     }
-
+    protected int getAllDirectionsDependencyIndexOf(LinkArtifact linkArtifact) {
+	return this.allDependencies.indexOf(linkArtifact);
+    }
+    protected int getAllDirectionsDependenciesCount() {
+	return this.allDependencies.size(); 
+    }
+    
+    boolean hasThisAllDirectionsDependecy(
+	    LinkArtifact linkArtifact) {
+	return this.allDependencies.contains(linkArtifact); 
+    }
     protected int getDependenciesCount(Direction direction) {
 	return getDirectionList(direction).size(); 
     }
@@ -474,7 +494,7 @@ public abstract class UMLArtifact {
 	case RIGHT:
 	    return this.rightDependencies;
 	}
-	return this.upDependencies;
+	return this.allDependencies;
     }
 
 
