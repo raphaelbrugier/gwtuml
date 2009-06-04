@@ -22,14 +22,10 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.Collections;
-
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.editors.MessageFieldEditor;
-import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -81,9 +77,9 @@ public class MessageLinkArtifact extends LinkArtifact {
 	    final MessageFieldEditor editor = new MessageFieldEditor(this.canvas, this);
 	    editor
 	    .startEdition(this.message.getName(), GfxManager
-		    .getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager
-		    .getPlatform().getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform()
-		    .getTextWidthFor(editedGfxObject)
+		    .getPlatform().getLocationFor(this.text).getX(), GfxManager
+		    .getPlatform().getLocationFor(this.text).getY(), GfxManager.getPlatform()
+		    .getTextWidthFor(this.text)
 		    + OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
     }
 
@@ -180,11 +176,14 @@ public class MessageLinkArtifact extends LinkArtifact {
 
     @Override
     protected void buildGfxObject() {
+	
 	if(!this.leftLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
 	    this.leftLifeLineArtifact.addAllDirectionsDependecy(this);
+		this.leftLifeLineArtifact.rebuildGfxObject();
 	}
 	if(!this.rightLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
 	    this.rightLifeLineArtifact.addAllDirectionsDependecy(this);
+		this.rightLifeLineArtifact.rebuildGfxObject();
 	}
 	
 	this.leftPoint = Point.add(this.leftLifeLineArtifact.getCenter(), new Point(0, this.leftLifeLineArtifact.getHeight()/2));
@@ -196,7 +195,35 @@ public class MessageLinkArtifact extends LinkArtifact {
 	GfxManager.getPlatform().setStroke(this.line,
 		ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
 	GfxManager.getPlatform().setStrokeStyle(this.line, this.message.getLinkStyle().getGfxStyle());
+	
+	// Making arrows group :
+	this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+	GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+	GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.rightPoint, this.message.getLeftAdornment());
+	GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.message.getRightAdornment());
+	
+	if(leftArrow != null) { 
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, leftArrow);
+	}
+	if(rightArrow != null) {
+	    GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, rightArrow);
+	}
+	
+	this.text = GfxManager.getPlatform().buildText(this.message.getName(), Point.getMiddleOf(this.leftPoint, this.rightPoint));
+	    Log.trace("Creating name");
+	    
+	    GfxManager.getPlatform().setFont(this.text, OptionsManager.getSmallFont());
+	    GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.text);
+	    GfxManager.getPlatform().setStroke(this.text,
+		    ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); //TODO fix it
+	    GfxManager.getPlatform().setFillColor(this.text,
+		    ThemeManager.getTheme().getClassRelationForegroundColor()); //FIXME
+	    GfxManager.getPlatform().translate(this.text, new Point(-GfxManager.getPlatform().getTextWidthFor(this.text) / 2, 0));
+	
+	
 	GfxManager.getPlatform().moveToBack(this.gfxObject);
+
+
 	
     }
 

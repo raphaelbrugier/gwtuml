@@ -24,7 +24,6 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
  * This class represent an uml relation between two {@link UMLClass}es

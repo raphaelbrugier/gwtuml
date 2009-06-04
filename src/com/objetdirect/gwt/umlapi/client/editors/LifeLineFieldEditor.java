@@ -24,12 +24,8 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**

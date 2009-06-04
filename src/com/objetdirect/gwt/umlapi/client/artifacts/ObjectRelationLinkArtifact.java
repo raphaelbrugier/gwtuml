@@ -22,7 +22,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.allen_sauer.gwt.log.client.Log;

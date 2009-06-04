@@ -26,13 +26,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
-import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
