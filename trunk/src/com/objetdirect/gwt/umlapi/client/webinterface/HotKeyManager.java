@@ -27,9 +27,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.Window.ClosingHandler;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 
 /**

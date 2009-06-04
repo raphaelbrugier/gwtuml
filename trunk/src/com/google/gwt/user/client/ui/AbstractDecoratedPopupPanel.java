@@ -45,7 +45,7 @@ public abstract class AbstractDecoratedPopupPanel extends DecoratedPopupPanel {
     }
 
     public PopupPanel.AnimationType getType() {
-      return type;
+      return this.type;
     }
   }
 

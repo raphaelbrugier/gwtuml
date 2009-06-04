@@ -56,6 +56,7 @@ public abstract class FieldEditor {
     protected static TextBoxBase editField;
     protected int height = 0;
     protected boolean isMultiLine;
+    protected int minBoxWidth = 40; 
     /**
      * Getter for the editField
      *
@@ -111,7 +112,7 @@ public abstract class FieldEditor {
 		+ (isSmallFont ? "-small" : "")
 		+ "-field"
 		+ (this.isMultiLine ? "-multiline" : ""));
-	editField.setWidth(w + "px");
+	editField.setWidth(Math.max(w, this.minBoxWidth) + "px");
 	if (this.isMultiLine) {
 	    editField.setHeight(this.height + "px");
 	}

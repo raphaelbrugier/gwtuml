@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.MenuItemSeparator;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.AbstractDecoratedPopupPanel.AnimationType;
 
 /**
  * 
@@ -38,14 +37,14 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
 
   public PopupMenu() {
     super(true, false, "menuPopup", AnimationType.ONE_WAY_CORNER);
-    menu = new MenuBar(true) {
+    this.menu = new MenuBar(true) {
       @Override
       public void onPopupClosed(PopupPanel sender, boolean autoClosed) {
         super.onPopupClosed(sender, autoClosed);
 
         // If the menu popup was not auto-closed, close popup menu..
         if (!autoClosed) {
-          if (canClose) {
+          if (this.canClose) {
             PopupMenu.this.hide();
           }
         }
@@ -56,20 +55,20 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
       public void onBrowserEvent(Event event) {
         switch (DOM.eventGetType(event)) {
           case Event.ONMOUSEOVER: {
-            canClose = false;
+            this.canClose = false;
             break;
           }
 
           case Event.ONMOUSEOUT: {
-            canClose = true;
+            this.canClose = true;
             break;
           }
         }
         super.onBrowserEvent(event);
       }
     };
-    menu.setAutoOpen(true);
-    add(menu);
+    this.menu.setAutoOpen(true);
+    add(this.menu);
     setAnimationEnabled(true);
     sinkEvents(Event.ONCLICK);
     setStyleName("gwt-MenuBarPopup");
@@ -80,7 +79,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
   @Override
   public void setAnimationEnabled(boolean b) {
     super.setAnimationEnabled(true);
-    menu.setAnimationEnabled(true);
+    this.menu.setAnimationEnabled(true);
   }
 
   /**
@@ -90,7 +89,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItem} object
    */
   public MenuItem addItem(MenuItem item) {
-    return menu.addItem(item);
+    return this.menu.addItem(item);
   }
 
   /**
@@ -103,7 +102,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItem} object created
    */
   public MenuItem addItem(String text, boolean asHTML, Command cmd) {
-    return menu.addItem(text, asHTML, cmd);
+    return this.menu.addItem(text, asHTML, cmd);
   }
 
   /**
@@ -116,7 +115,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItem} object created
    */
   public MenuItem addItem(String text, boolean asHTML, MenuBar popup) {
-    return menu.addItem(text, asHTML, popup);
+    return this.menu.addItem(text, asHTML, popup);
   }
 
   /**
@@ -128,7 +127,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItem} object created
    */
   public MenuItem addItem(String text, Command cmd) {
-    return menu.addItem(text, cmd);
+    return this.menu.addItem(text, cmd);
   }
 
   /**
@@ -140,7 +139,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItem} object created
    */
   public MenuItem addItem(String text, MenuBar popup) {
-    return menu.addItem(text, popup);
+    return this.menu.addItem(text, popup);
   }
 
   /**
@@ -150,7 +149,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItemSeparator} object created
    */
   public MenuItemSeparator addSeparator() {
-    return menu.addSeparator();
+    return this.menu.addSeparator();
   }
 
   /**
@@ -161,14 +160,14 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return the {@link MenuItemSeparator} object
    */
   public MenuItemSeparator addSeparator(MenuItemSeparator separator) {
-    return menu.addSeparator(separator);
+    return this.menu.addSeparator(separator);
   }
 
   /**
    * Removes all menu items from this menu bar.
    */
   public void clearItems() {
-    menu.clearItems();
+    this.menu.clearItems();
   }
 
   /**
@@ -178,7 +177,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @return <code>true</code> if child menus will auto-open
    */
   public boolean getAutoOpen() {
-    return menu.getAutoOpen();
+    return this.menu.getAutoOpen();
   }
 
   /**
@@ -187,7 +186,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @param item the item to be removed
    */
   public void removeItem(MenuItem item) {
-    menu.removeItem(item);
+    this.menu.removeItem(item);
   }
 
   /**
@@ -196,7 +195,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @param separator the separator to be removed
    */
   public void removeSeparator(MenuItemSeparator separator) {
-    menu.removeSeparator(separator);
+    this.menu.removeSeparator(separator);
   }
 
   /**
@@ -206,7 +205,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
    * @param autoOpen <code>true</code> to cause child menus to auto-open
    */
   public void setAutoOpen(boolean autoOpen) {
-    menu.setAutoOpen(autoOpen);
+    this.menu.setAutoOpen(autoOpen);
   }
 
   @Override
