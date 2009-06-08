@@ -40,7 +40,7 @@
       <jvmarg value="-Xss16M"/>
       <jvmarg value="-Xmx256M"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-      <!-- arg line="-style PRETTY"/ -->
+      <arg line="-style DETAILED" />
       <arg value="com.objetdirect.gwt.umlapi.UMLDrawer"/>
     </java>
   </target>
