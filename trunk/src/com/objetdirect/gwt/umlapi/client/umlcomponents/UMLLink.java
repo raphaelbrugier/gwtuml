@@ -111,6 +111,7 @@ public abstract class UMLLink {
 	 */
 	public boolean isForDiagram(Type diagramType) {
 	    if(this == INSTANTIATION) return diagramType.isHybridType();
+	    if(this.requiredType.isHybridType()) return diagramType.isClassOrObjectType();
 	    return diagramType.equals(this.requiredType);
 	}
 	/**
