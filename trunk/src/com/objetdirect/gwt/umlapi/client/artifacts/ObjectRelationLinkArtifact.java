@@ -258,47 +258,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	GfxManager.getPlatform().setStroke(this.arrowVirtualGroup,
 		ThemeManager.getTheme().getObjectRelationHighlightedForegroundColor(), 2);
     }
-    /**
-     * Setter for the left and right cardinalities in {@link UMLRelation}
-     * This does not update the graphical object
-     * 
-     * @param leftCardinality The left cardinality text to be set
-     * @param rightCardinality The right cardinality text to be set
-     */
-    public void setCardinalities(final String leftCardinality, final String rightCardinality) {
-	this.relation.setLeftCardinality(leftCardinality);
-	this.relation.setRightCardinality(rightCardinality);
-    }
-
-    /**
-     * Setter for the leftCardinality in {@link UMLRelation}
-     * This does not update the graphical object
-     * 
-     * @param leftCardinality The leftCardinality text to be set
-     */
-    public void setLeftCardinality(final String leftCardinality) {
-	this.relation.setLeftCardinality(leftCardinality);
-    }
-
-    /**
-     * Setter for the leftConstraint in {@link UMLRelation}
-     * This does not update the graphical object
-     * 
-     * @param leftConstraint The leftConstraint text to be set
-     */
-    public void setLeftConstraint(final String leftConstraint) {
-	this.relation.setLeftConstraint(leftConstraint);
-    }
-
-    /**
-     * Setter for the leftRole in {@link UMLRelation}
-     * This does not update the graphical object
-     * 
-     * @param leftRole The leftRole text to be set
-     */
-    public void setLeftRole(final String leftRole) {
-	this.relation.setLeftRole(leftRole);
-    }
 
     /**
      * Setter for the name in {@link UMLRelation}
@@ -374,16 +333,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
      */
     public void setRightConstraint(final String rightConstraint) {
 	this.relation.setRightConstraint(rightConstraint);
-    }
-
-    /**
-     * Setter for the rightRole in {@link UMLRelation}
-     * This does not update the graphical object
-     * 
-     * @param rightRole The rightRole text to be set
-     */
-    public void setRightRole(final String rightRole) {
-	this.relation.setRightRole(rightRole);
     }
 
     /* (non-Javadoc)
@@ -657,13 +606,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	+ this.relation.getName() + "!"	
 	+ this.relation.getLinkStyle().getName() + "!"	
 	+ this.relation.getLeftAdornment().getName() + "!"
-	+ this.relation.getLeftCardinality() + "!"
-	+ this.relation.getLeftConstraint() + "!"
-	+ this.relation.getLeftRole() + "!"
-	+ this.relation.getRightAdornment().getName() + "!"
-	+ this.relation.getRightCardinality() + "!"
-	+ this.relation.getRightConstraint() + "!"
-	+ this.relation.getRightRole();
+	+ this.relation.getRightAdornment().getName();
     }
     /**
      * Setter for the relation {@link LinkKind}
