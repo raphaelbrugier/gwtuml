@@ -4,7 +4,7 @@ var $gwt_version = "0.0.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '21A89AFECBF59D198EBD4E789C2FBA2A';
+var $strongName = '43EA976D992AB5C63C2E5F94939ABB37';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null;
 $stats && $stats({moduleName:'umldrawer',subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
 </script></head>
@@ -18517,6 +18517,8 @@ function com_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_$UMLLi
 function com_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_$isForDiagram__Lcom_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_2Lcom_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_2Z(this$static, diagramType){
   if (this$static == com_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_INSTANTIATION)
     return diagramType.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_isClassType && diagramType.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_isObjectType;
+  if (com_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_$isHybridType__Lcom_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_2Z(this$static.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_requiredType))
+    return diagramType.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_isClassType || diagramType.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLDiagram$Type_isObjectType;
   return diagramType == this$static.com_objetdirect_gwt_umlapi_client_umlcomponents_UMLLink$LinkKind_requiredType;
 }
 
