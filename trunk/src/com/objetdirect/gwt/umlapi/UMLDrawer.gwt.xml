@@ -16,7 +16,6 @@
 	<inherits name="com.google.gwt.widgetideas.GlassPanel" />
 	<inherits name='com.objetdirect.tatami.Tatami' />
 	<inherits name='gwt.canvas.gwt-canvas' />
-	<stylesheet src="gwt/standard/Mosaic.css" />
 
 	<!-- Add gwt-log support -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" />
