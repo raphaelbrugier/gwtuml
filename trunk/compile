@@ -21,7 +21,7 @@ mv umldrawer umldrawer_
 cd ..
 ant $1
 cd war
-cp -f umldrawer/* umldrawer_
+cp -fr umldrawer/* umldrawer_
 rm -fr umldrawer
 mv umldrawer_ umldrawer
 cd umldrawer
