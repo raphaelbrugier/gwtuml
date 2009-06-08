@@ -195,7 +195,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
                             boolean&nbsp;isShiftDown)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the speed depending on which modifiers keys are down (ctrl, alt, shift, meta).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -203,7 +203,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#getDependingOnQualityLevelSpeed()">getDependingOnQualityLevelSpeed</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the speed depending on the current quality level.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -235,7 +235,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#getXShift()">getXShift</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute the x speed from the direction and the speed</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -251,7 +251,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#getYShift()">getYShift</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute the y speed from the direction and the speed</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -259,7 +259,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#isHorizontal()">isHorizontal</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Determine if this direction is horizontal</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -267,7 +267,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#isOppositeOf(com.objetdirect.gwt.umlapi.client.engine.Direction)">isOppositeOf</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A>&nbsp;opposite)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Determine if the given direction is the opposite of this one.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -275,7 +275,7 @@ This enumeration lists all orthogonal directions and gives the movements factors
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#isVertical()">isVertical</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Determine if this direction is vertical</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -321,7 +321,7 @@ the order they are declared.</TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#withSpeed(int)">withSpeed</A></B>(int&nbsp;speed)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html#withSpeed(int)">withSpeed</A></B>(int&nbsp;theSpeed)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the speed</TD>
@@ -602,12 +602,12 @@ public int <B>getSpeed</B>()</PRE>
 <A NAME="withSpeed(int)"><!-- --></A><H3>
 withSpeed</H3>
 <PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A> <B>withSpeed</B>(int&nbsp;speed)</PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A> <B>withSpeed</B>(int&nbsp;theSpeed)</PRE>
 <DL>
 <DD>Setter for the speed
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>speed</CODE> - the speed to set
+<DT><B>Parameters:</B><DD><CODE>theSpeed</CODE> - the speed to set
 <DT><B>Returns:</B><DD>This instance</DL>
 </DD>
 </DL>
@@ -618,8 +618,11 @@ getDependingOnQualityLevelSpeed</H3>
 <PRE>
 public static int <B>getDependingOnQualityLevelSpeed</B>()</PRE>
 <DL>
+<DD>Get the speed depending on the current quality level. The higher the quality, the lower the speed will be.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>The computed speed</DL>
 </DD>
 </DL>
 <HR>
@@ -632,8 +635,11 @@ public static int <B>getDependingOnModifierSpeed</B>(boolean&nbsp;isCtrlDown,
                                               boolean&nbsp;isMetaDown,
                                               boolean&nbsp;isShiftDown)</PRE>
 <DL>
+<DD>Get the speed depending on which modifiers keys are down (ctrl, alt, shift, meta).
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>isCtrlDown</CODE> - True if ctrl is down<DD><CODE>isAltDown</CODE> - True if alt is down<DD><CODE>isMetaDown</CODE> - True if meta is down<DD><CODE>isShiftDown</CODE> - True if shift is down
+<DT><B>Returns:</B><DD>The computed speed</DL>
 </DD>
 </DL>
 <HR>
@@ -643,9 +649,11 @@ isOppositeOf</H3>
 <PRE>
 public boolean <B>isOppositeOf</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A>&nbsp;opposite)</PRE>
 <DL>
+<DD>Determine if the given direction is the opposite of this one.
+<P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>opposite</CODE> - 
-<DT><B>Returns:</B><DD></DL>
+<DT><B>Parameters:</B><DD><CODE>opposite</CODE> - The direction to determine if it is an opposite of this one
+<DT><B>Returns:</B><DD>True if it is the oopposite</DL>
 </DD>
 </DL>
 <HR>
@@ -655,9 +663,11 @@ isHorizontal</H3>
 <PRE>
 public boolean <B>isHorizontal</B>()</PRE>
 <DL>
+<DD>Determine if this direction is horizontal
+<P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD></DL>
+<DT><B>Returns:</B><DD>True if it is purely horizontal</DL>
 </DD>
 </DL>
 <HR>
@@ -667,9 +677,11 @@ isVertical</H3>
 <PRE>
 public boolean <B>isVertical</B>()</PRE>
 <DL>
+<DD>Determine if this direction is vertical
+<P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD></DL>
+<DT><B>Returns:</B><DD>True if it is purely vertical</DL>
 </DD>
 </DL>
 <HR>
@@ -679,9 +691,11 @@ getXShift</H3>
 <PRE>
 public double <B>getXShift</B>()</PRE>
 <DL>
+<DD>Compute the x speed from the direction and the speed
+<P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD></DL>
+<DT><B>Returns:</B><DD>the x speed</DL>
 </DD>
 </DL>
 <HR>
@@ -691,9 +705,11 @@ getYShift</H3>
 <PRE>
 public double <B>getYShift</B>()</PRE>
 <DL>
+<DD>Compute the y speed from the direction and the speed
+<P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD></DL>
+<DT><B>Returns:</B><DD>the y speed</DL>
 </DD>
 </DL>
 <HR>

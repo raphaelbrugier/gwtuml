@@ -43,6 +43,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
@@ -999,15 +1000,23 @@ public class UMLCanvas extends AbsolutePanel {
 			    ((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
 			    ((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 			    ((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-			    ((ObjectRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
-			    ((ObjectRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
-			    ((ObjectRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
+			    
+			} else if(artifact.equals("MessageLink")) {
+			    Integer lifeLineLeftId = 0;
+			    Integer lifeLineRigthId = 0; 
+			    try {
+				lifeLineLeftId = Integer.parseInt(parameters[0]);
+				lifeLineRigthId = Integer.parseInt(parameters[1]);
+			    } catch(Exception ex) {
+				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+			    }
+			    newArtifact = new MessageLinkArtifact((LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineLeftId), (LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
+			    ((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+			    ((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
 			    ((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
-			    ((ObjectRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
-			    ((ObjectRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
-			    ((ObjectRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
-
-
+				
 			} else if(artifact.equals("InstantiationRelationLink")) {
 			    Integer classId = 0;
 			    Integer objectId = 0; 

@@ -136,18 +136,34 @@ public enum Direction {
     /**
      * Setter for the speed
      *
-     * @param speed the speed to set
+     * @param theSpeed the speed to set
      * 
      * @return This instance 
      */
-    public Direction withSpeed(int speed) {
-        this.speed = speed;
+    public Direction withSpeed(int theSpeed) {
+        this.speed = theSpeed;
         return this;
     }
+    /**
+     * Get the speed depending on the current quality level. The higher the quality, the lower the speed will be.
+     *   
+     * @return The computed speed
+     */
     public static int getDependingOnQualityLevelSpeed() {
 	int speedModified = 5 * (OptionsManager.get("QualityLevel") + 1);
 	return speedModified;
     }
+    
+    /**
+     * Get the speed depending on which modifiers keys are down (ctrl, alt, shift, meta). 
+     * 
+     * @param isCtrlDown True if ctrl is down
+     * @param isAltDown True if alt is down
+     * @param isMetaDown True if meta is down
+     * @param isShiftDown True if shift is down
+     * 
+     * @return The computed speed
+     */
     public static int getDependingOnModifierSpeed(boolean isCtrlDown, boolean isAltDown, boolean isMetaDown, boolean isShiftDown) {
 	int speedModified = 50;
 	if(isCtrlDown) speedModified /= 2;
@@ -158,33 +174,46 @@ public enum Direction {
     }
 
     /**
-     * @param opposite
-     * @return
+     * Determine if the given direction is the opposite of this one.
+     *
+     * @param opposite The direction to determine if it is an opposite of this one
+     * 
+     * @return True if it is the oopposite
      */
     public boolean isOppositeOf(Direction opposite) {
 	return ((this.xDirection == -opposite.xDirection) && (this.yDirection == -opposite.yDirection));
     }
+    
     /**
-     * @return
+     * Determine if this direction is horizontal
+     * 
+     * @return True if it is purely horizontal
      */
     public boolean isHorizontal() {
 	return this.yDirection == 0 && this.xDirection != 0;
     }
     /**
-     * @return
+     * Determine if this direction is vertical
+     * 
+     * @return True if it is purely vertical
      */
     public boolean isVertical() {
 	return this.xDirection == 0 && this.yDirection != 0;
     }
     
     /**
-     * @return
+     * Compute the x speed from the direction and the speed
+     * 
+     * @return the x speed
      */
     public double getXShift() {
 	return this.xDirection * this.speed;
     }
+    
     /**
-     * @return
+     * Compute the y speed from the direction and the speed
+     * 
+     * @return the y speed
      */
     public double getYShift() {
 	return this.yDirection * this.speed;
