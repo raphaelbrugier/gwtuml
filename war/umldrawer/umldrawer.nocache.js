@@ -1,9 +1,9 @@
 function umldrawer(){
-  var $intern_0 = '', $intern_28 = '" for "gwt:onLoadErrorFn"', $intern_26 = '" for "gwt:onPropertyErrorFn"', $intern_11 = '"><\/script>', $intern_13 = '#', $intern_65 = './dijit/themes/tundra/tundra.css', $intern_66 = './dojox/grid/resources/tundraGrid.css', $intern_57 = '.cache.html', $intern_15 = '/', $intern_51 = '3D1DD37A5F673975864C6E7069B3D2DB', $intern_52 = '43EA976D992AB5C63C2E5F94939ABB37', $intern_53 = '5A829F09BA370227F7F830C1E23DD840', $intern_32 = "<div id='umldrawer.container' style='position:absolute; width:0; height:0; border:none'><\/div>", $intern_82 = '<script defer="defer">umldrawer.onInjectionDone(\'umldrawer\')<\/script>', $intern_10 = '<script id="', $intern_70 = '<script language="javascript" src="', $intern_23 = '=', $intern_14 = '?', $intern_25 = 'Bad handler "', $intern_54 = 'C0572BAFBC81F51977867086A52137B7', $intern_55 = 'CA5B8030262007A1CAE2F1F705F191EB', $intern_68 = 'DOMContentLoaded', $intern_56 = 'F68A81DC091C29708BF690F8A3987BA9', $intern_33 = 'GET', $intern_29 = 'MSXML2.XMLHTTP.3.0', $intern_30 = 'Microsoft.XMLHTTP', $intern_12 = 'SCRIPT', $intern_9 = '__gwt_marker_umldrawer', $intern_16 = 'base', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_18 = 'clear.cache.gif', $intern_22 = 'content', $intern_69 = 'dojo/dojo.js', $intern_71 = 'dojo/dojo.js"><\/script>', $intern_8 = 'end', $intern_45 = 'gecko', $intern_46 = 'gecko1_8', $intern_67 = 'gwt-log.css', $intern_5 = 'gwt.hosted=', $intern_6 = 'gwt.hybrid', $intern_58 = 'gwt/chrome/chrome.css', $intern_27 = 'gwt:onLoadErrorFn', $intern_24 = 'gwt:onPropertyErrorFn', $intern_21 = 'gwt:property', $intern_63 = 'head', $intern_49 = 'hosted.html', $intern_62 = 'href', $intern_44 = 'ie6', $intern_43 = 'ie8', $intern_34 = 'iframe', $intern_17 = 'img', $intern_35 = 'javascript:""', $intern_59 = 'link', $intern_48 = 'loadExternalRefs', $intern_19 = 'meta', $intern_31 = 'moduleRequested', $intern_7 = 'moduleStartup', $intern_42 = 'msie', $intern_20 = 'name', $intern_39 = 'opera', $intern_36 = 'position:absolute; width:0; height:0; border:none', $intern_60 = 'rel', $intern_41 = 'safari', $intern_50 = 'selectingPermutation', $intern_2 = 'startup', $intern_61 = 'stylesheet', $intern_64 = 'tatami.css', $intern_1 = 'umldrawer', $intern_37 = 'umldrawer.container', $intern_47 = 'unknown', $intern_38 = 'user.agent', $intern_40 = 'webkit', $intern_80 = 'yui/DDPlayer.js', $intern_81 = 'yui/DDPlayer.js"><\/script>', $intern_74 = 'yui/dom.js', $intern_75 = 'yui/dom.js"><\/script>', $intern_78 = 'yui/dragdrop.js', $intern_79 = 'yui/dragdrop.js"><\/script>', $intern_76 = 'yui/event.js', $intern_77 = 'yui/event.js"><\/script>', $intern_72 = 'yui/yahoo.js', $intern_73 = 'yui/yahoo.js"><\/script>';
+  var $intern_0 = '', $intern_28 = '" for "gwt:onLoadErrorFn"', $intern_26 = '" for "gwt:onPropertyErrorFn"', $intern_11 = '"><\/script>', $intern_13 = '#', $intern_63 = './dijit/themes/tundra/tundra.css', $intern_64 = './dojox/grid/resources/tundraGrid.css', $intern_55 = '.cache.html', $intern_15 = '/', $intern_49 = '293CE22D8BFE761CBEE77250E6324888', $intern_50 = '87587F94AA9C716CE02D9B9AD8F6571A', $intern_51 = '8BC8F152EA3C3958BFE53B1398F3DCDA', $intern_80 = '<script defer="defer">umldrawer.onScriptInjectionDone(\'umldrawer\')<\/script>', $intern_10 = '<script id="', $intern_68 = '<script language="javascript" src="', $intern_23 = '=', $intern_14 = '?', $intern_52 = 'B33AD5BDD13A2538734ACF0A1A5785A6', $intern_53 = 'B63635195D385E309A2038FE50EBF8AB', $intern_25 = 'Bad handler "', $intern_54 = 'C95838EB48289331B1FDCB5B92C2B3D4', $intern_66 = 'DOMContentLoaded', $intern_32 = 'GET', $intern_29 = 'MSXML2.XMLHTTP.3.0', $intern_30 = 'Microsoft.XMLHTTP', $intern_12 = 'SCRIPT', $intern_9 = '__gwt_marker_umldrawer', $intern_16 = 'base', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_18 = 'clear.cache.gif', $intern_22 = 'content', $intern_67 = 'dojo/dojo.js', $intern_69 = 'dojo/dojo.js"><\/script>', $intern_8 = 'end', $intern_43 = 'gecko', $intern_44 = 'gecko1_8', $intern_65 = 'gwt-log.css', $intern_5 = 'gwt.hosted=', $intern_6 = 'gwt.hybrid', $intern_56 = 'gwt/chrome/chrome.css', $intern_27 = 'gwt:onLoadErrorFn', $intern_24 = 'gwt:onPropertyErrorFn', $intern_21 = 'gwt:property', $intern_61 = 'head', $intern_47 = 'hosted.html', $intern_60 = 'href', $intern_42 = 'ie6', $intern_41 = 'ie8', $intern_33 = 'iframe', $intern_17 = 'img', $intern_34 = 'javascript:""', $intern_57 = 'link', $intern_46 = 'loadExternalRefs', $intern_19 = 'meta', $intern_31 = 'moduleRequested', $intern_7 = 'moduleStartup', $intern_40 = 'msie', $intern_20 = 'name', $intern_37 = 'opera', $intern_35 = 'position:absolute; width:0; height:0; border:none', $intern_58 = 'rel', $intern_39 = 'safari', $intern_48 = 'selectingPermutation', $intern_2 = 'startup', $intern_59 = 'stylesheet', $intern_62 = 'tatami.css', $intern_1 = 'umldrawer', $intern_45 = 'unknown', $intern_36 = 'user.agent', $intern_38 = 'webkit', $intern_78 = 'yui/DDPlayer.js', $intern_79 = 'yui/DDPlayer.js"><\/script>', $intern_72 = 'yui/dom.js', $intern_73 = 'yui/dom.js"><\/script>', $intern_76 = 'yui/dragdrop.js', $intern_77 = 'yui/dragdrop.js"><\/script>', $intern_74 = 'yui/event.js', $intern_75 = 'yui/event.js"><\/script>', $intern_70 = 'yui/yahoo.js', $intern_71 = 'yui/yahoo.js"><\/script>';
   var $wnd = window, $doc = document, $stats = $wnd.__gwtStatsEvent?function(a){
     return $wnd.__gwtStatsEvent(a);
   }
-  :null, scriptsDone, loadDone, bodyDone, base = $intern_0, metaProps = {}, values = [], providers = [], answers = [], onLoadErrorFunc, propertyErrorFunc, scriptFrame;
+  :null, injectedScriptsDone, gwtCodeEvaluated, bodyDone, scriptRequestCompleted, gwtFrameCreated, base = $intern_0, metaProps = {}, values = [], providers = [], answers = [], onLoadErrorFunc, propertyErrorFunc, scriptFrame, compiledScript = $intern_0;
   $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date()).getTime(), type:$intern_4});
   if (!$wnd.__gwt_stylesLoaded) {
     $wnd.__gwt_stylesLoaded = {};
@@ -28,7 +28,7 @@ function umldrawer(){
 
   var moduleStarted = false;
   function maybeStartModule(){
-    if (bodyDone && (scriptsDone && (loadDone && !moduleStarted))) {
+    if (bodyDone && (injectedScriptsDone && (gwtCodeEvaluated && (gwtFrameCreated && !moduleStarted)))) {
       moduleStarted = true;
       var frameWnd = scriptFrame.contentWindow;
       if (isHostedMode()) {
@@ -174,78 +174,87 @@ function umldrawer(){
 
   function fetchCompiledScript(){
     $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_7, millis:(new Date()).getTime(), type:$intern_31});
-    document.write($intern_32);
     var xhr = newXhr();
-    xhr.open($intern_33, base + initialHtml);
+    xhr.open($intern_32, base + initialHtml);
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
-        scriptFrame = document.createElement($intern_34);
-        scriptFrame.src = $intern_35;
-        scriptFrame.id = $intern_1;
-        scriptFrame.style.cssText = $intern_36;
-        scriptFrame.tabIndex = -1;
-        document.getElementById($intern_37).appendChild(scriptFrame);
-        var win = scriptFrame.contentWindow;
-        if (isHostedMode()) {
-          win.name = $intern_1;
-        }
-        var doc = win.document;
-        doc.open();
-        doc.write(xhr.responseText);
-        doc.close();
+        compiledScript = xhr.responseText;
         xhr = null;
+        scriptRequestCompleted = true;
+        maybeCreateGwtFrame();
       }
     }
     ;
     xhr.send(null);
   }
 
-  providers[$intern_38] = function(){
+  function maybeCreateGwtFrame(){
+    if (bodyDone && (scriptRequestCompleted && !gwtFrameCreated)) {
+      scriptFrame = document.createElement($intern_33);
+      scriptFrame.src = $intern_34;
+      scriptFrame.id = $intern_1;
+      scriptFrame.style.cssText = $intern_35;
+      scriptFrame.tabIndex = -1;
+      document.body.appendChild(scriptFrame);
+      var win = scriptFrame.contentWindow;
+      if (isHostedMode()) {
+        win.name = $intern_1;
+      }
+      var doc = win.document;
+      doc.open();
+      doc.write(compiledScript);
+      doc.close();
+      gwtFrameCreated = true;
+      maybeStartModule();
+    }
+  }
+
+  providers[$intern_36] = function(){
     var ua = navigator.userAgent.toLowerCase();
     var makeVersion = function(result){
       return parseInt(result[1]) * 1000 + parseInt(result[2]);
     }
     ;
-    if (ua.indexOf($intern_39) != -1) {
+    if (ua.indexOf($intern_37) != -1) {
+      return $intern_37;
+    }
+     else if (ua.indexOf($intern_38) != -1) {
       return $intern_39;
     }
      else if (ua.indexOf($intern_40) != -1) {
-      return $intern_41;
-    }
-     else if (ua.indexOf($intern_42) != -1) {
       if (document.documentMode >= 8) {
-        return $intern_43;
+        return $intern_41;
       }
        else {
         var result = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
         if (result && result.length == 3) {
           var v = makeVersion(result);
           if (v >= 6000) {
-            return $intern_44;
+            return $intern_42;
           }
         }
       }
     }
-     else if (ua.indexOf($intern_45) != -1) {
+     else if (ua.indexOf($intern_43) != -1) {
       var result = /rv:([0-9]+)\.([0-9]+)/.exec(ua);
       if (result && result.length == 3) {
         if (makeVersion(result) >= 1008)
-          return $intern_46;
+          return $intern_44;
       }
-      return $intern_45;
+      return $intern_43;
     }
-    return $intern_47;
+    return $intern_45;
   }
   ;
-  values[$intern_38] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
+  values[$intern_36] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
   umldrawer.onScriptLoad = function(){
-    loadDone = true;
+    gwtCodeEvaluated = true;
     maybeStartModule();
   }
   ;
-  umldrawer.onInjectionDone = function(){
-    scriptsDone = true;
-    $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_48, millis:(new Date()).getTime(), type:$intern_8});
+  umldrawer.onScriptInjectionDone = function(){
+    injectedScriptsDone = true;
+    $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_46, millis:(new Date()).getTime(), type:$intern_8});
     maybeStartModule();
   }
   ;
@@ -257,21 +266,21 @@ function umldrawer(){
       $wnd.location.reload();
       return;
     }
-    initialHtml = $intern_49;
+    initialHtml = $intern_47;
     strongName = $intern_0;
   }
   processMetas();
-  $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date()).getTime(), type:$intern_50});
+  $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date()).getTime(), type:$intern_48});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers([$intern_43], $intern_51);
-      unflattenKeylistIntoAnswers([$intern_41], $intern_52);
-      unflattenKeylistIntoAnswers([$intern_46], $intern_53);
-      unflattenKeylistIntoAnswers([$intern_44], $intern_54);
-      unflattenKeylistIntoAnswers([$intern_39], $intern_55);
-      unflattenKeylistIntoAnswers([$intern_45], $intern_56);
-      strongName = answers[computePropValue($intern_38)];
-      initialHtml = strongName + $intern_57;
+      unflattenKeylistIntoAnswers([$intern_41], $intern_49);
+      unflattenKeylistIntoAnswers([$intern_42], $intern_50);
+      unflattenKeylistIntoAnswers([$intern_37], $intern_51);
+      unflattenKeylistIntoAnswers([$intern_44], $intern_52);
+      unflattenKeylistIntoAnswers([$intern_43], $intern_53);
+      unflattenKeylistIntoAnswers([$intern_39], $intern_54);
+      strongName = answers[computePropValue($intern_36)];
+      initialHtml = strongName + $intern_55;
     }
      catch (e) {
       return;
@@ -282,44 +291,45 @@ function umldrawer(){
   function onBodyDone(){
     if (!bodyDone) {
       bodyDone = true;
-      if (!__gwt_stylesLoaded[$intern_58]) {
-        var l = $doc.createElement($intern_59);
-        __gwt_stylesLoaded[$intern_58] = l;
-        l.setAttribute($intern_60, $intern_61);
-        l.setAttribute($intern_62, base + $intern_58);
-        $doc.getElementsByTagName($intern_63)[0].appendChild(l);
+      maybeCreateGwtFrame();
+      if (!__gwt_stylesLoaded[$intern_56]) {
+        var l = $doc.createElement($intern_57);
+        __gwt_stylesLoaded[$intern_56] = l;
+        l.setAttribute($intern_58, $intern_59);
+        l.setAttribute($intern_60, base + $intern_56);
+        $doc.getElementsByTagName($intern_61)[0].appendChild(l);
+      }
+      if (!__gwt_stylesLoaded[$intern_62]) {
+        var l = $doc.createElement($intern_57);
+        __gwt_stylesLoaded[$intern_62] = l;
+        l.setAttribute($intern_58, $intern_59);
+        l.setAttribute($intern_60, base + $intern_62);
+        $doc.getElementsByTagName($intern_61)[0].appendChild(l);
+      }
+      if (!__gwt_stylesLoaded[$intern_63]) {
+        var l = $doc.createElement($intern_57);
+        __gwt_stylesLoaded[$intern_63] = l;
+        l.setAttribute($intern_58, $intern_59);
+        l.setAttribute($intern_60, base + $intern_63);
+        $doc.getElementsByTagName($intern_61)[0].appendChild(l);
       }
       if (!__gwt_stylesLoaded[$intern_64]) {
-        var l = $doc.createElement($intern_59);
+        var l = $doc.createElement($intern_57);
         __gwt_stylesLoaded[$intern_64] = l;
-        l.setAttribute($intern_60, $intern_61);
-        l.setAttribute($intern_62, base + $intern_64);
-        $doc.getElementsByTagName($intern_63)[0].appendChild(l);
+        l.setAttribute($intern_58, $intern_59);
+        l.setAttribute($intern_60, base + $intern_64);
+        $doc.getElementsByTagName($intern_61)[0].appendChild(l);
       }
       if (!__gwt_stylesLoaded[$intern_65]) {
-        var l = $doc.createElement($intern_59);
+        var l = $doc.createElement($intern_57);
         __gwt_stylesLoaded[$intern_65] = l;
-        l.setAttribute($intern_60, $intern_61);
-        l.setAttribute($intern_62, base + $intern_65);
-        $doc.getElementsByTagName($intern_63)[0].appendChild(l);
-      }
-      if (!__gwt_stylesLoaded[$intern_66]) {
-        var l = $doc.createElement($intern_59);
-        __gwt_stylesLoaded[$intern_66] = l;
-        l.setAttribute($intern_60, $intern_61);
-        l.setAttribute($intern_62, base + $intern_66);
-        $doc.getElementsByTagName($intern_63)[0].appendChild(l);
-      }
-      if (!__gwt_stylesLoaded[$intern_67]) {
-        var l = $doc.createElement($intern_59);
-        __gwt_stylesLoaded[$intern_67] = l;
-        l.setAttribute($intern_60, $intern_61);
-        l.setAttribute($intern_62, base + $intern_67);
-        $doc.getElementsByTagName($intern_63)[0].appendChild(l);
+        l.setAttribute($intern_58, $intern_59);
+        l.setAttribute($intern_60, base + $intern_65);
+        $doc.getElementsByTagName($intern_61)[0].appendChild(l);
       }
       maybeStartModule();
       if ($doc.removeEventListener) {
-        $doc.removeEventListener($intern_68, onBodyDone, false);
+        $doc.removeEventListener($intern_66, onBodyDone, false);
       }
       if (onBodyDoneTimerId) {
         clearInterval(onBodyDoneTimerId);
@@ -328,7 +338,7 @@ function umldrawer(){
   }
 
   if ($doc.addEventListener) {
-    $doc.addEventListener($intern_68, function(){
+    $doc.addEventListener($intern_66, function(){
       onBodyDone();
     }
     , false);
@@ -340,32 +350,32 @@ function umldrawer(){
   }
   , 50);
   $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date()).getTime(), type:$intern_8});
-  $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_48, millis:(new Date()).getTime(), type:$intern_4});
-  if (!__gwt_scriptsLoaded[$intern_69]) {
-    __gwt_scriptsLoaded[$intern_69] = true;
-    document.write($intern_70 + base + $intern_71);
+  $stats && $stats({moduleName:$intern_1, subSystem:$intern_2, evtGroup:$intern_46, millis:(new Date()).getTime(), type:$intern_4});
+  if (!__gwt_scriptsLoaded[$intern_67]) {
+    __gwt_scriptsLoaded[$intern_67] = true;
+    document.write($intern_68 + base + $intern_69);
+  }
+  if (!__gwt_scriptsLoaded[$intern_70]) {
+    __gwt_scriptsLoaded[$intern_70] = true;
+    document.write($intern_68 + base + $intern_71);
   }
   if (!__gwt_scriptsLoaded[$intern_72]) {
     __gwt_scriptsLoaded[$intern_72] = true;
-    document.write($intern_70 + base + $intern_73);
+    document.write($intern_68 + base + $intern_73);
   }
   if (!__gwt_scriptsLoaded[$intern_74]) {
     __gwt_scriptsLoaded[$intern_74] = true;
-    document.write($intern_70 + base + $intern_75);
+    document.write($intern_68 + base + $intern_75);
   }
   if (!__gwt_scriptsLoaded[$intern_76]) {
     __gwt_scriptsLoaded[$intern_76] = true;
-    document.write($intern_70 + base + $intern_77);
+    document.write($intern_68 + base + $intern_77);
   }
   if (!__gwt_scriptsLoaded[$intern_78]) {
     __gwt_scriptsLoaded[$intern_78] = true;
-    document.write($intern_70 + base + $intern_79);
+    document.write($intern_68 + base + $intern_79);
   }
-  if (!__gwt_scriptsLoaded[$intern_80]) {
-    __gwt_scriptsLoaded[$intern_80] = true;
-    document.write($intern_70 + base + $intern_81);
-  }
-  $doc.write($intern_82);
+  $doc.write($intern_80);
 }
 
 umldrawer();
