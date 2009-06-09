@@ -32,6 +32,7 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
@@ -84,6 +85,7 @@ public class UMLCanvas extends AbsolutePanel {
     private LinkKind activeLinking;
     private Point selectBoxStartPoint; 
     private GfxObject selectBox;
+    private Label helpText = new Label("");
     private final Widget drawingCanvas; // Drawing canvas
     private enum DragAndDropState {
 	TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
@@ -173,6 +175,9 @@ public class UMLCanvas extends AbsolutePanel {
     @SuppressWarnings("fallthrough")
     void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 	final Point realPoint = convertToRealPoint(location);
+	if(!this.helpText.getText().equals("")) {
+	    this.setWidgetPosition(this.helpText, realPoint.getX() + 5, realPoint.getY() - this.helpText.getOffsetHeight() - 5);
+	}
 	this.currentMousePosition = realPoint;
 	switch(this.dragAndDropState) {
 	case TAKING:
@@ -218,7 +223,6 @@ public class UMLCanvas extends AbsolutePanel {
 	default :
 	    this.dragAndDropState = DragAndDropState.NONE;
 	}
-
     }
 
     void mouseRightPressed(final GfxObject gfxObject, final Point location) {
@@ -364,6 +368,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragOffset = location;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 	    this.dragAndDropState = DragAndDropState.TAKING;
+	    this.helpText.setText("Adding a new class");
 	}
     }
 
@@ -399,6 +404,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragOffset = location;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 	    this.dragAndDropState = DragAndDropState.TAKING;
+	    this.helpText.setText("Adding a new object");
 	}
     }
     /**
@@ -431,17 +437,20 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragOffset = location;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 	    this.dragAndDropState = DragAndDropState.TAKING;
+	    this.helpText.setText("Adding a new life line");
 	}
     }
     void addNewLink(final UMLArtifact newSelected) {
-	boolean isOneLinkOk = false;
+	int linkOkCount = 0;
 	for(UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 	    LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
 
-	    isOneLinkOk = isOneLinkOk || (newLink != null);
+	   if(newLink != null) {
+	       linkOkCount++;
+	   }
 	    add(newLink);
 	}
-	if(isOneLinkOk) linkingModeOff();
+	if(linkOkCount != 0) linkingModeOff();
     }
 
     void addNewNote() {
@@ -466,6 +475,7 @@ public class UMLCanvas extends AbsolutePanel {
 	    this.dragOffset = location; 
 	    this.dragAndDropState = DragAndDropState.TAKING;
 	    CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+	    this.helpText.setText("Adding a new note");
 	}
     }
 
@@ -549,6 +559,10 @@ public class UMLCanvas extends AbsolutePanel {
 
     void toLinkMode(final LinkKind linkType) {
 	this.activeLinking = linkType;
+	int selectedToLink = this.selectedArtifacts.keySet().size();
+	
+        this.helpText.setText("Adding " + (selectedToLink == 0 ? "a" : selectedToLink) + " new " + this.activeLinking.getName());
+	
 	CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
     }
 
@@ -663,6 +677,7 @@ public class UMLCanvas extends AbsolutePanel {
 		selectedArtifact.rebuildGfxObject();		
 	    }
 	}
+	this.helpText.setText("");
 	this.totalDragShift = Point.getOrigin();
 	this.duringDragOffset = Point.getOrigin();
 	GfxManager.getPlatform().clearVirtualGroup(this.outlines);
@@ -715,6 +730,7 @@ public class UMLCanvas extends AbsolutePanel {
     private void initCanvas() {
 	Log.trace("Adding Canvas");
 	add(this.drawingCanvas, 0, 0);
+	add(this.helpText, 0, 0);
 	Log.trace("Adding object listener");
 	GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas,
 		this.gfxObjectListener);
@@ -864,7 +880,9 @@ public class UMLCanvas extends AbsolutePanel {
 	this.activeLinking = null;
 	GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
 	CursorIconManager.setCursorIcon(PointerStyle.AUTO);
+	this.helpText.setText("");
     }
+    
     GfxObject getArtifactAt(Point location) {
 	for (UMLArtifact artifact : this.objects.values()) {
 	    if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), location, location)) {
@@ -1012,10 +1030,10 @@ public class UMLCanvas extends AbsolutePanel {
 				Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 			    }
 			    newArtifact = new MessageLinkArtifact((LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineLeftId), (LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-			    ((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
-			    ((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-			    ((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-			    ((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
+			    ((MessageLinkArtifact) newArtifact).setName(parameters[3]);
+			    ((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+			    ((MessageLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+			    ((MessageLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
 				
 			} else if(artifact.equals("InstantiationRelationLink")) {
 			    Integer classId = 0;

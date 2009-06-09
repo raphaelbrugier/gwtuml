@@ -15,7 +15,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-log-r330.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-incubator-r1675.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/gwt-linux-0.0.0_modded"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/gwt-linux-0.0.0"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/tatami-r465-norip.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
