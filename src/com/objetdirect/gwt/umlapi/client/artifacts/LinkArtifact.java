@@ -176,6 +176,10 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 */
 	SOLID_CIRCLE("SolidCircle", Shape.CIRCLE, true, false),
 	/**
+	 * A simple filled arrow : -|@&gt;
+	 */
+	INVERTED_SOLID_ARROW("InvertedSolidArrow", Shape.ARROW, true, false, true),
+	/**
 	 * A filled diamond with foreground color : -&lt;@&gt;
 	 */
 	INVERTED_SOLID_DIAMOND("InvertedSolidDiamond", Shape.DIAMOND, true, false, true), 

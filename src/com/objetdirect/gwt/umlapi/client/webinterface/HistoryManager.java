@@ -24,12 +24,10 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 import java.util.HashMap;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -85,7 +83,7 @@ public class HistoryManager implements ValueChangeHandler<String> {
 
     private void processHistory() {
 	applicationPanel.clear();
-	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+	//DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 
 	OptionsManager.setAllFromURL(lastHistoryParametersList);
 	UMLArtifact.getArtifactList().clear();

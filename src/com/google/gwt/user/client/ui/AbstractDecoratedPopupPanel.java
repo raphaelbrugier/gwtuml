@@ -32,10 +32,19 @@ public abstract class AbstractDecoratedPopupPanel extends DecoratedPopupPanel {
    * </ul>
    */
   public static enum AnimationType {
+    /**
+     * 
+     */
     CENTER(PopupPanel.AnimationType.CENTER),
 
+    /**
+     * 
+     */
     ONE_WAY_CORNER(PopupPanel.AnimationType.ONE_WAY_CORNER),
 
+    /**
+     * 
+     */
     ROLL_DOWN(PopupPanel.AnimationType.ROLL_DOWN);
 
     private PopupPanel.AnimationType type;
@@ -44,6 +53,9 @@ public abstract class AbstractDecoratedPopupPanel extends DecoratedPopupPanel {
       this.type = type;
     }
 
+    /**
+     * @return a PopupPanel AnimationType
+     */
     public PopupPanel.AnimationType getType() {
       return this.type;
     }

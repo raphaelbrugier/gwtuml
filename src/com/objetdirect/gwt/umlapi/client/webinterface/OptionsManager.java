@@ -42,6 +42,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  * DiamondWidth -> 15 <br />
  * SolidArrowLength -> 30 <br />
  * SolidArrowWidth -> 20 <br />
+ * CircleRadius -> 5 <br />
  * RectangleTopPadding -> 4 <br />
  * RectangleBottomPadding -> 4 <br />
  * RectangleLeftPadding -> 2 <br />
@@ -90,6 +91,7 @@ public class OptionsManager {
 	optionsList.put("DiamondWidth", 15);
 	optionsList.put("SolidArrowLength", 30);
 	optionsList.put("SolidArrowWidth", 20);
+	optionsList.put("CircleRadius", 5);
 
 
 	optionsList.put("RectangleTopPadding", 4);

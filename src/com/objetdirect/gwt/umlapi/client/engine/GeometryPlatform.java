@@ -54,7 +54,7 @@ public abstract class GeometryPlatform {
     public GfxObject buildAdornment(final Point target, final Point origin,
 	    final LinkAdornment adornment) {
 	if(adornment == LinkAdornment.NONE) return null;
-	final GfxObject path = GfxManager.getPlatform().buildPath();
+	final GfxObject adornmentGfxObject;
 	int width = 0, lenght = 0;
 	GfxColor foreColor, backColor;
 	foreColor = ThemeManager.getTheme().getDefaultForegroundColor();
@@ -79,34 +79,40 @@ public abstract class GeometryPlatform {
 	    }
 	    break;
 	case CROSS:
-		width = OptionsManager.get("CrossWidth");
-		lenght = OptionsManager.get("CrossLength");
-		break;
+	    width = OptionsManager.get("CrossWidth");
+	    lenght = OptionsManager.get("CrossLength");
+	    break;    
 	}
 
 	final ArrayList<Point> points = getAdornmentPoints(target, origin,
 		width, lenght);
-
-	GfxManager.getPlatform().moveTo(path, points.get(0));
-	if(adornment == LinkAdornment.WIRE_CROSS) {
-	    GfxManager.getPlatform().lineTo(path, points.get(4)); 
-	    GfxManager.getPlatform().moveTo(path, points.get(1));
-	    GfxManager.getPlatform().lineTo(path, points.get(3));
+	if(adornment.getShape() == Shape.CIRCLE) {
+	    adornmentGfxObject =  GfxManager.getPlatform().buildCircle(OptionsManager.get("CircleRadius"));
+	    GfxManager.getPlatform().translate(adornmentGfxObject, points.get(0));
 	} else {
-	    GfxManager.getPlatform().lineTo(path, target);
-	    GfxManager.getPlatform().lineTo(path, points.get(1));
-	    if (adornment == LinkAdornment.WIRE_ARROW) {
-		GfxManager.getPlatform().lineTo(path, target);
+	    adornmentGfxObject = GfxManager.getPlatform().buildPath();
+	    GfxManager.getPlatform().moveTo(adornmentGfxObject, points.get(0));
+
+	    if(adornment == LinkAdornment.WIRE_CROSS) {
+		GfxManager.getPlatform().lineTo(adornmentGfxObject, points.get(4)); 
+		GfxManager.getPlatform().moveTo(adornmentGfxObject, points.get(1));
+		GfxManager.getPlatform().lineTo(adornmentGfxObject, points.get(3));
 	    } else {
-		if (adornment.getShape() == Shape.DIAMOND) {
-		    GfxManager.getPlatform().lineTo(path, points.get(2));
+		GfxManager.getPlatform().lineTo(adornmentGfxObject, target);
+		GfxManager.getPlatform().lineTo(adornmentGfxObject, points.get(1));
+		if (adornment == LinkAdornment.WIRE_ARROW) {
+		    GfxManager.getPlatform().lineTo(adornmentGfxObject, target);
+		} else {
+		    if (adornment.getShape() == Shape.DIAMOND) {
+			GfxManager.getPlatform().lineTo(adornmentGfxObject, points.get(2));
+		    }
+		    GfxManager.getPlatform().lineTo(adornmentGfxObject, points.get(0));
 		}
-		GfxManager.getPlatform().lineTo(path, points.get(0));
 	    }
 	}
-	GfxManager.getPlatform().setStroke(path, foreColor, adornment == LinkAdornment.WIRE_CROSS ? 2 : 1);
-	GfxManager.getPlatform().setFillColor(path, backColor);
-	return path;
+	GfxManager.getPlatform().setStroke(adornmentGfxObject, foreColor, adornment == LinkAdornment.WIRE_CROSS ? 2 : 1);
+	GfxManager.getPlatform().setFillColor(adornmentGfxObject, backColor);
+	return adornmentGfxObject;
     }
 
 
@@ -204,10 +210,10 @@ public abstract class GeometryPlatform {
 	final Point shifted = point1.clonePoint();		
 	shifted.translate((xDiff * thalesConst) - xShift, (yDiff * thalesConst) + yShift);
 	return shifted;
-	
+
     }
-    
-    
+
+
     protected abstract ArrayList<Point> getLineBetweenImpl(
 	    UMLArtifact firstUMLArtifact, UMLArtifact secondUMLArtifact);
 
@@ -236,7 +242,7 @@ public abstract class GeometryPlatform {
 	final Point diamondTail = Point.substract(root, Point.substract(point1, root));
 	final Point crossUp = Point.substract(diamondTail, Point.substract(down, diamondTail));
 	final Point crossDown = Point.substract(diamondTail, Point.substract(up, diamondTail));
-	
+
 
 	arrowPoints.add(up); // 0
 	arrowPoints.add(down); // 1

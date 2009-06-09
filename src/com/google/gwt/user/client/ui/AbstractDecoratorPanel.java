@@ -15,6 +15,9 @@
  */
 package com.google.gwt.user.client.ui;
 
+/**
+ * @author georgopoulos.georgios(at)gmail.com
+ */
 public abstract class AbstractDecoratorPanel extends DecoratorPanel {
 
   /**

@@ -18,8 +18,11 @@
 	<inherits name='gwt.canvas.gwt-canvas' />
 
 	<!-- Add gwt-log support -->
-	<inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" />
-
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" />
+ 	<extend-property name="log_level" values="ERROR" />
+ 	<!-- Turn off the `DivLogger` -->
+    <set-property name="log_DivLogger" value="DISABLED" />
+	
 	<!-- Specify the app entry point class.                         -->
 	<entry-point class='com.objetdirect.gwt.umlapi.client.UMLDrawer' />
 

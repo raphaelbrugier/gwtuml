@@ -19,7 +19,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbstractDecoratedPopupPanel;
-import com.google.gwt.user.client.ui.HasAnimation;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.MenuItemSeparator;
@@ -30,12 +29,15 @@ import com.google.gwt.user.client.ui.PopupPanel;
  * @author georgopoulos.georgios(at)gmail.com
  * 
  */
-public class PopupMenu extends AbstractDecoratedPopupPanel implements
-    HasAnimation {
+public class PopupMenu extends AbstractDecoratedPopupPanel {
 
   private final MenuBar menu; 
 
-  public PopupMenu() {
+/**
+ * Constructor of PopupMenu
+ *
+ */
+public PopupMenu() {
     super(true, false, "menuPopup", AnimationType.ONE_WAY_CORNER);
     this.menu = new MenuBar(true) {
       @Override
@@ -52,7 +54,11 @@ public class PopupMenu extends AbstractDecoratedPopupPanel implements
 
       private boolean canClose = true;
 
-      public void onBrowserEvent(Event event) {
+      /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.MenuBar#onBrowserEvent(com.google.gwt.user.client.Event)
+     */
+    @Override
+    public void onBrowserEvent(Event event) {
         switch (DOM.eventGetType(event)) {
           case Event.ONMOUSEOVER: {
             this.canClose = false;

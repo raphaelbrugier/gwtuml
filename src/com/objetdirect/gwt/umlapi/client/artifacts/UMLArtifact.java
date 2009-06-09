@@ -40,7 +40,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
 
 /**
@@ -499,7 +498,7 @@ public abstract class UMLArtifact {
 
     void buildGfxObjectWithAnimation() {
 	if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
-	    ThemeManager.setForegroundOpacityTo(0);
+	    //ThemeManager.setForegroundOpacityTo(0);
 	}
 	
 	buildGfxObject();
@@ -514,7 +513,7 @@ public abstract class UMLArtifact {
 		    }
 		};
 	    }
-	    ThemeManager.setForegroundOpacityTo(255);
+	    //ThemeManager.setForegroundOpacityTo(255);
 	}
     }
 
