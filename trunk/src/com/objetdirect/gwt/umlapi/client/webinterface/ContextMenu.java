@@ -24,9 +24,6 @@ package com.objetdirect.gwt.umlapi.client.webinterface;
 
 
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
@@ -66,13 +63,15 @@ public class ContextMenu {
 	    HelpManager.bringHelpPopup();
 	}
     };
-    private final Command saveToSVG = new Command() {
+    /* Doesn't work very well...
+     * 
+     * private final Command saveToSVG = new Command() {
 	public void execute() {
 	    String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
 	    svg += DOM.getInnerHTML((Element) ContextMenu.this.canvas.getElement().getFirstChildElement());
 	    Window.open("data:image/svg," + svg, "SVG export", "");
 	}
-    };
+    };*/
     private final Command exportToURL = new Command() {
 	public void execute() {
 	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());	    
@@ -84,6 +83,13 @@ public class ContextMenu {
 	    ContextMenu.this.canvas.removeSelected();
 	}
     };
+    private final Command changeLinkStyle = new Command() {
+	public void execute() {
+	    OptionsManager.set("AngularLinks", 1 - OptionsManager.get("AngularLinks"));
+	    ContextMenu.this.canvas.rebuildAllLinks();
+	}
+    };
+
     private final UMLCanvas canvas;
     private PopupMenu contextMenu;
 
@@ -147,6 +153,8 @@ public class ContextMenu {
 	};
     }
 
+
+
     private void makeMenu() {
 	this.contextMenu = new PopupMenu();
 	this.contextMenu.setAutoOpen(true);
@@ -176,9 +184,12 @@ public class ContextMenu {
 	}
 	this.contextMenu.addItem("Add relation", linkSubMenu);
 	this.contextMenu.addSeparator();
-	this.contextMenu.addItem("Save to SVG", this.saveToSVG);
+	if(this.canvas.getUMLDiagram().getType().isClassOrObjectType()) {
+	    this.contextMenu.addItem("Switch links style", this.changeLinkStyle);
+	}
+	//this.contextMenu.addItem("Save to SVG", this.saveToSVG);
 	this.contextMenu.addItem("Export to URL", this.exportToURL);
 	this.contextMenu.addItem("Clear diagram", this.clearDiagram);
-	this.contextMenu.addItem("Help...", this.bringHelp);
+	this.contextMenu.addItem("Hotkeys...", this.bringHelp);
     }
 }

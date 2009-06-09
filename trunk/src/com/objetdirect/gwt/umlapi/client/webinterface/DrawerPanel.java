@@ -213,7 +213,7 @@ public class DrawerPanel extends AbsolutePanel {
 	this.resizeHandler = new ResizeHandler() {
 	    public void onResize(final ResizeEvent resizeEvent) {
 		if (OptionsManager.get("AutoResolution") == 1) {
-		    DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+		    //DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 		    DrawerPanel.this.width = resizeEvent.getWidth() - 50;
 		    DrawerPanel.this.height = resizeEvent.getHeight() - 50;
 		    DrawerPanel.this.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);			

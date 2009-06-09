@@ -105,7 +105,7 @@ Class PopupMenu</H2>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>PopupMenu</B><DT>extends <A HREF="../../../../../../com/google/gwt/user/client/ui/AbstractDecoratedPopupPanel.html" title="class in com.google.gwt.user.client.ui">AbstractDecoratedPopupPanel</A><DT>implements <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/HasAnimation.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui">HasAnimation</A></DL>
+<DT><PRE>public class <B>PopupMenu</B><DT>extends <A HREF="../../../../../../com/google/gwt/user/client/ui/AbstractDecoratedPopupPanel.html" title="class in com.google.gwt.user.client.ui">AbstractDecoratedPopupPanel</A></DL>
 </PRE>
 
 <P>
@@ -186,7 +186,7 @@ Class PopupMenu</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/contrib/PopupMenu.html#PopupMenu()">PopupMenu</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of PopupMenu</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -379,15 +379,6 @@ Class PopupMenu</H2>
 <TD><CODE><A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
 </TR>
 </TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_HasAnimation"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/HasAnimation.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui">HasAnimation</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/HasAnimation.html?is-external=true#isAnimationEnabled()" title="class or interface in com.google.gwt.user.client.ui">isAnimationEnabled</A></CODE></TD>
-</TR>
-</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_HasHandlers"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
@@ -415,6 +406,8 @@ PopupMenu</H3>
 <PRE>
 public <B>PopupMenu</B>()</PRE>
 <DL>
+<DD>Constructor of PopupMenu
+<P>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -449,9 +442,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
 <DD>Adds a menu item to the menu.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>item</CODE> - the item to be added
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A> object</DL>
 </DD>
@@ -468,9 +458,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
 <DD>Adds a menu item to the bar, that will fire the given command when it is
  selected.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>text</CODE> - the item's text<DD><CODE>asHTML</CODE> - <code>true</code> to treat the specified text as html<DD><CODE>cmd</CODE> - the command to be fired
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A> object created</DL>
@@ -489,9 +476,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
  selected.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>text</CODE> - the item's text<DD><CODE>asHTML</CODE> - <code>true</code> to treat the specified text as html<DD><CODE>popup</CODE> - the menu to be cascaded from it
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A> object created</DL>
 </DD>
@@ -507,9 +491,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
 <DD>Adds a menu item to the bar, that will fire the given command when it is
  selected.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>text</CODE> - the item's text<DD><CODE>cmd</CODE> - the command to be fired
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A> object created</DL>
@@ -527,9 +508,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
  selected.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>text</CODE> - the item's text<DD><CODE>popup</CODE> - the menu to be cascaded from it
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A> object created</DL>
 </DD>
@@ -545,9 +523,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
  <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A>s.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItemSeparator.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItemSeparator</CODE></A> object created</DL>
 </DD>
@@ -562,9 +537,6 @@ public <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui
 <DD>Adds a thin line to the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuBar.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuBar</CODE></A> to separate sections of
  <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItem.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItem</CODE></A>s.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>separator</CODE> - the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItemSeparator.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItemSeparator</CODE></A> to be added
 <DT><B>Returns:</B><DD>the <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItemSeparator.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItemSeparator</CODE></A> object</DL>
@@ -582,9 +554,6 @@ public void <B>clearItems</B>()</PRE>
 <DD><DL>
 </DL>
 </DD>
-<DD><DL>
-</DL>
-</DD>
 </DL>
 <HR>
 
@@ -596,9 +565,6 @@ public boolean <B>getAutoOpen</B>()</PRE>
 <DD>Gets whether this menu bar's child menus will open when the mouse is moved
  over it.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 
 <DT><B>Returns:</B><DD><code>true</code> if child menus will auto-open</DL>
@@ -614,9 +580,6 @@ public void <B>removeItem</B>(<A HREF="file:/home/florian/w/UMLDrawer/doc/com/go
 <DD>Removes the specified menu item from the bar.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>item</CODE> - the item to be removed</DL>
 </DD>
 </DL>
@@ -629,9 +592,6 @@ public void <B>removeSeparator</B>(<A HREF="file:/home/florian/w/UMLDrawer/doc/c
 <DL>
 <DD>Removes the specified <A HREF="file:/home/florian/w/UMLDrawer/doc/com/google/gwt/user/client/ui/MenuItemSeparator.html?is-external=true" title="class or interface in com.google.gwt.user.client.ui"><CODE>MenuItemSeparator</CODE></A> from the bar.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>separator</CODE> - the separator to be removed</DL>
 </DD>
@@ -646,9 +606,6 @@ public void <B>setAutoOpen</B>(boolean&nbsp;autoOpen)</PRE>
 <DD>Sets whether this menu bar's child menus will open when the mouse is moved
  over it.
 <P>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>autoOpen</CODE> - <code>true</code> to cause child menus to auto-open</DL>
 </DD>

@@ -710,7 +710,6 @@ public class ThemeManager {
     }
 
     private static Theme current_theme = Theme.NORMAL;
-    private static int opacity = 255;
 
 
     /**
@@ -739,15 +738,5 @@ public class ThemeManager {
     public static void setCurrentTheme(final Theme theme) {
 	if(theme == null) current_theme = Theme.NORMAL;
 	else current_theme = theme;
-    }
-
-    /**
-     * Setter for the foreground color opacity
-     * 
-     * @param opacity The new foreground opacity (0-255) 
-     */
-    public static void setForegroundOpacityTo(final int opacity) {
-	ThemeManager.opacity = opacity;
-
     }
 }

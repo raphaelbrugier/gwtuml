@@ -22,16 +22,11 @@
  */
 package com.objetdirect.gwt.umlapi.client;
 
-import com.allen_sauer.gwt.log.client.DivLogger;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.objetdirect.gwt.umlapi.client.webinterface.HistoryManager;
@@ -47,38 +42,39 @@ import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
  */
 public class UMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
-    private static Button log;
+    //private static Button log;
 
     /**
      * Entry point of the application This class make a StartPanel and manage
      * the history for it
      */
     public void gwt_main() {
-	Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
+	//Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
 	OptionsManager.initialize();
 	HotKeyManager.forceStaticInit();
 	HistoryManager historyManager = new HistoryManager();
 	historyManager.initApplication(appRootPanel);
 	
 	DOM.setInnerHTML(RootPanel.get("loading-screen").getElement(), "");
-	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
-	log = new Button("ToggleLog");
-	log.addClickHandler(new ClickHandler() {
-	    public void onClick(final ClickEvent event) {
-		final DivLogger dl = Log.getDivLogger();
-		final Element e = dl.getWidget().getElement();
-		final String p = DOM.getStyleAttribute(e, "display");
-		final String v = "none".equals(p) ? "" : "none";
-		DOM.setStyleAttribute(e, "display", v);
-		Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
-			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
-	    }
-	});
+//	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+//	log = new Button("ToggleLog");
+//	log.addClickHandler(new ClickHandler() {
+//	    public void onClick(final ClickEvent event) {
+//		final DivLogger dl = Log.getDivLogger();
+//		final Element e = dl.getWidget().getElement();
+//		final String p = DOM.getStyleAttribute(e, "display");
+//		final String v = "none".equals(p) ? "" : "none";
+//		DOM.setStyleAttribute(e, "display", v);
+//		Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
+//			log.getAbsoluteTop() + log.getOffsetHeight() + 10);
+//	    }
+//	});
 	appRootPanel.setSize("100%", "100%");
-	appRootPanel.add(log, DockPanel.SOUTH);
+	// appRootPanel.add(log, DockPanel.SOUTH);
 	RootPanel.get().add(appRootPanel);
-	Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
-		log.getAbsoluteTop() + log.getOffsetHeight() + 10);
+	// Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
+	// 	log.getAbsoluteTop() + log.getOffsetHeight() + 10);
+	// 
 	}
 
     /*

@@ -32,7 +32,11 @@
 .canvas {
 	border: 1px solid black;
 }
-
+.contextual-help {
+	font: 12px;
+	font-style: italic;
+	color: #666;
+}
 
 /** Cursor change styles */
 

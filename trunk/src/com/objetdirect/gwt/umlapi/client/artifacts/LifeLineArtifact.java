@@ -235,7 +235,7 @@ public class LifeLineArtifact extends BoxArtifact {
      * 
      * @return the instance name of the life line
      */
-    private String getInstance() {
+    public String getInstance() {
 	return this.uMLLifeLine.getInstance();
     }
     

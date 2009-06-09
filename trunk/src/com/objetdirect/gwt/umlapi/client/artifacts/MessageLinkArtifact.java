@@ -116,7 +116,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 		+ this.message.getLeftAdornment().getShape().getIdiom() + "-"
 		+ this.message.getRightAdornment().getShape().getIdiom(true) + " "
 		+ this.rightLifeLineArtifact.getContent());
-
+	rightMenu.addItem("Edit", editCommand());
 	rightMenu.addItem("Reverse", reverseCommand(this.message));
 	final MenuBar linkSubMenu = new MenuBar(true);
 	for (final LinkKind messageKind : LinkKind.values()) {
@@ -218,7 +218,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 		    ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); //TODO fix it
 	    GfxManager.getPlatform().setFillColor(this.text,
 		    ThemeManager.getTheme().getClassRelationForegroundColor()); //FIXME
-	    GfxManager.getPlatform().translate(this.text, new Point(-GfxManager.getPlatform().getTextWidthFor(this.text) / 2, 0));
+	    GfxManager.getPlatform().translate(this.text, new Point(-GfxManager.getPlatform().getTextWidthFor(this.text) / 2, -GfxManager.getPlatform().getTextHeightFor(this.text) - OptionsManager.get("TextBottomPadding")));
 	
 	
 	GfxManager.getPlatform().moveToBack(this.gfxObject);
@@ -256,29 +256,6 @@ public class MessageLinkArtifact extends LinkArtifact {
 		rebuildGfxObject();
 	    }
 
-	};
-    }
-
-
-    private Command setNavigabilityCommand(final UMLMessage message, final boolean isLeft) {
-	return new Command() {
-	    public void execute() {
-		if(isLeft) message.setLeftAdornment(LinkAdornment.NONE);
-		else message.setRightAdornment(LinkAdornment.NONE);
-		rebuildGfxObject();
-	    }
-	};
-    }
-
-
-    private Command setNavigabilityCommand(final UMLMessage message, final boolean isLeft, final boolean isNavigable) {
-	return new Command() {
-	    public void execute() {
-		LinkAdornment adornment = isNavigable ? LinkAdornment.WIRE_ARROW : LinkAdornment.WIRE_CROSS;
-		if(isLeft) message.setLeftAdornment(adornment);
-		else message.setRightAdornment(adornment);
-		rebuildGfxObject();
-	    }
 	};
     }
 

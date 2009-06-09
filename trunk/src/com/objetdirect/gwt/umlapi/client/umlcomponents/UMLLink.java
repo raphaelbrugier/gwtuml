@@ -50,7 +50,7 @@ public abstract class UMLLink {
 	/**
 	 * Synchronous message
 	 */
-	SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE,  "", "", LinkStyle.SOLID, Type.SEQUENCE),
+	SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE,  "", "", LinkStyle.SOLID, Type.SEQUENCE),
 	/**
 	 * Reply message
 	 */
