@@ -22,7 +22,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
 
 /**
  * This enumeration lists all orthogonal directions and gives the movements factors

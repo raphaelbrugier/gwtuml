@@ -32,8 +32,8 @@ import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment.Sh
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * This abstract class contains several common geometry methods used by {@link UMLArtifact}s

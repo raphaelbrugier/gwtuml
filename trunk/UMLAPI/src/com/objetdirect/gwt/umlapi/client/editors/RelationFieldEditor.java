@@ -25,7 +25,7 @@ package com.objetdirect.gwt.umlapi.client.editors;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This field editor is a specialized editor for {@link UMLRelation} editing

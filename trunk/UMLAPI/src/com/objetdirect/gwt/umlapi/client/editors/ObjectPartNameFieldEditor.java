@@ -26,7 +26,7 @@ import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This field editor is a specialized editor for object name and stereotype edition

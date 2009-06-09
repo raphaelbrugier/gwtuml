@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client.webinterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +68,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umlapi.client.webinterface.CursorIconManager.PointerStyle;
+import com.objetdirect.gwt.umldrawer.client.webinterface.CursorIconManager.PointerStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
