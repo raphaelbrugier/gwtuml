@@ -36,10 +36,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.Session;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.Session;
+import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This abstract class is a generic field editor for uml artifacts.<br>

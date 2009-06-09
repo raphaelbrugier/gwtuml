@@ -38,9 +38,9 @@ import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
+import com.objetdirect.gwt.umldrawer.client.webinterface.QualityLevel;
+import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This abstract class represent any uml artifact that can be displayed An

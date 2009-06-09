@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client.webinterface;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -45,13 +45,13 @@ public final class HotKeyManager {
 
 	private native void init() /*-{ 
 				$doc.onkeydown = function(evt) { 
-					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 				$doc.onkeypress = function(evt) { 
-					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 				$doc.onkeyup = function(evt) { 
-					@com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 			}-*/;
 

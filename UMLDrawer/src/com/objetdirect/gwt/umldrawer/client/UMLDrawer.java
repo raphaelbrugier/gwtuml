@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umldrawer.client;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
@@ -29,9 +29,9 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.objetdirect.gwt.umlapi.client.webinterface.HistoryManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.HotKeyManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.HistoryManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
 
 /**
  * Main class for gwtuml application. This class does some initialization and

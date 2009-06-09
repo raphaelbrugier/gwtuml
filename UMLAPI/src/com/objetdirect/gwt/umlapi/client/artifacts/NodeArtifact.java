@@ -31,8 +31,8 @@ import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umlapi.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umldrawer.client.webinterface.QualityLevel;
+import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This class is an artifact used to represent a class. <br>

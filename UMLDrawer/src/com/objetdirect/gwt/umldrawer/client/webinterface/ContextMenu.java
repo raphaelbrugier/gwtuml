@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client.webinterface;
 
 
 import com.google.gwt.user.client.Command;

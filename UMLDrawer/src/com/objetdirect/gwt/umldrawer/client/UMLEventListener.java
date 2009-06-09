@@ -20,11 +20,11 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umldrawer.client;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
+import com.objetdirect.gwt.umldrawer.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This listener allow subscription on UML related events

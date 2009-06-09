@@ -31,9 +31,9 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
-import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
+import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * This class represent the upper Part of a {@link NodeArtifact}

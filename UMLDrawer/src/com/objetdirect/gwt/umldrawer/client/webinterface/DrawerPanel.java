@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umlapi.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client.webinterface;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -54,7 +54,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager.Theme;
+import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager.Theme;
 
 /**
  * This panel is an intermediate panel that contains the graphic canvas <br>

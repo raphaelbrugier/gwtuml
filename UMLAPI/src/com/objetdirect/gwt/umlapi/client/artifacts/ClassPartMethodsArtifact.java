@@ -40,9 +40,9 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
-import com.objetdirect.gwt.umlapi.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.webinterface.ThemeManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
+import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * This class represent the lower Part of a {@link NodeArtifact}
