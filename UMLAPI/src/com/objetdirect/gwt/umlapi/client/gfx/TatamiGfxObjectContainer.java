@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.tatami.client.gfx.GraphicObject;
 
 /**
@@ -58,7 +58,7 @@ class TatamiGfxObjectContainer extends GfxObject {
 
     @Override
     public String toString() {
-	return UMLDrawerHelper.getShortName(this) + " containing "
-		+ UMLDrawerHelper.getShortName(this.graphicObject);
+	return GWTUMLDrawerHelper.getShortName(this) + " containing "
+		+ GWTUMLDrawerHelper.getShortName(this.graphicObject);
     }
 }

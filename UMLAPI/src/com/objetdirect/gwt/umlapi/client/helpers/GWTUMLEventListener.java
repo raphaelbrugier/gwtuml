@@ -32,7 +32,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public interface UMLEventListener {
+public interface GWTUMLEventListener {
 
     /**
      * This method is called when an artifact is removed from the canvas

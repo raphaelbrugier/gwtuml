@@ -28,7 +28,7 @@ package com.objetdirect.gwt.umlapi.client;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class UMLAPIException extends RuntimeException {
+public class GWTUMLAPIException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -37,7 +37,7 @@ public class UMLAPIException extends RuntimeException {
      * @param msg
      *            The String exception
      */
-    public UMLAPIException(final String msg) {
+    public GWTUMLAPIException(final String msg) {
 	super(msg);
     }
 }

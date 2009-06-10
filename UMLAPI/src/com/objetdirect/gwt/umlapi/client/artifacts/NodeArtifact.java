@@ -32,7 +32,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 
 /**
  * This class is an artifact used to represent a class. <br>
@@ -126,7 +126,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 		}
 
 		// Searching largest width :
-		final int maxWidth = UMLDrawerHelper.getMaxOf(widthList);
+		final int maxWidth = GWTUMLDrawerHelper.getMaxOf(widthList);
 		this.width = maxWidth;	
 		int heightDelta = 0;
 		for(NodePartArtifact nodePart : this.nodeParts) {		    
@@ -195,7 +195,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	}
 
 	// Searching largest width :
-	final int maxWidth = UMLDrawerHelper.getMaxOf(widthList);
+	final int maxWidth = GWTUMLDrawerHelper.getMaxOf(widthList);
 	this.width = maxWidth;	
 	int heightDelta = 0;
 	for(NodePartArtifact nodePart : this.nodeParts) {

@@ -22,7 +22,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.analyser;
 
-import com.objetdirect.gwt.umlapi.client.UMLAPIException;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 
 /**
  * A lexical analyzer
@@ -191,7 +191,7 @@ public class LexicalAnalyzer {
 		    if (token != null) {
 			return token;
 		    }
-		    throw new UMLAPIException("Unexpected EOF");
+		    throw new GWTUMLAPIException("Unexpected EOF");
 		}
 		return null;
 	    }
@@ -277,7 +277,7 @@ public class LexicalAnalyzer {
 	    } else if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.NUMERIC, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case VISIBILITY:
 	    return inject(LexicalFlag.VISIBILITY);
 	case IDENTIFIER:
@@ -322,14 +322,14 @@ public class LexicalAnalyzer {
 	    } else if (c != '\'') {
 		return process(LexicalFlag.CHAR_DEFINED, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case ESCAPED_CHAR:
 	    return process(LexicalFlag.CHAR_DEFINED, c);
 	case CHAR_DEFINED:
 	    if (c == '\'') {
 		return consume(LexicalFlag.CHAR, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case NUMERIC:
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.NUMERIC, c);
@@ -344,7 +344,7 @@ public class LexicalAnalyzer {
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.DECIMAL, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case DECIMAL:
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.DECIMAL, c);
@@ -359,12 +359,12 @@ public class LexicalAnalyzer {
 	    } else if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.EXPONENT, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case START_EXPONENT:
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.EXPONENT, c);
 	    }
-	    throw new UMLAPIException("Invalid character : " + c);
+	    throw new GWTUMLAPIException("Invalid character : " + c);
 	case EXPONENT:
 	    if (c >= '0' && c <= '9') {
 		return process(LexicalFlag.EXPONENT, c);
@@ -372,6 +372,6 @@ public class LexicalAnalyzer {
 
 	    return inject(LexicalFlag.FLOAT);
 	}
-	throw new UMLAPIException("Invalid status : " + this.status);
+	throw new GWTUMLAPIException("Invalid status : " + this.status);
     }
 }

@@ -35,7 +35,7 @@ import com.google.gwt.user.client.EventPreview;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public class UMLDrawerHelper {
+public class GWTUMLDrawerHelper {
     private static EventPreview eventPreview = null;
 
     /**
