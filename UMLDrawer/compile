@@ -11,19 +11,19 @@ echo "Compiling for revision : "$svnrev
 cd war
 ./makeHtml $svnrev
 ./makeRevLogo "r."$svnrev
-rm -fr umldrawer
-svn up umldrawer
-svn rm --force umldrawer/*.cache.*
-svn rm --force umldrawer/*.rpc
-rm -f umldrawer/*.cache.*
-rm -f umldrawer/*.rpc
-mv umldrawer umldrawer_
+rm -fr gwtumldrawer
+svn up gwtumldrawer
+svn rm --force gwtumldrawer/*.cache.*
+svn rm --force gwtumldrawer/*.rpc
+rm -f gwtumldrawer/*.cache.*
+rm -f gwtumldrawer/*.rpc
+mv gwtumldrawer gwtumldrawer_
 cd ..
 ant $1
 cd war
-cp -fr umldrawer/* umldrawer_
-rm -fr umldrawer
-mv umldrawer_ umldrawer
-cd umldrawer
+cp -fr gwtumldrawer/* gwtumldrawer_
+rm -fr gwtumldrawer
+mv gwtumldrawer_ gwtumldrawer
+cd gwtumldrawer
 svn add --force *
 notify-send "Build done !"

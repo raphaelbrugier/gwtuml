@@ -43,7 +43,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
