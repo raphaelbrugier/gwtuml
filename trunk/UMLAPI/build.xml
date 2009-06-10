@@ -33,7 +33,13 @@
   <target name="jar" depends="javac" description="Make .jar ">
 	<mkdir dir="build/dist" />
 		<jar destfile="build/dist/gwt-umlapi.jar">
-			<fileset dir="war/WEB-INF/classes" />
+			<fileset dir="war/WEB-INF/classes" >
+			<include name="**/*"/>
+      </fileset>
+      <fileset dir="src/">
+        <include name="**"/>
+      </fileset>
+
 		</jar>
   </target>
 
