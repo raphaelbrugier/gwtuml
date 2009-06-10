@@ -73,11 +73,7 @@ public class ContextMenu {
 	    Window.open("data:image/svg," + svg, "SVG export", "");
 	}
     };*/
-    private final Command exportToURL = new Command() {
-	public void execute() {
-	  //FIXME  HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());	    
-	}
-    };
+
     private final Command clearDiagram = new Command() {
 	public void execute() {
 	    ContextMenu.this.canvas.selectAll();
@@ -189,7 +185,7 @@ public class ContextMenu {
 	    this.contextMenu.addItem("Switch links style", this.changeLinkStyle);
 	}
 	//this.contextMenu.addItem("Save to SVG", this.saveToSVG);
-	this.contextMenu.addItem("Export to URL", this.exportToURL);
+	
 	this.contextMenu.addItem("Clear diagram", this.clearDiagram);
 	this.contextMenu.addItem("Hotkeys...", this.bringHelp);
     }
