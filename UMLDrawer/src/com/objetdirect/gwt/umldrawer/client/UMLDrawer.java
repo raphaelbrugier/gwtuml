@@ -29,9 +29,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.objetdirect.gwt.umldrawer.client.webinterface.HistoryManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 
 /**
  * Main class for gwtuml application. This class does some initialization and

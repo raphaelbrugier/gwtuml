@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umldrawer.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
@@ -31,6 +31,11 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
+import com.objetdirect.gwt.umlapi.client.helpers.Mouse;
+import com.objetdirect.gwt.umlapi.client.helpers.Session;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * This class is an exemple of an animated contruction of an uml diagram

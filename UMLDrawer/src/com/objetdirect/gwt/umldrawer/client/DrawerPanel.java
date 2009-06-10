@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umldrawer.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -43,7 +43,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
@@ -52,9 +51,15 @@ import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Mouse;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Session;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager.Theme;
 
 /**
  * This panel is an intermediate panel that contains the graphic canvas <br>

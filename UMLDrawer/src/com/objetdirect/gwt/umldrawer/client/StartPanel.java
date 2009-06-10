@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umldrawer.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -36,9 +36,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager.Theme;
 
 /**
  * This class is the index panel displaying drawer options and logo

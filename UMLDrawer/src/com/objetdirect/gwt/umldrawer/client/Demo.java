@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umldrawer.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
