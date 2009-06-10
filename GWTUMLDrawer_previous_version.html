@@ -47,8 +47,10 @@ function afficher(){
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GwtUml/latest_build/UMLDrawer.html';
 	else if(rev < 110) // gwt 1.6 -> bleeding w/ oophm
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GwtUml/war/UMLDrawer.html';
-	else
+	else if(rev < 207)
 		document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/war/UMLDrawer.html';
+	else
+	document.location.href='http://gwtuml.googlecode.com/svn-history/r'+rev+'/trunk/GWTUMLDrawer/war/GWTUMLDrawer.html';
 	return false;
 }
 //]]>
