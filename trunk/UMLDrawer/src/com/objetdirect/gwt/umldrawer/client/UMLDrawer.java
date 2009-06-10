@@ -24,13 +24,17 @@ package com.objetdirect.gwt.umldrawer.client;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Session;
 
 /**
  * Main class for gwtuml application. This class does some initialization and
@@ -42,6 +46,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 public class UMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
     //private static Button log;
+    static Button toUrl;
 
     /**
      * Entry point of the application This class make a StartPanel and manage
@@ -56,6 +61,13 @@ public class UMLDrawer implements EntryPoint {
 	
 	DOM.setInnerHTML(RootPanel.get("loading-screen").getElement(), "");
 //	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
+	toUrl = new Button("Export to url");
+	toUrl.addClickHandler(new ClickHandler() {	
+	    @Override
+	    public void onClick(ClickEvent event) {
+		 HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
+	    }
+	});
 //	log = new Button("ToggleLog");
 //	log.addClickHandler(new ClickHandler() {
 //	    public void onClick(final ClickEvent event) {
@@ -70,6 +82,8 @@ public class UMLDrawer implements EntryPoint {
 //	});
 	appRootPanel.setSize("100%", "100%");
 	// appRootPanel.add(log, DockPanel.SOUTH);
+	toUrl.setVisible(false);
+	appRootPanel.add(toUrl, DockPanel.SOUTH);
 	RootPanel.get().add(appRootPanel);
 	// Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
 	// 	log.getAbsoluteTop() + log.getOffsetHeight() + 10);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="UMLDrawer" default="build" basedir=".">
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="../../tools/gwt/trunk/build/staging/gwt-linux-0.0.0" />
+  <property name="gwt.sdk" location="../tools/gwt/trunk/build/staging/gwt-linux-0.0.0" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
@@ -9,6 +9,7 @@
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->
     <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+    <fileset dir="../UMLAPI/build/dist/" includes="gwt-umlapi.jar"/>
   </path>
 
   <target name="libs" description="Copy libs to WEB-INF/lib">
@@ -87,13 +88,12 @@
   </target>
 
     <target name="javadoc" description="Generate Javadoc">
-      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="/home/florian/w/UMLDrawer/doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
+      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
             <classpath>
                 <pathelement location="src"/>
                 <path refid="project.class.path"/>
             </classpath>
             <link href="http://www.junit.org/junit/javadoc/3.8.1"/>
-            <link href="http://gwtuml.googlecode.com/svn/trunk/doc/"/>
             <link href="http://java.sun.com/javase/6/docs/api/"/>
         </javadoc>
     </target>

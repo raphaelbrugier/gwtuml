@@ -87,7 +87,7 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	applicationPanel.clear();
 	//DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 
-	//FIXME OptionsManager.setAllFromURL(lastHistoryParametersList);
+	OptionsManager.setAllFromURL(lastHistoryParametersList);
 	UMLArtifact.getArtifactList().clear();
 	if(lastHistoryAnchor.equals("Drawer")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
@@ -96,18 +96,22 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	    } else {
 		Session.getActiveCanvas().fromURL(urlDiagram);
 	    }	    
+	    UMLDrawer.toUrl.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else if(lastHistoryAnchor.equals("Demo")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
 	    new Demo(drawerPanel.getUMLCanvas());
+	    UMLDrawer.toUrl.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else if(lastHistoryAnchor.equals("AnimatedDemo")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
 	    new AnimatedDemo(drawerPanel.getUMLCanvas());
+	    UMLDrawer.toUrl.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else { 
 	    History.newItem("Start", false);
 	    urlDiagram = "";
+	    UMLDrawer.toUrl.setVisible(false);
 	    applicationPanel.add(new StartPanel(false));
 	}
     }
