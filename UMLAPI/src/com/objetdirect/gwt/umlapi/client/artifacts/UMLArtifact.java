@@ -30,17 +30,15 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 
 /**
  * This abstract class represent any uml artifact that can be displayed An
@@ -173,7 +171,7 @@ public abstract class UMLArtifact {
      */
     public GfxObject getGfxObject() {
 	if (this.gfxObject == null) {
-	    throw new UMLDrawerException(
+	    throw new UMLAPIException(
 	    "Must Initialize before getting gfxObjects");
 	}
 	if (!this.isBuilt) {

@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 
@@ -75,7 +75,7 @@ public class UMLLifeLine extends UMLComponent {
 	    if (tk != null) {
 		if (tk.getType() != LexicalFlag.SIGN
 			|| !tk.getContent().equals(":")) {
-		    throw new UMLDrawerException(
+		    throw new UMLAPIException(
 			    "Invalid life line name format : " + nameToParse + " doesn't match 'instance : name'");
 		}
 		tk = lex.getToken();
@@ -88,7 +88,7 @@ public class UMLLifeLine extends UMLComponent {
 		instance = "";
 	    }
 
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	}
 	return Arrays.asList(instance, name);

@@ -27,12 +27,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umldrawer.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 
 /**
  * This class is an artifact used to represent a class. <br>

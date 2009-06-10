@@ -26,7 +26,6 @@ import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This field editor is a specialized editor for LifeLine editing

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.objetdirect.gwt.umlapi.client.contrib;
+package com.objetdirect.gwt.umldrawer.client.contrib;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;

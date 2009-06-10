@@ -24,9 +24,9 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.List;
 
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
 
 /**
  * This class is an artifact used to represent a class. <br>

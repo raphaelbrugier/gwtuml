@@ -25,7 +25,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 import java.util.ArrayList;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 
@@ -63,11 +63,11 @@ public class UMLClass extends UMLNode  {
 	try {
 	    LexicalAnalyzer.Token tk = lex.getToken();
 	    if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		throw new UMLDrawerException(
+		throw new UMLAPIException(
 		"Invalid class name/stereotype : " + stringToParse + " doesn't repect uml conventions");
 	    }
 	    return tk.getContent();
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	}
 	return "";

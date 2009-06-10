@@ -24,7 +24,6 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This field editor is a specialized editor for {@link UMLMessage} editing

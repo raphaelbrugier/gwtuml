@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.tatami.client.gfx.GraphicObject;
 
 /**

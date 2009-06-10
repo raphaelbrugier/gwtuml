@@ -25,7 +25,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
 
@@ -62,7 +62,7 @@ public class UMLClassMethod {
 	    methodSyntaxAnalyser.process(lex, null);
 	    return methodSyntaxAnalyser.getMethod();
 
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	    
 	}

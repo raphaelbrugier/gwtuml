@@ -24,8 +24,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.List;
 
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
 
 /**
  * This object is an artifact used to represent an object / instance of a object. <br>
