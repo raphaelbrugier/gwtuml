@@ -97,7 +97,7 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html"
 <DD>Getter for the Alpha value
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#getArtifactAt(com.objetdirect.gwt.umlapi.client.engine.Point)"><B>getArtifactAt(Point)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>
-<DD>&nbsp;
+<DD>Return the first artifact found at the specified location
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getArtifactById(int)"><B>getArtifactById(int)</B></A> - 
 Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>
 <DD>Static getter of an <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>UMLArtifact</CODE></A> from its id
@@ -212,7 +212,7 @@ Method in enum <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/ThemeManage
 <DD>Getter for the directionPanelPressedColor
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#getDrawingCanvas()"><B>getDrawingCanvas()</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>
-<DD>&nbsp;
+<DD>Getter for the graphic canvas
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html#getEditField()"><B>getEditField()</B></A> - 
 Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A>
 <DD>Getter for the editField
@@ -413,8 +413,8 @@ Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/IncubatorGfxPl
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatfrom.html#getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><B>getLocationFor(GfxObject)</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatfrom.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">TatamiGfxPlatfrom</A>
 <DD>&nbsp;
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html#getMaxOf(java.util.List)"><B>getMaxOf(List&lt;Integer&gt;)</B></A> - 
-Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLDrawerHelper</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#getMaxOf(java.util.List)"><B>getMaxOf(List&lt;Integer&gt;)</B></A> - 
+Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLDrawerHelper</A>
 <DD>Useful function that return the maximum of an integer list
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/analyser/MethodSyntaxAnalyzer.html#getMethod()"><B>getMethod()</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/analyser/MethodSyntaxAnalyzer.html" title="class in com.objetdirect.gwt.umlapi.client.analyser">MethodSyntaxAnalyzer</A>
@@ -712,8 +712,8 @@ Method in enum <A HREF="../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtif
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/engine/GeometryPlatform.html" title="class in com.objetdirect.gwt.umlapi.client.engine">GeometryPlatform</A>
 <DD>Get a point shifted orthogonally from the center of the line between point1 and point2 <br />
  It is used to draw quadratic Bezier curve for links
-<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html#getShortName(java.lang.Object)"><B>getShortName(Object)</B></A> - 
-Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLDrawerHelper</A>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#getShortName(java.lang.Object)"><B>getShortName(Object)</B></A> - 
+Static method in class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLDrawerHelper</A>
 <DD>Make a pretty object name (<code>name[hash]</code>) from an object
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html#getSize()"><B>getSize()</B></A> - 
 Method in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>
@@ -913,7 +913,13 @@ Static variable in class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GfxCo
 <DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GWTCanvasGfxPlatform.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><B>GWTCanvasGfxPlatform</B></A> - Class in <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/package-summary.html">com.objetdirect.gwt.umlapi.client.gfx</A><DD>This class implements the graphic platform using the <a href="http://code.google.com/p/gwt-canvas/">GWT Canvas</a> canvas library<DT><A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GWTCanvasGfxPlatform.html#GWTCanvasGfxPlatform()"><B>GWTCanvasGfxPlatform()</B></A> - 
 Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/gfx/GWTCanvasGfxPlatform.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GWTCanvasGfxPlatform</A>
 <DD>&nbsp;
-</DL>
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/GWTUMLAPIException.html" title="class in com.objetdirect.gwt.umlapi.client"><B>GWTUMLAPIException</B></A> - Exception in <A HREF="../com/objetdirect/gwt/umlapi/client/package-summary.html">com.objetdirect.gwt.umlapi.client</A><DD>This class defines specific application exception<DT><A HREF="../com/objetdirect/gwt/umlapi/client/GWTUMLAPIException.html#GWTUMLAPIException(java.lang.String)"><B>GWTUMLAPIException(String)</B></A> - 
+Constructor for exception <A HREF="../com/objetdirect/gwt/umlapi/client/GWTUMLAPIException.html" title="class in com.objetdirect.gwt.umlapi.client">GWTUMLAPIException</A>
+<DD>Constructor of the exception
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers"><B>GWTUMLDrawerHelper</B></A> - Class in <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/package-summary.html">com.objetdirect.gwt.umlapi.client.helpers</A><DD>This class is a static helper for entire application<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#GWTUMLDrawerHelper()"><B>GWTUMLDrawerHelper()</B></A> - 
+Constructor for class <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLDrawerHelper</A>
+<DD>&nbsp;
+<DT><A HREF="../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><B>GWTUMLEventListener</B></A> - Interface in <A HREF="../com/objetdirect/gwt/umlapi/client/helpers/package-summary.html">com.objetdirect.gwt.umlapi.client.helpers</A><DD>This listener allow subscription on UML related events</DL>
 <HR>
 
 

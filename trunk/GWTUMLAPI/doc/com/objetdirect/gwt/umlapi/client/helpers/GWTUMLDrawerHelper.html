@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-HelpManager
+GWTUMLDrawerHelper
 </TITLE>
 
 
@@ -13,7 +13,7 @@ HelpManager
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="HelpManager";
+        parent.document.title="GWTUMLDrawerHelper";
     }
 }
 </SCRIPT>
@@ -38,7 +38,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HelpManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/GWTUMLDrawerHelper.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/HotKeyManager.html" title="class in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/CursorIconManager.PointerStyle.html" title="enum in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/HelpManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="HelpManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="GWTUMLDrawerHelper.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -88,18 +88,18 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 com.objetdirect.gwt.umlapi.client.helpers</FONT>
 <BR>
-Class HelpManager</H2>
+Class GWTUMLDrawerHelper</H2>
 <PRE>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>HelpManager</B>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>GWTUMLDrawerHelper</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>HelpManager</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
+<DT><PRE>public class <B>GWTUMLDrawerHelper</B><DT>extends <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
 
 <P>
-This class supply an easy way to bring help about the drawer
+This class is a static helper for entire application
 <P>
 
 <P>
@@ -120,7 +120,7 @@ This class supply an easy way to bring help about the drawer
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/HelpManager.html#HelpManager()">HelpManager</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#GWTUMLDrawerHelper()">GWTUMLDrawerHelper</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -137,20 +137,51 @@ This class supply an easy way to bring help about the drawer
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/HelpManager.html#addHotkeyHelp(java.lang.String, java.lang.String)">addHotkeyHelp</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-              <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;description)</CODE>
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#decodeBase64(java.lang.String)">decodeBase64</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;input)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a line to inform the user about a hot key</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decode a string encoded in base64</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/HelpManager.html#bringHelpPopup()">bringHelpPopup</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#disableBrowserEvents()">disableBrowserEvents</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A call to ths method will bring a popup with the help added previously.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disable various browser events like image drag and drop</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#enableBrowserEvents()">enableBrowserEvents</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable browser events if it was disabled before</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#encodeBase64(java.lang.String)">encodeBase64</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;input)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Encode a string in base64</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#getMaxOf(java.util.List)">getMaxOf</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&gt;&nbsp;list)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Useful function that return the maximum of an integer list</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html#getShortName(java.lang.Object)">getShortName</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make a pretty object name (<code>name[hash]</code>) from an object</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_Object"><!-- --></A>
@@ -175,10 +206,10 @@ This class supply an easy way to bring help about the drawer
 </TR>
 </TABLE>
 
-<A NAME="HelpManager()"><!-- --></A><H3>
-HelpManager</H3>
+<A NAME="GWTUMLDrawerHelper()"><!-- --></A><H3>
+GWTUMLDrawerHelper</H3>
 <PRE>
-public <B>HelpManager</B>()</PRE>
+public <B>GWTUMLDrawerHelper</B>()</PRE>
 <DL>
 </DL>
 
@@ -192,29 +223,84 @@ public <B>HelpManager</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="addHotkeyHelp(java.lang.String, java.lang.String)"><!-- --></A><H3>
-addHotkeyHelp</H3>
+<A NAME="disableBrowserEvents()"><!-- --></A><H3>
+disableBrowserEvents</H3>
 <PRE>
-public static void <B>addHotkeyHelp</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-                                 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;description)</PRE>
+public static void <B>disableBrowserEvents</B>()</PRE>
 <DL>
-<DD>Add a line to inform the user about a hot key
+<DD>Disable various browser events like image drag and drop
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>key</CODE> - The hot key string<DD><CODE>description</CODE> - The text that explains what this key does</DL>
+</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="bringHelpPopup()"><!-- --></A><H3>
-bringHelpPopup</H3>
+<A NAME="enableBrowserEvents()"><!-- --></A><H3>
+enableBrowserEvents</H3>
 <PRE>
-public static void <B>bringHelpPopup</B>()</PRE>
+public static void <B>enableBrowserEvents</B>()</PRE>
 <DL>
-<DD>A call to ths method will bring a popup with the help added previously.
+<DD>Enable browser events if it was disabled before
 <P>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMaxOf(java.util.List)"><!-- --></A><H3>
+getMaxOf</H3>
+<PRE>
+public static int <B>getMaxOf</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&gt;&nbsp;list)</PRE>
+<DL>
+<DD>Useful function that return the maximum of an integer list
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>list</CODE> - 
+<DT><B>Returns:</B><DD>The max of all integer in list</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getShortName(java.lang.Object)"><!-- --></A><H3>
+getShortName</H3>
+<PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getShortName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;o)</PRE>
+<DL>
+<DD>Make a pretty object name (<code>name[hash]</code>) from an object
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>o</CODE> - The object
+<DT><B>Returns:</B><DD>The pretty name of the object</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="encodeBase64(java.lang.String)"><!-- --></A><H3>
+encodeBase64</H3>
+<PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>encodeBase64</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;input)</PRE>
+<DL>
+<DD>Encode a string in base64
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>input</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> to encode
+<DT><B>Returns:</B><DD>The base64 encoded <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="decodeBase64(java.lang.String)"><!-- --></A><H3>
+decodeBase64</H3>
+<PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>decodeBase64</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;input)</PRE>
+<DL>
+<DD>Decode a string encoded in base64
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>input</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> to decode
+<DT><B>Returns:</B><DD>The base64 decoded <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -233,7 +319,7 @@ public static void <B>bringHelpPopup</B>()</PRE>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/HelpManager.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/GWTUMLDrawerHelper.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -248,11 +334,11 @@ public static void <B>bringHelpPopup</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/HotKeyManager.html" title="class in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/CursorIconManager.PointerStyle.html" title="enum in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/HelpManager.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="HelpManager.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/GWTUMLDrawerHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="GWTUMLDrawerHelper.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

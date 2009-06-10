@@ -56,7 +56,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
@@ -249,7 +249,7 @@ public class DrawerPanel extends AbsolutePanel {
 	Log.trace("Setting active canvas");
 	Session.setActiveCanvas(this.uMLCanvas);
 	Log.trace("Disabling browser events");
-	UMLDrawerHelper.disableBrowserEvents();
+	GWTUMLDrawerHelper.disableBrowserEvents();
 	Log.trace("Init end");
     }
 
