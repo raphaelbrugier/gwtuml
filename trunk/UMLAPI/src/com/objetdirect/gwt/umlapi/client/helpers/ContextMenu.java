@@ -64,15 +64,6 @@ public class ContextMenu {
 	    HelpManager.bringHelpPopup();
 	}
     };
-    /* Doesn't work very well...
-     * 
-     * private final Command saveToSVG = new Command() {
-	public void execute() {
-	    String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
-	    svg += DOM.getInnerHTML((Element) ContextMenu.this.canvas.getElement().getFirstChildElement());
-	    Window.open("data:image/svg," + svg, "SVG export", "");
-	}
-    };*/
 
     private final Command clearDiagram = new Command() {
 	public void execute() {
@@ -184,7 +175,6 @@ public class ContextMenu {
 	if(this.canvas.getUMLDiagram().getType().isClassOrObjectType()) {
 	    this.contextMenu.addItem("Switch links style", this.changeLinkStyle);
 	}
-	//this.contextMenu.addItem("Save to SVG", this.saveToSVG);
 	
 	this.contextMenu.addItem("Clear diagram", this.clearDiagram);
 	this.contextMenu.addItem("Hotkeys...", this.bringHelp);

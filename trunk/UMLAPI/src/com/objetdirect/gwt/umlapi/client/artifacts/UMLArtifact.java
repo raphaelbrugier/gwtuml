@@ -30,7 +30,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLAPIException;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
@@ -40,7 +40,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 
 /**
  * This abstract class represent any uml artifact that can be displayed An
@@ -173,7 +173,7 @@ public abstract class UMLArtifact {
      */
     public GfxObject getGfxObject() {
 	if (this.gfxObject == null) {
-	    throw new UMLAPIException(
+	    throw new GWTUMLAPIException(
 	    "Must Initialize before getting gfxObjects");
 	}
 	if (!this.isBuilt) {
@@ -408,7 +408,7 @@ public abstract class UMLArtifact {
      */
     @Override
     public String toString() {
-	return UMLDrawerHelper.getShortName(this);
+	return GWTUMLDrawerHelper.getShortName(this);
     }
 
     /**

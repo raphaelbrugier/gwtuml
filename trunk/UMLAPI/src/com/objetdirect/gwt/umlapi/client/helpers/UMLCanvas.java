@@ -107,6 +107,11 @@ public class UMLCanvas extends AbsolutePanel {
     private UMLDiagram uMLDiagram;
     private boolean isMouseEnabled = true;
 
+    /**
+     * Set the mouse state
+     * 
+     * @param isMouseEnabled True to enable Mouse <br /> False to disable Mouse
+     */
     public void setMouseEnabled(boolean isMouseEnabled) {
 	this.isMouseEnabled = isMouseEnabled;
     }
@@ -240,7 +245,7 @@ public class UMLCanvas extends AbsolutePanel {
     private final Set<UMLArtifact> objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 
     private final HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(); // Represent the selected UMLArtifacts and his moving dependencies points 
-    private final ArrayList<UMLEventListener> uMLEventListenerList = new ArrayList<UMLEventListener>();
+    private final ArrayList<GWTUMLEventListener> uMLEventListenerList = new ArrayList<GWTUMLEventListener>();
     private Point dragOffset;
     private Point totalDragShift = Point.getOrigin();
     private GfxObject arrowsVirtualGroup;
@@ -307,11 +312,11 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     /**
-     * Add an {@link UMLEventListener} to this canvas
+     * Add an {@link GWTUMLEventListener} to this canvas
      * 
-     * @param uMLEventListener The {@link UMLEventListener} to add to this canvas
+     * @param uMLEventListener The {@link GWTUMLEventListener} to add to this canvas
      */
-    public void addUMLEventListener(final UMLEventListener uMLEventListener) {
+    public void addUMLEventListener(final GWTUMLEventListener uMLEventListener) {
 	this.uMLEventListenerList.add(uMLEventListener);
     }
 
@@ -329,11 +334,11 @@ public class UMLCanvas extends AbsolutePanel {
     }
 
     /**
-     *Remove the specified  {@link UMLEventListener} from this canvas
+     *Remove the specified  {@link GWTUMLEventListener} from this canvas
      * 
-     * @param uMLEventListener The {@link UMLEventListener} to remove from this canvas
+     * @param uMLEventListener The {@link GWTUMLEventListener} to remove from this canvas
      */
-    public void removeUMLEventListener(final UMLEventListener uMLEventListener) {
+    public void removeUMLEventListener(final GWTUMLEventListener uMLEventListener) {
 	this.uMLEventListenerList.remove(uMLEventListener);
     }
 
@@ -494,7 +499,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     boolean fireNewArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
-	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
 	    // If one is not ok then it's not ok !
 	    isThisOk = listener.onNewUMLArtifact(umlArtifact) && isThisOk;
 	}
@@ -504,7 +509,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     boolean fireEditArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
-	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
 	    // If one is not ok then it's not ok !
 	    isThisOk = listener.onEditUMLArtifact(umlArtifact) && isThisOk;
 	}
@@ -514,7 +519,7 @@ public class UMLCanvas extends AbsolutePanel {
 
     boolean fireDeleteArtifactEvent(final UMLArtifact umlArtifact) {
 	boolean isThisOk = true;
-	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
 	    // If one is not ok then it's not ok !
 	    isThisOk = listener.onDeleteUMLArtifact(umlArtifact) && isThisOk;
 	}
@@ -524,12 +529,17 @@ public class UMLCanvas extends AbsolutePanel {
 
     boolean fireLinkKindChange(final LinkArtifact newLink, final LinkKind oldKind, final LinkKind newKind) {
 	boolean isThisOk = true;
-	for (final UMLEventListener listener : this.uMLEventListenerList) {
+	for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
 	    isThisOk = listener.onLinkKindChange(newLink, oldKind, newKind) && isThisOk;
 	}
 	Log.trace("Link kind chage event fired. Status : " + isThisOk);
 	return isThisOk;
     }
+    /**
+     * Getter for the graphic canvas
+     * 
+     * @return The graphic canvas
+     */
     public Widget getDrawingCanvas() {
 	return this.drawingCanvas;
     }
@@ -896,6 +906,13 @@ public class UMLCanvas extends AbsolutePanel {
 	this.helpText.setText("");
     }
 
+    /**
+     * Return the first artifact found at the specified location
+     *  
+     * @param location The location to look for an artifact
+     * 
+     * @return The first artifact found at the specified location or null if there is no artifact there
+     */
     public GfxObject getArtifactAt(Point location) {
 	for (UMLArtifact artifact : this.objects.values()) {
 	    if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), location, location)) {
@@ -915,7 +932,7 @@ public class UMLCanvas extends AbsolutePanel {
     public void fromURL(String url) {
 	try {
 	    if(!url.equals("AA==")) {
-		String diagram = UMLDrawerHelper.decodeBase64(url);
+		String diagram = GWTUMLDrawerHelper.decodeBase64(url);
 
 		diagram = diagram.substring(0, diagram.lastIndexOf(";"));
 		String[] diagramArtifacts = diagram.split(";");
@@ -1088,9 +1105,15 @@ public class UMLCanvas extends AbsolutePanel {
 	    }
 	}	
 
-	return UMLDrawerHelper.encodeBase64(url.toString());
+	return GWTUMLDrawerHelper.encodeBase64(url.toString());
     }
 
+    /**
+     * Move all artifact in the specified {@link Direction} 
+     * 
+     * @param direction The {@link Direction} to move the artifact by
+     * @param isRecursive True if the method call is recursive
+     */
     public void moveAll(final Direction direction, boolean isRecursive) {
 	new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
 	    Point translation =  new Point(-direction.getXShift(), -direction.getYShift());
@@ -1121,6 +1144,12 @@ public class UMLCanvas extends AbsolutePanel {
 	}	
     }
 
+    /**
+     * Draw the directions arrow on the canvas
+     * 
+     * @param width The canvas width
+     * @param height The canvas height
+     */
     public void makeArrows(int width, int height) {	
 	final int arrowSize = 6;
 	this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
@@ -1151,6 +1180,11 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxManager.getPlatform().translate(arrowList.get(6), new Point(width / 2  - arrowSize - 2, 2)); // up
 	GfxManager.getPlatform().translate(arrowList.get(7), new Point(width - 2 * arrowSize - 2, 2)); // up right
     }
+    
+    /**
+     * Remove the direction arrows from the canvas
+     * 
+     */
     public void clearArrows() {
 	GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
 

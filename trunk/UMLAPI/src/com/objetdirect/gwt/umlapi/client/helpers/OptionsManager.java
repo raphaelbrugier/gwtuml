@@ -175,6 +175,11 @@ public class OptionsManager {
 	    }
 	}
     }
+    /**
+     * Set all options from url
+     * 
+     * @param options The {@link HashMap} of options
+     */
     public static void setAllFromURL(HashMap<String, String> options) {
 	for (Entry<String, String> option : options.entrySet()) {    
 	    if(optionsList.containsKey(option.getKey())) {

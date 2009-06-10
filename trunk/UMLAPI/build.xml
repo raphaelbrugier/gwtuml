@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="UMLAPI" default="dist" basedir=".">
+<project name="GWTUMLAPI" default="dist" basedir=".">
   <!-- Configure path to GWT SDK -->
   <property name="gwt.sdk" location="../tools/gwt/trunk/build/staging/gwt-linux-0.0.0" />
 
@@ -51,7 +51,7 @@
   </target>
 
     <target name="javadoc" description="Generate Javadoc">
-      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML - UMLAPI javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
+      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML - GWTUMLAPI javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
             <classpath>
                 <pathelement location="src"/>
                 <path refid="project.class.path"/>

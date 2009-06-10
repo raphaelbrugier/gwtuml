@@ -32,7 +32,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
 /**
@@ -139,7 +139,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 	
 	
-	Log.trace("WxH for " + UMLDrawerHelper.getShortName(this) + "is now "
+	Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now "
 		+ this.width + "x" + this.height);
     }
 

@@ -28,7 +28,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.tatami.client.gfx.Circle;
 import com.objetdirect.tatami.client.gfx.Color;
 import com.objetdirect.tatami.client.gfx.Font;
@@ -109,7 +109,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
     public void addToCanvas(final Widget canvas, final GfxObject gfxO,
 	    final Point location) {
 	Log.trace("Adding to Tcanvas : "
-		+ UMLDrawerHelper
+		+ GWTUMLDrawerHelper
 			.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
 	((GraphicCanvas) canvas).add(getTatamiGraphicalObjectFrom(gfxO), location.getX(), location.getY());
     }
@@ -304,7 +304,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
      */
     public void removeFromCanvas(final Widget canvas, final GfxObject gfxO) {
 	Log.trace("Removing from Tcanvas : "
-		+ UMLDrawerHelper
+		+ GWTUMLDrawerHelper
 			.getShortName(getTatamiGraphicalObjectFrom(gfxO)));
 	((GraphicCanvas) canvas).remove(getTatamiGraphicalObjectFrom(gfxO));
     }

@@ -22,7 +22,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.analyser;
 
-import com.objetdirect.gwt.umlapi.client.UMLAPIException;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
 
 /**
@@ -126,11 +126,11 @@ public abstract class SyntaxAnalyzer {
 	    LexicalAnalyzer.Token tk);
 
     protected void throwSyntaxError(final LexicalAnalyzer.Token tk) {
-	throw new UMLAPIException("Syntax error at : " + tk.getContent()
+	throw new GWTUMLAPIException("Syntax error at : " + tk.getContent()
 		+ " in state : " + this.status);
     }
 
     protected void throwUnexpectedEOF() {
-	throw new UMLAPIException("Syntax error in state " + this.status);
+	throw new GWTUMLAPIException("Syntax error in state " + this.status);
     }
 }

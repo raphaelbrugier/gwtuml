@@ -22,7 +22,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.analyser;
 
-import com.objetdirect.gwt.umlapi.client.UMLAPIException;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
@@ -77,6 +77,6 @@ public class ParameterAnalyzer extends SyntaxAnalyzer {
 	    return token;
 
 	}
-	throw new UMLAPIException("Invalid syntax status : " + getStatus());
+	throw new GWTUMLAPIException("Invalid syntax status : " + getStatus());
     }
 }

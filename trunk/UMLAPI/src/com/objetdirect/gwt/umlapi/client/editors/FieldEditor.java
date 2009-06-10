@@ -39,7 +39,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
+import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 
 /**
  * This abstract class is a generic field editor for uml artifacts.<br>
@@ -152,13 +152,13 @@ public abstract class FieldEditor {
 	this.canvas.add(editField, x + Session.getActiveCanvas().getCanvasOffset().getX(), y + Session.getActiveCanvas().getCanvasOffset().getY());
 	editField.selectAll();
 	editField.setFocus(true);
-	UMLDrawerHelper.enableBrowserEvents();
+	GWTUMLDrawerHelper.enableBrowserEvents();
     }
 
     protected void cancel() {
 	this.canvas.remove(editField);
 	editField = null;
-	UMLDrawerHelper.disableBrowserEvents();
+	GWTUMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setInputEnabled(true);
     }
 
@@ -174,7 +174,7 @@ public abstract class FieldEditor {
 	}
 	this.canvas.remove(editField);
 	editField = null;
-	UMLDrawerHelper.disableBrowserEvents();
+	GWTUMLDrawerHelper.disableBrowserEvents();
 	HotKeyManager.setInputEnabled(true);
 	if (isStillNextable) {
 	    next();
