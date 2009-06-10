@@ -27,7 +27,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.tatami.client.gfx.Circle;
 import com.objetdirect.tatami.client.gfx.Color;

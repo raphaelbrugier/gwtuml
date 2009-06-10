@@ -24,16 +24,15 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.editors.ClassPartNameFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * This class represent the upper Part of a {@link NodeArtifact}

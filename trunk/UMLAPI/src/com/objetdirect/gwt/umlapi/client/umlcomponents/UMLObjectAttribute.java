@@ -23,7 +23,7 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 
@@ -63,7 +63,7 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 		tk = lex.getToken();
 	    }
 	    if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		throw new UMLDrawerException(
+		throw new UMLAPIException(
 			"Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
 	    }
 	    name = tk.getContent();
@@ -74,7 +74,7 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 		
 		tk = lex.getToken();
 		if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		    throw new UMLDrawerException(
+		    throw new UMLAPIException(
 			    "Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
 		}
 		type = tk.getContent();
@@ -85,17 +85,17 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	    if (tk != null) {
 		if (tk.getType() != LexicalFlag.SIGN
 			|| !tk.getContent().equals("=")) {
-		    throw new UMLDrawerException(
+		    throw new UMLAPIException(
 			    "Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
 		}
 		tk = lex.getToken();
 		if (tk == null || (tk.getType() != LexicalFlag.STRING && tk.getType() != LexicalFlag.INTEGER)) {
-		    throw new UMLDrawerException(
+		    throw new UMLAPIException(
 			    "Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
 		}
 		instance = tk.getContent();
 	    }
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	}
 	return new UMLObjectAttribute(visibility, type, name, instance);

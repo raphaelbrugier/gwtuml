@@ -28,11 +28,11 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.QualityLevel;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * This artifact represent a time line

@@ -25,9 +25,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 
 /**
  * This artifact represent the link between a class and a class relation 

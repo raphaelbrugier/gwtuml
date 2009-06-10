@@ -30,11 +30,11 @@ import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umldrawer.client.webinterface.MenuBarAndTitle;
-import com.objetdirect.gwt.umldrawer.client.webinterface.OptionsManager;
-import com.objetdirect.gwt.umldrawer.client.webinterface.ThemeManager;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)

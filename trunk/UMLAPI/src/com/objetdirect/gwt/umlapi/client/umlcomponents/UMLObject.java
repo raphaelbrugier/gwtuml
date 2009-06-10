@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 
@@ -65,11 +65,11 @@ public class UMLObject extends UMLNode  {
 	try {
 	    LexicalAnalyzer.Token tk = lex.getToken();
 	    if (tk == null || tk.getType() != LexicalFlag.IDENTIFIER) {
-		throw new UMLDrawerException(
+		throw new UMLAPIException(
 			"Invalid object stereotype : " + stereotypeToParse + " doesn't repect uml conventions");
 	    }
 	    return tk.getContent();
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	}
 	return "";
@@ -97,7 +97,7 @@ public class UMLObject extends UMLNode  {
 	    if (tk != null) {
 		if (tk.getType() != LexicalFlag.SIGN
 			|| !tk.getContent().equals(":")) {
-		    throw new UMLDrawerException(
+		    throw new UMLAPIException(
 			    "Invalid object name format : " + nameToParse + " doesn't match 'instance : name'");
 		}
 		tk = lex.getToken();
@@ -110,7 +110,7 @@ public class UMLObject extends UMLNode  {
 		instance = "";
 	    }
 
-	} catch (final UMLDrawerException e) {
+	} catch (final UMLAPIException e) {
 	    Log.error(e.getMessage());
 	}
 	return Arrays.asList(instance, name);

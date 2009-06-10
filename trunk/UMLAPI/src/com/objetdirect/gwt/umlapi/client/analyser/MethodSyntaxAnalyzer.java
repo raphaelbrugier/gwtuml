@@ -25,7 +25,7 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.UMLDrawerException;
+import com.objetdirect.gwt.umlapi.client.UMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
@@ -162,6 +162,6 @@ public class MethodSyntaxAnalyzer extends SyntaxAnalyzer {
 	    return token;
 
 	}
-	throw new UMLDrawerException("Invalid method format : " + getStatus());
+	throw new UMLAPIException("Invalid method format : " + getStatus());
     }
 }

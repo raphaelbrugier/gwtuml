@@ -24,7 +24,6 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
-import com.objetdirect.gwt.umldrawer.client.webinterface.UMLCanvas;
 
 /**
  * This field editor is a specialized editor for {@link UMLNote} editing
