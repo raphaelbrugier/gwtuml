@@ -312,7 +312,7 @@ Class UMLCanvas</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)">removeUMLEventListener</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the specified <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -441,33 +441,6 @@ public <B>UMLCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/cl
 </TR>
 </TABLE>
 
-<A NAME="getCanvasOffset()"><!-- --></A><H3>
-getCanvasOffset</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>getCanvasOffset</B>()</PRE>
-<DL>
-<DD>Getter for the canvasOffset
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the canvasOffset</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setMouseEnabled(boolean)"><!-- --></A><H3>
-setMouseEnabled</H3>
-<PRE>
-public void <B>setMouseEnabled</B>(boolean&nbsp;isMouseEnabled)</PRE>
-<DL>
-<DD>Set the mouse state
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>isMouseEnabled</CODE> - True to enable Mouse <br /> False to disable Mouse</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="add(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
 add</H3>
 <PRE>
@@ -481,51 +454,25 @@ public void <B>add</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/cli
 </DL>
 <HR>
 
-<A NAME="addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
-addUMLEventListener</H3>
-<PRE>
-public void <B>addUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
-<DL>
-<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to this canvas
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to add to this canvas</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="remove(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
-remove</H3>
-<PRE>
-public void <B>remove</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;umlArtifact)</PRE>
-<DL>
-<DD>Remove the specified artifact from the canvas
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>umlArtifact</CODE> - </DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
-removeUMLEventListener</H3>
-<PRE>
-public void <B>removeUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
-<DL>
-<DD>Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to remove from this canvas</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="addNewClass()"><!-- --></A><H3>
 addNewClass</H3>
 <PRE>
 public void <B>addNewClass</B>()</PRE>
 <DL>
 <DD>Add a new class with default values to this canvas to an the current mouse position
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addNewLifeLine()"><!-- --></A><H3>
+addNewLifeLine</H3>
+<PRE>
+public void <B>addNewLifeLine</B>()</PRE>
+<DL>
+<DD>Add a new lifeLine with default values to this canvas to the current mouse position
 <P>
 <DD><DL>
 </DL>
@@ -546,15 +493,82 @@ public void <B>addNewObject</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="addNewLifeLine()"><!-- --></A><H3>
-addNewLifeLine</H3>
+<A NAME="addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
+addUMLEventListener</H3>
 <PRE>
-public void <B>addNewLifeLine</B>()</PRE>
+public void <B>addUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
 <DL>
-<DD>Add a new lifeLine with default values to this canvas to the current mouse position
+<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to this canvas
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to add to this canvas</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearArrows()"><!-- --></A><H3>
+clearArrows</H3>
+<PRE>
+public void <B>clearArrows</B>()</PRE>
+<DL>
+<DD>Remove the direction arrows from the canvas
 <P>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deselectArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
+deselectArtifact</H3>
+<PRE>
+public void <B>deselectArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;toDeselect)</PRE>
+<DL>
+<DD>Deselect an artifact and put it in the artifact list
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>toDeselect</CODE> - The artifact to be deselected</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromURL(java.lang.String)"><!-- --></A><H3>
+fromURL</H3>
+<PRE>
+public void <B>fromURL</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;url)</PRE>
+<DL>
+<DD>Create a diagram from the URL <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> previously generated by <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#toUrl()"><CODE>toUrl()</CODE></A>
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>url</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> previously generated by <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#toUrl()"><CODE>toUrl()</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getArtifactAt(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+getArtifactAt</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getArtifactAt</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+<DL>
+<DD>Return the first artifact found at the specified location
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>location</CODE> - The location to look for an artifact
+<DT><B>Returns:</B><DD>The first artifact found at the specified location or null if there is no artifact there</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCanvasOffset()"><!-- --></A><H3>
+getCanvasOffset</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>getCanvasOffset</B>()</PRE>
+<DL>
+<DD>Getter for the canvasOffset
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the canvasOffset</DL>
 </DD>
 </DL>
 <HR>
@@ -587,69 +601,16 @@ public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponent
 </DL>
 <HR>
 
-<A NAME="selectArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
-selectArtifact</H3>
+<A NAME="makeArrows(int, int)"><!-- --></A><H3>
+makeArrows</H3>
 <PRE>
-public void <B>selectArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;toSelect)</PRE>
+public void <B>makeArrows</B>(int&nbsp;width,
+                       int&nbsp;height)</PRE>
 <DL>
-<DD>Select an artifact and put it in the artifact list
+<DD>Draw the directions arrow on the canvas
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>toSelect</CODE> - The artifact to be selected</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="deselectArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
-deselectArtifact</H3>
-<PRE>
-public void <B>deselectArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;toDeselect)</PRE>
-<DL>
-<DD>Deselect an artifact and put it in the artifact list
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>toDeselect</CODE> - The artifact to be deselected</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getArtifactAt(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-getArtifactAt</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getArtifactAt</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
-<DL>
-<DD>Return the first artifact found at the specified location
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>location</CODE> - The location to look for an artifact
-<DT><B>Returns:</B><DD>The first artifact found at the specified location or null if there is no artifact there</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="fromURL(java.lang.String)"><!-- --></A><H3>
-fromURL</H3>
-<PRE>
-public void <B>fromURL</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;url)</PRE>
-<DL>
-<DD>Create a diagram from the URL <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> previously generated by <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#toUrl()"><CODE>toUrl()</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>url</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> previously generated by <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#toUrl()"><CODE>toUrl()</CODE></A></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toUrl()"><!-- --></A><H3>
-toUrl</H3>
-<PRE>
-public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toUrl</B>()</PRE>
-<DL>
-<DD>This method calls <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()"><CODE>UMLArtifact.toURL()</CODE></A> on all artifacts of this canvas and concatenate it in a String separated by a semicolon
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The concatenated String from all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()"><CODE>UMLArtifact.toURL()</CODE></A></DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - The canvas width<DD><CODE>height</CODE> - The canvas height</DL>
 </DD>
 </DL>
 <HR>
@@ -668,29 +629,69 @@ public void <B>moveAll</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi
 </DL>
 <HR>
 
-<A NAME="makeArrows(int, int)"><!-- --></A><H3>
-makeArrows</H3>
+<A NAME="remove(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
+remove</H3>
 <PRE>
-public void <B>makeArrows</B>(int&nbsp;width,
-                       int&nbsp;height)</PRE>
+public void <B>remove</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;umlArtifact)</PRE>
 <DL>
-<DD>Draw the directions arrow on the canvas
+<DD>Remove the specified artifact from the canvas
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>width</CODE> - The canvas width<DD><CODE>height</CODE> - The canvas height</DL>
+<DT><B>Parameters:</B><DD><CODE>umlArtifact</CODE> - </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="clearArrows()"><!-- --></A><H3>
-clearArrows</H3>
+<A NAME="removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
+removeUMLEventListener</H3>
 <PRE>
-public void <B>clearArrows</B>()</PRE>
+public void <B>removeUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
 <DL>
-<DD>Remove the direction arrows from the canvas
+<DD>Remove the specified <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas
 <P>
 <DD><DL>
+<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to remove from this canvas</DL>
+</DD>
 </DL>
+<HR>
+
+<A NAME="selectArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
+selectArtifact</H3>
+<PRE>
+public void <B>selectArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;toSelect)</PRE>
+<DL>
+<DD>Select an artifact and put it in the artifact list
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>toSelect</CODE> - The artifact to be selected</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMouseEnabled(boolean)"><!-- --></A><H3>
+setMouseEnabled</H3>
+<PRE>
+public void <B>setMouseEnabled</B>(boolean&nbsp;isMouseEnabled)</PRE>
+<DL>
+<DD>Set the mouse state
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>isMouseEnabled</CODE> - True to enable Mouse <br />
+            False to disable Mouse</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toUrl()"><!-- --></A><H3>
+toUrl</H3>
+<PRE>
+public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toUrl</B>()</PRE>
+<DL>
+<DD>This method calls <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()"><CODE>UMLArtifact.toURL()</CODE></A> on all artifacts of this canvas and concatenate it in a String separated by a semicolon
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The concatenated String from all <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#toURL()"><CODE>UMLArtifact.toURL()</CODE></A></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

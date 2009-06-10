@@ -99,7 +99,7 @@ Class Point</H2>
 </PRE>
 
 <P>
-This useful simple class represent a geometric 2D point <br> 
+This useful simple class represent a geometric 2D point <br>
  It avoids to have all the time two parameters x and y for locations <br>
  It also provides some elementary operations
 <P>
@@ -323,8 +323,7 @@ This useful simple class represent a geometric 2D point <br>
           double&nbsp;dy)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move a point by a rounded approximation of dx and dy pixel (ie x+=dx and
- y+=dy)</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move a point by a rounded approximation of dx and dy pixel (ie x+=dx and y+=dy)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -427,6 +426,20 @@ public <B>Point</B>(int&nbsp;x,
 </TR>
 </TABLE>
 
+<A NAME="abs(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+abs</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>abs</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
+<DL>
+<DD>Get the absolute value of the two coordinates
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to get the absolute coordinates
+<DT><B>Returns:</B><DD>A new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> containing the absolute coordinates</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="add(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
 add</H3>
 <PRE>
@@ -438,51 +451,6 @@ public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engin
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> to add<DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> to add
 <DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is the result of the sum of the two other <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s coordinates.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="min(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-min</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>min</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
-                        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
-<DL>
-<DD>This class method create a new point from the minimum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>
-<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is composed by the minimum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="max(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-max</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>max</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
-                        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
-<DL>
-<DD>This class method create a new point from the maximum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>
-<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is composed by the maximum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="substract(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-substract</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>substract</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
-                              <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
-<DL>
-<DD>This class method create a new point from the subtraction of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> to subtract from the first
-<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is the result of the subtraction of the two other <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s coordinates.</DL>
 </DD>
 </DL>
 <HR>
@@ -516,6 +484,109 @@ public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engin
 </DL>
 <HR>
 
+<A NAME="max(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+max</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>max</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
+                        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
+<DL>
+<DD>This class method create a new point from the maximum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>
+<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is composed by the maximum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="min(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+min</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>min</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
+                        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
+<DL>
+<DD>This class method create a new point from the minimum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>
+<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is composed by the minimum of each coordinate of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="parse(java.lang.String)"><!-- --></A><H3>
+parse</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>parse</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;pointString)</PRE>
+<DL>
+<DD>Parse a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> from a String created with toString()
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>pointString</CODE> - The String containing the point in the form : (x,y)
+<DT><B>Returns:</B><DD>A new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> containing the coordinates read from the String or the origin if there is a problem</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="substract(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+substract</H3>
+<PRE>
+public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>substract</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
+                              <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
+<DL>
+<DD>This class method create a new point from the subtraction of the two <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s in parameter
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>p1</CODE> - First <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - Second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> to subtract from the first
+<DT><B>Returns:</B><DD>a new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> which is the result of the subtraction of the two other <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A>s coordinates.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clonePoint()"><!-- --></A><H3>
+clonePoint</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>clonePoint</B>()</PRE>
+<DL>
+<DD>Clone a point
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The clone of this point</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="divideBy(int)"><!-- --></A><H3>
+divideBy</H3>
+<PRE>
+public void <B>divideBy</B>(int&nbsp;divisor)</PRE>
+<DL>
+<DD>Divide the coordinates of a point by the specified factor
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>divisor</CODE> - The divisor to divide by</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="equals(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+equals</H3>
+<PRE>
+public boolean <B>equals</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
+<DL>
+<DD>Point comparator, test if the abscissas and the ordinates are equals
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to compare with
+<DT><B>Returns:</B><DD><ul>
+         <li><b>True</b> if the abscissas and the ordinates are equals</li>
+         <li><b>False</b> otherwise</li>
+         </ul></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getX()"><!-- --></A><H3>
 getX</H3>
 <PRE>
@@ -540,6 +611,50 @@ public int <B>getY</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>the point ordinate</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isOrigin()"><!-- --></A><H3>
+isOrigin</H3>
+<PRE>
+public boolean <B>isOrigin</B>()</PRE>
+<DL>
+<DD>This method tests if the point is at the origin
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>True if x and y are equals to 0;</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSuperiorTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+isSuperiorTo</H3>
+<PRE>
+public boolean <B>isSuperiorTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
+<DL>
+<DD>Point comparator, test if the abscissas and the ordinates of this point are BOTH superior to the parameter point
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to compare with
+<DT><B>Returns:</B><DD><ul>
+         <li><b>True</b> if the abscissas and the ordinates are BOTH superiors</li>
+         <li><b>False</b> otherwise</li>
+         </ul></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="multiplyBy(int)"><!-- --></A><H3>
+multiplyBy</H3>
+<PRE>
+public void <B>multiplyBy</B>(int&nbsp;factor)</PRE>
+<DL>
+<DD>Multiply the coordinates of a point by the specified factor
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>factor</CODE> - The factor to multiply by</DL>
 </DD>
 </DL>
 <HR>
@@ -590,8 +705,7 @@ translate</H3>
 public void <B>translate</B>(double&nbsp;dx,
                       double&nbsp;dy)</PRE>
 <DL>
-<DD>Move a point by a rounded approximation of dx and dy pixel (ie x+=dx and
- y+=dy)
+<DD>Move a point by a rounded approximation of dx and dy pixel (ie x+=dx and y+=dy)
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>dx</CODE> - the abscissa offset<DD><CODE>dy</CODE> - the ordinate offset</DL>
@@ -623,122 +737,6 @@ public void <B>translate</B>(<A HREF="../../../../../../com/objetdirect/gwt/umla
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>offset</CODE> - the coordinate offset</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="multiplyBy(int)"><!-- --></A><H3>
-multiplyBy</H3>
-<PRE>
-public void <B>multiplyBy</B>(int&nbsp;factor)</PRE>
-<DL>
-<DD>Multiply the coordinates of a point by the specified factor
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>factor</CODE> - The factor to multiply by</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="divideBy(int)"><!-- --></A><H3>
-divideBy</H3>
-<PRE>
-public void <B>divideBy</B>(int&nbsp;divisor)</PRE>
-<DL>
-<DD>Divide the coordinates of a point by the specified factor
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>divisor</CODE> - The divisor to divide by</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="equals(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-equals</H3>
-<PRE>
-public boolean <B>equals</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
-<DL>
-<DD>Point comparator, test if the abscissas and the ordinates are equals
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to compare with
-<DT><B>Returns:</B><DD><ul>
-         <li><b>True</b> if the abscissas and the ordinates are equals</li>
-         <li><b>False</b> otherwise</li>
-         </ul></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isSuperiorTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-isSuperiorTo</H3>
-<PRE>
-public boolean <B>isSuperiorTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
-<DL>
-<DD>Point comparator, test if the abscissas and the ordinates of this point are BOTH superior to the parameter point
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to compare with
-<DT><B>Returns:</B><DD><ul>
-         <li><b>True</b> if the abscissas and the ordinates are BOTH superiors</li>
-         <li><b>False</b> otherwise</li>
-         </ul></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="clonePoint()"><!-- --></A><H3>
-clonePoint</H3>
-<PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>clonePoint</B>()</PRE>
-<DL>
-<DD>Clone a point
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The clone of this point</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isOrigin()"><!-- --></A><H3>
-isOrigin</H3>
-<PRE>
-public boolean <B>isOrigin</B>()</PRE>
-<DL>
-<DD>This method tests if the point is at the origin
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>True if x and y are equals to 0;</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="parse(java.lang.String)"><!-- --></A><H3>
-parse</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>parse</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;pointString)</PRE>
-<DL>
-<DD>Parse a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> from a String created with toString()
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>pointString</CODE> - The String containing the point in the form : (x,y)
-<DT><B>Returns:</B><DD>A new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> containing the coordinates read from the String or the origin if there is a problem</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="abs(com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
-abs</H3>
-<PRE>
-public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>abs</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;point)</PRE>
-<DL>
-<DD>Get the absolute value of the two coordinates
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>point</CODE> - The point to get the absolute coordinates
-<DT><B>Returns:</B><DD>A new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> containing the absolute coordinates</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

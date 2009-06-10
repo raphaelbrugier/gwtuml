@@ -105,7 +105,8 @@ Class NodeArtifact</H2>
 
 <P>
 This class is an artifact used to represent a class. <br>
- A class is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A> : <ul>
+ A class is divided in three <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodePartArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodePartArtifact</CODE></A> :
+ <ul>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartNameArtifact</CODE></A> For the name and stereotype part</li>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartAttributesArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartAttributesArtifact</CODE></A> For the attribute list part</li>
  <li><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartMethodsArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>ClassPartMethodsArtifact</CODE></A> For the method list part</li>
@@ -199,8 +200,7 @@ This class is an artifact used to represent a class. <br>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas)">setCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas
- Assign an artifact to his canvas</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas Assign an artifact to his canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -305,13 +305,27 @@ public int <B>getHeight</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="getName()"><!-- --></A><H3>
+getName</H3>
+<PRE>
+public abstract <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getName</B>()</PRE>
+<DL>
+<DD>Getter for the name
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the name of this node</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getOutline()"><!-- --></A><H3>
 getOutline</H3>
 <PRE>
 public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getOutline</B>()</PRE>
 <DL>
 <DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutline()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the outline of an artifact. <br> 
+<DD>Getter for the outline of an artifact. <br>
  The outline is what is been drawn during drag and drop
 <P>
 <DD><DL>
@@ -348,7 +362,7 @@ rebuildGfxObject</H3>
 public void <B>rebuildGfxObject</B>()</PRE>
 <DL>
 <DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#rebuildGfxObject()">UMLArtifact</A></CODE></B></DD>
-<DD>This method does a rebuild of the graphical object of this artifact. <br> 
+<DD>This method does a rebuild of the graphical object of this artifact. <br>
  It is useful to reflect changes made on an artifact / uml component
 <P>
 <DD><DL>
@@ -366,8 +380,7 @@ setCanvas</H3>
 public void <B>setCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas)</PRE>
 <DL>
 <DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas)">UMLArtifact</A></CODE></B></DD>
-<DD>Setter for the canvas
- Assign an artifact to his canvas
+<DD>Setter for the canvas Assign an artifact to his canvas
 <P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas)">setCanvas</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
@@ -391,20 +404,6 @@ public void <B>unselect</B>()</PRE>
 </DD>
 <DD><DL>
 </DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getName()"><!-- --></A><H3>
-getName</H3>
-<PRE>
-public abstract <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getName</B>()</PRE>
-<DL>
-<DD>Getter for the name
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the name of this node</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

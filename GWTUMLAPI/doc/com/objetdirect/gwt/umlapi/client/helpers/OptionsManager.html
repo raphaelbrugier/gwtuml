@@ -135,9 +135,7 @@ This class allows to set and access configuration values
  AutoResolution -> 0 <br />
  Width -> 800 <br />
  Height -> 800 <br />
- Shadowed -> 1
- AngularLinks -> 0
- Advanced -> 0
+ Shadowed -> 1 AngularLinks -> 0 Advanced -> 0
 <P>
 
 <P>
@@ -270,19 +268,6 @@ public <B>OptionsManager</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="initialize()"><!-- --></A><H3>
-initialize</H3>
-<PRE>
-public static void <B>initialize</B>()</PRE>
-<DL>
-<DD>This method must be called at the start of the app because it initializes all the global properties
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="get(java.lang.String)"><!-- --></A><H3>
 get</H3>
 <PRE>
@@ -293,33 +278,6 @@ public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.h
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>optionName</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> name of the option
 <DT><B>Returns:</B><DD>The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang"><CODE>Integer</CODE></A> value of this option</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="set(java.lang.String, java.lang.Integer)"><!-- --></A><H3>
-set</H3>
-<PRE>
-public static void <B>set</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName,
-                       <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;optionValue)</PRE>
-<DL>
-<DD>Setter for the option optionName
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>optionName</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> name of the option<DD><CODE>optionValue</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang"><CODE>Integer</CODE></A> new value of this option</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setAllFromURL(java.util.HashMap)"><!-- --></A><H3>
-setAllFromURL</H3>
-<PRE>
-public static void <B>setAllFromURL</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;options)</PRE>
-<DL>
-<DD>Set all options from url
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>options</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util"><CODE>HashMap</CODE></A> of options</DL>
 </DD>
 </DL>
 <HR>
@@ -348,6 +306,46 @@ public static <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/G
 <DD><DL>
 
 <DT><B>Returns:</B><DD>a new font corresponding to the small font</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="initialize()"><!-- --></A><H3>
+initialize</H3>
+<PRE>
+public static void <B>initialize</B>()</PRE>
+<DL>
+<DD>This method must be called at the start of the app because it initializes all the global properties
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="set(java.lang.String, java.lang.Integer)"><!-- --></A><H3>
+set</H3>
+<PRE>
+public static void <B>set</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;optionName,
+                       <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&nbsp;optionValue)</PRE>
+<DL>
+<DD>Setter for the option optionName
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>optionName</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A> name of the option<DD><CODE>optionValue</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang"><CODE>Integer</CODE></A> new value of this option</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setAllFromURL(java.util.HashMap)"><!-- --></A><H3>
+setAllFromURL</H3>
+<PRE>
+public static void <B>setAllFromURL</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</A>&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;options)</PRE>
+<DL>
+<DD>Set all options from url
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>options</CODE> - The <A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util"><CODE>HashMap</CODE></A> of options</DL>
 </DD>
 </DL>
 <HR>

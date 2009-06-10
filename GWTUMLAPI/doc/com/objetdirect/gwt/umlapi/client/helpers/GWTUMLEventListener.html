@@ -197,23 +197,6 @@ boolean <B>onEditUMLArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/
 </DL>
 <HR>
 
-<A NAME="onNewUMLArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
-onNewUMLArtifact</H3>
-<PRE>
-boolean <B>onNewUMLArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;umlArtifact)</PRE>
-<DL>
-<DD>This method is called when a new artifact is made
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>umlArtifact</CODE> - The new artifact being created
-<DT><B>Returns:</B><DD><ul>
-         <li><b>True</b> to confirm the artifact creation</li>
-         <li><b>False</b> to prevent it</li>
-         </ul></DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="onLinkKindChange(com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind)"><!-- --></A><H3>
 onLinkKindChange</H3>
 <PRE>
@@ -227,6 +210,23 @@ boolean <B>onLinkKindChange</B>(<A HREF="../../../../../../com/objetdirect/gwt/u
 <DT><B>Parameters:</B><DD><CODE>linkArtifact</CODE> - The link which type is changing<DD><CODE>oldKind</CODE> - The old <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLLink.LinkKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLLink.LinkKind</CODE></A><DD><CODE>newKind</CODE> - The old <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLLink.LinkKind.html" title="enum in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLLink.LinkKind</CODE></A>
 <DT><B>Returns:</B><DD><ul>
          <li><b>True</b> to confirm the link kind change</li>
+         <li><b>False</b> to prevent it</li>
+         </ul></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onNewUMLArtifact(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)"><!-- --></A><H3>
+onNewUMLArtifact</H3>
+<PRE>
+boolean <B>onNewUMLArtifact</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A>&nbsp;umlArtifact)</PRE>
+<DL>
+<DD>This method is called when a new artifact is made
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>umlArtifact</CODE> - The new artifact being created
+<DT><B>Returns:</B><DD><ul>
+         <li><b>True</b> to confirm the artifact creation</li>
          <li><b>False</b> to prevent it</li>
          </ul></DL>
 </DD>

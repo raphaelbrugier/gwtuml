@@ -102,9 +102,8 @@ Class UMLArtifact</H2>
 </PRE>
 
 <P>
-This abstract class represent any uml artifact that can be displayed An
- artifact is something between the graphical object and the uml component. <br> It
- has an uml component and it build the graphical object
+This abstract class represent any uml artifact that can be displayed An artifact is something between the graphical object and the uml component. <br>
+ It has an uml component and it build the graphical object
 <P>
 
 <P>
@@ -147,8 +146,7 @@ This abstract class represent any uml artifact that can be displayed An
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#destroyGfxObjectWhithDependencies()">destroyGfxObjectWhithDependencies</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method destroys this artifact's graphical object and all
- dependencies graphical objects.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method destroys this artifact's graphical object and all dependencies graphical objects.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -292,8 +290,7 @@ This abstract class represent any uml artifact that can be displayed An
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)">moveTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;newLocation)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method moves an artifact to a new location
- It changes the current location <b>AND</b> translate the graphical object</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method moves an artifact to a new location It changes the current location <b>AND</b> translate the graphical object</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -333,8 +330,7 @@ This abstract class represent any uml artifact that can be displayed An
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setCanvas(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas)">setCanvas</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas
- Assign an artifact to his canvas</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the canvas Assign an artifact to his canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -351,7 +347,7 @@ This abstract class represent any uml artifact that can be displayed An
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#setLocation(com.objetdirect.gwt.umlapi.client.engine.Point)">setLocation</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br />
  It doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -464,27 +460,12 @@ public static void <B>removeArtifactById</B>(<A HREF="http://java.sun.com/javase
 </DL>
 <HR>
 
-<A NAME="setId(int)"><!-- --></A><H3>
-setId</H3>
-<PRE>
-public void <B>setId</B>(int&nbsp;id)</PRE>
-<DL>
-<DD>Setter of UMLArtifact id <br>
- This method must only be use for recovering an old diagram
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>id</CODE> - The old id of the artifact we are recovering</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="destroyGfxObjectWhithDependencies()"><!-- --></A><H3>
 destroyGfxObjectWhithDependencies</H3>
 <PRE>
 public void <B>destroyGfxObjectWhithDependencies</B>()</PRE>
 <DL>
-<DD>This method destroys this artifact's graphical object and all
- dependencies graphical objects. <br> 
+<DD>This method destroys this artifact's graphical object and all dependencies graphical objects. <br>
  Useful to remove a class and all its links
 <P>
 <DD><DL>
@@ -529,8 +510,7 @@ public <A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An <A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util"><CODE>HashMap</CODE></A> of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>LinkArtifact</CODE></A> and UMLArtifact which represents the
-         links of this artifact with the linked artifacts</DL>
+<DT><B>Returns:</B><DD>An <A HREF="http://java.sun.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util"><CODE>HashMap</CODE></A> of <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/LinkArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>LinkArtifact</CODE></A> and UMLArtifact which represents the links of this artifact with the linked artifacts</DL>
 </DD>
 </DL>
 <HR>
@@ -544,8 +524,8 @@ public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjec
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The graphical object of this artifact. <br> If it has already built
-         this function just returns it, otherwise it builds it.</DL>
+<DT><B>Returns:</B><DD>The graphical object of this artifact. <br>
+         If it has already built this function just returns it, otherwise it builds it.</DL>
 </DD>
 </DL>
 <HR>
@@ -597,8 +577,8 @@ getOpaque</H3>
 <PRE>
 public abstract int[] <B>getOpaque</B>()</PRE>
 <DL>
-<DD>Getter for an "opaque" integer table. <br> 
- This opaque represents all the points that describes a shape. <br> 
+<DD>Getter for an "opaque" integer table. <br>
+ This opaque represents all the points that describes a shape. <br>
  This is used by the shape based engine.
 <P>
 <DD><DL>
@@ -613,7 +593,7 @@ getOutline</H3>
 <PRE>
 public abstract <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getOutline</B>()</PRE>
 <DL>
-<DD>Getter for the outline of an artifact. <br> 
+<DD>Getter for the outline of an artifact. <br>
  The outline is what is been drawn during drag and drop
 <P>
 <DD><DL>
@@ -628,7 +608,7 @@ getOutlineForDependencies</H3>
 <PRE>
 public <A HREF="http://java.sun.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&gt; <B>getOutlineForDependencies</B>()</PRE>
 <DL>
-<DD>Getter for the dependent objects points. <br> 
+<DD>Getter for the dependent objects points. <br>
  This is used to draw outline links during drag and drop.
 <P>
 <DD><DL>
@@ -643,7 +623,7 @@ getRightMenu</H3>
 <PRE>
 public abstract <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">MenuBarAndTitle</A> <B>getRightMenu</B>()</PRE>
 <DL>
-<DD>Getter for the context menu. <br> 
+<DD>Getter for the context menu. <br>
  Each artifact has his own context menu which is built during right click
 <P>
 <DD><DL>
@@ -672,8 +652,7 @@ initializeGfxObject</H3>
 <PRE>
 public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>initializeGfxObject</B>()</PRE>
 <DL>
-<DD>This is the method that initializes the graphical object. It <b>MUST</b>
- be called before doing anything else with the graphical object.
+<DD>This is the method that initializes the graphical object. It <b>MUST</b> be called before doing anything else with the graphical object.
 <P>
 <DD><DL>
 
@@ -721,8 +700,7 @@ moveTo</H3>
 <PRE>
 public void <B>moveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;newLocation)</PRE>
 <DL>
-<DD>This method moves an artifact to a new location
- It changes the current location <b>AND</b> translate the graphical object
+<DD>This method moves an artifact to a new location It changes the current location <b>AND</b> translate the graphical object
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>newLocation</CODE> - The new location of the artifact</DL>
@@ -735,7 +713,7 @@ rebuildGfxObject</H3>
 <PRE>
 public void <B>rebuildGfxObject</B>()</PRE>
 <DL>
-<DD>This method does a rebuild of the graphical object of this artifact. <br> 
+<DD>This method does a rebuild of the graphical object of this artifact. <br>
  It is useful to reflect changes made on an artifact / uml component
 <P>
 <DD><DL>
@@ -775,11 +753,24 @@ setCanvas</H3>
 <PRE>
 public void <B>setCanvas</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas)</PRE>
 <DL>
-<DD>Setter for the canvas
- Assign an artifact to his canvas
+<DD>Setter for the canvas Assign an artifact to his canvas
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas this artifact belongs</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setId(int)"><!-- --></A><H3>
+setId</H3>
+<PRE>
+public void <B>setId</B>(int&nbsp;id)</PRE>
+<DL>
+<DD>Setter of UMLArtifact id <br>
+ This method must only be use for recovering an old diagram
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>id</CODE> - The old id of the artifact we are recovering</DL>
 </DD>
 </DL>
 <HR>
@@ -789,11 +780,11 @@ setLocation</H3>
 <PRE>
 public void <B>setLocation</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
 <DL>
-<DD>This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br /> 
+<DD>This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br />
  It doesn't translate the graphical object unlike <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(com.objetdirect.gwt.umlapi.client.engine.Point)</CODE></A>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>location</CODE> - The artifact  location</DL>
+<DT><B>Parameters:</B><DD><CODE>location</CODE> - The artifact location</DL>
 </DD>
 </DL>
 <HR>
