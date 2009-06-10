@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/ThemeManager.Theme.html" title="enum in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="UMLCanvas.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -219,10 +219,10 @@ Class UMLCanvas</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.UMLEventListener)">addUMLEventListener</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">UMLEventListener</A>&nbsp;uMLEventListener)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)">addUMLEventListener</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> to this canvas</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to this canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -230,7 +230,7 @@ Class UMLCanvas</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#clearArrows()">clearArrows</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the direction arrows from the canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -254,7 +254,7 @@ Class UMLCanvas</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#getArtifactAt(com.objetdirect.gwt.umlapi.client.engine.Point)">getArtifactAt</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the first artifact found at the specified location</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -270,7 +270,7 @@ Class UMLCanvas</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#getDrawingCanvas()">getDrawingCanvas</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the graphic canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -287,7 +287,7 @@ Class UMLCanvas</H2>
            int&nbsp;height)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Draw the directions arrow on the canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -296,7 +296,7 @@ Class UMLCanvas</H2>
         boolean&nbsp;isRecursive)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move all artifact in the specified <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine"><CODE>Direction</CODE></A></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -309,10 +309,10 @@ Class UMLCanvas</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.UMLEventListener)">removeUMLEventListener</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">UMLEventListener</A>&nbsp;uMLEventListener)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)">removeUMLEventListener</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> from this canvas</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -328,7 +328,7 @@ Class UMLCanvas</H2>
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html#setMouseEnabled(boolean)">setMouseEnabled</A></B>(boolean&nbsp;isMouseEnabled)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the mouse state</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -460,8 +460,10 @@ setMouseEnabled</H3>
 <PRE>
 public void <B>setMouseEnabled</B>(boolean&nbsp;isMouseEnabled)</PRE>
 <DL>
+<DD>Set the mouse state
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>isMouseEnabled</CODE> - True to enable Mouse <br /> False to disable Mouse</DL>
 </DD>
 </DL>
 <HR>
@@ -479,15 +481,15 @@ public void <B>add</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/cli
 </DL>
 <HR>
 
-<A NAME="addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.UMLEventListener)"><!-- --></A><H3>
+<A NAME="addUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
 addUMLEventListener</H3>
 <PRE>
-public void <B>addUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">UMLEventListener</A>&nbsp;uMLEventListener)</PRE>
+public void <B>addUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
 <DL>
-<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> to this canvas
+<DD>Add an <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to this canvas
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> to add to this canvas</DL>
+<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to add to this canvas</DL>
 </DD>
 </DL>
 <HR>
@@ -505,15 +507,15 @@ public void <B>remove</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/
 </DL>
 <HR>
 
-<A NAME="removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.UMLEventListener)"><!-- --></A><H3>
+<A NAME="removeUMLEventListener(com.objetdirect.gwt.umlapi.client.helpers.GWTUMLEventListener)"><!-- --></A><H3>
 removeUMLEventListener</H3>
 <PRE>
-public void <B>removeUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">UMLEventListener</A>&nbsp;uMLEventListener)</PRE>
+public void <B>removeUMLEventListener</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers">GWTUMLEventListener</A>&nbsp;uMLEventListener)</PRE>
 <DL>
-<DD>Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> from this canvas
+<DD>Remove the specified  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> from this canvas
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>UMLEventListener</CODE></A> to remove from this canvas</DL>
+<DT><B>Parameters:</B><DD><CODE>uMLEventListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/GWTUMLEventListener.html" title="interface in com.objetdirect.gwt.umlapi.client.helpers"><CODE>GWTUMLEventListener</CODE></A> to remove from this canvas</DL>
 </DD>
 </DL>
 <HR>
@@ -562,8 +564,11 @@ getDrawingCanvas</H3>
 <PRE>
 public Widget <B>getDrawingCanvas</B>()</PRE>
 <DL>
+<DD>Getter for the graphic canvas
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>The graphic canvas</DL>
 </DD>
 </DL>
 <HR>
@@ -613,8 +618,11 @@ getArtifactAt</H3>
 <PRE>
 public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getArtifactAt</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
 <DL>
+<DD>Return the first artifact found at the specified location
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>location</CODE> - The location to look for an artifact
+<DT><B>Returns:</B><DD>The first artifact found at the specified location or null if there is no artifact there</DL>
 </DD>
 </DL>
 <HR>
@@ -652,8 +660,10 @@ moveAll</H3>
 public void <B>moveAll</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine">Direction</A>&nbsp;direction,
                     boolean&nbsp;isRecursive)</PRE>
 <DL>
+<DD>Move all artifact in the specified <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine"><CODE>Direction</CODE></A>
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>direction</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Direction.html" title="enum in com.objetdirect.gwt.umlapi.client.engine"><CODE>Direction</CODE></A> to move the artifact by<DD><CODE>isRecursive</CODE> - True if the method call is recursive</DL>
 </DD>
 </DL>
 <HR>
@@ -664,8 +674,10 @@ makeArrows</H3>
 public void <B>makeArrows</B>(int&nbsp;width,
                        int&nbsp;height)</PRE>
 <DL>
+<DD>Draw the directions arrow on the canvas
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - The canvas width<DD><CODE>height</CODE> - The canvas height</DL>
 </DD>
 </DL>
 <HR>
@@ -675,6 +687,8 @@ clearArrows</H3>
 <PRE>
 public void <B>clearArrows</B>()</PRE>
 <DL>
+<DD>Remove the direction arrows from the canvas
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -711,7 +725,7 @@ public void <B>clearArrows</B>()</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/ThemeManager.Theme.html" title="enum in com.objetdirect.gwt.umlapi.client.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLDrawerHelper.html" title="class in com.objetdirect.gwt.umlapi.client.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="UMLCanvas.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
