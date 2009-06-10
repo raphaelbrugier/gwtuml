@@ -216,8 +216,7 @@ This class represents an object uml component
 <TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLObject.html#setStereotype(java.lang.String)">setStereotype</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**
- Setter for the stereotype</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/** Setter for the stereotype</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -272,20 +271,6 @@ public <B>UMLObject</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang
 </TR>
 </TABLE>
 
-<A NAME="parseStereotype(java.lang.String)"><!-- --></A><H3>
-parseStereotype</H3>
-<PRE>
-public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>parseStereotype</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotypeToParse)</PRE>
-<DL>
-<DD>Parse a stereotype from a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A>
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>stereotypeToParse</CODE> - The string containing a stereotype
-<DT><B>Returns:</B><DD>The new parsed stereotype or an empty one if there was a problem</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="parseName(java.lang.String)"><!-- --></A><H3>
 parseName</H3>
 <PRE>
@@ -300,16 +285,16 @@ public static <A HREF="http://java.sun.com/javase/6/docs/api/java/util/List.html
 </DL>
 <HR>
 
-<A NAME="getObjectName()"><!-- --></A><H3>
-getObjectName</H3>
+<A NAME="parseStereotype(java.lang.String)"><!-- --></A><H3>
+parseStereotype</H3>
 <PRE>
-public final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getObjectName</B>()</PRE>
+public static <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>parseStereotype</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotypeToParse)</PRE>
 <DL>
-<DD>Getter for the object name
+<DD>Parse a stereotype from a <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><CODE>String</CODE></A>
 <P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>the object name</DL>
+<DT><B>Parameters:</B><DD><CODE>stereotypeToParse</CODE> - The string containing a stereotype
+<DT><B>Returns:</B><DD>The new parsed stereotype or an empty one if there was a problem</DL>
 </DD>
 </DL>
 <HR>
@@ -328,20 +313,6 @@ public final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.htm
 </DL>
 <HR>
 
-<A NAME="getStereotype()"><!-- --></A><H3>
-getStereotype</H3>
-<PRE>
-public final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getStereotype</B>()</PRE>
-<DL>
-<DD>Getter for the stereotype
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>the stereotype</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getObjectAttributes()"><!-- --></A><H3>
 getObjectAttributes</H3>
 <PRE>
@@ -356,15 +327,30 @@ public final <A HREF="http://java.sun.com/javase/6/docs/api/java/util/ArrayList.
 </DL>
 <HR>
 
-<A NAME="setObjectName(java.lang.String)"><!-- --></A><H3>
-setObjectName</H3>
+<A NAME="getObjectName()"><!-- --></A><H3>
+getObjectName</H3>
 <PRE>
-public final void <B>setObjectName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</PRE>
+public final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getObjectName</B>()</PRE>
 <DL>
-<DD>Setter for the object name
+<DD>Getter for the object name
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - the object name to set</DL>
+
+<DT><B>Returns:</B><DD>the object name</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getStereotype()"><!-- --></A><H3>
+getStereotype</H3>
+<PRE>
+public final <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getStereotype</B>()</PRE>
+<DL>
+<DD>Getter for the stereotype
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the stereotype</DL>
 </DD>
 </DL>
 <HR>
@@ -382,20 +368,6 @@ public final void <B>setInstanceName</B>(<A HREF="http://java.sun.com/javase/6/d
 </DL>
 <HR>
 
-<A NAME="setStereotype(java.lang.String)"><!-- --></A><H3>
-setStereotype</H3>
-<PRE>
-public final void <B>setStereotype</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</PRE>
-<DL>
-<DD>/**
- Setter for the stereotype
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>stereotype</CODE> - the stereotype to set</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setObjectAttributes(java.util.ArrayList)"><!-- --></A><H3>
 setObjectAttributes</H3>
 <PRE>
@@ -405,6 +377,32 @@ public final void <B>setObjectAttributes</B>(<A HREF="http://java.sun.com/javase
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>attributes</CODE> - the attributes to set</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setObjectName(java.lang.String)"><!-- --></A><H3>
+setObjectName</H3>
+<PRE>
+public final void <B>setObjectName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</PRE>
+<DL>
+<DD>Setter for the object name
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - the object name to set</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setStereotype(java.lang.String)"><!-- --></A><H3>
+setStereotype</H3>
+<PRE>
+public final void <B>setStereotype</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;stereotype)</PRE>
+<DL>
+<DD>/** Setter for the stereotype
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>stereotype</CODE> - the stereotype to set</DL>
 </DD>
 </DL>
 <HR>

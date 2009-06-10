@@ -102,8 +102,7 @@ Class ObjectPartNameArtifact</H2>
 </PRE>
 
 <P>
-This object represent the upper Part of a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A>
- It can hold a name and a stereotype
+This object represent the upper Part of a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/NodeArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts"><CODE>NodeArtifact</CODE></A> It can hold a name and a stereotype
 <P>
 
 <P>
@@ -427,20 +426,6 @@ public void <B>edit</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/cl
 </DL>
 <HR>
 
-<A NAME="getObjectName()"><!-- --></A><H3>
-getObjectName</H3>
-<PRE>
-public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getObjectName</B>()</PRE>
-<DL>
-<DD>Getter for the object name
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The object name</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getHeight()"><!-- --></A><H3>
 getHeight</H3>
 <PRE>
@@ -459,14 +444,28 @@ public int <B>getHeight</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="getObjectName()"><!-- --></A><H3>
+getObjectName</H3>
+<PRE>
+public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getObjectName</B>()</PRE>
+<DL>
+<DD>Getter for the object name
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The object name</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getOpaque()"><!-- --></A><H3>
 getOpaque</H3>
 <PRE>
 public int[] <B>getOpaque</B>()</PRE>
 <DL>
 <DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOpaque()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for an "opaque" integer table. <br> 
- This opaque represents all the points that describes a shape. <br> 
+<DD>Getter for an "opaque" integer table. <br>
+ This opaque represents all the points that describes a shape. <br>
  This is used by the shape based engine.
 <P>
 <DD><DL>
@@ -479,13 +478,32 @@ public int[] <B>getOpaque</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="getOutline()"><!-- --></A><H3>
+getOutline</H3>
+<PRE>
+public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getOutline</B>()</PRE>
+<DL>
+<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutline()">UMLArtifact</A></CODE></B></DD>
+<DD>Getter for the outline of an artifact. <br>
+ The outline is what is been drawn during drag and drop
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html#getOutline()">getOutline</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">BoxArtifact</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The graphical object of this outline</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getRightMenu()"><!-- --></A><H3>
 getRightMenu</H3>
 <PRE>
 public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/MenuBarAndTitle.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">MenuBarAndTitle</A> <B>getRightMenu</B>()</PRE>
 <DL>
 <DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getRightMenu()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the context menu. <br> 
+<DD>Getter for the context menu. <br>
  Each artifact has his own context menu which is built during right click
 <P>
 <DD><DL>
@@ -530,19 +548,6 @@ public int <B>getWidth</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="setObjectName(java.lang.String)"><!-- --></A><H3>
-setObjectName</H3>
-<PRE>
-public void <B>setObjectName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</PRE>
-<DL>
-<DD>Setter for the object name
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - The new name of the object</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setInstanceName(java.lang.String)"><!-- --></A><H3>
 setInstanceName</H3>
 <PRE>
@@ -556,6 +561,19 @@ public void <B>setInstanceName</B>(<A HREF="http://java.sun.com/javase/6/docs/ap
 </DL>
 <HR>
 
+<A NAME="setObjectName(java.lang.String)"><!-- --></A><H3>
+setObjectName</H3>
+<PRE>
+public void <B>setObjectName</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;objectName)</PRE>
+<DL>
+<DD>Setter for the object name
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>objectName</CODE> - The new name of the object</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="setStereotype(java.lang.String)"><!-- --></A><H3>
 setStereotype</H3>
 <PRE>
@@ -563,23 +581,6 @@ public void <B>setStereotype</B>(<A HREF="http://java.sun.com/javase/6/docs/api/
 <DL>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>stereotype</CODE> - the stereotype to set</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="unselect()"><!-- --></A><H3>
-unselect</H3>
-<PRE>
-public void <B>unselect</B>()</PRE>
-<DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">UMLArtifact</A></CODE></B></DD>
-<DD>This method do the graphic changes to reflect that an artifact has been unselected
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">unselect</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <HR>
@@ -602,21 +603,19 @@ public <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-e
 </DL>
 <HR>
 
-<A NAME="getOutline()"><!-- --></A><H3>
-getOutline</H3>
+<A NAME="unselect()"><!-- --></A><H3>
+unselect</H3>
 <PRE>
-public <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getOutline</B>()</PRE>
+public void <B>unselect</B>()</PRE>
 <DL>
-<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#getOutline()">UMLArtifact</A></CODE></B></DD>
-<DD>Getter for the outline of an artifact. <br> 
- The outline is what is been drawn during drag and drop
+<DD><B>Description copied from class: <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">UMLArtifact</A></CODE></B></DD>
+<DD>This method do the graphic changes to reflect that an artifact has been unselected
 <P>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html#getOutline()">getOutline</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/BoxArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">BoxArtifact</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html#unselect()">unselect</A></CODE> in class <CODE><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/UMLArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">UMLArtifact</A></CODE></DL>
 </DD>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>The graphical object of this outline</DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
