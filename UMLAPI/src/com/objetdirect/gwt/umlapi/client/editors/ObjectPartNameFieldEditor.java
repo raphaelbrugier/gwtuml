@@ -25,6 +25,7 @@ package com.objetdirect.gwt.umlapi.client.editors;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartNameArtifact;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 
 /**

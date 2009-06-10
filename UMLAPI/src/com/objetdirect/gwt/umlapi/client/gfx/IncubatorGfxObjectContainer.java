@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLDrawerHelper;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)

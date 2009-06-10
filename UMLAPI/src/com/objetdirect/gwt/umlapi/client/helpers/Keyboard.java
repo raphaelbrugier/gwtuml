@@ -27,7 +27,6 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umldrawer.client.HistoryManager;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -150,7 +149,7 @@ public class Keyboard {
 	    break;
 	    
 	case 'U':
-	    HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
+	    //FIXME HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
 	    break;
 	case KeyCodes.KEY_DELETE:
 	    Session.getActiveCanvas().removeSelected();
