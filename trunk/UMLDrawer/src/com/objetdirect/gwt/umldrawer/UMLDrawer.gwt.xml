@@ -13,11 +13,12 @@
 
 	<!-- Other module inherits                                      -->
 	
-	<inherits name='com.objetdirect.gwt.umlapi.UMLAPI' />
+	
 	
 	<inherits name='com.google.gwt.widgetideas.GWTCanvas' />
 	<inherits name="com.google.gwt.widgetideas.GlassPanel" />
 	<inherits name='com.objetdirect.tatami.Tatami' />
+	<inherits name='com.objetdirect.gwt.umlapi.UMLAPI' />
 	<inherits name='gwt.canvas.gwt-canvas' />
 
 	<!-- Add gwt-log support -->

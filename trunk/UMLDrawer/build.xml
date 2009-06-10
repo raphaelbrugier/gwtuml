@@ -76,7 +76,7 @@
     </java>
   </target>
 
-  <target name="build" depends="javadoc,gwtc" description="Build this project" />
+  <target name="build" depends="gwtc,javadoc" description="Build this project" />
 
   <target name="war" depends="build" description="Create a war file">
     <zip destfile="UMLDrawer.war" basedir="war"/>
