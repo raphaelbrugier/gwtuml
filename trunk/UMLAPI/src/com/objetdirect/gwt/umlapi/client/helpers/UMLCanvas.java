@@ -58,6 +58,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
@@ -66,8 +67,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umldrawer.client.ContextMenu;
-import com.objetdirect.gwt.umldrawer.client.Mouse;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -108,7 +107,7 @@ public class UMLCanvas extends AbsolutePanel {
     private UMLDiagram uMLDiagram;
     private boolean isMouseEnabled = true;
 
-    void setMouseEnabled(boolean isMouseEnabled) {
+    public void setMouseEnabled(boolean isMouseEnabled) {
 	this.isMouseEnabled = isMouseEnabled;
     }
 
@@ -531,7 +530,7 @@ public class UMLCanvas extends AbsolutePanel {
 	Log.trace("Link kind chage event fired. Status : " + isThisOk);
 	return isThisOk;
     }
-    Widget getDrawingCanvas() {
+    public Widget getDrawingCanvas() {
 	return this.drawingCanvas;
     }
 
@@ -897,7 +896,7 @@ public class UMLCanvas extends AbsolutePanel {
 	this.helpText.setText("");
     }
 
-    GfxObject getArtifactAt(Point location) {
+    public GfxObject getArtifactAt(Point location) {
 	for (UMLArtifact artifact : this.objects.values()) {
 	    if(isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), location, location)) {
 		Log.info("Artifact : " + artifact + " found"); 
@@ -1092,7 +1091,7 @@ public class UMLCanvas extends AbsolutePanel {
 	return UMLDrawerHelper.encodeBase64(url.toString());
     }
 
-    void moveAll(final Direction direction, boolean isRecursive) {
+    public void moveAll(final Direction direction, boolean isRecursive) {
 	new Scheduler.Task("MovingAllArtifacts") {@Override public void process() {
 	    Point translation =  new Point(-direction.getXShift(), -direction.getYShift());
 	    GfxManager.getPlatform().translate(UMLCanvas.this.allObjects, translation);
@@ -1122,7 +1121,7 @@ public class UMLCanvas extends AbsolutePanel {
 	}	
     }
 
-    void makeArrows(int width, int height) {	
+    public void makeArrows(int width, int height) {	
 	final int arrowSize = 6;
 	this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 	GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.arrowsVirtualGroup, Point.getOrigin());
@@ -1152,7 +1151,7 @@ public class UMLCanvas extends AbsolutePanel {
 	GfxManager.getPlatform().translate(arrowList.get(6), new Point(width / 2  - arrowSize - 2, 2)); // up
 	GfxManager.getPlatform().translate(arrowList.get(7), new Point(width - 2 * arrowSize - 2, 2)); // up right
     }
-    void clearArrows() {
+    public void clearArrows() {
 	GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
 
     }
