@@ -96,22 +96,22 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	    } else {
 		Session.getActiveCanvas().fromURL(urlDiagram);
 	    }	    
-	    UMLDrawer.toUrl.setVisible(true);
+	    UMLDrawer.southBar.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else if(lastHistoryAnchor.equals("Demo")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
 	    new Demo(drawerPanel.getUMLCanvas());
-	    UMLDrawer.toUrl.setVisible(true);
+	    UMLDrawer.southBar.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else if(lastHistoryAnchor.equals("AnimatedDemo")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
 	    new AnimatedDemo(drawerPanel.getUMLCanvas());
-	    UMLDrawer.toUrl.setVisible(true);
+	    UMLDrawer.southBar.setVisible(true);
 	    applicationPanel.add(drawerPanel);
 	} else { 
 	    History.newItem("Start", false);
 	    urlDiagram = "";
-	    UMLDrawer.toUrl.setVisible(false);
+	    UMLDrawer.southBar.setVisible(false);
 	    applicationPanel.add(new StartPanel(false));
 	}
     }

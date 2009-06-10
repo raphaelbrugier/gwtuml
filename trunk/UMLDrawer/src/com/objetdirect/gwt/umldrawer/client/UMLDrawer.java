@@ -29,9 +29,13 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
@@ -46,7 +50,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.Session;
 public class UMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
     //private static Button log;
-    static Button toUrl;
+    static HorizontalPanel southBar;
+
 
     /**
      * Entry point of the application This class make a StartPanel and manage
@@ -54,6 +59,35 @@ public class UMLDrawer implements EntryPoint {
      */
     public void gwt_main() {
 	//Log.setCurrentLogLevel(Log.LOG_LEVEL_WARN);
+	southBar = new HorizontalPanel();
+	southBar.setVisible(false);
+	southBar.setSpacing(5);
+	Button toUrl = new Button("Export to url");
+	toUrl.addClickHandler(new ClickHandler() {	
+	    @Override
+	    public void onClick(ClickEvent event) {
+		 HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
+	    }
+	});
+	southBar.add(toUrl);
+	Button clearUrl = new Button("Clear diagram in url");
+	clearUrl.addClickHandler(new ClickHandler() {	
+	    @Override
+	    public void onClick(ClickEvent event) {
+		 HistoryManager.upgradeDiagramURL("");
+	    }
+	});
+	southBar.add(clearUrl);
+	Button exportToSvg = new Button("Export to SVG (Experimental)");
+	exportToSvg.addClickHandler(new ClickHandler() {	
+	    @Override
+	    public void onClick(ClickEvent event) {
+		    String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
+		    svg += DOM.getInnerHTML((Element) Session.getActiveCanvas().getElement().getFirstChildElement());
+		    Window.open("data:image/svg," + svg, "SVG export", "");
+	    }
+	});
+	southBar.add(exportToSvg);
 	OptionsManager.initialize();
 	HotKeyManager.forceStaticInit();
 	HistoryManager historyManager = new HistoryManager();
@@ -61,13 +95,7 @@ public class UMLDrawer implements EntryPoint {
 	
 	DOM.setInnerHTML(RootPanel.get("loading-screen").getElement(), "");
 //	DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
-	toUrl = new Button("Export to url");
-	toUrl.addClickHandler(new ClickHandler() {	
-	    @Override
-	    public void onClick(ClickEvent event) {
-		 HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
-	    }
-	});
+	
 //	log = new Button("ToggleLog");
 //	log.addClickHandler(new ClickHandler() {
 //	    public void onClick(final ClickEvent event) {
@@ -82,8 +110,8 @@ public class UMLDrawer implements EntryPoint {
 //	});
 	appRootPanel.setSize("100%", "100%");
 	// appRootPanel.add(log, DockPanel.SOUTH);
-	toUrl.setVisible(false);
-	appRootPanel.add(toUrl, DockPanel.SOUTH);
+	
+	appRootPanel.add(southBar, DockPanel.SOUTH);
 	RootPanel.get().add(appRootPanel);
 	// Log.getDivLogger().moveTo(log.getAbsoluteLeft(),
 	// 	log.getAbsoluteTop() + log.getOffsetHeight() + 10);
