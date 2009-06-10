@@ -148,9 +148,6 @@ public class Keyboard {
 	    }
 	    break;
 	    
-	case 'U':
-	    //FIXME HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
-	    break;
 	case KeyCodes.KEY_DELETE:
 	    Session.getActiveCanvas().removeSelected();
 	    break;
