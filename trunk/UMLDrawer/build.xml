@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="UMLDrawer" default="build" basedir=".">
+<project name="GWTUMLDrawer" default="build" basedir=".">
   <!-- Configure path to GWT SDK -->
   <property name="gwt.sdk" location="../tools/gwt/trunk/build/staging/gwt-linux-0.0.0" />
 
@@ -42,7 +42,7 @@
       <jvmarg value="-Xmx256M"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <!-- arg line="-style DETAILED" /-->
-      <arg value="com.objetdirect.gwt.umldrawer.UMLDrawer"/>
+      <arg value="com.objetdirect.gwt.umldrawer.GWTUMLDrawer"/>
     </java>
   </target>
 
@@ -56,7 +56,7 @@
       <arg value="-startupUrl"/>
       <arg value="UMLDrawer.html"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-      <arg value="com.objetdirect.gwt.umldrawer.UMLDrawer"/>
+      <arg value="com.objetdirect.gwt.umldrawer.GWTUMLDrawer"/>
     </java>
   </target>
 
@@ -72,7 +72,7 @@
       <arg value="UMLDrawer.html"/>
       <arg line="-style PRETTY"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-      <arg value="com.objetdirect.gwt.umldrawer.UMLDrawer"/>
+      <arg value="com.objetdirect.gwt.umldrawer.GWTUMLDrawer"/>
     </java>
   </target>
 
@@ -88,7 +88,7 @@
   </target>
 
     <target name="javadoc" description="Generate Javadoc">
-      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
+      <javadoc access="public" author="true" destdir="doc" doctitle="GWTUML - GWTUMLDrawer javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" sourcepath="src" splitindex="true" stylesheetfile="doc/redstylesheet.css" use="true" version="true"  additionalparam="-breakiterator -noqualifier all -notimestamp">
             <classpath>
                 <pathelement location="src"/>
                 <path refid="project.class.path"/>

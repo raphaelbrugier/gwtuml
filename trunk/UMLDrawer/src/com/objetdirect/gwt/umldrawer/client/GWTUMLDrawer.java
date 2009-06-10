@@ -35,7 +35,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
@@ -47,7 +46,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.Session;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class UMLDrawer implements EntryPoint {
+public class GWTUMLDrawer implements EntryPoint {
     private final static DockPanel appRootPanel = new DockPanel();
     //private static Button log;
     static HorizontalPanel southBar;
