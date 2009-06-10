@@ -20,7 +20,7 @@
  *    along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.objetdirect.gwt.umldrawer.client.webinterface;
+package com.objetdirect.gwt.umldrawer.client;
 
 import java.util.HashMap;
 
@@ -33,6 +33,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Session;
 
 
 
@@ -85,7 +87,7 @@ public class HistoryManager implements ValueChangeHandler<String> {
 	applicationPanel.clear();
 	//DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 
-	OptionsManager.setAllFromURL(lastHistoryParametersList);
+	//FIXME OptionsManager.setAllFromURL(lastHistoryParametersList);
 	UMLArtifact.getArtifactList().clear();
 	if(lastHistoryAnchor.equals("Drawer")) {
 	    DrawerPanel drawerPanel = new DrawerPanel();
