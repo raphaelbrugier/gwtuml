@@ -45,13 +45,13 @@ public final class HotKeyManager {
 
 	private native void init() /*-{ 
 				$doc.onkeydown = function(evt) { 
-					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager::onKeyDown(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 				$doc.onkeypress = function(evt) { 
-					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager::onKeyPress(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 				$doc.onkeyup = function(evt) { 
-					@com.objetdirect.gwt.umldrawer.client.webinterface.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
+					@com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager::onKeyUp(Lcom/google/gwt/user/client/Event;)(evt || $wnd.event); 
 				} 
 			}-*/;
 
