@@ -1,2 +1,0 @@
-rm -f UMLDrawer.html
-sed 's/###/'"$1"'/g' <UMLDrawer-naked.html >UMLDrawer.html 
