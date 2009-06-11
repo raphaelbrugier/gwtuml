@@ -508,13 +508,11 @@ public class UMLCanvas extends AbsolutePanel {
 	/**
 	 * Draw the directions arrow on the canvas
 	 * 
-	 * @param width
-	 *            The canvas width
-	 * @param height
-	 *            The canvas height
 	 */
-	public void makeArrows(final int width, final int height) {
+	public void makeArrows() {
 		final int arrowSize = 6;
+		int width = this.getOffsetWidth();
+		int height = this.getOffsetHeight();
 		this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToCanvas(this.drawingCanvas, this.arrowsVirtualGroup, Point.getOrigin());
 		final ArrayList<GfxObject> arrowList = new ArrayList<GfxObject>();
