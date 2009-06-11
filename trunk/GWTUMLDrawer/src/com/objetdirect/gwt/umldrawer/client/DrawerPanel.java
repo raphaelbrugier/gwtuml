@@ -66,12 +66,12 @@ public class DrawerPanel extends AbsolutePanel {
 	private SimplePanel								bottomRightCornerShadow;
 
 	private SimplePanel								bottomShadow;
-	private final UMLCanvas							uMLCanvas;
+	private final UMLCanvas						uMLCanvas;
 
-	private int										height;
+	private int									height;
 	private SimplePanel								rightShadow;
 	private SimplePanel								topRightCornerShadow;
-	private int										width;
+	private int									width;
 
 	FocusPanel										topLeft			= new FocusPanel();
 	FocusPanel										top				= new FocusPanel();
@@ -95,7 +95,7 @@ public class DrawerPanel extends AbsolutePanel {
 																		}
 																	};
 
-	private final ResizeHandler						resizeHandler;
+	private final ResizeHandler					resizeHandler;
 
 	/**
 	 * Default constructor of a DrawerPanel
@@ -118,7 +118,7 @@ public class DrawerPanel extends AbsolutePanel {
 		Log.trace("Creating drawer");
 
 		this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width, this.height);
-		this.uMLCanvas.makeArrows(this.width, this.height);
+		this.uMLCanvas.makeArrows();
 		this.add(this.uMLCanvas);
 
 		final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
@@ -224,7 +224,7 @@ public class DrawerPanel extends AbsolutePanel {
 					DrawerPanel.this.width = resizeEvent.getWidth() - 50;
 					DrawerPanel.this.height = resizeEvent.getHeight() - 50;
 					DrawerPanel.this.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
-					DrawerPanel.this.getUMLCanvas().setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
+					DrawerPanel.this.uMLCanvas.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
 					GfxManager.getPlatform().setSize(Session.getActiveCanvas().getDrawingCanvas(), DrawerPanel.this.width, DrawerPanel.this.height);
 					DrawerPanel.this.clearShadow();
 					DrawerPanel.this.makeShadow();
@@ -237,7 +237,7 @@ public class DrawerPanel extends AbsolutePanel {
 						DrawerPanel.this.setWidgetPosition(panel, panelPosition.getX(), panelPosition.getY());
 					}
 					DrawerPanel.this.uMLCanvas.clearArrows();
-					DrawerPanel.this.uMLCanvas.makeArrows(DrawerPanel.this.width, DrawerPanel.this.height);
+					DrawerPanel.this.uMLCanvas.makeArrows();
 				}
 			}
 
