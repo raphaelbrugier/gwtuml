@@ -124,7 +124,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "InstantiationRelationLink$" + this.classArtifact.getId() + "!" + this.objectArtifact.getId();
+		return "InstantiationRelationLink$<" + this.classArtifact.getId() + ">!<" + this.objectArtifact.getId() + ">";
 	}
 
 	/*

@@ -371,8 +371,26 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
 
 	private final UMLArtifact	leftUMLArtifact;
+	/**
+	 * Getter for the leftUMLArtifact
+	 *
+	 * @return the leftUMLArtifact
+	 */
+	public UMLArtifact getLeftUMLArtifact() {
+		return this.leftUMLArtifact;
+	}
 
 	private final UMLArtifact	rightUMLArtifact;
+	
+	/**
+	 * Getter for the rightUMLArtifact
+	 *
+	 * @return the rightUMLArtifact
+	 */
+	public UMLArtifact getRightUMLArtifact() {
+		return this.rightUMLArtifact;
+	}
+
 	protected Point				leftPoint			= Point.getOrigin();
 
 	protected Point				rightPoint			= Point.getOrigin();

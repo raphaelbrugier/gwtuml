@@ -354,7 +354,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "ObjectRelationLink$" + this.leftObjectArtifact.getId() + "!" + this.rightObjectArtifact.getId() + "!" + this.relation.getLinkKind().getName()
+		return "ObjectRelationLink$<" + this.leftObjectArtifact.getId() + ">!<" + this.rightObjectArtifact.getId() + ">!" + this.relation.getLinkKind().getName()
 				+ "!" + this.relation.getName() + "!" + this.relation.getLinkStyle().getName() + "!" + this.relation.getLeftAdornment().getName() + "!"
 				+ this.relation.getRightAdornment().getName();
 	}

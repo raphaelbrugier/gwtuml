@@ -184,7 +184,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "MessageLink$" + this.leftLifeLineArtifact.getId() + "!" + this.rightLifeLineArtifact.getId() + "!" + this.message.getLinkKind().getName() + "!"
+		return "MessageLink$<" + this.leftLifeLineArtifact.getId() + ">!<" + this.rightLifeLineArtifact.getId() + ">!" + this.message.getLinkKind().getName() + "!"
 				+ this.message.getName() + "!" + this.message.getLinkStyle().getName() + "!" + this.message.getLeftAdornment().getName() + "!"
 				+ this.message.getRightAdornment().getName();
 	}

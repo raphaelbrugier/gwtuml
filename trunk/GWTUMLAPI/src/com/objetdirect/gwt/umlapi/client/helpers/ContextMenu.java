@@ -80,7 +80,21 @@ public class ContextMenu {
 	private final MenuBarAndTitle	specificRightMenu;
 
 	private final Point				location;
-
+	private final Command	 			cut			= new Command() {
+														public void execute() {
+															ContextMenu.this.canvas.cut();
+														}
+													};
+	private final Command	 			copy			= new Command() {
+														public void execute() {
+															ContextMenu.this.canvas.copy();
+														}
+													};
+	private final Command	 			paste			= new Command() {
+														public void execute() {
+															ContextMenu.this.canvas.paste();
+														}
+													};
 	/**
 	 * Constructor of ContextMenu without a specific context menu part
 	 * 
@@ -116,7 +130,6 @@ public class ContextMenu {
 	 * 
 	 */
 	public void show() {
-
 		this.contextMenu.setPopupPositionAndShow(new PositionCallback() {
 			public void setPosition(final int offsetWidth, final int offsetHeight) {
 				ContextMenu.this.contextMenu.setPopupPosition(ContextMenu.this.location.getX(), ContextMenu.this.location.getY());
@@ -160,6 +173,12 @@ public class ContextMenu {
 			}
 		}
 		this.contextMenu.addItem("Add relation", linkSubMenu);
+		this.contextMenu.addSeparator();
+		
+		this.contextMenu.addItem("Cut",  this.cut);
+		this.contextMenu.addItem("Copy",  this.copy);
+		this.contextMenu.addItem("Paste", this.paste);
+		
 		this.contextMenu.addSeparator();
 		if (this.canvas.getUMLDiagram().getType().isClassOrObjectType()) {
 			this.contextMenu.addItem("Switch links style", this.changeLinkStyle);

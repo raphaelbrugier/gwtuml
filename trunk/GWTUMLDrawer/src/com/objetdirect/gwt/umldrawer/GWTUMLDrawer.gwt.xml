@@ -22,8 +22,8 @@
 	<inherits name='gwt.canvas.gwt-canvas' />
 
 	<!-- Add gwt-log support -->
-	<inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" />
- 	<extend-property name="log_level" values="ERROR" />
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-WARN" />
+ 	<!-- extend-property name="log_level" values="ERROR" /-->
  	<!-- Turn off the `DivLogger` -->
     <set-property name="log_DivLogger" value="DISABLED" />
 	

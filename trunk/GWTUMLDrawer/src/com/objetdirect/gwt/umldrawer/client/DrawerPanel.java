@@ -118,7 +118,6 @@ public class DrawerPanel extends AbsolutePanel {
 		Log.trace("Creating drawer");
 
 		this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width, this.height);
-		this.uMLCanvas.makeArrows();
 		this.add(this.uMLCanvas);
 
 		final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
