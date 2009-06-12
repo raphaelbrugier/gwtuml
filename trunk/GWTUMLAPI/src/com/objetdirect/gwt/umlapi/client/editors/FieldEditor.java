@@ -105,9 +105,17 @@ public abstract class FieldEditor {
 		if (this.isMultiLine && (this.height == 0)) {
 			Log.error("Must set height for multiline editors");
 		}
+		
 		this.content = text;
-
+		if(y + 20  > this.canvas.getOffsetHeight()) { //FIXME put a real height
+			return;
+		}
+		
 		FieldEditor.editField = this.isMultiLine ? new TextArea() : new TextBox();
+		
+		
+		
+		
 		FieldEditor.editField.setText(text);
 		FieldEditor.editField.setStylePrimaryName("editor" + (isSmallFont ? "-small" : "") + "-field" + (this.isMultiLine ? "-multiline" : ""));
 		FieldEditor.editField.setWidth(Math.max(w, this.minBoxWidth) + "px");

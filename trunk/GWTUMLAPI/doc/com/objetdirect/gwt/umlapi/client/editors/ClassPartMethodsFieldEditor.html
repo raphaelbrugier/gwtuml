@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-ClassPartNameFieldEditor
+ClassPartMethodsFieldEditor
 </TITLE>
 
 
@@ -13,7 +13,7 @@ ClassPartNameFieldEditor
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="ClassPartNameFieldEditor";
+        parent.document.title="ClassPartMethodsFieldEditor";
     }
 }
 </SCRIPT>
@@ -38,7 +38,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ClassPartNameFieldEditor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ClassPartMethodsFieldEditor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartAttributesFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartNameFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/editors/ClassPartNameFieldEditor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ClassPartNameFieldEditor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ClassPartMethodsFieldEditor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -88,19 +88,19 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 com.objetdirect.gwt.umlapi.client.editors</FONT>
 <BR>
-Class ClassPartNameFieldEditor</H2>
+Class ClassPartMethodsFieldEditor</H2>
 <PRE>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>
   <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A>
-      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>ClassPartNameFieldEditor</B>
+      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>ClassPartMethodsFieldEditor</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>ClassPartNameFieldEditor</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A></DL>
+<DT><PRE>public class <B>ClassPartMethodsFieldEditor</B><DT>extends <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors">FieldEditor</A></DL>
 </PRE>
 
 <P>
-This field editor is a specialized editor for class name and stereotype edition
+This field editor is a specialized editor for <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLClassMethod</CODE></A> editing
 <P>
 
 <P>
@@ -121,12 +121,12 @@ This field editor is a specialized editor for class name and stereotype edition
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartNameFieldEditor.html#ClassPartNameFieldEditor(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas, com.objetdirect.gwt.umlapi.client.artifacts.ClassPartNameArtifact, boolean)">ClassPartNameFieldEditor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas,
-                         <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassPartNameArtifact</A>&nbsp;classPartNameArtifact,
-                         boolean&nbsp;isTheStereotype)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html#ClassPartMethodsFieldEditor(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas, com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod)">ClassPartMethodsFieldEditor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas,
+                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartMethodsArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassPartMethodsArtifact</A>&nbsp;artifact,
+                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>&nbsp;methodToChange)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor of the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><CODE>ClassPartMethodsFieldEditor</CODE></A></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -170,17 +170,17 @@ This field editor is a specialized editor for class name and stereotype edition
 </TR>
 </TABLE>
 
-<A NAME="ClassPartNameFieldEditor(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas, com.objetdirect.gwt.umlapi.client.artifacts.ClassPartNameArtifact, boolean)"><!-- --></A><H3>
-ClassPartNameFieldEditor</H3>
+<A NAME="ClassPartMethodsFieldEditor(com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas, com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact, com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod)"><!-- --></A><H3>
+ClassPartMethodsFieldEditor</H3>
 <PRE>
-public <B>ClassPartNameFieldEditor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas,
-                                <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartNameArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassPartNameArtifact</A>&nbsp;classPartNameArtifact,
-                                boolean&nbsp;isTheStereotype)</PRE>
+public <B>ClassPartMethodsFieldEditor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/helpers/UMLCanvas.html" title="class in com.objetdirect.gwt.umlapi.client.helpers">UMLCanvas</A>&nbsp;canvas,
+                                   <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/artifacts/ClassPartMethodsArtifact.html" title="class in com.objetdirect.gwt.umlapi.client.artifacts">ClassPartMethodsArtifact</A>&nbsp;artifact,
+                                   <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents">UMLClassMethod</A>&nbsp;methodToChange)</PRE>
 <DL>
-<DD>Constructor of
+<DD>Constructor of the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><CODE>ClassPartMethodsFieldEditor</CODE></A>
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - <DD><CODE>classPartNameArtifact</CODE> - <DD><CODE>isTheStereotype</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas on which is the artifact<DD><CODE>artifact</CODE> - The artifact being edited<DD><CODE>methodToChange</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/umlcomponents/UMLClassMethod.html" title="class in com.objetdirect.gwt.umlapi.client.umlcomponents"><CODE>UMLClassMethod</CODE></A> on which edition has been requested</DL>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
@@ -198,7 +198,7 @@ public <B>ClassPartNameFieldEditor</B>(<A HREF="../../../../../../com/objetdirec
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ClassPartNameFieldEditor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ClassPartMethodsFieldEditor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -213,11 +213,11 @@ public <B>ClassPartNameFieldEditor</B>(<A HREF="../../../../../../com/objetdirec
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/FieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartAttributesFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/editors/ClassPartNameFieldEditor.html" title="class in com.objetdirect.gwt.umlapi.client.editors"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/editors/ClassPartNameFieldEditor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ClassPartNameFieldEditor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/editors/ClassPartMethodsFieldEditor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ClassPartMethodsFieldEditor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

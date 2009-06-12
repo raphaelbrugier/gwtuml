@@ -18,22 +18,37 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class ObjectPartAttributesEditor extends FieldEditor {
+public class ClassPartAttributesFieldEditor extends FieldEditor {
 
-	UMLObjectAttribute	attributeToChange;
+	UMLClassAttribute	attributeToChange;
 
 	/**
+	 * Constructor of ClassPartAttributesEditor
+	 * 
+	 * @param canvas
+	 * @param classPartAttributesArtifact
+	 * @param attributeToChange
+	 */
+	public ClassPartAttributesFieldEditor(final UMLCanvas canvas, final ClassPartAttributesArtifact classPartAttributesArtifact,
+			final UMLClassAttribute attributeToChange) {
+		super(canvas, classPartAttributesArtifact);
+		this.attributeToChange = attributeToChange;
+	}
+
+	/**
+	 * Constructor of ClassPartAttributesEditor
+	 * 
 	 * @param canvas
 	 * @param objectPartAttributesArtifact
 	 * @param attributeToChange
 	 */
-	public ObjectPartAttributesEditor(final UMLCanvas canvas, final ObjectPartAttributesArtifact objectPartAttributesArtifact,
-			final UMLObjectAttribute attributeToChange) {
+	public ClassPartAttributesFieldEditor(final UMLCanvas canvas, final ObjectPartAttributesArtifact objectPartAttributesArtifact,
+			final UMLClassAttribute attributeToChange) {
 		super(canvas, objectPartAttributesArtifact);
 		this.attributeToChange = attributeToChange;
 	}
@@ -46,24 +61,21 @@ public class ObjectPartAttributesEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		if (newContent.trim().equals("")) {
-			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
-			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
+			((ClassPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
-
-		final UMLObjectAttribute newAttribute = UMLObjectAttribute.parseAttribute(newContent);
+		final UMLClassAttribute newAttribute = UMLClassAttribute.parseAttribute(newContent);
 		if ((newAttribute.getName() + newAttribute.getType()).equals("")) {
-			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
-			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
+			((ClassPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
 		this.attributeToChange.setVisibility(newAttribute.getVisibility());
 		this.attributeToChange.setName(newAttribute.getName());
 		this.attributeToChange.setType(newAttribute.getType());
-		this.attributeToChange.setInstance(newAttribute.getInstance());
 
-		((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
-
+		((ClassPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
 		return true;
 	}
 }
