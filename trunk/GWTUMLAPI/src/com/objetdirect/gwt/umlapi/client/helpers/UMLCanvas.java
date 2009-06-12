@@ -306,8 +306,8 @@ public class UMLCanvas extends AbsolutePanel {
 	public void fromURL(final String url, final boolean isForPasting) {
 		//try {
 		if (!url.equals("AA==")) {
-			String diagram = isForPasting ? url :GWTUMLDrawerHelper.decodeBase64(url);
-			Point pasteShift = isForPasting ? Point.substract(this.currentMousePosition, this.copyMousePosition) : Point.getOrigin();
+			String diagram = isForPasting ? url : GWTUMLDrawerHelper.decodeBase64(url);
+			Point pasteShift = isForPasting ? Point.substract(Point.substract(this.currentMousePosition, this.copyMousePosition), this.canvasOffset) : Point.getOrigin();
 					
 			diagram = diagram.substring(0, diagram.lastIndexOf(";"));
 			final String[] diagramArtifacts = diagram.split(";");
