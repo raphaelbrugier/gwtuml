@@ -1,0 +1,11 @@
+com.google.gwt.user.client
+com.google.gwt.user.client.ui
+com.objetdirect.gwt.umlapi.client
+com.objetdirect.gwt.umlapi.client.analyser
+com.objetdirect.gwt.umlapi.client.artifacts
+com.objetdirect.gwt.umlapi.client.contrib
+com.objetdirect.gwt.umlapi.client.editors
+com.objetdirect.gwt.umlapi.client.engine
+com.objetdirect.gwt.umlapi.client.gfx
+com.objetdirect.gwt.umlapi.client.helpers
+com.objetdirect.gwt.umlapi.client.umlcomponents

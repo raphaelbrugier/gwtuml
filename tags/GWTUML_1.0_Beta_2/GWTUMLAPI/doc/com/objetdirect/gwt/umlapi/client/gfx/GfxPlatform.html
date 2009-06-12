@@ -1,0 +1,1027 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<TITLE>
+GfxPlatform
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../redstylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="GfxPlatform";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/GfxPlatform.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxStyle.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="GfxPlatform.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.objetdirect.gwt.umlapi.client.gfx</FONT>
+<BR>
+Interface GfxPlatform</H2>
+<DL>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GWTCanvasGfxPlatform.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GWTCanvasGfxPlatform</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/IncubatorGfxPlatform.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">IncubatorGfxPlatform</A>, <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/TatamiGfxPlatfrom.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">TatamiGfxPlatfrom</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public interface <B>GfxPlatform</B></DL>
+</PRE>
+
+<P>
+This interface normalize all the methods used on and by a graphical object for any gfx implementation
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>Florian Mounier (mounier-dot-florian.at.gmail'dot'com)</DD>
+</DL>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#DEFAULT_CANVAS_HEIGHT">DEFAULT_CANVAS_HEIGHT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default canvas height</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#DEFAULT_CANVAS_WIDTH">DEFAULT_CANVAS_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default canvas width</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener)">addObjectListenerToCanvas</A></B>(Widget&nbsp;canvas,
+                          <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx">GfxObjectListener</A>&nbsp;gfxObjectListener)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObjectListener</CODE></A> to the canvas.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#addToCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)">addToCanvas</A></B>(Widget&nbsp;canvas,
+            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the canvas at the specified position.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#addToVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">addToVirtualGroup</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup,
+                  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to a virtual group</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildCircle(int)">buildCircle</A></B>(int&nbsp;radius)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a circle with the specified radius</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildImage(java.lang.String)">buildImage</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;url)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build an Image from his URL</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildLine(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)">buildLine</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
+          <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a line from <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> p1 to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> p2</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildPath()">buildPath</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start the building of a path.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildRect(int, int)">buildRect</A></B>(int&nbsp;width,
+          int&nbsp;height)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a rectangle with the size : width x height</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildText(java.lang.String, com.objetdirect.gwt.umlapi.client.engine.Point)">buildText</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;text,
+          <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a Text containing text and make some platform specific adjustment</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#buildVirtualGroup()">buildVirtualGroup</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build a virtual group</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#clearVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">clearVirtualGroup</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Erase all members in a virtual group</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)">curveTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a quadratic Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> control</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)">curveTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control1,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controls</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#getGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">getGroup</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> virtual group if any</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">getLocationFor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> location in the canvas</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#getTextHeightFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">getTextHeightFor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the height of a Text</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#getTextWidthFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">getTextWidthFor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getter for the width of a Text</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#lineTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)">lineTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+       <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;Widget</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#makeCanvas()">makeCanvas</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make a graphic canvas with default size and return the widget</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;Widget</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#makeCanvas(int, int, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)">makeCanvas</A></B>(int&nbsp;width,
+           int&nbsp;height,
+           <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;backgroundColor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make a graphic canvas with default size and return the widget</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)">moveTo</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+       <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location without lining</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">moveToBack</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the background</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#moveToFront(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">moveToFront</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the foreground</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#removeFromCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObject)">removeFromCanvas</A></B>(Widget&nbsp;canvas,
+                 <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> from the canvas</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#removeFromVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxObject, boolean)">removeFromVirtualGroup</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup,
+                       <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                       boolean&nbsp;isSilent)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> from its virtual group</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#rotate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, float, com.objetdirect.gwt.umlapi.client.engine.Point)">rotate</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+       float&nbsp;angle,
+       <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;center)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotate a graphical object with the given angle in radians and center</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setFillColor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)">setFillColor</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;color)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the filling color of a graphical object</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setFont(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxFont)">setFont</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+        <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>&nbsp;gfxFont)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the font of a graphical object text</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)">setOpacity</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+           int&nbsp;opacity,
+           boolean&nbsp;isForBack)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the opacity of a graphical object</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setSize(com.google.gwt.user.client.ui.Widget, int, int)">setSize</A></B>(Widget&nbsp;canvas,
+        int&nbsp;width,
+        int&nbsp;height)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter for the size of the canvas</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setStroke(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxColor, int)">setStroke</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+          <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;color,
+          int&nbsp;width)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter of the stroke color and width for a graphical object</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#setStrokeStyle(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxStyle)">setStrokeStyle</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+               <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxStyle.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxStyle</A>&nbsp;style)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setter of the stroke style for a graphical object</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#translate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)">translate</A></B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+          <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;offset)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Translate a graphical object to a new destination by an offset</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="DEFAULT_CANVAS_HEIGHT"><!-- --></A><H3>
+DEFAULT_CANVAS_HEIGHT</H3>
+<PRE>
+static final int <B>DEFAULT_CANVAS_HEIGHT</B></PRE>
+<DL>
+<DD>Default canvas height
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform.DEFAULT_CANVAS_HEIGHT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DEFAULT_CANVAS_WIDTH"><!-- --></A><H3>
+DEFAULT_CANVAS_WIDTH</H3>
+<PRE>
+static final int <B>DEFAULT_CANVAS_WIDTH</B></PRE>
+<DL>
+<DD>Default canvas width
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform.DEFAULT_CANVAS_WIDTH">Constant Field Values</A></DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener)"><!-- --></A><H3>
+addObjectListenerToCanvas</H3>
+<PRE>
+void <B>addObjectListenerToCanvas</B>(Widget&nbsp;canvas,
+                               <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx">GfxObjectListener</A>&nbsp;gfxObjectListener)</PRE>
+<DL>
+<DD>Adds a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObjectListener</CODE></A> to the canvas.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas to add a listener to<DD><CODE>gfxObjectListener</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObjectListener</CODE></A> to add to the canvas</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addToCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+addToCanvas</H3>
+<PRE>
+void <B>addToCanvas</B>(Widget&nbsp;canvas,
+                 <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                 <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+<DL>
+<DD>Adds a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the canvas at the specified position.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas on which the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> will be added<DD><CODE>gfxObject</CODE> - the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to add.<DD><CODE>location</CODE> - The location <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> of the added gfxObject</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addToVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+addToVirtualGroup</H3>
+<PRE>
+void <B>addToVirtualGroup</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup,
+                       <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Add a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to a virtual group
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObjectGroup</CODE> - The group that will contain the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to add to the gfxObjectGroup</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildCircle(int)"><!-- --></A><H3>
+buildCircle</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildCircle</B>(int&nbsp;radius)</PRE>
+<DL>
+<DD>Build a circle with the specified radius
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>radius</CODE> - The circle radius
+<DT><B>Returns:</B><DD>The new circle in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildImage(java.lang.String)"><!-- --></A><H3>
+buildImage</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildImage</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;url)</PRE>
+<DL>
+<DD>Build an Image from his URL
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>url</CODE> - The image URL
+<DT><B>Returns:</B><DD>The new image in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildLine(com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+buildLine</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildLine</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p1,
+                    <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;p2)</PRE>
+<DL>
+<DD>Build a line from <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> p1 to <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> p2
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>p1</CODE> - The line first end <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A><DD><CODE>p2</CODE> - The line other end <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> *
+<DT><B>Returns:</B><DD>The new line in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildPath()"><!-- --></A><H3>
+buildPath</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildPath</B>()</PRE>
+<DL>
+<DD>Start the building of a path.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The initialized path in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A><DT><B>See Also:</B><DD><A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>moveTo(GfxObject, Point)</CODE></A>, 
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html#lineTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><CODE>lineTo(GfxObject, Point)</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildRect(int, int)"><!-- --></A><H3>
+buildRect</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildRect</B>(int&nbsp;width,
+                    int&nbsp;height)</PRE>
+<DL>
+<DD>Build a rectangle with the size : width x height
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - The rectangle width<DD><CODE>height</CODE> - The rectangle height
+<DT><B>Returns:</B><DD>The new rectangle in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildText(java.lang.String, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+buildText</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildText</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;text,
+                    <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+<DL>
+<DD>Build a Text containing text and make some platform specific adjustment
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>text</CODE> - The text String used to make the Text <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A><DD><CODE>location</CODE> - Initial position of the Text
+<DT><B>Returns:</B><DD>The new text in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildVirtualGroup()"><!-- --></A><H3>
+buildVirtualGroup</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>buildVirtualGroup</B>()</PRE>
+<DL>
+<DD>Build a virtual group
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The new virtual group in a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+clearVirtualGroup</H3>
+<PRE>
+void <B>clearVirtualGroup</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup)</PRE>
+<DL>
+<DD>Erase all members in a virtual group
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObjectGroup</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the virtual group</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+curveTo</H3>
+<PRE>
+void <B>curveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control)</PRE>
+<DL>
+<DD>Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a quadratic Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> control
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to curve to<DD><CODE>control</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the quadratic Bezier curve</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+curveTo</H3>
+<PRE>
+void <B>curveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control1,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;control2)</PRE>
+<DL>
+<DD>Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location making a Bezier curve <br />
+ controlled by the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controls
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to curve to<DD><CODE>control1</CODE> - The first <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the Bezier curve<DD><CODE>control2</CODE> - The second <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> controlling the Bezier curve</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+getGroup</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A> <B>getGroup</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> virtual group if any
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A>to get the virtual group from
+<DT><B>Returns:</B><DD>The virtual group of this <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> if any, null otherwise</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+getLocationFor</H3>
+<PRE>
+<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A> <B>getLocationFor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Getter for the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> location in the canvas
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to retrieve the location
+<DT><B>Returns:</B><DD>The location <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> of the gfxObject</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTextHeightFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+getTextHeightFor</H3>
+<PRE>
+int <B>getTextHeightFor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Getter for the height of a Text
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing a Text to measure the height
+<DT><B>Returns:</B><DD>The height of the Text</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTextWidthFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+getTextWidthFor</H3>
+<PRE>
+int <B>getTextWidthFor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Getter for the width of a Text
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing a Text to measure the width
+<DT><B>Returns:</B><DD>The width of the Text</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="lineTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+lineTo</H3>
+<PRE>
+void <B>lineTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+<DL>
+<DD>Line a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to line to</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="makeCanvas()"><!-- --></A><H3>
+makeCanvas</H3>
+<PRE>
+Widget <B>makeCanvas</B>()</PRE>
+<DL>
+<DD>Make a graphic canvas with default size and return the widget
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The created graphic canvas widget</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="makeCanvas(int, int, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)"><!-- --></A><H3>
+makeCanvas</H3>
+<PRE>
+Widget <B>makeCanvas</B>(int&nbsp;width,
+                  int&nbsp;height,
+                  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;backgroundColor)</PRE>
+<DL>
+<DD>Make a graphic canvas with default size and return the widget
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - The canvas width<DD><CODE>height</CODE> - The canvas height<DD><CODE>backgroundColor</CODE> - The canvas background <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxColor</CODE></A>
+<DT><B>Returns:</B><DD>The created graphic canvas widget</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+moveTo</H3>
+<PRE>
+void <B>moveTo</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;location)</PRE>
+<DL>
+<DD>Move a path from the current location to the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location without lining
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the path<DD><CODE>location</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> location to move to</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+moveToBack</H3>
+<PRE>
+void <B>moveToBack</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Move the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the background
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to move to the background</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="moveToFront(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+moveToFront</H3>
+<PRE>
+void <B>moveToFront</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Move the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to the foreground
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to move to the foreground</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeFromCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObject)"><!-- --></A><H3>
+removeFromCanvas</H3>
+<PRE>
+void <B>removeFromCanvas</B>(Widget&nbsp;canvas,
+                      <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject)</PRE>
+<DL>
+<DD>Remove the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> from the canvas
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The graphic canvas widget the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> is on<DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to remove from the canvas</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeFromVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxObject, boolean)"><!-- --></A><H3>
+removeFromVirtualGroup</H3>
+<PRE>
+void <B>removeFromVirtualGroup</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObjectGroup,
+                            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                            boolean&nbsp;isSilent)</PRE>
+<DL>
+<DD>Removes a <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> from its virtual group
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObjectGroup</CODE> - the virtual group containing the gfxObject<DD><CODE>gfxObject</CODE> - the <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to remove<DD><CODE>isSilent</CODE> - If true the canvas is not redrawn</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="rotate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, float, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+rotate</H3>
+<PRE>
+void <B>rotate</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+            float&nbsp;angle,
+            <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;center)</PRE>
+<DL>
+<DD>Rotate a graphical object with the given angle in radians and center
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to be rotated<DD><CODE>angle</CODE> - The angle of rotation in radians<DD><CODE>center</CODE> - The center <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> of the rotation</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFillColor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)"><!-- --></A><H3>
+setFillColor</H3>
+<PRE>
+void <B>setFillColor</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                  <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;color)</PRE>
+<DL>
+<DD>Setter for the filling color of a graphical object
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to set the filling color<DD><CODE>color</CODE> - The filling <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxColor</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFont(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxFont)"><!-- --></A><H3>
+setFont</H3>
+<PRE>
+void <B>setFont</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+             <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxFont</A>&nbsp;gfxFont)</PRE>
+<DL>
+<DD>Setter for the font of a graphical object text
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the Text to set the font<DD><CODE>gfxFont</CODE> - The text <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxFont.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxFont</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)"><!-- --></A><H3>
+setOpacity</H3>
+<PRE>
+void <B>setOpacity</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                int&nbsp;opacity,
+                boolean&nbsp;isForBack)</PRE>
+<DL>
+<DD>Setter for the opacity of a graphical object
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> containing the Text to set the font<DD><CODE>opacity</CODE> - The new opacity of the graphical object<DD><CODE>isForBack</CODE> - If set to true set the background opacity, otherwise it is the stroke opacity</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSize(com.google.gwt.user.client.ui.Widget, int, int)"><!-- --></A><H3>
+setSize</H3>
+<PRE>
+void <B>setSize</B>(Widget&nbsp;canvas,
+             int&nbsp;width,
+             int&nbsp;height)</PRE>
+<DL>
+<DD>Setter for the size of the canvas
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>canvas</CODE> - The canvas to set the size<DD><CODE>width</CODE> - The new canvas width<DD><CODE>height</CODE> - The new canvas height</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setStroke(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxColor, int)"><!-- --></A><H3>
+setStroke</H3>
+<PRE>
+void <B>setStroke</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+               <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxColor</A>&nbsp;color,
+               int&nbsp;width)</PRE>
+<DL>
+<DD>Setter of the stroke color and width for a graphical object
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to set the stroke color and width<DD><CODE>color</CODE> - The new stroke <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxColor.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxColor</CODE></A><DD><CODE>width</CODE> - The new stroke width</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setStrokeStyle(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxStyle)"><!-- --></A><H3>
+setStrokeStyle</H3>
+<PRE>
+void <B>setStrokeStyle</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+                    <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxStyle.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxStyle</A>&nbsp;style)</PRE>
+<DL>
+<DD>Setter of the stroke style for a graphical object
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to set the stroke style<DD><CODE>style</CODE> - The new <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxStyle.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxStyle</CODE></A> of the graphical object</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="translate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)"><!-- --></A><H3>
+translate</H3>
+<PRE>
+void <B>translate</B>(<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx">GfxObject</A>&nbsp;gfxObject,
+               <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine">Point</A>&nbsp;offset)</PRE>
+<DL>
+<DD>Translate a graphical object to a new destination by an offset
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gfxObject</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObject.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><CODE>GfxObject</CODE></A> to be translated<DD><CODE>offset</CODE> - The <A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/engine/Point.html" title="class in com.objetdirect.gwt.umlapi.client.engine"><CODE>Point</CODE></A> containing the two offset dimensions</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/GfxPlatform.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxObjectListener.html" title="interface in com.objetdirect.gwt.umlapi.client.gfx"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/objetdirect/gwt/umlapi/client/gfx/GfxStyle.html" title="class in com.objetdirect.gwt.umlapi.client.gfx"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/objetdirect/gwt/umlapi/client/gfx/GfxPlatform.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="GfxPlatform.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>
