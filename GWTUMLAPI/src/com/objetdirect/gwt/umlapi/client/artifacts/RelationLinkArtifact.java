@@ -406,7 +406,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		final ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(this.leftNodeArtifact, this.rightNodeArtifact);
 		this.leftPoint = points.get(0);
 		this.rightPoint = points.get(1);
-		this.computeDirectionsType(OptionsManager.get("AngularLinks") == 1);
+		this.computeDirectionsType();
 		return OptionsManager.get("AngularLinks") == 1 ? this.getPeerAngularLine() : this.getPeerRightLine();
 	}
 
@@ -435,7 +435,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	private GfxObject getSelfAngularLine() {
 		this.leftPoint = this.leftNodeArtifact.getCenter().translate(0, -this.leftNodeArtifact.getHeight() / 2);
 		this.rightPoint = this.leftNodeArtifact.getCenter().translate(this.leftNodeArtifact.getWidth() / 2, 0);
-		this.computeDirectionsType(false);
+		this.computeDirectionsType();
 		final GfxObject line = GfxManager.getPlatform().buildPath();
 		final Point rightShiftedPoint = Point.add(this.rightPoint, new Point((this.order + 1) * OptionsManager.get("ReflexivePathXGap"), 0));
 		final Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -(this.order + 1) * OptionsManager.get("ReflexivePathYGap")));
@@ -460,7 +460,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		final int radius = (this.order + 1) * OptionsManager.get("ReflexivePathXGap");
 		this.leftPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth() - radius, 0);
 		this.rightPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth(), radius);
-		this.computeDirectionsType(false);
+		this.computeDirectionsType();
 		final Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());
 		final GfxObject line = GfxManager.getPlatform().buildCircle((this.order + 1) * OptionsManager.get("ReflexivePathXGap"));
 		this.leftDirectionPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
