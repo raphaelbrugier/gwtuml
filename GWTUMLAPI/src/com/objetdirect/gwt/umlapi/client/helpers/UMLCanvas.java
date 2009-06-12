@@ -176,6 +176,7 @@ public class UMLCanvas extends AbsolutePanel {
 	private Point											dragOffset;
 	private Point											totalDragShift					= Point.getOrigin();
 	private GfxObject										arrowsVirtualGroup;
+	private Point	copyMousePosition;
 
 	/**
 	 * Constructor of an {@link UMLCanvas} with default size
@@ -306,7 +307,8 @@ public class UMLCanvas extends AbsolutePanel {
 		//try {
 		if (!url.equals("AA==")) {
 			String diagram = isForPasting ? url :GWTUMLDrawerHelper.decodeBase64(url);
-
+			Point pasteShift = isForPasting ? Point.substract(this.currentMousePosition, this.copyMousePosition) : Point.getOrigin();
+					
 			diagram = diagram.substring(0, diagram.lastIndexOf(";"));
 			final String[] diagramArtifacts = diagram.split(";");
 
@@ -325,8 +327,8 @@ public class UMLCanvas extends AbsolutePanel {
 						}
 						UMLArtifact newArtifact = null;
 						if (artifact.equals("Class")) {
-							newArtifact = new ClassArtifact(UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
-							newArtifact.setLocation(Point.parse(parameters[0]));
+							newArtifact = new ClassArtifact((isForPasting ? "CopyOf" : "") +UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
+							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
 								final String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
 								for (final String attribute : classAttributes) {
@@ -341,9 +343,9 @@ public class UMLCanvas extends AbsolutePanel {
 							}
 
 						} else if (artifact.equals("Object")) {
-							newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), UMLObject.parseName(parameters[1]).get(1),
+							newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), (isForPasting ? "CopyOf" : "") + UMLObject.parseName(parameters[1]).get(1),
 									UMLObject.parseStereotype(parameters[2]));
-							newArtifact.setLocation(Point.parse(parameters[0]));
+							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
 								final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
 								for (final String attribute : objectAttributes) {
@@ -352,12 +354,12 @@ public class UMLCanvas extends AbsolutePanel {
 							}
 
 						} else if (artifact.equals("LifeLine")) {
-							newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
-							newArtifact.setLocation(Point.parse(parameters[0]));
+							newArtifact = new LifeLineArtifact((isForPasting ? "CopyOf" : "") + UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
+							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 
 						} else if (artifact.equals("Note")) {
 							newArtifact = new NoteArtifact(parameters[1]);
-							newArtifact.setLocation(Point.parse(parameters[0]));
+							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 
 						} else if (artifact.equals("LinkNote")) {
 							Integer noteId = 0;
@@ -393,7 +395,7 @@ public class UMLCanvas extends AbsolutePanel {
 							}
 							newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId),
 									(ClassArtifact) UMLArtifact.getArtifactById(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((ClassRelationLinkArtifact) newArtifact).setName(parameters[3]);
+							((ClassRelationLinkArtifact) newArtifact).setName((isForPasting ? "CopyOf" : "") + parameters[3]);
 							((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 							((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
 							((ClassRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
@@ -415,7 +417,7 @@ public class UMLCanvas extends AbsolutePanel {
 							}
 							newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId),
 									(ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
+							((ObjectRelationLinkArtifact) newArtifact).setName((isForPasting ? "CopyOf" : "") + parameters[3]);
 							((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 							((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
 							((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
@@ -431,7 +433,7 @@ public class UMLCanvas extends AbsolutePanel {
 							}
 							newArtifact = new MessageLinkArtifact((LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineLeftId),
 									(LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((MessageLinkArtifact) newArtifact).setName(parameters[3]);
+							((MessageLinkArtifact) newArtifact).setName((isForPasting ? "CopyOf" : "") + parameters[3]);
 							((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
 							((MessageLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
 							((MessageLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
@@ -451,6 +453,10 @@ public class UMLCanvas extends AbsolutePanel {
 						if (newArtifact != null) {
 							newArtifact.setId(id);
 							this.add(newArtifact);
+						}
+						if(isForPasting) {
+							selectArtifact(newArtifact);
+							
 						}
 					}
 				}
@@ -791,6 +797,9 @@ public class UMLCanvas extends AbsolutePanel {
 	void copy() {
 		if(this.selectedArtifacts.isEmpty()) return;
 		final StringBuilder url = new StringBuilder();
+		Point lower = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		Point higher = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
+		
 		for (final Entry<Integer, UMLArtifact> uMLArtifactEntry : UMLArtifact.getArtifactList().entrySet()) {
 			if(this.selectedArtifacts.containsKey(uMLArtifactEntry.getValue())) {
 				final String artifactString = uMLArtifactEntry.getValue().toURL();
@@ -803,15 +812,21 @@ public class UMLCanvas extends AbsolutePanel {
 						url.append(">]");
 						url.append(artifactString);
 						url.append(";");
+						if(!uMLArtifactEntry.getValue().isALink()) {
+							lower = Point.min(lower, uMLArtifactEntry.getValue().getCenter());
+							higher = Point.max(higher, uMLArtifactEntry.getValue().getCenter());
+						}
 					}
 				}
 			}
 		}
 		this.copyBuffer = url.toString();
+		this.copyMousePosition = Point.getMiddleOf(lower, higher);
 	}
 	void paste() {
-		if(!this.copyBuffer.equals("")) {
+		if(!this.copyBuffer.equals("") && this.dragAndDropState == DragAndDropState.NONE) {
 			// Getting ids :
+			deselectAllArtifacts();
 			LinkedList<Integer> oldIds = new LinkedList<Integer>(); 
 			String[] slices = this.copyBuffer.split(">");
 			for (String stringId : slices) {
@@ -826,6 +841,11 @@ public class UMLCanvas extends AbsolutePanel {
 			}
 			UMLArtifact.setIdCount(UMLArtifact.getIdCount() + oldIds.size() + 1); 
 			fromURL(this.copyBuffer, true);
+			this.dragOffset = this.currentMousePosition;
+			
+			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+			this.dragAndDropState = DragAndDropState.TAKING;
+			this.mouseIsPressed = true;
 		}
 	}
 	boolean fireDeleteArtifactEvent(final UMLArtifact umlArtifact) {

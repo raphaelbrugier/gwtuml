@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
@@ -51,6 +52,11 @@ public class ObjectPartAttributesEditor extends FieldEditor {
 		}
 
 		final UMLObjectAttribute newAttribute = UMLObjectAttribute.parseAttribute(newContent);
+		if ((newAttribute.getName() + newAttribute.getType()).equals("")) {
+			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
+			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			return false;
+		}
 		this.attributeToChange.setVisibility(newAttribute.getVisibility());
 		this.attributeToChange.setName(newAttribute.getName());
 		this.attributeToChange.setType(newAttribute.getType());

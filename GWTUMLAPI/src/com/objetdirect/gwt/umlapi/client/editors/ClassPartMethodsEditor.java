@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartAttributesArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
@@ -66,17 +67,17 @@ public class ClassPartMethodsEditor extends FieldEditor {
 			return false;
 		}
 		final UMLClassMethod newMethod = UMLClassMethod.parseMethod(newContent);
-		if (newMethod != null) {
-			this.methodToChange.setVisibility(newMethod.getVisibility());
-			this.methodToChange.setName(newMethod.getName());
-			this.methodToChange.setReturnType(newMethod.getReturnType());
-			this.methodToChange.setParameters(newMethod.getParameters());
+		if ((newMethod == null) || (newMethod.getName() + newMethod.getReturnType() + newMethod.getParameters()).equals("")) {
+			((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
 			((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
-			return true;
+			return false;
 		}
-		((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
+		this.methodToChange.setVisibility(newMethod.getVisibility());
+		this.methodToChange.setName(newMethod.getName());
+		this.methodToChange.setReturnType(newMethod.getReturnType());
+		this.methodToChange.setParameters(newMethod.getParameters());
 		((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
-		return false;
+		return true;
 
 	}
 }
