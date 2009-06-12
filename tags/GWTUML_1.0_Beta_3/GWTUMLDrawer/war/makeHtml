@@ -1,0 +1,2 @@
+rm -f GWTUMLDrawer.html
+sed 's/###/'"$1"'/g' <GWTUMLDrawer-naked.html >GWTUMLDrawer.html 
