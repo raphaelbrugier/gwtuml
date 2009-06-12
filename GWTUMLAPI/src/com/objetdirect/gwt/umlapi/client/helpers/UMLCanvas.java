@@ -15,8 +15,10 @@
 package com.objetdirect.gwt.umlapi.client.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -72,9 +74,7 @@ public class UMLCanvas extends AbsolutePanel {
 	private static long										classCount						= 1;
 	private static long										objectCount						= 1;
 	private static long										lifeLineCount					= 1;
-	/**
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
+	private String											copyBuffer 						= "";
 	private long											noteCount;
 	private LinkKind										activeLinking;
 	private Point											selectBoxStartPoint;
@@ -84,10 +84,10 @@ public class UMLCanvas extends AbsolutePanel {
 	private DragAndDropState								dragAndDropState				= DragAndDropState.NONE;
 
 	private Point											currentMousePosition			= new Point(-200, -200);						// In case of the
-																																			// mouse hasn't been
-																																			// moved before
-																																			// adding an
-																																			// artifact
+	// mouse hasn't been
+	// moved before
+	// adding an
+	// artifact
 	private final Point										canvasOffset					= Point.getOrigin();
 	private Point											duringDragOffset				= Point.getOrigin();
 	private HashMap<UMLArtifact, ArrayList<Point>>			previouslySelectedArtifacts;
@@ -96,58 +96,58 @@ public class UMLCanvas extends AbsolutePanel {
 	private boolean											isMouseEnabled					= true;
 	private final GfxObjectListener							gfxObjectListener				= new GfxObjectListener() {
 
-																								@Override
-																								public void mouseDoubleClicked(final GfxObject graphicObject,
-																										final Event event) {
-																									if (UMLCanvas.this.isMouseEnabled) {
-																										Mouse.doubleClick(graphicObject, new Point(event
-																												.getClientX(), event.getClientY()), event
-																												.getButton(), event.getCtrlKey(), event
-																												.getAltKey(), event.getShiftKey(), event
-																												.getMetaKey());
-																									}
-																								}
+		@Override
+		public void mouseDoubleClicked(final GfxObject graphicObject,
+				final Event event) {
+			if (UMLCanvas.this.isMouseEnabled) {
+				Mouse.doubleClick(graphicObject, new Point(event
+						.getClientX(), event.getClientY()), event
+						.getButton(), event.getCtrlKey(), event
+						.getAltKey(), event.getShiftKey(), event
+						.getMetaKey());
+			}
+		}
 
-																								@Override
-																								public void mouseMoved(final Event event) {
-																									if (UMLCanvas.this.isMouseEnabled) {
-																										Mouse.move(new Point(event.getClientX(), event
-																												.getClientY()), event.getButton(), event
-																												.getCtrlKey(), event.getAltKey(), event
-																												.getShiftKey(), event.getMetaKey());
-																									}
-																								}
+		@Override
+		public void mouseMoved(final Event event) {
+			if (UMLCanvas.this.isMouseEnabled) {
+				Mouse.move(new Point(event.getClientX(), event
+						.getClientY()), event.getButton(), event
+						.getCtrlKey(), event.getAltKey(), event
+						.getShiftKey(), event.getMetaKey());
+			}
+		}
 
-																								@Override
-																								public void mousePressed(final GfxObject graphicObject,
-																										final Event event) {
-																									if (UMLCanvas.this.isMouseEnabled) {
-																										Mouse.press(graphicObject, new Point(
-																												event.getClientX(), event.getClientY()), event
-																												.getButton(), event.getCtrlKey(), event
-																												.getAltKey(), event.getShiftKey(), event
-																												.getMetaKey());
-																									}
-																								}
+		@Override
+		public void mousePressed(final GfxObject graphicObject,
+				final Event event) {
+			if (UMLCanvas.this.isMouseEnabled) {
+				Mouse.press(graphicObject, new Point(
+						event.getClientX(), event.getClientY()), event
+						.getButton(), event.getCtrlKey(), event
+						.getAltKey(), event.getShiftKey(), event
+						.getMetaKey());
+			}
+		}
 
-																								@Override
-																								public void mouseReleased(final GfxObject graphicObject,
-																										final Event event) {
-																									if (UMLCanvas.this.isMouseEnabled) {
-																										Mouse.release(graphicObject, new Point(event
-																												.getClientX(), event.getClientY()), event
-																												.getButton(), event.getCtrlKey(), event
-																												.getAltKey(), event.getShiftKey(), event
-																												.getMetaKey());
-																									}
-																								}
+		@Override
+		public void mouseReleased(final GfxObject graphicObject,
+				final Event event) {
+			if (UMLCanvas.this.isMouseEnabled) {
+				Mouse.release(graphicObject, new Point(event
+						.getClientX(), event.getClientY()), event
+						.getButton(), event.getCtrlKey(), event
+						.getAltKey(), event.getShiftKey(), event
+						.getMetaKey());
+			}
+		}
 
-																							};
+	};
 
 	private boolean											mouseIsPressed					= false;										// Manage mouse
-																																			// state when
-																																			// releasing outside
-																																			// the listener
+	// state when
+	// releasing outside
+	// the listener
 
 	private final GfxObject									movingLines						= GfxManager.getPlatform().buildVirtualGroup();
 
@@ -157,20 +157,20 @@ public class UMLCanvas extends AbsolutePanel {
 
 	private final GfxObject									allObjects						= GfxManager.getPlatform().buildVirtualGroup();
 
-	private final Map<GfxObject, UMLArtifact>				objects							= new HashMap<GfxObject, UMLArtifact>();		// Map of
-																																			// UMLArtifact with
-																																			// corresponding
-																																			// Graphical objects
-																																			// (group)
+	private final Map<GfxObject, UMLArtifact>					objects							= new HashMap<GfxObject, UMLArtifact>();	// Map of
+	// UMLArtifact with
+	// corresponding
+	// Graphical objects
+	// (group)
 
 	private final Set<UMLArtifact>							objectsToBeAddedWhenAttached	= new LinkedHashSet<UMLArtifact>();
 
 	private final HashMap<UMLArtifact, ArrayList<Point>>	selectedArtifacts				= new HashMap<UMLArtifact, ArrayList<Point>>(); // Represent the
-																																			// selected
-																																			// UMLArtifacts and
-																																			// his moving
-																																			// dependencies
-																																			// points
+	// selected
+	// UMLArtifacts and
+	// his moving
+	// dependencies
+	// points
 
 	private final ArrayList<GWTUMLEventListener>			uMLEventListenerList			= new ArrayList<GWTUMLEventListener>();
 	private Point											dragOffset;
@@ -299,164 +299,166 @@ public class UMLCanvas extends AbsolutePanel {
 	 * 
 	 * @param url
 	 *            The {@link String} previously generated by {@link UMLCanvas#toUrl()}
+	 * 
+	 * @param isForPasting True if the parsing is for copy pasting 
 	 */
-	public void fromURL(final String url) {
-		try {
-			if (!url.equals("AA==")) {
-				String diagram = GWTUMLDrawerHelper.decodeBase64(url);
+	public void fromURL(final String url, final boolean isForPasting) {
+		//try {
+		if (!url.equals("AA==")) {
+			String diagram = isForPasting ? url :GWTUMLDrawerHelper.decodeBase64(url);
 
-				diagram = diagram.substring(0, diagram.lastIndexOf(";"));
-				final String[] diagramArtifacts = diagram.split(";");
+			diagram = diagram.substring(0, diagram.lastIndexOf(";"));
+			final String[] diagramArtifacts = diagram.split(";");
 
-				for (final String artifactWithParameters : diagramArtifacts) {
-					if (!artifactWithParameters.equals("")) {
-						final String[] artifactAndParameters = artifactWithParameters.split("\\$");
-						if (artifactAndParameters.length > 1) {
-							final String[] artifactAndId = artifactAndParameters[0].split("]");
-							final String[] parameters = artifactAndParameters[1].split("!", -1);
-							final String artifact = artifactAndId[1];
-							int id = 0;
+			for (final String artifactWithParameters : diagramArtifacts) {
+				if (!artifactWithParameters.equals("")) {
+					final String[] artifactAndParameters = artifactWithParameters.split("\\$");
+					if (artifactAndParameters.length > 1) {
+						final String[] artifactAndId = artifactAndParameters[0].split("]");
+						final String[] parameters = artifactAndParameters[1].split("!", -1);
+						final String artifact = artifactAndId[1];
+						int id = 0;
+						try {
+							id = Integer.parseInt(artifactAndId[0].replaceAll("[<>]", ""));
+						} catch (final Exception ex) {
+							Log.error("Parsing url, artifact id is NaN : " + artifactWithParameters + " : " + ex);
+						}
+						UMLArtifact newArtifact = null;
+						if (artifact.equals("Class")) {
+							newArtifact = new ClassArtifact(UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
+							newArtifact.setLocation(Point.parse(parameters[0]));
+							if (parameters[3].length() > 1) {
+								final String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
+								for (final String attribute : classAttributes) {
+									((ClassArtifact) newArtifact).addAttribute(UMLClassAttribute.parseAttribute(attribute));
+								}
+							}
+							if (parameters[4].length() > 1) {
+								final String[] classMethods = parameters[4].substring(0, parameters[4].lastIndexOf("%")).split("%");
+								for (final String method : classMethods) {
+									((ClassArtifact) newArtifact).addMethod(UMLClassMethod.parseMethod(method));
+								}
+							}
+
+						} else if (artifact.equals("Object")) {
+							newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), UMLObject.parseName(parameters[1]).get(1),
+									UMLObject.parseStereotype(parameters[2]));
+							newArtifact.setLocation(Point.parse(parameters[0]));
+							if (parameters[3].length() > 1) {
+								final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
+								for (final String attribute : objectAttributes) {
+									((ObjectArtifact) newArtifact).addAttribute(UMLObjectAttribute.parseAttribute(attribute));
+								}
+							}
+
+						} else if (artifact.equals("LifeLine")) {
+							newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
+							newArtifact.setLocation(Point.parse(parameters[0]));
+
+						} else if (artifact.equals("Note")) {
+							newArtifact = new NoteArtifact(parameters[1]);
+							newArtifact.setLocation(Point.parse(parameters[0]));
+
+						} else if (artifact.equals("LinkNote")) {
+							Integer noteId = 0;
+							Integer targetId = 0;
 							try {
-								id = Integer.parseInt(artifactAndId[0]);
+								noteId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								targetId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
 							} catch (final Exception ex) {
-								Log.error("Parsing url, artifact id is NaN : " + artifactWithParameters + " : " + ex);
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							UMLArtifact newArtifact = null;
-							if (artifact.equals("Class")) {
-								newArtifact = new ClassArtifact(UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
-								newArtifact.setLocation(Point.parse(parameters[0]));
-								if (parameters[3].length() > 1) {
-									final String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
-									for (final String attribute : classAttributes) {
-										((ClassArtifact) newArtifact).addAttribute(UMLClassAttribute.parseAttribute(attribute));
-									}
-								}
-								if (parameters[4].length() > 1) {
-									final String[] classMethods = parameters[4].substring(0, parameters[4].lastIndexOf("%")).split("%");
-									for (final String method : classMethods) {
-										((ClassArtifact) newArtifact).addMethod(UMLClassMethod.parseMethod(method));
-									}
-								}
+							newArtifact = new LinkNoteArtifact((NoteArtifact) UMLArtifact.getArtifactById(noteId), UMLArtifact.getArtifactById(targetId));
 
-							} else if (artifact.equals("Object")) {
-								newArtifact = new ObjectArtifact(UMLObject.parseName(parameters[1]).get(0), UMLObject.parseName(parameters[1]).get(1),
-										UMLObject.parseStereotype(parameters[2]));
-								newArtifact.setLocation(Point.parse(parameters[0]));
-								if (parameters[3].length() > 1) {
-									final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
-									for (final String attribute : objectAttributes) {
-										((ObjectArtifact) newArtifact).addAttribute(UMLObjectAttribute.parseAttribute(attribute));
-									}
-								}
-
-							} else if (artifact.equals("LifeLine")) {
-								newArtifact = new LifeLineArtifact(UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
-								newArtifact.setLocation(Point.parse(parameters[0]));
-
-							} else if (artifact.equals("Note")) {
-								newArtifact = new NoteArtifact(parameters[1]);
-								newArtifact.setLocation(Point.parse(parameters[0]));
-
-							} else if (artifact.equals("LinkNote")) {
-								Integer noteId = 0;
-								Integer targetId = 0;
-								try {
-									noteId = Integer.parseInt(parameters[0]);
-									targetId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new LinkNoteArtifact((NoteArtifact) UMLArtifact.getArtifactById(noteId), UMLArtifact.getArtifactById(targetId));
-
-							} else if (artifact.equals("LinkClassRelation")) {
-								Integer classId = 0;
-								Integer relationId = 0;
-								try {
-									classId = Integer.parseInt(parameters[0]);
-									relationId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new LinkClassRelationArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId),
-										(ClassRelationLinkArtifact) UMLArtifact.getArtifactById(relationId));
-
-							} else if (artifact.equals("ClassRelationLink")) {
-								Integer classLeftId = 0;
-								Integer classRigthId = 0;
-								try {
-									classLeftId = Integer.parseInt(parameters[0]);
-									classRigthId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId),
-										(ClassArtifact) UMLArtifact.getArtifactById(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-								((ClassRelationLinkArtifact) newArtifact).setName(parameters[3]);
-								((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-								((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-								((ClassRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
-								((ClassRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
-								((ClassRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
-								((ClassRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
-								((ClassRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
-								((ClassRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
-								((ClassRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
-
-							} else if (artifact.equals("ObjectRelationLink")) {
-								Integer objectLeftId = 0;
-								Integer objectRigthId = 0;
-								try {
-									objectLeftId = Integer.parseInt(parameters[0]);
-									objectRigthId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId),
-										(ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-								((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
-								((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-								((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-								((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
-
-							} else if (artifact.equals("MessageLink")) {
-								Integer lifeLineLeftId = 0;
-								Integer lifeLineRigthId = 0;
-								try {
-									lifeLineLeftId = Integer.parseInt(parameters[0]);
-									lifeLineRigthId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new MessageLinkArtifact((LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineLeftId),
-										(LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-								((MessageLinkArtifact) newArtifact).setName(parameters[3]);
-								((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-								((MessageLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-								((MessageLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
-
-							} else if (artifact.equals("InstantiationRelationLink")) {
-								Integer classId = 0;
-								Integer objectId = 0;
-								try {
-									classId = Integer.parseInt(parameters[0]);
-									objectId = Integer.parseInt(parameters[1]);
-								} catch (final Exception ex) {
-									Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-								}
-								newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId),
-										(ObjectArtifact) UMLArtifact.getArtifactById(objectId), LinkKind.INSTANTIATION);
+						} else if (artifact.equals("LinkClassRelation")) {
+							Integer classId = 0;
+							Integer relationId = 0;
+							try {
+								classId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								relationId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
+							} catch (final Exception ex) {
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							if (newArtifact != null) {
-								newArtifact.setId(id);
-								this.add(newArtifact);
+							newArtifact = new LinkClassRelationArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId),
+									(ClassRelationLinkArtifact) UMLArtifact.getArtifactById(relationId));
+
+						} else if (artifact.equals("ClassRelationLink")) {
+							Integer classLeftId = 0;
+							Integer classRigthId = 0;
+							try {
+								classLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								classRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
+							} catch (final Exception ex) {
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
+							newArtifact = new ClassRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classLeftId),
+									(ClassArtifact) UMLArtifact.getArtifactById(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
+							((ClassRelationLinkArtifact) newArtifact).setName(parameters[3]);
+							((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+							((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+							((ClassRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
+							((ClassRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
+							((ClassRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
+							((ClassRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
+							((ClassRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
+							((ClassRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
+							((ClassRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
+
+						} else if (artifact.equals("ObjectRelationLink")) {
+							Integer objectLeftId = 0;
+							Integer objectRigthId = 0;
+							try {
+								objectLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								objectRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
+							} catch (final Exception ex) {
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+							}
+							newArtifact = new ObjectRelationLinkArtifact((ObjectArtifact) UMLArtifact.getArtifactById(objectLeftId),
+									(ObjectArtifact) UMLArtifact.getArtifactById(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
+							((ObjectRelationLinkArtifact) newArtifact).setName(parameters[3]);
+							((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+							((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+							((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
+
+						} else if (artifact.equals("MessageLink")) {
+							Integer lifeLineLeftId = 0;
+							Integer lifeLineRigthId = 0;
+							try {
+								lifeLineLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								lifeLineRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
+							} catch (final Exception ex) {
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+							}
+							newArtifact = new MessageLinkArtifact((LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineLeftId),
+									(LifeLineArtifact) UMLArtifact.getArtifactById(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
+							((MessageLinkArtifact) newArtifact).setName(parameters[3]);
+							((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
+							((MessageLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
+							((MessageLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
+
+						} else if (artifact.equals("InstantiationRelationLink")) {
+							Integer classId = 0;
+							Integer objectId = 0;
+							try {
+								classId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
+								objectId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
+							} catch (final Exception ex) {
+								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
+							}
+							newArtifact = new InstantiationRelationLinkArtifact((ClassArtifact) UMLArtifact.getArtifactById(classId),
+									(ObjectArtifact) UMLArtifact.getArtifactById(objectId), LinkKind.INSTANTIATION);
+						}
+						if (newArtifact != null) {
+							newArtifact.setId(id);
+							this.add(newArtifact);
 						}
 					}
 				}
 			}
-		} catch (final Exception ex) {
-			Log.error("There was a problem reading diagram in url : " + ex);
 		}
+		//} catch (final Exception ex) {
+		//	Log.error("There was a problem reading diagram in url : ");
+		//}
 	}
 
 	/**
@@ -635,8 +637,9 @@ public class UMLCanvas extends AbsolutePanel {
 		for (final Entry<Integer, UMLArtifact> uMLArtifactEntry : UMLArtifact.getArtifactList().entrySet()) {
 			final String artifactString = uMLArtifactEntry.getValue().toURL();
 			if ((artifactString != null) && !artifactString.equals("")) {
+				url.append("<");
 				url.append(uMLArtifactEntry.getKey());
-				url.append("]");
+				url.append(">]");
 				url.append(artifactString);
 				url.append(";");
 			}
@@ -781,7 +784,50 @@ public class UMLCanvas extends AbsolutePanel {
 			this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 		}
 	}
-
+	void cut() {
+		this.copy();
+		this.removeSelected();
+	}
+	void copy() {
+		if(this.selectedArtifacts.isEmpty()) return;
+		final StringBuilder url = new StringBuilder();
+		for (final Entry<Integer, UMLArtifact> uMLArtifactEntry : UMLArtifact.getArtifactList().entrySet()) {
+			if(this.selectedArtifacts.containsKey(uMLArtifactEntry.getValue())) {
+				final String artifactString = uMLArtifactEntry.getValue().toURL();
+				if ((artifactString != null) && !artifactString.equals("")) {
+					if(!uMLArtifactEntry.getValue().isALink() 
+							|| (this.selectedArtifacts.containsKey(((LinkArtifact) uMLArtifactEntry.getValue()).getLeftUMLArtifact()) 
+									&& this.selectedArtifacts.containsKey(((LinkArtifact) uMLArtifactEntry.getValue()).getRightUMLArtifact()))) {					
+						url.append("<");
+						url.append(uMLArtifactEntry.getKey());
+						url.append(">]");
+						url.append(artifactString);
+						url.append(";");
+					}
+				}
+			}
+		}
+		this.copyBuffer = url.toString();
+	}
+	void paste() {
+		if(!this.copyBuffer.equals("")) {
+			// Getting ids :
+			LinkedList<Integer> oldIds = new LinkedList<Integer>(); 
+			String[] slices = this.copyBuffer.split(">");
+			for (String stringId : slices) {
+				if(stringId.contains("<")) {
+					oldIds.add(Integer.parseInt(stringId.split("<")[1]));
+				}
+			}
+			Collections.sort(oldIds);
+			// Creating new Ids
+			for (Integer oldId : oldIds) {
+				this.copyBuffer = this.copyBuffer.replaceAll("<" + oldId + ">", "<" + (UMLArtifact.getIdCount() + oldIds.indexOf(oldId) + 1) + ">");
+			}
+			UMLArtifact.setIdCount(UMLArtifact.getIdCount() + oldIds.size() + 1); 
+			fromURL(this.copyBuffer, true);
+		}
+	}
 	boolean fireDeleteArtifactEvent(final UMLArtifact umlArtifact) {
 		boolean isThisOk = true;
 		for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
@@ -927,9 +973,9 @@ public class UMLCanvas extends AbsolutePanel {
 
 	void rebuildAllLinks() {
 		for (final UMLArtifact artifact : this.objects.values()) {
-			if (!artifact.isALink()) {
+			//if (!artifact.isALink()) {
 				artifact.rebuildGfxObject();
-			}
+			//}
 		}
 	}
 
@@ -977,6 +1023,8 @@ public class UMLCanvas extends AbsolutePanel {
 			Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
 		}
 		this.objectsToBeAddedWhenAttached.clear();
+		this.makeArrows();
+
 	}
 
 	private void animateLinking(final Point location) {

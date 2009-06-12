@@ -112,7 +112,7 @@ public class HistoryManager implements ValueChangeHandler<String> {
 			if (HistoryManager.urlDiagram.equals("")) {
 				drawerPanel.addDefaultNode();
 			} else {
-				Session.getActiveCanvas().fromURL(HistoryManager.urlDiagram);
+				Session.getActiveCanvas().fromURL(HistoryManager.urlDiagram, false);
 			}
 			GWTUMLDrawer.southBar.setVisible(true);
 			HistoryManager.applicationPanel.add(drawerPanel);

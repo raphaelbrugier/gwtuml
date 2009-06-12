@@ -541,4 +541,22 @@ public abstract class UMLArtifact {
 		return this.allDependencies;
 	}
 
+	/**
+	 * Setter for the idCount
+	 *
+	 * @param idCount the idCount to set
+	 */
+	public static void setIdCount(int idCount) {
+		UMLArtifact.idCount = idCount;
+	}
+
+	/**
+	 * Getter for the idCount
+	 *
+	 * @return the idCount
+	 */
+	public static int getIdCount() {
+		return idCount;
+	}
+
 }

@@ -94,7 +94,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "LinkClassRelation$" + this.classArtifact.getId() + "!" + this.relationLinkArtifact.getId();
+		return "LinkClassRelation$<" + this.classArtifact.getId() + ">!<" + this.relationLinkArtifact.getId() +">";
 	}
 
 	@Override

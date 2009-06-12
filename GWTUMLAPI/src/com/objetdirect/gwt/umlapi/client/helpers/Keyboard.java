@@ -58,9 +58,24 @@ public class Keyboard {
 		}
 		Log.trace("Keyboard down Key :" + keyCode + "(" + (int) keyCode + ") with ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
 		switch (keyCode) {
+			case 'X':
+				if (isCtrlDown) {
+					Session.getActiveCanvas().cut();
+				}
+				break;
+			case 'V':
+				if (isCtrlDown) {
+					Session.getActiveCanvas().paste();
+				}
+				break;
 			case 'C':
+				if (isCtrlDown) {
+					Session.getActiveCanvas().copy();
+				} else {
+				
 				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
 					Session.getActiveCanvas().addNewClass();
+				}
 				}
 				break;
 			case 'O':
