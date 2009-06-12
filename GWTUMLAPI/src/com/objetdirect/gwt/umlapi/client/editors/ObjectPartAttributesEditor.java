@@ -45,7 +45,7 @@ public class ObjectPartAttributesEditor extends FieldEditor {
 
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
-		if (newContent.equals("")) {
+		if (newContent.trim().equals("")) {
 			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
 			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
 			return false;

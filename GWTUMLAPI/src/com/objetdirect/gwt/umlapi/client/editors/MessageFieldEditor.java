@@ -54,7 +54,7 @@ public class MessageFieldEditor extends FieldEditor {
 	 */
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
-		if (newContent.equals("")) {
+		if (newContent.trim().equals("")) {
 			this.canvas.remove(this.artifact);
 			return false;
 		}
