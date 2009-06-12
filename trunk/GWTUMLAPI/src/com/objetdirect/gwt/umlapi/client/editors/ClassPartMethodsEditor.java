@@ -60,7 +60,7 @@ public class ClassPartMethodsEditor extends FieldEditor {
 	 */
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
-		if (newContent.equals("")) {
+		if (newContent.trim().equals("")) {
 			((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
 			((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
