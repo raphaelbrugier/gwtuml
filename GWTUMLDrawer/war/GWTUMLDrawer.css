@@ -18,7 +18,6 @@
 .editor-small-field-multiline {
 	font: bold 10px Courrier;
 	border: 1px solid #f00;
-	overflow: hidden;
 }
 .editor-field {
 	font: bold 12px Courrier;
@@ -27,7 +26,6 @@
 .editor-field-multiline {
 	font: bold 12px Courrier;
 	border: 1px solid #f00;
-	overflow: hidden;
 }
 .canvas {
 	border: 1px solid black;

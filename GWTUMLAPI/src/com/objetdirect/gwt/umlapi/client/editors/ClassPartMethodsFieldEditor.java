@@ -24,12 +24,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class ClassPartMethodsEditor extends FieldEditor {
+public class ClassPartMethodsFieldEditor extends FieldEditor {
 
 	UMLClassMethod	methodToChange;
 
 	/**
-	 * Constructor of the {@link ClassPartMethodsEditor}
+	 * Constructor of the {@link ClassPartMethodsFieldEditor}
 	 * 
 	 * @param canvas
 	 *            The canvas on which is the artifact
@@ -38,7 +38,7 @@ public class ClassPartMethodsEditor extends FieldEditor {
 	 * @param methodToChange
 	 *            The {@link UMLClassMethod} on which edition has been requested
 	 */
-	public ClassPartMethodsEditor(final UMLCanvas canvas, final ClassPartMethodsArtifact artifact, final UMLClassMethod methodToChange) {
+	public ClassPartMethodsFieldEditor(final UMLCanvas canvas, final ClassPartMethodsArtifact artifact, final UMLClassMethod methodToChange) {
 		super(canvas, artifact);
 		this.methodToChange = methodToChange;
 	}

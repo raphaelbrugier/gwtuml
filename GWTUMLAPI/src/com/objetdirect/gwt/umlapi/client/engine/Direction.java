@@ -183,7 +183,7 @@ public enum Direction {
 	 * @param opposite
 	 *            The direction to determine if it is an opposite of this one
 	 * 
-	 * @return True if it is the oopposite
+	 * @return True if it is the opposite
 	 */
 	public boolean isOppositeOf(final Direction opposite) {
 		return ((this.xDirection == -opposite.xDirection) && (this.yDirection == -opposite.yDirection));

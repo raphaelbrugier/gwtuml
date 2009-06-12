@@ -979,26 +979,48 @@ public class UMLCanvas extends AbsolutePanel {
 
 	void moveSelected(final Direction direction) {
 		if (!this.selectedArtifacts.isEmpty()) {
+			Point lower = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+			Point higher = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
 			for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+				if(!selectedArtifact.isALink()) {
+					lower = Point.min(lower, Point.add(selectedArtifact.getLocation(), new Point(direction.getXShift(), direction.getYShift())));
+					higher = Point.max(higher, Point.add(Point.add(selectedArtifact.getLocation(), new Point(selectedArtifact.getWidth(), selectedArtifact.getHeight())), new Point(direction.getXShift(), direction.getYShift())));
+				}
 				if (selectedArtifact.isDraggable()) {
 					new Scheduler.Task("MovingSelected") {
 						@Override
 						public void process() {
-							selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX() + direction.getSpeed() * direction.getXDirection(),
-									selectedArtifact.getLocation().getY() + direction.getSpeed() * direction.getYDirection()));
+							selectedArtifact.moveTo(new Point(selectedArtifact.getLocation().getX() + direction.getXShift(),
+									selectedArtifact.getLocation().getY() + direction.getYShift()));
 							selectedArtifact.rebuildGfxObject();
 						}
 					};
 				}
 			}
+			boolean mustShiftCanvas = false; 
+			switch(direction) {
+				case UP:
+					mustShiftCanvas = lower.getY() < -this.canvasOffset.getY();
+					break;
+				case DOWN:
+					mustShiftCanvas = higher.getY() > -this.canvasOffset.getY() + this.getOffsetHeight();
+					break;
+				case LEFT:
+					mustShiftCanvas = lower.getX() < -this.canvasOffset.getX();
+					break;
+				case RIGHT:
+					mustShiftCanvas = higher.getX() > -this.canvasOffset.getX() + this.getOffsetWidth();
+					break;
+			}
+			if(mustShiftCanvas) {				
+				moveAll(direction, false);
+			}			
 		}
 	}
 
 	void rebuildAllLinks() {
 		for (final UMLArtifact artifact : this.objects.values()) {
-			//if (!artifact.isALink()) {
 				artifact.rebuildGfxObject();
-			//}
 		}
 	}
 

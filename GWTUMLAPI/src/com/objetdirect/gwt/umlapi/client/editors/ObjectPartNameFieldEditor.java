@@ -57,15 +57,16 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
 
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
+		final String newContentWithoutSpaces = newContent.replaceAll(" ", "_");
 		if (this.isTheStereotype) {
-			final String newStereotype = UMLObject.parseStereotype(newContent.replaceAll("[«»]", ""));
+			final String newStereotype = UMLObject.parseStereotype(newContentWithoutSpaces.replaceAll("[«»]", ""));
 			if (newStereotype.equals("")) {
 				((ObjectPartNameArtifact) this.artifact).setStereotype("");
 			} else {
 				((ObjectPartNameArtifact) this.artifact).setStereotype("«" + newStereotype + "»");
 			}
 		} else {
-			final List<String> newNameInstance = UMLObject.parseName(newContent);
+			final List<String> newNameInstance = UMLObject.parseName(newContentWithoutSpaces);
 			if (newNameInstance.get(1).equals("")) {
 				((ObjectPartNameArtifact) this.artifact).setObjectName("Object");
 			} else {

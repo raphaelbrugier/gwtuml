@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
-import com.objetdirect.gwt.umlapi.client.editors.ClassPartMethodsEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ClassPartMethodsFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -134,7 +134,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		if (methodToChange == null) {
 			this.edit();
 		} else {
-			final ClassPartMethodsEditor editor = new ClassPartMethodsEditor(this.canvas, this, methodToChange);
+			final ClassPartMethodsFieldEditor editor = new ClassPartMethodsFieldEditor(this.canvas, this, methodToChange);
 			editor
 					.startEdition(methodToChange.toString(), (this.nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
 							.get("RectangleLeftPadding")),
