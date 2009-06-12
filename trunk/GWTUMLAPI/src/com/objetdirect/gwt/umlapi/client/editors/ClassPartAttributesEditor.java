@@ -66,7 +66,11 @@ public class ClassPartAttributesEditor extends FieldEditor {
 			return false;
 		}
 		final UMLClassAttribute newAttribute = UMLClassAttribute.parseAttribute(newContent);
-
+		if ((newAttribute.getName() + newAttribute.getType()).equals("")) {
+			((ClassPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
+			((ClassPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			return false;
+		}
 		this.attributeToChange.setVisibility(newAttribute.getVisibility());
 		this.attributeToChange.setName(newAttribute.getName());
 		this.attributeToChange.setType(newAttribute.getType());
