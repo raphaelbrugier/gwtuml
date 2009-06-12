@@ -315,7 +315,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 		public boolean equals(final Object obj) {
 			final UMLArtifactPeer peer = (UMLArtifactPeer) obj;
 			return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2))
-					|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
+			|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
 		}
 	}
 
@@ -381,7 +381,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
 
 	private final UMLArtifact	rightUMLArtifact;
-	
+
 	/**
 	 * Getter for the rightUMLArtifact
 	 *
@@ -474,7 +474,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 		this.doesntHaveToBeComputed = state;
 	}
 
-	protected void computeDirectionsType(final boolean isForAngular) {
+	protected void computeDirectionsType() {
 		if (this.doesntHaveToBeComputed) {
 			return;
 		}
@@ -486,36 +486,34 @@ public abstract class LinkArtifact extends UMLArtifact {
 		this.leftDirection = this.computeDirectionType(this.leftPoint, this.leftUMLArtifact);
 		this.rightDirection = this.computeDirectionType(this.rightPoint, this.rightUMLArtifact);
 
-		if (isForAngular) {
-			if (this.leftDirection != oldLeftDirection) {
-				this.leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
-				this.leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
-				this.leftUMLArtifact.addDirectionDependecy(this.leftDirection, this);
+		if (this.leftDirection != oldLeftDirection) {
+			this.leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
+			this.leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
+			this.leftUMLArtifact.addDirectionDependecy(this.leftDirection, this);
+			this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
+			this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
+		} else {
+			if (!LinkArtifact.isAlreadyBeSorted) {
+				LinkArtifact.isAlreadyBeSorted = true;
 				this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
 				this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
-			} else {
-				if (!LinkArtifact.isAlreadyBeSorted) {
-					LinkArtifact.isAlreadyBeSorted = true;
-					this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
-					this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
-					LinkArtifact.isAlreadyBeSorted = false;
-				}
+				LinkArtifact.isAlreadyBeSorted = false;
 			}
-			if (this.rightDirection != oldRightDirection) {
-				this.rightUMLArtifact.removeDirectionDependecy(this.rightDirection, this);
-				this.rightUMLArtifact.rebuildDirectionDependencies(oldRightDirection);
-				this.rightUMLArtifact.addDirectionDependecy(this.rightDirection, this);
+		}
+		if (this.rightDirection != oldRightDirection) {
+			this.rightUMLArtifact.removeDirectionDependecy(this.rightDirection, this);
+			this.rightUMLArtifact.rebuildDirectionDependencies(oldRightDirection);
+			this.rightUMLArtifact.addDirectionDependecy(this.rightDirection, this);
+			this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
+			this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
+		} else {
+			if (!LinkArtifact.isAlreadyBeSorted) {
+				LinkArtifact.isAlreadyBeSorted = true;
 				this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
 				this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
-			} else {
-				if (!LinkArtifact.isAlreadyBeSorted) {
-					LinkArtifact.isAlreadyBeSorted = true;
-					this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
-					this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
-					LinkArtifact.isAlreadyBeSorted = false;
-				}
-
+				LinkArtifact.isAlreadyBeSorted = false;
 			}
+
 		}
 		this.isTheOneRebuilding = false;
 	}
