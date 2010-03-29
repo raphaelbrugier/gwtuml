@@ -17,6 +17,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 
@@ -30,6 +31,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
  * </ul>
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ClassArtifact extends NodeArtifact {
 	ClassPartAttributesArtifact	classAttributes;
@@ -64,7 +66,7 @@ public class ClassArtifact extends NodeArtifact {
 	public ClassArtifact(final String className, final String stereotype) {
 		super();
 		this.className = new ClassPartNameArtifact(className, stereotype);
-		this.classAttributes = new ClassPartAttributesArtifact();
+		this.classAttributes = new ClassPartAttributesArtifact(this.className.getUMLClass());
 		this.classMethods = new ClassPartMethodsArtifact();
 		this.nodeParts.add(this.className);
 		this.nodeParts.add(this.classAttributes);
@@ -81,7 +83,7 @@ public class ClassArtifact extends NodeArtifact {
 	 *            The attribute, sent to {@link ClassPartAttributesArtifact}
 	 */
 	public void addAttribute(final UMLClassAttribute attribute) {
-		this.classAttributes.add(attribute);
+		this.classAttributes.addAttribute(attribute);
 	}
 
 	/**
@@ -139,6 +141,10 @@ public class ClassArtifact extends NodeArtifact {
 		return rightMenu;
 	}
 
+	public UMLClass toUMLComponent() {
+		return className.getUMLClass();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

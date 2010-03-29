@@ -43,7 +43,12 @@
 		</jar>
   </target>
 
-  <target name="dist" depends="javadoc,jar" description="Jar this library" />
+  <target name="dist" depends="jar,copy" description="Jar this library" />
+
+	<target name="copy" 
+	        description="copy jar to GwtGenerator project" >
+		<copy file="build/dist/gwt-umlapi.jar" todir="../GwtGenerator/war/WEB-INF/lib"/>
+	</target>
 
   <target name="clean" description="Cleans this project">
     <delete dir="war/WEB-INF/classes" failonerror="false" />

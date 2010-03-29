@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
@@ -39,19 +40,22 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * This class represent the middle Part of a {@link NodeArtifact} It can hold an attribute list
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ClassPartAttributesArtifact extends NodePartArtifact {
 	private final Map<GfxObject, UMLClassAttribute>	attributeGfxObjects;
 	private GfxObject								attributeRect;
 	private final List<UMLClassAttribute>			attributes;
 	private GfxObject								lastGfxObject;
+	private UMLClass 								ownerClass;
 
 	/**
 	 * Constructor of ClassPartAttributesArtifact It initializes the attribute list
-	 * 
+	 * @param ownerClass Owner class of the attributes (as UMLComponent)
 	 */
-	public ClassPartAttributesArtifact() {
+	public ClassPartAttributesArtifact(UMLClass ownerClass) {
 		super();
+		this.ownerClass = ownerClass;
 		this.attributes = new ArrayList<UMLClassAttribute>();
 		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
 		this.height = 0;
@@ -64,8 +68,9 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 * @param attribute
 	 *            The new attribute to add
 	 */
-	public void add(final UMLClassAttribute attribute) {
+	public void addAttribute(final UMLClassAttribute attribute) {
 		this.attributes.add(attribute);
+		ownerClass.getAttributes().add(attribute);
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	@Override
 	public void edit() {
 		final UMLClassAttribute attributeToCreate = new UMLClassAttribute(UMLVisibility.PROTECTED, "String", "attribute");
-		this.attributes.add(attributeToCreate);
+		this.addAttribute(attributeToCreate);
 		this.nodeArtifact.rebuildGfxObject();
 		this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
 		this.edit(this.lastGfxObject);
@@ -199,6 +204,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 */
 	public void remove(final UMLClassAttribute attribute) {
 		this.attributes.remove(attribute);
+		ownerClass.getAttributes().remove(attribute);
 	}
 
 	/*

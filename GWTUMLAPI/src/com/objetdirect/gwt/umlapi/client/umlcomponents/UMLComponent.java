@@ -14,12 +14,14 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
+
 /**
  * This abstract class represent any uml component
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public abstract class UMLComponent {
+public abstract class UMLComponent implements Serializable {
 	// Nothing here yet
 }
