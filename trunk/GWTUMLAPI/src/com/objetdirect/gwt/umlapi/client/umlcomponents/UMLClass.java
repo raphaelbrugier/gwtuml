@@ -25,7 +25,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * This class represents a class uml component
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class UMLClass extends UMLNode {
 	/**
@@ -58,6 +58,15 @@ public class UMLClass extends UMLNode {
 	private ArrayList<UMLClassAttribute>	attributes;
 	private ArrayList<UMLClassMethod>		methods;
 
+	
+	/**
+	 * Default constructor for GWT RPC serialization.
+	 */
+	public UMLClass() {
+		attributes = new ArrayList<UMLClassAttribute>();
+		methods = new ArrayList<UMLClassMethod>();
+	}
+	
 	/**
 	 * Constructor of {@link UMLClass}
 	 * 
@@ -66,6 +75,8 @@ public class UMLClass extends UMLNode {
 	public UMLClass(final String name) {
 		super();
 		this.name = name;
+		attributes = new ArrayList<UMLClassAttribute>();
+		methods = new ArrayList<UMLClassMethod>();
 	}
 
 	/**
@@ -151,7 +162,6 @@ public class UMLClass extends UMLNode {
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.name;
 	}
 }

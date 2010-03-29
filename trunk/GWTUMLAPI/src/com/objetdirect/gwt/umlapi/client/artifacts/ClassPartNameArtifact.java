@@ -31,6 +31,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * This class represent the upper Part of a {@link NodeArtifact} It can hold a name and a stereotype
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ClassPartNameArtifact extends NodePartArtifact {
 
@@ -247,6 +248,15 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		this.stereotype = stereotype;
 	}
 
+	
+	/**
+	 * Get the UMLComponent class attached
+	 * @return the class
+	 */
+	public UMLClass getUMLClass() {
+		return uMLclass;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

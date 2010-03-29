@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
@@ -24,8 +26,9 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * 
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public class UMLClassAttribute {
+public class UMLClassAttribute implements Serializable {
 
 	/**
 	 * Parse an attribute from a {@link String}
@@ -78,6 +81,13 @@ public class UMLClassAttribute {
 
 	protected UMLVisibility	visibility;
 
+	
+	/**
+	 * Default constructor for GWT RPC serialization
+	 */
+	public UMLClassAttribute() {
+	}
+	
 	/**
 	 * Constructor of the attribute
 	 * 
