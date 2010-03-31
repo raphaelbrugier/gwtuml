@@ -64,6 +64,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class UMLCanvas extends AbsolutePanel {
 
@@ -1051,7 +1052,9 @@ public class UMLCanvas extends AbsolutePanel {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		Log.trace("Attaching");
+		for(UMLArtifact umlArtifact : objects.values()) {
+			umlArtifact.rebuildGfxObject();
+		}
 	}
 
 	@Override

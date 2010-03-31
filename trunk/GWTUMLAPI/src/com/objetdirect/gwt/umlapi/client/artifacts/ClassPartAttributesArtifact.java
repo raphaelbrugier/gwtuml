@@ -119,7 +119,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 
 	@Override
 	public void edit() {
-		final UMLClassAttribute attributeToCreate = new UMLClassAttribute(UMLVisibility.PROTECTED, "String", "attribute");
+		final UMLClassAttribute attributeToCreate = new UMLClassAttribute(UMLVisibility.PRIVATE, "String", "attribute");
 		this.addAttribute(attributeToCreate);
 		this.nodeArtifact.rebuildGfxObject();
 		this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
