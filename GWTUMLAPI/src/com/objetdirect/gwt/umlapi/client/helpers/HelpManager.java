@@ -23,20 +23,18 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.widgetideas.client.GlassPanel;
 
 /**
  * This class supply an easy way to bring help about the drawer
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
+ * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class HelpManager {
 
 	private static LinkedHashMap<String, String>	hotkeysHelp	= new LinkedHashMap<String, String>();
-	private static boolean isHelpOpened = false;
+	private static PopupPanel popup;
 	/**
 	 * Add a line to inform the user about a hot key
 	 * 
@@ -50,42 +48,41 @@ public class HelpManager {
 	}
 
 	/**
-	 * A call to ths method will bring a popup with the help added previously.
+	 * A call to this method will bring a popup with the help added previously.
 	 */
 	public static void bringHelpPopup() {
-		if(isHelpOpened) {
-			return;
-		}
-		isHelpOpened = true;
-		final StringBuilder htmlContent = new StringBuilder();
-		htmlContent.append("<table style='width: 100%'>");
-		for (final Entry<String, String> entry : HelpManager.hotkeysHelp.entrySet()) {
-			htmlContent.append("<tr><td style='text-align: right'><b>[" + entry.getKey() + "]</b></td><td> - </td><td>" + entry.getValue() + "</td></tr>");
-		}
-		htmlContent.append("</table>");
-		final PopupPanel pop = new PopupPanel(true);
-		// Attach (display) the glass panel
-		final GlassPanel glassPanel = new GlassPanel(false);
-		RootPanel.get().add(glassPanel, 0, 0);
-		final VerticalPanel vPanel = new VerticalPanel();
-		vPanel.setSpacing(10);
-		vPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		final HTML htmlHTMLTitle = new HTML("<h2>Hotkeys</h2>");
-		final HTML htmlHTMLContent = new HTML(htmlContent.toString());
-		final Button close = new Button("Close");
+		if(popup == null) {
 		
-		close.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				pop.removeFromParent();
-				glassPanel.removeFromParent();		
-				isHelpOpened = false;
+			final StringBuilder htmlContent = new StringBuilder();
+			htmlContent.append("<table style='width: 100%'>");
+			for (final Entry<String, String> entry : HelpManager.hotkeysHelp.entrySet()) {
+				htmlContent.append("<tr><td style='text-align: right'><b>[" + entry.getKey() + "]</b></td><td> - </td><td>" + entry.getValue() + "</td></tr>");
 			}
-		});
-		vPanel.add(htmlHTMLTitle);
-		vPanel.add(htmlHTMLContent);
-		vPanel.add(close);
-		pop.add(vPanel);
-		pop.center();
+			htmlContent.append("</table>");
+			popup = new PopupPanel(true);
+			popup.setModal(true);
+			popup.setGlassEnabled(true);
+			
+			final VerticalPanel vPanel = new VerticalPanel();
+			vPanel.setSpacing(10);
+			vPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+			final HTML htmlHTMLTitle = new HTML("<h2>Hotkeys</h2>");
+			final HTML htmlHTMLContent = new HTML(htmlContent.toString());
+			final Button close = new Button("Close");
+			
+			close.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					popup.hide();
+				}
+			});
+			vPanel.add(htmlHTMLTitle);
+			vPanel.add(htmlHTMLContent);
+			vPanel.add(close);
+			
+			popup.add(vPanel);
+		}
+
+		popup.center();
 	}
 }
