@@ -26,4 +26,4 @@ rm -fr gwtumldrawer
 mv gwtumldrawer_ gwtumldrawer
 cd gwtumldrawer
 svn add --force *
-notify-send "Build done !"
+echo "Build done !"
