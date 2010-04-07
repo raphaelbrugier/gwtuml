@@ -135,7 +135,7 @@ public class TestUMLRelation extends TestCase {
 		relation.setName("");
 		
 		// Composition 
-		relation.setLeftAdornment(LinkAdornment.SOLID_DIAMOND);
+		relation.setLeftAdornment(LinkAdornment.INVERTED_SOLID_DIAMOND);
 		relation.setLeftCardinality("");
 		relation.setLeftConstraint("");
 		relation.setLeftRole("");

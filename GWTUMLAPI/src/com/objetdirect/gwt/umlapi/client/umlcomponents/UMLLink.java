@@ -33,7 +33,7 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Composition relation
 		 */
-		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
+		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID, Type.HYBRID),
 		/**
 		 * Dependency relation
 		 */

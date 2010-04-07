@@ -61,7 +61,7 @@ public class TestUMLType extends TestCase {
 		
 		assertEquals(UMLType.DOUBLE, UMLType.getUMLTypeFromString("double"));
 		
-		assertEquals(UMLType.WRAPPED_FLOAT, UMLType.getUMLTypeFromString("Double"));
+		assertEquals(UMLType.WRAPPED_DOUBLE, UMLType.getUMLTypeFromString("Double"));
 	}
 	
 	/**

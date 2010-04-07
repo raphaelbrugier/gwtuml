@@ -173,7 +173,6 @@ public class UMLCanvas extends AbsolutePanel {
 	// dependencies
 	// points
 
-	private final ArrayList<GWTUMLEventListener>			uMLEventListenerList			= new ArrayList<GWTUMLEventListener>();
 	private Point											dragOffset;
 	private Point											totalDragShift					= Point.getOrigin();
 	private GfxObject										arrowsVirtualGroup;
@@ -264,16 +263,6 @@ public class UMLCanvas extends AbsolutePanel {
 	public void addNewObject() {
 		this.addNewObject(this.currentMousePosition);
 
-	}
-
-	/**
-	 * Add an {@link GWTUMLEventListener} to this canvas
-	 * 
-	 * @param uMLEventListener
-	 *            The {@link GWTUMLEventListener} to add to this canvas
-	 */
-	public void addUMLEventListener(final GWTUMLEventListener uMLEventListener) {
-		this.uMLEventListenerList.add(uMLEventListener);
 	}
 
 	/**
@@ -594,23 +583,12 @@ public class UMLCanvas extends AbsolutePanel {
 	 * @param umlArtifact
 	 */
 	public void remove(final UMLArtifact umlArtifact) {
-		if (this.fireDeleteArtifactEvent(umlArtifact)) {
-			this.removeRecursive(umlArtifact);
-			if (umlArtifact.isALink()) {
-				((LinkArtifact) umlArtifact).removeCreatedDependency();
-			}
+		this.removeRecursive(umlArtifact);
+		if (umlArtifact.isALink()) {
+			((LinkArtifact) umlArtifact).removeCreatedDependency();
 		}
 	}
 
-	/**
-	 *Remove the specified {@link GWTUMLEventListener} from this canvas
-	 * 
-	 * @param uMLEventListener
-	 *            The {@link GWTUMLEventListener} to remove from this canvas
-	 */
-	public void removeUMLEventListener(final GWTUMLEventListener uMLEventListener) {
-		this.uMLEventListenerList.remove(uMLEventListener);
-	}
 
 	/**
 	 * Select an artifact and put it in the artifact list
@@ -668,23 +646,22 @@ public class UMLCanvas extends AbsolutePanel {
 			return;
 		}
 		final ClassArtifact newClass = new ClassArtifact("Class" + ++UMLCanvas.classCount);
-		if (this.fireNewArtifactEvent(newClass)) {
-			this.helpText.setText("Adding a new class");
-			this.add(newClass);
-			newClass.moveTo(Point.substract(location, this.canvasOffset));
-			for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-				selectedArtifact.unselect();
-			}
-			this.selectedArtifacts.clear();
-			this.doSelection(newClass.getGfxObject(), false, false);
-			this.selectedArtifacts.put(newClass, new ArrayList<Point>());
-			this.dragOffset = location;
-			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-			this.dragAndDropState = DragAndDropState.TAKING;
-			this.mouseIsPressed = true;
-
-			this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		
+		this.helpText.setText("Adding a new class");
+		this.add(newClass);
+		newClass.moveTo(Point.substract(location, this.canvasOffset));
+		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
 		}
+		this.selectedArtifacts.clear();
+		this.doSelection(newClass.getGfxObject(), false, false);
+		this.selectedArtifacts.put(newClass, new ArrayList<Point>());
+		this.dragOffset = location;
+		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		this.dragAndDropState = DragAndDropState.TAKING;
+		this.mouseIsPressed = true;
+
+		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	/**
@@ -699,28 +676,25 @@ public class UMLCanvas extends AbsolutePanel {
 			return;
 		}
 		final LifeLineArtifact newLifeLine = new LifeLineArtifact("LifeLine" + ++UMLCanvas.lifeLineCount, "ll" + UMLCanvas.lifeLineCount);
-		if (this.fireNewArtifactEvent(newLifeLine)) {
-			this.helpText.setText("Adding a new life line");
-			this.add(newLifeLine);
-			newLifeLine.moveTo(Point.substract(location, this.canvasOffset));
-			for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-				selectedArtifact.unselect();
-			}
-			this.selectedArtifacts.clear();
-			this.doSelection(newLifeLine.getGfxObject(), false, false);
-			this.selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
-			this.dragOffset = location;
-			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-			this.dragAndDropState = DragAndDropState.TAKING;
-			this.mouseIsPressed = true;
-
-			this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		
+		this.helpText.setText("Adding a new life line");
+		this.add(newLifeLine);
+		newLifeLine.moveTo(Point.substract(location, this.canvasOffset));
+		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
 		}
+		this.selectedArtifacts.clear();
+		this.doSelection(newLifeLine.getGfxObject(), false, false);
+		this.selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
+		this.dragOffset = location;
+		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		this.dragAndDropState = DragAndDropState.TAKING;
+		this.mouseIsPressed = true;
+
+		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	void addNewLink(final UMLArtifact newSelected) {
-		Log.debug("UMLCanvas::addNewLink()");
-		
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 			final LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
@@ -744,24 +718,22 @@ public class UMLCanvas extends AbsolutePanel {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
+		
 		final NoteArtifact newNote = new NoteArtifact("Note " + ++this.noteCount);
-		if (this.fireNewArtifactEvent(newNote)) {
-			this.helpText.setText("Adding a new note");
-			this.add(newNote);
-			newNote.moveTo(Point.substract(location, this.canvasOffset));
-			for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-				selectedArtifact.unselect();
-			}
-			this.selectedArtifacts.clear();
-			this.doSelection(newNote.getGfxObject(), false, false);
-			this.selectedArtifacts.put(newNote, new ArrayList<Point>());
-			this.dragOffset = location;
-			this.dragAndDropState = DragAndDropState.TAKING;
-			this.mouseIsPressed = true;
-			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-			this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
-
+		this.helpText.setText("Adding a new note");
+		this.add(newNote);
+		newNote.moveTo(Point.substract(location, this.canvasOffset));
+		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
 		}
+		this.selectedArtifacts.clear();
+		this.doSelection(newNote.getGfxObject(), false, false);
+		this.selectedArtifacts.put(newNote, new ArrayList<Point>());
+		this.dragOffset = location;
+		this.dragAndDropState = DragAndDropState.TAKING;
+		this.mouseIsPressed = true;
+		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	/**
@@ -776,23 +748,22 @@ public class UMLCanvas extends AbsolutePanel {
 			return;
 		}
 		final ObjectArtifact newObject = new ObjectArtifact("obj" + ++UMLCanvas.objectCount, "Object" + UMLCanvas.objectCount);
-		if (this.fireNewArtifactEvent(newObject)) {
-			this.helpText.setText("Adding a new object");
-			this.add(newObject);
-			newObject.moveTo(Point.substract(location, this.canvasOffset));
-			for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-				selectedArtifact.unselect();
-			}
-			this.selectedArtifacts.clear();
-			this.doSelection(newObject.getGfxObject(), false, false);
-			this.selectedArtifacts.put(newObject, new ArrayList<Point>());
-			this.dragOffset = location;
-			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-			this.dragAndDropState = DragAndDropState.TAKING;
-			this.mouseIsPressed = true;
-
-			this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		
+		this.helpText.setText("Adding a new object");
+		this.add(newObject);
+		newObject.moveTo(Point.substract(location, this.canvasOffset));
+		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
 		}
+		this.selectedArtifacts.clear();
+		this.doSelection(newObject.getGfxObject(), false, false);
+		this.selectedArtifacts.put(newObject, new ArrayList<Point>());
+		this.dragOffset = location;
+		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		this.dragAndDropState = DragAndDropState.TAKING;
+		this.mouseIsPressed = true;
+
+		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 	void cut() {
 		this.copy();
@@ -854,45 +825,7 @@ public class UMLCanvas extends AbsolutePanel {
 			this.mouseIsPressed = true;
 		}
 	}
-	boolean fireDeleteArtifactEvent(final UMLArtifact umlArtifact) {
-		boolean isThisOk = true;
-		for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
-			// If one is not ok then it's not ok !
-			isThisOk = listener.onDeleteUMLArtifact(umlArtifact) && isThisOk;
-		}
-		Log.trace("Delete artifact event fired. Status : " + isThisOk);
-		return isThisOk;
-	}
-
-	boolean fireEditArtifactEvent(final UMLArtifact umlArtifact) {
-		boolean isThisOk = true;
-		for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
-			// If one is not ok then it's not ok !
-			isThisOk = listener.onEditUMLArtifact(umlArtifact) && isThisOk;
-		}
-		Log.trace("New Artifact event fired. Status : " + isThisOk);
-		return isThisOk;
-	}
-
-	boolean fireLinkKindChange(final LinkArtifact newLink, final LinkKind oldKind, final LinkKind newKind) {
-		boolean isThisOk = true;
-		for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
-			isThisOk = listener.onLinkKindChange(newLink, oldKind, newKind) && isThisOk;
-		}
-		Log.trace("Link kind chage event fired. Status : " + isThisOk);
-		return isThisOk;
-	}
-
-	boolean fireNewArtifactEvent(final UMLArtifact umlArtifact) {
-		boolean isThisOk = true;
-		for (final GWTUMLEventListener listener : this.uMLEventListenerList) {
-			// If one is not ok then it's not ok !
-			isThisOk = listener.onNewUMLArtifact(umlArtifact) && isThisOk;
-		}
-		Log.trace("New Artifact event fired. Status : " + isThisOk);
-		return isThisOk;
-	}
-
+	
 	void mouseDoubleClicked(final GfxObject gfxObject, final Point location) {
 		this.editItem(gfxObject);
 	}
@@ -947,7 +880,6 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 	}
 
-	@SuppressWarnings("fallthrough")
 	void mouseReleased(final GfxObject gfxObject, final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 		if (!this.mouseIsPressed) {
 			return;
@@ -1230,9 +1162,7 @@ public class UMLCanvas extends AbsolutePanel {
 		final UMLArtifact uMLArtifact = this.getUMLArtifact(gfxObject);
 		if (uMLArtifact != null) {
 			Log.trace("Edit started on " + uMLArtifact);
-			if (this.fireEditArtifactEvent(uMLArtifact)) {
-				uMLArtifact.edit(gfxObject);
-			}
+			uMLArtifact.edit(gfxObject);
 		}
 	}
 
