@@ -419,7 +419,6 @@ public abstract class UMLArtifact {
 	}
 
 	void addDependency(final LinkArtifact dependentUMLArtifact, final UMLArtifact linkedUMLArtifact) {
-		Log.debug(this + "adding depency with" + dependentUMLArtifact + " - " + linkedUMLArtifact);
 		this.dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
 	}
 
