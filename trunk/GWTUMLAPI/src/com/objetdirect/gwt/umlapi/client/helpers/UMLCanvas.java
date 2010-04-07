@@ -41,8 +41,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -61,6 +59,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -234,10 +234,10 @@ public class UMLCanvas extends AbsolutePanel {
 
 			GfxManager.getPlatform().translate(artifact.getGfxObject(), artifact.getLocation());
 			this.objects.put(artifact.getGfxObject(), artifact);
-			Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
+			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
 
 		} else {
-			Log.debug("Canvas not attached, queuing " + artifact);
+			Log.trace("Canvas not attached, queuing " + artifact);
 			this.objectsToBeAddedWhenAttached.add(artifact);
 		}
 	}
@@ -719,6 +719,8 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	void addNewLink(final UMLArtifact newSelected) {
+		Log.debug("UMLCanvas::addNewLink()");
+		
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 			final LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
@@ -1019,7 +1021,7 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 	}
 
-	void rebuildAllLinks() {
+	void rebuildAllGFXObjects() {
 		for (final UMLArtifact artifact : this.objects.values()) {
 				artifact.rebuildGfxObject();
 		}
@@ -1052,23 +1054,21 @@ public class UMLCanvas extends AbsolutePanel {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		for(UMLArtifact umlArtifact : objects.values()) {
-			umlArtifact.rebuildGfxObject();
-		}
+		rebuildAllGFXObjects();
 	}
 
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		Log.trace("Loading");
+		Log.debug("Loading");
 		for (final UMLArtifact elementNotAdded : this.objectsToBeAddedWhenAttached) {
-			Log.debug("Adding queued " + elementNotAdded);
+			Log.trace("Adding queued " + elementNotAdded);
 			elementNotAdded.setCanvas(this);
 			final long t = System.currentTimeMillis();
 			GfxManager.getPlatform().addToVirtualGroup(this.allObjects, elementNotAdded.initializeGfxObject());
 			GfxManager.getPlatform().translate(elementNotAdded.getGfxObject(), elementNotAdded.getLocation());
 			this.objects.put(elementNotAdded.getGfxObject(), elementNotAdded);
-			Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
+			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
 		}
 		this.objectsToBeAddedWhenAttached.clear();
 		this.makeArrows();

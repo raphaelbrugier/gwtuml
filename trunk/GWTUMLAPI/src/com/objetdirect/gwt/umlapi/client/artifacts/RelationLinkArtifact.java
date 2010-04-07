@@ -314,6 +314,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		}
 	}
 
+	
 	protected UMLRelation		relation;
 	protected Point				leftDirectionPoint	= Point.getOrigin();
 	protected Point				rightDirectionPoint	= Point.getOrigin();
@@ -336,6 +337,10 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			Log.error("Making a relation artifact for : " + relationKind.getName());
 		}
 		this.relation = new UMLRelation(relationKind);
+	}
+	
+	public UMLRelation toUMLComponent() {
+		return relation;
 	}
 
 	/**

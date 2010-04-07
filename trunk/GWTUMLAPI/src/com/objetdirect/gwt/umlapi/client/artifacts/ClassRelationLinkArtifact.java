@@ -30,6 +30,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * This class represents any relation artifact between two classes
@@ -70,6 +72,9 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		} else {
 			this.isSelfLink = true;
 		}
+		
+		relation.setLeftTarget(left.toUMLComponent());
+		relation.setRightTarget(right.toUMLComponent());
 	}
 
 	@Override

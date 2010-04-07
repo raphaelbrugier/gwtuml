@@ -27,6 +27,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLClass extends UMLNode {
 	/**
 	 * Parse a name or a stereotype from a {@link String}
@@ -63,6 +64,7 @@ public class UMLClass extends UMLNode {
 	 * Default constructor for GWT RPC serialization.
 	 */
 	public UMLClass() {
+		super();
 		attributes = new ArrayList<UMLClassAttribute>();
 		methods = new ArrayList<UMLClassMethod>();
 	}

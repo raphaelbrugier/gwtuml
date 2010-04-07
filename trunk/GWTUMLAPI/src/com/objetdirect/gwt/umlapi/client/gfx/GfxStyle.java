@@ -16,6 +16,7 @@ package com.objetdirect.gwt.umlapi.client.gfx;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * //TODO turn this class into an enumeration ?
  */
 public final class GfxStyle {
 	/**
@@ -66,8 +67,17 @@ public final class GfxStyle {
 	 * Style for the stroke, a solid stroke
 	 */
 	public static final GfxStyle	SOLID			= new GfxStyle("Solid");
-	private final String			style;
+	private String			style;
 
+	
+	
+	/**
+	 * Default constructor, ONLY for gwt-rpc serialization.
+	 */
+	public GfxStyle() {
+	}
+	
+	
 	/**
 	 * Constructor of the graphic style
 	 * 

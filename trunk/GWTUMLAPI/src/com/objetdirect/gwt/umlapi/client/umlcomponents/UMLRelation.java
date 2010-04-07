@@ -14,27 +14,43 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
+import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * This class represent an uml relation between two {@link UMLClass}es
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLRelation extends UMLLink {
+
+	private String			name;
 
 	private String			leftCardinality;
 	private String			leftConstraint;
 	private String			leftRole;
-	private String			name;
+	private LinkAdornment	leftAdornment;
+	private UMLClass		leftTarget;
+
 	private String			rightCardinality;
 	private String			rightConstraint;
 	private String			rightRole;
-	private LinkAdornment	leftAdornment;
 	private LinkAdornment	rightAdornment;
+	private UMLClass		rightTarget;
+	
 	private LinkStyle		linkStyle;
 
+
+	/**
+	 * Default constructor for gwt-rpc serialization
+	 */
+	public UMLRelation () {
+	}
+	
 	/**
 	 * Constructor of Relation
 	 * 
@@ -97,6 +113,7 @@ public class UMLRelation extends UMLLink {
 	 * @return the link style
 	 */
 	public LinkStyle getLinkStyle() {
+		Log.debug("UMLRelation::getLinkStyle()");
 		return this.linkStyle;
 	}
 
@@ -146,30 +163,13 @@ public class UMLRelation extends UMLLink {
 	}
 
 	/**
-	 * Reverse the current relation
-	 */
-	public void reverse() {
-		final LinkAdornment tempAdornment = this.leftAdornment;
-		final String tempCardinality = this.leftCardinality;
-		final String tempConstraint = this.leftConstraint;
-		final String tempRole = this.leftRole;
-		this.leftAdornment = this.rightAdornment;
-		this.leftCardinality = this.rightCardinality;
-		this.leftConstraint = this.rightConstraint;
-		this.leftRole = this.rightRole;
-		this.rightAdornment = tempAdornment;
-		this.rightCardinality = tempCardinality;
-		this.rightConstraint = tempConstraint;
-		this.rightRole = tempRole;
-	}
-
-	/**
 	 * Setter for the left adornment
 	 * 
 	 * @param leftAdornment
 	 *            the left adornment to set
 	 */
 	public void setLeftAdornment(final LinkAdornment leftAdornment) {
+		Log.debug("UMLRelation::setLeftAdornment : " + leftAdornment);
 		this.leftAdornment = leftAdornment;
 	}
 
@@ -180,6 +180,7 @@ public class UMLRelation extends UMLLink {
 	 *            the leftCardinality to set
 	 */
 	public void setLeftCardinality(final String leftCardinality) {
+		Log.debug("UMLRelation::setLeftCardinality() : " + leftCardinality);
 		this.leftCardinality = leftCardinality;
 	}
 
@@ -190,6 +191,7 @@ public class UMLRelation extends UMLLink {
 	 *            the leftConstraint to set
 	 */
 	public void setLeftConstraint(final String leftConstraint) {
+		Log.debug("UMLRelation::setLeftConstraint : " + leftConstraint);
 		this.leftConstraint = leftConstraint;
 	}
 
@@ -200,6 +202,7 @@ public class UMLRelation extends UMLLink {
 	 *            the leftRole to set
 	 */
 	public void setLeftRole(final String leftRole) {
+		Log.debug("UMLRelation::setLeftRole : " + leftRole);
 		this.leftRole = leftRole;
 	}
 
@@ -230,6 +233,7 @@ public class UMLRelation extends UMLLink {
 	 *            the right adornment to set
 	 */
 	public void setRightAdornment(final LinkAdornment rightAdornment) {
+		Log.debug("UMLRelation::setRightAdornment : " + rightAdornment);
 		this.rightAdornment = rightAdornment;
 	}
 
@@ -240,6 +244,7 @@ public class UMLRelation extends UMLLink {
 	 *            the rightCardinality to set
 	 */
 	public void setRightCardinality(final String rightCardinality) {
+		Log.debug("UMLRelation::setRightCardinality() : " + rightCardinality);
 		this.rightCardinality = rightCardinality;
 	}
 
@@ -250,6 +255,7 @@ public class UMLRelation extends UMLLink {
 	 *            the rightConstraint to set
 	 */
 	public void setRightConstraint(final String rightConstraint) {
+		Log.debug("UMLRelation::setRightConstraint : " + rightConstraint);
 		this.rightConstraint = rightConstraint;
 	}
 
@@ -260,7 +266,190 @@ public class UMLRelation extends UMLLink {
 	 *            the rightRole to set
 	 */
 	public void setRightRole(final String rightRole) {
+		Log.debug("UMLRelation::setRightRole : " + rightRole);
 		this.rightRole = rightRole;
 	}
 
+	/**
+	 * @return the leftTarget
+	 */
+	public UMLClass getLeftTarget() {
+		return leftTarget;
+	}
+
+	/**
+	 * @param leftTarget the leftTarget to set
+	 */
+	public void setLeftTarget(UMLClass leftTarget) {
+		Log.debug("UMLRelation::setLeftTarget : " + leftTarget.getName());
+		this.leftTarget = leftTarget;
+	}
+
+	/**
+	 * @return the rightTarget
+	 */
+	public UMLClass getRightTarget() {
+		return rightTarget;
+	}
+
+	/**
+	 * @param rightTarget the rightTarget to set
+	 */
+	public void setRightTarget(UMLClass rightTarget) {
+		Log.debug("UMLRelation::setRightTarget : " + rightTarget.getName());
+		this.rightTarget = rightTarget;
+	}
+	
+
+	/**
+	 * Reverse the current relation
+	 */
+	public void reverse() {
+		final LinkAdornment tempAdornment = this.leftAdornment;
+		final String tempCardinality = this.leftCardinality;
+		final String tempConstraint = this.leftConstraint;
+		final String tempRole = this.leftRole;
+		this.leftAdornment = this.rightAdornment;
+		this.leftCardinality = this.rightCardinality;
+		this.leftConstraint = this.rightConstraint;
+		this.leftRole = this.rightRole;
+		this.rightAdornment = tempAdornment;
+		this.rightCardinality = tempCardinality;
+		this.rightConstraint = tempConstraint;
+		this.rightRole = tempRole;
+	}
+	
+	
+	/**
+	 * @return true if the relation is a bidirectionnal relation between two classes
+	 */
+	public boolean isBidirectional() {
+		if ( ! linkKind.equals(LinkKind.ASSOCIATION_RELATION))
+			return false;
+		
+		if (leftCardinality.isEmpty() || rightCardinality.isEmpty())
+			return false;
+		
+		if (leftRole.isEmpty() || rightRole.isEmpty())
+			return false;
+		
+		if ( ! leftConstraint.contentEquals("{owner}") && ! rightConstraint.contentEquals("{owner}"))
+			return false;
+		
+		if ( !(leftAdornment.equals(LinkAdornment.NONE) && rightAdornment.equals(LinkAdornment.NONE)))  
+			return false;
+		
+		return true;
+	}
+
+	
+	/**
+	 * On a relation between two classes, one of the classes is the owner of the relation.
+	 * @return the owner of the relation.
+	 */
+	public UMLClass getOwner() {
+		if (this.isBidirectional()) {
+			if (leftConstraint.equalsIgnoreCase("{owner}"))
+				return leftTarget;
+			else if (rightConstraint.equalsIgnoreCase("{owner}"))
+				return rightTarget;
+			else
+				throw new GWTUMLAPIException("A bidirectional relation must have an owner defined.");
+		} 
+		
+		if (leftAdornment.equals(LinkAdornment.WIRE_ARROW))
+			return rightTarget;
+		else if (rightAdornment.equals(LinkAdornment.WIRE_ARROW))
+			return leftTarget;
+		else
+			throw new GWTUMLAPIException("A association must have an arrow on one side to define the owner.");
+	}
+	
+	
+	/** 
+	 * On a relation between two classes, one of the classes is the target of the relation.
+	 * @return the target of the relation.
+	 */
+	public UMLClass getTarget() {
+		if (leftTarget.equals(getOwner()))
+			return rightTarget;
+		else 
+			return leftTarget;
+	}
+	
+	
+	/**
+	 * @return True if the left side is the owner of the relation
+	 */
+	public boolean isLeftOwner () {
+		if (this.isBidirectional()) {
+			if (leftConstraint.equalsIgnoreCase("{owner}"))
+				return true;
+			else if (rightConstraint.equalsIgnoreCase("{owner}"))
+				return false;
+			else
+				throw new GWTUMLAPIException("A bidirectional relation must have an owner defined.");
+		}
+		
+		if (leftAdornment.equals(LinkAdornment.WIRE_ARROW))
+			return false;
+		else if (rightAdornment.equals(LinkAdornment.WIRE_ARROW))
+			return true;
+		else
+			throw new GWTUMLAPIException("A association must have an arrow on one side to define the owner.");
+	}
+	
+	/**
+	 * @return True if the right side is the owner of the relation.
+	 */
+	public boolean isRightOwner() {
+		
+		return ! isLeftOwner();
+	}
+
+	
+	/**
+	 * @return true if the relation is a composition.
+	 */
+	public boolean isAComposition() {
+
+		if (leftAdornment.equals(LinkAdornment.SOLID_DIAMOND) || rightAdornment.equals(LinkAdornment.SOLID_DIAMOND))
+			return true;
+			
+		return false;
+	}
+	
+	
+	/**
+	 * Return if the relation is a one to one relation.
+	 * @return true if the relation is a one to one relation.
+	 */
+	public boolean isOneToOne () {
+		if (leftCardinality.equalsIgnoreCase("1")) {
+			// Simple one To One
+			if (rightCardinality.isEmpty())
+				return true;
+			//Bidirectional
+			else if (rightCardinality.equalsIgnoreCase("1"))
+				return true;
+			// one to many
+			else 
+				return false;
+		}
+		
+		if (rightCardinality.equalsIgnoreCase("1")) {
+			// Simple one To One
+			if (leftCardinality.isEmpty())
+				
+				return true;
+			//Bidirectional
+			else if (leftCardinality.equalsIgnoreCase("1"))
+				return true;
+			// one to many
+			else 
+				return false;
+		}
+		
+		return false;
+	}
 }
