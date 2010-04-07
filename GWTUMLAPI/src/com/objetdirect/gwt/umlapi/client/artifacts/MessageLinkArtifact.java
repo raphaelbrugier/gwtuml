@@ -28,6 +28,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)

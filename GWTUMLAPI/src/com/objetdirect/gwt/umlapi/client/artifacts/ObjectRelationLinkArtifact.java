@@ -30,6 +30,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * This object represents any relation artifact between two objectes

@@ -64,7 +64,7 @@ public class ContextMenu {
 	private final Command			changeLinkStyle	= new Command() {
 														public void execute() {
 															OptionsManager.set("AngularLinks", 1 - OptionsManager.get("AngularLinks"));
-															ContextMenu.this.canvas.rebuildAllLinks();
+															ContextMenu.this.canvas.rebuildAllGFXObjects();
 														}
 													};
 

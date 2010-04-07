@@ -3,15 +3,18 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkStyle;
+import java.io.Serializable;
+
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public abstract class UMLLink {
+@SuppressWarnings("serial")
+public abstract class UMLLink implements Serializable {
 	/**
 	 * This enumeration lists all the relations type between two {@link UMLClass}es
 	 * 
@@ -26,7 +29,7 @@ public abstract class UMLLink {
 		/**
 		 * Association relation
 		 */
-		ASSOCIATION_RELATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "0..*", "0..*", LinkStyle.SOLID, Type.HYBRID),
+		ASSOCIATION_RELATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "1", "", LinkStyle.SOLID, Type.HYBRID),
 		/**
 		 * Composition relation
 		 */
@@ -105,6 +108,12 @@ public abstract class UMLLink {
 
 		private Type			requiredType;
 
+		/**
+		 * Default constructor ONLY for gwt-rpc serialization 
+		 */
+		private LinkKind() {
+		}
+		
 		private LinkKind(final String name, final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
 				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle, final Type requiredType) {
 
@@ -192,6 +201,13 @@ public abstract class UMLLink {
 
 	protected LinkKind	linkKind;
 
+	
+	/**
+	 * Default constructor ONLY for gwt-rpc serialization
+	 */
+	public UMLLink() {
+	}
+	
 	/**
 	 * Constructor of UMLLink
 	 * 

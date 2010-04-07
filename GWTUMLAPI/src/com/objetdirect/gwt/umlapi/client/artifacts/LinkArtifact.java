@@ -17,10 +17,10 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
@@ -31,281 +31,25 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  */
 public abstract class LinkArtifact extends UMLArtifact {
 
-	/**
-	 * This enumeration list all the adornments that a relation could have
-	 * 
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
-	public enum LinkAdornment {
-
-		/**
-		 * No adornment -
-		 */
-		NONE("None", Shape.UNSHAPED, false, true),
-		/**
-		 * A cross: -x
-		 */
-		WIRE_CROSS("WireCross", Shape.CROSS, false, true),
-
-		/**
-		 * A wire arrow : -&gt;
-		 */
-		WIRE_ARROW("WireArrow", Shape.ARROW, false, true),
-
-		/**
-		 * A simple filled arrow : -|&gt;
-		 */
-		SOLID_ARROW("SolidArrow", Shape.ARROW, true, false),
-
-		/**
-		 * A filled diamond : -&lt;&gt;
-		 */
-		SOLID_DIAMOND("SolidDiamond", Shape.DIAMOND, true, false),
-		/**
-		 * A filled circle : -o;
-		 */
-		SOLID_CIRCLE("SolidCircle", Shape.CIRCLE, true, false),
-		/**
-		 * A simple filled arrow : -|@&gt;
-		 */
-		INVERTED_SOLID_ARROW("InvertedSolidArrow", Shape.ARROW, true, false, true),
-		/**
-		 * A filled diamond with foreground color : -&lt;@&gt;
-		 */
-		INVERTED_SOLID_DIAMOND("InvertedSolidDiamond", Shape.DIAMOND, true, false, true),
-		/**
-		 * A filled circle with foreground color : -@;
-		 */
-		INVERTED_SOLID_CIRCLE("InvertedSolidCircle", Shape.CIRCLE, true, false, true);
-
-		/**
-		 * This sub enumeration specify the global shape of the adornment
-		 * 
-		 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-		 * 
-		 */
-		public enum Shape {
-			/**
-			 * Arrow type
-			 */
-			ARROW("<"),
-			/**
-			 * Cross type
-			 */
-			CROSS("x"),
-			/**
-			 * Diamond type
-			 */
-			DIAMOND("<>"),
-			/**
-			 * Circle type
-			 */
-			CIRCLE("o"),
-			/**
-			 * No shape
-			 */
-			UNSHAPED("");
-
-			private final String	idiom;
-
-			private Shape(final String idiom) {
-				this.idiom = idiom;
-			}
-
-			/**
-			 * Getter for the idiom
-			 * 
-			 * @return a string that represent the shape textually : for arrow &lt;
-			 */
-			public String getIdiom() {
-				return this.getIdiom(false);
-			}
-
-			/**
-			 * Specific Getter for the idiom which change shape orientation between left &lt; and right &gt;
-			 * 
-			 * @param isRight
-			 *            : if the shape is oriented to the rightDIAMOND
-			 * @return a string that represent the shape textually in the right orientation : for right arrow &gt;
-			 */
-			public String getIdiom(final boolean isRight) {
-				if (this.idiom.equals("<") && isRight) {
-					return ">";
-				}
-				return this.idiom;
-			}
-		}
-
-		/**
-		 * Static getter of a {@link LinkAdornment} by its name
-		 * 
-		 * @param linkAdornmentName
-		 *            The name of the {@link LinkAdornment} to retrieve
-		 * @return The {@link LinkAdornment} that has linkAdornmentName for name or null if not found
-		 */
-		public static LinkAdornment getLinkAdornmentFromName(final String linkAdornmentName) {
-			for (final LinkAdornment linkAdornment : LinkAdornment.values()) {
-				if (linkAdornment.getName().equals(linkAdornmentName)) {
-					return linkAdornment;
-				}
-			}
-			return null;
-		}
-
-		private final boolean	isInverted;
-		private final boolean	isSolid;
-		private final Shape		shape;
-		private final boolean	isNavigabilityAdornment;
-		private final String	name;
-
-		protected final boolean	dontCompute	= false;
-
-		private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
-			this(name, shape, isSolid, isNavigabilityAdronment, false);
-		}
-
-		private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdornment, final boolean isInverted) {
-			this.name = name;
-			this.shape = shape;
-			this.isSolid = isSolid;
-			this.isNavigabilityAdornment = isNavigabilityAdornment;
-			this.isInverted = isInverted;
-		}
-
-		/**
-		 * Getter for the name
-		 * 
-		 * @return the name
-		 */
-		public String getName() {
-			return this.name;
-		}
-
-		/**
-		 * Getter for the shape
-		 * 
-		 * @return the shape
-		 */
-		public Shape getShape() {
-			return this.shape;
-		}
-
-		/**
-		 * Determine if the shape is inverted or not (ie : the fill color is the foreground color)
-		 * 
-		 * @return <ul>
-		 *         <li><b>True</b> if it is inverted</li>
-		 *         <li><b>False</b> otherwise</li>
-		 *         </ul>
-		 */
-		public boolean isInverted() {
-			return this.isInverted;
-		}
-
-		/**
-		 * Determine if the adornment is a navigability adornment : &gt; x or none
-		 * 
-		 * @return <ul>
-		 *         <li><b>True</b> if the adornment is a navigability one</li>
-		 *         <li><b>False</b> otherwise</li>
-		 *         </ul>
-		 */
-		public boolean isNavigabilityAdornment() {
-			return this.isNavigabilityAdornment;
-		}
-
-		/**
-		 * Determine if the shape is filled or not
-		 * 
-		 * @return <ul>
-		 *         <li><b>True</b> if it is filled</li>
-		 *         <li><b>False</b> otherwise</li>
-		 *         </ul>
-		 */
-		public boolean isSolid() {
-			return this.isSolid;
-		}
-
-	}
-
-	/**
-	 * This enumeration list all the style that a link could have
-	 * 
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
-	public enum LinkStyle {
-
-		/**
-		 * Dash style : - - - - -
-		 */
-		DASHED("Dashed", GfxStyle.DASH),
-		/**
-		 * Long dash style : -- -- -- -- --
-		 */
-		LONG_DASHED("LongDashed", GfxStyle.LONGDASH),
-		/**
-		 * Dash dot style : -.-.-.-.-.-
-		 */
-		DASHED_DOTTED("DashedDotted", GfxStyle.DASHDOT),
-		/**
-		 * Solid style : ------------
-		 */
-		SOLID("Solid", GfxStyle.NONE);
-
-		/**
-		 * Static getter of a {@link LinkStyle} by its name
-		 * 
-		 * @param linkStyleName
-		 *            The name of the {@link LinkStyle} to retrieve
-		 * @return The {@link LinkStyle} that has linkStyleName for name or null if not found
-		 */
-		public static LinkStyle getLinkStyleFromName(final String linkStyleName) {
-			for (final LinkStyle linkStyle : LinkStyle.values()) {
-				if (linkStyle.getName().equals(linkStyleName)) {
-					return linkStyle;
-				}
-			}
-			return null;
-		}
-
-		private final GfxStyle	style;
-
-		private final String	name;
-
-		private LinkStyle(final String name, final GfxStyle style) {
-			this.name = name;
-			this.style = style;
-		}
-
-		/**
-		 * Getter for the {@link GfxStyle}
-		 * 
-		 * @return the {@link GfxStyle} to set to a line
-		 */
-		public GfxStyle getGfxStyle() {
-			return this.style;
-		}
-
-		/**
-		 * Getter for the {@link LinkStyle} name
-		 * 
-		 * @return the {@link LinkStyle} name
-		 */
-		public String getName() {
-			return this.name;
-		}
-	}
-
 	static class UMLArtifactPeer {
 		UMLArtifact	uMLArtifact1;
 		UMLArtifact	uMLArtifact2;
 
+		
+		/**
+		 * Default constructor ONLY for gwt-rpc serialization. 
+		 */
+		public UMLArtifactPeer() {
+		}
+		
 		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
 			super();
 			this.uMLArtifact1 = uMLArtifact1;
 			this.uMLArtifact2 = uMLArtifact2;
 		}
 
+		
+		//TODO define hashcode !
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -351,6 +95,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 			return null;
 
 		} else if ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
+			Log.debug("LinkArtifac::makeLinkBetween() new ClassRelationLinkArtifact ");
 			return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
 
 		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
@@ -370,7 +115,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	}
 
-	private final UMLArtifact	leftUMLArtifact;
+	private UMLArtifact	leftUMLArtifact;
 	/**
 	 * Getter for the leftUMLArtifact
 	 *
@@ -380,7 +125,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 		return this.leftUMLArtifact;
 	}
 
-	private final UMLArtifact	rightUMLArtifact;
+	private UMLArtifact	rightUMLArtifact;
 
 	/**
 	 * Getter for the rightUMLArtifact
@@ -406,6 +151,14 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	private static boolean		isAlreadyBeSorted	= false;
 
+	
+	/**
+	 * Default constructor is ONLY for gwt-rpc serialization.
+	 */
+	public LinkArtifact() {
+		super();
+	}
+	
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 

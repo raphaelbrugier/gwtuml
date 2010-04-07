@@ -110,6 +110,12 @@ public abstract class UMLArtifact {
 	}
 
 	/**
+	 * Default constructor ONLY for gwt-rpc serialization 
+	 */
+	public UMLArtifact() {
+	}
+
+	/**
 	 * This method destroys this artifact's graphical object and all dependencies graphical objects. <br>
 	 * Useful to remove a class and all its links
 	 */
@@ -160,7 +166,7 @@ public abstract class UMLArtifact {
 		if (!this.isBuilt) {
 			final long t = System.currentTimeMillis();
 			this.buildGfxObjectWithAnimation();
-			Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
+			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 			this.isBuilt = true;
 		}
 		return this.gfxObject;
@@ -305,7 +311,7 @@ public abstract class UMLArtifact {
 			this.select();
 		}
 
-		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
+		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.getDependentUMLArtifacts().entrySet()) {
 			Log.trace("Rebuilding : " + dependentUMLArtifact);
 			new Scheduler.Task("RebuildingDependencyFor" + this) {
@@ -317,7 +323,7 @@ public abstract class UMLArtifact {
 				}
 			};
 		}
-		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
+		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
 
 	}
 
@@ -413,7 +419,7 @@ public abstract class UMLArtifact {
 	}
 
 	void addDependency(final LinkArtifact dependentUMLArtifact, final UMLArtifact linkedUMLArtifact) {
-		Log.trace(this + "adding depency with" + dependentUMLArtifact + " - " + linkedUMLArtifact);
+		Log.debug(this + "adding depency with" + dependentUMLArtifact + " - " + linkedUMLArtifact);
 		this.dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
 	}
 

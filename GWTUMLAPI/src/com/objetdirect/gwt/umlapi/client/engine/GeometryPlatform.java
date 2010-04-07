@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.LinkAdornment.Shape;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxColor;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.Shape;
 
 /**
  * This abstract class contains several common geometry methods used by {@link UMLArtifact}s
@@ -124,7 +124,7 @@ public abstract class GeometryPlatform {
 	public ArrayList<Point> getLineBetween(final UMLArtifact firstUMLArtifact, final UMLArtifact secondUMLArtifact) {
 		final long t = System.currentTimeMillis();
 		final ArrayList<Point> pointList = this.getLineBetweenImpl(firstUMLArtifact, secondUMLArtifact);
-		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + firstUMLArtifact + " and " + secondUMLArtifact);
+		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + firstUMLArtifact + " and " + secondUMLArtifact);
 		return pointList;
 	}
 
@@ -142,7 +142,7 @@ public abstract class GeometryPlatform {
 	public Point getPointForLine(final UMLArtifact uMLArtifact, final Point point) {
 		final long t = System.currentTimeMillis();
 		final Point pt = this.getPointForLineImpl(uMLArtifact, point);
-		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + uMLArtifact + " and a point");
+		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to compute line between " + uMLArtifact + " and a point");
 		return pt;
 	}
 
