@@ -15,7 +15,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
@@ -46,7 +45,6 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	protected GfxObject											line;
 	protected ObjectArtifact									objectArtifact;
 	protected GfxObject											textVirtualGroup;
-	private final HashMap<RelationLinkArtifactPart, GfxObject>	gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
@@ -144,7 +142,6 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	protected void buildGfxObject() {
 		Point curveControl = Point.getOrigin();
 
-		this.gfxObjectPart.clear();
 		ArrayList<Point> linePoints = new ArrayList<Point>();
 		final boolean isComputationNeededOnLeft = this.relation.getLeftAdornment() != LinkAdornment.NONE;
 		final boolean isComputationNeededOnRight = this.relation.getRightAdornment() != LinkAdornment.NONE;
@@ -209,8 +206,6 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getTheme().getInstantiationBackgroundColor(), 0);
 		GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getTheme().getInstantiationForegroundColor());
 		GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
-		RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationLinkArtifactPart.NAME);
-		this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 
 		GfxManager.getPlatform().moveToBack(this.gfxObject);
 	}
