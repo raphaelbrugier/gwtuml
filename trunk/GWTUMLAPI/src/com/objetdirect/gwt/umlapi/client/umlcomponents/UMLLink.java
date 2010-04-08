@@ -29,7 +29,7 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Association relation
 		 */
-		ASSOCIATION_RELATION("Association", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "1", "", LinkStyle.SOLID, Type.HYBRID),
+		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID, Type.HYBRID),
 		/**
 		 * Composition relation
 		 */

@@ -111,7 +111,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	 *            The {@link RelationLinkArtifact.RelationLinkArtifactPart} to edit
 	 */
 	public void createPart(final RelationLinkArtifactPart part) {
-		Log.debug("ClassRelationLinkArtifact::Edit(RelationLinkArtifactPart) start editing part : " + part.name());
 		String defaultText;
 		switch (part) {
 			case NAME:
@@ -119,7 +118,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 				break;
 			case LEFT_CARDINALITY:
 			case RIGHT_CARDINALITY:
-				defaultText = "0..*";
+				defaultText = "*";
 				break;
 			case LEFT_CONSTRAINT:
 			case RIGHT_CONSTRAINT:
@@ -128,6 +127,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 			case LEFT_ROLE:
 			case RIGHT_ROLE:
 				defaultText = "role";
+				break;
+			case LEFT_STEREOTYPE:
+			case RIGHT_STEREOTYPE:
+				defaultText = "<<owner>>";
 				break;
 			default:
 				defaultText = "?";
@@ -531,6 +534,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		if (!this.relation.getLeftRole().equals("")) {
 			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.createText(this.relation.getLeftRole(), RelationLinkArtifactPart.LEFT_ROLE));
 		}
+		if (!this.relation.getLeftStereotype().equals("")) {
+			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.createText(this.relation.getLeftStereotype(), RelationLinkArtifactPart.LEFT_STEREOTYPE));
+		}
+		
 		this.current_delta = 0;
 		if (!this.relation.getRightCardinality().equals("")) {
 			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
@@ -543,6 +550,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		if (!this.relation.getRightRole().equals("")) {
 			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
 					this.createText(this.relation.getRightRole(), RelationLinkArtifactPart.RIGHT_ROLE));
+		}
+		if (!this.relation.getRightStereotype().equals("")) {
+			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
+					this.createText(this.relation.getRightStereotype(), RelationLinkArtifactPart.RIGHT_STEREOTYPE));
 		}
 
 		GfxManager.getPlatform().moveToBack(this.gfxObject);

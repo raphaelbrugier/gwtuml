@@ -95,7 +95,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 			return null;
 
 		} else if ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
-			Log.debug("LinkArtifac::makeLinkBetween() new ClassRelationLinkArtifact ");
 			return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
 
 		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)

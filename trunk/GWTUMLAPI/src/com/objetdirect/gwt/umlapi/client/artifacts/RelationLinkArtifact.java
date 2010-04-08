@@ -125,6 +125,34 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			}
 		},
 		/**
+		 * Left stereotype
+		 */
+		LEFT_STEREOTYPE("Stereotype", true) {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
+			 * .Relation)
+			 */
+			@Override
+			public String getText(final UMLRelation relation) {
+				return relation.getLeftStereotype();
+			}
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
+			 * .Relation, java.lang.String)
+			 */
+			@Override
+			public void setText(final UMLRelation relation, final String text) {
+				relation.setLeftStereotype(text);
+			}
+		},
+		/**
 		 * The relation name
 		 */
 		NAME("Name", false) {
@@ -236,9 +264,37 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			public void setText(final UMLRelation relation, final String text) {
 				relation.setRightRole(text);
 			}
+		},
+		/**
+		 * Left end role
+		 */
+		RIGHT_STEREOTYPE("Stereotype", false) {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
+			 * .Relation)
+			 */
+			@Override
+			public String getText(final UMLRelation relation) {
+				return relation.getRightStereotype();
+			}
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
+			 * .Relation, java.lang.String)
+			 */
+			@Override
+			public void setText(final UMLRelation relation, final String text) {
+				relation.setRightStereotype(text);
+			}
 		};
 
-		@Deprecated //TODO remove in future release
+		@Deprecated //TODO remove in a future release
 		private static HashMap<GfxObject, RelationLinkArtifactPart>	textGfxObject	= new HashMap<GfxObject, RelationLinkArtifactPart>();
 
 		/**
