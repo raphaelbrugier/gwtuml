@@ -238,6 +238,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			}
 		};
 
+		@Deprecated //TODO remove in future release
 		private static HashMap<GfxObject, RelationLinkArtifactPart>	textGfxObject	= new HashMap<GfxObject, RelationLinkArtifactPart>();
 
 		/**
@@ -247,6 +248,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		 *            The graphical object to retrieve the relationLinkArtifactPart
 		 * @return The RelationLinkArtifactPart represented by the graphical object
 		 */
+		@Deprecated
 		public static RelationLinkArtifactPart getPartForGfxObject(final GfxObject gfxObjectText) {
 			return RelationLinkArtifactPart.textGfxObject.get(gfxObjectText);
 		}
@@ -259,6 +261,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		 * @param relationLinkArtifactPart
 		 *            the relationLinkArtifactPart represented by gfxObjecttext
 		 */
+		@Deprecated
 		public static void setGfxObjectTextForPart(final GfxObject gfxObjectText, final RelationLinkArtifactPart relationLinkArtifactPart) {
 			RelationLinkArtifactPart.textGfxObject.put(gfxObjectText, relationLinkArtifactPart);
 		}

@@ -153,13 +153,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	
 	/**
-	 * Default constructor is ONLY for gwt-rpc serialization.
-	 */
-	public LinkArtifact() {
-		super();
-	}
-	
-	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
 	 * @param uMLArtifact1

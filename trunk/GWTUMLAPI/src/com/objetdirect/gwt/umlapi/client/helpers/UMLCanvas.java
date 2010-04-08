@@ -986,7 +986,7 @@ public class UMLCanvas extends AbsolutePanel {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		rebuildAllGFXObjects();
+		rebuildAllGFXObjects(); //TODO move this to onLoad ?
 	}
 
 	@Override
@@ -1158,8 +1158,9 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	private void editItem(final GfxObject gfxObject) {
-		Log.trace("Edit request on " + gfxObject);
+		Log.debug("Edit request on " + gfxObject);
 		final UMLArtifact uMLArtifact = this.getUMLArtifact(gfxObject);
+		Log.debug("Corresponding uMlArtifact =  " + uMLArtifact.getClass().getName());
 		if (uMLArtifact != null) {
 			Log.trace("Edit started on " + uMLArtifact);
 			uMLArtifact.edit(gfxObject);

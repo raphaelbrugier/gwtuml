@@ -15,10 +15,12 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.editors.RelationFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -79,33 +81,41 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final RelationLinkArtifactPart editPart = RelationLinkArtifactPart.getPartForGfxObject(editedGfxObject);
-		if (editPart == null) {
-			this.edit(RelationLinkArtifactPart.NAME);
-		} else {
-			final RelationFieldEditor editor = new RelationFieldEditor(this.canvas, this, editPart);
-			editor.startEdition(editPart.getText(this.relation), GfxManager.getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager.getPlatform()
-					.getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
-					+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
+		RelationLinkArtifactPart editPart = null;
+		
+		for(Entry<RelationLinkArtifactPart, GfxObject> entry : gfxObjectPart.entrySet()) {
+			if (entry.getValue().equals(editedGfxObject))
+				editPart = entry.getKey(); 
 		}
+		
+		edit(editPart);
+	}
+	
+	private void edit(final RelationLinkArtifactPart editPart) {
+		if (editPart == null) {
+			throw new GWTUMLAPIException("There is no corresponding RelationLinkArtifactPart attached to the given GfxObject");
+		}
+		
+		GfxObject editedGfxObject = gfxObjectPart.get(editPart);
+		
+		final RelationFieldEditor editor = new RelationFieldEditor(this.canvas, this, editPart);
+		editor.startEdition(editPart.getText(this.relation), GfxManager.getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager.getPlatform()
+				.getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
+				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
 
 	/**
-	 * Request an edition on a {@link RelationLinkArtifact.RelationLinkArtifactPart} and set if the text is empty a default text
+	 * Request a creation of a {@link RelationLinkArtifact.RelationLinkArtifactPart} and set its text.
 	 * 
 	 * @param part
 	 *            The {@link RelationLinkArtifact.RelationLinkArtifactPart} to edit
 	 */
-	public void edit(final RelationLinkArtifactPart part) {
+	public void createPart(final RelationLinkArtifactPart part) {
+		Log.debug("ClassRelationLinkArtifact::Edit(RelationLinkArtifactPart) start editing part : " + part.name());
 		String defaultText;
 		switch (part) {
 			case NAME:
-				final String name = part.getText(this.relation);
-				if ((name == null) || name.equals("")) {
 					defaultText = this.leftClassArtifact.getName() + "-" + this.rightClassArtifact.getName();
-				} else {
-					defaultText = name;
-				}
 				break;
 			case LEFT_CARDINALITY:
 			case RIGHT_CARDINALITY:
@@ -121,7 +131,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 				break;
 			default:
 				defaultText = "?";
-
 		}
 		part.setText(this.relation, defaultText);
 		this.rebuildGfxObject();
@@ -507,7 +516,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 			GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
 			GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getTheme().getClassRelationForegroundColor());
 			GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
-			RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationLinkArtifactPart.NAME);
 			this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 		}
 
@@ -568,7 +576,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	private Command createCommand(final RelationLinkArtifactPart relationArtifactPart) {
 		return new Command() {
 			public void execute() {
-				ClassRelationLinkArtifact.this.edit(relationArtifactPart);
+				ClassRelationLinkArtifact.this.createPart(relationArtifactPart);
 			}
 		};
 	}
@@ -597,7 +605,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 			this.current_delta += 8;
 		}
 
-		RelationLinkArtifactPart.setGfxObjectTextForPart(textGfxObject, part);
 		this.gfxObjectPart.put(part, textGfxObject);
 		return textGfxObject;
 	}
@@ -614,7 +621,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	private Command editCommand(final RelationLinkArtifactPart relationArtifactPart) {
 		return new Command() {
 			public void execute() {
-				ClassRelationLinkArtifact.this.edit(ClassRelationLinkArtifact.this.gfxObjectPart.get(relationArtifactPart));
+				ClassRelationLinkArtifact.this.edit(relationArtifactPart);
 			}
 		};
 	}

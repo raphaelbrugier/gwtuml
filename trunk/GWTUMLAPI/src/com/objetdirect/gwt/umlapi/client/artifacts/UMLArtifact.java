@@ -110,12 +110,6 @@ public abstract class UMLArtifact {
 	}
 
 	/**
-	 * Default constructor ONLY for gwt-rpc serialization 
-	 */
-	public UMLArtifact() {
-	}
-
-	/**
 	 * This method destroys this artifact's graphical object and all dependencies graphical objects. <br>
 	 * Useful to remove a class and all its links
 	 */
@@ -319,7 +313,7 @@ public abstract class UMLArtifact {
 				public void process() {
 					final long t2 = System.currentTimeMillis();
 					dependentUMLArtifact.getKey().rebuildGfxObject();
-					Log.debug("([" + (System.currentTimeMillis() - t2) + "ms]) to arrow " + this);
+					Log.trace("([" + (System.currentTimeMillis() - t2) + "ms]) to arrow " + this);
 				}
 			};
 		}
