@@ -33,12 +33,14 @@ public class UMLRelation extends UMLLink {
 	private String			leftCardinality;
 	private String			leftConstraint;
 	private String			leftRole;
+	private String			leftStereotype;
 	private LinkAdornment	leftAdornment;
 	private UMLClass		leftTarget;
 
 	private String			rightCardinality;
 	private String			rightConstraint;
 	private String			rightRole;
+	private String			rightStereotype;
 	private LinkAdornment	rightAdornment;
 	private UMLClass		rightTarget;
 	
@@ -60,15 +62,19 @@ public class UMLRelation extends UMLLink {
 	public UMLRelation(final LinkKind relationKind) {
 		super(relationKind);
 		this.linkStyle = relationKind.getDefaultLinkStyle();
-		this.leftAdornment = relationKind.getDefaultLeftAdornment();
-		this.rightAdornment = relationKind.getDefaultRightAdornment();
-		this.leftCardinality = relationKind.getDefaultLeftCardinality();
-		this.rightCardinality = relationKind.getDefaultRightCardinality();
-		this.leftConstraint = "";
-		this.rightConstraint = "";
-		this.leftRole = "";
-		this.rightRole = "";
 		this.name = "";
+
+		this.leftCardinality = relationKind.getDefaultLeftCardinality();
+		this.leftConstraint = "";
+		this.leftRole = "";
+		this.leftStereotype = "";
+		this.leftAdornment = relationKind.getDefaultLeftAdornment();
+		
+		this.rightCardinality = relationKind.getDefaultRightCardinality();
+		this.rightConstraint = "";
+		this.rightRole = "";
+		this.rightStereotype = "";
+		this.rightAdornment = relationKind.getDefaultRightAdornment();
 		
 //		Log.debug("UMLRelation::UMLRelation()\n" + this);
 	}
@@ -107,6 +113,14 @@ public class UMLRelation extends UMLLink {
 	 */
 	public String getLeftRole() {
 		return this.leftRole;
+	}
+	
+
+	/**
+	 * @return the leftStereotype
+	 */
+	public String getLeftStereotype() {
+		return leftStereotype;
 	}
 
 	/**
@@ -164,6 +178,13 @@ public class UMLRelation extends UMLLink {
 	}
 
 	/**
+	 * @return the rightStereotype
+	 */
+	public String getRightStereotype() {
+		return rightStereotype;
+	}
+
+	/**
 	 * Setter for the left adornment
 	 * 
 	 * @param leftAdornment
@@ -207,6 +228,13 @@ public class UMLRelation extends UMLLink {
 //		Log.debug("UMLRelation::setLeftRole \n" + this);
 	}
 
+	/**
+	 * @param leftStereotype the leftStereotype to set
+	 */
+	public void setLeftStereotype(String leftStereotype) {
+		this.leftStereotype = leftStereotype;
+	}
+	
 	/**
 	 * Setter for the link style
 	 * 
@@ -273,6 +301,13 @@ public class UMLRelation extends UMLLink {
 	}
 
 	/**
+	 * @param rightStereotype the rightStereotype to set
+	 */
+	public void setRightStereotype(String rightStereotype) {
+		this.rightStereotype = rightStereotype;
+	}
+
+	/**
 	 * @return the leftTarget
 	 */
 	public UMLClass getLeftTarget() {
@@ -311,14 +346,22 @@ public class UMLRelation extends UMLLink {
 		final String tempCardinality = this.leftCardinality;
 		final String tempConstraint = this.leftConstraint;
 		final String tempRole = this.leftRole;
+		final String tempStereotype = this.leftStereotype;
+		final UMLClass tempClass = this.leftTarget;
+		
 		this.leftAdornment = this.rightAdornment;
 		this.leftCardinality = this.rightCardinality;
 		this.leftConstraint = this.rightConstraint;
 		this.leftRole = this.rightRole;
+		this.leftStereotype = this.rightStereotype;
+		this.leftTarget = this.rightTarget;
+		
 		this.rightAdornment = tempAdornment;
 		this.rightCardinality = tempCardinality;
 		this.rightConstraint = tempConstraint;
 		this.rightRole = tempRole;
+		this.rightStereotype = tempStereotype;
+		this.rightTarget = tempClass;
 		
 //		Log.debug("UMLRelation::reverse()\n" + this);
 	}
@@ -337,7 +380,7 @@ public class UMLRelation extends UMLLink {
 		if (leftRole.isEmpty() || rightRole.isEmpty())
 			return false;
 		
-		if ( ! leftConstraint.contentEquals("{owner}") && ! rightConstraint.contentEquals("{owner}"))
+		if ( ! leftStereotype.contentEquals("<<owner>>") && ! rightStereotype.contentEquals("<<owner>>"))
 			return false;
 		
 		if ( !(leftAdornment.equals(LinkAdornment.NONE) && rightAdornment.equals(LinkAdornment.NONE)))  
@@ -353,9 +396,9 @@ public class UMLRelation extends UMLLink {
 	 */
 	public UMLClass getOwner() {
 		if (this.isBidirectional()) {
-			if (leftConstraint.equalsIgnoreCase("{owner}"))
+			if (leftStereotype.equalsIgnoreCase("<<owner>>"))
 				return leftTarget;
-			else if (rightConstraint.equalsIgnoreCase("{owner}"))
+			else if (rightStereotype.equalsIgnoreCase("<<owner>>"))
 				return rightTarget;
 			else
 				throw new GWTUMLAPIException("A bidirectional relation must have an owner defined.");
@@ -366,7 +409,7 @@ public class UMLRelation extends UMLLink {
 		else if (rightAdornment.equals(LinkAdornment.WIRE_ARROW))
 			return leftTarget;
 		else
-			throw new GWTUMLAPIException("A association must have an arrow on one side to define the owner.");
+			throw new GWTUMLAPIException("An association must have an arrow on one side to define the owner.");
 	}
 	
 	
@@ -386,21 +429,10 @@ public class UMLRelation extends UMLLink {
 	 * @return True if the left side is the owner of the relation
 	 */
 	public boolean isLeftOwner () {
-		if (this.isBidirectional()) {
-			if (leftConstraint.equalsIgnoreCase("{owner}"))
-				return true;
-			else if (rightConstraint.equalsIgnoreCase("{owner}"))
-				return false;
-			else
-				throw new GWTUMLAPIException("A bidirectional relation must have an owner defined.");
-		}
-		
-		if (leftAdornment.equals(LinkAdornment.WIRE_ARROW))
-			return false;
-		else if (rightAdornment.equals(LinkAdornment.WIRE_ARROW))
+		if (getOwner().equals(leftTarget))
 			return true;
 		else
-			throw new GWTUMLAPIException("A association must have an arrow on one side to define the owner.");
+			return false;
 	}
 	
 	/**
