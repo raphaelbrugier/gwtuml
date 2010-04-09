@@ -14,18 +14,27 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
+
 /**
  * This class represent a parameter of a method
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @author Henri Darmet
  */
-public class UMLParameter {
+@SuppressWarnings("serial")
+public class UMLParameter implements Serializable {
 
 	private String	name;
 
 	private String	type;
 
+	/**
+	 * Default constructor only for gwt-rpc serialization 
+	 */
+	public UMLParameter() {
+	}
+	
 	/**
 	 * Constructor of the parameter
 	 * 

@@ -14,7 +14,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
@@ -47,16 +45,14 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	private GfxObject								attributeRect;
 	private final List<UMLClassAttribute>			attributes;
 	private GfxObject								lastGfxObject;
-	private UMLClass 								ownerClass;
-
+	
 	/**
-	 * Constructor of ClassPartAttributesArtifact It initializes the attribute list
-	 * @param ownerClass Owner class of the attributes (as UMLComponent)
+	 * Constructor of ClassPartAttributesArtifact
+	 * @param attributes UMLAttributes displayed by this part.
 	 */
-	public ClassPartAttributesArtifact(UMLClass ownerClass) {
+	public ClassPartAttributesArtifact(final List<UMLClassAttribute> attributes) {
 		super();
-		this.ownerClass = ownerClass;
-		this.attributes = new ArrayList<UMLClassAttribute>();
+		this.attributes = attributes;
 		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
 		this.height = 0;
 		this.width = 0;
@@ -70,7 +66,6 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 */
 	public void addAttribute(final UMLClassAttribute attribute) {
 		this.attributes.add(attribute);
-		ownerClass.getAttributes().add(attribute);
 	}
 
 	@Override
@@ -146,15 +141,6 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		return this.height;
 	}
 
-	/**
-	 * Getter for the attribute list
-	 * 
-	 * @return The current attribute list
-	 */
-	public List<UMLClassAttribute> getList() {
-		return this.attributes;
-	}
-
 	@Override
 	public int[] getOpaque() {
 		return null;
@@ -204,7 +190,6 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 */
 	public void remove(final UMLClassAttribute attribute) {
 		this.attributes.remove(attribute);
-		ownerClass.getAttributes().remove(attribute);
 	}
 
 	/*

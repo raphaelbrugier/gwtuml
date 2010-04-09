@@ -40,6 +40,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * This class represent the lower Part of a {@link NodeArtifact} It can hold a method list
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ClassPartMethodsArtifact extends NodePartArtifact {
 
@@ -49,16 +50,13 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	private final List<UMLClassMethod>				methods;
 
 	/**
-	 * Constructor of ClassPartMethodsArtifact It initializes the method list
-	 * 
+	 * Constructor of ClassPartMethodsArtifact 
+	 * @param methods methods displayed by this part.
 	 */
-	public ClassPartMethodsArtifact() {
+	public ClassPartMethodsArtifact(List<UMLClassMethod> methods) {
 		super();
-		this.methods = new ArrayList<UMLClassMethod>();
+		this.methods = methods;
 		this.methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
-		// List<Parameter> methodParameters = new ArrayList<Parameter>();
-		// methodParameters.add(new Parameter("String", "parameter1"));
-		// methods.add(new Method("void","method", methodParameters));
 		this.height = 0;
 		this.width = 0;
 	}

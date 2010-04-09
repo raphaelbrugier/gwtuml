@@ -64,9 +64,7 @@ public class UMLClass extends UMLNode {
 	 * Default constructor for GWT RPC serialization.
 	 */
 	public UMLClass() {
-		super();
-		attributes = new ArrayList<UMLClassAttribute>();
-		methods = new ArrayList<UMLClassMethod>();
+		this("Class");
 	}
 	
 	/**
@@ -77,6 +75,7 @@ public class UMLClass extends UMLNode {
 	public UMLClass(final String name) {
 		super();
 		this.name = name;
+		stereotype = "";
 		attributes = new ArrayList<UMLClassAttribute>();
 		methods = new ArrayList<UMLClassMethod>();
 	}

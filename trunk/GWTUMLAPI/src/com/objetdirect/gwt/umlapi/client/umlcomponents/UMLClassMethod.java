@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -27,7 +28,8 @@ import com.objetdirect.gwt.umlapi.client.analyser.MethodSyntaxAnalyzer;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class UMLClassMethod {
+@SuppressWarnings("serial")
+public class UMLClassMethod implements Serializable {
 
 	/**
 	 * Parse a method from a {@link String}
@@ -62,6 +64,14 @@ public class UMLClassMethod {
 
 	private UMLVisibility		visibility;
 
+	
+	/**
+	 * Default constructor only for gwt-rpc serialization 
+	 */
+	public UMLClassMethod() {
+		this(UMLVisibility.PUBLIC,"","",null);
+	}
+	
 	/**
 	 * Constructor of the method
 	 * 
@@ -74,7 +84,6 @@ public class UMLClassMethod {
 	 *            The parameters list of this method
 	 */
 	public UMLClassMethod(final UMLVisibility visibility, final String returnType, final String name, final List<UMLParameter> parameters) {
-		super();
 		this.visibility = visibility;
 		this.returnType = returnType;
 		this.name = name;

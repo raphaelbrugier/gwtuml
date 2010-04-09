@@ -38,31 +38,20 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	private final UMLClass	uMLclass;
 	private GfxObject		nameRect;
 	private GfxObject		nameText;
-	private String			stereotype;
 	private GfxObject		stereotypeText;
 
-	/**
-	 * Constructor of ClassPartNameArtifact with only class name
-	 * 
-	 * @param className
-	 *            The name of the class
-	 */
-	public ClassPartNameArtifact(final String className) {
-		this(className, "");
-	}
-
+	
 	/**
 	 * Constructor of ClassPartNameArtifact with class name and stereotype
-	 * 
-	 * @param className
-	 *            The name of the class
-	 * @param stereotype
-	 *            The stereotype associated with the class
+	 * @param ownedClass the UMLclass displayed by the artifact.
+	 * @param className The name of the class
+	 * @param stereotype The stereotype associated with the class
 	 */
-	public ClassPartNameArtifact(final String className, final String stereotype) {
+	public ClassPartNameArtifact(final UMLClass ownedClass, final String className, final String stereotype) {
 		super();
-		this.uMLclass = new UMLClass(className);
-		this.stereotype = stereotype.equals("") ? "" : "«" + stereotype + "»";
+		this.uMLclass = ownedClass;
+		this.uMLclass.setName(className);
+		this.uMLclass.setStereotype(stereotype.equals("") ? "" : "«" + stereotype + "»");
 		this.height = 0;
 		this.width = 0;
 	}
@@ -100,8 +89,10 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		this.width = 0;
 		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
-		if ((this.stereotype != null) && (this.stereotype != "")) {
-			this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype,
+		
+		final String stereotype = this.uMLclass.getStereotype();
+		if ((stereotype != null) && (stereotype != "")) {
+			this.stereotypeText = GfxManager.getPlatform().buildText(stereotype,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
 			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.stereotypeText);
 			GfxManager.getPlatform().setFont(this.stereotypeText, OptionsManager.getFont());
@@ -131,9 +122,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 	@Override
 	public void edit() {
-		if ((this.stereotype == null) || this.stereotype.equals("")) {
-			this.stereotype = "«Abstract»";
+		final String stereotype = this.uMLclass.getStereotype();
+		if ((stereotype == null) || stereotype.equals("")) {
+			this.uMLclass.setStereotype("«Abstract»");
 			this.nodeArtifact.rebuildGfxObject();
+			Log.debug("stereotype = " + stereotype);
+			Log.debug("stereotypeText = " + stereotypeText);
 			this.edit(this.stereotypeText);
 		} else {
 			this.edit(this.nameText);
@@ -150,7 +144,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		final ClassPartNameFieldEditor editor = new ClassPartNameFieldEditor(this.canvas, this, isTheStereotype);
 		String edited;
 		if (isTheStereotype) {
-			edited = this.stereotype.replaceAll("»", "").replaceAll("«", "");
+			edited = this.uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
 		} else {
 			edited = this.uMLclass.getName();
 		}
@@ -222,7 +216,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 * @return the stereotype
 	 */
 	public String getStereotype() {
-		return this.stereotype.replaceAll("»", "").replaceAll("«", "");
+		return this.uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
 	}
 
 	@Override
@@ -245,18 +239,9 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 *            the stereotype to set
 	 */
 	public void setStereotype(final String stereotype) {
-		this.stereotype = stereotype;
+		this.uMLclass.setStereotype(stereotype);
 	}
 
-	
-	/**
-	 * Get the UMLComponent class attached
-	 * @return the class
-	 */
-	public UMLClass getUMLClass() {
-		return uMLclass;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -295,7 +280,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	private Command deleteStereotype() {
 		return new Command() {
 			public void execute() {
-				ClassPartNameArtifact.this.stereotype = null;
+				ClassPartNameArtifact.this.uMLclass.setStereotype(null);
 				ClassPartNameArtifact.this.nodeArtifact.rebuildGfxObject();
 			}
 		};

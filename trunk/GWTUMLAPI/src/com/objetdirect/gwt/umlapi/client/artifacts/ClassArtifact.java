@@ -37,6 +37,8 @@ public class ClassArtifact extends NodeArtifact {
 	ClassPartAttributesArtifact	classAttributes;
 	ClassPartMethodsArtifact	classMethods;
 	ClassPartNameArtifact		className;
+	
+	final UMLClass					ownedClass;
 
 	/**
 	 * Default constructor, initializes the ClassArtifact with the name "Class"
@@ -65,9 +67,10 @@ public class ClassArtifact extends NodeArtifact {
 	 */
 	public ClassArtifact(final String className, final String stereotype) {
 		super();
-		this.className = new ClassPartNameArtifact(className, stereotype);
-		this.classAttributes = new ClassPartAttributesArtifact(this.className.getUMLClass());
-		this.classMethods = new ClassPartMethodsArtifact();
+		ownedClass = new UMLClass(className);
+		this.className = new ClassPartNameArtifact(ownedClass, className, stereotype);
+		this.classAttributes = new ClassPartAttributesArtifact(ownedClass.getAttributes());
+		this.classMethods = new ClassPartMethodsArtifact(ownedClass.getMethods());
 		this.nodeParts.add(this.className);
 		this.nodeParts.add(this.classAttributes);
 		this.nodeParts.add(this.classMethods);
@@ -103,7 +106,7 @@ public class ClassArtifact extends NodeArtifact {
 	 * @return the list of attributes of this class
 	 */
 	public List<UMLClassAttribute> getAttributes() {
-		return this.classAttributes.getList();
+		return this.ownedClass.getAttributes();
 	}
 
 	/**
@@ -142,7 +145,7 @@ public class ClassArtifact extends NodeArtifact {
 	}
 
 	public UMLClass toUMLComponent() {
-		return className.getUMLClass();
+		return ownedClass;
 	}
 	
 	/*
