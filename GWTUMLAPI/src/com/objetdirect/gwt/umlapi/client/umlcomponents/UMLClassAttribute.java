@@ -28,6 +28,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLClassAttribute implements Serializable {
 
 	/**

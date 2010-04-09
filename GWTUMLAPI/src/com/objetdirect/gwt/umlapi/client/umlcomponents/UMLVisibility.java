@@ -61,6 +61,12 @@ public enum UMLVisibility {
 	private char	token;
 
 	/**
+	 * Default constructor only for gwt-rpc serialization 
+	 */
+	private UMLVisibility(){
+	}
+	
+	/**
 	 * @param token
 	 */
 	private UMLVisibility(final char token) {
