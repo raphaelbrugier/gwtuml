@@ -373,13 +373,7 @@ public class UMLRelation extends UMLLink {
 		if ( ! linkKind.equals(LinkKind.ASSOCIATION_RELATION))
 			return false;
 		
-		if (leftCardinality.isEmpty() || rightCardinality.isEmpty())
-			return false;
-		
 		if (leftRole.isEmpty() || rightRole.isEmpty())
-			return false;
-		
-		if ( ! leftStereotype.contentEquals("<<owner>>") && ! rightStereotype.contentEquals("<<owner>>"))
 			return false;
 		
 		if ( !(leftAdornment.equals(LinkAdornment.NONE) && rightAdornment.equals(LinkAdornment.NONE)))  
@@ -454,8 +448,7 @@ public class UMLRelation extends UMLLink {
 	
 	
 	/**
-	 * Return if the relation is a one to one relation.
-	 * @return true if the relation is a one to one relation.
+	 * @return true if the relation is a OneToOne relation.
 	 */
 	public boolean isOneToOne () {
 		if (leftCardinality.equalsIgnoreCase("1")) {
@@ -473,17 +466,52 @@ public class UMLRelation extends UMLLink {
 		if (rightCardinality.equalsIgnoreCase("1")) {
 			// Simple one To One
 			if (leftCardinality.isEmpty())
-				
 				return true;
-			//Bidirectional
-			else if (leftCardinality.equalsIgnoreCase("1"))
-				return true;
+			
 			// one to many
 			else 
 				return false;
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * @return true if the relation is a OneToMany relation
+	 */
+	public boolean isOneToMany() {
+		if (isLeftOwner()) {
+			if ( (leftCardinality.isEmpty() || leftCardinality.equalsIgnoreCase("1") ) && rightCardinality.equalsIgnoreCase("*")) 
+				return true;
+		}
+		// Right owner
+		else {
+			if ( (rightCardinality.isEmpty() || rightCardinality.equalsIgnoreCase("1") ) && leftCardinality.equalsIgnoreCase("*")) 
+				return true;
+		}
+
+		return false;
+	}
+
+	public boolean isManyToOne() {
+		if (isLeftOwner()) {
+			if ( leftCardinality.equalsIgnoreCase("*") && rightCardinality.equalsIgnoreCase("1")) 
+				return true;
+		}
+		// Right owner
+		else {
+			if ( rightCardinality.equalsIgnoreCase("*") && leftCardinality.equalsIgnoreCase("1")) 
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isManyToMany() {
+		if(leftCardinality.equalsIgnoreCase("*") && rightCardinality.equalsIgnoreCase("*") )
+			return true;
+		else
+			return false;
 	}
 	
 	@Override
