@@ -99,8 +99,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		GfxObject editedGfxObject = gfxObjectPart.get(editPart);
 		
 		final RelationFieldEditor editor = new RelationFieldEditor(this.canvas, this, editPart);
-		editor.startEdition(editPart.getText(this.relation), GfxManager.getPlatform().getLocationFor(editedGfxObject).getX(), GfxManager.getPlatform()
-				.getLocationFor(editedGfxObject).getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
+		editor.startEdition(editPart.getText(this.relation), editedGfxObject.getLocation().getX(), editedGfxObject.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
 				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
 
@@ -429,8 +428,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
+		this.line.setStroke(ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
 	}
 
 	int getTextX(final GfxObject text, final boolean isLeft) {
@@ -492,71 +491,73 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 		this.line = this.getLine();
 
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
+		this.line.setStroke(ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
+		this.line.setStrokeStyle(this.relation.getLinkStyle().getGfxStyle());
+		this.line.addToVirtualGroup(this.gfxObject);
 
 		// Making arrows group :
 		this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+		this.arrowVirtualGroup.addToVirtualGroup(this.gfxObject);
 		final GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.leftDirectionPoint, this.relation.getLeftAdornment());
 		final GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.rightDirectionPoint, this.relation.getRightAdornment());
 
 		if (leftArrow != null) {
-			GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, leftArrow);
+			leftArrow.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 		if (rightArrow != null) {
-			GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, rightArrow);
+			rightArrow.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 		// Making the text group :
 		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
 		if (!this.relation.getName().equals("")) {
 			Log.trace("Creating name");
 			final GfxObject nameGfxObject = GfxManager.getPlatform().buildText(this.relation.getName(), this.nameAnchorPoint);
-			GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, nameGfxObject);
-			GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
-			GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getTheme().getClassRelationForegroundColor());
-			GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
+			nameGfxObject.setFont(OptionsManager.getSmallFont());
+			nameGfxObject.addToVirtualGroup(this.textVirtualGroup);
+			nameGfxObject.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
+			nameGfxObject.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor());
+			nameGfxObject.translate(new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
 			this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 		}
 
 		this.current_delta = 0;
 		if (!this.relation.getLeftCardinality().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getLeftCardinality(), RelationLinkArtifactPart.LEFT_CARDINALITY));
+			GfxObject leftCardinalityGfxText = this.createText(this.relation.getLeftCardinality(), RelationLinkArtifactPart.LEFT_CARDINALITY);
+			leftCardinalityGfxText.addToVirtualGroup(textVirtualGroup);
 		}
 		if (!this.relation.getLeftConstraint().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getLeftConstraint(), RelationLinkArtifactPart.LEFT_CONSTRAINT));
+			GfxObject leftConstraintGfxText = this.createText(this.relation.getLeftConstraint(), RelationLinkArtifactPart.LEFT_CONSTRAINT);
+			leftConstraintGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		if (!this.relation.getLeftRole().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.createText(this.relation.getLeftRole(), RelationLinkArtifactPart.LEFT_ROLE));
+			GfxObject leftRoleGfxText = this.createText(this.relation.getLeftRole(), RelationLinkArtifactPart.LEFT_ROLE);
+			leftRoleGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		if (!this.relation.getLeftStereotype().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.createText(this.relation.getLeftStereotype(), RelationLinkArtifactPart.LEFT_STEREOTYPE));
+			GfxObject leftStereotypeGfxText = this.createText(this.relation.getLeftStereotype(), RelationLinkArtifactPart.LEFT_STEREOTYPE);
+			leftStereotypeGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		
 		this.current_delta = 0;
 		if (!this.relation.getRightCardinality().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getRightCardinality(), RelationLinkArtifactPart.RIGHT_CARDINALITY));
+			GfxObject rightCardinalityGfxText = this.createText(this.relation.getRightCardinality(), RelationLinkArtifactPart.RIGHT_CARDINALITY); 
+			rightCardinalityGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		if (!this.relation.getRightConstraint().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getRightConstraint(), RelationLinkArtifactPart.RIGHT_CONSTRAINT));
+			GfxObject rightConstraintGfxText = this.createText(this.relation.getRightConstraint(), RelationLinkArtifactPart.RIGHT_CONSTRAINT);
+			rightConstraintGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		if (!this.relation.getRightRole().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getRightRole(), RelationLinkArtifactPart.RIGHT_ROLE));
+			GfxObject rightRoleGfxText = this.createText(this.relation.getRightRole(), RelationLinkArtifactPart.RIGHT_ROLE);
+			rightRoleGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 		if (!this.relation.getRightStereotype().equals("")) {
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup,
-					this.createText(this.relation.getRightStereotype(), RelationLinkArtifactPart.RIGHT_STEREOTYPE));
+			GfxObject rightStereotypeGfxText = this.createText(this.relation.getRightStereotype(), RelationLinkArtifactPart.RIGHT_STEREOTYPE);
+			rightStereotypeGfxText.addToVirtualGroup(this.textVirtualGroup);
 		}
 
-		GfxManager.getPlatform().moveToBack(this.gfxObject);
+		this.gfxObject.moveToBack();
 	}
 
 	/*
@@ -568,8 +569,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	protected void select() {
 		super.select();
 
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getClassRelationHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getClassRelationHighlightedForegroundColor(), 2);
+		this.line.setStroke(ThemeManager.getTheme().getClassRelationHighlightedForegroundColor(), 2);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getClassRelationHighlightedForegroundColor(), 2);
 	}
 
 	private Command changeToCommand(final UMLRelation linkRelation, final LinkKind relationKind) {
@@ -594,23 +595,18 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	private GfxObject createText(final String text, final RelationLinkArtifactPart part) {
 		final GfxObject textGfxObject = GfxManager.getPlatform().buildText(text, Point.getOrigin());
-		GfxManager.getPlatform().setFont(textGfxObject, OptionsManager.getSmallFont());
-		GfxManager.getPlatform().setStroke(textGfxObject, ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
-		GfxManager.getPlatform().setFillColor(textGfxObject, ThemeManager.getTheme().getClassRelationForegroundColor());
+		textGfxObject.setFont(OptionsManager.getSmallFont());
+		textGfxObject.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0);
+		textGfxObject.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor());
 		if (this.leftClassArtifact != this.rightClassArtifact) {
 			Log.trace("Creating text : " + text + " at " + this.getTextX(textGfxObject, part.isLeft()) + " : " + this.getTextY(textGfxObject, part.isLeft()));
-			GfxManager.getPlatform().translate(textGfxObject,
-					new Point(this.getTextX(textGfxObject, part.isLeft()), this.getTextY(textGfxObject, part.isLeft())));
+			textGfxObject.translate(new Point(this.getTextX(textGfxObject, part.isLeft()), this.getTextY(textGfxObject, part.isLeft())));
 		} else {
 			if (part.isLeft()) {
-				GfxManager.getPlatform().translate(
-						textGfxObject,
-						Point.add(this.leftClassArtifact.getCenter(), new Point(OptionsManager.get("ArrowWidth") / 2 + OptionsManager.get("TextLeftPadding"),
+				textGfxObject.translate(Point.add(this.leftClassArtifact.getCenter(), new Point(OptionsManager.get("ArrowWidth") / 2 + OptionsManager.get("TextLeftPadding"),
 								-(this.leftClassArtifact.getHeight() + OptionsManager.get("ReflexivePathYGap")) / 2 + this.current_delta)));
 			} else {
-				GfxManager.getPlatform().translate(
-						textGfxObject,
-						Point.add(this.leftClassArtifact.getLocation(), new Point(this.leftClassArtifact.getWidth() + OptionsManager.get("ReflexivePathXGap")
+				textGfxObject.translate(Point.add(this.leftClassArtifact.getLocation(), new Point(this.leftClassArtifact.getWidth() + OptionsManager.get("ReflexivePathXGap")
 								+ OptionsManager.get("TextLeftPadding"), this.current_delta)));
 			}
 			this.current_delta += 8;

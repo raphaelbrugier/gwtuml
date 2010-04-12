@@ -94,12 +94,12 @@ public class NoteArtifact extends BoxArtifact {
 			final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 			final GfxObject outlineBorderPath = this.getBorderPath();
 			final GfxObject outlineCornerPath = this.getCornerPath();
-			GfxManager.getPlatform().addToVirtualGroup(vg, outlineBorderPath);
-			GfxManager.getPlatform().addToVirtualGroup(vg, outlineCornerPath);
-			GfxManager.getPlatform().setStrokeStyle(outlineBorderPath, GfxStyle.DASH);
-			GfxManager.getPlatform().setStrokeStyle(outlineCornerPath, GfxStyle.DASH);
-			GfxManager.getPlatform().setStroke(outlineBorderPath, ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
-			GfxManager.getPlatform().setStroke(outlineCornerPath, ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
+			outlineBorderPath.addToVirtualGroup(vg);
+			outlineCornerPath.addToVirtualGroup(vg);
+			outlineBorderPath.setStrokeStyle(GfxStyle.DASH);
+			outlineCornerPath.setStrokeStyle(GfxStyle.DASH);
+			outlineBorderPath.setStroke(ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
+			outlineCornerPath.setStroke(ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 1);
 			return vg;
 		}
 		return super.getOutline();
@@ -142,8 +142,8 @@ public class NoteArtifact extends BoxArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.borderPath, ThemeManager.getTheme().getNoteForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(this.cornerPath, ThemeManager.getTheme().getNoteForegroundColor(), 1);
+		this.borderPath.setStroke(ThemeManager.getTheme().getNoteForegroundColor(), 1);
+		this.cornerPath.setStroke(ThemeManager.getTheme().getNoteForegroundColor(), 1);
 	}
 
 	void createNoteText() {
@@ -151,15 +151,15 @@ public class NoteArtifact extends BoxArtifact {
 		this.width = 0;
 		final String[] noteMultiLine = this.note.getText().split("\n");
 		this.contentText = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.contentText);
+		this.contentText.addToVirtualGroup(this.gfxObject);
 
 		for (final String noteLine : noteMultiLine) {
 			final GfxObject textLine = GfxManager.getPlatform().buildText(noteLine,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + this.height));
-			GfxManager.getPlatform().addToVirtualGroup(this.contentText, textLine);
-			GfxManager.getPlatform().setFont(textLine, OptionsManager.getSmallFont());
-			GfxManager.getPlatform().setStroke(textLine, ThemeManager.getTheme().getNoteBackgroundColor(), 0);
-			GfxManager.getPlatform().setFillColor(textLine, ThemeManager.getTheme().getNoteForegroundColor());
+			textLine.addToVirtualGroup(this.contentText);
+			textLine.setFont(OptionsManager.getSmallFont());
+			textLine.setStroke(ThemeManager.getTheme().getNoteBackgroundColor(), 0);
+			textLine.setFillColor(ThemeManager.getTheme().getNoteForegroundColor());
 			int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
 			int thisLineHeight = GfxManager.getPlatform().getTextHeightFor(textLine);
 			thisLineWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -176,11 +176,11 @@ public class NoteArtifact extends BoxArtifact {
 	protected void buildGfxObject() {
 		this.createNoteText();
 		this.borderPath = this.getBorderPath();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.borderPath);
+		this.borderPath.addToVirtualGroup(this.gfxObject);
 		this.cornerPath = this.getCornerPath();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.cornerPath);
-		GfxManager.getPlatform().translate(this.contentText, new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
-		GfxManager.getPlatform().moveToFront(this.contentText);
+		this.cornerPath.addToVirtualGroup(this.gfxObject);
+		this.contentText.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		this.contentText.moveToFront();
 	}
 
 	protected GfxObject getBorderPath() {
@@ -191,8 +191,8 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(this.width, this.height));
 		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(0, this.height));
 		GfxManager.getPlatform().lineTo(thisBorderPath, Point.getOrigin());
-		GfxManager.getPlatform().setFillColor(thisBorderPath, ThemeManager.getTheme().getNoteBackgroundColor());
-		GfxManager.getPlatform().setStroke(thisBorderPath, ThemeManager.getTheme().getNoteForegroundColor(), 1);
+		thisBorderPath.setFillColor(ThemeManager.getTheme().getNoteBackgroundColor());
+		thisBorderPath.setStroke(ThemeManager.getTheme().getNoteForegroundColor(), 1);
 		return thisBorderPath;
 	}
 
@@ -201,16 +201,16 @@ public class NoteArtifact extends BoxArtifact {
 		GfxManager.getPlatform().moveTo(thisCornerPath, new Point(this.width - this.getCornerWidth(), 0));
 		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(this.width - this.getCornerWidth(), this.getCornerHeight()));
 		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(this.width, this.getCornerHeight()));
-		GfxManager.getPlatform().setFillColor(thisCornerPath, ThemeManager.getTheme().getNoteBackgroundColor());
-		GfxManager.getPlatform().setStroke(thisCornerPath, ThemeManager.getTheme().getNoteForegroundColor(), 1);
+		thisCornerPath.setFillColor(ThemeManager.getTheme().getNoteBackgroundColor());
+		thisCornerPath.setStroke(ThemeManager.getTheme().getNoteForegroundColor(), 1);
 		return thisCornerPath;
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.borderPath, ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(this.cornerPath, ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
+		this.borderPath.setStroke(ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
+		this.cornerPath.setStroke(ThemeManager.getTheme().getNoteHighlightedForegroundColor(), 2);
 	}
 
 	private Command editCommand() {

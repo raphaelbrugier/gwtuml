@@ -72,8 +72,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
 		final MessageFieldEditor editor = new MessageFieldEditor(this.canvas, this);
-		editor.startEdition(this.message.getName(), GfxManager.getPlatform().getLocationFor(this.text).getX(), GfxManager.getPlatform().getLocationFor(
-				this.text).getY(), GfxManager.getPlatform().getTextWidthFor(this.text) + OptionsManager.get("RectangleRightPadding")
+		editor.startEdition(this.message.getName(), this.text.getLocation().getX(), this.text.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(this.text) + OptionsManager.get("RectangleRightPadding")
 				+ OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
 
@@ -199,8 +198,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.line.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
 	}
 
 	@Override
@@ -220,36 +219,35 @@ public class MessageLinkArtifact extends LinkArtifact {
 		this.leftPoint.translate(0, (this.leftLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
 		this.rightPoint.translate(0, (this.rightLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
 		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(this.line, this.message.getLinkStyle().getGfxStyle());
+		this.line.addToVirtualGroup(this.gfxObject);
+		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		this.line.setStrokeStyle(this.message.getLinkStyle().getGfxStyle());
 
 		// Making arrows group :
 		this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+		this.arrowVirtualGroup.addToVirtualGroup(this.gfxObject);
 		final GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.rightPoint, this.message.getLeftAdornment());
 		final GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.message.getRightAdornment());
 
 		if (leftArrow != null) {
-			GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, leftArrow);
+			leftArrow.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 		if (rightArrow != null) {
-			GfxManager.getPlatform().addToVirtualGroup(this.arrowVirtualGroup, rightArrow);
+			 rightArrow.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 
 		this.text = GfxManager.getPlatform().buildText(this.message.getName(), Point.getMiddleOf(this.leftPoint, this.rightPoint));
 		Log.trace("Creating name");
 
-		GfxManager.getPlatform().setFont(this.text, OptionsManager.getSmallFont());
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.text);
-		GfxManager.getPlatform().setStroke(this.text, ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
-		GfxManager.getPlatform().setFillColor(this.text, ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
-		GfxManager.getPlatform().translate(
-				this.text,
+		this.text.setFont(OptionsManager.getSmallFont());
+		this.gfxObject.addToVirtualGroup(this.text);
+		this.text.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
+		this.text.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
+		this.text.translate(
 				new Point(-GfxManager.getPlatform().getTextWidthFor(this.text) / 2, -GfxManager.getPlatform().getTextHeightFor(this.text)
 						- OptionsManager.get("TextBottomPadding")));
 
-		GfxManager.getPlatform().moveToBack(this.gfxObject);
+		this.gfxObject.moveToBack();
 
 	}
 
@@ -262,8 +260,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	protected void select() {
 		super.select();
 
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		this.line.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
 	}
 
 	private Command changeToCommand(final UMLMessage linkMessage, final LinkKind messageKind) {

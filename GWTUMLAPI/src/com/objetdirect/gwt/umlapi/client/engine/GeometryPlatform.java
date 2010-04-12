@@ -83,7 +83,7 @@ public abstract class GeometryPlatform {
 		final ArrayList<Point> points = this.getAdornmentPoints(target, origin, width, lenght);
 		if (adornment.getShape() == Shape.CIRCLE) {
 			adornmentGfxObject = GfxManager.getPlatform().buildCircle(OptionsManager.get("CircleRadius"));
-			GfxManager.getPlatform().translate(adornmentGfxObject, points.get(0));
+			adornmentGfxObject.translate(points.get(0));
 		} else {
 			adornmentGfxObject = GfxManager.getPlatform().buildPath();
 			GfxManager.getPlatform().moveTo(adornmentGfxObject, points.get(0));
@@ -105,8 +105,8 @@ public abstract class GeometryPlatform {
 				}
 			}
 		}
-		GfxManager.getPlatform().setStroke(adornmentGfxObject, foreColor, adornment == LinkAdornment.WIRE_CROSS ? 2 : 1);
-		GfxManager.getPlatform().setFillColor(adornmentGfxObject, backColor);
+		adornmentGfxObject.setStroke(foreColor, adornment == LinkAdornment.WIRE_CROSS ? 2 : 1);
+		adornmentGfxObject.setFillColor(backColor);
 		return adornmentGfxObject;
 	}
 

@@ -461,7 +461,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().lineTo(line, this.leftDirectionPoint);
 		GfxManager.getPlatform().lineTo(line, this.rightDirectionPoint);
 		GfxManager.getPlatform().lineTo(line, this.rightPoint);
-		GfxManager.getPlatform().setOpacity(line, 0, true);
+		line.setOpacity(0, true);
 
 		return line;
 	}
@@ -489,7 +489,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			line = GfxManager.getPlatform().buildPath();
 			GfxManager.getPlatform().moveTo(line, this.leftPoint);
 			GfxManager.getPlatform().curveTo(line, this.rightPoint, curveControl);
-			GfxManager.getPlatform().setOpacity(line, 0, true);
+			line.setOpacity(0, true);
 			this.nameAnchorPoint = Point.getMiddleOf(curveControl, this.nameAnchorPoint);
 		}
 
@@ -510,7 +510,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().lineTo(line, new Point(rightShiftedPoint.getX(), leftShiftedPoint.getY()));
 		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
 		GfxManager.getPlatform().lineTo(line, this.rightPoint);
-		GfxManager.getPlatform().setOpacity(line, 0, true);
+		line.setOpacity(0, true);
 		this.nameAnchorPoint = new Point((this.leftPoint.getX() + this.rightPoint.getX() + (this.order + 1) * OptionsManager.get("ReflexivePathXGap")) / 2,
 				this.leftPoint.getY() - (this.order + 1) * OptionsManager.get("ReflexivePathYGap"));
 		return line;
@@ -530,8 +530,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		this.leftDirectionPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
 		this.rightDirectionPoint = Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
 		this.nameAnchorPoint = Point.add(edge, new Point(0, -(this.order + 1) * OptionsManager.get("ReflexivePathXGap")));
-		GfxManager.getPlatform().translate(line, edge);
-		GfxManager.getPlatform().setOpacity(line, 0, true);
+		line.translate(edge);
+		line.setOpacity(0, true);
 		return line;
 	}
 

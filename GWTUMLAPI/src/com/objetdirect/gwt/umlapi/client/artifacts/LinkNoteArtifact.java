@@ -53,10 +53,10 @@ public class LinkNoteArtifact extends LinkArtifact {
 		this.leftPoint = this.note.getCenter();
 		this.rightPoint = this.target.getCenter();
 		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(this.line, GfxStyle.DASH);
-		GfxManager.getPlatform().moveToBack(this.gfxObject);
+		this.line.addToVirtualGroup(this.gfxObject);
+		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		this.line.setStrokeStyle(GfxStyle.DASH);
+		this.gfxObject.moveToBack();
 
 	}
 
@@ -101,12 +101,12 @@ public class LinkNoteArtifact extends LinkArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getLinkNoteHighlightedForegroundColor(), 2);
+		this.line.setStroke(ThemeManager.getTheme().getLinkNoteHighlightedForegroundColor(), 2);
 	}
 }

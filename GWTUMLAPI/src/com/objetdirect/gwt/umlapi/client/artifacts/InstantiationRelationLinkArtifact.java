@@ -134,8 +134,8 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
+		this.line.setStroke(ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
 	}
 
 	@Override
@@ -169,45 +169,43 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 			this.line = GfxManager.getPlatform().buildPath();
 			GfxManager.getPlatform().moveTo(this.line, this.leftPoint);
 			GfxManager.getPlatform().curveTo(this.line, this.rightPoint, curveControl);
-			GfxManager.getPlatform().setOpacity(this.line, 0, true);
+			this.line.setOpacity(0, true);
 		}
 
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(this.line, this.relation.getLinkStyle().getGfxStyle());
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.line);
+		this.line.setStroke(ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
+		this.line.setStrokeStyle(this.relation.getLinkStyle().getGfxStyle());
+		 this.line.addToVirtualGroup(this.gfxObject);
 
 		// Making arrows group :
 		this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.arrowVirtualGroup);
+		this.arrowVirtualGroup.addToVirtualGroup(this.gfxObject);
 		if (isComputationNeededOnLeft) {
-			GfxManager.getPlatform().addToVirtualGroup(
-					this.arrowVirtualGroup,
-					this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.rightPoint, this.relation.getLeftAdornment())
-							: GeometryManager.getPlatform().buildAdornment(this.leftPoint, curveControl, this.relation.getLeftAdornment()));
+			GfxObject leftAdornment = this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.rightPoint, this.relation.getLeftAdornment())
+					: GeometryManager.getPlatform().buildAdornment(this.leftPoint, curveControl, this.relation.getLeftAdornment());
+			leftAdornment.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 		if (isComputationNeededOnRight) {
-			GfxManager.getPlatform().addToVirtualGroup(
-					this.arrowVirtualGroup,
-					this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.relation.getRightAdornment())
-							: GeometryManager.getPlatform().buildAdornment(this.rightPoint, curveControl, this.relation.getRightAdornment()));
+			GfxObject rightAdornment = this.order == 0 ? GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.relation.getRightAdornment())
+					: GeometryManager.getPlatform().buildAdornment(this.rightPoint, curveControl, this.relation.getRightAdornment()); 
+			rightAdornment.addToVirtualGroup(this.arrowVirtualGroup);
 		}
 
 		// Making the text group :
 		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
 		Log.trace("Creating name");
 		Point linkMiddle = Point.getMiddleOf(this.leftPoint, this.rightPoint);
 		if (this.order != 0) {
 			linkMiddle = Point.getMiddleOf(curveControl, linkMiddle);
 		}
 		final GfxObject nameGfxObject = GfxManager.getPlatform().buildText("«InstanceOf»", linkMiddle);
-		GfxManager.getPlatform().setFont(nameGfxObject, OptionsManager.getSmallFont());
-		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, nameGfxObject);
-		GfxManager.getPlatform().setStroke(nameGfxObject, ThemeManager.getTheme().getInstantiationBackgroundColor(), 0);
-		GfxManager.getPlatform().setFillColor(nameGfxObject, ThemeManager.getTheme().getInstantiationForegroundColor());
-		GfxManager.getPlatform().translate(nameGfxObject, new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
+		nameGfxObject.setFont(OptionsManager.getSmallFont());
+		nameGfxObject.addToVirtualGroup(this.textVirtualGroup);
+		nameGfxObject.setStroke(ThemeManager.getTheme().getInstantiationBackgroundColor(), 0);
+		nameGfxObject.setFillColor(ThemeManager.getTheme().getInstantiationForegroundColor());
+		nameGfxObject.translate(new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
 
-		GfxManager.getPlatform().moveToBack(this.gfxObject);
+		this.gfxObject.moveToBack();
 	}
 
 	/*
@@ -218,7 +216,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.line, ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(this.arrowVirtualGroup, ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
+		this.line.setStroke(ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
+		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
 	}
 }

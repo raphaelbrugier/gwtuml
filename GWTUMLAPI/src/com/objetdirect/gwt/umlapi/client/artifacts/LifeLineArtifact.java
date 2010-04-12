@@ -109,18 +109,18 @@ public class LifeLineArtifact extends BoxArtifact {
 			final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 
 			final GfxObject lifeLineRectOutline = GfxManager.getPlatform().buildRect(this.width, this.rectHeight);
-			GfxManager.getPlatform().addToVirtualGroup(vg, lifeLineRectOutline);
-			GfxManager.getPlatform().setStrokeStyle(lifeLineRectOutline, GfxStyle.DASH);
-			GfxManager.getPlatform().setStroke(lifeLineRectOutline, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 1);
-			GfxManager.getPlatform().setFillColor(lifeLineRectOutline, ThemeManager.getTheme().getLifeLineBackgroundColor());
+			lifeLineRectOutline.addToVirtualGroup(vg);
+			lifeLineRectOutline.setStrokeStyle(GfxStyle.DASH);
+			lifeLineRectOutline.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 1);
+			lifeLineRectOutline.setFillColor(ThemeManager.getTheme().getLifeLineBackgroundColor());
 			final Point lineStart = new Point(this.width / 2, this.rectHeight);
 			final Point lineEnd = lineStart.clonePoint();
 			lineEnd.translate(0, this.lineLength);
 			final GfxObject lifeLineLineOutline = GfxManager.getPlatform().buildLine(lineStart, lineEnd);
-			GfxManager.getPlatform().addToVirtualGroup(vg, lifeLineLineOutline);
+			lifeLineLineOutline.addToVirtualGroup(vg);
 
-			GfxManager.getPlatform().setStrokeStyle(lifeLineLineOutline, GfxStyle.DASH);
-			GfxManager.getPlatform().setStroke(lifeLineLineOutline, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 1);
+			lifeLineLineOutline.setStrokeStyle(GfxStyle.DASH);
+			lifeLineLineOutline.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 1);
 			return vg;
 		}
 		return super.getOutline();
@@ -173,8 +173,8 @@ public class LifeLineArtifact extends BoxArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.lifeLineRect, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
-		GfxManager.getPlatform().setStroke(this.lifeLineLine, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.lifeLineRect.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.lifeLineLine.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
 	}
 
 	@Override
@@ -187,10 +187,10 @@ public class LifeLineArtifact extends BoxArtifact {
 				new Point(OptionsManager.get("RectangleLeftPadding") + OptionsManager.get("TextLeftPadding"), OptionsManager.get("RectangleTopPadding")
 						+ OptionsManager.get("TextTopPadding")));
 
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.lifeLineText);
-		GfxManager.getPlatform().setFont(this.lifeLineText, OptionsManager.getFont());
-		GfxManager.getPlatform().setStroke(this.lifeLineText, ThemeManager.getTheme().getLifeLineBackgroundColor(), 0);
-		GfxManager.getPlatform().setFillColor(this.lifeLineText, ThemeManager.getTheme().getLifeLineForegroundColor());
+		this.lifeLineText.addToVirtualGroup(this.gfxObject);
+		this.lifeLineText.setFont(OptionsManager.getFont());
+		this.lifeLineText.setStroke(ThemeManager.getTheme().getLifeLineBackgroundColor(), 0);
+		this.lifeLineText.setFillColor(ThemeManager.getTheme().getLifeLineForegroundColor());
 		this.width = GfxManager.getPlatform().getTextWidthFor(this.lifeLineText);
 		this.rectHeight = GfxManager.getPlatform().getTextHeightFor(this.lifeLineText);
 		this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -199,26 +199,26 @@ public class LifeLineArtifact extends BoxArtifact {
 		this.rectHeight += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 
 		this.lifeLineRect = GfxManager.getPlatform().buildRect(this.width, this.rectHeight);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.lifeLineRect);
-		GfxManager.getPlatform().setFillColor(this.lifeLineRect, ThemeManager.getTheme().getLifeLineBackgroundColor());
-		GfxManager.getPlatform().setStroke(this.lifeLineRect, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.lifeLineRect.addToVirtualGroup(this.gfxObject);
+		this.lifeLineRect.setFillColor(ThemeManager.getTheme().getLifeLineBackgroundColor());
+		this.lifeLineRect.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
 
 		final Point lineStart = new Point(this.width / 2, this.rectHeight);
 		final Point lineEnd = lineStart.clonePoint();
 		lineEnd.translate(0, this.lineLength);
 		this.lifeLineLine = GfxManager.getPlatform().buildLine(lineStart, lineEnd);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.lifeLineLine);
-		GfxManager.getPlatform().setFillColor(this.lifeLineLine, ThemeManager.getTheme().getLifeLineBackgroundColor());
-		GfxManager.getPlatform().setStroke(this.lifeLineLine, ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
-		GfxManager.getPlatform().setStrokeStyle(this.lifeLineLine, GfxStyle.DASH);
-		GfxManager.getPlatform().moveToFront(this.lifeLineText);
+		this.lifeLineLine.addToVirtualGroup(this.gfxObject);
+		this.lifeLineLine.setFillColor(ThemeManager.getTheme().getLifeLineBackgroundColor());
+		this.lifeLineLine.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		this.lifeLineLine.setStrokeStyle(GfxStyle.DASH);
+		this.lifeLineText.moveToFront();
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.lifeLineRect, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
-		GfxManager.getPlatform().setStroke(this.lifeLineLine, ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		this.lifeLineRect.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		this.lifeLineLine.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
 	}
 
 	private Command editCommand() {

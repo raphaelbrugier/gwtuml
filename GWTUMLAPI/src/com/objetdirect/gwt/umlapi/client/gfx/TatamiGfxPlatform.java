@@ -39,7 +39,7 @@ import com.objetdirect.tatami.client.gfx.VirtualGroup;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public class TatamiGfxPlatfrom implements GfxPlatform {
+public class TatamiGfxPlatform implements GfxPlatform {
 
 	/*
 	 * (non-Javadoc)
@@ -47,6 +47,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addObjectListenerToCanvas(java.lang.Object,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener)
 	 */
+	@Override
 	public void addObjectListenerToCanvas(final Widget canvas, final GfxObjectListener gfxObjectListener) {
 		final GraphicObjectListener graphicObjectListener = new GraphicObjectListener() {
 			/*
@@ -55,6 +56,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			 * @see com.objetdirect.tatami.client.gfx.GraphicObjectListener#mouseClicked(com.objetdirect.tatami.client.gfx.GraphicObject,
 			 * com.google.gwt.user.client.Event)
 			 */
+			@Override
 			public void mouseClicked(final GraphicObject graphicObject, final Event e) {
 				// This app doesn't need click event
 			}
@@ -65,6 +67,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			 * @see com.objetdirect.tatami.client.gfx.GraphicObjectListener#mouseDblClicked(com.objetdirect.tatami.client.gfx.GraphicObject,
 			 * com.google.gwt.user.client.Event)
 			 */
+			@Override
 			public void mouseDblClicked(final GraphicObject graphicObject, final Event e) {
 				gfxObjectListener.mouseDoubleClicked(TatamiGfxObjectContainer.getContainerOf(graphicObject), e);
 			}
@@ -75,6 +78,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			 * @see com.objetdirect.tatami.client.gfx.GraphicObjectListener#mouseMoved(com.objetdirect.tatami.client.gfx.GraphicObject,
 			 * com.google.gwt.user.client.Event)
 			 */
+			@Override
 			public void mouseMoved(final GraphicObject graphicObject, final Event e) {
 				gfxObjectListener.mouseMoved(e);
 			}
@@ -85,6 +89,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			 * @see com.objetdirect.tatami.client.gfx.GraphicObjectListener#mousePressed(com.objetdirect.tatami.client.gfx.GraphicObject,
 			 * com.google.gwt.user.client.Event)
 			 */
+			@Override
 			public void mousePressed(final GraphicObject graphicObject, final Event e) {
 				gfxObjectListener.mousePressed(TatamiGfxObjectContainer.getContainerOf(graphicObject), e);
 			}
@@ -95,6 +100,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 			 * @see com.objetdirect.tatami.client.gfx.GraphicObjectListener#mouseReleased(com.objetdirect.tatami.client.gfx.GraphicObject,
 			 * com.google.gwt.user.client.Event)
 			 */
+			@Override
 			public void mouseReleased(final GraphicObject graphicObject, final Event e) {
 				gfxObjectListener.mouseReleased(TatamiGfxObjectContainer.getContainerOf(graphicObject), e);
 			}
@@ -108,6 +114,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToCanvas(java.lang.Object, com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void addToCanvas(final Widget canvas, final GfxObject gfxO, final Point location) {
 		Log.trace("Adding to Tcanvas : " + GWTUMLDrawerHelper.getShortName(this.getTatamiGraphicalObjectFrom(gfxO)));
 		((GraphicCanvas) canvas).add(this.getTatamiGraphicalObjectFrom(gfxO), location.getX(), location.getY());
@@ -119,6 +126,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public void addToVirtualGroup(final GfxObject gfxOGroup, final GfxObject gfxO) {
 		Log.trace("Adding " + gfxO + " to " + gfxOGroup);
 		((VirtualGroup) this.getTatamiGraphicalObjectFrom(gfxOGroup)).add(this.getTatamiGraphicalObjectFrom(gfxO));
@@ -129,6 +137,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildRect(int, int)
 	 */
+	@Override
 	public GfxObject buildCircle(final int radius) {
 		return new TatamiGfxObjectContainer(new Circle(radius));
 	}
@@ -149,6 +158,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildLine(com.objetdirect.gwt.umlapi.client.engine.Point,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public GfxObject buildLine(final Point p1, final Point p2) {
 		return new TatamiGfxObjectContainer(new Line(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
 	}
@@ -158,6 +168,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildPath()
 	 */
+	@Override
 	public GfxObject buildPath() {
 		return new TatamiGfxObjectContainer(new Path());
 	}
@@ -167,6 +178,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildRect(int, int)
 	 */
+	@Override
 	public GfxObject buildRect(final int width, final int height) {
 		return new TatamiGfxObjectContainer(new Rect(width, height));
 	}
@@ -176,6 +188,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
 	 */
+	@Override
 	public GfxObject buildText(final String text, final Point initLocation) {
 		final Text txt = new Text(text);
 		txt.translate(initLocation.getX(), initLocation.getY() + (int) ((txt.getHeight() * 64.) / 100.));
@@ -185,16 +198,9 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildText(java.lang.String)
-	 *//*
-		 * public GfxObject buildText(final String text, final String decoration) { return new TatamiGfxObjectContainer(new Text(text, decoration)); }
-		 */
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#buildVirtualGroup()
 	 */
+	@Override
 	public GfxObject buildVirtualGroup() {
 		final GfxObject vg = new TatamiGfxObjectContainer(new VirtualGroup());
 		Log.trace("Creating " + vg);
@@ -206,6 +212,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#clearVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public void clearVirtualGroup(final GfxObject gfxOGroup) {
 		((VirtualGroup) this.getTatamiGraphicalObjectFrom(gfxOGroup)).clear();
 	}
@@ -216,6 +223,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void curveTo(final GfxObject gfxO, final Point location, final Point control) {
 		((Path) this.getTatamiGraphicalObjectFrom(gfxO)).qCurveTo(this.pointConverter(control), this.pointConverter(location));
 	}
@@ -226,6 +234,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void curveTo(final GfxObject gfxO, final Point location, final Point control1, final Point control2) {
 		((Path) this.getTatamiGraphicalObjectFrom(gfxO)).curveTo(this.pointConverter(control1), this.pointConverter(control2), this.pointConverter(location));
 	}
@@ -235,6 +244,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public GfxObject getGroup(final GfxObject gfxO) {
 		return TatamiGfxObjectContainer.getContainerOf(this.getTatamiGraphicalObjectFrom(gfxO).getGroup());
 
@@ -245,6 +255,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public Point getLocationFor(final GfxObject gfxO) {
 		if (gfxO != null) {
 			if (this.getTatamiGraphicalObjectFrom(gfxO).getClass().equals(Text.class)) {
@@ -261,6 +272,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getHeightFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public int getTextHeightFor(final GfxObject gfxO) {
 		if (gfxO != null) {
 			return (int) ((((Text) this.getTatamiGraphicalObjectFrom(gfxO)).getHeight() * 8.) / 10.); // Converting point to pixel
@@ -273,6 +285,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getWidthFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public int getTextWidthFor(final GfxObject gfxO) {
 		if (gfxO != null) {
 			return (int) ((((Text) this.getTatamiGraphicalObjectFrom(gfxO)).getWidth() * 8.) / 10.); // Converting point to pixel
@@ -286,6 +299,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#lineTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void lineTo(final GfxObject gfxO, final Point location) {
 		((Path) this.getTatamiGraphicalObjectFrom(gfxO)).lineTo(location.getX(), location.getY());
 	}
@@ -295,6 +309,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#makeCanvas()
 	 */
+	@Override
 	public Widget makeCanvas() {
 		return this.makeCanvas(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT, GfxColor.WHITE);
 	}
@@ -304,6 +319,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#makeCanvas(int, int, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)
 	 */
+	@Override
 	public Widget makeCanvas(final int width, final int height, final GfxColor backgroundColor) {
 		final GraphicCanvas canvas = new GraphicCanvas();
 		canvas.setSize(width + "px", height + "px");
@@ -320,6 +336,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void moveTo(final GfxObject gfxO, final Point location) {
 		((Path) this.getTatamiGraphicalObjectFrom(gfxO)).moveTo(this.pointConverter(location));
 	}
@@ -329,6 +346,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public void moveToBack(final GfxObject gfxO) {
 		this.getTatamiGraphicalObjectFrom(gfxO).moveToBack();
 
@@ -339,6 +357,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToFront(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public void moveToFront(final GfxObject gfxO) {
 		this.getTatamiGraphicalObjectFrom(gfxO).moveToFront();
 	}
@@ -348,6 +367,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#removeFromCanvas(java.lang.Object, com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
+	@Override
 	public void removeFromCanvas(final Widget canvas, final GfxObject gfxO) {
 		Log.trace("Removing from Tcanvas : " + GWTUMLDrawerHelper.getShortName(this.getTatamiGraphicalObjectFrom(gfxO)));
 		((GraphicCanvas) canvas).remove(this.getTatamiGraphicalObjectFrom(gfxO));
@@ -359,6 +379,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#removeFromVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject, boolean)
 	 */
+	@Override
 	public void removeFromVirtualGroup(final GfxObject gfxOGroup, final GfxObject gfxO, final boolean isSilent) {
 		((VirtualGroup) this.getTatamiGraphicalObjectFrom(gfxOGroup)).remove(this.getTatamiGraphicalObjectFrom(gfxO), isSilent);
 	}
@@ -369,6 +390,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#translate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void rotate(final GfxObject gfxO, final float angle, final Point center) {
 		this.getTatamiGraphicalObjectFrom(gfxO).rotate(angle, this.pointConverter(center));
 	}
@@ -379,6 +401,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setFillColor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxColor)
 	 */
+	@Override
 	public void setFillColor(final GfxObject gfxO, final GfxColor color) {
 		this.getTatamiGraphicalObjectFrom(gfxO).setFillColor(this.convertColor(color));
 	}
@@ -389,6 +412,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setFont(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxFont)
 	 */
+	@Override
 	public void setFont(final GfxObject gfxO, final GfxFont gfxF) {
 		((Text) this.getTatamiGraphicalObjectFrom(gfxO)).setFont(this.convertFont(gfxF));
 	}
@@ -398,6 +422,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)
 	 */
+	@Override
 	public void setOpacity(final GfxObject gfxO, final int opacity, final boolean isForBack) {
 		if (isForBack) {
 			this.getTatamiGraphicalObjectFrom(gfxO).setOpacity((int) (((double) (opacity * 100)) / 255));
@@ -413,6 +438,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setSize(com.google.gwt.user.client.ui.Widget, int, int)
 	 */
+	@Override
 	public void setSize(final Widget canvas, final int width, final int height) {
 		((GraphicCanvas) canvas).setDimensions(width, height);
 	}
@@ -423,6 +449,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setStroke(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxColor, int)
 	 */
+	@Override
 	public void setStroke(final GfxObject gfxO, final GfxColor color, final int width) {
 		if (this.getTatamiGraphicalObjectFrom(gfxO).getClass().equals(Text.class)) {
 			this.getTatamiGraphicalObjectFrom(gfxO).setOpacity(color.getAlpha());
@@ -436,6 +463,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setStrokeStyle(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxStyle)
 	 */
+	@Override
 	public void setStrokeStyle(final GfxObject gfxO, final GfxStyle style) {
 		this.getTatamiGraphicalObjectFrom(gfxO).setStrokeStyle(style.getStyleString());
 	}
@@ -446,6 +474,7 @@ public class TatamiGfxPlatfrom implements GfxPlatform {
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#translate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
+	@Override
 	public void translate(final GfxObject gfxO, final Point location) {
 		this.getTatamiGraphicalObjectFrom(gfxO).translate(location.getX(), location.getY());
 	}
