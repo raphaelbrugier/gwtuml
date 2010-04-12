@@ -52,7 +52,7 @@ public class GfxManager {
 		// FIXME: Find a better way
 		switch (platformIndex) {
 			case 0:
-				GfxManager.setPlatform(new TatamiGfxPlatfrom());
+				GfxManager.setPlatform(new TatamiGfxPlatform());
 				break;
 			case 1:
 				GfxManager.setPlatform(new IncubatorGfxPlatform());
@@ -61,7 +61,7 @@ public class GfxManager {
 				GfxManager.setPlatform(new GWTCanvasGfxPlatform());
 				break;
 			default:
-				GfxManager.setPlatform(new TatamiGfxPlatfrom());
+				GfxManager.setPlatform(new TatamiGfxPlatform());
 		}
 	}
 }

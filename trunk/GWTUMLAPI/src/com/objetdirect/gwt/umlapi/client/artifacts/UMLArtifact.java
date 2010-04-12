@@ -284,7 +284,7 @@ public abstract class UMLArtifact {
 	 */
 	public void moveTo(final Point newLocation) {
 		if (!this.isALink()) {
-			GfxManager.getPlatform().translate(this.getGfxObject(), Point.substract(newLocation, this.getLocation()));
+			this.getGfxObject().translate(Point.substract(newLocation, this.getLocation()));
 			this.location = newLocation;
 		} else {
 			Log.error("Can't move a line ! (moveTo called on " + this + ")");
@@ -428,7 +428,7 @@ public abstract class UMLArtifact {
 				new Scheduler.Task("OpacityArtifactAnimation") {
 					@Override
 					public void process() {
-						GfxManager.getPlatform().setOpacity(UMLArtifact.this.gfxObject, j, false);
+						UMLArtifact.this.gfxObject.setOpacity(j, false);
 					}
 				};
 			}
@@ -441,11 +441,11 @@ public abstract class UMLArtifact {
 	}
 
 	void toBack() {
-		GfxManager.getPlatform().moveToBack(this.gfxObject);
+		this.gfxObject.moveToBack();
 	}
 
 	void toFront() {
-		GfxManager.getPlatform().moveToFront(this.gfxObject);
+		this.gfxObject.moveToFront();
 	}
 
 	protected void addAllDirectionsDependecy(final LinkArtifact linkArtifact) {

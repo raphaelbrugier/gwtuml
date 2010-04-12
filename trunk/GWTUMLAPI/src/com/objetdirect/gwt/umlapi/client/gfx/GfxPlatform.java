@@ -132,19 +132,6 @@ public interface GfxPlatform {
 	GfxObject buildText(String text, Point location);
 
 	/**
-	 * Build a Text containing text
-	 * 
-	 * @param text
-	 *            The text String used to make the Text {@link GfxObject}
-	 * @param decoration
-	 *            The text decoration
-	 * 
-	 * @return The new text in a {@link GfxObject}
-	 */
-	/*
-	 * GfxObject buildText(final String text, final String decoration);
-	 */
-	/**
 	 * Build a virtual group
 	 * 
 	 * @return The new virtual group in a {@link GfxObject}

@@ -77,30 +77,22 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			this.computeBounds();
 		}
 		this.nameRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.nameRect);
-		GfxManager.getPlatform().setFillColor(this.nameRect, ThemeManager.getTheme().getObjectBackgroundColor());
-		GfxManager.getPlatform().setStroke(this.nameRect, ThemeManager.getTheme().getObjectForegroundColor(), 1);
+		this.nameRect.addToVirtualGroup(this.gfxObject);
+		this.nameRect.setFillColor(ThemeManager.getTheme().getObjectBackgroundColor());
+		this.nameRect.setStroke(ThemeManager.getTheme().getObjectForegroundColor(), 1);
 
 		// Centering name object :
-		GfxManager.getPlatform().translate(
-				this.nameText,
-				new Point((this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
+		this.nameText.translate(new Point((this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
 						.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
-		GfxManager.getPlatform().translate(
-				this.underline,
-				new Point((this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
+		this.underline.translate(new Point((this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
 						.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
 		if (this.stereotypeText != null) {
-			GfxManager
-					.getPlatform()
-					.translate(
-							this.stereotypeText,
-							new Point(
+			this.stereotypeText.translate(new Point(
 									(this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager
 											.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
 
 		}
-		GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
+		this.textVirtualGroup.moveToFront();
 	}
 
 	@Override
@@ -108,14 +100,14 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		this.height = 0;
 		this.width = 0;
 		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
 		if ((this.stereotype != null) && (this.stereotype != "")) {
 			this.stereotypeText = GfxManager.getPlatform().buildText(this.stereotype,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.stereotypeText);
-			GfxManager.getPlatform().setFont(this.stereotypeText, OptionsManager.getFont());
-			GfxManager.getPlatform().setStroke(this.stereotypeText, ThemeManager.getTheme().getObjectBackgroundColor(), 0);
-			GfxManager.getPlatform().setFillColor(this.stereotypeText, ThemeManager.getTheme().getObjectForegroundColor());
+			this.stereotypeText.addToVirtualGroup(this.textVirtualGroup);
+			this.stereotypeText.setFont(OptionsManager.getFont());
+			this.stereotypeText.setStroke(ThemeManager.getTheme().getObjectBackgroundColor(), 0);
+			this.stereotypeText.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
 			this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
 			this.height += GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
 			this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -126,17 +118,17 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 																													 * , "underline" doesn't work yet in common
 																													 * browsers
 																													 */);
-		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.nameText);
+		this.nameText.addToVirtualGroup(this.textVirtualGroup);
 		final int yUnderline = this.height + GfxManager.getPlatform().getTextHeightFor(this.nameText) + OptionsManager.get("TextTopPadding");
 		this.underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.get("TextLeftPadding"), yUnderline),
 				new Point(OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(this.nameText), yUnderline));
-		GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, this.underline);
+		this.underline.addToVirtualGroup(this.textVirtualGroup);
 
-		GfxManager.getPlatform().setFont(this.nameText, OptionsManager.getFont());
-		GfxManager.getPlatform().setStroke(this.nameText, ThemeManager.getTheme().getObjectBackgroundColor(), 0);
-		GfxManager.getPlatform().setFillColor(this.nameText, ThemeManager.getTheme().getObjectForegroundColor());
-		GfxManager.getPlatform().setStroke(this.underline, ThemeManager.getTheme().getObjectForegroundColor(), 1);
-		GfxManager.getPlatform().setFillColor(this.underline, ThemeManager.getTheme().getObjectForegroundColor());
+		this.nameText.setFont(OptionsManager.getFont());
+		this.nameText.setStroke(ThemeManager.getTheme().getObjectBackgroundColor(), 0);
+		this.nameText.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
+		this.underline.setStroke(ThemeManager.getTheme().getObjectForegroundColor(), 1);
+		this.underline.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
 		final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(this.nameText) + OptionsManager.get("TextRightPadding")
 				+ OptionsManager.get("TextLeftPadding");
 		this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
@@ -174,7 +166,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			edited = this.uMLObject.toString();
 		}
 		editor.startEdition(edited, (this.nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-				.get("RectangleLeftPadding")), this.nodeArtifact.getLocation().getY() + GfxManager.getPlatform().getLocationFor(editedGfxObject).getY()/*
+				.get("RectangleLeftPadding")), this.nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY()/*
 																																						 * +
 																																						 * OptionsManager
 																																						 * .get(
@@ -213,10 +205,10 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	public GfxObject getOutline() {
 		final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.getHeight());
-		GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
-		GfxManager.getPlatform().setStroke(rect, ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setFillColor(rect, ThemeManager.getTheme().getObjectBackgroundColor());
-		GfxManager.getPlatform().addToVirtualGroup(vg, rect);
+		rect.setStrokeStyle(GfxStyle.DASH);
+		rect.setStroke(ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 1);
+		rect.setFillColor(ThemeManager.getTheme().getObjectBackgroundColor());
+		rect.addToVirtualGroup(vg);
 		return vg;
 	}
 
@@ -290,7 +282,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.nameRect, ThemeManager.getTheme().getObjectForegroundColor(), 1);
+		this.nameRect.setStroke(ThemeManager.getTheme().getObjectForegroundColor(), 1);
 	}
 
 	@Override
@@ -301,7 +293,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.nameRect, ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 2);
+		this.nameRect.setStroke(ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 2);
 	}
 
 	private Command createStereotype() {

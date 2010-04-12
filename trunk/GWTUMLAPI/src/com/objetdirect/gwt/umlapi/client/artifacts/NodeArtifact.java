@@ -63,7 +63,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 			Log.warn("Selecting a virtual group : this should not happen !");
 			this.nodeParts.peek().edit(editedGfxObject);
 		} else {
-			GfxObject gfxObjectGroup = GfxManager.getPlatform().getGroup(editedGfxObject);
+			GfxObject gfxObjectGroup = editedGfxObject.getGroup();
 			if (gfxObjectGroup != null) {
 				for (final NodePartArtifact nodePart : this.nodeParts) {
 					if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
@@ -71,7 +71,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 						return;
 					}
 				}
-				gfxObjectGroup = GfxManager.getPlatform().getGroup(gfxObjectGroup);
+				gfxObjectGroup = gfxObjectGroup.getGroup();
 				if (gfxObjectGroup != null) {
 					for (final NodePartArtifact nodePart : this.nodeParts) {
 						if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
@@ -127,8 +127,8 @@ public abstract class NodeArtifact extends BoxArtifact {
 			for (final NodePartArtifact nodePart : this.nodeParts) {
 				nodePart.setNodeWidth(maxWidth);
 				final GfxObject outline = nodePart.getOutline();
-				GfxManager.getPlatform().addToVirtualGroup(vg, outline);
-				GfxManager.getPlatform().translate(outline, new Point(0, heightDelta));
+				outline.addToVirtualGroup(vg);
+				outline.translate(new Point(0, heightDelta));
 				heightDelta += nodePart.getHeight();
 			}
 			return vg;
@@ -170,7 +170,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	@Override
 	protected void buildGfxObject() {
 		for (final NodePartArtifact nodePart : this.nodeParts) {
-			GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, nodePart.initializeGfxObject());
+			nodePart.initializeGfxObject().addToVirtualGroup(this.gfxObject);
 		}
 		final List<Integer> widthList = new ArrayList<Integer>();
 		// Computing text bounds :
@@ -185,7 +185,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 		int heightDelta = 0;
 		for (final NodePartArtifact nodePart : this.nodeParts) {
 			nodePart.setNodeWidth(maxWidth);
-			GfxManager.getPlatform().translate(nodePart.getGfxObject(), new Point(0, heightDelta));
+			nodePart.getGfxObject().translate(new Point(0, heightDelta));
 			heightDelta += nodePart.getHeight();
 		}
 	}

@@ -77,12 +77,12 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 			this.computeBounds();
 		}
 		this.methodRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.methodRect);
-		GfxManager.getPlatform().setFillColor(this.methodRect, ThemeManager.getTheme().getClassBackgroundColor());
-		GfxManager.getPlatform().setStroke(this.methodRect, ThemeManager.getTheme().getClassForegroundColor(), 1);
-		GfxManager.getPlatform().translate(this.textVirtualGroup,
-				new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
-		GfxManager.getPlatform().moveToFront(this.textVirtualGroup);
+		
+		this.methodRect.addToVirtualGroup(this.gfxObject);
+		this.methodRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
+		this.methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		this.textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		this.textVirtualGroup.moveToFront();
 	}
 
 	@Override
@@ -91,16 +91,16 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		this.height = 0;
 		this.width = 0;
 		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		GfxManager.getPlatform().addToVirtualGroup(this.gfxObject, this.textVirtualGroup);
+		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
 
 		for (final UMLClassMethod method : this.methods) {
 			final GfxObject methodText = GfxManager.getPlatform().buildText(method.toString(),
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + this.height));
-			GfxManager.getPlatform().addToVirtualGroup(this.textVirtualGroup, methodText);
-			GfxManager.getPlatform().setFont(methodText, OptionsManager.getSmallFont());
+			methodText.addToVirtualGroup(this.textVirtualGroup);
+			methodText.setFont(OptionsManager.getSmallFont());
 
-			GfxManager.getPlatform().setStroke(methodText, ThemeManager.getTheme().getClassBackgroundColor(), 0);
-			GfxManager.getPlatform().setFillColor(methodText, ThemeManager.getTheme().getClassForegroundColor());
+			methodText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
+			methodText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
 			int thisMethodWidth = GfxManager.getPlatform().getTextWidthFor(methodText);
 			int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(methodText);
 			thisMethodWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
@@ -138,7 +138,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 							.get("RectangleLeftPadding")),
 							(this.nodeArtifact.getLocation().getY() + ((ClassArtifact) this.nodeArtifact).className.getHeight()
 									+ ((ClassArtifact) this.nodeArtifact).classAttributes.getHeight()
-									+ GfxManager.getPlatform().getLocationFor(editedGfxObject).getY() + OptionsManager.get("RectangleTopPadding")),
+									+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")),
 							this.nodeWidth - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
 									- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false, true);
 		}
@@ -172,10 +172,11 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	public GfxObject getOutline() {
 		final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 		final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.getHeight());
-		GfxManager.getPlatform().setStrokeStyle(rect, GfxStyle.DASH);
-		GfxManager.getPlatform().setStroke(rect, ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
-		GfxManager.getPlatform().setFillColor(rect, ThemeManager.getTheme().getClassBackgroundColor());
-		GfxManager.getPlatform().addToVirtualGroup(vg, rect);
+		
+		rect.setStrokeStyle(GfxStyle.DASH);
+		rect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
+		rect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
+		rect.addToVirtualGroup(vg);
 		return vg;
 	}
 
@@ -232,7 +233,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		GfxManager.getPlatform().setStroke(this.methodRect, ThemeManager.getTheme().getClassForegroundColor(), 1);
+		this.methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 	}
 
 	@Override
@@ -243,7 +244,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	@Override
 	protected void select() {
 		super.select();
-		GfxManager.getPlatform().setStroke(this.methodRect, ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
+		this.methodRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
 	}
 
 	private Command deleteCommand(final UMLClassMethod method) {
