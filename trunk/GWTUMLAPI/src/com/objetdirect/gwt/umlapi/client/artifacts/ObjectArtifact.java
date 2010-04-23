@@ -29,6 +29,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ObjectArtifact extends NodeArtifact {
 	ObjectPartAttributesArtifact	objectAttributes;
 	ObjectPartNameArtifact			objectName;
@@ -123,5 +124,11 @@ public class ObjectArtifact extends NodeArtifact {
 	@Override
 	public String toURL() {
 		return "Object$" + this.getLocation() + "!" + this.objectName.toURL() + "!" + this.objectAttributes.toURL();
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		objectAttributes.setUpAfterDeserialization();
+		objectName.setUpAfterDeserialization();
 	}
 }

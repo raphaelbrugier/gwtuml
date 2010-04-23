@@ -33,13 +33,18 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ClassPartNameArtifact extends NodePartArtifact {
 
-	private final UMLClass	uMLclass;
+	private UMLClass		uMLclass;
 	private GfxObject		nameRect;
 	private GfxObject		nameText;
 	private GfxObject		stereotypeText;
 
+	
+	/** Default constructor ONLY for gwt rpc serialization. */
+	ClassPartNameArtifact() {}
+	
 	
 	/**
 	 * Constructor of ClassPartNameArtifact with class name and stereotype
@@ -294,5 +299,10 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 				ClassPartNameArtifact.this.edit(gfxo);
 			}
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

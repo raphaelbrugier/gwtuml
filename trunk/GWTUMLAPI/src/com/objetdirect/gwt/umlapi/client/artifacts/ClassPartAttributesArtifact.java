@@ -40,11 +40,17 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ClassPartAttributesArtifact extends NodePartArtifact {
-	private final Map<GfxObject, UMLClassAttribute>	attributeGfxObjects;
-	private GfxObject								attributeRect;
-	private final List<UMLClassAttribute>			attributes;
-	private GfxObject								lastGfxObject;
+	
+	transient private Map<GfxObject, UMLClassAttribute>		attributeGfxObjects;
+	transient private GfxObject								attributeRect;
+	private List<UMLClassAttribute>					attributes;
+	transient private GfxObject								lastGfxObject;
+	
+	
+	/** Default constructor ONLY for GWT-RPC serialization. */
+	ClassPartAttributesArtifact() {}
 	
 	/**
 	 * Constructor of ClassPartAttributesArtifact
@@ -250,4 +256,9 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		};
 	}
 
+	@Override
+	public void setUpAfterDeserialization() {
+		attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
+		buildGfxObject();
+	}
 }

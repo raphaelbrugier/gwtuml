@@ -34,12 +34,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  */
 public class ObjectPartNameArtifact extends NodePartArtifact {
 
-	private final UMLObject	uMLObject;
-	private GfxObject		nameRect;
-	private GfxObject		nameText;
+	private UMLObject		uMLObject;
 	private String			stereotype;
-	private GfxObject		stereotypeText;
-	private GfxObject		underline;
+	private transient GfxObject		nameRect;
+	private transient GfxObject		nameText;
+	private transient GfxObject		stereotypeText;
+	private transient GfxObject		underline;
 
 	/**
 	 * Constructor of ObjectPartNameArtifact with only object name
@@ -319,5 +319,10 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 				ObjectPartNameArtifact.this.edit(gfxo);
 			}
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

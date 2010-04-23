@@ -42,13 +42,17 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ClassPartMethodsArtifact extends NodePartArtifact {
 
-	private GfxObject								lastGfxObject;
-	private final Map<GfxObject, UMLClassMethod>	methodGfxObjects;
-	private GfxObject								methodRect;
-	private final List<UMLClassMethod>				methods;
+	private transient GfxObject							lastGfxObject;
+	private transient Map<GfxObject, UMLClassMethod>	methodGfxObjects;
+	private transient GfxObject							methodRect;
+	private List<UMLClassMethod>				methods;
 
+	/** Default constructor ONLY for gwt rpc serialization. */
+	ClassPartMethodsArtifact() {}
+	
 	/**
 	 * Constructor of ClassPartMethodsArtifact 
 	 * @param methods methods displayed by this part.
@@ -270,5 +274,11 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 				ClassPartMethodsArtifact.this.edit(gfxo);
 			}
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
+		buildGfxObject();
 	}
 }

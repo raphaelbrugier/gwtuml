@@ -28,7 +28,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 public class LinkClassRelationArtifact extends LinkArtifact {
 	ClassArtifact				classArtifact;
-	GfxObject					line	= null;
+	transient GfxObject					line	= null;
 	ClassRelationLinkArtifact	relationLinkArtifact;
 
 	/**
@@ -107,5 +107,10 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	protected void select() {
 		super.select();
 		this.line.setStroke(ThemeManager.getTheme().getLinkClassHighlightedForegroundColor(), 2);
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

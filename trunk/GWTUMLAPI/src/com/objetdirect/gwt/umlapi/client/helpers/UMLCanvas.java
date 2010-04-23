@@ -41,6 +41,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -72,9 +73,9 @@ public class UMLCanvas extends AbsolutePanel {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
 	}
 
-	private static long										classCount						= 1;
-	private static long										objectCount						= 1;
-	private static long										lifeLineCount					= 1;
+	private long										classCount						= 1;
+	private long										objectCount						= 1;
+	private long										lifeLineCount					= 1;
 	private String											copyBuffer 						= "";
 	private long											noteCount;
 	private LinkKind										activeLinking;
@@ -96,7 +97,7 @@ public class UMLCanvas extends AbsolutePanel {
 	private final UMLDiagram								uMLDiagram;
 	private boolean											isMouseEnabled					= true;
 	private final GfxObjectListener							gfxObjectListener				= new GfxObjectListener() {
-
+		
 		@Override
 		public void mouseDoubleClicked(final GfxObject graphicObject,
 				final Event event) {
@@ -144,7 +145,7 @@ public class UMLCanvas extends AbsolutePanel {
 		}
 
 	};
-
+	
 	private boolean											mouseIsPressed					= false;										// Manage mouse
 	// state when
 	// releasing outside
@@ -172,6 +173,14 @@ public class UMLCanvas extends AbsolutePanel {
 	// his moving
 	// dependencies
 	// points
+	
+	
+	/** List of all couple of UMLArtifacts linked together. */
+	private ArrayList<UMLArtifactPeer>	uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
+	
+	/** Flag used when the LinksArtifact are computed to known if their dependy have already been sorted. 
+	 * @see com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact#ComputeDirectionsType() */
+	private boolean LinkArtifactsHaveAlreadyBeenSorted;
 
 	private Point											dragOffset;
 	private Point											totalDragShift					= Point.getOrigin();
@@ -645,7 +654,7 @@ public class UMLCanvas extends AbsolutePanel {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ClassArtifact newClass = new ClassArtifact("Class" + ++UMLCanvas.classCount);
+		final ClassArtifact newClass = new ClassArtifact("Class" + ++classCount);
 		
 		this.helpText.setText("Adding a new class");
 		this.add(newClass);
@@ -675,7 +684,7 @@ public class UMLCanvas extends AbsolutePanel {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final LifeLineArtifact newLifeLine = new LifeLineArtifact("LifeLine" + ++UMLCanvas.lifeLineCount, "ll" + UMLCanvas.lifeLineCount);
+		final LifeLineArtifact newLifeLine = new LifeLineArtifact("LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
 		
 		this.helpText.setText("Adding a new life line");
 		this.add(newLifeLine);
@@ -747,10 +756,10 @@ public class UMLCanvas extends AbsolutePanel {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ObjectArtifact newObject = new ObjectArtifact("obj" + ++UMLCanvas.objectCount, "Object" + UMLCanvas.objectCount);
+		final ObjectArtifact newObject = new ObjectArtifact("obj" + ++objectCount, "Object" + objectCount);
 		
 		this.helpText.setText("Adding a new object");
-		this.add(newObject);
+		this.add(newObject); 
 		newObject.moveTo(Point.substract(location, this.canvasOffset));
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 			selectedArtifact.unselect();
@@ -765,6 +774,37 @@ public class UMLCanvas extends AbsolutePanel {
 
 		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
+	
+	/**
+	 * @return the uMLArtifactRelations
+	 */
+	public ArrayList<UMLArtifactPeer> getuMLArtifactRelations() {
+		return uMLArtifactRelations;
+	}
+
+	/**
+	 * @param uMLArtifactRelations the uMLArtifactRelations to set
+	 */
+	public void setuMLArtifactRelations(
+			ArrayList<UMLArtifactPeer> uMLArtifactRelations) {
+		this.uMLArtifactRelations = uMLArtifactRelations;
+	}
+
+	/**
+	 * @return the linkArtifactsHaveAlreadyBeenSorted
+	 */
+	public boolean isLinkArtifactsHaveAlreadyBeenSorted() {
+		return LinkArtifactsHaveAlreadyBeenSorted;
+	}
+
+	/**
+	 * @param linkArtifactsHaveAlreadyBeenSorted the linkArtifactsHaveAlreadyBeenSorted to set
+	 */
+	public void setLinkArtifactsHaveAlreadyBeenSorted(
+			boolean linkArtifactsHaveAlreadyBeenSorted) {
+		LinkArtifactsHaveAlreadyBeenSorted = linkArtifactsHaveAlreadyBeenSorted;
+	}
+
 	void cut() {
 		this.copy();
 		this.wasACopy = false;
@@ -1263,7 +1303,6 @@ public class UMLCanvas extends AbsolutePanel {
 	}
 
 	private void unselectOnRelease(final GfxObject gfxObject, final boolean isCtrlKeyDown, final boolean isShiftKeyDown) {
-
 		final UMLArtifact newSelected = this.getUMLArtifact(gfxObject);
 		if (newSelected != null) {
 			if (this.selectedArtifacts.containsKey(newSelected)) {

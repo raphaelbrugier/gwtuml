@@ -31,6 +31,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
+@SuppressWarnings("serial")
 public abstract class RelationLinkArtifact extends LinkArtifact {
 
 	/**
@@ -294,6 +295,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			}
 		};
 
+		//FIXME Remove for serialization
 		@Deprecated //TODO remove in a future release
 		private static HashMap<GfxObject, RelationLinkArtifactPart>	textGfxObject	= new HashMap<GfxObject, RelationLinkArtifactPart>();
 
@@ -326,6 +328,9 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
 		private String	name;
 
+		/** Default constructor ONLY for gwt-rpc serialization. */
+		private RelationLinkArtifactPart() {}
+		
 		private RelationLinkArtifactPart(final String name, final boolean isLeft) {
 			this.name = name;
 			this.isLeft = isLeft;
@@ -378,9 +383,12 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	protected Point				leftDirectionPoint	= Point.getOrigin();
 	protected Point				rightDirectionPoint	= Point.getOrigin();
 	protected Point				nameAnchorPoint		= Point.getOrigin();
-	private final NodeArtifact	rightNodeArtifact;
-	private final NodeArtifact	leftNodeArtifact;
+	private NodeArtifact		rightNodeArtifact;
+	private NodeArtifact		leftNodeArtifact;
 
+	/** Default constructor ONLY for gwt rpc serialization. */
+	public RelationLinkArtifact() {}
+	
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
@@ -414,7 +422,11 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		part.setText(this.relation, newContent);
 	}
 
-	protected GfxObject getLine() {
+	/**
+	 * Build a GfxObject to represent the line between the two nodes artifacts.
+	 * @return a new GfxObject fore the line.
+	 */
+	protected GfxObject buildLine() {
 
 		if (this.isSelfLink) {
 			return this.getSelfLine();

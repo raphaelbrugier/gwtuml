@@ -26,8 +26,9 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class LinkNoteArtifact extends LinkArtifact {
-	GfxObject		line	= null;
+	transient GfxObject		line	= null;
 	NoteArtifact	note;
 	UMLArtifact		target;
 
@@ -108,5 +109,10 @@ public class LinkNoteArtifact extends LinkArtifact {
 	protected void select() {
 		super.select();
 		this.line.setStroke(ThemeManager.getTheme().getLinkNoteHighlightedForegroundColor(), 2);
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

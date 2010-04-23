@@ -32,9 +32,9 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class NoteArtifact extends BoxArtifact {
-	GfxObject				borderPath;
-	GfxObject				contentText;
-	GfxObject				cornerPath;
+	transient GfxObject				borderPath;
+	transient GfxObject				contentText;
+	transient GfxObject				cornerPath;
 	int						height;
 	int						width;
 	private final UMLNote	note;
@@ -227,5 +227,10 @@ public class NoteArtifact extends BoxArtifact {
 
 	private int getCornerWidth() {
 		return OptionsManager.get("NoteCornerWidth");
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

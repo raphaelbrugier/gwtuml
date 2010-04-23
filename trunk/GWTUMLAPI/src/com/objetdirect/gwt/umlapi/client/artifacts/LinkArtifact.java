@@ -14,26 +14,32 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
+ */
+/**
+ * @author Raphael
+ *
  */
 public abstract class LinkArtifact extends UMLArtifact {
 
-	static class UMLArtifactPeer {
+	/**
+	 * Represent a pair of UMLArtifact linked together.
+	 */
+	public class UMLArtifactPeer {
 		UMLArtifact	uMLArtifact1;
 		UMLArtifact	uMLArtifact2;
-
 		
 		/**
 		 * Default constructor ONLY for gwt-rpc serialization. 
@@ -47,22 +53,52 @@ public abstract class LinkArtifact extends UMLArtifact {
 			this.uMLArtifact2 = uMLArtifact2;
 		}
 
-		
-		//TODO define hashcode !
-		/*
-		 * (non-Javadoc)
-		 * 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((uMLArtifact1 == null) ? 0 : uMLArtifact1.hashCode());
+			result = prime * result
+					+ ((uMLArtifact2 == null) ? 0 : uMLArtifact2.hashCode());
+			return result;
+		}
+
+		/* (non-Javadoc)
 		 * @see java.lang.Object#equals(java.lang.Object)
 		 */
 		@Override
-		public boolean equals(final Object obj) {
-			final UMLArtifactPeer peer = (UMLArtifactPeer) obj;
-			return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2))
-			|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			UMLArtifactPeer other = (UMLArtifactPeer) obj;
+			if (uMLArtifact1 == null) {
+				if (other.uMLArtifact1 != null)
+					return false;
+			} else if (!uMLArtifact1.equals(other.uMLArtifact1))
+				return false;
+			if (uMLArtifact2 == null) {
+				if (other.uMLArtifact2 != null)
+					return false;
+			} else if (!uMLArtifact2.equals(other.uMLArtifact2))
+				return false;
+			return true;
 		}
-	}
 
-	static final ArrayList<UMLArtifactPeer>	uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
+//		@Override
+//		public boolean equals(final Object obj) {
+//			final UMLArtifactPeer peer = (UMLArtifactPeer) obj;
+//			return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2))
+//			|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
+//		}
+	}
 
 	/**
 	 * Make a link between two {@link UMLArtifact}
@@ -114,26 +150,9 @@ public abstract class LinkArtifact extends UMLArtifact {
 	}
 
 	private UMLArtifact	leftUMLArtifact;
-	/**
-	 * Getter for the leftUMLArtifact
-	 *
-	 * @return the leftUMLArtifact
-	 */
-	public UMLArtifact getLeftUMLArtifact() {
-		return this.leftUMLArtifact;
-	}
-
+	
 	private UMLArtifact	rightUMLArtifact;
-
-	/**
-	 * Getter for the rightUMLArtifact
-	 *
-	 * @return the rightUMLArtifact
-	 */
-	public UMLArtifact getRightUMLArtifact() {
-		return this.rightUMLArtifact;
-	}
-
+	
 	protected Point				leftPoint			= Point.getOrigin();
 
 	protected Point				rightPoint			= Point.getOrigin();
@@ -147,8 +166,9 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	private boolean				doesntHaveToBeComputed;
 
-	private static boolean		isAlreadyBeSorted	= false;
-
+	
+	/** Default constructor ONLY for GWT-RPC serialization. */
+	public LinkArtifact() {}
 	
 	/**
 	 * Constructor of RelationLinkArtifact
@@ -164,8 +184,9 @@ public abstract class LinkArtifact extends UMLArtifact {
 		this.leftUMLArtifact = uMLArtifact1;
 		this.rightUMLArtifact = uMLArtifact2;
 		final LinkArtifact.UMLArtifactPeer newPeer = new LinkArtifact.UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
-		this.order = Collections.frequency(LinkArtifact.uMLArtifactRelations, newPeer);
-		LinkArtifact.uMLArtifactRelations.add(newPeer);
+		this.canvas = Session.getActiveCanvas();
+		this.order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer);
+		this.canvas.getuMLArtifactRelations().add(newPeer);
 	}
 
 	/*
@@ -207,6 +228,22 @@ public abstract class LinkArtifact extends UMLArtifact {
 	public boolean isDraggable() {
 		return false;
 	}
+	
+	/**
+	 * Getter for the leftUMLArtifact
+	 * @return the leftUMLArtifact
+	 */
+	public UMLArtifact getLeftUMLArtifact() {
+		return this.leftUMLArtifact;
+	}
+
+	/**
+	 * Getter for the rightUMLArtifact
+	 * @return the rightUMLArtifact
+	 */
+	public UMLArtifact getRightUMLArtifact() {
+		return this.rightUMLArtifact;
+	}
 
 	/**
 	 * This method add an extra dependency removal for link <br>
@@ -230,6 +267,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 		this.leftDirection = this.computeDirectionType(this.leftPoint, this.leftUMLArtifact);
 		this.rightDirection = this.computeDirectionType(this.rightPoint, this.rightUMLArtifact);
 
+		
 		if (this.leftDirection != oldLeftDirection) {
 			this.leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
 			this.leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
@@ -237,11 +275,11 @@ public abstract class LinkArtifact extends UMLArtifact {
 			this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
 			this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
 		} else {
-			if (!LinkArtifact.isAlreadyBeSorted) {
-				LinkArtifact.isAlreadyBeSorted = true;
+			if (this.canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
+				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
 				this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
 				this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
-				LinkArtifact.isAlreadyBeSorted = false;
+				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
 			}
 		}
 		if (this.rightDirection != oldRightDirection) {
@@ -251,13 +289,12 @@ public abstract class LinkArtifact extends UMLArtifact {
 			this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
 			this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
 		} else {
-			if (!LinkArtifact.isAlreadyBeSorted) {
-				LinkArtifact.isAlreadyBeSorted = true;
+			if (this.canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
+				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
 				this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
 				this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
-				LinkArtifact.isAlreadyBeSorted = false;
+				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
 			}
-
 		}
 		this.isTheOneRebuilding = false;
 	}

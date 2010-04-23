@@ -40,11 +40,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ObjectPartAttributesArtifact extends NodePartArtifact {
-	private final Map<GfxObject, UMLObjectAttribute>	attributeGfxObjects;
-	private GfxObject									attributeRect;
-	private final List<UMLObjectAttribute>				attributes;
-	private GfxObject									lastGfxObject;
+	private transient Map<GfxObject, UMLObjectAttribute>	attributeGfxObjects;
+	private transient GfxObject									attributeRect;
+	private List<UMLObjectAttribute>				attributes;
+	private transient GfxObject									lastGfxObject;
 
 	/**
 	 * Constructor of ObjectPartAttributesArtifact It initializes the attribute list
@@ -256,5 +257,11 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 				ObjectPartAttributesArtifact.this.edit(gfxo);
 			}
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
+		buildGfxObject();
 	}
 }
