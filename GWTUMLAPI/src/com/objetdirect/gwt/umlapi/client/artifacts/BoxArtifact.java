@@ -24,8 +24,11 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public abstract class BoxArtifact extends UMLArtifact {
 
+	protected BoxArtifact() {}
+	
 	/**
 	 * Constructor of BoxArtifact
 	 * 

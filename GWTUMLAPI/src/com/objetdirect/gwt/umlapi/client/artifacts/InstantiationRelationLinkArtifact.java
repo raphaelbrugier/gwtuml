@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
+@SuppressWarnings("serial")
 public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	/**
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -40,12 +41,16 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
 
-	protected GfxObject											arrowVirtualGroup;
-	protected ClassArtifact										classArtifact;
-	protected GfxObject											line;
-	protected ObjectArtifact									objectArtifact;
-	protected GfxObject											textVirtualGroup;
+	protected transient GfxObject					arrowVirtualGroup;
+	protected ClassArtifact							classArtifact;
+	protected transient GfxObject					line;
+	protected ObjectArtifact						objectArtifact;
+	protected transient GfxObject					textVirtualGroup;
 
+	/** Default constructor ONLY for GWT RPC serialization. */
+	@SuppressWarnings("unused")
+	private InstantiationRelationLinkArtifact() {}
+	
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
 	 * 
@@ -174,7 +179,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 
 		this.line.setStroke(ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
 		this.line.setStrokeStyle(this.relation.getLinkStyle().getGfxStyle());
-		 this.line.addToVirtualGroup(this.gfxObject);
+		this.line.addToVirtualGroup(this.gfxObject);
 
 		// Making arrows group :
 		this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
@@ -218,5 +223,10 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		super.select();
 		this.line.setStroke(ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
 		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getInstantiationHighlightedForegroundColor(), 2);
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }

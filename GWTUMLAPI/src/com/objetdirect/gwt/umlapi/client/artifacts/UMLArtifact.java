@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,12 +42,32 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public abstract class UMLArtifact {
+@SuppressWarnings("serial")
+public abstract class UMLArtifact implements Serializable {
 
 	protected boolean								isSelected		= false;
 	private static int								idCount			= 0;
 	private static TreeMap<Integer, UMLArtifact>	artifactById	= new TreeMap<Integer, UMLArtifact>();
 
+	private int											id;
+
+	protected UMLCanvas									canvas;
+	protected GfxObject									gfxObject;
+
+	private final LinkedList<LinkArtifact>				upDependencies			= new LinkedList<LinkArtifact>();
+	private final LinkedList<LinkArtifact>				downDependencies		= new LinkedList<LinkArtifact>();
+	private final LinkedList<LinkArtifact>				leftDependencies		= new LinkedList<LinkArtifact>();
+	private final LinkedList<LinkArtifact>				rightDependencies		= new LinkedList<LinkArtifact>();
+	private final LinkedList<LinkArtifact>				allDependencies			= new LinkedList<LinkArtifact>();
+
+	private final HashMap<LinkArtifact, UMLArtifact>	dependentUMLArtifacts	= new HashMap<LinkArtifact, UMLArtifact>();
+	private boolean										isBuilt					= false;
+	private Point										location				= Point.getOrigin();
+	
+	/** Default constructor ONLY for GWT-RPC serialization. */
+	protected UMLArtifact() {
+	}
+	
 	/**
 	 * Static getter of an {@link UMLArtifact} from its id
 	 * 
@@ -79,20 +100,6 @@ public abstract class UMLArtifact {
 
 	}
 
-	private int											id;
-
-	protected UMLCanvas									canvas;
-	protected GfxObject									gfxObject;
-
-	private final LinkedList<LinkArtifact>				upDependencies			= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				downDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				leftDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				rightDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				allDependencies			= new LinkedList<LinkArtifact>();
-
-	private final HashMap<LinkArtifact, UMLArtifact>	dependentUMLArtifacts	= new HashMap<LinkArtifact, UMLArtifact>();
-	private boolean										isBuilt					= false;
-	private Point										location				= Point.getOrigin();
 
 	/**
 	 * Constructor of UMLArtifact <br>
@@ -558,4 +565,5 @@ public abstract class UMLArtifact {
 		return idCount;
 	}
 
+	public abstract void setUpAfterDeserialization();
 }

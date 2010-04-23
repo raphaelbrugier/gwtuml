@@ -23,11 +23,11 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
  */
 public abstract class NodePartArtifact extends BoxArtifact {
 
-	protected NodeArtifact	nodeArtifact;
-	protected int			nodeWidth;
-	protected int			height;
-	protected GfxObject		textVirtualGroup;
-	protected int			width;
+	protected NodeArtifact			nodeArtifact;
+	protected int					nodeWidth;
+	protected int					height;
+	protected transient GfxObject	textVirtualGroup;
+	protected int					width;
 
 	/**
 	 * Constructor of NodePartArtifact

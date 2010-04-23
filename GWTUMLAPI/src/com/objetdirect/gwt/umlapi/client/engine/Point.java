@@ -14,15 +14,17 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
+import java.io.Serializable;
+
 /**
  * This useful simple class represent a geometric 2D point <br>
  * It avoids to have all the time two parameters x and y for locations <br>
  * It also provides some elementary operations
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
-public class Point {
+@SuppressWarnings("serial")
+public class Point implements Serializable {
 	/**
 	 * Get the absolute value of the two coordinates
 	 * 
@@ -125,6 +127,9 @@ public class Point {
 
 	private int	x;
 	private int	y;
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	Point(){}
 
 	/**
 	 * Constructor of Point that round {@link Double}s to {@link Integer}s

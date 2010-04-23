@@ -33,17 +33,18 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ClassArtifact extends NodeArtifact {
 	ClassPartAttributesArtifact	classAttributes;
 	ClassPartMethodsArtifact	classMethods;
 	ClassPartNameArtifact		className;
 	
-	final UMLClass					ownedClass;
+	UMLClass					ownedClass;
 
 	/**
-	 * Default constructor, initializes the ClassArtifact with the name "Class"
+	 * Default constructor ONLY for GWT-RPC serialization.
 	 */
-	public ClassArtifact() {
+	ClassArtifact() {
 		this("Class");
 	}
 
@@ -157,5 +158,15 @@ public class ClassArtifact extends NodeArtifact {
 	public String toURL() {
 		return "Class$" + this.getLocation() + "!" + this.className.toURL() + "!" + this.classAttributes.toURL() + "!" + this.classMethods.toURL();
 
+	}
+
+	/* (non-Javadoc)
+	 * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#setUpAfterDeserialization()
+	 */
+	@Override
+	public void setUpAfterDeserialization() {
+		classAttributes.setUpAfterDeserialization();
+		classMethods.setUpAfterDeserialization();
+		className.setUpAfterDeserialization();
 	}
 }

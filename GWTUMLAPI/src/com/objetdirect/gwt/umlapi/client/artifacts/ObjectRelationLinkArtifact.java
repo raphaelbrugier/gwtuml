@@ -38,6 +38,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 
 	/**
@@ -47,13 +48,14 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
 
-	protected GfxObject											arrowVirtualGroup;
 	protected ObjectArtifact									leftObjectArtifact;
-	protected GfxObject											line;
 	protected ObjectArtifact									rightObjectArtifact;
-	protected GfxObject											textVirtualGroup;
+
+	protected transient GfxObject											arrowVirtualGroup;
+	protected transient GfxObject											line;
+	protected transient GfxObject											textVirtualGroup;
 	private int													current_delta;
-	private final HashMap<RelationLinkArtifactPart, GfxObject>	gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
+	private transient HashMap<RelationLinkArtifactPart, GfxObject>	gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
@@ -442,7 +444,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	protected void buildGfxObject() {
 		this.gfxObjectPart.clear();
 
-		this.line = this.getLine();
+		this.line = this.buildLine();
 
 		this.line.setStroke(ThemeManager.getTheme().getClassRelationForegroundColor(), 1);
 		this.line.setStrokeStyle(this.relation.getLinkStyle().getGfxStyle());
@@ -611,5 +613,11 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 				ObjectRelationLinkArtifact.this.rebuildGfxObject();
 			}
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
+		buildGfxObject();
 	}
 }

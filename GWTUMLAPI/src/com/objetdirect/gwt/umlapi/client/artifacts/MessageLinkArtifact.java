@@ -33,19 +33,19 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
+@SuppressWarnings("serial")
 public class MessageLinkArtifact extends LinkArtifact {
 
 	/**
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
 	 */
-	protected GfxObject			arrowVirtualGroup;
-	protected LifeLineArtifact	leftLifeLineArtifact;
-	protected GfxObject			line;
-	protected LifeLineArtifact	rightLifeLineArtifact;
-	protected GfxObject			text;
-	private final UMLMessage	message;
+	protected transient GfxObject		arrowVirtualGroup;
+	protected LifeLineArtifact			leftLifeLineArtifact;
+	protected transient GfxObject		line;
+	protected LifeLineArtifact			rightLifeLineArtifact;
+	protected transient GfxObject		text;
+	private UMLMessage					message;
 
 	/**
 	 * Constructor of {@link MessageLinkArtifact}
@@ -240,7 +240,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 		Log.trace("Creating name");
 
 		this.text.setFont(OptionsManager.getSmallFont());
-		this.gfxObject.addToVirtualGroup(this.text);
+		this.text.addToVirtualGroup(this.gfxObject);
 		this.text.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
 		this.text.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
 		this.text.translate(
@@ -292,5 +292,10 @@ public class MessageLinkArtifact extends LinkArtifact {
 			}
 
 		};
+	}
+
+	@Override
+	public void setUpAfterDeserialization() {
+		buildGfxObject();
 	}
 }
