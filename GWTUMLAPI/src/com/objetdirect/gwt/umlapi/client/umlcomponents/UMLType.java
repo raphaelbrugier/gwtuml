@@ -75,6 +75,8 @@ public enum UMLType {
 		
 		return CUSTOM;
 	}
+	
+	private UMLType() {}
 
 	private UMLType(String type) {
 		this.type = type;

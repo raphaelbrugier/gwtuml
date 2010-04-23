@@ -29,6 +29,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
+@SuppressWarnings("serial")
 public class UMLObject extends UMLNode {
 	/**
 	 * Parse a name from a {@link String}
@@ -103,6 +104,9 @@ public class UMLObject extends UMLNode {
 	private String							stereotype;
 	private ArrayList<UMLObjectAttribute>	attributes;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	UMLObject(){}
+	
 	/**
 	 * Constructor of an {@link UMLObject}
 	 * 

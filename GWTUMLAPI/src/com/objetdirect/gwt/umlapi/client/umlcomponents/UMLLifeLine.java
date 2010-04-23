@@ -27,6 +27,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLLifeLine extends UMLComponent {
 
 	/**
@@ -76,6 +77,10 @@ public class UMLLifeLine extends UMLComponent {
 
 	private String	instance;
 
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	UMLLifeLine(){}
+	
 	/**
 	 * Constructor of the LifeLine
 	 * 

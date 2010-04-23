@@ -216,8 +216,7 @@ public abstract class UMLLink implements Serializable {
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */
-	public UMLLink() {
-	}
+	public UMLLink() {}
 	
 	/**
 	 * Constructor of UMLLink

@@ -20,6 +20,7 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
+@SuppressWarnings("serial")
 public class UMLNode extends UMLComponent {
 	// Nothing here
 }

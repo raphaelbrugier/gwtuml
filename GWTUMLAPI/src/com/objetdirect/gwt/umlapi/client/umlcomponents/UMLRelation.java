@@ -49,8 +49,7 @@ public class UMLRelation extends UMLLink {
 	/**
 	 * Default constructor for gwt-rpc serialization
 	 */
-	public UMLRelation () {
-	}
+	public UMLRelation () { }
 	
 	/**
 	 * Constructor of Relation
@@ -74,8 +73,6 @@ public class UMLRelation extends UMLLink {
 		this.rightRole = "";
 		this.rightStereotype = "";
 		this.rightAdornment = relationKind.getDefaultRightAdornment();
-		
-//		Log.debug("UMLRelation::UMLRelation()\n" + this);
 	}
 
 	/**
