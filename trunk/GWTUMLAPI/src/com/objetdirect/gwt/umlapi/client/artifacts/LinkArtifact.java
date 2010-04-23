@@ -16,7 +16,6 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.Collections;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -28,10 +27,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-/**
- * @author Raphael
- *
- */
+@SuppressWarnings("serial")
 public abstract class LinkArtifact extends UMLArtifact {
 
 	/**

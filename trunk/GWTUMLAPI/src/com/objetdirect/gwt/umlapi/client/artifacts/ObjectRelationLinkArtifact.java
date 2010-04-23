@@ -15,10 +15,12 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
+import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.editors.RelationFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -88,23 +90,43 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final RelationLinkArtifactPart editPart = RelationLinkArtifactPart.getPartForGfxObject(editedGfxObject);
-		if (editPart == null) {
-			this.edit(RelationLinkArtifactPart.NAME);
-		} else {
-			final RelationFieldEditor editor = new RelationFieldEditor(this.canvas, this, editPart);
-			editor.startEdition(editPart.getText(this.relation), editedGfxObject.getLocation().getX(), editedGfxObject.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
-					+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
+		RelationLinkArtifactPart editPart = null;
+		
+		for(Entry<RelationLinkArtifactPart, GfxObject> entry : gfxObjectPart.entrySet()) {
+			if (entry.getValue().equals(editedGfxObject))
+				editPart = entry.getKey(); 
 		}
+		
+		if (editPart == null) {
+			this.createPart(RelationLinkArtifactPart.NAME);
+		} else {
+			edit(editPart);
+		}
+	}
+	
+	/**
+	 * Build and editor for the editPart and display it.
+	 * @param editPart the edited part.
+	 */
+	public void edit(final RelationLinkArtifactPart editPart) {
+		if (editPart == null) {
+			throw new GWTUMLAPIException("There is no corresponding RelationLinkArtifactPart attached to the given GfxObject");
+		}
+		
+		GfxObject editedGfxObject = gfxObjectPart.get(editPart);
+		
+		final RelationFieldEditor editor = new RelationFieldEditor(this.canvas, this, editPart);
+		editor.startEdition(editPart.getText(this.relation), editedGfxObject.getLocation().getX(), editedGfxObject.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(editedGfxObject)
+				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
 
 	/**
-	 * Request an edition on a {@link RelationLinkArtifact.RelationLinkArtifactPart} and set if the text is empty a default text
+	 * Request an creation of a {@link RelationLinkArtifact.RelationLinkArtifactPart} and set its default text;
 	 * 
 	 * @param part
 	 *            The {@link RelationLinkArtifact.RelationLinkArtifactPart} to edit
 	 */
-	public void edit(final RelationLinkArtifactPart part) {
+	public void createPart(final RelationLinkArtifactPart part) {
 		String defaultText;
 		switch (part) {
 			case NAME:
@@ -487,7 +509,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 			nameGfxObject.setStroke(ThemeManager.getTheme().getObjectRelationBackgroundColor(), 0);
 			nameGfxObject.setFillColor(ThemeManager.getTheme().getObjectRelationForegroundColor());
 			nameGfxObject.translate(new Point(-GfxManager.getPlatform().getTextWidthFor(nameGfxObject) / 2, 0));
-			RelationLinkArtifactPart.setGfxObjectTextForPart(nameGfxObject, RelationLinkArtifactPart.NAME);
 			this.gfxObjectPart.put(RelationLinkArtifactPart.NAME, nameGfxObject);
 		}
 		this.current_delta = 0;
@@ -531,7 +552,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	private Command createCommand(final RelationLinkArtifactPart relationArtifactPart) {
 		return new Command() {
 			public void execute() {
-				ObjectRelationLinkArtifact.this.edit(relationArtifactPart);
+				ObjectRelationLinkArtifact.this.createPart(relationArtifactPart);
 			}
 		};
 	}
@@ -556,7 +577,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 			this.current_delta += 8;
 		}
 
-		RelationLinkArtifactPart.setGfxObjectTextForPart(textGfxObject, part);
 		this.gfxObjectPart.put(part, textGfxObject);
 		return textGfxObject;
 	}
@@ -573,7 +593,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	private Command editCommand(final RelationLinkArtifactPart relationArtifactPart) {
 		return new Command() {
 			public void execute() {
-				ObjectRelationLinkArtifact.this.edit(ObjectRelationLinkArtifact.this.gfxObjectPart.get(relationArtifactPart));
+				ObjectRelationLinkArtifact.this.edit(relationArtifactPart);
 			}
 		};
 	}

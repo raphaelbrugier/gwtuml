@@ -15,7 +15,6 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
@@ -294,35 +293,6 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 				relation.setRightStereotype(text);
 			}
 		};
-
-		//FIXME Remove for serialization
-		@Deprecated //TODO remove in a future release
-		private static HashMap<GfxObject, RelationLinkArtifactPart>	textGfxObject	= new HashMap<GfxObject, RelationLinkArtifactPart>();
-
-		/**
-		 * Getter for the part represented by the graphical object
-		 * 
-		 * @param gfxObjectText
-		 *            The graphical object to retrieve the relationLinkArtifactPart
-		 * @return The RelationLinkArtifactPart represented by the graphical object
-		 */
-		@Deprecated
-		public static RelationLinkArtifactPart getPartForGfxObject(final GfxObject gfxObjectText) {
-			return RelationLinkArtifactPart.textGfxObject.get(gfxObjectText);
-		}
-
-		/**
-		 * Setter of the relation between a RelationLinkArtifactPart and his graphical object
-		 * 
-		 * @param gfxObjectText
-		 *            The graphical object representing the relationLinkArtifactPart
-		 * @param relationLinkArtifactPart
-		 *            the relationLinkArtifactPart represented by gfxObjecttext
-		 */
-		@Deprecated
-		public static void setGfxObjectTextForPart(final GfxObject gfxObjectText, final RelationLinkArtifactPart relationLinkArtifactPart) {
-			RelationLinkArtifactPart.textGfxObject.put(gfxObjectText, relationLinkArtifactPart);
-		}
 
 		private boolean	isLeft;
 
