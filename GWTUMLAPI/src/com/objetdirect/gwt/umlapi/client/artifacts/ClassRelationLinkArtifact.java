@@ -93,7 +93,11 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 				editPart = entry.getKey(); 
 		}
 		
-		edit(editPart);
+		if (editPart==null) {
+			this.createPart(RelationLinkArtifactPart.NAME);
+		} else {
+			edit(editPart);
+		}
 	}
 	
 	private void edit(final RelationLinkArtifactPart editPart) {

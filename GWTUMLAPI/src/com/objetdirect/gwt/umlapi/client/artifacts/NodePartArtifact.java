@@ -21,6 +21,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public abstract class NodePartArtifact extends BoxArtifact {
 
 	protected NodeArtifact			nodeArtifact;

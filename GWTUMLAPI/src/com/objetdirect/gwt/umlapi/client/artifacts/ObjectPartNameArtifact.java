@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	private UMLObject		uMLObject;

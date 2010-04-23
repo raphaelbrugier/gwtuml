@@ -26,6 +26,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class LinkClassRelationArtifact extends LinkArtifact {
 	ClassArtifact				classArtifact;
 	transient GfxObject					line	= null;

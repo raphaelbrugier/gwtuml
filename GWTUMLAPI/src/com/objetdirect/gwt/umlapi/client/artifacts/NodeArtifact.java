@@ -37,6 +37,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public abstract class NodeArtifact extends BoxArtifact {
 
 	LinkedList<NodePartArtifact>	nodeParts	= new LinkedList<NodePartArtifact>();

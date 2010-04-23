@@ -31,6 +31,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class NoteArtifact extends BoxArtifact {
 	transient GfxObject				borderPath;
 	transient GfxObject				contentText;
