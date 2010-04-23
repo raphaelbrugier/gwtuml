@@ -32,8 +32,7 @@ public class UMLParameter implements Serializable {
 	/**
 	 * Default constructor only for gwt-rpc serialization 
 	 */
-	public UMLParameter() {
-	}
+	public UMLParameter() { }
 	
 	/**
 	 * Constructor of the parameter

@@ -25,6 +25,7 @@ import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLObjectAttribute extends UMLClassAttribute {
 
 	/**
@@ -87,6 +88,9 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	private String	stringInstance;
 
 	private Number	numberInstance;
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	UMLObjectAttribute(){}
 
 	/**
 	 * Constructor of the attribute

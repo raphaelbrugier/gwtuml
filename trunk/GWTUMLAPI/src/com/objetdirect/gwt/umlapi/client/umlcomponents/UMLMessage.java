@@ -22,6 +22,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+@SuppressWarnings("serial")
 public class UMLMessage extends UMLLink {
 
 	private String			name;
@@ -30,6 +31,9 @@ public class UMLMessage extends UMLLink {
 	private LinkAdornment	rightAdornment;
 	private LinkStyle		linkStyle;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	UMLMessage(){};
+	
 	/**
 	 * Constructor of Message
 	 * 

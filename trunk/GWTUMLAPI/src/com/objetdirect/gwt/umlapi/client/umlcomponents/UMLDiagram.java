@@ -141,8 +141,11 @@ public class UMLDiagram {
 		}
 	}
 
-	private final Type	type;
-
+	private Type	type;
+	
+	/** Default constructor only for gwt-rpc serialization. */
+	public UMLDiagram() {}
+	
 	/**
 	 * Constructor of {@link UMLDiagram}
 	 * 
