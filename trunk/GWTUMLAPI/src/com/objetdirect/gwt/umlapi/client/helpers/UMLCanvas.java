@@ -14,11 +14,13 @@
  */
 package com.objetdirect.gwt.umlapi.client.helpers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -67,36 +69,36 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public class UMLCanvas extends AbsolutePanel {
+@SuppressWarnings("serial")
+public class UMLCanvas extends AbsolutePanel implements Serializable {
 
 	private enum DragAndDropState {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
 	}
 
-	private long										classCount						= 1;
-	private long										objectCount						= 1;
-	private long										lifeLineCount					= 1;
-	private String											copyBuffer 						= "";
-	private long											noteCount;
-	private LinkKind										activeLinking;
-	private Point											selectBoxStartPoint;
-	private GfxObject										selectBox;
-	private final Label										helpText						= new Label("");
-	private final Widget									drawingCanvas;																	// Drawing canvas
-	private DragAndDropState								dragAndDropState				= DragAndDropState.NONE;
-	private boolean 										wasACopy;
-	private Point											currentMousePosition			= new Point(-200, -200);						// In case of the
-	// mouse hasn't been
-	// moved before
-	// adding an
-	// artifact
-	private final Point										canvasOffset					= Point.getOrigin();
-	private Point											duringDragOffset				= Point.getOrigin();
-	private HashMap<UMLArtifact, ArrayList<Point>>			previouslySelectedArtifacts;
+	private long classCount = 1;
+	private long objectCount = 1;
+	private long lifeLineCount = 1;
+	private String copyBuffer;
+	private long noteCount;
+	private LinkKind activeLinking;
+	private Point selectBoxStartPoint;
+	private transient GfxObject	selectBox;
+	private transient Label	helpText;
+	
+	/** The canvas */
+	private transient Widget drawingCanvas;
+	
+	private DragAndDropState dragAndDropState;
+	private boolean  wasACopy;
+	private Point currentMousePosition;
+	private Point canvasOffset;
+	private Point duringDragOffset;
+	private HashMap<UMLArtifact, ArrayList<Point>>	previouslySelectedArtifacts;
 
-	private final UMLDiagram								uMLDiagram;
-	private boolean											isMouseEnabled					= true;
-	private final GfxObjectListener							gfxObjectListener				= new GfxObjectListener() {
+	private UMLDiagram uMLDiagram;
+	private boolean isMouseEnabled;
+	private GfxObjectListener gfxObjectListener = new GfxObjectListener() {
 		
 		@Override
 		public void mouseDoubleClicked(final GfxObject graphicObject,
@@ -146,61 +148,52 @@ public class UMLCanvas extends AbsolutePanel {
 
 	};
 	
-	private boolean											mouseIsPressed					= false;										// Manage mouse
-	// state when
-	// releasing outside
-	// the listener
+	// Manage mouse state when  releasing outside the listener
+	private boolean	mouseIsPressed;						
 
-	private final GfxObject									movingLines						= GfxManager.getPlatform().buildVirtualGroup();
+	private transient GfxObject movingLines;
 
-	private final GfxObject									movingOutlineDependencies		= GfxManager.getPlatform().buildVirtualGroup();
+	private transient GfxObject movingOutlineDependencies;
 
-	private final GfxObject									outlines						= GfxManager.getPlatform().buildVirtualGroup();
+	private transient GfxObject	outlines;
 
-	private final GfxObject									allObjects						= GfxManager.getPlatform().buildVirtualGroup();
+	private transient GfxObject allObjects;
 
-	private final Map<GfxObject, UMLArtifact>					objects							= new HashMap<GfxObject, UMLArtifact>();	// Map of
-	// UMLArtifact with
-	// corresponding
-	// Graphical objects
-	// (group)
+	// Map of UMLArtifact with corresponding Graphical objects (group)
+	private transient Map<GfxObject, UMLArtifact> objects;
+	
+	/** List of all the uml artifacts in the diagram */
+	private List<UMLArtifact> umlArtifacts;
+	
+	private Set<UMLArtifact> objectsToBeAddedWhenAttached;
 
-	private final Set<UMLArtifact>							objectsToBeAddedWhenAttached	= new LinkedHashSet<UMLArtifact>();
-
-	private final HashMap<UMLArtifact, ArrayList<Point>>	selectedArtifacts				= new HashMap<UMLArtifact, ArrayList<Point>>(); // Represent the
-	// selected
-	// UMLArtifacts and
-	// his moving
-	// dependencies
-	// points
+	// Represent the selected UMLArtifacts and his moving dependencies points
+	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
 	
 	
 	/** List of all couple of UMLArtifacts linked together. */
-	private ArrayList<UMLArtifactPeer>	uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
+	private ArrayList<UMLArtifactPeer> uMLArtifactRelations;
 	
 	/** Flag used when the LinksArtifact are computed to known if their dependy have already been sorted. 
 	 * @see com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact#ComputeDirectionsType() */
 	private boolean LinkArtifactsHaveAlreadyBeenSorted;
 
-	private Point											dragOffset;
-	private Point											totalDragShift					= Point.getOrigin();
-	private GfxObject										arrowsVirtualGroup;
-	private Point	copyMousePosition;
+	private Point dragOffset;
+	private Point totalDragShift = Point.getOrigin();
+	private transient GfxObject	arrowsVirtualGroup;
+	private Point copyMousePosition;
 
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	UMLCanvas(){}
+	
 	/**
 	 * Constructor of an {@link UMLCanvas} with default size
 	 * 
-	 * @param uMLDiagram
-	 *            The {@link UMLDiagram} this {@link UMLCanvas} is drawing
-	 * 
+	 * @param uMLDiagram The {@link UMLDiagram} this {@link UMLCanvas} is drawing
 	 */
 	public UMLCanvas(final UMLDiagram uMLDiagram) {
-		super();
-		Log.trace("Making Canvas");
-		this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
-		this.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
-		this.initCanvas();
-		this.uMLDiagram = uMLDiagram;
+		this(uMLDiagram, GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	}
 
 	/**
@@ -215,6 +208,8 @@ public class UMLCanvas extends AbsolutePanel {
 	 */
 	public UMLCanvas(final UMLDiagram uMLDiagram, final int width, final int height) {
 		super();
+		initFieldsWithDefaultValue();
+		
 		Log.trace("Making " + width + " x " + height + " Canvas");
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
@@ -222,6 +217,48 @@ public class UMLCanvas extends AbsolutePanel {
 		this.setPixelSize(width, height);
 		this.initCanvas();
 		this.uMLDiagram = uMLDiagram;
+	}
+	
+	private void initFieldsWithDefaultValue() {
+		classCount = 1;
+		objectCount = 1;
+		lifeLineCount = 1;
+		copyBuffer = "";
+		helpText = new Label("");
+		dragAndDropState = DragAndDropState.NONE;
+		currentMousePosition = new Point(-200, -200);
+		canvasOffset = Point.getOrigin();
+		duringDragOffset = Point.getOrigin();
+		isMouseEnabled = true;
+		mouseIsPressed = false;
+		umlArtifacts = new LinkedList<UMLArtifact>();
+		objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
+		selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>();
+		uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
+	}
+	
+	private void initCanvas() {
+		initGfxObjects();
+		Log.trace("Adding Canvas");
+		this.add(this.drawingCanvas, 0, 0);
+		this.helpText.setStylePrimaryName("contextual-help");
+		this.add(this.helpText, 0, 0);
+		Log.trace("Adding object listener");
+		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
+		this.noteCount = 0;
+		this.allObjects.addToCanvas(this.drawingCanvas, Point.getOrigin());
+		this.movingLines.addToCanvas(this.drawingCanvas, Point.getOrigin());
+		this.outlines.addToCanvas(this.drawingCanvas, Point.getOrigin());
+		this.movingOutlineDependencies.addToCanvas(this.drawingCanvas, Point.getOrigin());
+		Log.trace("Init canvas done");
+	}
+	
+	private void initGfxObjects() {
+		objects = new HashMap<GfxObject, UMLArtifact>();
+		allObjects = GfxManager.getPlatform().buildVirtualGroup();
+		outlines = GfxManager.getPlatform().buildVirtualGroup();
+		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
+		movingLines = GfxManager.getPlatform().buildVirtualGroup();
 	}
 
 	/**
@@ -242,6 +279,7 @@ public class UMLCanvas extends AbsolutePanel {
 
 			artifact.getGfxObject().translate(artifact.getLocation());
 			this.objects.put(artifact.getGfxObject(), artifact);
+			umlArtifacts.add(artifact);
 			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
 
 		} else {
@@ -255,7 +293,6 @@ public class UMLCanvas extends AbsolutePanel {
 	 */
 	public void addNewClass() {
 		this.addNewClass(this.currentMousePosition);
-
 	}
 
 	/**
@@ -263,7 +300,6 @@ public class UMLCanvas extends AbsolutePanel {
 	 */
 	public void addNewLifeLine() {
 		this.addNewLifeLine(this.currentMousePosition);
-
 	}
 
 	/**
@@ -271,16 +307,13 @@ public class UMLCanvas extends AbsolutePanel {
 	 */
 	public void addNewObject() {
 		this.addNewObject(this.currentMousePosition);
-
 	}
 
 	/**
 	 * Remove the direction arrows from the canvas
-	 * 
 	 */
 	public void clearArrows() {
 		GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
-
 	}
 
 	/**
@@ -1223,21 +1256,6 @@ public class UMLCanvas extends AbsolutePanel {
 		return UMLArtifact;
 	}
 
-	private void initCanvas() {
-		Log.trace("Adding Canvas");
-		this.add(this.drawingCanvas, 0, 0);
-		this.helpText.setStylePrimaryName("contextual-help");
-		this.add(this.helpText, 0, 0);
-		Log.trace("Adding object listener");
-		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
-		this.noteCount = 0;
-		this.allObjects.addToCanvas(this.drawingCanvas, Point.getOrigin());
-		this.movingLines.addToCanvas(this.drawingCanvas, Point.getOrigin());
-		this.outlines.addToCanvas(this.drawingCanvas, Point.getOrigin());
-		this.movingOutlineDependencies.addToCanvas(this.drawingCanvas, Point.getOrigin());
-		Log.trace("Init canvas done");
-	}
-
 	private boolean isIn(final Point artifactMin, final Point artifactMax, final Point selectMin, final Point selectMax) {
 		return (selectMax.isSuperiorTo(artifactMin) && artifactMax.isSuperiorTo(selectMin));
 	}
@@ -1314,5 +1332,27 @@ public class UMLCanvas extends AbsolutePanel {
 				}
 			}
 		}
+	}
+	
+	public void setUpAfterDeserialization() {
+		Log.trace("UMLCanvas::setUpAfterDeserialization => Making Canvas");
+		this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
+		this.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
+		this.initCanvas();
+		
+		
+		movingLines	= GfxManager.getPlatform().buildVirtualGroup();
+		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
+		outlines = GfxManager.getPlatform().buildVirtualGroup();
+		allObjects = GfxManager.getPlatform().buildVirtualGroup();
+		
+		objects	= new HashMap<GfxObject, UMLArtifact>();
+		for(UMLArtifact artifact: umlArtifacts) {
+			artifact.setCanvas(this);
+			artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
+			this.objects.put(artifact.getGfxObject(), artifact);
+			artifact.setUpAfterDeserialization();
+		}
+		makeArrows();
 	}
 }

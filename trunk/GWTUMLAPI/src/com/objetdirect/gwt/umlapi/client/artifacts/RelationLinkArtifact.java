@@ -350,9 +350,9 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 
 	
 	protected UMLRelation		relation;
-	protected Point				leftDirectionPoint	= Point.getOrigin();
-	protected Point				rightDirectionPoint	= Point.getOrigin();
-	protected Point				nameAnchorPoint		= Point.getOrigin();
+	protected Point	leftDirectionPoint;
+	protected Point	rightDirectionPoint;
+	protected Point	nameAnchorPoint;
 	private NodeArtifact		rightNodeArtifact;
 	private NodeArtifact		leftNodeArtifact;
 
@@ -368,6 +368,11 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	 */
 	public RelationLinkArtifact(final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
 		super(nodeArtifact1, nodeArtifact2);
+		
+		leftDirectionPoint = Point.getOrigin();
+		rightDirectionPoint	= Point.getOrigin();
+		nameAnchorPoint	= Point.getOrigin();
+		
 		this.leftNodeArtifact = nodeArtifact1;
 		this.rightNodeArtifact = nodeArtifact2;
 		if ((relationKind == LinkKind.NOTE) || (relationKind == LinkKind.CLASSRELATION)) {

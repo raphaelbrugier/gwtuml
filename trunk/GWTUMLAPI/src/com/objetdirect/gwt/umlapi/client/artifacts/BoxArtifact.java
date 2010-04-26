@@ -27,7 +27,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 @SuppressWarnings("serial")
 public abstract class BoxArtifact extends UMLArtifact {
 
-	protected BoxArtifact() {}
+	/** Default constructor ONLY for gwt-rpc Serialization. */
+	BoxArtifact() {}
 	
 	/**
 	 * Constructor of BoxArtifact

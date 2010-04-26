@@ -60,7 +60,7 @@ public class UMLClassMethod implements Serializable {
 
 	private String				returnType;
 
-	private boolean				validated	= true;
+	private boolean validated;
 
 	private UMLVisibility		visibility;
 
@@ -84,6 +84,7 @@ public class UMLClassMethod implements Serializable {
 	 *            The parameters list of this method
 	 */
 	public UMLClassMethod(final UMLVisibility visibility, final String returnType, final String name, final List<UMLParameter> parameters) {
+		this.validated	= true;
 		this.visibility = visibility;
 		this.returnType = returnType;
 		this.name = name;

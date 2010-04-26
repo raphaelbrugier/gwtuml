@@ -42,6 +42,10 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	private transient GfxObject		stereotypeText;
 	private transient GfxObject		underline;
 
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	ObjectPartNameArtifact() {}
+	
 	/**
 	 * Constructor of ObjectPartNameArtifact with only object name
 	 * 

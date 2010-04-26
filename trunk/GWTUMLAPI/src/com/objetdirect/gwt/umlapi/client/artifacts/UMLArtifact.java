@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -47,26 +48,25 @@ public abstract class UMLArtifact implements Serializable {
 
 	protected boolean								isSelected		= false;
 	private static int								idCount			= 0;
-	private static TreeMap<Integer, UMLArtifact>	artifactById	= new TreeMap<Integer, UMLArtifact>();
+	private static Map<Integer, UMLArtifact>	artifactById	= new HashMap<Integer, UMLArtifact>();
 
 	private int											id;
 
 	protected UMLCanvas									canvas;
-	protected GfxObject									gfxObject;
+	protected transient GfxObject									gfxObject;
 
-	private final LinkedList<LinkArtifact>				upDependencies			= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				downDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				leftDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				rightDependencies		= new LinkedList<LinkArtifact>();
-	private final LinkedList<LinkArtifact>				allDependencies			= new LinkedList<LinkArtifact>();
+	private LinkedList<LinkArtifact>				upDependencies			= new LinkedList<LinkArtifact>();
+	private LinkedList<LinkArtifact>				downDependencies		= new LinkedList<LinkArtifact>();
+	private LinkedList<LinkArtifact>				leftDependencies		= new LinkedList<LinkArtifact>();
+	private LinkedList<LinkArtifact>				rightDependencies		= new LinkedList<LinkArtifact>();
+	private LinkedList<LinkArtifact>				allDependencies			= new LinkedList<LinkArtifact>();
 
-	private final HashMap<LinkArtifact, UMLArtifact>	dependentUMLArtifacts	= new HashMap<LinkArtifact, UMLArtifact>();
+	private HashMap<LinkArtifact, UMLArtifact>	dependentUMLArtifacts	= new HashMap<LinkArtifact, UMLArtifact>();
 	private boolean										isBuilt					= false;
 	private Point										location				= Point.getOrigin();
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
-	protected UMLArtifact() {
-	}
+	protected UMLArtifact() { }
 	
 	/**
 	 * Static getter of an {@link UMLArtifact} from its id
@@ -84,7 +84,7 @@ public abstract class UMLArtifact implements Serializable {
 	 * 
 	 * @return the artifact list ordered by id
 	 */
-	public static TreeMap<Integer, UMLArtifact> getArtifactList() {
+	public static Map<Integer, UMLArtifact> getArtifactList() {
 		return UMLArtifact.artifactById;
 	}
 

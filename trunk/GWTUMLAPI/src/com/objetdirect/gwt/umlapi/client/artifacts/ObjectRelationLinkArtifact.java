@@ -57,8 +57,11 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	protected transient GfxObject											line;
 	protected transient GfxObject											textVirtualGroup;
 	private int													current_delta;
-	private transient HashMap<RelationLinkArtifactPart, GfxObject>	gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
+	private transient HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	public ObjectRelationLinkArtifact() {}
+	
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
 	 * 
@@ -71,6 +74,9 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	 */
 	public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
 		super(left, right, relationKind);
+		
+		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
+		
 		if ((relationKind == LinkKind.NOTE) || (relationKind == LinkKind.CLASSRELATION)) {
 			Log.error("Making a relation artifact for : " + relationKind.getName());
 		}

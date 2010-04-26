@@ -37,11 +37,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 		UMLArtifact	uMLArtifact1;
 		UMLArtifact	uMLArtifact2;
 		
-		/**
-		 * Default constructor ONLY for gwt-rpc serialization. 
-		 */
-		public UMLArtifactPeer() {
-		}
+		/** Default constructor ONLY for gwt-rpc serialization.  */
+		UMLArtifactPeer() { }
 		
 		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
 			super();
@@ -149,18 +146,18 @@ public abstract class LinkArtifact extends UMLArtifact {
 	
 	private UMLArtifact	rightUMLArtifact;
 	
-	protected Point				leftPoint			= Point.getOrigin();
+	protected Point leftPoint;
 
-	protected Point				rightPoint			= Point.getOrigin();
+	protected Point rightPoint;
 	protected int				order;
 
-	protected boolean			isSelfLink			= false;
-	protected Direction			leftDirection		= Direction.UNKNOWN;
-	protected Direction			rightDirection		= Direction.UNKNOWN;
+	protected boolean isSelfLink;
+	protected Direction leftDirection;
+	protected Direction rightDirection;
 
-	protected boolean			isTheOneRebuilding	= false;
+	protected boolean isTheOneRebuilding;
 
-	private boolean				doesntHaveToBeComputed;
+	private boolean	doesntHaveToBeComputed;
 
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
@@ -177,6 +174,13 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 */
 	public LinkArtifact(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
 		super(true);
+		leftPoint = Point.getOrigin();
+		rightPoint = Point.getOrigin();
+		isSelfLink = false;
+		leftDirection = Direction.UNKNOWN;
+		rightDirection = Direction.UNKNOWN;
+		isTheOneRebuilding	= false;
+		
 		this.leftUMLArtifact = uMLArtifact1;
 		this.rightUMLArtifact = uMLArtifact2;
 		final LinkArtifact.UMLArtifactPeer newPeer = new LinkArtifact.UMLArtifactPeer(uMLArtifact1, uMLArtifact2);

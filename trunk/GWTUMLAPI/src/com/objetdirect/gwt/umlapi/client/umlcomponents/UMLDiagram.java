@@ -14,13 +14,15 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
+
 /**
  * This class represents an UML diagram
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
-public class UMLDiagram {
+@SuppressWarnings("serial")
+public class UMLDiagram implements Serializable {
 
 	/**
 	 * This enum lists all types of uml diagram that the application can draw
@@ -144,7 +146,7 @@ public class UMLDiagram {
 	private Type	type;
 	
 	/** Default constructor only for gwt-rpc serialization. */
-	public UMLDiagram() {}
+	UMLDiagram() {}
 	
 	/**
 	 * Constructor of {@link UMLDiagram}

@@ -32,7 +32,6 @@ public abstract class NodePartArtifact extends BoxArtifact {
 
 	/**
 	 * Constructor of NodePartArtifact
-	 * 
 	 */
 	public NodePartArtifact() {
 		super(false);

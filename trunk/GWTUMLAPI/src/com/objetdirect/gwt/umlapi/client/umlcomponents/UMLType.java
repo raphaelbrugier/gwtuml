@@ -76,6 +76,7 @@ public enum UMLType {
 		return CUSTOM;
 	}
 	
+	/** Default constructor ONLY for gwt-rpc serialization. */
 	private UMLType() {}
 
 	private UMLType(String type) {

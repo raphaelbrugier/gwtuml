@@ -52,7 +52,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	protected ClassArtifact										rightClassArtifact;
 	protected transient GfxObject								textVirtualGroup;
 	private int													current_delta;
-	private HashMap<RelationLinkArtifactPart, GfxObject>		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
+	private HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
 
 	
 	/** Default constructor ONLY for gwt rpc serializaton. */
@@ -70,7 +70,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	 */
 	public ClassRelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
 		super(left, right, relationKind);
-
+		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 		this.leftClassArtifact = left;
 		left.addDependency(this, right);
 		this.rightClassArtifact = right;
