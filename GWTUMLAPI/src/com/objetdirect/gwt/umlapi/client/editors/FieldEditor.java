@@ -107,7 +107,7 @@ public abstract class FieldEditor {
 		}
 		
 		this.content = text;
-		if(y + 20  > this.canvas.getOffsetHeight()) { //FIXME put a real height
+		if(y + 20  > this.canvas.getContainer().getOffsetHeight()) { //FIXME put a real height
 			return;
 		}
 		
@@ -152,14 +152,14 @@ public abstract class FieldEditor {
 			}
 		});
 
-		this.canvas.add(FieldEditor.editField, x + Session.getActiveCanvas().getCanvasOffset().getX(), y + Session.getActiveCanvas().getCanvasOffset().getY());
+		this.canvas.getContainer().add(FieldEditor.editField, x + Session.getActiveCanvas().getCanvasOffset().getX(), y + Session.getActiveCanvas().getCanvasOffset().getY());
 		FieldEditor.editField.selectAll();
 		FieldEditor.editField.setFocus(true);
 		GWTUMLDrawerHelper.enableBrowserEvents();
 	}
 
 	protected void cancel() {
-		this.canvas.remove(FieldEditor.editField);
+		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		GWTUMLDrawerHelper.disableBrowserEvents();
 		HotKeyManager.setInputEnabled(true);
@@ -175,7 +175,7 @@ public abstract class FieldEditor {
 		if (!newContent.equals(this.content)) {
 			isStillNextable = this.updateUMLArtifact(newContent) && isStillNextable;
 		}
-		this.canvas.remove(FieldEditor.editField);
+		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		GWTUMLDrawerHelper.disableBrowserEvents();
 		HotKeyManager.setInputEnabled(true);

@@ -40,7 +40,6 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	private GfxObject		nameRect;
 	private GfxObject		nameText;
 	private GfxObject		stereotypeText;
-
 	
 	/** Default constructor ONLY for gwt rpc serialization. */
 	ClassPartNameArtifact() {}

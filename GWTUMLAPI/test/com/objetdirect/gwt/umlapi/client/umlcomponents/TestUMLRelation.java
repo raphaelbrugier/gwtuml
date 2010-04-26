@@ -1,5 +1,5 @@
 /*
- * This file is part of the GWTUML project and was written by Mounier Florian <raphael-dot-brugier.at.gmail'dot'com> for Objet Direct
+ * This file is part of the GWTUML project and was written by Raphael Brugier <raphael-dot-brugier.at.gmail'dot'com> for Objet Direct
  * <http://wwww.objetdirect.com>
  * 
  * Copyright © 2010 Objet Direct Contact: gwtuml@googlegroups.com

@@ -24,7 +24,7 @@ import com.google.gwt.user.client.Event;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public interface GfxObjectListener extends Serializable {
+public interface GfxObjectListener {
 
 	/**
 	 * Invoked when a mouse button has been double clicked on a gfxObject.

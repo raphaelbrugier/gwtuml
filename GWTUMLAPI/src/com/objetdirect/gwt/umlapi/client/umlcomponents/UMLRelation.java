@@ -47,9 +47,9 @@ public class UMLRelation extends UMLLink {
 
 
 	/**
-	 * Default constructor for gwt-rpc serialization
+	 * Default constructor ONLY for gwt-rpc serialization
 	 */
-	public UMLRelation () { }
+	UMLRelation () { }
 	
 	/**
 	 * Constructor of Relation

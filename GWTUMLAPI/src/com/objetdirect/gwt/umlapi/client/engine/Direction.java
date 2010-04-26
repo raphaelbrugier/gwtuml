@@ -108,6 +108,11 @@ public enum Direction {
 	private int		speed	= 1;
 	private String	idiom	= "x";
 
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	private Direction() {
+	}
+	
 	private Direction(final int x, final int y, final String idiom) {
 		this.xDirection = x;
 		this.yDirection = y;
