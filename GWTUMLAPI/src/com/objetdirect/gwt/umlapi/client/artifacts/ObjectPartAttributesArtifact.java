@@ -49,7 +49,6 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
 	/**
 	 * Constructor of ObjectPartAttributesArtifact It initializes the attribute list
-	 * 
 	 */
 	public ObjectPartAttributesArtifact() {
 		super();

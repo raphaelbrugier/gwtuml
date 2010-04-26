@@ -28,10 +28,13 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 @SuppressWarnings("serial")
 public class LinkNoteArtifact extends LinkArtifact {
-	transient GfxObject		line	= null;
+	transient GfxObject	line;
 	NoteArtifact	note;
 	UMLArtifact		target;
 
+	/** Default Constructor ONLY for gwt-rpc serialization. */
+	LinkNoteArtifact() { }
+	
 	/**
 	 * Constructor of LinkNoteArtifact
 	 * 
@@ -42,6 +45,7 @@ public class LinkNoteArtifact extends LinkArtifact {
 	 */
 	public LinkNoteArtifact(final NoteArtifact note, final UMLArtifact target) {
 		super(note, target);
+		line = null;
 		this.note = note;
 		this.note.addDependency(this, target);
 		this.target = target;

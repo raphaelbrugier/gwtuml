@@ -28,10 +28,13 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 @SuppressWarnings("serial")
 public class LinkClassRelationArtifact extends LinkArtifact {
-	ClassArtifact				classArtifact;
-	transient GfxObject					line	= null;
-	ClassRelationLinkArtifact	relationLinkArtifact;
+	private ClassArtifact				classArtifact;
+	private transient GfxObject line;
+	private ClassRelationLinkArtifact	relationLinkArtifact;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	LinkClassRelationArtifact() { }
+	
 	/**
 	 * Constructor of LinkClassRelationArtifact
 	 * 
@@ -42,6 +45,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	 */
 	public LinkClassRelationArtifact(final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
 		super(classArtifact, relation);
+		line = null;
 		this.classArtifact = classArtifact;
 		this.classArtifact.addDependency(this, relation);
 		this.relationLinkArtifact = relation;

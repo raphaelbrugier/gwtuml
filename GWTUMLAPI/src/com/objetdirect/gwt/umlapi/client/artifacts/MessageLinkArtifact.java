@@ -47,6 +47,10 @@ public class MessageLinkArtifact extends LinkArtifact {
 	protected transient GfxObject		text;
 	private UMLMessage					message;
 
+	
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	MessageLinkArtifact() {}
+	
 	/**
 	 * Constructor of {@link MessageLinkArtifact}
 	 * 

@@ -78,7 +78,7 @@ public class UMLClassAttribute implements Serializable {
 
 	protected String		name;
 	protected String		type;
-	protected boolean		validated	= true;
+	protected boolean validated;
 
 	protected UMLVisibility	visibility;
 
@@ -100,6 +100,7 @@ public class UMLClassAttribute implements Serializable {
 	 */
 	public UMLClassAttribute(final UMLVisibility visibility, final String type, final String name) {
 		super();
+		this.validated	= true;
 		this.visibility = visibility;
 		this.type = type;
 		this.name = name;

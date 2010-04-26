@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.gfx;
 
+import java.io.Serializable;
+
 import com.google.gwt.user.client.Event;
 
 /**
@@ -22,7 +24,7 @@ import com.google.gwt.user.client.Event;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public interface GfxObjectListener {
+public interface GfxObjectListener extends Serializable {
 
 	/**
 	 * Invoked when a mouse button has been double clicked on a gfxObject.

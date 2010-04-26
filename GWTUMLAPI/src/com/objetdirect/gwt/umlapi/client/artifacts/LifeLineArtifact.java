@@ -33,13 +33,13 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
  */
 @SuppressWarnings("serial")
 public class LifeLineArtifact extends BoxArtifact {
-	int								rectHeight;
-	int								width;
-	private UMLLifeLine		uMLLifeLine;
-	private transient GfxObject		lifeLineText;
-	private transient GfxObject		lifeLineRect;
-	private int						lineLength	= 0;
-	private transient GfxObject		lifeLineLine;
+	int rectHeight;
+	int width;
+	private UMLLifeLine uMLLifeLine;
+	private transient GfxObject	lifeLineText;
+	private transient GfxObject	lifeLineRect;
+	private int lineLength;
+	private transient GfxObject	lifeLineLine;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@SuppressWarnings("unused")
@@ -67,6 +67,7 @@ public class LifeLineArtifact extends BoxArtifact {
 	 */
 	public LifeLineArtifact(final String name, final String instance) {
 		super(true);
+		this.lineLength = 0;
 		this.rectHeight = 0;
 		this.width = 0;
 		this.uMLLifeLine = new UMLLifeLine(name, instance);

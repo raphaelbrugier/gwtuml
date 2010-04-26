@@ -40,15 +40,15 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 @SuppressWarnings("serial")
 public abstract class NodeArtifact extends BoxArtifact {
 
-	LinkedList<NodePartArtifact>	nodeParts	= new LinkedList<NodePartArtifact>();
+	LinkedList<NodePartArtifact> nodeParts;
 	private int						width;
 
 	/**
 	 * Constructor of NodeArtifact
-	 * 
 	 */
 	public NodeArtifact() {
 		super(true);
+		nodeParts	= new LinkedList<NodePartArtifact>();
 	}
 
 	@Override

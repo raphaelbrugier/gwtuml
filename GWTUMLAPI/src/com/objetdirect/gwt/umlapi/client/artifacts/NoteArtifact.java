@@ -38,8 +38,11 @@ public class NoteArtifact extends BoxArtifact {
 	transient GfxObject				cornerPath;
 	int						height;
 	int						width;
-	private final UMLNote	note;
+	private UMLNote	note;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	NoteArtifact() { }
+	
 	/**
 	 * Constructor of the NoteArtifact
 	 * 

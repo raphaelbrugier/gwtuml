@@ -358,8 +358,6 @@ public class UMLRelation extends UMLLink {
 		this.rightRole = tempRole;
 		this.rightStereotype = tempStereotype;
 		this.rightTarget = tempClass;
-		
-//		Log.debug("UMLRelation::reverse()\n" + this);
 	}
 	
 	
