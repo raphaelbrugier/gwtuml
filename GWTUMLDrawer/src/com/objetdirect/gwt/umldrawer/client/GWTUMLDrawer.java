@@ -72,7 +72,7 @@ public class GWTUMLDrawer implements EntryPoint {
 			public void onClick(final ClickEvent event) {
 				String svg = "<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>";
 				Session.getActiveCanvas().clearArrows();
-				svg += DOM.getInnerHTML((Element) Session.getActiveCanvas().getElement().getFirstChildElement());
+				svg += DOM.getInnerHTML((Element) Session.getActiveCanvas().getContainer().getElement().getFirstChildElement());
 				Window.open("data:image/xml+svg," + svg, "SVG export", "top");
 				Session.getActiveCanvas().makeArrows();
 			}
