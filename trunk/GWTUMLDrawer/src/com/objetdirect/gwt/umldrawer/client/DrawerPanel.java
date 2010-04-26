@@ -118,7 +118,7 @@ public class DrawerPanel extends AbsolutePanel {
 		Log.trace("Creating drawer");
 
 		this.uMLCanvas = new UMLCanvas(new UMLDiagram(UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"))), this.width, this.height);
-		this.add(this.uMLCanvas);
+		this.add(this.uMLCanvas.getContainer());
 
 		final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
 
@@ -190,8 +190,8 @@ public class DrawerPanel extends AbsolutePanel {
 				@Override
 				public void onMouseUp(final MouseUpEvent event) {
 					DOM.setStyleAttribute(panel.getElement(), "backgroundColor", ThemeManager.getTheme().getDirectionPanelColor().toString());
-					DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Math.min(DrawerPanel.this.uMLCanvas.getOffsetHeight(), DrawerPanel.this.uMLCanvas
-							.getOffsetWidth())), false);
+					DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Math.min(DrawerPanel.this.uMLCanvas.getContainer().getOffsetHeight(), DrawerPanel.this.uMLCanvas
+							.getContainer().getOffsetWidth())), false);
 				}
 			});
 			panel.addMouseMoveHandler(new MouseMoveHandler() {
@@ -213,7 +213,7 @@ public class DrawerPanel extends AbsolutePanel {
 			Log.trace("Making shadow");
 			this.makeShadow();
 		} else {
-			this.uMLCanvas.setStylePrimaryName("canvas");
+			this.uMLCanvas.getContainer().setStylePrimaryName("canvas");
 		}
 
 		this.resizeHandler = new ResizeHandler() {
@@ -223,7 +223,7 @@ public class DrawerPanel extends AbsolutePanel {
 					DrawerPanel.this.width = resizeEvent.getWidth() - 50;
 					DrawerPanel.this.height = resizeEvent.getHeight() - 50;
 					DrawerPanel.this.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
-					DrawerPanel.this.uMLCanvas.setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
+					DrawerPanel.this.uMLCanvas.getContainer().setPixelSize(DrawerPanel.this.width, DrawerPanel.this.height);
 					GfxManager.getPlatform().setSize(Session.getActiveCanvas().getDrawingCanvas(), DrawerPanel.this.width, DrawerPanel.this.height);
 					DrawerPanel.this.clearShadow();
 					DrawerPanel.this.makeShadow();
@@ -359,16 +359,10 @@ public class DrawerPanel extends AbsolutePanel {
 		this.add(this.bottomLeftCornerShadow, 0, this.height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.google.gwt.user.client.ui.Widget#onAttach()
-	 */
 	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-
+	protected void onLoad() {
+		super.onLoad();
+		this.uMLCanvas.onLoad();
 	}
 
 	private HashMap<FocusPanel, Point> makeDirectionPanelsPositions(final int directionPanelSizes) {
