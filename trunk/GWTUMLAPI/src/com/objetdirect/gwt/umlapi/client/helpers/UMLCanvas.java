@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -70,15 +69,21 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLCanvas extends AbsolutePanel implements Serializable {
+public class UMLCanvas implements Serializable {
 
-	private enum DragAndDropState {
+	public enum DragAndDropState {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
 	}
 
-	private long classCount = 1;
-	private long objectCount = 1;
-	private long lifeLineCount = 1;
+	/** The canvas */
+	private transient Widget drawingCanvas;
+
+	/** The panel containing the canvas and the arrows. */
+	private transient AbsolutePanel container;
+	
+	private long classCount;
+	private long objectCount;
+	private long lifeLineCount;
 	private String copyBuffer;
 	private long noteCount;
 	private LinkKind activeLinking;
@@ -86,8 +91,6 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	private transient GfxObject	selectBox;
 	private transient Label	helpText;
 	
-	/** The canvas */
-	private transient Widget drawingCanvas;
 	
 	private DragAndDropState dragAndDropState;
 	private boolean  wasACopy;
@@ -98,55 +101,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 
 	private UMLDiagram uMLDiagram;
 	private boolean isMouseEnabled;
-	private GfxObjectListener gfxObjectListener = new GfxObjectListener() {
-		
-		@Override
-		public void mouseDoubleClicked(final GfxObject graphicObject,
-				final Event event) {
-			if (UMLCanvas.this.isMouseEnabled) {
-				Mouse.doubleClick(graphicObject, new Point(event
-						.getClientX(), event.getClientY()), event
-						.getButton(), event.getCtrlKey(), event
-						.getAltKey(), event.getShiftKey(), event
-						.getMetaKey());
-			}
-		}
-
-		@Override
-		public void mouseMoved(final Event event) {
-			if (UMLCanvas.this.isMouseEnabled) {
-				Mouse.move(new Point(event.getClientX(), event
-						.getClientY()), event.getButton(), event
-						.getCtrlKey(), event.getAltKey(), event
-						.getShiftKey(), event.getMetaKey());
-			}
-		}
-
-		@Override
-		public void mousePressed(final GfxObject graphicObject,
-				final Event event) {
-			if (UMLCanvas.this.isMouseEnabled) {
-				Mouse.press(graphicObject, new Point(
-						event.getClientX(), event.getClientY()), event
-						.getButton(), event.getCtrlKey(), event
-						.getAltKey(), event.getShiftKey(), event
-						.getMetaKey());
-			}
-		}
-
-		@Override
-		public void mouseReleased(final GfxObject graphicObject,
-				final Event event) {
-			if (UMLCanvas.this.isMouseEnabled) {
-				Mouse.release(graphicObject, new Point(event
-						.getClientX(), event.getClientY()), event
-						.getButton(), event.getCtrlKey(), event
-						.getAltKey(), event.getShiftKey(), event
-						.getMetaKey());
-			}
-		}
-
-	};
+	private transient GfxObjectListener gfxObjectListener;
 	
 	// Manage mouse state when  releasing outside the listener
 	private boolean	mouseIsPressed;						
@@ -170,7 +125,6 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	// Represent the selected UMLArtifacts and his moving dependencies points
 	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
 	
-	
 	/** List of all couple of UMLArtifacts linked together. */
 	private ArrayList<UMLArtifactPeer> uMLArtifactRelations;
 	
@@ -179,13 +133,13 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	private boolean LinkArtifactsHaveAlreadyBeenSorted;
 
 	private Point dragOffset;
-	private Point totalDragShift = Point.getOrigin();
+	private Point totalDragShift;
 	private transient GfxObject	arrowsVirtualGroup;
 	private Point copyMousePosition;
 
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLCanvas(){}
+	public UMLCanvas(){}
 	
 	/**
 	 * Constructor of an {@link UMLCanvas} with default size
@@ -214,12 +168,13 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
 
-		this.setPixelSize(width, height);
+		container.setPixelSize(width, height);
 		this.initCanvas();
 		this.uMLDiagram = uMLDiagram;
 	}
 	
 	private void initFieldsWithDefaultValue() {
+		container = new AbsolutePanel();
 		classCount = 1;
 		objectCount = 1;
 		lifeLineCount = 1;
@@ -235,14 +190,15 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 		selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>();
 		uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
+		totalDragShift = Point.getOrigin();
 	}
 	
 	private void initCanvas() {
 		initGfxObjects();
 		Log.trace("Adding Canvas");
-		this.add(this.drawingCanvas, 0, 0);
+		container.add(this.drawingCanvas, 0, 0);
 		this.helpText.setStylePrimaryName("contextual-help");
-		this.add(this.helpText, 0, 0);
+		container.add(this.helpText, 0, 0);
 		Log.trace("Adding object listener");
 		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
 		this.noteCount = 0;
@@ -259,6 +215,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		outlines = GfxManager.getPlatform().buildVirtualGroup();
 		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
 		movingLines = GfxManager.getPlatform().buildVirtualGroup();
+		gfxObjectListener = new CanvasListener(this);
 	}
 
 	/**
@@ -272,7 +229,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 			Log.info("Adding null element to canvas");
 			return;
 		}
-		if (this.isAttached()) {
+		if (container.isAttached()) {
 			artifact.setCanvas(this);
 			final long t = System.currentTimeMillis();
 			artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
@@ -547,13 +504,20 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	}
 
 	/**
+	 * @return the container
+	 */
+	public AbsolutePanel getContainer() {
+		return container;
+	}
+
+	/**
 	 * Draw the directions arrow on the canvas
 	 * 
 	 */
 	public void makeArrows() {
 		final int arrowSize = 6;
-		int width = this.getOffsetWidth();
-		int height = this.getOffsetHeight();
+		int width = container.getOffsetWidth();
+		int height = container.getOffsetHeight();
 		this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		this.arrowsVirtualGroup.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		final ArrayList<GfxObject> arrowList = new ArrayList<GfxObject>();
@@ -603,7 +567,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 				UMLCanvas.this.movingLines.translate(translation);
 				UMLCanvas.this.movingOutlineDependencies.translate(translation);
 				if (FieldEditor.getEditField() != null) {
-					UMLCanvas.this.setWidgetPosition(FieldEditor.getEditField(), (int) (FieldEditor.getEditField().getAbsoluteLeft() - direction.getXShift()),
+					UMLCanvas.this.container.setWidgetPosition(FieldEditor.getEditField(), (int) (FieldEditor.getEditField().getAbsoluteLeft() - direction.getXShift()),
 							(int) (FieldEditor.getEditField().getAbsoluteTop() - direction.getYShift()));
 				}
 			}
@@ -703,7 +667,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		this.container.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	/**
@@ -733,7 +697,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		this.container.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	void addNewLink(final UMLArtifact newSelected) {
@@ -775,7 +739,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		this.container.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 
 	/**
@@ -805,7 +769,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
+		this.container.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
 	
 	/**
@@ -828,6 +792,11 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	 */
 	public boolean isLinkArtifactsHaveAlreadyBeenSorted() {
 		return LinkArtifactsHaveAlreadyBeenSorted;
+	}
+	
+
+	public boolean isMouseEnabled() {
+		return isMouseEnabled;
 	}
 
 	/**
@@ -930,7 +899,7 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 		final Point realPoint = this.convertToRealPoint(location);
 		if (!this.helpText.getText().equals("")) {
-			this.setWidgetPosition(this.helpText, realPoint.getX() + 5, realPoint.getY() - this.helpText.getOffsetHeight() - 5);
+			this.container.setWidgetPosition(this.helpText, realPoint.getX() + 5, realPoint.getY() - this.helpText.getOffsetHeight() - 5);
 		}
 		this.currentMousePosition = realPoint;
 		switch (this.dragAndDropState) {
@@ -1011,13 +980,13 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 					mustShiftCanvas = lower.getY() < -this.canvasOffset.getY();
 					break;
 				case DOWN:
-					mustShiftCanvas = higher.getY() > -this.canvasOffset.getY() + this.getOffsetHeight();
+					mustShiftCanvas = higher.getY() > -this.canvasOffset.getY() + this.container.getOffsetHeight();
 					break;
 				case LEFT:
 					mustShiftCanvas = lower.getX() < -this.canvasOffset.getX();
 					break;
 				case RIGHT:
-					mustShiftCanvas = higher.getX() > -this.canvasOffset.getX() + this.getOffsetWidth();
+					mustShiftCanvas = higher.getX() > -this.canvasOffset.getX() + this.container.getOffsetWidth();
 					break;
 			}
 			if(mustShiftCanvas) {				
@@ -1056,16 +1025,9 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
 	}
 
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		rebuildAllGFXObjects(); //TODO move this to onLoad ?
-	}
-
-	@Override
-	protected void onLoad() {
-		super.onLoad();
+	public void onLoad() {
 		Log.debug("Loading");
+		rebuildAllGFXObjects();
 		for (final UMLArtifact elementNotAdded : this.objectsToBeAddedWhenAttached) {
 			Log.trace("Adding queued " + elementNotAdded);
 			elementNotAdded.setCanvas(this);
@@ -1077,7 +1039,6 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 		}
 		this.objectsToBeAddedWhenAttached.clear();
 		this.makeArrows();
-
 	}
 
 	private void animateLinking(final Point location) {
@@ -1133,8 +1094,8 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	}
 
 	private Point convertToRealPoint(final Point location) {
-		return Point.add(location, new Point(RootPanel.getBodyElement().getScrollLeft() - this.getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop()
-				- this.getAbsoluteTop()));
+		return Point.add(location, new Point(RootPanel.getBodyElement().getScrollLeft() - this.container.getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop()
+				- this.container.getAbsoluteTop()));
 	}
 
 	private void deselectAllArtifacts() {
@@ -1335,9 +1296,10 @@ public class UMLCanvas extends AbsolutePanel implements Serializable {
 	}
 	
 	public void setUpAfterDeserialization() {
+		container = new AbsolutePanel();
 		Log.trace("UMLCanvas::setUpAfterDeserialization => Making Canvas");
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
-		this.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
+		this.container.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 		this.initCanvas();
 		
 		

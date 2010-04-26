@@ -56,7 +56,7 @@ public enum LinkStyle {
 		return null;
 	}
 
-	private GfxStyle	style;
+	private GfxStyle style;
 
 	private String	name;
 	

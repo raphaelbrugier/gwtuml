@@ -69,6 +69,21 @@ public abstract class UMLArtifact implements Serializable {
 	protected UMLArtifact() { }
 	
 	/**
+	 * Constructor of UMLArtifact <br>
+	 * This constructor must be called by super() because it's here we assign the artifact id
+	 * 
+	 * @param toBeAdded
+	 *            True if the artifact can be add to the artifact list
+	 */
+	public UMLArtifact(final boolean toBeAdded) {
+		super();
+		if (toBeAdded) {
+			this.id = UMLArtifact.idCount++;
+			UMLArtifact.artifactById.put(this.id, this);
+		}
+	}
+	
+	/**
 	 * Static getter of an {@link UMLArtifact} from its id
 	 * 
 	 * @param artifactId
@@ -98,22 +113,6 @@ public abstract class UMLArtifact implements Serializable {
 	public static void removeArtifactById(final Integer idToRemove) {
 		UMLArtifact.artifactById.remove(idToRemove);
 
-	}
-
-
-	/**
-	 * Constructor of UMLArtifact <br>
-	 * This constructor must be called by super() because it's here we assign the artifact id
-	 * 
-	 * @param toBeAdded
-	 *            True if the artifact can be add to the artifact list
-	 */
-	public UMLArtifact(final boolean toBeAdded) {
-		super();
-		if (toBeAdded) {
-			this.id = UMLArtifact.idCount++;
-			UMLArtifact.artifactById.put(this.id, this);
-		}
 	}
 
 	/**

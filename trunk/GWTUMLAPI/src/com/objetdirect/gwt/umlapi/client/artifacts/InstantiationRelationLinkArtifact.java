@@ -37,7 +37,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	/**
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
 	 */
-	protected enum Anchor {
+	public enum Anchor {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
 

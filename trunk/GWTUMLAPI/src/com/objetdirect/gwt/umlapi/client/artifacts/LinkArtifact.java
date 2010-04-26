@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
+import java.io.Serializable;
 import java.util.Collections;
 
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
@@ -33,7 +34,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * Represent a pair of UMLArtifact linked together.
 	 */
-	public class UMLArtifactPeer {
+	public class UMLArtifactPeer implements Serializable {
 		UMLArtifact	uMLArtifact1;
 		UMLArtifact	uMLArtifact2;
 		
@@ -41,7 +42,6 @@ public abstract class LinkArtifact extends UMLArtifact {
 		UMLArtifactPeer() { }
 		
 		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
-			super();
 			this.uMLArtifact1 = uMLArtifact1;
 			this.uMLArtifact2 = uMLArtifact2;
 		}
