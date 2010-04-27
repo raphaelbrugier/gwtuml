@@ -303,17 +303,17 @@ public class DrawerPanel extends AbsolutePanel {
 	void addDefaultNode() {
 		final Type type = UMLDiagram.Type.getUMLDiagramFromIndex(OptionsManager.get("DiagramType"));
 		if (type.isClassType()) {
-			final ClassArtifact defaultclass = new ClassArtifact("Class1");
+			final ClassArtifact defaultclass = new ClassArtifact(uMLCanvas, "Class1");
 			defaultclass.setLocation(new Point(this.width / 2, this.height / 2));
 			this.uMLCanvas.add(defaultclass);
 		}
 		if (type.isObjectType()) {
-			final ObjectArtifact defaultobject = new ObjectArtifact("obj1", "Object1");
+			final ObjectArtifact defaultobject = new ObjectArtifact(uMLCanvas, "obj1", "Object1");
 			defaultobject.setLocation(new Point(this.width / 3, this.height / 3));
 			this.uMLCanvas.add(defaultobject);
 		}
 		if (type == Type.SEQUENCE) {
-			final LifeLineArtifact defaultLifeLineArtifact = new LifeLineArtifact("LifeLine1", "ll1");
+			final LifeLineArtifact defaultLifeLineArtifact = new LifeLineArtifact(uMLCanvas, "LifeLine1", "ll1");
 			defaultLifeLineArtifact.setLocation(new Point(this.width / 2, this.height / 2));
 			this.uMLCanvas.add(defaultLifeLineArtifact);
 		}

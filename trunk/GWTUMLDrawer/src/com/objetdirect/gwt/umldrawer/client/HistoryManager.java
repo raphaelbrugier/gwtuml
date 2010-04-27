@@ -24,7 +24,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
 
@@ -106,12 +105,12 @@ public class HistoryManager implements ValueChangeHandler<String> {
 		// DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
 
 		OptionsManager.setAllFromURL(HistoryManager.lastHistoryParametersList);
-		UMLArtifact.getArtifactList().clear();
 		if (HistoryManager.lastHistoryAnchor.equals("Drawer")) {
 			final DrawerPanel drawerPanel = new DrawerPanel();
 			if (HistoryManager.urlDiagram.equals("")) {
 				drawerPanel.addDefaultNode();
 			} else {
+				Session.getActiveCanvas().getArtifactById().clear();
 				Session.getActiveCanvas().fromURL(HistoryManager.urlDiagram, false);
 			}
 			GWTUMLDrawer.southBar.setVisible(true);
