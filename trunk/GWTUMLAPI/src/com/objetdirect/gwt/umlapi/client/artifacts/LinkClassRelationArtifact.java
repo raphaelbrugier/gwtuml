@@ -33,18 +33,20 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	private ClassRelationLinkArtifact	relationLinkArtifact;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	LinkClassRelationArtifact() { }
+	@Deprecated
+	@SuppressWarnings("unused")
+	private LinkClassRelationArtifact() { }
 	
 	/**
 	 * Constructor of LinkClassRelationArtifact
-	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param classArtifact
 	 *            The class for the relation class
 	 * @param relation
 	 *            The relation between the two other classes
 	 */
-	public LinkClassRelationArtifact(final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
-		super(classArtifact, relation);
+	public LinkClassRelationArtifact(final UMLCanvas canvas, final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
+		super(canvas, classArtifact, relation);
 		line = null;
 		this.classArtifact = classArtifact;
 		this.classArtifact.addDependency(this, relation);

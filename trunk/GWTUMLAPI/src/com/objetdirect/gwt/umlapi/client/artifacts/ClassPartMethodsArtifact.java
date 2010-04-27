@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
@@ -51,14 +52,16 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	private List<UMLClassMethod>				methods;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
-	ClassPartMethodsArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ClassPartMethodsArtifact() {}
 	
 	/**
 	 * Constructor of ClassPartMethodsArtifact 
 	 * @param methods methods displayed by this part.
 	 */
-	public ClassPartMethodsArtifact(List<UMLClassMethod> methods) {
-		super();
+	public ClassPartMethodsArtifact(final UMLCanvas canvas, final List<UMLClassMethod> methods) {
+		super(canvas);
 		this.methods = methods;
 		this.methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
 		this.height = 0;

@@ -33,18 +33,22 @@ public class LinkNoteArtifact extends LinkArtifact {
 	UMLArtifact		target;
 
 	/** Default Constructor ONLY for gwt-rpc serialization. */
-	LinkNoteArtifact() { }
+	@Deprecated
+	@SuppressWarnings("unused")
+	private LinkNoteArtifact() { }
 	
 	/**
 	 * Constructor of LinkNoteArtifact
+	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * 
 	 * @param note
 	 *            The note the link is related to
 	 * @param target
 	 *            The uml artifact the note is pointing to
 	 */
-	public LinkNoteArtifact(final NoteArtifact note, final UMLArtifact target) {
-		super(note, target);
+	public LinkNoteArtifact(final UMLCanvas canvas, final NoteArtifact note, final UMLArtifact target) {
+		super(canvas, note, target);
 		line = null;
 		this.note = note;
 		this.note.addDependency(this, target);

@@ -31,6 +31,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
@@ -50,14 +51,17 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
-	ClassPartAttributesArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ClassPartAttributesArtifact() {}
 	
 	/**
 	 * Constructor of ClassPartAttributesArtifact
+	 * @param canvas Where the gfxObject are displayed
 	 * @param attributes UMLAttributes displayed by this part.
 	 */
-	public ClassPartAttributesArtifact(final List<UMLClassAttribute> attributes) {
-		super();
+	public ClassPartAttributesArtifact(final UMLCanvas canvas, final List<UMLClassAttribute> attributes) {
+		super(canvas);
 		this.attributes = attributes;
 		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
 		this.height = 0;

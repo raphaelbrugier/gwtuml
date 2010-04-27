@@ -24,6 +24,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
 
 /**
@@ -41,16 +42,18 @@ public class NoteArtifact extends BoxArtifact {
 	private UMLNote	note;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	NoteArtifact() { }
+	@Deprecated
+	@SuppressWarnings("unused")
+	private NoteArtifact() { }
 	
 	/**
 	 * Constructor of the NoteArtifact
-	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param content
 	 *            The text contained by the note
 	 */
-	public NoteArtifact(final String content) {
-		super(true);
+	public NoteArtifact(final UMLCanvas canvas, final String content) {
+		super(canvas, true);
 		this.height = 0;
 		this.width = 0;
 		this.note = new UMLNote(content);

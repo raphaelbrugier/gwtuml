@@ -25,6 +25,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
 /**
@@ -42,17 +43,20 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	private GfxObject		stereotypeText;
 	
 	/** Default constructor ONLY for gwt rpc serialization. */
-	ClassPartNameArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ClassPartNameArtifact() {}
 	
 	
 	/**
 	 * Constructor of ClassPartNameArtifact with class name and stereotype
+	 * @param canvas Where the gfxObject are displayed
 	 * @param ownedClass the UMLclass displayed by the artifact.
 	 * @param className The name of the class
 	 * @param stereotype The stereotype associated with the class
 	 */
-	public ClassPartNameArtifact(final UMLClass ownedClass, final String className, final String stereotype) {
-		super();
+	public ClassPartNameArtifact(final UMLCanvas canvas, final UMLClass ownedClass, final String className, final String stereotype) {
+		super(canvas);
 		this.uMLclass = ownedClass;
 		this.uMLclass.setName(className);
 		this.uMLclass.setStereotype(stereotype.equals("") ? "" : "«" + stereotype + "»");

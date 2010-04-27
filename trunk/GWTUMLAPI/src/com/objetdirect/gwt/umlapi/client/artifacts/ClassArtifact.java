@@ -17,6 +17,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
@@ -36,42 +37,38 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 @SuppressWarnings("serial")
 public class ClassArtifact extends NodeArtifact {
 	ClassPartAttributesArtifact	classAttributes;
-	ClassPartMethodsArtifact	classMethods;
+	private ClassPartMethodsArtifact	classMethods;
 	ClassPartNameArtifact		className;
 	
-	UMLClass					ownedClass;
+	private UMLClass ownedClass;
 
-	/**
-	 * Default constructor ONLY for GWT-RPC serialization.
-	 */
-	ClassArtifact() {
-		this("Class");
-	}
+	/** Default constructor ONLY for GWT-RPC serialization. */
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ClassArtifact() { }
 
 	/**
 	 * ClassArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
-	 * 
-	 * @param className
-	 *            The name of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * @param canvas Where the gfxObject are displayed
+	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
-	public ClassArtifact(final String className) {
-		this(className, "");
+	public ClassArtifact(final UMLCanvas canvas, final String className) {
+		this(canvas, className, "");
 	}
 
 	/**
 	 * ClassArtifact constructor, initializes all {@link NodePartArtifact}
 	 * 
-	 * @param className
-	 *            The name of the class, sent to {@link ClassPartNameArtifact} constructor
-	 * @param stereotype
-	 *            The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * @param canvas Where the gfxObject are displayed
+	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
-	public ClassArtifact(final String className, final String stereotype) {
-		super();
+	public ClassArtifact(final UMLCanvas canvas, final String className, final String stereotype) {
+		super(canvas);
 		ownedClass = new UMLClass(className);
-		this.className = new ClassPartNameArtifact(ownedClass, className, stereotype);
-		this.classAttributes = new ClassPartAttributesArtifact(ownedClass.getAttributes());
-		this.classMethods = new ClassPartMethodsArtifact(ownedClass.getMethods());
+		this.className = new ClassPartNameArtifact(canvas, ownedClass, className, stereotype);
+		this.classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());
+		this.classMethods = new ClassPartMethodsArtifact(canvas,ownedClass.getMethods());
 		this.nodeParts.add(this.className);
 		this.nodeParts.add(this.classAttributes);
 		this.nodeParts.add(this.classMethods);

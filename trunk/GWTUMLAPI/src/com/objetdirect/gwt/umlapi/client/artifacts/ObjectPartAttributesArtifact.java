@@ -32,6 +32,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
@@ -47,11 +48,16 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	private List<UMLObjectAttribute>				attributes;
 	private transient GfxObject									lastGfxObject;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ObjectPartAttributesArtifact() { }
+	
 	/**
 	 * Constructor of ObjectPartAttributesArtifact It initializes the attribute list
 	 */
-	public ObjectPartAttributesArtifact() {
-		super();
+	public ObjectPartAttributesArtifact(final UMLCanvas canvas) {
+		super(canvas);
 		this.attributes = new ArrayList<UMLObjectAttribute>();
 		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
 		this.height = 0;

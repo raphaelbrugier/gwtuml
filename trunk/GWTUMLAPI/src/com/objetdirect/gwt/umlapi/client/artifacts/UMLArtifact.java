@@ -20,8 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -45,76 +43,57 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 @SuppressWarnings("serial")
 public abstract class UMLArtifact implements Serializable {
+	protected boolean isSelected = false;
+	private int id;
 
-	protected boolean								isSelected		= false;
-	private static int								idCount			= 0;
-	private static Map<Integer, UMLArtifact>	artifactById	= new HashMap<Integer, UMLArtifact>();
+	protected UMLCanvas canvas;
+	protected transient GfxObject gfxObject;
 
-	private int											id;
+	private LinkedList<LinkArtifact> upDependencies;
+	private LinkedList<LinkArtifact> downDependencies;
+	private LinkedList<LinkArtifact> leftDependencies;
+	private LinkedList<LinkArtifact> rightDependencies;
+	private LinkedList<LinkArtifact> allDependencies;
 
-	protected UMLCanvas									canvas;
-	protected transient GfxObject									gfxObject;
-
-	private LinkedList<LinkArtifact>				upDependencies			= new LinkedList<LinkArtifact>();
-	private LinkedList<LinkArtifact>				downDependencies		= new LinkedList<LinkArtifact>();
-	private LinkedList<LinkArtifact>				leftDependencies		= new LinkedList<LinkArtifact>();
-	private LinkedList<LinkArtifact>				rightDependencies		= new LinkedList<LinkArtifact>();
-	private LinkedList<LinkArtifact>				allDependencies			= new LinkedList<LinkArtifact>();
-
-	private HashMap<LinkArtifact, UMLArtifact>	dependentUMLArtifacts	= new HashMap<LinkArtifact, UMLArtifact>();
-	private boolean										isBuilt					= false;
-	private Point										location				= Point.getOrigin();
+	private HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts;
+	private boolean isBuilt;
+	private Point location = Point.getOrigin();
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
+	@Deprecated
 	protected UMLArtifact() { }
 	
 	/**
 	 * Constructor of UMLArtifact <br>
 	 * This constructor must be called by super() because it's here we assign the artifact id
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param toBeAdded
 	 *            True if the artifact can be add to the artifact list
 	 */
-	public UMLArtifact(final boolean toBeAdded) {
+	public UMLArtifact(UMLCanvas canvas, final boolean toBeAdded) {
 		super();
+		this.canvas = canvas;
+		isSelected = false;
+		
+		upDependencies = new LinkedList<LinkArtifact>();
+		downDependencies = new LinkedList<LinkArtifact>();
+		leftDependencies = new LinkedList<LinkArtifact>();
+		rightDependencies = new LinkedList<LinkArtifact>();
+		allDependencies = new LinkedList<LinkArtifact>();
+		
+		dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
+		
+		isBuilt = false;
+		location = Point.getOrigin();
+		
 		if (toBeAdded) {
-			this.id = UMLArtifact.idCount++;
-			UMLArtifact.artifactById.put(this.id, this);
+			this.id = canvas.getIdCount();
+			canvas.incrementIdCounter();
+			canvas.getArtifactById().put(this.id, this);
 		}
 	}
 	
-	/**
-	 * Static getter of an {@link UMLArtifact} from its id
-	 * 
-	 * @param artifactId
-	 *            The id of the artifact to retrieve
-	 * @return the artifact corresponding to this id
-	 */
-	public static UMLArtifact getArtifactById(final int artifactId) {
-		return UMLArtifact.artifactById.get(artifactId);
-	}
-
-	/**
-	 * Static getter of the id sorted {@link UMLArtifact} TreeMap
-	 * 
-	 * @return the artifact list ordered by id
-	 */
-	public static Map<Integer, UMLArtifact> getArtifactList() {
-		return UMLArtifact.artifactById;
-	}
-
-	/**
-	 * Remove an artifact from the artifact by id list
-	 * 
-	 * @param idToRemove
-	 *            The id of the artifact to remove
-	 * 
-	 */
-	public static void removeArtifactById(final Integer idToRemove) {
-		UMLArtifact.artifactById.remove(idToRemove);
-
-	}
-
 	/**
 	 * This method destroys this artifact's graphical object and all dependencies graphical objects. <br>
 	 * Useful to remove a class and all its links
@@ -374,13 +353,12 @@ public abstract class UMLArtifact implements Serializable {
 	 * 
 	 * @param id
 	 *            The old id of the artifact we are recovering
-	 * 
 	 */
 	public void setId(final int id) {
-		UMLArtifact.artifactById.remove(this.id);
+		canvas.getArtifactById().remove(this.id);
 		this.id = id;
-		UMLArtifact.idCount = Math.max(this.id + 1, UMLArtifact.idCount);
-		UMLArtifact.artifactById.put(this.id, this);
+		canvas.setIdCount(Math.max(this.id + 1, canvas.getIdCount()));
+		canvas.getArtifactById().put(this.id, this);
 	}
 
 	/**
@@ -544,24 +522,6 @@ public abstract class UMLArtifact implements Serializable {
 				return this.rightDependencies;
 		}
 		return this.allDependencies;
-	}
-
-	/**
-	 * Setter for the idCount
-	 *
-	 * @param idCount the idCount to set
-	 */
-	public static void setIdCount(int idCount) {
-		UMLArtifact.idCount = idCount;
-	}
-
-	/**
-	 * Getter for the idCount
-	 *
-	 * @return the idCount
-	 */
-	public static int getIdCount() {
-		return idCount;
 	}
 
 	public abstract void setUpAfterDeserialization();

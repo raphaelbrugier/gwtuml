@@ -22,6 +22,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLComponent;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
@@ -357,17 +358,19 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	private NodeArtifact		leftNodeArtifact;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
-	public RelationLinkArtifact() {}
+	@Deprecated
+	protected RelationLinkArtifact() {}
 	
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param nodeArtifact1
 	 * @param nodeArtifact2
 	 * @param relationKind
 	 */
-	public RelationLinkArtifact(final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
-		super(nodeArtifact1, nodeArtifact2);
+	public RelationLinkArtifact(final UMLCanvas canvas, final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
+		super(canvas, nodeArtifact1, nodeArtifact2);
 		
 		leftDirectionPoint = Point.getOrigin();
 		rightDirectionPoint	= Point.getOrigin();

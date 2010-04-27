@@ -21,6 +21,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
@@ -39,7 +40,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 		UMLArtifact	uMLArtifact2;
 		
 		/** Default constructor ONLY for gwt-rpc serialization.  */
-		UMLArtifactPeer() { }
+		@Deprecated
+		protected UMLArtifactPeer() { }
 		
 		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
 			this.uMLArtifact1 = uMLArtifact1;
@@ -107,35 +109,35 @@ public abstract class LinkArtifact extends UMLArtifact {
 	public static LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind) {
 		if (linkKind == LinkKind.NOTE) {
 			if (uMLArtifactNew.getClass() == NoteArtifact.class) {
-				return new LinkNoteArtifact((NoteArtifact) uMLArtifactNew, uMLArtifact);
+				return new LinkNoteArtifact(Session.getActiveCanvas(), (NoteArtifact) uMLArtifactNew, uMLArtifact);
 			}
 			if (uMLArtifact.getClass() == NoteArtifact.class) {
-				return new LinkNoteArtifact((NoteArtifact) uMLArtifact, uMLArtifactNew);
+				return new LinkNoteArtifact(Session.getActiveCanvas(), (NoteArtifact) uMLArtifact, uMLArtifactNew);
 			}
 			return null;
 		} else if (linkKind == LinkKind.CLASSRELATION) {
 			if ((uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class) && (uMLArtifact.getClass() == ClassArtifact.class)) {
-				return new LinkClassRelationArtifact((ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
+				return new LinkClassRelationArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
 			}
 			if ((uMLArtifact.getClass() == ClassRelationLinkArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
-				return new LinkClassRelationArtifact((ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
+				return new LinkClassRelationArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
 			}
 			return null;
 
 		} else if ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
-			return new ClassRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
+			return new ClassRelationLinkArtifact(Session.getActiveCanvas(),(ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
 
 		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
 				&& (uMLArtifact.getClass() == ObjectArtifact.class) && (uMLArtifactNew.getClass() == ObjectArtifact.class)) {
-			return new ObjectRelationLinkArtifact((ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+			return new ObjectRelationLinkArtifact(Session.getActiveCanvas(), (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 		} else if ((linkKind == LinkKind.INSTANTIATION)
 				&& ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ObjectArtifact.class))) {
-			return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
+			return new InstantiationRelationLinkArtifact(Session.getActiveCanvas(),(ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
 		} else if ((linkKind == LinkKind.INSTANTIATION)
 				&& ((uMLArtifact.getClass() == ObjectArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class))) {
-			return new InstantiationRelationLinkArtifact((ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+			return new InstantiationRelationLinkArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 		} else if ((uMLArtifact.getClass() == LifeLineArtifact.class) && (uMLArtifactNew.getClass() == LifeLineArtifact.class)) {
-			return new MessageLinkArtifact((LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+			return new MessageLinkArtifact(Session.getActiveCanvas(), (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
 
 		}
 		return null;
@@ -161,10 +163,13 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
-	public LinkArtifact() {}
+	@Deprecated
+	protected LinkArtifact() {}
 	
 	/**
 	 * Constructor of RelationLinkArtifact
+	 * 
+	 *  @param canvas Where the gfxObject are displayed
 	 * 
 	 * @param uMLArtifact1
 	 *            First {@link UMLArtifact}
@@ -172,8 +177,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 *            Second {@link UMLArtifact}
 	 * 
 	 */
-	public LinkArtifact(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
-		super(true);
+	public LinkArtifact(UMLCanvas canvas, final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
+		super(canvas, true);
 		leftPoint = Point.getOrigin();
 		rightPoint = Point.getOrigin();
 		isSelfLink = false;

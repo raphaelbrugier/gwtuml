@@ -25,6 +25,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
@@ -49,10 +50,14 @@ public class MessageLinkArtifact extends LinkArtifact {
 
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	MessageLinkArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private MessageLinkArtifact() {}
 	
 	/**
 	 * Constructor of {@link MessageLinkArtifact}
+	 *
+	 *@param canvas Where the gfxObject are displayed
 	 * 
 	 * @param left
 	 *            The left {@link LifeLineArtifact} of the message
@@ -61,8 +66,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 * @param messageKind
 	 *            The kind of message this link is.
 	 */
-	public MessageLinkArtifact(final LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
-		super(left, right);
+	public MessageLinkArtifact(final UMLCanvas canvas, final LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
+		super(canvas, left, right);
 		this.message = new UMLMessage(messageKind);
 		this.leftLifeLineArtifact = left;
 		left.addDependency(this, right);

@@ -24,6 +24,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
@@ -48,12 +49,14 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	protected transient GfxObject					textVirtualGroup;
 
 	/** Default constructor ONLY for GWT RPC serialization. */
+	@Deprecated
 	@SuppressWarnings("unused")
 	private InstantiationRelationLinkArtifact() {}
 	
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param left
 	 *            The left {@link ObjectArtifact} of the relation
 	 * @param right
@@ -61,8 +64,8 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 * @param relationKind
 	 *            The kind of relation this link is.
 	 */
-	public InstantiationRelationLinkArtifact(final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
-		super(left, right, relationKind);
+	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
+		super(canvas, left, right, relationKind);
 		if (relationKind != LinkKind.INSTANTIATION) {
 			Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
 		}

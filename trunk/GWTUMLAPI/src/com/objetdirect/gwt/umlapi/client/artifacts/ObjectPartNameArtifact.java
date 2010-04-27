@@ -25,6 +25,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 
 /**
@@ -44,32 +45,30 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	ObjectPartNameArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ObjectPartNameArtifact() {}
 	
 	/**
 	 * Constructor of ObjectPartNameArtifact with only object name
-	 * 
-	 * @param objectInstance
-	 *            The name of the instance of the object
-	 * @param objectName
-	 *            The name of the object
+	 * @param canvas Where the gfxObject are displayed
+	 * @param objectInstance The name of the instance of the object
+	 * @param objectName The name of the object
 	 */
-	public ObjectPartNameArtifact(final String objectInstance, final String objectName) {
-		this(objectInstance, objectName, "");
+	public ObjectPartNameArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName) {
+		this(canvas, objectInstance, objectName, "");
 	}
 
 	/**
 	 * Constructor of ObjectPartNameArtifact with object name and stereotype
 	 * 
-	 * @param objectInstance
-	 *            The name of the instance of the object
-	 * @param objectName
-	 *            The name of the object
-	 * @param stereotype
-	 *            The stereotype associated with the object
+	 * @param canvas Where the gfxObject are displayed
+	 * @param objectInstance The name of the instance of the object
+	 * @param objectName The name of the object
+	 * @param stereotype The stereotype associated with the object
 	 */
-	public ObjectPartNameArtifact(final String objectInstance, final String objectName, final String stereotype) {
-		super();
+	public ObjectPartNameArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName, final String stereotype) {
+		super(canvas);
 		this.uMLObject = new UMLObject(objectInstance, objectName);
 		this.stereotype = stereotype.equals("") ? "" : "«" + stereotype + "»";
 		this.height = 0;

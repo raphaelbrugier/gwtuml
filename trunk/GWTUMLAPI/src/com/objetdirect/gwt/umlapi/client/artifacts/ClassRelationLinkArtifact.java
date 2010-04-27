@@ -29,6 +29,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
@@ -42,9 +43,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  */
 @SuppressWarnings("serial")
 public class ClassRelationLinkArtifact extends RelationLinkArtifact {
-	/**
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
 
 	protected transient GfxObject								arrowVirtualGroup;
 	protected ClassArtifact										leftClassArtifact;
@@ -56,10 +54,14 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	
 	/** Default constructor ONLY for gwt rpc serializaton. */
-	ClassRelationLinkArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ClassRelationLinkArtifact() {}
 	
 	/**
 	 * Constructor of {@link ClassRelationLinkArtifact}
+	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * 
 	 * @param left
 	 *            The left {@link ClassArtifact} of the relation
@@ -68,8 +70,8 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	 * @param relationKind
 	 *            The kind of relation this link is.
 	 */
-	public ClassRelationLinkArtifact(final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
-		super(left, right, relationKind);
+	public ClassRelationLinkArtifact(final UMLCanvas canvas, final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
+		super(canvas, left, right, relationKind);
 		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 		this.leftClassArtifact = left;
 		left.addDependency(this, right);
