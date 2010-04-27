@@ -24,6 +24,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 
 /**
@@ -42,31 +43,34 @@ public class LifeLineArtifact extends BoxArtifact {
 	private transient GfxObject	lifeLineLine;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
+	@Deprecated
 	@SuppressWarnings("unused")
 	private LifeLineArtifact() {}
 	
 	/**
 	 * Constructor of the LifeLineArtifact
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param name
 	 *            The name of the LifeLine
 	 * 
 	 */
-	public LifeLineArtifact(final String name) {
-		this(name, "");
+	public LifeLineArtifact(final UMLCanvas canvas, final String name) {
+		this(canvas, name, "");
 	}
 
 	/**
 	 * Constructor of the LifeLineArtifact
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param name
 	 *            The name of the LifeLine
 	 * @param instance
 	 *            The instance of the LifeLine
 	 * 
 	 */
-	public LifeLineArtifact(final String name, final String instance) {
-		super(true);
+	public LifeLineArtifact(final UMLCanvas canvas, final String name, final String instance) {
+		super(canvas, true);
 		this.lineLength = 0;
 		this.rectHeight = 0;
 		this.width = 0;

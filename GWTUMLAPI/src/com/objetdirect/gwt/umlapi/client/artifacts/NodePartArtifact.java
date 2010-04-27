@@ -15,6 +15,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * This abstract class represent a part of a {@link NodeArtifact}
@@ -30,11 +31,16 @@ public abstract class NodePartArtifact extends BoxArtifact {
 	protected transient GfxObject	textVirtualGroup;
 	protected int					width;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	@Deprecated
+	protected NodePartArtifact() {}
+	
 	/**
 	 * Constructor of NodePartArtifact
+	 * @param canvas Where the gfxObject are displayed
 	 */
-	public NodePartArtifact() {
-		super(false);
+	public NodePartArtifact(final UMLCanvas canvas) {
+		super(canvas, false);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a box shape based artifact
@@ -28,16 +29,16 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 public abstract class BoxArtifact extends UMLArtifact {
 
 	/** Default constructor ONLY for gwt-rpc Serialization. */
-	BoxArtifact() {}
+	@Deprecated
+	protected BoxArtifact() {}
 	
 	/**
 	 * Constructor of BoxArtifact
-	 * 
-	 * @param toBeAdded
-	 *            True if the artifact must be added in artifact list
+	 * @param canvas Where the gfxObject are displayed
+	 * @param toBeAdded True if the artifact must be added in artifact list
 	 */
-	public BoxArtifact(final boolean toBeAdded) {
-		super(toBeAdded);
+	public BoxArtifact(UMLCanvas canvas, final boolean toBeAdded) {
+		super(canvas, toBeAdded);
 	}
 
 	/*

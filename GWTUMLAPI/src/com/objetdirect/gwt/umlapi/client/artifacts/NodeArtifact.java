@@ -43,11 +43,16 @@ public abstract class NodeArtifact extends BoxArtifact {
 	LinkedList<NodePartArtifact> nodeParts;
 	private int						width;
 
+	/** Default constructor ONLY for gwt-rpc serialization. */
+	@Deprecated
+	protected NodeArtifact() {}
+	
 	/**
 	 * Constructor of NodeArtifact
+	 * @param canvas Where the gfxObject are displayed
 	 */
-	public NodeArtifact() {
-		super(true);
+	public NodeArtifact(final UMLCanvas canvas) {
+		super(canvas, true);
 		nodeParts	= new LinkedList<NodePartArtifact>();
 	}
 

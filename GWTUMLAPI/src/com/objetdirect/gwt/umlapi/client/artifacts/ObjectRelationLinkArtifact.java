@@ -29,6 +29,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
@@ -60,11 +61,14 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	private transient HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	public ObjectRelationLinkArtifact() {}
+	@Deprecated
+	@SuppressWarnings("unused")
+	private ObjectRelationLinkArtifact() {}
 	
 	/**
 	 * Constructor of {@link ObjectRelationLinkArtifact}
 	 * 
+	 * @param canvas Where the gfxObject are displayed
 	 * @param left
 	 *            The left {@link ObjectArtifact} of the relation
 	 * @param right
@@ -72,8 +76,8 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	 * @param relationKind
 	 *            The kind of relation this link is.
 	 */
-	public ObjectRelationLinkArtifact(final ObjectArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
-		super(left, right, relationKind);
+	public ObjectRelationLinkArtifact(final UMLCanvas canvas, final ObjectArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
+		super(canvas, left, right, relationKind);
 		
 		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 		
