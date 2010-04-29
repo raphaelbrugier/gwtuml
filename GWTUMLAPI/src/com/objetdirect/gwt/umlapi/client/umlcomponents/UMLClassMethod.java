@@ -60,8 +60,6 @@ public class UMLClassMethod implements Serializable {
 
 	private String				returnType;
 
-	private boolean validated;
-
 	private UMLVisibility		visibility;
 
 	
@@ -84,7 +82,6 @@ public class UMLClassMethod implements Serializable {
 	 *            The parameters list of this method
 	 */
 	public UMLClassMethod(final UMLVisibility visibility, final String returnType, final String name, final List<UMLParameter> parameters) {
-		this.validated	= true;
 		this.visibility = visibility;
 		this.returnType = returnType;
 		this.name = name;
@@ -131,19 +128,6 @@ public class UMLClassMethod implements Serializable {
 	}
 
 	/**
-	 * Get the validated state of the attribute
-	 * 
-	 * @return <ul>
-	 *         <li><b>True</b> if validated</li>
-	 *         <li><b>False</b> otherwise</li>
-	 *         </ul>
-	 * 
-	 */
-	public boolean isValidated() {
-		return this.validated;
-	}
-
-	/**
 	 * Setter for the name
 	 * 
 	 * @param name
@@ -174,17 +158,6 @@ public class UMLClassMethod implements Serializable {
 	 */
 	public void setReturnType(final String returnType) {
 		this.returnType = returnType;
-	}
-
-	/**
-	 * Set the validation state
-	 * 
-	 * @param validated
-	 *            boolean for validated validation state
-	 * 
-	 */
-	public void setValidated(final boolean validated) {
-		this.validated = validated;
 	}
 
 	/**

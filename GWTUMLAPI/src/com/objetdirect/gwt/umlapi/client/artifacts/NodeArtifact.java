@@ -41,6 +41,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 public abstract class NodeArtifact extends BoxArtifact {
 
 	LinkedList<NodePartArtifact> nodeParts;
+	
 	private int						width;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
@@ -53,7 +54,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	 */
 	public NodeArtifact(final UMLCanvas canvas) {
 		super(canvas, true);
-		nodeParts	= new LinkedList<NodePartArtifact>();
+		nodeParts = new LinkedList<NodePartArtifact>();
 	}
 
 	@Override

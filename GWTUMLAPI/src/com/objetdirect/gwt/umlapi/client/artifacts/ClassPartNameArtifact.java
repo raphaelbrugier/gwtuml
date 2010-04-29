@@ -37,10 +37,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 @SuppressWarnings("serial")
 public class ClassPartNameArtifact extends NodePartArtifact {
 
-	private UMLClass		uMLclass;
-	private GfxObject		nameRect;
-	private GfxObject		nameText;
-	private GfxObject		stereotypeText;
+	private UMLClass uMLclass;
+	private transient GfxObject	nameRect;
+	private transient GfxObject	nameText;
+	private transient GfxObject	stereotypeText;
 	
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated

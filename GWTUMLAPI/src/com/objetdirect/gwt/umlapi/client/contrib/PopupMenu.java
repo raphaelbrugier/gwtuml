@@ -59,6 +59,7 @@ public class PopupMenu extends AbstractDecoratedPopupPanel {
 				super.onBrowserEvent(event);
 			}
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onPopupClosed(final PopupPanel sender, final boolean autoClosed) {
 				super.onPopupClosed(sender, autoClosed);

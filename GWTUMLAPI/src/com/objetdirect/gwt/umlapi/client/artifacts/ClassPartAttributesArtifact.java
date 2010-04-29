@@ -44,11 +44,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 @SuppressWarnings("serial")
 public class ClassPartAttributesArtifact extends NodePartArtifact {
 	
-	transient private Map<GfxObject, UMLClassAttribute>		attributeGfxObjects;
-	transient private GfxObject								attributeRect;
-	private List<UMLClassAttribute>					attributes;
-	transient private GfxObject								lastGfxObject;
-	
+	private transient Map<GfxObject, UMLClassAttribute>	attributeGfxObjects;
+	private transient GfxObject attributeRect;
+	private List<UMLClassAttribute> attributes;
+	private transient GfxObject lastGfxObject;
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
