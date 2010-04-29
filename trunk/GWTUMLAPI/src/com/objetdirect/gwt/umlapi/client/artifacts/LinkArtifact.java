@@ -35,57 +35,21 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * Represent a pair of UMLArtifact linked together.
 	 */
-	public class UMLArtifactPeer implements Serializable {
-		UMLArtifact	uMLArtifact1;
-		UMLArtifact	uMLArtifact2;
-		
-		/** Default constructor ONLY for gwt-rpc serialization.  */
-		@Deprecated
-		protected UMLArtifactPeer() { }
-		
-		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
-			this.uMLArtifact1 = uMLArtifact1;
-			this.uMLArtifact2 = uMLArtifact2;
-		}
-
-		/* (non-Javadoc)
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result
-					+ ((uMLArtifact1 == null) ? 0 : uMLArtifact1.hashCode());
-			result = prime * result
-					+ ((uMLArtifact2 == null) ? 0 : uMLArtifact2.hashCode());
-			return result;
-		}
-
-		/* (non-Javadoc)
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			UMLArtifactPeer other = (UMLArtifactPeer) obj;
-			if (uMLArtifact1 == null) {
-				if (other.uMLArtifact1 != null)
-					return false;
-			} else if (!uMLArtifact1.equals(other.uMLArtifact1))
-				return false;
-			if (uMLArtifact2 == null) {
-				if (other.uMLArtifact2 != null)
-					return false;
-			} else if (!uMLArtifact2.equals(other.uMLArtifact2))
-				return false;
-			return true;
-		}
+//	public class UMLArtifactPeer implements Serializable {
+//
+//		private UMLArtifact uMLArtifact1;
+//		private UMLArtifact uMLArtifact2;
+//		
+//		/** Default constructor ONLY for gwt-rpc serialization.  */
+//		@Deprecated
+//		public UMLArtifactPeer() { }
+//		
+//		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
+//			this.uMLArtifact1 = uMLArtifact1;
+//			this.uMLArtifact2 = uMLArtifact2;
+//		}
+//
+//		
 
 //		@Override
 //		public boolean equals(final Object obj) {
@@ -93,7 +57,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 //			return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2))
 //			|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
 //		}
-	}
+//	}
 
 	/**
 	 * Make a link between two {@link UMLArtifact}
@@ -188,9 +152,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 		
 		this.leftUMLArtifact = uMLArtifact1;
 		this.rightUMLArtifact = uMLArtifact2;
-		final LinkArtifact.UMLArtifactPeer newPeer = new LinkArtifact.UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
-		this.canvas = Session.getActiveCanvas();
-		this.order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer);
+		final UMLArtifactPeer newPeer = new UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
+		this.order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer); 
 		this.canvas.getuMLArtifactRelations().add(newPeer);
 	}
 

@@ -50,7 +50,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	protected ClassArtifact										rightClassArtifact;
 	protected transient GfxObject								textVirtualGroup;
 	private int													current_delta;
-	private HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
+	private transient HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
 
 	
 	/** Default constructor ONLY for gwt rpc serializaton. */

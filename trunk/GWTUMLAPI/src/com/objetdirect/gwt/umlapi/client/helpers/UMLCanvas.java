@@ -42,7 +42,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact.UMLArtifactPeer;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -112,7 +112,7 @@ public class UMLCanvas implements Serializable {
 	private transient GfxObject allObjects;
 
 	// Map of UMLArtifact with corresponding Graphical objects (group)
-	private transient Map<GfxObject, UMLArtifact> objects;
+	private transient HashMap<GfxObject, UMLArtifact> objects;
 	
 	/** List of all the uml artifacts in the diagram */
 	private List<UMLArtifact> umlArtifacts;
@@ -120,7 +120,7 @@ public class UMLCanvas implements Serializable {
 	/** Id counter */
 	private int idCount;
 	/** List of all umlArtifacts by id.*/
-	private Map<Integer, UMLArtifact> artifactById;
+	private HashMap<Integer, UMLArtifact> artifactById;
 	
 	private Set<UMLArtifact> objectsToBeAddedWhenAttached;
 
@@ -193,8 +193,8 @@ public class UMLCanvas implements Serializable {
 		umlArtifacts = new LinkedList<UMLArtifact>();
 		objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 		selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>();
-		uMLArtifactRelations	= new ArrayList<UMLArtifactPeer>();
-		artifactById	= new HashMap<Integer, UMLArtifact>();
+		uMLArtifactRelations = new ArrayList<UMLArtifactPeer>();
+		artifactById = new HashMap<Integer, UMLArtifact>();
 		totalDragShift = Point.getOrigin();
 	}
 	
@@ -234,6 +234,10 @@ public class UMLCanvas implements Serializable {
 			Log.info("Adding null element to canvas");
 			return;
 		}
+		
+		this.incrementIdCounter();
+		getArtifactById().put(artifact.getId(), artifact);
+		
 		if (container.isAttached()) {
 			artifact.setCanvas(this);
 			final long t = System.currentTimeMillis();
@@ -243,7 +247,6 @@ public class UMLCanvas implements Serializable {
 			this.objects.put(artifact.getGfxObject(), artifact);
 			umlArtifacts.add(artifact);
 			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
-
 		} else {
 			Log.trace("Canvas not attached, queuing " + artifact);
 			this.objectsToBeAddedWhenAttached.add(artifact);
@@ -699,6 +702,7 @@ public class UMLCanvas implements Serializable {
 
 		this.container.setWidgetPosition(this.helpText, location.getX() + 5, location.getY() - this.helpText.getOffsetHeight() - 5);
 	}
+	
 
 	/**
 	 * Add a new life life with default values to this canvas at the specified location
@@ -807,14 +811,6 @@ public class UMLCanvas implements Serializable {
 	 */
 	public ArrayList<UMLArtifactPeer> getuMLArtifactRelations() {
 		return uMLArtifactRelations;
-	}
-
-	/**
-	 * @param uMLArtifactRelations the uMLArtifactRelations to set
-	 */
-	public void setuMLArtifactRelations(
-			ArrayList<UMLArtifactPeer> uMLArtifactRelations) {
-		this.uMLArtifactRelations = uMLArtifactRelations;
 	}
 
 	/**

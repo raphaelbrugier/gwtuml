@@ -57,7 +57,7 @@ public abstract class UMLArtifact implements Serializable {
 
 	private HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts;
 	private boolean isBuilt;
-	private Point location = Point.getOrigin();
+	private Point location;
 	
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
@@ -86,12 +86,8 @@ public abstract class UMLArtifact implements Serializable {
 		
 		isBuilt = false;
 		location = Point.getOrigin();
-		
-		if (toBeAdded) {
-			this.id = canvas.getIdCount();
-			canvas.incrementIdCounter();
-			canvas.getArtifactById().put(this.id, this);
-		}
+		this.id = canvas.getIdCount();
+
 	}
 	
 	/**

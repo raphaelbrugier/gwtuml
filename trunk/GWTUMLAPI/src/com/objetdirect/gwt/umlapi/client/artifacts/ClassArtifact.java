@@ -45,7 +45,8 @@ public class ClassArtifact extends NodeArtifact {
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ClassArtifact() { }
+	public ClassArtifact() { 
+	}
 
 	/**
 	 * ClassArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
@@ -68,7 +69,7 @@ public class ClassArtifact extends NodeArtifact {
 		ownedClass = new UMLClass(className);
 		this.className = new ClassPartNameArtifact(canvas, ownedClass, className, stereotype);
 		this.classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());
-		this.classMethods = new ClassPartMethodsArtifact(canvas,ownedClass.getMethods());
+		this.classMethods = new ClassPartMethodsArtifact(canvas, ownedClass.getMethods());
 		this.nodeParts.add(this.className);
 		this.nodeParts.add(this.classAttributes);
 		this.nodeParts.add(this.classMethods);
