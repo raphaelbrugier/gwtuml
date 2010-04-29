@@ -266,6 +266,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
 	@Override
 	public void setUpAfterDeserialization() {
+		this.initializeGfxObject();
 		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
 		buildGfxObject();
 	}

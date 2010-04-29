@@ -45,7 +45,7 @@ public class ClassArtifact extends NodeArtifact {
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	public ClassArtifact() { 
+	private ClassArtifact() { 
 	}
 
 	/**

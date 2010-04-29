@@ -183,7 +183,6 @@ public class UMLCanvas implements Serializable {
 		objectCount = 1;
 		lifeLineCount = 1;
 		copyBuffer = "";
-		helpText = new Label("");
 		dragAndDropState = DragAndDropState.NONE;
 		currentMousePosition = new Point(-200, -200);
 		canvasOffset = Point.getOrigin();
@@ -202,7 +201,6 @@ public class UMLCanvas implements Serializable {
 		initGfxObjects();
 		Log.trace("Adding Canvas");
 		container.add(this.drawingCanvas, 0, 0);
-		this.helpText.setStylePrimaryName("contextual-help");
 		container.add(this.helpText, 0, 0);
 		Log.trace("Adding object listener");
 		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
@@ -215,6 +213,8 @@ public class UMLCanvas implements Serializable {
 	}
 	
 	private void initGfxObjects() {
+		helpText = new Label("");
+		this.helpText.setStylePrimaryName("contextual-help");
 		objects = new HashMap<GfxObject, UMLArtifact>();
 		allObjects = GfxManager.getPlatform().buildVirtualGroup();
 		outlines = GfxManager.getPlatform().buildVirtualGroup();
@@ -236,21 +236,28 @@ public class UMLCanvas implements Serializable {
 		}
 		
 		this.incrementIdCounter();
+		umlArtifacts.add(artifact);
 		getArtifactById().put(artifact.getId(), artifact);
 		
 		if (container.isAttached()) {
-			artifact.setCanvas(this);
-			final long t = System.currentTimeMillis();
-			artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
-
-			artifact.getGfxObject().translate(artifact.getLocation());
-			this.objects.put(artifact.getGfxObject(), artifact);
-			umlArtifacts.add(artifact);
-			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
+			displaydArtifactInCanvas(artifact);
 		} else {
 			Log.trace("Canvas not attached, queuing " + artifact);
 			this.objectsToBeAddedWhenAttached.add(artifact);
 		}
+	}
+
+	/**
+	 * Build the gfx object for the given artifact and attached it to the canvas.
+	 * @param artifact the artifact to build in the canvas.
+	 */
+	public void displaydArtifactInCanvas(final UMLArtifact artifact) {
+		final long t = System.currentTimeMillis();
+		artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
+
+		artifact.getGfxObject().translate(artifact.getLocation());
+		this.objects.put(artifact.getGfxObject(), artifact);
+		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
 	}
 
 	/**
@@ -1055,13 +1062,7 @@ public class UMLCanvas implements Serializable {
 		Log.debug("Loading");
 		rebuildAllGFXObjects();
 		for (final UMLArtifact elementNotAdded : this.objectsToBeAddedWhenAttached) {
-			Log.trace("Adding queued " + elementNotAdded);
-			elementNotAdded.setCanvas(this);
-			final long t = System.currentTimeMillis();
-			elementNotAdded.initializeGfxObject().addToVirtualGroup(this.allObjects);
-			elementNotAdded.getGfxObject().translate(elementNotAdded.getLocation());
-			this.objects.put(elementNotAdded.getGfxObject(), elementNotAdded);
-			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add queued " + elementNotAdded);
+			displaydArtifactInCanvas(elementNotAdded);
 		}
 		this.objectsToBeAddedWhenAttached.clear();
 		this.makeArrows();
@@ -1321,26 +1322,22 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 	
-	public void setUpAfterDeserialization() {
+	public void setUpAfterDeserialization(int width, int height) {
 		Session.setActiveCanvas(this);
 		container = new AbsolutePanel();
 		Log.trace("UMLCanvas::setUpAfterDeserialization => Making Canvas");
-		this.drawingCanvas = GfxManager.getPlatform().makeCanvas();
-		this.container.setPixelSize(GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
+		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
+		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
+		this.container.setPixelSize(width, height);
 		this.initCanvas();
-		
-		
-		movingLines	= GfxManager.getPlatform().buildVirtualGroup();
-		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
-		outlines = GfxManager.getPlatform().buildVirtualGroup();
-		allObjects = GfxManager.getPlatform().buildVirtualGroup();
 		
 		objects	= new HashMap<GfxObject, UMLArtifact>();
 		for(UMLArtifact artifact: umlArtifacts) {
-			artifact.setCanvas(this);
+//			artifact.setCanvas(this);
 			artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
-			this.objects.put(artifact.getGfxObject(), artifact);
 			artifact.setUpAfterDeserialization();
+			artifact.getGfxObject().translate(artifact.getLocation());
+			this.objects.put(artifact.getGfxObject(), artifact);
 		}
 		makeArrows();
 	}
