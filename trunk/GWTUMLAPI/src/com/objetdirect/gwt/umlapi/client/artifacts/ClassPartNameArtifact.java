@@ -97,7 +97,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
 		
 		final String stereotype = this.uMLclass.getStereotype();
-		if ((stereotype != null) && (stereotype != "")) {
+		if ((stereotype != null) && GWTUMLDrawerHelper.isNotBlank(stereotype)) {
 			this.stereotypeText = GfxManager.getPlatform().buildText(stereotype,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
 			
@@ -306,6 +306,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 	@Override
 	public void setUpAfterDeserialization() {
+		this.initializeGfxObject();
 		buildGfxObject();
 	}
 }

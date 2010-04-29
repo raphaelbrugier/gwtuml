@@ -327,6 +327,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	@Override
 	public void setUpAfterDeserialization() {
+		this.initializeGfxObject();
 		buildGfxObject();
 	}
 }

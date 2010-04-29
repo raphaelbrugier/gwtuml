@@ -281,6 +281,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 
 	@Override
 	public void setUpAfterDeserialization() {
+		this.initializeGfxObject();
 		methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
 		buildGfxObject();
 	}
