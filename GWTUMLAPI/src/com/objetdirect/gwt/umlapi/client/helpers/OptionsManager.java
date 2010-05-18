@@ -64,7 +64,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  */
 public class OptionsManager {
 
-	private static HashMap<String, Integer>	optionsList	= new HashMap<String, Integer>();
+	private static HashMap<String, Integer>	optionsList;
 	private static HashMap<String, Integer>	defaultOptionsList;
 
 	/**
@@ -76,6 +76,7 @@ public class OptionsManager {
 	 * @return The {@link Integer} value of this option
 	 */
 	public static Integer get(final String optionName) {
+		maybeForceInit();
 		final Integer value = OptionsManager.optionsList.get(optionName);
 		if (value == null) {
 			Log.error("Unknown option : " + optionName);
@@ -90,6 +91,7 @@ public class OptionsManager {
 	 * @return a new font corresponding to the normal font
 	 */
 	public static GfxFont getFont() {
+		maybeForceInit();
 		return new GfxFont("monospace", OptionsManager.optionsList.get("FontSize"), GfxFont._NORMAL, GfxFont._NORMAL, GfxFont._NORMAL);
 	}
 
@@ -99,6 +101,7 @@ public class OptionsManager {
 	 * @return a new font corresponding to the small font
 	 */
 	public static GfxFont getSmallFont() {
+		maybeForceInit();
 		return new GfxFont("monospace", OptionsManager.optionsList.get("SmallFontSize"), GfxFont._NORMAL, GfxFont._NORMAL, GfxFont.LIGHTER);
 	}
 
@@ -107,6 +110,7 @@ public class OptionsManager {
 	 * 
 	 */
 	public static void initialize() {
+		optionsList	= new HashMap<String, Integer>();
 		OptionsManager.optionsList.put("ArrowLength", 25);
 		OptionsManager.optionsList.put("ArrowWidth", 15);
 		OptionsManager.optionsList.put("CrossLength", 5);
@@ -222,5 +226,10 @@ public class OptionsManager {
 			}
 		}
 	}
-
+	
+	private static void maybeForceInit() {
+		if (optionsList == null) {
+			initialize();
+		}
+	}
 }

@@ -30,13 +30,28 @@ import com.google.gwt.user.client.EventPreview;
 public class GWTUMLDrawerHelper {
 	private static EventPreview	eventPreview	= null;
 	
+	public static boolean isBlank(String str) {
+		int strLen;
+		if (str == null || (strLen = str.length()) == 0) {
+			return true;
+		}
+		
+		for (int i = 0; i < strLen; i++) {
+			if (! (str.charAt(i) == ' ')) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	public static boolean isNotBlank(String str) {
 		int strLen;
 		if (str == null || (strLen = str.length()) == 0) {
 			return false;
 		}
 		for (int i = 0; i < strLen; i++) {
-			if ((Character.isLetterOrDigit(str.charAt(i)) == false)) {
+			if ((Character.isLetterOrDigit(str.charAt(i)) == true)) {
 				return true;
 			}
 		}

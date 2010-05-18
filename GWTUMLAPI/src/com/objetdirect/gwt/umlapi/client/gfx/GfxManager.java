@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.gfx;
 
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+
 /**
  * This class permits to load one implementation of the graphic system and use it
  * 
@@ -29,6 +31,9 @@ public class GfxManager {
 	 * @return The {@link GfxPlatform} instance set by {@link GfxManager#setPlatform(GfxPlatform)}
 	 */
 	public static GfxPlatform getPlatform() {
+		if (instance==null) {
+			setPlatform(0); // Default to tatami, btw tatami platform is the only working/maintained platform.
+		}
 		return GfxManager.instance;
 	}
 
