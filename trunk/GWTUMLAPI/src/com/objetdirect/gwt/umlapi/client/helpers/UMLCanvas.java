@@ -28,7 +28,6 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
@@ -60,6 +59,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
@@ -122,7 +122,7 @@ public class UMLCanvas implements Serializable {
 	/** List of all umlArtifacts by id.*/
 	private HashMap<Integer, UMLArtifact> artifactById;
 	
-	private Set<UMLArtifact> objectsToBeAddedWhenAttached;
+	private Set<UMLArtifact> artifactsToBeAddedWhenAttached;
 
 	// Represent the selected UMLArtifacts and his moving dependencies points
 	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
@@ -143,13 +143,13 @@ public class UMLCanvas implements Serializable {
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas(){}
 	
+	
 	/**
 	 * Constructor of an {@link UMLCanvas} with default size
-	 * 
-	 * @param uMLDiagram The {@link UMLDiagram} this {@link UMLCanvas} is drawing
+	 * @param diagramType Type of the diagram displayed in the canvas
 	 */
-	public UMLCanvas(final UMLDiagram uMLDiagram) {
-		this(uMLDiagram, GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
+	public UMLCanvas(Type diagramType) {
+		this(new UMLDiagram(diagramType), GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	}
 
 	/**
@@ -179,9 +179,9 @@ public class UMLCanvas implements Serializable {
 	private void initFieldsWithDefaultValue() {
 		setIdCount(0);
 		container = new AbsolutePanel();
-		classCount = 1;
-		objectCount = 1;
-		lifeLineCount = 1;
+		classCount = 0;
+		objectCount = 0;
+		lifeLineCount = 0;
 		copyBuffer = "";
 		dragAndDropState = DragAndDropState.NONE;
 		currentMousePosition = new Point(-200, -200);
@@ -190,7 +190,7 @@ public class UMLCanvas implements Serializable {
 		isMouseEnabled = true;
 		mouseIsPressed = false;
 		umlArtifacts = new LinkedList<UMLArtifact>();
-		objectsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
+		artifactsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 		selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>();
 		uMLArtifactRelations = new ArrayList<UMLArtifactPeer>();
 		artifactById = new HashMap<Integer, UMLArtifact>();
@@ -243,7 +243,7 @@ public class UMLCanvas implements Serializable {
 			displaydArtifactInCanvas(artifact);
 		} else {
 			Log.trace("Canvas not attached, queuing " + artifact);
-			this.objectsToBeAddedWhenAttached.add(artifact);
+			this.artifactsToBeAddedWhenAttached.add(artifact);
 		}
 	}
 
@@ -1059,12 +1059,12 @@ public class UMLCanvas implements Serializable {
 	}
 
 	public void onLoad() {
-		Log.debug("Loading");
+		Log.trace("UMLCanvas::onLoad() loading");
 		rebuildAllGFXObjects();
-		for (final UMLArtifact elementNotAdded : this.objectsToBeAddedWhenAttached) {
+		for (final UMLArtifact elementNotAdded : this.artifactsToBeAddedWhenAttached) {
 			displaydArtifactInCanvas(elementNotAdded);
 		}
-		this.objectsToBeAddedWhenAttached.clear();
+		this.artifactsToBeAddedWhenAttached.clear();
 		this.makeArrows();
 	}
 
@@ -1121,8 +1121,7 @@ public class UMLCanvas implements Serializable {
 	}
 
 	private Point convertToRealPoint(final Point location) {
-		return Point.add(location, new Point(RootPanel.getBodyElement().getScrollLeft() - this.container.getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop()
-				- this.container.getAbsoluteTop()));
+		return location;
 	}
 
 	private void deselectAllArtifacts() {
@@ -1339,6 +1338,5 @@ public class UMLCanvas implements Serializable {
 			artifact.getGfxObject().translate(artifact.getLocation());
 			this.objects.put(artifact.getGfxObject(), artifact);
 		}
-		makeArrows();
 	}
 }
