@@ -302,7 +302,7 @@ public class Point implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.x + "," + this.y + ")";
+		return "Point(" + this.x + "," + this.y + ")";
 	}
 
 	/**
