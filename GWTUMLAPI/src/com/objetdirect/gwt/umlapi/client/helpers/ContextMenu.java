@@ -31,22 +31,22 @@ public class ContextMenu {
 
 	private final Command			addNewClass		= new Command() {
 														public void execute() {
-															ContextMenu.this.canvas.addNewClass(ContextMenu.this.location);
+															ContextMenu.this.canvas.addNewClass();
 														}
 													};
 	private final Command			addNewObject	= new Command() {
 														public void execute() {
-															ContextMenu.this.canvas.addNewObject(ContextMenu.this.location);
+															ContextMenu.this.canvas.addNewObject();
 														}
 													};
 	private final Command			addNewLifeLine	= new Command() {
 														public void execute() {
-															ContextMenu.this.canvas.addNewLifeLine(ContextMenu.this.location);
+															ContextMenu.this.canvas.addNewLifeLine();
 														}
 													};
 	private final Command			addNewNote		= new Command() {
 														public void execute() {
-															ContextMenu.this.canvas.addNewNote(ContextMenu.this.location);
+															ContextMenu.this.canvas.addNewNote();
 														}
 													};
 	private final Command			bringHelp		= new Command() {
