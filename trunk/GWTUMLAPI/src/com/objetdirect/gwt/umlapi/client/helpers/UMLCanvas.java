@@ -26,8 +26,12 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
@@ -130,7 +134,7 @@ public class UMLCanvas implements Serializable {
 	/** List of all couple of UMLArtifacts linked together. */
 	private ArrayList<UMLArtifactPeer> uMLArtifactRelations;
 	
-	/** Flag used when the LinksArtifact are computed to known if their dependy have already been sorted. 
+	/** Flag used when the LinksArtifact are computed to known if their dependencies have already been sorted. 
 	 * @see com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact#ComputeDirectionsType() */
 	private boolean LinkArtifactsHaveAlreadyBeenSorted;
 
@@ -138,7 +142,6 @@ public class UMLCanvas implements Serializable {
 	private Point totalDragShift;
 	private transient GfxObject	arrowsVirtualGroup;
 	private Point copyMousePosition;
-
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas(){}
@@ -209,7 +212,26 @@ public class UMLCanvas implements Serializable {
 		this.movingLines.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		this.outlines.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		this.movingOutlineDependencies.addToCanvas(this.drawingCanvas, Point.getOrigin());
+		attachCurrentMousePositionHandler();
 		Log.trace("Init canvas done");
+	}
+	
+	/** Attach a mouse move handler to the windows that will refresh the current mouse postion Point on the canvas.
+	 * This position is the real position on the canvas calculated from its size/position container.  
+	 * */
+	private void attachCurrentMousePositionHandler() {
+		Event.addNativePreviewHandler(new NativePreviewHandler(){
+		    public void onPreviewNativeEvent(NativePreviewEvent event) {
+		        if (event.getTypeInt() == Event.ONMOUSEMOVE)
+		        {
+		            int xCoord = event.getNativeEvent().getClientX();
+		            int yCoord = event.getNativeEvent().getClientY();
+		            Point position = new Point(xCoord, yCoord);
+		            Point realPosition = Session.getActiveCanvas().convertToRealPoint(position); 
+		            Session.getActiveCanvas().setCurrentMousePosition(realPosition);
+		        }
+		    }
+		});
 	}
 	
 	private void initGfxObjects() {
@@ -550,6 +572,13 @@ public class UMLCanvas implements Serializable {
 		return artifactById;
 	}
 
+	/**
+	 * @param currentMousePosition the currentMousePosition to set
+	 */
+	public void setCurrentMousePosition(Point currentMousePosition) {
+		this.currentMousePosition = currentMousePosition;
+	}
+	
 	/**
 	 * Draw the directions arrow on the canvas
 	 * 
@@ -934,7 +963,7 @@ public class UMLCanvas implements Serializable {
 		if (!this.helpText.getText().equals("")) {
 			this.container.setWidgetPosition(this.helpText, realPoint.getX() + 5, realPoint.getY() - this.helpText.getOffsetHeight() - 5);
 		}
-		this.currentMousePosition = realPoint;
+//		this.currentMousePosition = realPoint;
 		switch (this.dragAndDropState) {
 			case TAKING:
 				this.take();
@@ -983,8 +1012,7 @@ public class UMLCanvas implements Serializable {
 	}
 
 	void mouseRightPressed(final GfxObject gfxObject, final Point location) {
-		final Point realPoint = this.convertToRealPoint(location);
-		this.dropRightMenu(gfxObject, realPoint);
+		this.dropRightMenu(gfxObject, location);
 	}
 
 	void moveSelected(final Direction direction) {
@@ -1120,12 +1148,12 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 
-	private Point convertToRealPoint(final Point location) {
-		return location;
+	public Point convertToRealPoint(final Point location) {
+		return Point.add(location, 
+				new Point(RootPanel.getBodyElement().getScrollLeft() - this.container.getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop() - this.container.getAbsoluteTop()));
 	}
 
 	private void deselectAllArtifacts() {
-
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 			selectedArtifact.unselect();
 		}
@@ -1165,8 +1193,9 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 
-	private void drag(final Point location) {
-		final Point shift = Point.substract(location, this.dragOffset);
+	private void drag(final Point realPoint) {
+		Log.debug("dragging : location = " + realPoint);
+		final Point shift = Point.substract(realPoint, this.dragOffset);
 		this.totalDragShift.translate(shift);
 
 		if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
@@ -1189,7 +1218,7 @@ public class UMLCanvas implements Serializable {
 			}
 		}
 		this.outlines.translate(shift);
-		this.dragOffset = location.clonePoint();
+		this.dragOffset = realPoint.clonePoint();
 	}
 
 	private void drop(final Point location) {
