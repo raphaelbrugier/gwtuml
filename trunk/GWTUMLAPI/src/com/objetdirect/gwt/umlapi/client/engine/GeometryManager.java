@@ -29,6 +29,9 @@ public class GeometryManager {
 	 * @return The {@link GeometryPlatform} instance set by {@link GeometryManager#setPlatform(GeometryPlatform)}
 	 */
 	public static GeometryPlatform getPlatform() {
+		if (instance==null) {
+			setPlatform(0);
+		}
 		return GeometryManager.instance;
 	}
 
