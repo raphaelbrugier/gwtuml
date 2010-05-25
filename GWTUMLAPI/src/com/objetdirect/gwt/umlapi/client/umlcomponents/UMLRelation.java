@@ -14,7 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
+import com.objetdirect.gwt.umlapi.client.UMLException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
@@ -389,7 +389,7 @@ public class UMLRelation extends UMLLink {
 			else if (rightStereotype.equalsIgnoreCase("<<owner>>"))
 				return rightTarget;
 			else
-				throw new GWTUMLAPIException("A bidirectional relation must have an owner defined.");
+				throw new UMLException("A bidirectional relation must have an owner defined.");
 		} 
 		
 		if (leftAdornment.equals(LinkAdornment.WIRE_ARROW))
@@ -397,7 +397,7 @@ public class UMLRelation extends UMLLink {
 		else if (rightAdornment.equals(LinkAdornment.WIRE_ARROW))
 			return leftTarget;
 		else
-			throw new GWTUMLAPIException("An association must have an arrow on one side to define the owner.");
+			throw new UMLException("An association must have an arrow on one side to define the owner.");
 	}
 	
 	

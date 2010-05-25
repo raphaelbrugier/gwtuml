@@ -15,17 +15,17 @@
 package com.objetdirect.gwt.umlapi.client;
 
 /**
- * This class defines exception specific to the uml components.
+ * This class defines exception specific to the uml relations and classes.
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLComponentException extends RuntimeException {
+public class UMLException extends RuntimeException {
 	
-	public UMLComponentException() {
+	public UMLException() {
 		super();
 	}
 
-	public UMLComponentException(String message) {
+	public UMLException(String message) {
 		super(message);
 	}
 }
