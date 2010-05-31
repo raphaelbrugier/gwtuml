@@ -79,69 +79,73 @@ public class UMLCanvas implements Serializable {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
 	}
 
+	//======= Display fields =================//
 	/** The canvas */
 	private transient Widget drawingCanvas;
 
 	/** The panel containing the canvas and the arrows. */
 	private transient AbsolutePanel container;
-	
-	private long classCount;
-	private long objectCount;
-	private long lifeLineCount;
-	private String copyBuffer;
-	private long noteCount;
-	private LinkKind activeLinking;
-	private Point selectBoxStartPoint;
-	private transient GfxObject	selectBox;
 	private transient Label	helpText;
 	
-	
-	private DragAndDropState dragAndDropState;
-	private boolean  wasACopy;
-	private Point currentMousePosition;
-	private Point canvasOffset;
-	private Point duringDragOffset;
-	private HashMap<UMLArtifact, ArrayList<Point>>	previouslySelectedArtifacts;
-
-	private UMLDiagram uMLDiagram;
-	private boolean isMouseEnabled;
-	private transient GfxObjectListener gfxObjectListener;
-	
-	// Manage mouse state when  releasing outside the listener
-	private boolean	mouseIsPressed;						
-
-	private transient GfxObject movingLines;
-	private transient GfxObject movingOutlineDependencies;
-	private transient GfxObject	outlines;
 	private transient GfxObject allObjects;
 
 	// Map of UMLArtifact with corresponding Graphical objects (group)
 	private transient HashMap<GfxObject, UMLArtifact> objects;
 	
+	
+	//====== Model fields =======//
+	private long classCount;
+	private long objectCount;
+	private long lifeLineCount;
+	private long noteCount;
+	private UMLDiagram uMLDiagram;
 	/** List of all the uml artifacts in the diagram */
 	private List<UMLArtifact> umlArtifacts;
-
 	/** Id counter */
 	private int idCount;
 	/** List of all umlArtifacts by id.*/
 	private HashMap<Integer, UMLArtifact> artifactById;
-	
 	private Set<UMLArtifact> artifactsToBeAddedWhenAttached;
-
-	// Represent the selected UMLArtifacts and his moving dependencies points
-	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
-	
-	/** List of all couple of UMLArtifacts linked together. */
-	private ArrayList<UMLArtifactPeer> uMLArtifactRelations;
-	
 	/** Flag used when the LinksArtifact are computed to known if their dependencies have already been sorted. 
 	 * @see com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact#ComputeDirectionsType() */
 	private boolean LinkArtifactsHaveAlreadyBeenSorted;
-
+	/** List of all couple of UMLArtifacts linked together. */
+	private ArrayList<UMLArtifactPeer> uMLArtifactRelations;
+	
+	//===== cut copy paste fields =======//
+	private String copyBuffer;
+	private boolean  wasACopy;
+	
+	
+	//==== Selection fields =====//
+	private LinkKind activeLinking;
+	private Point selectBoxStartPoint;
+	private transient GfxObject	selectBox;
+	private DragAndDropState dragAndDropState;
+	private HashMap<UMLArtifact, ArrayList<Point>>	previouslySelectedArtifacts;
+	private transient GfxObject movingLines;
+	private transient GfxObject movingOutlineDependencies;
+	private transient GfxObject	outlines;
+	private Point duringDragOffset;
 	private Point dragOffset;
 	private Point totalDragShift;
-	private transient GfxObject	arrowsVirtualGroup;
+	// Represent the selected UMLArtifacts and his moving dependencies points
+	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
+	
+	
+	//===== Mouse engine fields ====//
+	private Point currentMousePosition;
+	private boolean isMouseEnabled; //Only needed to desactive the mouse during the demo
+	private transient GfxObjectListener gfxObjectListener;
 	private Point copyMousePosition;
+	private Point canvasOffset;
+	// Manage mouse state when  releasing outside the listener
+	private boolean	mouseIsPressed;						
+	
+	
+	// Virtual group to add the arrows on the canvas.
+	private transient GfxObject	arrowsVirtualGroup;
+	
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas(){}
@@ -173,7 +177,7 @@ public class UMLCanvas implements Serializable {
 		Log.trace("Making " + width + " x " + height + " Canvas");
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
-
+		
 		container.setPixelSize(width, height);
 		this.initCanvas();
 		this.uMLDiagram = uMLDiagram;
@@ -216,8 +220,19 @@ public class UMLCanvas implements Serializable {
 		Log.trace("Init canvas done");
 	}
 	
+	private void initGfxObjects() {
+		helpText = new Label("");
+		this.helpText.setStylePrimaryName("contextual-help");
+		objects = new HashMap<GfxObject, UMLArtifact>();
+		allObjects = GfxManager.getPlatform().buildVirtualGroup();
+		outlines = GfxManager.getPlatform().buildVirtualGroup();
+		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
+		movingLines = GfxManager.getPlatform().buildVirtualGroup();
+		gfxObjectListener = new CanvasListener(this);
+	}
+
 	/** Attach a mouse move handler to the windows that will refresh the current mouse postion Point on the canvas.
-	 * This position is the real position on the canvas calculated from its size/position container.  
+	 * This position is the real position on the canvas calculated from its container's size and position .  
 	 * */
 	private void attachCurrentMousePositionHandler() {
 		Event.addNativePreviewHandler(new NativePreviewHandler(){
@@ -234,17 +249,6 @@ public class UMLCanvas implements Serializable {
 		});
 	}
 	
-	private void initGfxObjects() {
-		helpText = new Label("");
-		this.helpText.setStylePrimaryName("contextual-help");
-		objects = new HashMap<GfxObject, UMLArtifact>();
-		allObjects = GfxManager.getPlatform().buildVirtualGroup();
-		outlines = GfxManager.getPlatform().buildVirtualGroup();
-		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
-		movingLines = GfxManager.getPlatform().buildVirtualGroup();
-		gfxObjectListener = new CanvasListener(this);
-	}
-
 	/**
 	 * Add an {@link UMLArtifact} to this canvas
 	 * 
@@ -273,7 +277,7 @@ public class UMLCanvas implements Serializable {
 	 * Build the gfx object for the given artifact and attached it to the canvas.
 	 * @param artifact the artifact to build in the canvas.
 	 */
-	public void displaydArtifactInCanvas(final UMLArtifact artifact) {
+	private void displaydArtifactInCanvas(final UMLArtifact artifact) {
 		final long t = System.currentTimeMillis();
 		artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
 
@@ -282,33 +286,6 @@ public class UMLCanvas implements Serializable {
 		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to add " + artifact);
 	}
 
-	/**
-	 * Add a new class with default values to this canvas to an the current mouse position
-	 */
-	public void addNewClass() {
-		this.addNewClass(this.currentMousePosition);
-	}
-
-	/**
-	 * Add a new lifeLine with default values to this canvas to the current mouse position
-	 */
-	public void addNewLifeLine() {
-		this.addNewLifeLine(this.currentMousePosition);
-	}
-
-	/**
-	 * Add a new object with default values to this canvas to the current mouse position
-	 */
-	public void addNewObject() {
-		this.addNewObject(this.currentMousePosition);
-	}
-
-	/**
-	 * Remove the direction arrows from the canvas
-	 */
-	public void clearArrows() {
-		GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
-	}
 
 	/**
 	 * Deselect an artifact and put it in the artifact list
@@ -615,6 +592,13 @@ public class UMLCanvas implements Serializable {
 		arrowList.get(6).translate(new Point(width / 2 - arrowSize - 2, 2)); // up
 		arrowList.get(7).translate(new Point(width - 2 * arrowSize - 2, 2)); // up right
 	}
+	
+	/**
+	 * Remove the direction arrows from the canvas
+	 */
+	public void clearArrows() {
+		GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
+	}
 
 	/**
 	 * Move all artifact in the specified {@link Direction}
@@ -625,6 +609,7 @@ public class UMLCanvas implements Serializable {
 	 *            True if the method call is recursive
 	 */
 	public void moveAll(final Direction direction, final boolean isRecursive) {
+		Log.debug("UMLCanvas::moveAll");
 		new Scheduler.Task("MovingAllArtifacts") {
 			@Override
 			public void process() {
@@ -709,6 +694,28 @@ public class UMLCanvas implements Serializable {
 		return GWTUMLDrawerHelper.encodeBase64(url.toString());
 	}
 
+	
+	/**
+	 * Add a new class with default values to this canvas to an the current mouse position
+	 */
+	public void addNewClass() {
+		this.addNewClass(this.currentMousePosition);
+	}
+
+	/**
+	 * Add a new lifeLine with default values to this canvas to the current mouse position
+	 */
+	public void addNewLifeLine() {
+		this.addNewLifeLine(this.currentMousePosition);
+	}
+
+	/**
+	 * Add a new object with default values to this canvas to the current mouse position
+	 */
+	public void addNewObject() {
+		this.addNewObject(this.currentMousePosition);
+	}
+	
 	/**
 	 * Add a new class with default values to this canvas at the specified location
 	 * 
@@ -864,9 +871,8 @@ public class UMLCanvas implements Serializable {
 	/**
 	 * @param linkArtifactsHaveAlreadyBeenSorted the linkArtifactsHaveAlreadyBeenSorted to set
 	 */
-	public void setLinkArtifactsHaveAlreadyBeenSorted(
-			boolean linkArtifactsHaveAlreadyBeenSorted) {
-		LinkArtifactsHaveAlreadyBeenSorted = linkArtifactsHaveAlreadyBeenSorted;
+	public void setLinkArtifactsHaveAlreadyBeenSorted(boolean linkArtifactsHaveAlreadyBeenSorted) {
+		this.LinkArtifactsHaveAlreadyBeenSorted = linkArtifactsHaveAlreadyBeenSorted;
 	}
 
 	void cut() {
@@ -874,6 +880,7 @@ public class UMLCanvas implements Serializable {
 		this.wasACopy = false;
 		this.removeSelected();
 	}
+	
 	void copy() {
 		if(this.selectedArtifacts.isEmpty()) return;
 		this.wasACopy = true;
@@ -904,6 +911,7 @@ public class UMLCanvas implements Serializable {
 		this.copyBuffer = url.toString();
 		this.copyMousePosition = Point.getMiddleOf(lower, higher);
 	}
+	
 	void paste() {
 		if(!this.copyBuffer.equals("") && this.dragAndDropState == DragAndDropState.NONE) {
 			// Getting ids :
@@ -959,6 +967,7 @@ public class UMLCanvas implements Serializable {
 
 	@SuppressWarnings("fallthrough")
 	void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
+		Log.debug("UMLCanvas::mouseMoved()");
 		final Point realPoint = this.convertToRealPoint(location);
 		if (!this.helpText.getText().equals("")) {
 			this.container.setWidgetPosition(this.helpText, realPoint.getX() + 5, realPoint.getY() - this.helpText.getOffsetHeight() - 5);
@@ -1313,7 +1322,7 @@ public class UMLCanvas implements Serializable {
 				outline.translate(selectedArtifact.getLocation());
 				selectedArtifact.destroyGfxObjectWhithDependencies();
 				Log.trace("Adding outline for " + selectedArtifact);
-				// Drawing lines only translating during with drag
+				// Drawing lines only translating during drag
 				if (QualityLevel.IsAlmost(QualityLevel.HIGH)) {
 					selectedArtifactEntry.getValue().clear();
 

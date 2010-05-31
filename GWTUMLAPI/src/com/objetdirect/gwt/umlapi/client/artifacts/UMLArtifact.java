@@ -331,6 +331,18 @@ public abstract class UMLArtifact implements Serializable {
 			this.toFront();
 		}
 	}
+	
+	/**
+	 * This method does the graphic changes to reflect that an artifact has been selected
+	 */
+	protected void select() {
+		this.isSelected = true;
+		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.dependentUMLArtifacts.entrySet()) {
+			if (!dependentUMLArtifact.getValue().equals(this) && dependentUMLArtifact.getValue().isSelected) {
+				this.canvas.selectArtifact(dependentUMLArtifact.getKey());
+			}
+		}
+	}
 
 	/**
 	 * Setter for the canvas Assign an artifact to his canvas
@@ -478,17 +490,7 @@ public abstract class UMLArtifact implements Serializable {
 		this.allDependencies.remove(linkArtifact);
 	}
 
-	/**
-	 * This method does the graphic changes to reflect that an artifact has been selected
-	 */
-	protected void select() {
-		this.isSelected = true;
-		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.dependentUMLArtifacts.entrySet()) {
-			if (!dependentUMLArtifact.getValue().equals(this) && dependentUMLArtifact.getValue().isSelected) {
-				this.canvas.selectArtifact(dependentUMLArtifact.getKey());
-			}
-		}
-	}
+	
 
 	protected void sortDirectionDependecy(final Direction direction, final LinkArtifact linkArtifact) {
 		Collections.sort(this.getDirectionList(direction), new Comparator<LinkArtifact>() {
