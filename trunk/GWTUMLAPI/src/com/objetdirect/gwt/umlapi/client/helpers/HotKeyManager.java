@@ -107,7 +107,7 @@ public final class HotKeyManager {
 		HotKeyManager.inputEnabled = isEnabled;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings("unused") //This method is not unused but called by the javaScript function : WindowCloseHandlerImpl::Init
 	private static void onKeyDown(final Event event) {
 		if (HotKeyManager.isInputEnabled()) {
 			Keyboard.push((char) DOM.eventGetKeyCode(event), event.getCtrlKey(), event.getAltKey(), event.getShiftKey(), event.getMetaKey());

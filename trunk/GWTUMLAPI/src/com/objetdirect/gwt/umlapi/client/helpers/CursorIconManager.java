@@ -123,6 +123,7 @@ public class CursorIconManager {
 	 *            The style of the cursor in {@link PointerStyle}
 	 */
 	public static void setCursorIcon(final PointerStyle pStyle) {
+		//FIXME set the cursor style only on the canvas element.
 		RootPanel.get().removeStyleName(CursorIconManager.currentIconStyle.getCssName());
 		CursorIconManager.currentIconStyle = pStyle;
 		RootPanel.get().addStyleName(CursorIconManager.currentIconStyle.getCssName());
