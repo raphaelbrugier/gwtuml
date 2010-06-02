@@ -57,15 +57,13 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 * Constructor of {@link ObjectRelationLinkArtifact}
 	 * 
 	 * @param canvas Where the gfxObject are displayed
-	 * @param left
-	 *            The left {@link ObjectArtifact} of the relation
-	 * @param right
-	 *            The right {@link ObjectArtifact} of the relation
-	 * @param relationKind
-	 *            The kind of relation this link is.
+	 * @param id The artifacts's id
+	 * @param left The left {@link ObjectArtifact} of the relation
+	 * @param right The right {@link ObjectArtifact} of the relation
+	 * @param relationKind The kind of relation this link is.
 	 */
-	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
-		super(canvas, left, right, relationKind);
+	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
+		super(canvas, id, left, right, relationKind);
 		if (relationKind != LinkKind.INSTANTIATION) {
 			Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
 		}

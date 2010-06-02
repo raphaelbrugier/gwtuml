@@ -364,13 +364,14 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
-	 * @param canvas Where the gfxObject are displayed
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
 	 * @param nodeArtifact1
 	 * @param nodeArtifact2
 	 * @param relationKind
 	 */
-	public RelationLinkArtifact(final UMLCanvas canvas, final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
-		super(canvas, nodeArtifact1, nodeArtifact2);
+	public RelationLinkArtifact(final UMLCanvas canvas, int id, final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
+		super(canvas, id, nodeArtifact1, nodeArtifact2);
 		
 		leftDirectionPoint = Point.getOrigin();
 		rightDirectionPoint	= Point.getOrigin();

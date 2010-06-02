@@ -50,27 +50,25 @@ public class LifeLineArtifact extends BoxArtifact {
 	/**
 	 * Constructor of the LifeLineArtifact
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * @param name
-	 *            The name of the LifeLine
-	 * 
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
+	 * @param name The name of the LifeLine
 	 */
-	public LifeLineArtifact(final UMLCanvas canvas, final String name) {
-		this(canvas, name, "");
+	public LifeLineArtifact(final UMLCanvas canvas, int id, final String name) {
+		this(canvas, id, name, "");
 	}
 
 	/**
 	 * Constructor of the LifeLineArtifact
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * @param name
-	 *            The name of the LifeLine
-	 * @param instance
-	 *            The instance of the LifeLine
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
+	 * @param name The name of the LifeLine
+	 * @param instance The instance of the LifeLine
 	 * 
 	 */
-	public LifeLineArtifact(final UMLCanvas canvas, final String name, final String instance) {
-		super(canvas, true);
+	public LifeLineArtifact(final UMLCanvas canvas, int id, final String name, final String instance) {
+		super(canvas, id);
 		this.lineLength = 0;
 		this.rectHeight = 0;
 		this.width = 0;

@@ -44,35 +44,35 @@ public class ObjectArtifact extends NodeArtifact {
 	/**
 	 * Initializes the ObjectArtifact with the name "Object"
 	 * @param canvas Where the gfxObject are displayed
+	 * @param id The artifacts's id
 	 */
-	public ObjectArtifact(final UMLCanvas canvas) {
-		this(canvas, "obj", "Object");
+	public ObjectArtifact(final UMLCanvas canvas, int id) {
+		this(canvas, id, "obj", "Object");
 	}
 
 	/**
 	 * ObjectArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
 	 * 
-	 * @param canvas Where the gfxObject are displayed
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
 	 * @param objectInstance The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
-	public ObjectArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName) {
-		this(canvas, objectInstance, objectName, "");
+	public ObjectArtifact(final UMLCanvas canvas, int id, final String objectInstance, final String objectName) {
+		this(canvas, id, objectInstance, objectName, "");
 	}
 
 	/**
 	 * ObjectArtifact constructor, initializes all {@link NodePartArtifact}
 	 * 
 	 * @param canvas Where the gfxObject are displayed
-	 * @param objectInstance
-	 *            The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param objectName
-	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param stereotype
-	 *            The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param id The artifacts's id
+	 * @param objectInstance The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param stereotype The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
-	public ObjectArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName, final String stereotype) {
-		super(canvas);
+	public ObjectArtifact(final UMLCanvas canvas, int id, final String objectInstance, final String objectName, final String stereotype) {
+		super(canvas, id);
 		this.objectName = new ObjectPartNameArtifact(canvas, objectInstance, objectName, stereotype);
 		this.objectAttributes = new ObjectPartAttributesArtifact(canvas);
 		this.nodeParts.add(this.objectName);

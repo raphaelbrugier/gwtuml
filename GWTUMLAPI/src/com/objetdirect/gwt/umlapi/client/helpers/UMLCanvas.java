@@ -33,6 +33,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
@@ -73,7 +74,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLCanvas implements Serializable {
+public class UMLCanvas implements Serializable, UmlCanvas {
 
 	public enum DragAndDropState {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
@@ -138,10 +139,10 @@ public class UMLCanvas implements Serializable {
 	private boolean isMouseEnabled; //Only needed to desactive the mouse during the demo
 	private transient GfxObjectListener gfxObjectListener;
 	private Point copyMousePosition;
-	private Point canvasOffset;
 	// Manage mouse state when  releasing outside the listener
-	private boolean	mouseIsPressed;						
+	private boolean	mouseIsPressed;	
 	
+	private Point canvasOffset;
 	
 	// Virtual group to add the arrows on the canvas.
 	private transient GfxObject	arrowsVirtualGroup;
@@ -331,7 +332,7 @@ public class UMLCanvas implements Serializable {
 						}
 						UMLArtifact newArtifact = null;
 						if (artifact.equals("Class")) {
-							newArtifact = new ClassArtifact(this, (isForPasting && wasACopy ? "CopyOf" : "") +UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
+							newArtifact = new ClassArtifact(this, id, (isForPasting && wasACopy ? "CopyOf" : "") +UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
 								final String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
@@ -347,7 +348,7 @@ public class UMLCanvas implements Serializable {
 							}
 
 						} else if (artifact.equals("Object")) {
-							newArtifact = new ObjectArtifact(this, UMLObject.parseName(parameters[1]).get(0), (isForPasting && wasACopy ? "CopyOf" : "") + UMLObject.parseName(parameters[1]).get(1),
+							newArtifact = new ObjectArtifact(this, id, UMLObject.parseName(parameters[1]).get(0), (isForPasting && wasACopy ? "CopyOf" : "") + UMLObject.parseName(parameters[1]).get(1),
 									UMLObject.parseStereotype(parameters[2]));
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
@@ -358,11 +359,11 @@ public class UMLCanvas implements Serializable {
 							}
 
 						} else if (artifact.equals("LifeLine")) {
-							newArtifact = new LifeLineArtifact(this, (isForPasting && wasACopy ? "CopyOf" : "") + UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
+							newArtifact = new LifeLineArtifact(this, id, (isForPasting && wasACopy ? "CopyOf" : "") + UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 
 						} else if (artifact.equals("Note")) {
-							newArtifact = new NoteArtifact(this, parameters[1]);
+							newArtifact = new NoteArtifact(this, id, parameters[1]);
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 
 						} else if (artifact.equals("LinkNote")) {
@@ -374,7 +375,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new LinkNoteArtifact(this, (NoteArtifact) artifactById.get(noteId), artifactById.get(targetId));
+							newArtifact = new LinkNoteArtifact(this, id, (NoteArtifact) artifactById.get(noteId), artifactById.get(targetId));
 
 						} else if (artifact.equals("LinkClassRelation")) {
 							Integer classId = 0;
@@ -385,7 +386,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new LinkClassRelationArtifact(this, (ClassArtifact) artifactById.get(classId),
+							newArtifact = new LinkClassRelationArtifact(this, id, (ClassArtifact) artifactById.get(classId),
 									(ClassRelationLinkArtifact) artifactById.get(relationId));
 
 						} else if (artifact.equals("ClassRelationLink")) {
@@ -397,7 +398,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new ClassRelationLinkArtifact(this, (ClassArtifact) artifactById.get(classLeftId),
+							newArtifact = new ClassRelationLinkArtifact(this, id, (ClassArtifact) artifactById.get(classLeftId),
 									(ClassArtifact) artifactById.get(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
 							((ClassRelationLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
 							((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
@@ -419,7 +420,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new ObjectRelationLinkArtifact(this, (ObjectArtifact) artifactById.get(objectLeftId),
+							newArtifact = new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) artifactById.get(objectLeftId),
 									(ObjectArtifact) artifactById.get(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
 							((ObjectRelationLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
 							((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
@@ -435,7 +436,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new MessageLinkArtifact(this, (LifeLineArtifact) artifactById.get(lifeLineLeftId),
+							newArtifact = new MessageLinkArtifact(this, id, (LifeLineArtifact) artifactById.get(lifeLineLeftId),
 									(LifeLineArtifact) artifactById.get(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
 							((MessageLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
 							((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
@@ -451,7 +452,7 @@ public class UMLCanvas implements Serializable {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new InstantiationRelationLinkArtifact(this, (ClassArtifact) artifactById.get(classId),
+							newArtifact = new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) artifactById.get(classId),
 									(ObjectArtifact) artifactById.get(objectId), LinkKind.INSTANTIATION);
 						}
 						if (newArtifact != null) {
@@ -727,7 +728,7 @@ public class UMLCanvas implements Serializable {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ClassArtifact newClass = new ClassArtifact(this, "Class" + ++classCount);
+		final ClassArtifact newClass = new ClassArtifact(this, getIdCount(), "Class" + ++classCount);
 		
 		this.helpText.setText("Adding a new class");
 		this.add(newClass);
@@ -758,7 +759,7 @@ public class UMLCanvas implements Serializable {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
+		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, getIdCount(), "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
 		
 		this.helpText.setText("Adding a new life line");
 		this.add(newLifeLine);
@@ -780,7 +781,7 @@ public class UMLCanvas implements Serializable {
 	void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
-			final LinkArtifact newLink = LinkArtifact.makeLinkBetween(selectedArtifact, newSelected, this.activeLinking);
+			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, this.activeLinking, getIdCount());
 
 			if (newLink != null) {
 				linkOkCount++;
@@ -791,8 +792,58 @@ public class UMLCanvas implements Serializable {
 			this.linkingModeOff();
 		}
 	}
+	
+	/**
+	 * Make a link between two {@link UMLArtifact}
+	 * 
+	 * @param uMLArtifact
+	 *            The first one of the two {@link UMLArtifact} to be linked
+	 * @param uMLArtifactNew
+	 *            The second one of the two {@link UMLArtifact} to be linked
+	 * @param linkKind
+	 *            The {@link LinkKind} of this link
+	 * @param id The created {@link LinkArtifact}'s id
+	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
+	 */
+	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind, int id) {
+		if (linkKind == LinkKind.NOTE) {
+			if (uMLArtifactNew instanceof NoteArtifact) {
+				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifactNew, uMLArtifact);
+			}
+			if (uMLArtifact instanceof NoteArtifact) {
+				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifact, uMLArtifactNew);
+			}
+			return null;
+		} else if (linkKind == LinkKind.CLASSRELATION) {
+			if ((uMLArtifactNew instanceof ClassRelationLinkArtifact) && (uMLArtifact instanceof ClassArtifact)) {
+				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
+			}
+			if ((uMLArtifact instanceof ClassRelationLinkArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
+				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
+			}
+			return null;
 
-	void addNewNote() {
+		} else if ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
+			return new ClassRelationLinkArtifact(this, id,(ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
+
+		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
+				&& (uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ObjectArtifact)) {
+			return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+		} else if ((linkKind == LinkKind.INSTANTIATION)
+				&& ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ObjectArtifact))) {
+			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
+		} else if ((linkKind == LinkKind.INSTANTIATION)
+				&& ((uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ClassArtifact))) {
+			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+		} else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
+			return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+
+		}
+		return null;
+	}
+
+	@Override
+	public void addNewNote() {
 		this.addNewNote(this.currentMousePosition);
 
 	}
@@ -802,7 +853,7 @@ public class UMLCanvas implements Serializable {
 			return;
 		}
 		
-		final NoteArtifact newNote = new NoteArtifact(this, "Note " + ++this.noteCount);
+		final NoteArtifact newNote = new NoteArtifact(this, getIdCount(), "Note " + ++this.noteCount);
 		this.helpText.setText("Adding a new note");
 		this.add(newNote);
 		newNote.moveTo(Point.substract(location, this.canvasOffset));
@@ -830,7 +881,7 @@ public class UMLCanvas implements Serializable {
 		if (this.dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ObjectArtifact newObject = new ObjectArtifact(this, "obj" + ++objectCount, "Object" + objectCount);
+		final ObjectArtifact newObject = new ObjectArtifact(this, getIdCount(), "obj" + ++objectCount, "Object" + objectCount);
 		
 		this.helpText.setText("Adding a new object");
 		this.add(newObject); 
@@ -875,13 +926,15 @@ public class UMLCanvas implements Serializable {
 		this.LinkArtifactsHaveAlreadyBeenSorted = linkArtifactsHaveAlreadyBeenSorted;
 	}
 
-	void cut() {
+	@Override
+	public void cut() {
 		this.copy();
 		this.wasACopy = false;
 		this.removeSelected();
 	}
 	
-	void copy() {
+	@Override
+	public void copy() {
 		if(this.selectedArtifacts.isEmpty()) return;
 		this.wasACopy = true;
 		final StringBuilder url = new StringBuilder();
@@ -912,7 +965,8 @@ public class UMLCanvas implements Serializable {
 		this.copyMousePosition = Point.getMiddleOf(lower, higher);
 	}
 	
-	void paste() {
+	@Override
+	public void paste() {
 		if(!this.copyBuffer.equals("") && this.dragAndDropState == DragAndDropState.NONE) {
 			// Getting ids :
 			deselectAllArtifacts();
@@ -1021,7 +1075,7 @@ public class UMLCanvas implements Serializable {
 	}
 
 	void mouseRightPressed(final GfxObject gfxObject, final Point location) {
-		this.dropRightMenu(gfxObject, location);
+		this.dropContextualMenu(gfxObject, location);
 	}
 
 	void moveSelected(final Direction direction) {
@@ -1065,13 +1119,15 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 
-	void rebuildAllGFXObjects() {
+	@Override
+	public void rebuildAllGFXObjects() {
 		for (final UMLArtifact artifact : this.objects.values()) {
 				artifact.rebuildGfxObject();
 		}
 	}
 
-	void removeSelected() {
+	@Override
+	public void removeSelected() {
 		if (!this.selectedArtifacts.isEmpty()) {
 			final HashMap<UMLArtifact, ArrayList<Point>> selectedBeforeRemovalArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(this.selectedArtifacts);
 			for (final UMLArtifact selectedArtifact : selectedBeforeRemovalArtifacts.keySet()) {
@@ -1080,13 +1136,15 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 
-	void selectAll() {
+	@Override
+	public void selectAll() {
 		for (final UMLArtifact artifact : this.objects.values()) {
 			this.selectArtifact(artifact);
 		}
 	}
 
-	void toLinkMode(final LinkKind linkType) {
+	@Override
+	public void toLinkMode(final LinkKind linkType) {
 		this.activeLinking = linkType;
 		final int selectedToLink = this.selectedArtifacts.keySet().size();
 
@@ -1243,14 +1301,14 @@ public class UMLCanvas implements Serializable {
 		GfxManager.getPlatform().clearVirtualGroup(this.movingOutlineDependencies);
 	}
 
-	private void dropRightMenu(final GfxObject gfxObject, final Point location) {
+	public void dropContextualMenu(final GfxObject gfxObject, final Point location) {
 		this.doSelection(gfxObject, false, false);
 		final UMLArtifact elem = this.getUMLArtifact(gfxObject);
 		ContextMenu contextMenu;
 		if (elem != null) {
-			contextMenu = new ContextMenu(location, this, elem.getRightMenu());
+			contextMenu = new ContextMenu(location, this, elem.getRightMenu(), uMLDiagram.getType());
 		} else {
-			contextMenu = new ContextMenu(location, this);
+			contextMenu = new ContextMenu(location, this, uMLDiagram.getType());
 		}
 		contextMenu.show();
 	}

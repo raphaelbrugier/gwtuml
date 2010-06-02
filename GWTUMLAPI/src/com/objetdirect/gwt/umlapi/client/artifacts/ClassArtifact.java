@@ -50,22 +50,24 @@ public class ClassArtifact extends NodeArtifact {
 
 	/**
 	 * ClassArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
-	 * @param canvas Where the gfxObject are displayed
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
 	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
-	public ClassArtifact(final UMLCanvas canvas, final String className) {
-		this(canvas, className, "");
+	public ClassArtifact(final UMLCanvas canvas, int id, final String className) {
+		this(canvas, id, className, "");
 	}
 
 	/**
 	 * ClassArtifact constructor, initializes all {@link NodePartArtifact}
 	 * 
-	 * @param canvas Where the gfxObject are displayed
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
 	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
 	 * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
-	public ClassArtifact(final UMLCanvas canvas, final String className, final String stereotype) {
-		super(canvas);
+	public ClassArtifact(final UMLCanvas canvas, int id, final String className, final String stereotype) {
+		super(canvas, id);
 		ownedClass = new UMLClass(className);
 		this.className = new ClassPartNameArtifact(canvas, ownedClass, className, stereotype);
 		this.classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());

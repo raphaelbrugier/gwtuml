@@ -39,14 +39,13 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	
 	/**
 	 * Constructor of LinkClassRelationArtifact
-	 * @param canvas Where the gfxObject are displayed
-	 * @param classArtifact
-	 *            The class for the relation class
-	 * @param relation
-	 *            The relation between the two other classes
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
+	 * @param classArtifact The class for the relation class
+	 * @param relation The relation between the two other classes
 	 */
-	public LinkClassRelationArtifact(final UMLCanvas canvas, final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
-		super(canvas, classArtifact, relation);
+	public LinkClassRelationArtifact(final UMLCanvas canvas, int id, final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
+		super(canvas, id, classArtifact, relation);
 		line = null;
 		this.classArtifact = classArtifact;
 		this.classArtifact.addDependency(this, relation);
