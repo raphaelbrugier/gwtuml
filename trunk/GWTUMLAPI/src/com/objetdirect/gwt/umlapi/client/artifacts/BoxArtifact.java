@@ -35,10 +35,18 @@ public abstract class BoxArtifact extends UMLArtifact {
 	/**
 	 * Constructor of BoxArtifact
 	 * @param canvas Where the gfxObject are displayed
-	 * @param toBeAdded True if the artifact must be added in artifact list
 	 */
-	public BoxArtifact(UMLCanvas canvas, final boolean toBeAdded) {
-		super(canvas, toBeAdded);
+	public BoxArtifact(UMLCanvas canvas) {
+		super(canvas);
+	}
+	
+	/**
+	 * Constructor of BoxArtifact
+	 * @param canvas Where the gfxObject are displayed
+	 * @param id The artifacts's id
+	 */
+	public BoxArtifact(UMLCanvas canvas, final int id) {
+		super(canvas, id);
 	}
 
 	/*

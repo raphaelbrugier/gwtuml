@@ -50,10 +50,11 @@ public abstract class NodeArtifact extends BoxArtifact {
 	
 	/**
 	 * Constructor of NodeArtifact
-	 * @param canvas Where the gfxObject are displayed
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
 	 */
-	public NodeArtifact(final UMLCanvas canvas) {
-		super(canvas, true);
+	public NodeArtifact(final UMLCanvas canvas, int id) {
+		super(canvas, id);
 		nodeParts = new LinkedList<NodePartArtifact>();
 	}
 

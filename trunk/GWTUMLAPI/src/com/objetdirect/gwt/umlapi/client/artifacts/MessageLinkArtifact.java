@@ -57,17 +57,14 @@ public class MessageLinkArtifact extends LinkArtifact {
 	/**
 	 * Constructor of {@link MessageLinkArtifact}
 	 *
-	 *@param canvas Where the gfxObject are displayed
-	 * 
-	 * @param left
-	 *            The left {@link LifeLineArtifact} of the message
-	 * @param right
-	 *            The right {@link LifeLineArtifact} of the message
-	 * @param messageKind
-	 *            The kind of message this link is.
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
+	 * @param left The left {@link LifeLineArtifact} of the message
+	 * @param right The right {@link LifeLineArtifact} of the message
+	 * @param messageKind The kind of message this link is.
 	 */
-	public MessageLinkArtifact(final UMLCanvas canvas, final LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
-		super(canvas, left, right);
+	public MessageLinkArtifact(final UMLCanvas canvas, int id, final LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
+		super(canvas, id, left, right);
 		this.message = new UMLMessage(messageKind);
 		this.leftLifeLineArtifact = left;
 		left.addDependency(this, right);

@@ -20,6 +20,7 @@ import java.io.Serializable;
  * Represent a pair of UMLArtifact linked together.
  * @author Raphael Brugier < raphael dot brugier at gmail dot com >
  */
+@SuppressWarnings("serial")
 public class UMLArtifactPeer implements Serializable {
 	public UMLArtifact uMLArtifact1;
 	public UMLArtifact uMLArtifact2;

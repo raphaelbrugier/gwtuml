@@ -40,15 +40,13 @@ public class LinkNoteArtifact extends LinkArtifact {
 	/**
 	 * Constructor of LinkNoteArtifact
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * 
-	 * @param note
-	 *            The note the link is related to
-	 * @param target
-	 *            The uml artifact the note is pointing to
+	 * @param canvas Where the gfxObjects are displayed
+	 * @param id The artifacts's id
+	 * @param note The note the link is related to
+	 * @param target The uml artifact the note is pointing to
 	 */
-	public LinkNoteArtifact(final UMLCanvas canvas, final NoteArtifact note, final UMLArtifact target) {
-		super(canvas, note, target);
+	public LinkNoteArtifact(final UMLCanvas canvas, int id, final NoteArtifact note, final UMLArtifact target) {
+		super(canvas, id, note, target);
 		line = null;
 		this.note = note;
 		this.note.addDependency(this, target);

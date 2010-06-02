@@ -14,7 +14,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.io.Serializable;
 import java.util.Collections;
 
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
@@ -31,82 +30,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  */
 @SuppressWarnings("serial")
 public abstract class LinkArtifact extends UMLArtifact {
-
-	/**
-	 * Represent a pair of UMLArtifact linked together.
-	 */
-//	public class UMLArtifactPeer implements Serializable {
-//
-//		private UMLArtifact uMLArtifact1;
-//		private UMLArtifact uMLArtifact2;
-//		
-//		/** Default constructor ONLY for gwt-rpc serialization.  */
-//		@Deprecated
-//		public UMLArtifactPeer() { }
-//		
-//		UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
-//			this.uMLArtifact1 = uMLArtifact1;
-//			this.uMLArtifact2 = uMLArtifact2;
-//		}
-//
-//		
-
-//		@Override
-//		public boolean equals(final Object obj) {
-//			final UMLArtifactPeer peer = (UMLArtifactPeer) obj;
-//			return ((this.uMLArtifact1 == peer.uMLArtifact1) && (this.uMLArtifact2 == peer.uMLArtifact2))
-//			|| ((this.uMLArtifact1 == peer.uMLArtifact2) && (this.uMLArtifact2 == peer.uMLArtifact1));
-//		}
-//	}
-
-	/**
-	 * Make a link between two {@link UMLArtifact}
-	 * 
-	 * @param uMLArtifact
-	 *            The first one of the two {@link UMLArtifact} to be linked
-	 * @param uMLArtifactNew
-	 *            The second one of the two {@link UMLArtifact} to be linked
-	 * @param linkKind
-	 *            The {@link LinkKind} of this link
-	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
-	 */
-	public static LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind) {
-		if (linkKind == LinkKind.NOTE) {
-			if (uMLArtifactNew.getClass() == NoteArtifact.class) {
-				return new LinkNoteArtifact(Session.getActiveCanvas(), (NoteArtifact) uMLArtifactNew, uMLArtifact);
-			}
-			if (uMLArtifact.getClass() == NoteArtifact.class) {
-				return new LinkNoteArtifact(Session.getActiveCanvas(), (NoteArtifact) uMLArtifact, uMLArtifactNew);
-			}
-			return null;
-		} else if (linkKind == LinkKind.CLASSRELATION) {
-			if ((uMLArtifactNew.getClass() == ClassRelationLinkArtifact.class) && (uMLArtifact.getClass() == ClassArtifact.class)) {
-				return new LinkClassRelationArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
-			}
-			if ((uMLArtifact.getClass() == ClassRelationLinkArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
-				return new LinkClassRelationArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
-			}
-			return null;
-
-		} else if ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class)) {
-			return new ClassRelationLinkArtifact(Session.getActiveCanvas(),(ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
-
-		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
-				&& (uMLArtifact.getClass() == ObjectArtifact.class) && (uMLArtifactNew.getClass() == ObjectArtifact.class)) {
-			return new ObjectRelationLinkArtifact(Session.getActiveCanvas(), (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION)
-				&& ((uMLArtifact.getClass() == ClassArtifact.class) && (uMLArtifactNew.getClass() == ObjectArtifact.class))) {
-			return new InstantiationRelationLinkArtifact(Session.getActiveCanvas(),(ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION)
-				&& ((uMLArtifact.getClass() == ObjectArtifact.class) && (uMLArtifactNew.getClass() == ClassArtifact.class))) {
-			return new InstantiationRelationLinkArtifact(Session.getActiveCanvas(), (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((uMLArtifact.getClass() == LifeLineArtifact.class) && (uMLArtifactNew.getClass() == LifeLineArtifact.class)) {
-			return new MessageLinkArtifact(Session.getActiveCanvas(), (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
-
-		}
-		return null;
-
-	}
 
 	private UMLArtifact	leftUMLArtifact;
 	
@@ -133,16 +56,14 @@ public abstract class LinkArtifact extends UMLArtifact {
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
-	 *  @param canvas Where the gfxObject are displayed
-	 * 
-	 * @param uMLArtifact1
-	 *            First {@link UMLArtifact}
-	 * @param uMLArtifact2
-	 *            Second {@link UMLArtifact}
+	 * @param canvas Where the gfxObject are displayed
+	 * @param id The artifacts's id
+	 * @param uMLArtifact1 First {@link UMLArtifact}
+	 * @param uMLArtifact2 Second {@link UMLArtifact}
 	 * 
 	 */
-	public LinkArtifact(UMLCanvas canvas, final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
-		super(canvas, true);
+	public LinkArtifact(UMLCanvas canvas, int id, final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
+		super(canvas, id);
 		leftPoint = Point.getOrigin();
 		rightPoint = Point.getOrigin();
 		isSelfLink = false;

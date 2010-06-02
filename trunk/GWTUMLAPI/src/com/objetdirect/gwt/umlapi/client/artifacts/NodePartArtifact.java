@@ -40,7 +40,7 @@ public abstract class NodePartArtifact extends BoxArtifact {
 	 * @param canvas Where the gfxObject are displayed
 	 */
 	public NodePartArtifact(final UMLCanvas canvas) {
-		super(canvas, false);
+		super(canvas);
 	}
 
 	@Override

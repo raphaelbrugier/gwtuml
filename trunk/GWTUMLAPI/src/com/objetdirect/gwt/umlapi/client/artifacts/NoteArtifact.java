@@ -49,11 +49,11 @@ public class NoteArtifact extends BoxArtifact {
 	/**
 	 * Constructor of the NoteArtifact
 	 * @param canvas Where the gfxObject are displayed
-	 * @param content
-	 *            The text contained by the note
+	 * @param id The artifacts's id
+	 * @param content The text contained by the note
 	 */
-	public NoteArtifact(final UMLCanvas canvas, final String content) {
-		super(canvas, true);
+	public NoteArtifact(final UMLCanvas canvas, int id, final String content) {
+		super(canvas, id);
 		this.height = 0;
 		this.width = 0;
 		this.note = new UMLNote(content);

@@ -20,10 +20,10 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.editors.RelationFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
@@ -62,16 +62,13 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	 * Constructor of {@link ClassRelationLinkArtifact}
 	 * 
 	 * @param canvas Where the gfxObject are displayed
-	 * 
-	 * @param left
-	 *            The left {@link ClassArtifact} of the relation
-	 * @param right
-	 *            The right {@link ClassArtifact} of the relation
-	 * @param relationKind
-	 *            The kind of relation this link is.
+	 * @param id The artifacts's id
+	 * @param left The left {@link ClassArtifact} of the relation
+	 * @param right The right {@link ClassArtifact} of the relation
+	 * @param relationKind The kind of relation this link is.
 	 */
-	public ClassRelationLinkArtifact(final UMLCanvas canvas, final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
-		super(canvas, left, right, relationKind);
+	public ClassRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassArtifact left, final ClassArtifact right, final LinkKind relationKind) {
+		super(canvas, id, left, right, relationKind);
 		gfxObjectPart	= new HashMap<RelationLinkArtifactPart, GfxObject>();
 		this.leftClassArtifact = left;
 		left.addDependency(this, right);

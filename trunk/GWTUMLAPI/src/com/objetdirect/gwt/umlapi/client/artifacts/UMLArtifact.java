@@ -23,11 +23,11 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.engine.ShapeGeometry;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
@@ -63,16 +63,20 @@ public abstract class UMLArtifact implements Serializable {
 	@Deprecated
 	protected UMLArtifact() { }
 	
+	
+	
 	/**
 	 * Constructor of UMLArtifact <br>
-	 * This constructor must be called by super() because it's here we assign the artifact id
 	 * 
 	 * @param canvas Where the gfxObject are displayed
-	 * @param toBeAdded
-	 *            True if the artifact can be add to the artifact list
+	 * @param id The artifacts's id
 	 */
-	public UMLArtifact(UMLCanvas canvas, final boolean toBeAdded) {
-		super();
+	public UMLArtifact(UMLCanvas canvas, int id) {
+		this(canvas);
+		this.id = id;
+	}
+	
+	public UMLArtifact(UMLCanvas canvas) {
 		this.canvas = canvas;
 		isSelected = false;
 		
@@ -86,8 +90,6 @@ public abstract class UMLArtifact implements Serializable {
 		
 		isBuilt = false;
 		location = Point.getOrigin();
-		this.id = canvas.getIdCount();
-
 	}
 	
 	/**
@@ -266,7 +268,7 @@ public abstract class UMLArtifact implements Serializable {
 	public void moveTo(final Point newLocation) {
 		if (!this.isALink()) {
 			this.getGfxObject().translate(Point.substract(newLocation, this.getLocation()));
-			this.location = newLocation;
+			setLocation(newLocation);
 		} else {
 			Log.error("Can't move a line ! (moveTo called on " + this + ")");
 		}
