@@ -17,9 +17,9 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 import java.io.Serializable;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 
 /**
  * This class represent an attribute in a class

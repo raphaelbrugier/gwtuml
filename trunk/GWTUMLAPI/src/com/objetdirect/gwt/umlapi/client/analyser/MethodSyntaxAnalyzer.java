@@ -17,9 +17,9 @@ package com.objetdirect.gwt.umlapi.client.analyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;

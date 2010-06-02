@@ -51,7 +51,7 @@ public class Keyboard {
 	 * @param isShiftDown
 	 * @param isMetaDown
 	 */
-	public static void push(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
+	public static void push(final int keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
 		if (!Keyboard.imEnabled) {
 			Log.trace("Keyboard pushed but disabled");
 			return;

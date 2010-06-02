@@ -18,9 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 
 /**
  * This class represent a LifeLine uml component

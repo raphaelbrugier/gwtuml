@@ -14,9 +14,9 @@
  */
 package com.objetdirect.gwt.umlapi.client.analyser;
 
-import com.objetdirect.gwt.umlapi.client.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.Token;
+import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLParameter;
 
 /**

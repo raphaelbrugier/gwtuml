@@ -17,6 +17,7 @@ package com.objetdirect.gwt.umlapi.client.helpers;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
+import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
@@ -68,8 +69,6 @@ public class ContextMenu {
 														}
 													};
 
-	private final UMLCanvas			canvas;
-	private PopupMenu				contextMenu;
 
 	private final Command			remove			= new Command() {
 														public void execute() {
@@ -77,9 +76,7 @@ public class ContextMenu {
 														}
 													};
 
-	private final MenuBarAndTitle	specificRightMenu;
-
-	private final Point				location;
+	
 	private final Command	 			cut			= new Command() {
 														public void execute() {
 															ContextMenu.this.canvas.cut();
@@ -95,6 +92,13 @@ public class ContextMenu {
 															ContextMenu.this.canvas.paste();
 														}
 													};
+													
+	private final UmlCanvas canvas;
+	private PopupMenu contextMenu;
+	private final MenuBarAndTitle specificRightMenu;
+	private final Point location;
+	private Type diagramType;
+													
 	/**
 	 * Constructor of ContextMenu without a specific context menu part
 	 * 
@@ -103,8 +107,8 @@ public class ContextMenu {
 	 * @param canvas
 	 *            The canvas where the actions must be called
 	 */
-	public ContextMenu(final Point location, final UMLCanvas canvas) {
-		this(location, canvas, null);
+	public ContextMenu(final Point location, final UmlCanvas canvas, Type diagramType) {
+		this(location, canvas, null, diagramType);
 	}
 
 	/**
@@ -117,8 +121,9 @@ public class ContextMenu {
 	 * @param specificRightMenu
 	 *            The right menu specific to an artifact to add in this menu
 	 */
-	public ContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	public ContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu, Type diagramType) {
 		super();
+		this.diagramType = diagramType;
 		this.location = location;
 		this.canvas = canvas;
 		this.specificRightMenu = specificRightMenu;
@@ -137,7 +142,7 @@ public class ContextMenu {
 		});
 	}
 
-	private Command addRelation(final LinkKind relation) {
+	private Command createCommandAddRelation(final LinkKind relation) {
 		return new Command() {
 			public void execute() {
 				ContextMenu.this.canvas.toLinkMode(relation);
@@ -156,20 +161,20 @@ public class ContextMenu {
 			this.contextMenu.addItem(this.specificRightMenu.getName(), specificSubMenu);
 			this.contextMenu.addSeparator();
 		}
-		if (this.canvas.getUMLDiagram().getType().isClassType()) {
+		if (diagramType.isClassType()) {
 			this.contextMenu.addItem("Add new class", this.addNewClass);
 		}
-		if (this.canvas.getUMLDiagram().getType().isObjectType()) {
+		if (diagramType.isObjectType()) {
 			this.contextMenu.addItem("Add new object", this.addNewObject);
 		}
-		if (this.canvas.getUMLDiagram().getType() == Type.SEQUENCE) {
+		if (diagramType == Type.SEQUENCE) {
 			this.contextMenu.addItem("Add new life line", this.addNewLifeLine);
 		}
 		this.contextMenu.addItem("Add new note", this.addNewNote);
 		final MenuBar linkSubMenu = new MenuBar(true);
 		for (final LinkKind relationKind : LinkKind.values()) {
-			if (relationKind.isForDiagram(Session.getActiveCanvas().getUMLDiagram().getType())) {
-				linkSubMenu.addItem(relationKind.getName(), this.addRelation(relationKind));
+			if (relationKind.isForDiagram(diagramType)) {
+				linkSubMenu.addItem(relationKind.getName(), createCommandAddRelation(relationKind));
 			}
 		}
 		this.contextMenu.addItem("Add relation", linkSubMenu);
@@ -180,7 +185,7 @@ public class ContextMenu {
 		this.contextMenu.addItem("Paste", this.paste);
 		
 		this.contextMenu.addSeparator();
-		if (this.canvas.getUMLDiagram().getType().isClassOrObjectType()) {
+		if (diagramType.isClassOrObjectType()) {
 			this.contextMenu.addItem("Switch links style", this.changeLinkStyle);
 		}
 
