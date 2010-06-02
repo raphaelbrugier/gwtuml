@@ -12,20 +12,24 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umlapi.client.exceptions;
 
 /**
- * This class defines exception specific to the uml relations and classes.
- * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * This class defines specific application exception
+ * 
+ * @author Henri Darmet
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
-public class UMLException extends RuntimeException {
-	
-	public UMLException() {
-		super();
-	}
+public class GWTUMLAPIException extends RuntimeException {
+	private static final long	serialVersionUID	= 1L;
 
-	public UMLException(String message) {
-		super(message);
+	/**
+	 * Constructor of the exception
+	 * 
+	 * @param msg
+	 *            The String exception
+	 */
+	public GWTUMLAPIException(final String msg) {
+		super(msg);
 	}
 }
