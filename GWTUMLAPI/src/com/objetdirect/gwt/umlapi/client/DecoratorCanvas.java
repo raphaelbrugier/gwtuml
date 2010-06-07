@@ -14,6 +14,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
@@ -23,6 +24,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * Decorate the Canvas with the sides panel.
@@ -35,7 +37,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 	private final double opacityMax =  (double) OptionsManager.get("DirectionPanelMaxOpacity") / 100;
 	private final String backgroundColor = ThemeManager.getTheme().getDirectionPanelColor().toString();
 
-	private final UmlCanvasImpl umlCanvas;
+	private final UMLCanvas umlCanvas;
 
 	private int height;
 	private int width;
@@ -45,7 +47,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 	
 	private Label helpTextLabel;
 	
-	public DecoratorCanvas(UmlCanvasImpl umlCanvas) {
+	public DecoratorCanvas(UMLCanvas umlCanvas) {
 		this.umlCanvas = umlCanvas;
 		umlCanvas.setDecoratorPanel(this);
 		
@@ -74,7 +76,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 			sidePanel.getElement().getStyle().setOpacity(opacityValue);
 			sidePanel.getElement().setAttribute("oncontextmenu", "return false");
 			
-			addSidePanelHandlers(sidePanel);
+			addSidePanelHandlers(direction, sidePanel);
 			
 			this.add(sidePanel);
 		}
@@ -82,7 +84,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 	}
 	
 	
-	private void addSidePanelHandlers(final FocusPanel sidePanel) {
+	private void addSidePanelHandlers(final Direction direction, final FocusPanel sidePanel) {
 		sidePanel.getElement().getStyle().setBackgroundColor(backgroundColor);
 		sidePanel.getElement().getStyle().setOpacity(opacityValue);
 		
@@ -104,8 +106,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 					@Override
 					public void process() {
 						Scheduler.cancel("MovingAllArtifactsRecursive");
-						// TODO uncomment
-//						DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Direction.getDependingOnQualityLevelSpeed()), true);
+						umlCanvas.moveAll(direction.withSpeed(Direction.getDependingOnQualityLevelSpeed()), true);
 					}
 				};
 			}
@@ -136,9 +137,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 			@Override
 			public void onMouseUp(final MouseUpEvent event) {
 				sidePanel.getElement().getStyle().setBackgroundColor(ThemeManager.getTheme().getDirectionPanelColor().toString());
-				//TODO uncomment
-//				DrawerPanel.this.uMLCanvas.moveAll(direction.withSpeed(Math.min(DrawerPanel.this.uMLCanvas.getContainer().getOffsetHeight(), DrawerPanel.this.uMLCanvas
-//						.getContainer().getOffsetWidth())), false);
+				umlCanvas.moveAll(direction.withSpeed(Math.min(DecoratorCanvas.this.getOffsetHeight(), DecoratorCanvas.this.getOffsetWidth())), false);
 			}
 		});
 	}
@@ -244,12 +243,12 @@ public class DecoratorCanvas extends AbsolutePanel {
 	 * @param width the new width
 	 * @param height the new height
 	 */
-	public void reSize(int width, int height) {
+	void reSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.setPixelSize(width,height);
 		setSidePanelsPositionAndSize();
-		umlCanvas.resize(width, height);
+		GfxManager.getPlatform().setSize(umlCanvas.getDrawingCanvas(), width, height);
 		drawArrows();
 	}
 	
