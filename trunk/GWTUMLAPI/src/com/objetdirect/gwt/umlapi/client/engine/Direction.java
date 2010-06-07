@@ -14,6 +14,10 @@
  */
 package com.objetdirect.gwt.umlapi.client.engine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 
 /**
@@ -230,7 +234,7 @@ public enum Direction {
 	 */
 	@Override
 	public String toString() {
-		return "Direction : " + super.toString() + " x : " + this.getXDirection() + " y : " + this.getYDirection() + " wth speed = " + this.speed;
+		return "Direction : " + super.toString() + " x : " + this.getXDirection() + " y : " + this.getYDirection() + " with speed = " + this.speed;
 	}
 
 	/**
@@ -244,6 +248,16 @@ public enum Direction {
 	public Direction withSpeed(final int theSpeed) {
 		this.speed = theSpeed;
 		return this;
+	}
+	
+	/**
+	 * Only the directions representing a side value.
+	 * @return a list containing the 8 side values
+	 */
+	public static List<Direction> sideValues() {
+		List<Direction> directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
+		directions.remove(Direction.UNKNOWN);
+		return directions;
 	}
 
 }
