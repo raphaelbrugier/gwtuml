@@ -97,6 +97,7 @@ public abstract class UMLArtifact implements Serializable {
 	 * Useful to remove a class and all its links
 	 */
 	public void destroyGfxObjectWhithDependencies() {
+		Log.trace("UMLArtifact::destroyGfxObjectWhithDependencies()");
 		GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
 		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.getDependentUMLArtifacts().entrySet()) {
 			GfxManager.getPlatform().clearVirtualGroup(dependentUMLArtifact.getKey().getGfxObject());
@@ -168,10 +169,10 @@ public abstract class UMLArtifact implements Serializable {
 	/**
 	 * Getter for the location
 	 * 
-	 * @return The Point that represents where this artifact currently is
+	 * @return A copy of the Point that represents where this artifact currently is
 	 */
 	public Point getLocation() {
-		return this.location;
+		return this.location.clonePoint();
 	}
 
 	/**
@@ -267,6 +268,9 @@ public abstract class UMLArtifact implements Serializable {
 	 */
 	public void moveTo(final Point newLocation) {
 		if (!this.isALink()) {
+			Log.trace("UMLArtifact::moveto newLocation = " + newLocation);
+			Log.trace("\t getLocation = " + getLocation());
+			Log.trace("\t vector of translation apply to the gfx object = " + Point.substract(newLocation, this.getLocation()));
 			this.getGfxObject().translate(Point.substract(newLocation, this.getLocation()));
 			setLocation(newLocation);
 		} else {
@@ -300,7 +304,8 @@ public abstract class UMLArtifact implements Serializable {
 				}
 			};
 		}
-		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
+		Log.trace("UMLArtifact::rebuildGfxObject ([" + (System.currentTimeMillis() - t) + "ms]) to rebuild " + this + " with dependency");
+		Log.trace("UMLArtifact::rebuildGfxObject artifact built at the location " + location);
 
 	}
 
@@ -379,6 +384,7 @@ public abstract class UMLArtifact implements Serializable {
 	 *            The artifact location
 	 */
 	public void setLocation(final Point location) {
+		Log.trace("UMLArtifact::SetLocation( " + location);
 		this.location = location;
 	}
 
