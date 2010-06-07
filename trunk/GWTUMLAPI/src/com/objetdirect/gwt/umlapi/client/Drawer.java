@@ -21,11 +21,19 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RequiresResize;
+import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
+import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
+import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
+import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
  * This is the main entry class to add a drawer.
@@ -36,14 +44,23 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	private int width;
 	private int height;
 	
-	private UmlCanvasImpl umlCanvas;
+	private UMLCanvas umlCanvas;
 	private DecoratorCanvas decoratorPanel;
 	
 	public Drawer() {
+		setupGfxPlatform();
 		addHandlers();
-		umlCanvas = new UmlCanvasImpl();
+		umlCanvas = new UMLCanvas(Type.CLASS);
 		decoratorPanel = new DecoratorCanvas(umlCanvas);
 		setWidget(decoratorPanel);
+	}
+	
+	private void setupGfxPlatform() {
+		HotKeyManager.forceStaticInit();
+		HotKeyManager.setInputEnabled(false);
+		ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
+		GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
+		GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
 	}
 	
 	private void addHandlers() {
@@ -57,15 +74,6 @@ public class Drawer extends FocusPanel implements RequiresResize {
 //		});
 	}
 
-	public DiagramArtifact getDiagram() {
-		return null;
-	}
-	
-	
-	@Deprecated
-	public UMLCanvas getUMLCanvas() {
-		return null;
-	}
 
 	@Override
 	public void onResize() {
