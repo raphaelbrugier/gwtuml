@@ -26,12 +26,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
-import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.DecoratorCanvas;
 import com.objetdirect.gwt.umlapi.client.UmlCanvas;
@@ -135,7 +130,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	
 	
 	//===== Mouse engine fields ====//
-	private Point currentMousePosition;
 	private boolean isMouseEnabled; //Only needed to desactive the mouse during the demo
 	private transient GfxObjectListener gfxObjectListener;
 	private Point copyMousePosition;
@@ -144,14 +138,9 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	
 	private Point canvasOffset;
 	
-	// Virtual group to add the arrows on the canvas.
-	private transient GfxObject	arrowsVirtualGroup;
-	
-	
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas(){}
-	
-	
+
 	/**
 	 * Constructor of an {@link UMLCanvas} with default size
 	 * @param diagramType Type of the diagram displayed in the canvas
@@ -190,7 +179,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		lifeLineCount = 0;
 		copyBuffer = "";
 		dragAndDropState = DragAndDropState.NONE;
-		currentMousePosition = new Point(-200, -200);
 		canvasOffset = Point.getOrigin();
 		duringDragOffset = Point.getOrigin();
 		isMouseEnabled = true;
@@ -213,7 +201,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.movingLines.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		this.outlines.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		this.movingOutlineDependencies.addToCanvas(this.drawingCanvas, Point.getOrigin());
-		attachCurrentMousePositionHandler();
 		Log.trace("Init canvas done");
 	}
 	
@@ -226,24 +213,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		gfxObjectListener = new CanvasListener(this);
 	}
 
-	/** Attach a mouse move handler to the windows that will refresh the current mouse postion Point on the canvas.
-	 * This position is the real position on the canvas calculated from its container's size and position .  
-	 * */
-	private void attachCurrentMousePositionHandler() {
-		Event.addNativePreviewHandler(new NativePreviewHandler(){
-		    public void onPreviewNativeEvent(NativePreviewEvent event) {
-		        if (event.getTypeInt() == Event.ONMOUSEMOVE)
-		        {
-		            int xCoord = event.getNativeEvent().getClientX();
-		            int yCoord = event.getNativeEvent().getClientY();
-		            Point position = new Point(xCoord, yCoord);
-		            Point realPosition = Session.getActiveCanvas().convertToRealPoint(position); 
-		            Session.getActiveCanvas().setCurrentMousePosition(realPosition);
-		        }
-		    }
-		});
-	}
-	
 	/**
 	 * Add an {@link UMLArtifact} to this canvas
 	 * 
@@ -306,7 +275,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		//try {
 		if (!url.equals("AA==")) {
 			String diagram = isForPasting ? url : GWTUMLDrawerHelper.decodeBase64(url);
-			Point pasteShift = isForPasting ? Point.substract(Point.substract(this.currentMousePosition, this.copyMousePosition), this.canvasOffset) : Point.getOrigin();
+			Point pasteShift = isForPasting ? Point.substract(Point.substract(container.getCurrentMousePosition(), this.copyMousePosition), this.canvasOffset) : Point.getOrigin();
 					
 			diagram = diagram.substring(0, diagram.lastIndexOf(";"));
 			final String[] diagramArtifacts = diagram.split(";");
@@ -550,14 +519,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	
 
 	/**
-	 * @param currentMousePosition the currentMousePosition to set
-	 */
-	public void setCurrentMousePosition(Point currentMousePosition) {
-		this.currentMousePosition = currentMousePosition;
-	}
-	
-
-	/**
 	 * Move all artifact in the specified {@link Direction}
 	 * 
 	 * @param direction
@@ -566,7 +527,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            True if the method call is recursive
 	 */
 	public void moveAll(final Direction direction, final boolean isRecursive) {
-		Log.debug("UMLCanvas::moveAll");
+		Log.trace("UMLCanvas::moveAll");
 		new Scheduler.Task("MovingAllArtifacts") {
 			@Override
 			public void process() {
@@ -574,7 +535,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 				UMLCanvas.this.allObjects.translate(translation);
 				UMLCanvas.this.canvasOffset.translate(translation);
 				UMLCanvas.this.duringDragOffset.translate(translation);
-				UMLCanvas.this.mouseMoved(UMLCanvas.this.currentMousePosition, false, false);
+				UMLCanvas.this.mouseMoved(container.getCurrentMousePosition(), false, false);
 				UMLCanvas.this.movingLines.translate(translation);
 				UMLCanvas.this.movingOutlineDependencies.translate(translation);
 				if (FieldEditor.getEditField() != null) {
@@ -656,21 +617,21 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * Add a new class with default values to this canvas to an the current mouse position
 	 */
 	public void addNewClass() {
-		this.addNewClass(this.currentMousePosition);
+		this.addNewClass(container.getCurrentMousePosition());
 	}
 
 	/**
 	 * Add a new lifeLine with default values to this canvas to the current mouse position
 	 */
 	public void addNewLifeLine() {
-		this.addNewLifeLine(this.currentMousePosition);
+		this.addNewLifeLine(container.getCurrentMousePosition());
 	}
 
 	/**
 	 * Add a new object with default values to this canvas to the current mouse position
 	 */
 	public void addNewObject() {
-		this.addNewObject(this.currentMousePosition);
+		this.addNewObject(container.getCurrentMousePosition());
 	}
 	
 	/**
@@ -748,58 +709,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 	
-	/**
-	 * Make a link between two {@link UMLArtifact}
-	 * 
-	 * @param uMLArtifact
-	 *            The first one of the two {@link UMLArtifact} to be linked
-	 * @param uMLArtifactNew
-	 *            The second one of the two {@link UMLArtifact} to be linked
-	 * @param linkKind
-	 *            The {@link LinkKind} of this link
-	 * @param id The created {@link LinkArtifact}'s id
-	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
-	 */
-	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind, int id) {
-		if (linkKind == LinkKind.NOTE) {
-			if (uMLArtifactNew instanceof NoteArtifact) {
-				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifactNew, uMLArtifact);
-			}
-			if (uMLArtifact instanceof NoteArtifact) {
-				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifact, uMLArtifactNew);
-			}
-			return null;
-		} else if (linkKind == LinkKind.CLASSRELATION) {
-			if ((uMLArtifactNew instanceof ClassRelationLinkArtifact) && (uMLArtifact instanceof ClassArtifact)) {
-				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
-			}
-			if ((uMLArtifact instanceof ClassRelationLinkArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
-				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
-			}
-			return null;
-
-		} else if ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
-			return new ClassRelationLinkArtifact(this, id,(ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
-
-		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
-				&& (uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ObjectArtifact)) {
-			return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION)
-				&& ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ObjectArtifact))) {
-			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION)
-				&& ((uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ClassArtifact))) {
-			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
-			return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
-
-		}
-		return null;
-	}
+	
 
 	@Override
 	public void addNewNote() {
-		this.addNewNote(this.currentMousePosition);
+		this.addNewNote(container.getCurrentMousePosition());
 
 	}
 
@@ -851,6 +765,55 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.mouseIsPressed = true;
 
 		this.container.setHelpText("Adding a new object", location.clonePoint());
+	}
+	
+	/**
+	 * Make a link between two {@link UMLArtifact}
+	 * 
+	 * @param uMLArtifact
+	 *            The first one of the two {@link UMLArtifact} to be linked
+	 * @param uMLArtifactNew
+	 *            The second one of the two {@link UMLArtifact} to be linked
+	 * @param linkKind
+	 *            The {@link LinkKind} of this link
+	 * @param id The created {@link LinkArtifact}'s id
+	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
+	 */
+	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind, int id) {
+		if (linkKind == LinkKind.NOTE) {
+			if (uMLArtifactNew instanceof NoteArtifact) {
+				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifactNew, uMLArtifact);
+			}
+			if (uMLArtifact instanceof NoteArtifact) {
+				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifact, uMLArtifactNew);
+			}
+			return null;
+		} else if (linkKind == LinkKind.CLASSRELATION) {
+			if ((uMLArtifactNew instanceof ClassRelationLinkArtifact) && (uMLArtifact instanceof ClassArtifact)) {
+				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
+			}
+			if ((uMLArtifact instanceof ClassRelationLinkArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
+				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
+			}
+			return null;
+
+		} else if ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
+			return new ClassRelationLinkArtifact(this, id,(ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
+
+		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION)
+				&& (uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ObjectArtifact)) {
+			return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+		} else if ((linkKind == LinkKind.INSTANTIATION)
+				&& ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ObjectArtifact))) {
+			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
+		} else if ((linkKind == LinkKind.INSTANTIATION)
+				&& ((uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ClassArtifact))) {
+			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+		} else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
+			return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+
+		}
+		return null;
 	}
 	
 	/**
@@ -937,7 +900,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			}
 			this.idCount = this.idCount + oldIds.size() + 1;
 			fromURL(this.copyBuffer, true);
-			this.dragOffset = this.currentMousePosition;
+			this.dragOffset = container.getCurrentMousePosition();
 			
 			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
 			this.dragAndDropState = DragAndDropState.TAKING;
@@ -954,7 +917,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			return;
 		}
 		this.duringDragOffset = Point.getOrigin();
-		final Point realPoint = this.convertToRealPoint(location);
+		final Point realPoint = container.getCurrentMousePosition();
 		this.mouseIsPressed = true;
 		if (this.dragAndDropState == DragAndDropState.DRAGGING) {
 			return;
@@ -974,8 +937,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 
 	@SuppressWarnings("fallthrough")
 	void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
-		Log.debug("UMLCanvas::mouseMoved()");
-		final Point realPoint = this.convertToRealPoint(location);
+		Log.trace("UMLCanvas::mouseMoved()");
+		final Point realPoint = container.getCurrentMousePosition();
 		this.container.moveHelpText(realPoint );
 		switch (this.dragAndDropState) {
 			case TAKING:
@@ -1001,7 +964,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		if (!this.mouseIsPressed) {
 			return;
 		}
-		final Point realPoint = this.convertToRealPoint(location);
+		final Point realPoint = container.getCurrentMousePosition();
 		this.mouseIsPressed = false;
 
 		if (this.dragAndDropState == DragAndDropState.TAKING) {
@@ -1104,6 +1067,9 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
 	}
 
+	/**
+	 * OnLoad should explicitly be called by the container's onLoad method 
+	 */
 	public void onLoad() {
 		Log.trace("UMLCanvas::onLoad() loading");
 		rebuildAllGFXObjects();
@@ -1165,11 +1131,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	public Point convertToRealPoint(final Point location) {
-		return Point.add(location, 
-				new Point(RootPanel.getBodyElement().getScrollLeft() - this.container.getAbsoluteLeft(), RootPanel.getBodyElement().getScrollTop() - this.container.getAbsoluteTop()));
-	}
-
 	private void deselectAllArtifacts() {
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
 			selectedArtifact.unselect();
@@ -1211,7 +1172,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 
 	private void drag(final Point realPoint) {
-		Log.debug("dragging : location = " + realPoint);
+		Log.trace("dragging : location = " + realPoint);
 		final Point shift = Point.substract(realPoint, this.dragOffset);
 		this.totalDragShift.translate(shift);
 
@@ -1373,7 +1334,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
 		this.initCanvas();
-		
+
 		objects	= new HashMap<GfxObject, UMLArtifact>();
 		for(UMLArtifact artifact: umlArtifacts) {
 			artifact.initializeGfxObject().addToVirtualGroup(this.allObjects);
@@ -1382,5 +1343,4 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			this.objects.put(artifact.getGfxObject(), artifact);
 		}
 	}
-	
 }
