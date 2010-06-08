@@ -14,25 +14,23 @@
  */
 package com.objetdirect.gwt.umlapi.client;
 
-import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RequiresResize;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
-import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
-import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
@@ -48,11 +46,15 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	private DecoratorCanvas decoratorPanel;
 	
 	public Drawer() {
+		this(new UMLCanvas(Type.CLASS));
+	}
+	
+	public Drawer(UMLCanvas umlCanvas) {
 		setupGfxPlatform();
 		addHandlers();
-		umlCanvas = new UMLCanvas(Type.CLASS);
 		decoratorPanel = new DecoratorCanvas(umlCanvas);
 		setWidget(decoratorPanel);
+		this.umlCanvas = umlCanvas;
 	}
 	
 	private void setupGfxPlatform() {
@@ -87,5 +89,41 @@ public class Drawer extends FocusPanel implements RequiresResize {
 		this.height = height;
 		this.setPixelSize(this.width, this.height);
 		decoratorPanel.reSize(width, height);
+	}
+
+	/**
+	 * @return the umlCanvas
+	 */
+	public UMLCanvas getUmlCanvas() {
+		return umlCanvas;
+	}
+
+	/**
+	 * @return A list of UmlClass currently displayed in the modeler
+	 */
+	public List<UMLClass> getUmlClasses() {
+		ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
+		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
+			if (umlArtifact instanceof ClassArtifact) {
+				ClassArtifact classArtifact  = (ClassArtifact)umlArtifact;
+				umlClasses.add(classArtifact.toUMLComponent());
+			} 
+		}
+		return umlClasses;
+	}
+	
+	
+	/**
+	 * @return A list of the relations between the umlComponents currently displayed. 
+	 */
+	public List<UMLRelation> getUmlRelations() {
+		ArrayList<UMLRelation> umlRelations = new  ArrayList<UMLRelation>();
+		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
+			if (umlArtifact instanceof ClassRelationLinkArtifact) {
+				ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact)umlArtifact;
+				umlRelations.add(relationLinkArtifact.toUMLComponent());
+			}
+		}
+		return umlRelations;
 	}
 }

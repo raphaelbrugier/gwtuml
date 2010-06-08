@@ -1,3 +1,17 @@
+/*
+ * This file is part of the Gwt-Uml project and was written by Raphaël Brugier <raphael dot brugier at gmail dot com > for Objet Direct
+ * <http://wwww.objetdirect.com>
+ * 
+ * Copyright © 2010 Objet Direct
+ * 
+ * Gwt-Uml is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later version.
+ * 
+ * Gwt-Uml is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License along with Gwt-Generator. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.objetdirect.gwt.umlapi.client;
 
 import java.util.ArrayList;
@@ -13,10 +27,14 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
@@ -47,6 +65,14 @@ public class DecoratorCanvas extends AbsolutePanel {
 	
 	private Label helpTextLabel;
 	
+	private HandlerRegistration mouseHandlerRegistration;
+	
+	/**
+	 * The current mouse position on the Canvas.
+	 * A (0,0) position means the mouse is in the left top corner of the canvas.
+	 */
+	private final Point currentMousePosition;
+	
 	public DecoratorCanvas(UMLCanvas umlCanvas) {
 		this.umlCanvas = umlCanvas;
 		umlCanvas.setDecoratorPanel(this);
@@ -57,6 +83,51 @@ public class DecoratorCanvas extends AbsolutePanel {
 		helpTextLabel = new Label("");
 		helpTextLabel.setStylePrimaryName("contextual-help");
 		this.add(helpTextLabel,0,0);
+		
+		currentMousePosition = new Point(0, 0);
+	}
+	
+	/** Attach a mouse move handler to the windows that will refresh the current mouse position Point on the canvas.
+	 * This position is the real position on the canvas calculated from its container's size and position .  
+	 * */
+	private void attachCurrentMousePositionHandler() {
+		
+		mouseHandlerRegistration = Event.addNativePreviewHandler(new NativePreviewHandler(){
+		    public void onPreviewNativeEvent(NativePreviewEvent event) {
+		        if (event.getTypeInt() == Event.ONMOUSEMOVE) {
+		            int xCoord = event.getNativeEvent().getClientX();
+		            int yCoord = event.getNativeEvent().getClientY();
+		            Point mousePositionOnCanvas = calculateMousePosition(xCoord, yCoord);
+		            currentMousePosition.setX(mousePositionOnCanvas.getX());
+		            currentMousePosition.setY(mousePositionOnCanvas.getY());
+		            Log.trace("MouseControler::MouseMoveEvent update mousePosition on : " + currentMousePosition);
+		        }
+		    }
+		});
+	}
+	
+	/**
+	 * Calculate the mouse position on the canvas from the absolute mouse position.
+	 * The absolute mouse position is the position of the mouse from the top left corner of the window.
+	 * The calculated position means that the position (0,0) is the position for the mouse on the top left corner of the canvas.
+	 * @param left
+	 * @param top
+	 * @return the calculated Point.
+	 */
+	private Point calculateMousePosition(int left, int top) {
+		int canvasLeftPosition = umlCanvas.getDrawingCanvas().getAbsoluteLeft();
+		int canvasTopPosition = umlCanvas.getDrawingCanvas().getAbsoluteTop();
+		
+		int calculatedLeft = left + RootPanel.getBodyElement().getScrollLeft() - canvasLeftPosition;
+		int calculatedTop = top + RootPanel.getBodyElement().getScrollTop() - canvasTopPosition;
+		
+		return new Point(calculatedLeft, calculatedTop);
+	}
+	
+	private void detachCurrentMousePositionHandler() {
+		if(mouseHandlerRegistration != null) {
+			mouseHandlerRegistration.removeHandler();
+		}
 	}
 	
 
@@ -91,7 +162,6 @@ public class DecoratorCanvas extends AbsolutePanel {
 		sidePanel.addMouseOverHandler(new MouseOverHandler() {
 			@Override
 			public void onMouseOver(final MouseOverEvent event) {
-				Log.debug("Mouse over sidePanel ");
 				for (double d = opacityValue; d <= opacityMax; d += 0.05) {
 					final double opacity = Math.ceil(d * 100) / 100;
 
@@ -267,5 +337,25 @@ public class DecoratorCanvas extends AbsolutePanel {
 		int top = location.getY() - helpTextLabel.getOffsetHeight() - 5;
 		
 		this.setWidgetPosition(helpTextLabel, left, top);
+	}
+	
+	/**
+	 * @return a copy of the currentMousePosition
+	 */
+	public Point getCurrentMousePosition() {
+		return currentMousePosition.clonePoint();
+	}
+	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		attachCurrentMousePositionHandler();
+		umlCanvas.onLoad();
+	}
+	
+	@Override
+	protected void onUnload() {
+		super.onUnload();
+		detachCurrentMousePositionHandler();
 	}
 }
