@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.DecoratorCanvas;
 import com.objetdirect.gwt.umlapi.client.UmlCanvas;
@@ -53,17 +52,9 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -111,6 +102,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	//===== cut copy paste fields =======//
 	private String copyBuffer;
 	private boolean  wasACopy;
+	private Point copyMousePosition;
 	
 	
 	//==== Selection fields =====//
@@ -132,11 +124,14 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	//===== Mouse engine fields ====//
 	private boolean isMouseEnabled; //Only needed to desactive the mouse during the demo
 	private transient GfxObjectListener gfxObjectListener;
-	private Point copyMousePosition;
+
 	// Manage mouse state when  releasing outside the listener
 	private boolean	mouseIsPressed;	
-	
 	private Point canvasOffset;
+	
+	
+	//========== Extra ===========//
+	private transient UrlConverter urlConverter;
 	
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas(){}
@@ -193,6 +188,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	
 	private void initCanvas() {
 		initGfxObjects();
+		urlConverter = new UrlConverter(this);
 		Log.trace("Adding Canvas");
 		Log.trace("Adding object listener");
 		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
@@ -272,167 +268,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * 
 	 */
 	public void fromURL(final String url, final boolean isForPasting) {
-		//try {
-		if (!url.equals("AA==")) {
-			String diagram = isForPasting ? url : GWTUMLDrawerHelper.decodeBase64(url);
-			Point pasteShift = isForPasting ? Point.substract(Point.substract(container.getCurrentMousePosition(), this.copyMousePosition), this.canvasOffset) : Point.getOrigin();
-					
-			diagram = diagram.substring(0, diagram.lastIndexOf(";"));
-			final String[] diagramArtifacts = diagram.split(";");
-
-			for (final String artifactWithParameters : diagramArtifacts) {
-				if (!artifactWithParameters.equals("")) {
-					final String[] artifactAndParameters = artifactWithParameters.split("\\$");
-					if (artifactAndParameters.length > 1) {
-						final String[] artifactAndId = artifactAndParameters[0].split("]");
-						final String[] parameters = artifactAndParameters[1].split("!", -1);
-						final String artifact = artifactAndId[1];
-						int id = 0;
-						try {
-							id = Integer.parseInt(artifactAndId[0].replaceAll("[<>]", ""));
-						} catch (final Exception ex) {
-							Log.error("Parsing url, artifact id is NaN : " + artifactWithParameters + " : " + ex);
-						}
-						UMLArtifact newArtifact = null;
-						if (artifact.equals("Class")) {
-							newArtifact = new ClassArtifact(this, id, (isForPasting && wasACopy ? "CopyOf" : "") +UMLClass.parseNameOrStereotype(parameters[1]), UMLClass.parseNameOrStereotype(parameters[2]));
-							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
-							if (parameters[3].length() > 1) {
-								final String[] classAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
-								for (final String attribute : classAttributes) {
-									((ClassArtifact) newArtifact).addAttribute(UMLClassAttribute.parseAttribute(attribute));
-								}
-							}
-							if (parameters[4].length() > 1) {
-								final String[] classMethods = parameters[4].substring(0, parameters[4].lastIndexOf("%")).split("%");
-								for (final String method : classMethods) {
-									((ClassArtifact) newArtifact).addMethod(UMLClassMethod.parseMethod(method));
-								}
-							}
-
-						} else if (artifact.equals("Object")) {
-							newArtifact = new ObjectArtifact(this, id, UMLObject.parseName(parameters[1]).get(0), (isForPasting && wasACopy ? "CopyOf" : "") + UMLObject.parseName(parameters[1]).get(1),
-									UMLObject.parseStereotype(parameters[2]));
-							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
-							if (parameters[3].length() > 1) {
-								final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
-								for (final String attribute : objectAttributes) {
-									((ObjectArtifact) newArtifact).addAttribute(UMLObjectAttribute.parseAttribute(attribute));
-								}
-							}
-
-						} else if (artifact.equals("LifeLine")) {
-							newArtifact = new LifeLineArtifact(this, id, (isForPasting && wasACopy ? "CopyOf" : "") + UMLLifeLine.parseName(parameters[1]).get(1), UMLLifeLine.parseName(parameters[1]).get(0));
-							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
-
-						} else if (artifact.equals("Note")) {
-							newArtifact = new NoteArtifact(this, id, parameters[1]);
-							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
-
-						} else if (artifact.equals("LinkNote")) {
-							Integer noteId = 0;
-							Integer targetId = 0;
-							try {
-								noteId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								targetId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new LinkNoteArtifact(this, id, (NoteArtifact) artifactById.get(noteId), artifactById.get(targetId));
-
-						} else if (artifact.equals("LinkClassRelation")) {
-							Integer classId = 0;
-							Integer relationId = 0;
-							try {
-								classId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								relationId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new LinkClassRelationArtifact(this, id, (ClassArtifact) artifactById.get(classId),
-									(ClassRelationLinkArtifact) artifactById.get(relationId));
-
-						} else if (artifact.equals("ClassRelationLink")) {
-							Integer classLeftId = 0;
-							Integer classRigthId = 0;
-							try {
-								classLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								classRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new ClassRelationLinkArtifact(this, id, (ClassArtifact) artifactById.get(classLeftId),
-									(ClassArtifact) artifactById.get(classRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((ClassRelationLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
-							((ClassRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-							((ClassRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-							((ClassRelationLinkArtifact) newArtifact).setLeftCardinality(parameters[6]);
-							((ClassRelationLinkArtifact) newArtifact).setLeftConstraint(parameters[7]);
-							((ClassRelationLinkArtifact) newArtifact).setLeftRole(parameters[8]);
-							((ClassRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[9]));
-							((ClassRelationLinkArtifact) newArtifact).setRightCardinality(parameters[10]);
-							((ClassRelationLinkArtifact) newArtifact).setRightConstraint(parameters[11]);
-							((ClassRelationLinkArtifact) newArtifact).setRightRole(parameters[12]);
-
-						} else if (artifact.equals("ObjectRelationLink")) {
-							Integer objectLeftId = 0;
-							Integer objectRigthId = 0;
-							try {
-								objectLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								objectRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) artifactById.get(objectLeftId),
-									(ObjectArtifact) artifactById.get(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((ObjectRelationLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
-							((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-							((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-							((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
-
-						} else if (artifact.equals("MessageLink")) {
-							Integer lifeLineLeftId = 0;
-							Integer lifeLineRigthId = 0;
-							try {
-								lifeLineLeftId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								lifeLineRigthId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new MessageLinkArtifact(this, id, (LifeLineArtifact) artifactById.get(lifeLineLeftId),
-									(LifeLineArtifact) artifactById.get(lifeLineRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((MessageLinkArtifact) newArtifact).setName((isForPasting && wasACopy ? "CopyOf" : "") + parameters[3]);
-							((MessageLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-							((MessageLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-							((MessageLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
-
-						} else if (artifact.equals("InstantiationRelationLink")) {
-							Integer classId = 0;
-							Integer objectId = 0;
-							try {
-								classId = Integer.parseInt(parameters[0].replaceAll("[<>]", ""));
-								objectId = Integer.parseInt(parameters[1].replaceAll("[<>]", ""));
-							} catch (final Exception ex) {
-								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
-							}
-							newArtifact = new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) artifactById.get(classId),
-									(ObjectArtifact) artifactById.get(objectId), LinkKind.INSTANTIATION);
-						}
-						if (newArtifact != null) {
-							newArtifact.setId(id);
-							this.add(newArtifact);
-						}
-						if(isForPasting) {
-							selectArtifact(newArtifact);
-							
-						}
-					}
-				}
-			}
-		}
-		//} catch (final Exception ex) {
-		//	Log.error("There was a problem reading diagram in url : ");
-		//}
+		urlConverter.fromURL(url, isForPasting);
 	}
 
 	/**
@@ -472,7 +308,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		return this.drawingCanvas;
 	}
 	
-	public AbsolutePanel getContainer() {
+	public DecoratorCanvas getContainer() {
 		return container;
 	}
 
@@ -515,6 +351,14 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public Map<Integer, UMLArtifact> getArtifactById() {
 		return artifactById;
+	}
+	
+	public boolean getWasACopy() {
+		return wasACopy;
+	}
+
+	public Point getCopyMousePosition() {
+		return copyMousePosition;
 	}
 	
 
@@ -597,19 +441,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * @return The concatenated String from all {@link UMLArtifact#toURL()}
 	 */
 	public String toUrl() {
-		final StringBuilder url = new StringBuilder();
-		for (final Entry<Integer, UMLArtifact> uMLArtifactEntry : artifactById.entrySet()) {
-			final String artifactString = uMLArtifactEntry.getValue().toURL();
-			if ((artifactString != null) && !artifactString.equals("")) {
-				url.append("<");
-				url.append(uMLArtifactEntry.getKey());
-				url.append(">]");
-				url.append(artifactString);
-				url.append(";");
-			}
-		}
-
-		return GWTUMLDrawerHelper.encodeBase64(url.toString());
+		return urlConverter.toUrl();
 	}
 
 	
