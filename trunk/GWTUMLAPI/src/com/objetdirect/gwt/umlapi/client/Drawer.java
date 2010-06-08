@@ -29,9 +29,9 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 
 /**
  * This is the main entry class to add a drawer.
@@ -46,7 +46,7 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	private DecoratorCanvas decoratorPanel;
 	
 	public Drawer() {
-		this(new UMLCanvas(Type.CLASS));
+		this(new UMLCanvas(DiagramType.CLASS));
 	}
 	
 	public Drawer(UMLCanvas umlCanvas) {

@@ -26,8 +26,8 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
@@ -115,7 +115,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 		rightMenu.addItem("Reverse", this.reverseCommand(this.message));
 		final MenuBar linkSubMenu = new MenuBar(true);
 		for (final LinkKind messageKind : LinkKind.values()) {
-			if (messageKind.isForDiagram(Type.SEQUENCE)) {
+			if (messageKind.isForDiagram(DiagramType.SEQUENCE)) {
 				linkSubMenu.addItem(messageKind.getName(), this.changeToCommand(this.message, messageKind));
 			}
 		}

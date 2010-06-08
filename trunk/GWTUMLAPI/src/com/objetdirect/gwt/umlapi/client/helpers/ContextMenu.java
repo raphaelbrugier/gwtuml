@@ -14,13 +14,17 @@
  */
 package com.objetdirect.gwt.umlapi.client.helpers;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.CLASS;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.OBJECT;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.SEQUENCE;
+
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
@@ -97,7 +101,7 @@ public class ContextMenu {
 	private PopupMenu contextMenu;
 	private final MenuBarAndTitle specificRightMenu;
 	private final Point location;
-	private Type diagramType;
+	private DiagramType diagramType;
 													
 	/**
 	 * Constructor of ContextMenu without a specific context menu part
@@ -107,7 +111,7 @@ public class ContextMenu {
 	 * @param canvas
 	 *            The canvas where the actions must be called
 	 */
-	public ContextMenu(final Point location, final UmlCanvas canvas, Type diagramType) {
+	public ContextMenu(final Point location, final UmlCanvas canvas, DiagramType diagramType) {
 		this(location, canvas, null, diagramType);
 	}
 
@@ -121,7 +125,7 @@ public class ContextMenu {
 	 * @param specificRightMenu
 	 *            The right menu specific to an artifact to add in this menu
 	 */
-	public ContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu, Type diagramType) {
+	public ContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu, DiagramType diagramType) {
 		super();
 		this.diagramType = diagramType;
 		this.location = location;
@@ -161,13 +165,13 @@ public class ContextMenu {
 			this.contextMenu.addItem(this.specificRightMenu.getName(), specificSubMenu);
 			this.contextMenu.addSeparator();
 		}
-		if (diagramType.isClassType()) {
+		if (diagramType == CLASS) {
 			this.contextMenu.addItem("Add new class", this.addNewClass);
 		}
-		if (diagramType.isObjectType()) {
+		if (diagramType == OBJECT) {
 			this.contextMenu.addItem("Add new object", this.addNewObject);
 		}
-		if (diagramType == Type.SEQUENCE) {
+		if (diagramType == SEQUENCE) {
 			this.contextMenu.addItem("Add new life line", this.addNewLifeLine);
 		}
 		this.contextMenu.addItem("Add new note", this.addNewNote);

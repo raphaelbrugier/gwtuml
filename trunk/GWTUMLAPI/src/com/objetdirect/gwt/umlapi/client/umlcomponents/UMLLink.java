@@ -16,7 +16,6 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import java.io.Serializable;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
@@ -36,63 +35,63 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Aggregation relation
 		 */
-		AGGREGATION_RELATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, Type.HYBRID),
+		AGGREGATION_RELATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, DiagramType.HYBRID),
 		/**
 		 * Association relation
 		 */
-		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID, Type.HYBRID),
+		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID, DiagramType.HYBRID),
 		/**
 		 * Composition relation
 		 */
-		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID, Type.HYBRID),
+		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID, DiagramType.HYBRID),
 		/**
 		 * Dependency relation
 		 */
-		DEPENDENCY_RELATION("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED, Type.HYBRID),
+		DEPENDENCY_RELATION("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED, DiagramType.HYBRID),
 		/**
 		 * Generalization relation
 		 */
-		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
+		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.CLASS),
 		/**
 		 * Realization relation
 		 */
-		REALIZATION_RELATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED, Type.CLASS),
+		REALIZATION_RELATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED, DiagramType.CLASS),
 		/**
 		 * Asynchronous message
 		 */
-		ASYNCHRONOUS_MESSAGE("Asynchronous", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.SEQUENCE),
+		ASYNCHRONOUS_MESSAGE("Asynchronous", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
 		/**
 		 * Synchronous message
 		 */
-		SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.SEQUENCE),
+		SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
 		/**
 		 * Reply message
 		 */
-		REPLY_MESSAGE("Reply", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.DASHED, Type.SEQUENCE),
+		REPLY_MESSAGE("Reply", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.DASHED, DiagramType.SEQUENCE),
 		/**
 		 * Object Creation message
 		 */
-		OBJECT_CREATION_MESSAGE("Object Creation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED, Type.SEQUENCE),
+		OBJECT_CREATION_MESSAGE("Object Creation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED, DiagramType.SEQUENCE),
 		/**
 		 * Lost message
 		 */
-		LOST_MESSAGE("Lost", LinkAdornment.INVERTED_SOLID_CIRCLE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.SEQUENCE),
+		LOST_MESSAGE("Lost", LinkAdornment.INVERTED_SOLID_CIRCLE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
 		/**
 		 * Found message
 		 */
-		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID, Type.SEQUENCE),
+		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
 		/**
 		 * Note relation
 		 */
-		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.HYBRID),
+		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.HYBRID),
 		/**
 		 * Class relation
 		 */
-		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, Type.CLASS),
+		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.CLASS),
 		/**
 		 * Class Object instantiation
 		 */
-		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED, Type.HYBRID);
+		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED, DiagramType.HYBRID);
 
 		/**
 		 * Static getter of a {@link LinkKind} by its name
@@ -117,7 +116,7 @@ public abstract class UMLLink implements Serializable {
 		private String			defaultRightCardinality;
 		private LinkStyle		defaultLinkStyle;
 
-		private Type			requiredType;
+		private DiagramType			requiredType;
 
 		/**
 		 * Default constructor ONLY for gwt-rpc serialization 
@@ -126,7 +125,7 @@ public abstract class UMLLink implements Serializable {
 		}
 		
 		private LinkKind(final String name, final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
-				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle, final Type requiredType) {
+				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle, final DiagramType requiredType) {
 
 			this.name = name;
 			this.defaultLeftAdornment = defaultLeftAdornment;
@@ -199,7 +198,7 @@ public abstract class UMLLink implements Serializable {
 		 * 
 		 * @return True if this {@link LinkKind} can be put on this diagramType
 		 */
-		public boolean isForDiagram(final Type diagramType) {
+		public boolean isForDiagram(final DiagramType diagramType) {
 			if (this == INSTANTIATION) {
 				return diagramType.isHybridType();
 			}
