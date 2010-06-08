@@ -30,7 +30,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
@@ -221,7 +221,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		rightMenu.addItem("Reverse", this.reverseCommand(this.relation));
 		final MenuBar linkSubMenu = new MenuBar(true);
 		for (final LinkKind relationKind : LinkKind.values()) {
-			if (relationKind.isForDiagram(UMLDiagram.Type.CLASS)) {
+			if (relationKind.isForDiagram(DiagramType.CLASS)) {
 				linkSubMenu.addItem(relationKind.getName(), this.changeToCommand(this.relation, relationKind));
 			}
 		}

@@ -52,8 +52,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
@@ -85,7 +84,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	private long objectCount;
 	private long lifeLineCount;
 	private long noteCount;
-	private UMLDiagram uMLDiagram;
+	private DiagramType diagramType;
 	/** List of all the uml artifacts in the diagram */
 	private List<UMLArtifact> umlArtifacts;
 	/** Id counter */
@@ -140,8 +139,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * Constructor of an {@link UMLCanvas} with default size
 	 * @param diagramType Type of the diagram displayed in the canvas
 	 */
-	public UMLCanvas(Type diagramType) {
-		this(new UMLDiagram(diagramType), GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
+	public UMLCanvas(DiagramType diagramType) {
+		this(diagramType, GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
 	}
 
 	/**
@@ -154,7 +153,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * @param height
 	 *            The uml canvas height
 	 */
-	public UMLCanvas(final UMLDiagram uMLDiagram, final int width, final int height) {
+	public UMLCanvas(DiagramType diagramType, final int width, final int height) {
 		super();
 		Session.setActiveCanvas(this);
 		initFieldsWithDefaultValue();
@@ -164,7 +163,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
 		
 		this.initCanvas();
-		this.uMLDiagram = uMLDiagram;
+		this.diagramType = diagramType;
 	}
 	
 	private void initFieldsWithDefaultValue() {
@@ -317,8 +316,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * 
 	 * @return the uMLDiagram
 	 */
-	public UMLDiagram getUMLDiagram() {
-		return this.uMLDiagram;
+	public DiagramType getUMLDiagram() {
+		return this.diagramType;
 	}
 
 	/**
@@ -1049,9 +1048,9 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		final UMLArtifact elem = this.getUMLArtifact(gfxObject);
 		ContextMenu contextMenu;
 		if (elem != null) {
-			contextMenu = new ContextMenu(location, this, elem.getRightMenu(), uMLDiagram.getType());
+			contextMenu = new ContextMenu(location, this, elem.getRightMenu(), diagramType);
 		} else {
-			contextMenu = new ContextMenu(location, this, uMLDiagram.getType());
+			contextMenu = new ContextMenu(location, this, diagramType);
 		}
 		contextMenu.show();
 	}

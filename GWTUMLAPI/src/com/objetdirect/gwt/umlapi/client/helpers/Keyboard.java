@@ -17,7 +17,7 @@ package com.objetdirect.gwt.umlapi.client.helpers;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
@@ -73,18 +73,18 @@ public class Keyboard {
 					Session.getActiveCanvas().copy();
 				} else {
 				
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().addNewClass();
 				}
 				}
 				break;
 			case 'O':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isObjectType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.OBJECT) {
 					Session.getActiveCanvas().addNewObject();
 				}
 				break;
 			case 'F':
-				if (Session.getActiveCanvas().getUMLDiagram().getType() == Type.SEQUENCE) {
+				if (Session.getActiveCanvas().getUMLDiagram()  == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().addNewLifeLine();
 				}
 				break;
@@ -95,33 +95,33 @@ public class Keyboard {
 				if (isCtrlDown) {
 					Session.getActiveCanvas().selectAll();
 				} else {
-					if (Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
+					if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 						Session.getActiveCanvas().toLinkMode(LinkKind.AGGREGATION_RELATION);
 					}
 				}
 				break;
 			case 'L':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
+				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.ASSOCIATION_RELATION);
 				}
 				break;
 			case 'K':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
+				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.COMPOSITION_RELATION);
 				}
 				break;
 			case 'D':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassOrObjectType()) {
+				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.DEPENDENCY_RELATION);
 				}
 				break;
 			case 'G':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.GENERALIZATION_RELATION);
 				}
 				break;
 			case 'R':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.REALIZATION_RELATION);
 				}
 				break;
@@ -129,38 +129,38 @@ public class Keyboard {
 				Session.getActiveCanvas().toLinkMode(LinkKind.NOTE);
 				break;
 			case 'S':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isClassType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.CLASSRELATION);
 				}
 				break;
 			case 'I':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isHybridType()) {
+				if (Session.getActiveCanvas().getUMLDiagram().isHybridType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.INSTANTIATION);
 				}
 				break;
 			case 'M':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
 				}
 				break;
 			case 'P':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
 				}
 				break;
 			case 'B':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
 				}
 				break;
 			case 'J':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.LOST_MESSAGE);
 				}
 				break;
 
 			case 'Y':
-				if (Session.getActiveCanvas().getUMLDiagram().getType().isSequenceType()) {
+				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.FOUND_MESSAGE);
 				}
 				break;
