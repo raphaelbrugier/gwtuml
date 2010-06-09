@@ -17,8 +17,6 @@ package com.objetdirect.gwt.umlapi.client.editors;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -28,7 +26,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
-import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
@@ -71,7 +68,7 @@ public abstract class FieldEditor {
 		super();
 		this.canvas = canvas;
 		this.artifact = artifact;
-		HotKeyManager.setInputEnabled(false);
+		canvas.setHotKeysEnabled(false);
 	}
 
 	/**
@@ -156,7 +153,7 @@ public abstract class FieldEditor {
 		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		GWTUMLDrawerHelper.disableBrowserEvents();
-		HotKeyManager.setInputEnabled(true);
+		canvas.setHotKeysEnabled(true);
 	}
 
 	protected abstract void next();
@@ -172,7 +169,7 @@ public abstract class FieldEditor {
 		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		GWTUMLDrawerHelper.disableBrowserEvents();
-		HotKeyManager.setInputEnabled(true);
+		canvas.setHotKeysEnabled(true);
 		if (isStillNextable) {
 			this.next();
 		}

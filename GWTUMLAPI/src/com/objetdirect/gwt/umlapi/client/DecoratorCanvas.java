@@ -45,8 +45,9 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
- * Decorate the Canvas with the sides panel.
- * This decorator also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
+ * Wrap the Canvas with the sides panel.
+ * This wrapper also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
+ * This class manage the mouse position on the canvas.
  * Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class DecoratorCanvas extends AbsolutePanel {
@@ -56,6 +57,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 	private final String backgroundColor = ThemeManager.getTheme().getDirectionPanelColor().toString();
 
 	private final UMLCanvas umlCanvas;
+	private final Drawer drawer;
 
 	private int height;
 	private int width;
@@ -73,8 +75,15 @@ public class DecoratorCanvas extends AbsolutePanel {
 	 */
 	private final Point currentMousePosition;
 	
-	public DecoratorCanvas(UMLCanvas umlCanvas) {
+	/**
+	 * Construct a panel that wraps the canvas.
+	 * This panel is displayed in the given drawer
+	 * @param drawer
+	 * @param umlCanvas
+	 */
+	public DecoratorCanvas(Drawer drawer, UMLCanvas umlCanvas) {
 		this.umlCanvas = umlCanvas;
+		this.drawer = drawer;
 		umlCanvas.setDecoratorPanel(this);
 		
 		this.add(umlCanvas.getDrawingCanvas(), 0, 0);
@@ -129,7 +138,6 @@ public class DecoratorCanvas extends AbsolutePanel {
 			mouseHandlerRegistration.removeHandler();
 		}
 	}
-	
 
 	/**
 	 * Make the set of sidePanels 
@@ -307,6 +315,19 @@ public class DecoratorCanvas extends AbsolutePanel {
 		arrowList.get(7).translate(new Point(width - 2 * arrowSize - 2, 2)); // up right
 	}
 
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		attachCurrentMousePositionHandler();
+		umlCanvas.onLoad();
+	}
+	
+	@Override
+	protected void onUnload() {
+		super.onUnload();
+		detachCurrentMousePositionHandler();
+	}
+	
 	/**
 	 * Change the size of the decorator panel.
 	 * This will cause to resize the arrows and the encapsulated drawingCanvas.
@@ -346,16 +367,10 @@ public class DecoratorCanvas extends AbsolutePanel {
 		return currentMousePosition.clonePoint();
 	}
 	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		attachCurrentMousePositionHandler();
-		umlCanvas.onLoad();
-	}
-	
-	@Override
-	protected void onUnload() {
-		super.onUnload();
-		detachCurrentMousePositionHandler();
+	/**
+	 * @param hotKeysEnabled the hotKeysEnabled to set
+	 */
+	public void setHotKeysEnabled(boolean hotKeysEnabled) {
+		drawer.setHotKeysEnabled(hotKeysEnabled);
 	}
 }

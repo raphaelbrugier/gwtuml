@@ -433,6 +433,14 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	public void setMouseEnabled(final boolean isMouseEnabled) {
 		this.isMouseEnabled = isMouseEnabled;
 	}
+	
+	/**
+	 * Set if the hotKeys are enabled.
+	 * @param hotKeysEnabled the hotKeysEnabled to set
+	 */
+	public void setHotKeysEnabled(boolean hotKeysEnabled) {
+		container.setHotKeysEnabled(hotKeysEnabled);
+	}
 
 	/**
 	 * This method calls {@link UMLArtifact#toURL()} on all artifacts of this canvas and concatenate it in a String separated by a semicolon
@@ -448,6 +456,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * Add a new class with default values to this canvas to an the current mouse position
 	 */
 	public void addNewClass() {
+		Log.debug("Add new class");
 		this.addNewClass(container.getCurrentMousePosition());
 	}
 
