@@ -43,12 +43,13 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 
 /**
  * Wrap the Canvas with the sides panel.
  * This wrapper also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
  * This class manage the mouse position on the canvas.
- * Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class DecoratorCanvas extends AbsolutePanel {
 	private final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
@@ -372,5 +373,14 @@ public class DecoratorCanvas extends AbsolutePanel {
 	 */
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		drawer.setHotKeysEnabled(hotKeysEnabled);
+	}
+	
+	
+	/**
+	 * Set the cursor icon on the canvas
+	 * @param style the icon to set
+	 */
+	public void setCursorIcon(PointerStyle style) {
+		drawer.setCursorIcon(style);
 	}
 }

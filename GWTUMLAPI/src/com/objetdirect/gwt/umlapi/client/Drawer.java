@@ -20,7 +20,6 @@ import java.util.List;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -28,18 +27,21 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
+import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
+import com.objetdirect.gwt.umlapi.client.resources.Resources;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 
 /**
  * This is the main entry class to add a drawer.
- * Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class Drawer extends FocusPanel implements RequiresResize {
 
@@ -51,7 +53,8 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	
 	private boolean hotKeysEnabled;
 	private Keyboard keyboard;
-	private HandlerRegistration keyHandlerRegistration;
+	
+	private CursorIconManager cursorManager;
 	
 	public Drawer() {
 		this(new UMLCanvas(DiagramType.CLASS));
@@ -60,15 +63,21 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	public Drawer(UMLCanvas umlCanvas) {
 		setupGfxPlatform();
 		addHandlers();
+		injectAllStyles();
 		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
 		this.hotKeysEnabled = true;
 		this.keyboard = new Keyboard();
+		this.cursorManager = new CursorIconManager();
 		
 		setWidget(decoratorPanel);
 		this.ensureDebugId("DrawerfocusPanel");
 	}
 	
+	private void injectAllStyles() {
+		Resources.INSTANCE.iconStyles().ensureInjected();
+	}
+
 	private void setupGfxPlatform() {
 		ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
 		GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
@@ -76,7 +85,7 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	}
 	
 	private void addHandlers() {
-		keyHandlerRegistration = this.addKeyPressHandler(new KeyPressHandler() {
+		this.addKeyPressHandler(new KeyPressHandler() {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				Log.trace("Drawer::addHandlers() onKeyPress on " + event.getNativeEvent().getKeyCode());
@@ -86,7 +95,10 @@ public class Drawer extends FocusPanel implements RequiresResize {
 			}
 		});
 	}
-
+	
+	void setCursorIcon(PointerStyle style) {
+		cursorManager.changeCursorIcon(style, this);
+	}
 
 	@Override
 	public void onResize() {
@@ -144,4 +156,6 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		this.hotKeysEnabled = hotKeysEnabled;
 	}
+	
+	
 }

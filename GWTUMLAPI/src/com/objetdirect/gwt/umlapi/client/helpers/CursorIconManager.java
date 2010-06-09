@@ -14,18 +14,20 @@
  */
 package com.objetdirect.gwt.umlapi.client.helpers;
 
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.objetdirect.gwt.umlapi.client.resources.Resources;
+import com.objetdirect.gwt.umlapi.client.resources.styles.IconStyles;
 
 /**
- * This class is an helper to change the current mouse cursor To see which type of cursor it is, check :
- * http://www.w3schools.com/CSS/tryit.asp?filename=trycss_cursor
+ * This class is an helper to change the current mouse cursor
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
+ * @contributor Raphaël Brugier(raphael dot brugier at gmail dot com)
  */
 public class CursorIconManager {
 
 	/**
-	 * This enumeration lists all the cursor available in CSS in a browser
+	 * This enumeration lists all the cursor available for the canvas.
 	 * 
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
 	 */
@@ -34,98 +36,43 @@ public class CursorIconManager {
 		/**
 		 * Auto cursor
 		 */
-		AUTO("globalAutoCursor"),
+		AUTO(iconStyles().autoCursor()),
 		/**
 		 * Crosshair cursor
 		 */
-		CROSSHAIR("globalCrosshairCursor"),
-		/**
-		 * Default cursor
-		 */
-		DEFAULT("globalDefaultCursor"),
-		/**
-		 * Resize east cursor
-		 */
-		E_RESIZE("globalE_ResizeCursor"),
-		/**
-		 * Help cursor
-		 */
-		HELP("globalHelpCursor"),
+		CROSSHAIR(iconStyles().crossHairCursor()),
 		/**
 		 * Move cursor
 		 */
-		MOVE("globalMoveCursor"),
-		/**
-		 * Resize north cursor
-		 */
-		N_RESIZE("globalN_ResizeCursor"),
-		/**
-		 * Resize north east cursor
-		 */
-		NE_RESIZE("globalNE_ResizeCursor"),
-		/**
-		 * Not allowed cursor
-		 */
-		NOT_ALLOWED("globalNotAllowedCursor"),
-		/**
-		 * Resize north west cursor
-		 */
-		NW_RESIZE("globalNW_ResizeCursor"),
-		/**
-		 * Pointer cursor
-		 */
-		POINTER("globalPointerCursor"),
-		/**
-		 * Resize south cursor
-		 */
-		S_RESIZE("globalS_ResizeCursor"),
-		/**
-		 * Resize south east cursor
-		 */
-		SE_RESIZE("globalSE_ResizeCursor"),
-		/**
-		 * Resize south west cursor
-		 */
-		SW_RESIZE("globalSW_ResizeCursor"),
-		/**
-		 * Text edition cursor
-		 */
-		TEXT("globalTextCursor"),
-		/**
-		 * Resize west cursor
-		 */
-		W_RESIZE("globalW_ResizeCursor"),
-		/**
-		 * Wait cursor
-		 */
-		WAIT("globalWaitCursor");
-		private final String	cssName;
+		MOVE(iconStyles().moveCursor());
+		
+		private final String cssName;
 
 		private PointerStyle(final String cssName) {
 			this.cssName = cssName;
 		}
-
-		/**
-		 * @return the css identifier for a pointer style
-		 * 
-		 */
-		public String getCssName() {
-			return this.cssName;
-		}
 	}
-
-	private static PointerStyle	currentIconStyle	= PointerStyle.AUTO;
-
+	
 	/**
-	 * Setter for the current cursor icon
-	 * 
-	 * @param pStyle
-	 *            The style of the cursor in {@link PointerStyle}
+	 * Convenience method to get the styles class string.
+	 * @return
 	 */
-	public static void setCursorIcon(final PointerStyle pStyle) {
-		//FIXME set the cursor style only on the canvas element.
-		RootPanel.get().removeStyleName(CursorIconManager.currentIconStyle.getCssName());
-		CursorIconManager.currentIconStyle = pStyle;
-		RootPanel.get().addStyleName(CursorIconManager.currentIconStyle.getCssName());
+	private static IconStyles iconStyles() {
+		return Resources.INSTANCE.iconStyles();
+	}
+	
+	private String currentStyleApplied;
+	
+	public CursorIconManager() {
+		currentStyleApplied = null;
+	}
+	
+	public void changeCursorIcon(PointerStyle cursor, Widget widget) {
+		if (currentStyleApplied !=null ) {
+			widget.removeStyleName(currentStyleApplied);
+		}
+		
+		widget.addStyleName(cursor.cssName);
+		currentStyleApplied = cursor.cssName;
 	}
 }
