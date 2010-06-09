@@ -1,0 +1,11 @@
+.autoCursor {
+	 cursor: auto;
+}
+
+.crossHairCursor {
+	 cursor: crosshair;
+}
+
+.moveCursor {
+	cursor: move;
+}

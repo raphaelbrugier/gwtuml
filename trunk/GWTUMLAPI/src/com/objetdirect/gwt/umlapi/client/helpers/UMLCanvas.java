@@ -14,6 +14,10 @@
  */
 package com.objetdirect.gwt.umlapi.client.helpers;
 
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +55,6 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
-import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
@@ -71,7 +74,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	private transient Widget drawingCanvas;
 
 	/** The panel containing the canvas and the arrows. */
-	private transient DecoratorCanvas container;
+	private transient DecoratorCanvas wrapper;
 	
 	private transient GfxObject allObjects;
 
@@ -224,7 +227,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		umlArtifacts.add(artifact);
 		getArtifactById().put(artifact.getId(), artifact);
 		
-		if (container.isAttached()) {
+		if (wrapper.isAttached()) {
 			displaydArtifactInCanvas(artifact);
 		} else {
 			Log.trace("Canvas not attached, queuing " + artifact);
@@ -308,7 +311,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 	
 	public DecoratorCanvas getContainer() {
-		return container;
+		return wrapper;
 	}
 
 	/**
@@ -331,7 +334,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * @param container the decoratorCanvas to set
 	 */
 	public void setDecoratorPanel(DecoratorCanvas container) {
-		this.container = container;
+		this.wrapper = container;
 	}
 
 	/**
@@ -378,11 +381,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 				UMLCanvas.this.allObjects.translate(translation);
 				UMLCanvas.this.canvasOffset.translate(translation);
 				UMLCanvas.this.duringDragOffset.translate(translation);
-				UMLCanvas.this.mouseMoved(container.getCurrentMousePosition(), false, false);
+				UMLCanvas.this.mouseMoved(wrapper.getCurrentMousePosition(), false, false);
 				UMLCanvas.this.movingLines.translate(translation);
 				UMLCanvas.this.movingOutlineDependencies.translate(translation);
 				if (FieldEditor.getEditField() != null) {
-					UMLCanvas.this.container.setWidgetPosition(FieldEditor.getEditField(), (int) (FieldEditor.getEditField().getAbsoluteLeft() - direction.getXShift()),
+					UMLCanvas.this.wrapper.setWidgetPosition(FieldEditor.getEditField(), (int) (FieldEditor.getEditField().getAbsoluteLeft() - direction.getXShift()),
 							(int) (FieldEditor.getEditField().getAbsoluteTop() - direction.getYShift()));
 				}
 			}
@@ -439,7 +442,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * @param hotKeysEnabled the hotKeysEnabled to set
 	 */
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
-		container.setHotKeysEnabled(hotKeysEnabled);
+		wrapper.setHotKeysEnabled(hotKeysEnabled);
 	}
 
 	/**
@@ -457,21 +460,21 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public void addNewClass() {
 		Log.debug("Add new class");
-		this.addNewClass(container.getCurrentMousePosition());
+		this.addNewClass(wrapper.getCurrentMousePosition());
 	}
 
 	/**
 	 * Add a new lifeLine with default values to this canvas to the current mouse position
 	 */
 	public void addNewLifeLine() {
-		this.addNewLifeLine(container.getCurrentMousePosition());
+		this.addNewLifeLine(wrapper.getCurrentMousePosition());
 	}
 
 	/**
 	 * Add a new object with default values to this canvas to the current mouse position
 	 */
 	public void addNewObject() {
-		this.addNewObject(container.getCurrentMousePosition());
+		this.addNewObject(wrapper.getCurrentMousePosition());
 	}
 	
 	/**
@@ -496,11 +499,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.doSelection(newClass.getGfxObject(), false, false);
 		this.selectedArtifacts.put(newClass, new ArrayList<Point>());
 		this.dragOffset = location;
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		wrapper.setCursorIcon(MOVE);
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.container.setHelpText("Adding a new class", location.clonePoint());
+		this.wrapper.setHelpText("Adding a new class", location.clonePoint());
 	}
 	
 
@@ -517,7 +520,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, getIdCount(), "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
 		
-		this.container.setHelpText("Adding a new life line", new Point(0,0));
+		this.wrapper.setHelpText("Adding a new life line", new Point(0,0));
 		this.add(newLifeLine);
 		newLifeLine.moveTo(Point.substract(location, this.canvasOffset));
 		for (final UMLArtifact selectedArtifact : this.selectedArtifacts.keySet()) {
@@ -527,11 +530,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.doSelection(newLifeLine.getGfxObject(), false, false);
 		this.selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
 		this.dragOffset = location;
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		wrapper.setCursorIcon(MOVE);
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.container.setHelpText("Adding a new life line", location.clonePoint());
+		this.wrapper.setHelpText("Adding a new life line", location.clonePoint());
 	}
 
 	void addNewLink(final UMLArtifact newSelected) {
@@ -553,7 +556,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 
 	@Override
 	public void addNewNote() {
-		this.addNewNote(container.getCurrentMousePosition());
+		this.addNewNote(wrapper.getCurrentMousePosition());
 
 	}
 
@@ -574,8 +577,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.dragOffset = location;
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
-		this.container.setHelpText("Adding a new note", location.clonePoint());
+		wrapper.setCursorIcon(MOVE);
+		this.wrapper.setHelpText("Adding a new note", location.clonePoint());
 	}
 
 	/**
@@ -600,11 +603,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.doSelection(newObject.getGfxObject(), false, false);
 		this.selectedArtifacts.put(newObject, new ArrayList<Point>());
 		this.dragOffset = location;
-		CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+		wrapper.setCursorIcon(MOVE);
 		this.dragAndDropState = DragAndDropState.TAKING;
 		this.mouseIsPressed = true;
 
-		this.container.setHelpText("Adding a new object", location.clonePoint());
+		this.wrapper.setHelpText("Adding a new object", location.clonePoint());
 	}
 	
 	/**
@@ -740,9 +743,9 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			}
 			this.idCount = this.idCount + oldIds.size() + 1;
 			fromURL(this.copyBuffer, true);
-			this.dragOffset = container.getCurrentMousePosition();
+			this.dragOffset = wrapper.getCurrentMousePosition();
 			
-			CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+			wrapper.setCursorIcon(MOVE);
 			this.dragAndDropState = DragAndDropState.TAKING;
 			this.mouseIsPressed = true;
 		}
@@ -757,7 +760,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			return;
 		}
 		this.duringDragOffset = Point.getOrigin();
-		final Point realPoint = container.getCurrentMousePosition();
+		final Point realPoint = wrapper.getCurrentMousePosition();
 		this.mouseIsPressed = true;
 		if (this.dragAndDropState == DragAndDropState.DRAGGING) {
 			return;
@@ -766,7 +769,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			if (gfxObject != null) {
 				this.dragAndDropState = DragAndDropState.TAKING;
 				this.dragOffset = realPoint.clonePoint();
-				CursorIconManager.setCursorIcon(PointerStyle.MOVE);
+				wrapper.setCursorIcon(MOVE);
 			} else {
 				this.selectBoxStartPoint = realPoint.clonePoint();
 				this.dragAndDropState = DragAndDropState.PREPARING_SELECT_BOX;
@@ -778,8 +781,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	@SuppressWarnings("fallthrough")
 	void mouseMoved(final Point location, final boolean isCtrlDown, final boolean isShiftDown) {
 		Log.trace("UMLCanvas::mouseMoved()");
-		final Point realPoint = container.getCurrentMousePosition();
-		this.container.moveHelpText(realPoint );
+		final Point realPoint = wrapper.getCurrentMousePosition();
+		this.wrapper.moveHelpText(realPoint );
 		switch (this.dragAndDropState) {
 			case TAKING:
 				this.take();
@@ -804,7 +807,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		if (!this.mouseIsPressed) {
 			return;
 		}
-		final Point realPoint = container.getCurrentMousePosition();
+		final Point realPoint = wrapper.getCurrentMousePosition();
 		this.mouseIsPressed = false;
 
 		if (this.dragAndDropState == DragAndDropState.TAKING) {
@@ -820,8 +823,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			case DRAGGING:
 				this.drop(realPoint);
 			case TAKING:
-				CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-				this.container.setHelpText("", realPoint);
+				wrapper.setCursorIcon(AUTO);
+				this.wrapper.setHelpText("", realPoint);
 				
 			default:
 				this.dragAndDropState = DragAndDropState.NONE;
@@ -858,13 +861,13 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 					mustShiftCanvas = lower.getY() < -this.canvasOffset.getY();
 					break;
 				case DOWN:
-					mustShiftCanvas = higher.getY() > -this.canvasOffset.getY() + this.container.getOffsetHeight();
+					mustShiftCanvas = higher.getY() > -this.canvasOffset.getY() + this.wrapper.getOffsetHeight();
 					break;
 				case LEFT:
 					mustShiftCanvas = lower.getX() < -this.canvasOffset.getX();
 					break;
 				case RIGHT:
-					mustShiftCanvas = higher.getX() > -this.canvasOffset.getX() + this.container.getOffsetWidth();
+					mustShiftCanvas = higher.getX() > -this.canvasOffset.getX() + this.wrapper.getOffsetWidth();
 					break;
 			}
 			if(mustShiftCanvas) {				
@@ -902,9 +905,9 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		this.activeLinking = linkType;
 		final int selectedToLink = this.selectedArtifacts.keySet().size();
 
-		this.container.setHelpText(("Adding " + (selectedToLink == 0 ? "a" : selectedToLink) + " new " + this.activeLinking.getName()), new Point(0,0));
+		this.wrapper.setHelpText(("Adding " + (selectedToLink == 0 ? "a" : selectedToLink) + " new " + this.activeLinking.getName()), new Point(0,0));
 
-		CursorIconManager.setCursorIcon(PointerStyle.CROSSHAIR);
+		wrapper.setCursorIcon(CROSSHAIR);
 	}
 
 	/**
@@ -1097,8 +1100,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	private void linkingModeOff() {
 		this.activeLinking = null;
 		GfxManager.getPlatform().clearVirtualGroup(this.movingLines);
-		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
-		this.container.setHelpText("", new Point(0, 0));
+		wrapper.setCursorIcon(AUTO);
+		this.wrapper.setHelpText("", new Point(0, 0));
 	}
 
 	private void removeRecursive(final UMLArtifact element) {
