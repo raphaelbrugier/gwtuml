@@ -17,6 +17,10 @@ package com.objetdirect.gwt.umlapi.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
@@ -24,7 +28,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
-import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
+import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
@@ -45,6 +49,10 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	private UMLCanvas umlCanvas;
 	private DecoratorCanvas decoratorPanel;
 	
+	private boolean hotKeysEnabled;
+	private Keyboard keyboard;
+	private HandlerRegistration keyHandlerRegistration;
+	
 	public Drawer() {
 		this(new UMLCanvas(DiagramType.CLASS));
 	}
@@ -52,28 +60,31 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	public Drawer(UMLCanvas umlCanvas) {
 		setupGfxPlatform();
 		addHandlers();
-		decoratorPanel = new DecoratorCanvas(umlCanvas);
-		setWidget(decoratorPanel);
+		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
+		this.hotKeysEnabled = true;
+		this.keyboard = new Keyboard();
+		
+		setWidget(decoratorPanel);
+		this.ensureDebugId("DrawerfocusPanel");
 	}
 	
 	private void setupGfxPlatform() {
-		HotKeyManager.forceStaticInit();
-		HotKeyManager.setInputEnabled(false);
 		ThemeManager.setCurrentTheme((Theme.getThemeFromIndex(OptionsManager.get("Theme"))));
 		GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
 		GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
 	}
 	
 	private void addHandlers() {
-//		HandlerRegistration registration = this.addKeyPressHandler(new KeyPressHandler() {
-//			@Override
-//			public void onKeyPress(KeyPressEvent event) {
-////				Log.debug("KeyPress on Drawer's focusPanel");
-//				NativeEvent nativeEvent = event.getNativeEvent();
-//				Keyboard.push(nativeEvent.getKeyCode(), nativeEvent.getCtrlKey(), nativeEvent.getAltKey(), nativeEvent.getShiftKey(), nativeEvent.getMetaKey());
-//			}
-//		});
+		keyHandlerRegistration = this.addKeyPressHandler(new KeyPressHandler() {
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				Log.trace("Drawer::addHandlers() onKeyPress on " + event.getNativeEvent().getKeyCode());
+				if (hotKeysEnabled) {
+					keyboard.push(event.getCharCode(), event.isControlKeyDown(), event.isAltKeyDown(), event.isShiftKeyDown(), event.isMetaKeyDown());
+				}
+			}
+		});
 	}
 
 
@@ -125,5 +136,12 @@ public class Drawer extends FocusPanel implements RequiresResize {
 			}
 		}
 		return umlRelations;
+	}
+
+	/**
+	 * @param hotKeysEnabled the hotKeysEnabled to set
+	 */
+	public void setHotKeysEnabled(boolean hotKeysEnabled) {
+		this.hotKeysEnabled = hotKeysEnabled;
 	}
 }

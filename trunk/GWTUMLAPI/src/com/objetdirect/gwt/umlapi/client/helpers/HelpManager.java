@@ -43,8 +43,39 @@ public class HelpManager {
 	 * @param description
 	 *            The text that explains what this key does
 	 */
-	public static void addHotkeyHelp(final String key, final String description) {
+	private static void addHotkeyHelp(final String key, final String description) {
 		HelpManager.hotkeysHelp.put(key, description);
+	}
+	
+	/**
+	 * Fill the hotkeys and descriptions map
+	 */
+	private static void forceStaticInit() {
+		addHotkeyHelp("H", "Bring this help");
+		addHotkeyHelp("C", "Add a new class");
+		addHotkeyHelp("O", "Add a new object");
+		addHotkeyHelp("N", "Add a new note");
+		addHotkeyHelp("F", "Add a new life line");
+		addHotkeyHelp("A", "Add a new aggregation relation");
+		addHotkeyHelp("L", "Add a new association relation");
+		addHotkeyHelp("K", "Add a new composition relation");
+		addHotkeyHelp("D", "Add a new dependency relation");
+		addHotkeyHelp("G", "Add a new generalization relation");
+		addHotkeyHelp("R", "Add a new realization relation");
+		addHotkeyHelp("I", "Add a new instantiation relation");
+		addHotkeyHelp("T", "Add a new note link");
+		addHotkeyHelp("E", "Add a new class relation");
+		addHotkeyHelp("M", "Add a new asynchronous message");
+		addHotkeyHelp("P", "Add a new synchronous message");
+		addHotkeyHelp("B", "Add a new object creation message");
+		addHotkeyHelp("J", "Add a new lost message");
+		addHotkeyHelp("Y", "Add a new found message");
+		addHotkeyHelp("U", "Update URL with current diagram");
+		addHotkeyHelp("Del", "Remove selected object(s)");
+		addHotkeyHelp("Ctrl]+[Up", "Move up selected object");
+		addHotkeyHelp("Ctrl]+[Down", "Move down selected object");
+		addHotkeyHelp("Ctrl]+[Left", "Move left selected object");
+		addHotkeyHelp("Ctrl]+[Right", "Move right selected object");
 	}
 
 	/**
@@ -52,7 +83,8 @@ public class HelpManager {
 	 */
 	public static void bringHelpPopup() {
 		if(popup == null) {
-		
+			forceStaticInit();
+			
 			final StringBuilder htmlContent = new StringBuilder();
 			htmlContent.append("<table style='width: 100%'>");
 			for (final Entry<String, String> entry : HelpManager.hotkeysHelp.entrySet()) {

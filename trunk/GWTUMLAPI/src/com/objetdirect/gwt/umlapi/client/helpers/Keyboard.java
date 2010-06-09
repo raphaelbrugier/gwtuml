@@ -22,26 +22,14 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public class Keyboard {
-
-	private static boolean	imEnabled	= true;
-
-	/**
-	 * Getter to the current state of {@link Keyboard}
-	 * 
-	 * @return true if it is enabled false otherwise
-	 */
-	public static boolean isEnabled() {
-		return Keyboard.imEnabled;
-	}
 
 	/**
 	 * @param keyCode
 	 */
-	public static void push(final char keyCode) {
-		Keyboard.push(keyCode, false, false, false, false);
+	public void push(final char keyCode) {
+		push(keyCode, false, false, false, false);
 	}
 
 	/**
@@ -51,47 +39,42 @@ public class Keyboard {
 	 * @param isShiftDown
 	 * @param isMetaDown
 	 */
-	public static void push(final int keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
-		if (!Keyboard.imEnabled) {
-			Log.trace("Keyboard pushed but disabled");
-			return;
-		}
-		Log.trace("Keyboard down Key :" + keyCode + "(" + (int) keyCode + ") with ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
+	public void push(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
+		Log.trace("Keyboard::push() down Key :" + keyCode + "(" + (int) keyCode + ") with ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
 		switch (keyCode) {
-			case 'X':
+			case 'x':
 				if (isCtrlDown) {
 					Session.getActiveCanvas().cut();
 				}
 				break;
-			case 'V':
+			case 'v':
 				if (isCtrlDown) {
 					Session.getActiveCanvas().paste();
 				}
 				break;
-			case 'C':
+			case 'c':
 				if (isCtrlDown) {
 					Session.getActiveCanvas().copy();
 				} else {
-				
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
-					Session.getActiveCanvas().addNewClass();
-				}
+					if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
+						Session.getActiveCanvas().addNewClass();
+					}
 				}
 				break;
-			case 'O':
+			case 'o':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.OBJECT) {
 					Session.getActiveCanvas().addNewObject();
 				}
 				break;
-			case 'F':
+			case 'f':
 				if (Session.getActiveCanvas().getUMLDiagram()  == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().addNewLifeLine();
 				}
 				break;
-			case 'N':
+			case 'n':
 				Session.getActiveCanvas().addNewNote();
 				break;
-			case 'A':
+			case 'a':
 				if (isCtrlDown) {
 					Session.getActiveCanvas().selectAll();
 				} else {
@@ -100,66 +83,66 @@ public class Keyboard {
 					}
 				}
 				break;
-			case 'L':
+			case 'l':
 				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.ASSOCIATION_RELATION);
 				}
 				break;
-			case 'K':
+			case 'k':
 				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.COMPOSITION_RELATION);
 				}
 				break;
-			case 'D':
+			case 'd':
 				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.DEPENDENCY_RELATION);
 				}
 				break;
-			case 'G':
+			case 'g':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.GENERALIZATION_RELATION);
 				}
 				break;
-			case 'R':
+			case 'r':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.REALIZATION_RELATION);
 				}
 				break;
-			case 'T':
+			case 't':
 				Session.getActiveCanvas().toLinkMode(LinkKind.NOTE);
 				break;
-			case 'S':
+			case 's':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.CLASSRELATION);
 				}
 				break;
-			case 'I':
+			case 'i':
 				if (Session.getActiveCanvas().getUMLDiagram().isHybridType()) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.INSTANTIATION);
 				}
 				break;
-			case 'M':
+			case 'm':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
 				}
 				break;
-			case 'P':
+			case 'p':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
 				}
 				break;
-			case 'B':
+			case 'b':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
 				}
 				break;
-			case 'J':
+			case 'j':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.LOST_MESSAGE);
 				}
 				break;
 
-			case 'Y':
+			case 'y':
 				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
 					Session.getActiveCanvas().toLinkMode(LinkKind.FOUND_MESSAGE);
 				}
@@ -168,7 +151,7 @@ public class Keyboard {
 			case KeyCodes.KEY_DELETE:
 				Session.getActiveCanvas().removeSelected();
 				break;
-			case 'H':
+			case 'h':
 				HelpManager.bringHelpPopup();
 		}
 
@@ -189,17 +172,5 @@ public class Keyboard {
 			default:
 				break;
 		}
-
 	}
-
-	/**
-	 * Set the {@link Keyboard} state. This is used to disable {@link Keyboard} while editing for instance
-	 * 
-	 * @param isEnabled
-	 *            The status : True to activate False to disable
-	 */
-	public static void setEnabled(final boolean isEnabled) {
-		Keyboard.imEnabled = isEnabled;
-	}
-
 }
