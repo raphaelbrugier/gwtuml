@@ -105,8 +105,8 @@ public class Drawer extends FocusPanel implements RequiresResize {
 		int parentHeight = getParent().getOffsetHeight();
 		int parentWidth = getParent().getOffsetWidth();
 		
-		int width = parentWidth - 10;
-		int height = parentHeight - 10;
+		int width = parentWidth - 16;
+		int height = parentHeight - 16;
 		
 		this.width = width;
 		this.height = height;

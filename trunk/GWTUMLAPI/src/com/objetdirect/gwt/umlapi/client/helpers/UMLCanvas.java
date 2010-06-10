@@ -1185,5 +1185,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			artifact.getGfxObject().translate(artifact.getLocation());
 			this.objects.put(artifact.getGfxObject(), artifact);
 		}
+		canvasOffset = Point.getOrigin();
+		duringDragOffset = Point.getOrigin();
 	}
 }
