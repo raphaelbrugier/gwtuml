@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
@@ -146,13 +145,11 @@ public abstract class FieldEditor {
 		this.canvas.getContainer().add(FieldEditor.editField, x + Session.getActiveCanvas().getCanvasOffset().getX(), y + Session.getActiveCanvas().getCanvasOffset().getY());
 		FieldEditor.editField.selectAll();
 		FieldEditor.editField.setFocus(true);
-		GWTUMLDrawerHelper.enableBrowserEvents();
 	}
 
 	protected void cancel() {
 		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
-		GWTUMLDrawerHelper.disableBrowserEvents();
 		canvas.setHotKeysEnabled(true);
 	}
 
@@ -168,7 +165,6 @@ public abstract class FieldEditor {
 		}
 		this.canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
-		GWTUMLDrawerHelper.disableBrowserEvents();
 		canvas.setHotKeysEnabled(true);
 		if (isStillNextable) {
 			this.next();
