@@ -70,26 +70,6 @@ public class GWTUMLDrawerHelper {
 		return GWTUMLDrawerHelper.decode64js(input);
 	}
 
-	/**
-	 * Disable various browser events like image drag and drop
-	 */
-	public static void disableBrowserEvents() {
-		if (GWTUMLDrawerHelper.eventPreview == null) {
-			GWTUMLDrawerHelper.makeEventPreview();
-		}
-		DOM.addEventPreview(GWTUMLDrawerHelper.eventPreview);
-	}
-
-	/**
-	 * Enable browser events if it was disabled before
-	 */
-	public static void enableBrowserEvents() {
-		if (GWTUMLDrawerHelper.eventPreview == null) {
-			GWTUMLDrawerHelper.makeEventPreview();
-		} else {
-			DOM.removeEventPreview(GWTUMLDrawerHelper.eventPreview);
-		}
-	}
 
 	/**
 	 * Encode a string in base64
