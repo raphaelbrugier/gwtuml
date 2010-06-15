@@ -21,6 +21,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.ProvidesResize;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
@@ -43,7 +44,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
  * This is the main entry class to add a drawer.
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public class Drawer extends FocusPanel implements RequiresResize {
+public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize {
 
 	private int width;
 	private int height;
@@ -67,11 +68,10 @@ public class Drawer extends FocusPanel implements RequiresResize {
 		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
 		this.hotKeysEnabled = true;
-		this.keyboard = new Keyboard();
+		this.keyboard = new Keyboard(umlCanvas);
 		this.cursorManager = new CursorIconManager();
 		
 		setWidget(decoratorPanel);
-		this.ensureDebugId("DrawerfocusPanel");
 	}
 	
 	private void injectAllStyles() {
@@ -156,6 +156,11 @@ public class Drawer extends FocusPanel implements RequiresResize {
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		this.hotKeysEnabled = hotKeysEnabled;
 	}
-	
-	
+
+	/**
+	 * @return the keyboard
+	 */
+	public Keyboard getKeyboard() {
+		return keyboard;
+	}
 }
