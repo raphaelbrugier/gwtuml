@@ -25,6 +25,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  */
 public class Keyboard {
 
+	private final UMLCanvas umlCanvas;
+	
+	public Keyboard(UMLCanvas umlCanvas) {
+		this.umlCanvas = umlCanvas;
+	}
+	
 	/**
 	 * @param keyCode
 	 */
@@ -44,112 +50,112 @@ public class Keyboard {
 		switch (keyCode) {
 			case 'x':
 				if (isCtrlDown) {
-					Session.getActiveCanvas().cut();
+					umlCanvas.cut();
 				}
 				break;
 			case 'v':
 				if (isCtrlDown) {
-					Session.getActiveCanvas().paste();
+					umlCanvas.paste();
 				}
 				break;
 			case 'c':
 				if (isCtrlDown) {
-					Session.getActiveCanvas().copy();
+					umlCanvas.copy();
 				} else {
-					if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
-						Session.getActiveCanvas().addNewClass();
+					if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
+						umlCanvas.addNewClass();
 					}
 				}
 				break;
 			case 'o':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.OBJECT) {
-					Session.getActiveCanvas().addNewObject();
+				if (umlCanvas.getUMLDiagram() == DiagramType.OBJECT) {
+					umlCanvas.addNewObject();
 				}
 				break;
 			case 'f':
-				if (Session.getActiveCanvas().getUMLDiagram()  == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().addNewLifeLine();
+				if (umlCanvas.getUMLDiagram()  == DiagramType.SEQUENCE) {
+					umlCanvas.addNewLifeLine();
 				}
 				break;
 			case 'n':
-				Session.getActiveCanvas().addNewNote();
+				umlCanvas.addNewNote();
 				break;
 			case 'a':
 				if (isCtrlDown) {
-					Session.getActiveCanvas().selectAll();
+					umlCanvas.selectAll();
 				} else {
-					if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
-						Session.getActiveCanvas().toLinkMode(LinkKind.AGGREGATION_RELATION);
+					if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
+						umlCanvas.toLinkMode(LinkKind.AGGREGATION_RELATION);
 					}
 				}
 				break;
 			case 'l':
-				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.ASSOCIATION_RELATION);
+				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
+					umlCanvas.toLinkMode(LinkKind.ASSOCIATION_RELATION);
 				}
 				break;
 			case 'k':
-				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.COMPOSITION_RELATION);
+				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
+					umlCanvas.toLinkMode(LinkKind.COMPOSITION_RELATION);
 				}
 				break;
 			case 'd':
-				if (Session.getActiveCanvas().getUMLDiagram().isClassOrObjectType()) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.DEPENDENCY_RELATION);
+				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
+					umlCanvas.toLinkMode(LinkKind.DEPENDENCY_RELATION);
 				}
 				break;
 			case 'g':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.GENERALIZATION_RELATION);
+				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
+					umlCanvas.toLinkMode(LinkKind.GENERALIZATION_RELATION);
 				}
 				break;
 			case 'r':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.REALIZATION_RELATION);
+				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
+					umlCanvas.toLinkMode(LinkKind.REALIZATION_RELATION);
 				}
 				break;
 			case 't':
-				Session.getActiveCanvas().toLinkMode(LinkKind.NOTE);
+				umlCanvas.toLinkMode(LinkKind.NOTE);
 				break;
 			case 's':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.CLASS) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.CLASSRELATION);
+				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
+					umlCanvas.toLinkMode(LinkKind.CLASSRELATION);
 				}
 				break;
 			case 'i':
-				if (Session.getActiveCanvas().getUMLDiagram().isHybridType()) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.INSTANTIATION);
+				if (umlCanvas.getUMLDiagram().isHybridType()) {
+					umlCanvas.toLinkMode(LinkKind.INSTANTIATION);
 				}
 				break;
 			case 'm':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
+					umlCanvas.toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
 				}
 				break;
 			case 'p':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
+					umlCanvas.toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
 				}
 				break;
 			case 'b':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
+					umlCanvas.toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
 				}
 				break;
 			case 'j':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.LOST_MESSAGE);
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
+					umlCanvas.toLinkMode(LinkKind.LOST_MESSAGE);
 				}
 				break;
 
 			case 'y':
-				if (Session.getActiveCanvas().getUMLDiagram() == DiagramType.SEQUENCE) {
-					Session.getActiveCanvas().toLinkMode(LinkKind.FOUND_MESSAGE);
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
+					umlCanvas.toLinkMode(LinkKind.FOUND_MESSAGE);
 				}
 				break;
 
 			case KeyCodes.KEY_DELETE:
-				Session.getActiveCanvas().removeSelected();
+				umlCanvas.removeSelected();
 				break;
 			case 'h':
 				HelpManager.bringHelpPopup();
@@ -158,16 +164,16 @@ public class Keyboard {
 		final int speed = Direction.getDependingOnModifierSpeed(isCtrlDown, isAltDown, isMetaDown, isShiftDown);
 		switch (keyCode) {
 			case KeyCodes.KEY_UP:
-				Session.getActiveCanvas().moveSelected(Direction.UP.withSpeed(speed));
+				umlCanvas.moveSelected(Direction.UP.withSpeed(speed));
 				break;
 			case KeyCodes.KEY_DOWN:
-				Session.getActiveCanvas().moveSelected(Direction.DOWN.withSpeed(speed));
+				umlCanvas.moveSelected(Direction.DOWN.withSpeed(speed));
 				break;
 			case KeyCodes.KEY_LEFT:
-				Session.getActiveCanvas().moveSelected(Direction.LEFT.withSpeed(speed));
+				umlCanvas.moveSelected(Direction.LEFT.withSpeed(speed));
 				break;
 			case KeyCodes.KEY_RIGHT:
-				Session.getActiveCanvas().moveSelected(Direction.RIGHT.withSpeed(speed));
+				umlCanvas.moveSelected(Direction.RIGHT.withSpeed(speed));
 				break;
 			default:
 				break;

@@ -52,7 +52,6 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
@@ -125,7 +124,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	
 	//===== Mouse engine fields ====//
 	private boolean isMouseEnabled; //Only needed to desactive the mouse during the demo
-	private transient GfxObjectListener gfxObjectListener;
+	private transient CanvasListener canvasMouseListener;
 
 	// Manage mouse state when  releasing outside the listener
 	private boolean	mouseIsPressed;	
@@ -193,7 +192,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		urlConverter = new UrlConverter(this);
 		Log.trace("Adding Canvas");
 		Log.trace("Adding object listener");
-		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.gfxObjectListener);
+		GfxManager.getPlatform().addObjectListenerToCanvas(this.drawingCanvas, this.canvasMouseListener);
 		this.noteCount = 0;
 		this.allObjects.addToCanvas(this.drawingCanvas, Point.getOrigin());
 		this.movingLines.addToCanvas(this.drawingCanvas, Point.getOrigin());
@@ -208,7 +207,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		outlines = GfxManager.getPlatform().buildVirtualGroup();
 		movingOutlineDependencies = GfxManager.getPlatform().buildVirtualGroup();
 		movingLines = GfxManager.getPlatform().buildVirtualGroup();
-		gfxObjectListener = new CanvasListener(this);
+		canvasMouseListener = new CanvasListener(this);
 	}
 
 	/**
@@ -321,6 +320,13 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public DiagramType getUMLDiagram() {
 		return this.diagramType;
+	}
+
+	/**
+	 * @return the canvasMouseListener
+	 */
+	public CanvasListener getCanvasMouseListener() {
+		return canvasMouseListener;
 	}
 
 	/**
