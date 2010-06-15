@@ -18,12 +18,11 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.objetdirect.gwt.umlapi.client.Drawer;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.helpers.HotKeyManager;
 import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.Mouse;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
@@ -31,11 +30,10 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * This class is an exemple of an animated contruction of an uml diagram It shows how to use {@link Keyboard} and {@link Mouse}.
- * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public class AnimatedDemo extends AbsolutePanel {
+public class AnimatedDemo {
 
 	private static class Cursor {
 
@@ -64,15 +62,16 @@ public class AnimatedDemo extends AbsolutePanel {
 	 * @param canvas
 	 *            The {@link UMLCanvas} where to add the demo uml artifacts
 	 */
-	public AnimatedDemo(final UMLCanvas canvas) {
-		super();
+	public AnimatedDemo(DrawerContainer drawerContainer) {
 		Log.trace("Creating Animated demo");
-
+		final Keyboard keyboard = drawerContainer.getDrawer().getKeyboard();
+		final Drawer drawer = drawerContainer.getDrawer();
+		
 		DeferredCommand.addCommand(new Command() {
 
 			@Override
 			public void execute() {
-				HotKeyManager.setInputEnabled(false);
+				drawer.setHotKeysEnabled(false);
 				Session.getActiveCanvas().setMouseEnabled(false);
 				Cursor.add();
 
@@ -89,7 +88,7 @@ public class AnimatedDemo extends AbsolutePanel {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Keyboard.push('C');
+						keyboard.push('c');
 					}
 				};
 
@@ -119,7 +118,7 @@ public class AnimatedDemo extends AbsolutePanel {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Keyboard.push('O');
+						keyboard.push('O');
 					}
 				};
 
@@ -140,7 +139,7 @@ public class AnimatedDemo extends AbsolutePanel {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Keyboard.push('I');
+						keyboard.push('I');
 					}
 				};
 
@@ -198,7 +197,7 @@ public class AnimatedDemo extends AbsolutePanel {
 					public void process() {
 						Cursor.rem();
 						Session.getActiveCanvas().setMouseEnabled(true);
-						HotKeyManager.setInputEnabled(true);
+						drawer.setHotKeysEnabled(true);
 					}
 				};
 			}

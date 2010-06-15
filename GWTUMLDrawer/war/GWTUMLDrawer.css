@@ -36,95 +36,9 @@
 	color: #666;
 }
 
-/** Cursor change styles */
-
-.globalAutoCursor *, .globalAutoCursor .absolutelyPositioned {
-    cursor: auto;
+.verticalTable {
+	position: static !important;
 }
-.globalCrosshairCursor *, .globalCrosshairCursor .absolutelyPositioned {
-    cursor: crosshair;
-}
-.globalDefaultCursor *, .globalDefaultCursor .absolutelyPositioned {
-    cursor: default;
-}
-.globalPointerCursor *, .globalPointerCursor .absolutelyPositioned {
-    cursor: pointer;
-} 
-.globalMoveCursor *, .globalMoveCursor .absolutelyPositioned {
-    cursor: move;
-} 
-.globalE_ResizeCursor *, .globalE_ResizeCursor .absolutelyPositioned {
-    cursor: e-resize;
-}
-.globalNE_ResizeCursor *, .globalNE_ResizeCursor .absolutelyPositioned {
-    cursor: ne-resize;
-}
-.globalNW_ResizeCursor *, .globalNW_ResizeCursor .absolutelyPositioned {
-    cursor: nw-resize;
-}
-.globalN_ResizeCursor *, .globalN_ResizeCursor .absolutelyPositioned {
-    cursor: n-resize;
-}
-.globalSE_ResizeCursor *, .globalSE_ResizeCursor .absolutelyPositioned {
-    cursor: se-resize;
-} 
-.globalSW_ResizeCursor *, .globalSW_ResizeCursor .absolutelyPositioned {
-    cursor: sw-resize;
-} 
-.globalS_ResizeCursor *, .globalS_ResizeCursor .absolutelyPositioned {
-    cursor: s-resize;
-} 
-.globalW_ResizeCursor *, .globalW_ResizeCursor .absolutelyPositioned {
-    cursor: w-resize;
-} 
-.globalTextCursor *, .globalTextCursor .absolutelyPositioned {
-    cursor: text;
-}
-.globalWaitCursor *, .globalWaitCursor .absolutelyPositioned {
-    cursor: wait;
-} 
-.globalHelpCursor *, .globalHelpCursor .absolutelyPositioned {
-    cursor: help;
-}
-.globalNotAllowedCursor *, .globalNotAllowedCursor .absolutelyPositioned {
-    cursor: not-allowed;
-}
-
-
-.rightShadow {
-	color:black;
-	background-color:white;
-	background-image:url(rightShadow.png);
-	background-repeat:repeat-y;
-}
-
-.bottomShadow {
-	color:black;
-	background-color:white;
-	background-image:url(bottomShadow.png);
-	background-repeat:repeat-x;
-}
-
-.bottomRightCornerShadow {
-	color:black;
-	background-color:white;
-	background-image:url(bottomRightCornerShadow.png);
-	background-repeat:no-repeat;
-}
-
-.topRightCornerShadow {
-	color:black;
-	background-color:white;
-	background-image:url(topRightCornerShadow.png);
-	background-repeat:no-repeat;
-}
-
-.bottomLeftCornerShadow {
-	color:black;
-	background-color:white;
-	background-image:url(bottomLeftCornerShadow.png);
-	background-repeat:no-repeat;
-}  
 
 /* Home Style */
 #logo {

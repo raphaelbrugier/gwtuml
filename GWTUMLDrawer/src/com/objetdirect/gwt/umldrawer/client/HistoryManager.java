@@ -14,122 +14,103 @@
  */
 package com.objetdirect.gwt.umldrawer.client;
 
-import java.util.HashMap;
-
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.helpers.Session;
 
 /**
+ * Manage the history url and token. 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
+ * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class HistoryManager implements ValueChangeHandler<String> {
-	private static String					lastHistoryAnchor			= "";
-	private static HashMap<String, String>	lastHistoryParametersList	= new HashMap<String, String>();
-	private static SimplePanel				applicationPanel			= new SimplePanel();
-	private static String					urlDiagram					= "";
+	
+	public static final String START_PAGE = "Start";
+	public static final String ANIMATED_PAGE = "AnimatedDemo";
+	public static final String DEMO_PAGE = "Demo";
+	public static final String DRAWER_PAGE = "Drawer";
+	
+	private LayoutPanel appContainer;
 
 	static void upgradeDiagramURL(final String url) {
-		String historyToken = HistoryManager.lastHistoryAnchor + "?" + OptionsManager.toURL();
+		String historyToken = DRAWER_PAGE + "?" + OptionsManager.toURL();
 		if (!historyToken.endsWith("&")) {
 			historyToken += "&";
 		}
 		historyToken += "diagram64=" + url;
 		History.newItem(historyToken, false);
 	}
-
-	/**
-	 * Initialize the history management and therefore the application
-	 * 
-	 * @param appRootPanel
-	 *            The panel on which we can put the pages
-	 */
-	public void initApplication(final DockPanel appRootPanel) {
+	
+	public HistoryManager() {
 		History.addValueChangeHandler(this);
-		appRootPanel.add(HistoryManager.applicationPanel, DockPanel.CENTER);
-		HistoryManager.applicationPanel.setSize("100%", "100%");
-		this.parseHistoryToken(History.getToken());
-		this.processHistory();
-		Window.addCloseHandler(new CloseHandler<Window>() {
-
-			@Override
-			public void onClose(final CloseEvent<Window> event) {
-				if (HistoryManager.lastHistoryAnchor.equals("Drawer")) {
-					HistoryManager.upgradeDiagramURL(Session.getActiveCanvas().toUrl());
-				}
-			}
-		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.google.gwt.event.logical.shared.ValueChangeHandler#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)
-	 */
+
 	@Override
 	public void onValueChange(final ValueChangeEvent<String> event) {
-		final String historyToken = event.getValue();
-		this.parseHistoryToken(historyToken);
-		this.processHistory();
-	}
-
-	private void parseHistoryToken(final String historyToken) {
-		final String[] parts = historyToken.split("\\?");
-		HistoryManager.lastHistoryAnchor = parts[0];
-		HistoryManager.lastHistoryParametersList.clear();
-		if (parts.length > 1) {
-			final String[] params = parts[1].split("&");
-			for (final String argument : params) {
-				final String[] paramVar = argument.split("=", 2);
-				if ((paramVar.length > 0) && (paramVar[0].length() > 0)) {
-					if (!paramVar[0].equals("diagram64")) {
-						HistoryManager.lastHistoryParametersList.put(paramVar[0], paramVar.length > 1 ? paramVar[1] : "");
-					} else {
-						HistoryManager.urlDiagram = paramVar.length > 1 ? paramVar[1] : "";
-					}
-				}
-			}
+		String historyToken = event.getValue();
+		UrlParser urlParser = new UrlParser(historyToken);
+		String pageName = urlParser.getPageName();
+		
+		if (pageName.equals(DRAWER_PAGE)) {
+			DrawerContainer drawerContainer = new DrawerContainer(urlParser); 
+			changePage(drawerContainer);
+			forceDrawerResize(drawerContainer);
+		} 
+		else if (pageName.equals(START_PAGE)) {
+			changePage(new StartPanel());
+		} 
+		else if (pageName.equals(DEMO_PAGE)) {
+			DrawerContainer drawerContainer = new DrawerContainer();
+			new Demo(drawerContainer.getUmlCanvas());
+			changePage(drawerContainer);
+			forceDrawerResize(drawerContainer);
+		} 
+		else if (pageName.equals(ANIMATED_PAGE)) { // not working
+			DrawerContainer drawerContainer = new DrawerContainer();
+			new AnimatedDemo(drawerContainer);
+			changePage(drawerContainer);
+			forceDrawerResize(drawerContainer);
 		}
 	}
-
-	private void processHistory() {
-		HistoryManager.applicationPanel.clear();
-		// DOM.setStyleAttribute(Log.getDivLogger().getWidget().getElement(), "display", "none");
-
-		OptionsManager.setAllFromURL(HistoryManager.lastHistoryParametersList);
-		if (HistoryManager.lastHistoryAnchor.equals("Drawer")) {
-			final DrawerPanel drawerPanel = new DrawerPanel();
-			if (HistoryManager.urlDiagram.equals("")) {
-				drawerPanel.addDefaultNode();
-			} else {
-				Session.getActiveCanvas().getArtifactById().clear();
-				Session.getActiveCanvas().fromURL(HistoryManager.urlDiagram, false);
+	
+	/**
+	 * Switch the page currently displayed in the container.
+	 * @param newPage
+	 */
+	private void changePage(Widget newPage)  {
+		appContainer.clear();
+		appContainer.add(newPage);
+	}
+	
+	/**
+	 * Render a page from rule on the given container
+	 * @param container The container where the page is rendered (usually the RootLayoutPanel)
+	 */
+	public void go(LayoutPanel container) {
+		appContainer = container;
+		 if ("".equals(History.getToken())) {
+		      History.newItem(START_PAGE);
+		 }
+		 else {
+		     History.fireCurrentHistoryState();
+		 }
+	}
+	
+	/**
+	 * Add a deferred command to force the drawer resizing.
+	 */
+	private void forceDrawerResize(final DrawerContainer drawerContainer) {
+		DeferredCommand.addCommand(new Command() {
+			@Override
+			public void execute() {
+				drawerContainer.onResize();
 			}
-			GWTUMLDrawer.southBar.setVisible(true);
-			HistoryManager.applicationPanel.add(drawerPanel);
-		} else if (HistoryManager.lastHistoryAnchor.equals("Demo")) {
-			final DrawerPanel drawerPanel = new DrawerPanel();
-			new Demo(drawerPanel.getUMLCanvas());
-			GWTUMLDrawer.southBar.setVisible(true);
-			HistoryManager.applicationPanel.add(drawerPanel);
-		} else if (HistoryManager.lastHistoryAnchor.equals("AnimatedDemo")) {
-			final DrawerPanel drawerPanel = new DrawerPanel();
-			new AnimatedDemo(drawerPanel.getUMLCanvas());
-			GWTUMLDrawer.southBar.setVisible(true);
-			HistoryManager.applicationPanel.add(drawerPanel);
-		} else {
-			History.newItem("Start", false);
-			HistoryManager.urlDiagram = "";
-			GWTUMLDrawer.southBar.setVisible(false);
-			HistoryManager.applicationPanel.add(new StartPanel(false));
-		}
+		});
 	}
 }
