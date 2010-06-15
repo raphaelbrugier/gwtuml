@@ -23,6 +23,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.CanvasListener;
 import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.Mouse;
 import com.objetdirect.gwt.umlapi.client.helpers.Session;
@@ -31,7 +32,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 /**
  * This class is an exemple of an animated contruction of an uml diagram It shows how to use {@link Keyboard} and {@link Mouse}.
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public class AnimatedDemo {
 
@@ -55,6 +55,9 @@ public class AnimatedDemo {
 	}
 
 	private static final int	DELAY	= 100;
+	
+	private final UMLCanvas umlCanvas;
+	private final CanvasListener mouseCanvasListener;
 
 	/**
 	 * Constructor of the animated demo, used to test the
@@ -66,6 +69,8 @@ public class AnimatedDemo {
 		Log.trace("Creating Animated demo");
 		final Keyboard keyboard = drawerContainer.getDrawer().getKeyboard();
 		final Drawer drawer = drawerContainer.getDrawer();
+		umlCanvas = drawer.getUmlCanvas();
+		mouseCanvasListener = umlCanvas.getCanvasMouseListener();
 		
 		DeferredCommand.addCommand(new Command() {
 
@@ -81,7 +86,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.move(classOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(classOrigin, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(classOrigin);
 					}
 				};
@@ -97,8 +102,8 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.press(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false, false, false);
-						Mouse.release(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false);
+						mouseCanvasListener.release(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(Point.getOrigin());
 					}
 				};
@@ -110,7 +115,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.move(objectOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(objectOrigin, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(objectOrigin);
 					}
 				};
@@ -127,11 +132,11 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.press(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
-						Mouse.release(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
+						mouseCanvasListener.release(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(object);
-						Mouse.press(Session.getActiveCanvas().getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
-						Mouse.release(Session.getActiveCanvas().getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
+						mouseCanvasListener.release(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(classTarget);
 					}
 				};
@@ -148,8 +153,8 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.press(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
-						Mouse.release(Session.getActiveCanvas().getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
+						mouseCanvasListener.release(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(object);
 					}
 				};
@@ -159,7 +164,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.press(null, selectBoxOrigin, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(null, selectBoxOrigin, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(selectBoxOrigin);
 					}
 				};
@@ -169,7 +174,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.release(null, selectBoxTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.release(null, selectBoxTarget, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(selectBoxTarget);
 					}
 				};
@@ -179,7 +184,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.press(Session.getActiveCanvas().getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.press(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(classTarget);
 					}
 				};
@@ -188,7 +193,7 @@ public class AnimatedDemo {
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Mouse.release(Session.getActiveCanvas().getArtifactAt(allTarget), allTarget, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.release(umlCanvas.getArtifactAt(allTarget), allTarget, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(allTarget);
 					}
 				};
@@ -216,7 +221,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						final Point to = new Point(xx, origin.getY());
-						Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(to);
 
 					}
@@ -229,7 +234,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						final Point to = new Point(xx, origin.getY());
-						Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(to);
 					}
 				};
@@ -242,7 +247,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						final Point to = new Point(target.getX(), yy);
-						Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(to);
 					}
 				};
@@ -254,7 +259,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						final Point to = new Point(target.getX(), yy);
-						Mouse.move(to, NativeEvent.BUTTON_LEFT, false, false, false, false);
+						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
 						Cursor.move(to);
 					}
 				};
