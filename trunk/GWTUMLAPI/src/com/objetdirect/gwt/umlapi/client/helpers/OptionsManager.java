@@ -144,7 +144,7 @@ public class OptionsManager {
 		OptionsManager.optionsList.put("FontSize", 10);
 		OptionsManager.optionsList.put("SmallFontSize", 9);
 
-		OptionsManager.optionsList.put("DiagramType", 2);
+		OptionsManager.optionsList.put("DiagramType", -1); //Force the diagram type to be added
 		OptionsManager.optionsList.put("GraphicEngine", 0);
 		OptionsManager.optionsList.put("GeometryStyle", 0);
 		OptionsManager.optionsList.put("Theme", 0);
@@ -173,7 +173,7 @@ public class OptionsManager {
 	 *            The {@link Integer} new value of this option
 	 */
 	public static void set(final String optionName, final Integer optionValue) {
-
+		maybeForceInit();
 		if (!OptionsManager.optionsList.containsKey(optionName)) {
 			Log.error("Unknown option : " + optionName);
 		} else {
@@ -188,6 +188,7 @@ public class OptionsManager {
 	 *            The {@link HashMap} of options
 	 */
 	public static void setAllFromURL(final HashMap<String, String> options) {
+		maybeForceInit();
 		for (final Entry<String, String> option : options.entrySet()) {
 			if (OptionsManager.optionsList.containsKey(option.getKey())) {
 
@@ -207,6 +208,7 @@ public class OptionsManager {
 	 * @return The {@link String} containing the parameters in the format : parameterName=parameterValue
 	 */
 	public static String toURL() {
+		maybeForceInit();
 		final StringBuilder urlParameters = new StringBuilder();
 		for (final Entry<String, Integer> option : OptionsManager.optionsList.entrySet()) {
 			if (OptionsManager.defaultOptionsList.get(option.getKey()) != option.getValue()) {
@@ -220,6 +222,7 @@ public class OptionsManager {
 	}
 
 	static void setAll(final HashMap<String, Integer> options) {
+		maybeForceInit();
 		for (final Entry<String, Integer> option : options.entrySet()) {
 			if (OptionsManager.optionsList.containsKey(option.getKey())) {
 				OptionsManager.optionsList.put(option.getKey(), option.getValue());

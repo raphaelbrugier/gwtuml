@@ -302,7 +302,8 @@ public class Point implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Point(" + this.x + "," + this.y + ")";
+		// DO NOT CHANGE THE RETURN ! THIS IS USED FOR SERIALIZATION to/from url
+		return "(" + this.x + "," + this.y + ")";
 	}
 
 	/**
