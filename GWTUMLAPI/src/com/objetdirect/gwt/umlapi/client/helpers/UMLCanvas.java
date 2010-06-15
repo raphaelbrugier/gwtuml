@@ -157,7 +157,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public UMLCanvas(DiagramType diagramType, final int width, final int height) {
 		super();
-		Session.setActiveCanvas(this);
 		initFieldsWithDefaultValue();
 		
 		Log.trace("Making " + width + " x " + height + " Canvas");
@@ -1178,7 +1177,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 	
 	public void setUpAfterDeserialization(int width, int height) {
-		Session.setActiveCanvas(this);
 		Log.trace("UMLCanvas::setUpAfterDeserialization => Making Canvas");
 		this.drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		this.drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
