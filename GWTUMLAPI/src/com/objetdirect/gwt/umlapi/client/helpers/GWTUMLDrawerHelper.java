@@ -17,9 +17,6 @@ package com.objetdirect.gwt.umlapi.client.helpers;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.EventPreview;
 
 /**
  * This class is a static helper for entire application
@@ -28,7 +25,6 @@ import com.google.gwt.user.client.EventPreview;
  * 
  */
 public class GWTUMLDrawerHelper {
-	private static EventPreview	eventPreview	= null;
 	
 	public static boolean isBlank(String str) {
 		int strLen;
@@ -185,22 +181,4 @@ public class GWTUMLDrawerHelper {
 	   
 	   return output;
 	}-*/;
-
-	private static void makeEventPreview() {
-		GWTUMLDrawerHelper.eventPreview = new EventPreview() {
-			public boolean onEventPreview(final Event event) {
-
-				switch (DOM.eventGetType(event)) {
-					case Event.ONMOUSEDOWN:
-					case Event.ONMOUSEMOVE:
-					case Event.ONMOUSEUP: // Tell the browser not to act on the
-						// event.
-						DOM.eventPreventDefault(event);
-
-				}
-				return true; // But DO allow the event to fire.
-			}
-		};
-	}
-
 }

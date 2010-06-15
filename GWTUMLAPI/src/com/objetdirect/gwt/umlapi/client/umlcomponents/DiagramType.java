@@ -24,25 +24,39 @@ public enum DiagramType {
 	/**
 	 * For a class diagram
 	 */
-	CLASS("class"),
+	CLASS(0, "class"),
 	/**
 	 * For an object diagram
 	 */
-	OBJECT("object"),
+	OBJECT(1, "object"),
 	/**
 	 * For a class and object diagram
 	 */
-	HYBRID("class and object"),
+	HYBRID(2, "class and object"),
 	/**
 	 * For a sequence diagram
 	 */
-	SEQUENCE("sequence");
+	SEQUENCE(3, "sequence");
 
 	private String	name;
+	private int index;
 
-	private DiagramType(final String name) {
+	private DiagramType(final int index, final String name) {
 		this.name = name;
+		this.index = index;
 	}
+	
+	
+	public static DiagramType fromIndex(int index) {
+		for (DiagramType d : DiagramType.values()) {
+			if (d.index == index) {
+				return d;
+			}
+		}
+		
+		return CLASS;
+	}
+	
 
 	/**
 	 * Getter for the name
@@ -69,6 +83,14 @@ public enum DiagramType {
 	 * @return True if the diagram can draw class diagram and object diagram objects
 	 */
 	public boolean isHybridType() {
-		return this.equals(CLASS) && this.equals(OBJECT);
+		return this.equals(CLASS) || this.equals(OBJECT) || this.equals(HYBRID);
+	}
+
+
+	/**
+	 * @return the index
+	 */
+	public int getIndex() {
+		return index;
 	}
 }
