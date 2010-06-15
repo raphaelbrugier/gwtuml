@@ -7,7 +7,7 @@
 
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>UMLDrawer.html</welcome-file>
+    <welcome-file>GWTUMLDrawer.html</welcome-file>
   </welcome-file-list>
   
 </web-app>

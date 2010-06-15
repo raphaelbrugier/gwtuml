@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umldrawer.client;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.HYBRID;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,8 +34,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLDiagram.Type;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 
 /**
  * This class is the index panel displaying drawer options and logo
@@ -60,7 +61,7 @@ public class StartPanel extends VerticalPanel {
 	final HorizontalPanel		resolutionPanel			= new HorizontalPanel();
 
 	final Button				startDemoBtn			= new Button("... Or start the Demo ...");
-	final Button				startAnimateDemoBtn		= new Button("... Or start the Animated Demo !");
+//	final Button				startAnimateDemoBtn		= new Button("... Or start the Animated Demo !");
 	final Label					themeLbl				= new Label("Theme : ");
 	final ListBox				themeListBox			= new ListBox();
 	final HorizontalPanel		themePanel				= new HorizontalPanel();
@@ -69,10 +70,8 @@ public class StartPanel extends VerticalPanel {
 
 	/**
 	 * Constructor of the {@link StartPanel}
-	 * 
-	 * @param isFromHistory
 	 */
-	public StartPanel(final boolean isFromHistory) {
+	public StartPanel() {
 		super();
 		this.loadingScreen = new LoadingScreen();
 		this.loadingScreen.show();
@@ -117,7 +116,7 @@ public class StartPanel extends VerticalPanel {
 		this.qualityListBox.setSelectedIndex(1); // High quality
 
 		this.add(this.logoImg);
-		for (final UMLDiagram.Type type : UMLDiagram.Type.values()) {
+		for (final DiagramType type : DiagramType.values()) {
 			final Button startBtn = new Button("Start new UML " + type.getName() + " diagram...");
 			this.add(startBtn);
 			startBtn.addClickHandler(new ClickHandler() {
@@ -131,16 +130,16 @@ public class StartPanel extends VerticalPanel {
 		this.startDemoBtn.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				StartPanel.this.setOptions("Demo", UMLDiagram.Type.HYBRID);
+				StartPanel.this.setOptions("Demo", HYBRID);
 			}
 		});
-		this.add(this.startAnimateDemoBtn);
-		this.startAnimateDemoBtn.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(final ClickEvent event) {
-				StartPanel.this.setOptions("AnimatedDemo", UMLDiagram.Type.HYBRID);
-			}
-		});
+//		this.add(this.startAnimateDemoBtn);
+//		this.startAnimateDemoBtn.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(final ClickEvent event) {
+//				StartPanel.this.setOptions("AnimatedDemo", HYBRID);
+//			}
+//		});
 
 		if (OptionsManager.get("Advanced") == 1) {
 			this.gfxEnginePanel.add(this.gfxEngineLbl);
@@ -168,10 +167,11 @@ public class StartPanel extends VerticalPanel {
 		this.qualityPanel.add(this.qualityListBox);
 		this.add(this.qualityPanel);
 		this.loadingScreen.hide();
+		this.addStyleName("verticalTable");
 	}
 
-	private void setOptions(final String newHistoryToken, final Type type) {
-		OptionsManager.set("DiagramType", type.getIndex());
+	private void setOptions(final String newHistoryToken, final DiagramType type) {
+		OptionsManager.set("DiagramType", type.ordinal());
 		OptionsManager.set("Theme", this.themeListBox.getSelectedIndex());
 		OptionsManager.set("QualityLevel", this.qualityListBox.getSelectedIndex());
 		if (OptionsManager.get("Advanced") == 1) {

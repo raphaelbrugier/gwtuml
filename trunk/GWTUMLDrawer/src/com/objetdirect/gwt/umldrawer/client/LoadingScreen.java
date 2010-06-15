@@ -19,8 +19,6 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager;
-import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 
 /**
  * This class display an AJAX style loading screen to animate waiting time
@@ -51,7 +49,6 @@ public class LoadingScreen {
 	 * Hide the loading screen
 	 */
 	public void hide() {
-		CursorIconManager.setCursorIcon(PointerStyle.AUTO);
 		this.loadingPanel.setVisible(false);
 	}
 
@@ -59,7 +56,6 @@ public class LoadingScreen {
 	 * Show the loading screen
 	 */
 	public void show() {
-		CursorIconManager.setCursorIcon(PointerStyle.WAIT);
 		this.loadingPanel.setVisible(true);
 	}
 }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
@@ -37,7 +36,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-public class Demo extends AbsolutePanel {
+public class Demo {
 
 	private final static int	FIRST_ROW				= 85;
 	private final static int	SECOND_ROW				= 250;
@@ -56,21 +55,21 @@ public class Demo extends AbsolutePanel {
 		super();
 		Log.trace("Creating demo");
 
-		final ClassArtifact uMLCanvas = new ClassArtifact(canvas, "UMLCanvas");
-		final ClassArtifact uMLEventListener = new ClassArtifact(canvas, "UMLEventListener", "Interface");
-		final ClassArtifact externClass = new ClassArtifact(canvas, "ExternClass", "Imaginary");
-		final ClassArtifact uMLArtifact = new ClassArtifact(canvas, "UMLArtifact", "Abstract");
-		final ClassArtifact boxArtifact = new ClassArtifact(canvas, "BoxArtifact", "Abstract");
-		final ClassArtifact classArtifact = new ClassArtifact(canvas, "ClassArtifact");
-		final ClassArtifact classPartArtifact = new ClassArtifact(canvas, "ClassPartArtifact", "Abstract");
-		final ClassArtifact classPartAttributesArtifact = new ClassArtifact(canvas, "ClassPartAttributesArtifact");
-		final ClassArtifact classPartMethodsArtifact = new ClassArtifact(canvas, "ClassPartMethodsArtifact");
-		final ClassArtifact classPartNameArtifact = new ClassArtifact(canvas, "ClassPartNameArtifact");
-		final ClassArtifact noteArtifact = new ClassArtifact(canvas, "NoteArtifact");
-		final ClassArtifact linkArtifact = new ClassArtifact(canvas, "LinkArtifact", "Abstract");
-		final ClassArtifact linkClassRelationArtifact = new ClassArtifact(canvas, "LinkClassRelationArtifact");
-		final ClassArtifact linkNoteArtifact = new ClassArtifact(canvas, "LinkNoteArtifact");
-		final ClassArtifact relationLinkArtifact = new ClassArtifact(canvas, "RelationLinkArtifact");
+		final ClassArtifact uMLCanvas = new ClassArtifact(canvas, 0, "UMLCanvas");
+		final ClassArtifact uMLEventListener = new ClassArtifact(canvas, 1, "UMLEventListener", "Interface");
+		final ClassArtifact externClass = new ClassArtifact(canvas, 2, "ExternClass", "Imaginary");
+		final ClassArtifact uMLArtifact = new ClassArtifact(canvas, 3, "UMLArtifact", "Abstract");
+		final ClassArtifact boxArtifact = new ClassArtifact(canvas, 4, "BoxArtifact", "Abstract");
+		final ClassArtifact classArtifact = new ClassArtifact(canvas, 5, "ClassArtifact");
+		final ClassArtifact classPartArtifact = new ClassArtifact(canvas, 6, "ClassPartArtifact", "Abstract");
+		final ClassArtifact classPartAttributesArtifact = new ClassArtifact(canvas, 7, "ClassPartAttributesArtifact");
+		final ClassArtifact classPartMethodsArtifact = new ClassArtifact(canvas, 8, "ClassPartMethodsArtifact");
+		final ClassArtifact classPartNameArtifact = new ClassArtifact(canvas, 9, "ClassPartNameArtifact");
+		final ClassArtifact noteArtifact = new ClassArtifact(canvas, 10, "NoteArtifact");
+		final ClassArtifact linkArtifact = new ClassArtifact(canvas, 11, "LinkArtifact", "Abstract");
+		final ClassArtifact linkClassRelationArtifact = new ClassArtifact(canvas, 12, "LinkClassRelationArtifact");
+		final ClassArtifact linkNoteArtifact = new ClassArtifact(canvas, 13, "LinkNoteArtifact");
+		final ClassArtifact relationLinkArtifact = new ClassArtifact(canvas, 14, "RelationLinkArtifact");
 
 		uMLCanvas.setLocation(new Point(500, Demo.FIRST_ROW));
 		uMLEventListener.setLocation(new Point(10, Demo.FIRST_ROW - 10));
@@ -120,31 +119,31 @@ public class Demo extends AbsolutePanel {
 		canvas.add(linkNoteArtifact);
 		canvas.add(relationLinkArtifact);
 
-		final ClassRelationLinkArtifact uMLCanvas_uMLEventListener = new ClassRelationLinkArtifact(canvas, uMLCanvas, uMLEventListener, LinkKind.AGGREGATION_RELATION);
-		final ClassRelationLinkArtifact uMLEventListener_externClass = new ClassRelationLinkArtifact(canvas, uMLEventListener, externClass,
+		final ClassRelationLinkArtifact uMLCanvas_uMLEventListener = new ClassRelationLinkArtifact(canvas, 15, uMLCanvas, uMLEventListener, LinkKind.AGGREGATION_RELATION);
+		final ClassRelationLinkArtifact uMLEventListener_externClass = new ClassRelationLinkArtifact(canvas, 16, uMLEventListener, externClass,
 				LinkKind.REALIZATION_RELATION);
-		final ClassRelationLinkArtifact uMLCanvas_uMLArtifact = new ClassRelationLinkArtifact(canvas, uMLCanvas, uMLArtifact, LinkKind.COMPOSITION_RELATION);
-		final ClassRelationLinkArtifact uMLArtifact_uMLArtifact = new ClassRelationLinkArtifact(canvas, uMLArtifact, uMLArtifact, LinkKind.COMPOSITION_RELATION);
-		final ClassRelationLinkArtifact uMLArtifact_boxArtifact = new ClassRelationLinkArtifact(canvas, uMLArtifact, boxArtifact, LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact uMLArtifact_linkArtifact = new ClassRelationLinkArtifact(canvas, uMLArtifact, linkArtifact, LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact uMLArtifact_linkArtifact_2 = new ClassRelationLinkArtifact(canvas, uMLArtifact, linkArtifact, LinkKind.ASSOCIATION_RELATION);
-		final ClassRelationLinkArtifact boxArtifact_classArtifact = new ClassRelationLinkArtifact(canvas, boxArtifact, classArtifact, LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact boxArtifact_classPartArtifact = new ClassRelationLinkArtifact(canvas, boxArtifact, classPartArtifact,
+		final ClassRelationLinkArtifact uMLCanvas_uMLArtifact = new ClassRelationLinkArtifact(canvas, 17, uMLCanvas, uMLArtifact, LinkKind.COMPOSITION_RELATION);
+		final ClassRelationLinkArtifact uMLArtifact_uMLArtifact = new ClassRelationLinkArtifact(canvas, 18, uMLArtifact, uMLArtifact, LinkKind.COMPOSITION_RELATION);
+		final ClassRelationLinkArtifact uMLArtifact_boxArtifact = new ClassRelationLinkArtifact(canvas, 19, uMLArtifact, boxArtifact, LinkKind.GENERALIZATION_RELATION);
+		final ClassRelationLinkArtifact uMLArtifact_linkArtifact = new ClassRelationLinkArtifact(canvas, 20, uMLArtifact, linkArtifact, LinkKind.GENERALIZATION_RELATION);
+		final ClassRelationLinkArtifact uMLArtifact_linkArtifact_2 = new ClassRelationLinkArtifact(canvas, 21, uMLArtifact, linkArtifact, LinkKind.ASSOCIATION_RELATION);
+		final ClassRelationLinkArtifact boxArtifact_classArtifact = new ClassRelationLinkArtifact(canvas, 22, boxArtifact, classArtifact, LinkKind.GENERALIZATION_RELATION);
+		final ClassRelationLinkArtifact boxArtifact_classPartArtifact = new ClassRelationLinkArtifact(canvas, 23, boxArtifact, classPartArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact boxArtifact_noteArtifact = new ClassRelationLinkArtifact(canvas, boxArtifact, noteArtifact, LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact linkArtifact_relationLinkArtifact = new ClassRelationLinkArtifact(canvas, linkArtifact, relationLinkArtifact,
+		final ClassRelationLinkArtifact boxArtifact_noteArtifact = new ClassRelationLinkArtifact(canvas, 24, boxArtifact, noteArtifact, LinkKind.GENERALIZATION_RELATION);
+		final ClassRelationLinkArtifact linkArtifact_relationLinkArtifact = new ClassRelationLinkArtifact(canvas, 25, linkArtifact, relationLinkArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact linkArtifact_linkClassRelationArtifact = new ClassRelationLinkArtifact(canvas, linkArtifact, linkClassRelationArtifact,
+		final ClassRelationLinkArtifact linkArtifact_linkClassRelationArtifact = new ClassRelationLinkArtifact(canvas, 26, linkArtifact, linkClassRelationArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact linkArtifact_linkNoteArtifact = new ClassRelationLinkArtifact(canvas, linkArtifact, linkNoteArtifact,
+		final ClassRelationLinkArtifact linkArtifact_linkNoteArtifact = new ClassRelationLinkArtifact(canvas, 27, linkArtifact, linkNoteArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact classPartArtifact_classPartAttributesArtifact = new ClassRelationLinkArtifact(canvas, classPartArtifact,
+		final ClassRelationLinkArtifact classPartArtifact_classPartAttributesArtifact = new ClassRelationLinkArtifact(canvas, 28, classPartArtifact,
 				classPartAttributesArtifact, LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact classPartArtifact_classPartMethodsArtifact = new ClassRelationLinkArtifact(canvas, classPartArtifact, classPartMethodsArtifact,
+		final ClassRelationLinkArtifact classPartArtifact_classPartMethodsArtifact = new ClassRelationLinkArtifact(canvas, 29, classPartArtifact, classPartMethodsArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact classPartArtifact_classPartNameArtifact = new ClassRelationLinkArtifact(canvas, classPartArtifact, classPartNameArtifact,
+		final ClassRelationLinkArtifact classPartArtifact_classPartNameArtifact = new ClassRelationLinkArtifact(canvas, 30, classPartArtifact, classPartNameArtifact,
 				LinkKind.GENERALIZATION_RELATION);
-		final ClassRelationLinkArtifact classArtifact_classPartArtifact = new ClassRelationLinkArtifact(canvas, classArtifact, classPartArtifact,
+		final ClassRelationLinkArtifact classArtifact_classPartArtifact = new ClassRelationLinkArtifact(canvas, 31, classArtifact, classPartArtifact,
 				LinkKind.COMPOSITION_RELATION);
 
 		uMLCanvas_uMLEventListener.setRightNavigability(false);
@@ -170,8 +169,8 @@ public class Demo extends AbsolutePanel {
 		canvas.add(classPartArtifact_classPartNameArtifact);
 		canvas.add(classArtifact_classPartArtifact);
 
-		final NoteArtifact titleNote = new NoteArtifact(canvas, "Demo class diagram\nCanvas and artifact of gwtuml");
-		final NoteArtifact classPartNote = new NoteArtifact(canvas, "ClassArtifact\nis cut in 3 parts\nfor code clarity");
+		final NoteArtifact titleNote = new NoteArtifact(canvas, 32, "Demo class diagram\nCanvas and artifact of gwtuml");
+		final NoteArtifact classPartNote = new NoteArtifact(canvas, 33, "ClassArtifact\nis cut in 3 parts\nfor code clarity");
 
 		titleNote.setLocation(new Point(15, 15));
 		classPartNote.setLocation(new Point(30, Demo.MIDDLE_SECOND_THIRD_ROW));
@@ -179,9 +178,9 @@ public class Demo extends AbsolutePanel {
 		canvas.add(titleNote);
 		canvas.add(classPartNote);
 
-		final LinkNoteArtifact classPartNote_classArtifact = new LinkNoteArtifact(canvas, classPartNote, classArtifact);
-		final LinkNoteArtifact classPartNote_classPartArtifact = new LinkNoteArtifact(canvas, classPartNote, classPartArtifact);
-		final LinkNoteArtifact classPartNote_classArtifact_classPartArtifact = new LinkNoteArtifact(canvas, classPartNote, classArtifact_classPartArtifact);
+		final LinkNoteArtifact classPartNote_classArtifact = new LinkNoteArtifact(canvas, 34, classPartNote, classArtifact);
+		final LinkNoteArtifact classPartNote_classPartArtifact = new LinkNoteArtifact(canvas, 35, classPartNote, classPartArtifact);
+		final LinkNoteArtifact classPartNote_classArtifact_classPartArtifact = new LinkNoteArtifact(canvas, 36, classPartNote, classArtifact_classPartArtifact);
 
 		canvas.add(classPartNote_classArtifact);
 		canvas.add(classPartNote_classPartArtifact);
