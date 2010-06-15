@@ -19,9 +19,7 @@ import java.util.Collections;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a link type artifact
