@@ -30,12 +30,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
  */
 public class ObjectContextMenu extends ContextMenu {
 
-	private final Command addNewObjectCommand =
-		new Command() {
-		public void execute() {
-			canvas.addNewObject();
-		}
-	};
 
 	protected ObjectContextMenu(final Point location, final UmlCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
@@ -46,7 +40,11 @@ public class ObjectContextMenu extends ContextMenu {
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
-		contextMenu.addItem("Add new object", addNewObjectCommand);
+		contextMenu.addItem("Add new object", new Command() {
+			public void execute() {
+				canvas.addNewObject();
+			}
+		});
 	}
 
 	/* (non-Javadoc)

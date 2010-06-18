@@ -23,6 +23,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.G
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.NOTE;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.REALIZATION_RELATION;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.UmlCanvas;
@@ -35,12 +36,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
  */
 public class ClassContextMenu extends ContextMenu {
 
-	private final Command addNewClassCommand = new Command() {
-		public void execute() {
-			canvas.addNewClass();
-		}
-	};
-
 	protected ClassContextMenu(final Point location, final UmlCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
 	}
@@ -50,7 +45,12 @@ public class ClassContextMenu extends ContextMenu {
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
-		contextMenu.addItem("Add new class", addNewClassCommand);
+		Log.debug("ClassContextMenu::makeSpecificDiagramMenu()");
+		contextMenu.addItem("Add new class", new Command() {
+			public void execute() {
+				canvas.addNewClass();
+			}
+		});
 	}
 
 	/* (non-Javadoc)
