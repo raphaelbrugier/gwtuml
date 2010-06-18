@@ -30,7 +30,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
@@ -240,14 +239,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		rightMenu.addItem(leftObjectArtifact.getName() + " side", leftSide);
 		rightMenu.addItem(rightObjectArtifact.getName() + " side", rightSide);
 		rightMenu.addItem("Reverse", this.reverseCommand(relation));
-		final MenuBar linkSubMenu = new MenuBar(true);
-		for (final LinkKind relationKind : LinkKind.values()) {
-			if (relationKind.isForDiagram(DiagramType.OBJECT)) {
-				linkSubMenu.addItem(relationKind.getName(), this.changeToCommand(relation, relationKind));
-			}
-
-		}
-		rightMenu.addItem("Change to", linkSubMenu);
 		return rightMenu;
 	}
 
@@ -555,18 +546,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		super.select();
 		line.setStroke(ThemeManager.getTheme().getObjectRelationHighlightedForegroundColor(), 2);
 		arrowVirtualGroup.setStroke(ThemeManager.getTheme().getObjectRelationHighlightedForegroundColor(), 2);
-	}
-
-	private Command changeToCommand(final UMLRelation linkRelation, final LinkKind relationKind) {
-		return new Command() {
-			public void execute() {
-				linkRelation.setLinkKind(relationKind);
-				linkRelation.setLinkStyle(relationKind.getDefaultLinkStyle());
-				linkRelation.setLeftAdornment(relationKind.getDefaultLeftAdornment());
-				linkRelation.setRightAdornment(relationKind.getDefaultRightAdornment());
-				ObjectRelationLinkArtifact.this.rebuildGfxObject();
-			}
-		};
 	}
 
 	private Command createCommand(final RelationLinkArtifactPart relationArtifactPart) {
