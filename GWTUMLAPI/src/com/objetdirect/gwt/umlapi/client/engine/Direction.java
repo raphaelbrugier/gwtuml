@@ -26,7 +26,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * 
  */
-
 public enum Direction {
 	/**
 	 * Down direction
@@ -106,20 +105,19 @@ public enum Direction {
 		return speedModified;
 	}
 
-	private int		xDirection;
-	private int		yDirection;
+	private int xDirection;
+	private int yDirection;
 
-	private int		speed	= 1;
-	private String	idiom	= "x";
+	private int speed = 1;
+	private String idiom = "x";
 
-	
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	private Direction() {
 	}
-	
+
 	private Direction(final int x, final int y, final String idiom) {
-		this.xDirection = x;
-		this.yDirection = y;
+		xDirection = x;
+		yDirection = y;
 		this.idiom = idiom;
 	}
 
@@ -129,7 +127,7 @@ public enum Direction {
 	 * @return the idiom of this Direction
 	 */
 	public final String getIdiom() {
-		return this.idiom;
+		return idiom;
 	}
 
 	/**
@@ -138,7 +136,7 @@ public enum Direction {
 	 * @return the speed
 	 */
 	public int getSpeed() {
-		return this.speed;
+		return speed;
 	}
 
 	/**
@@ -147,7 +145,7 @@ public enum Direction {
 	 * @return the abscissa Direction
 	 */
 	public final int getXDirection() {
-		return this.xDirection;
+		return xDirection;
 	}
 
 	/**
@@ -156,7 +154,7 @@ public enum Direction {
 	 * @return the x speed
 	 */
 	public double getXShift() {
-		return this.xDirection * this.speed;
+		return xDirection * speed;
 	}
 
 	/**
@@ -165,7 +163,7 @@ public enum Direction {
 	 * @return the ordinate direction
 	 */
 	public final int getYDirection() {
-		return this.yDirection;
+		return yDirection;
 	}
 
 	/**
@@ -174,7 +172,7 @@ public enum Direction {
 	 * @return the y speed
 	 */
 	public double getYShift() {
-		return this.yDirection * this.speed;
+		return yDirection * speed;
 	}
 
 	/**
@@ -183,7 +181,7 @@ public enum Direction {
 	 * @return True if it is purely horizontal
 	 */
 	public boolean isHorizontal() {
-		return (this.yDirection == 0) && (this.xDirection != 0);
+		return (yDirection == 0) && (xDirection != 0);
 	}
 
 	/**
@@ -195,7 +193,7 @@ public enum Direction {
 	 * @return True if it is the opposite
 	 */
 	public boolean isOppositeOf(final Direction opposite) {
-		return ((this.xDirection == -opposite.xDirection) && (this.yDirection == -opposite.yDirection));
+		return ((xDirection == -opposite.xDirection) && (yDirection == -opposite.yDirection));
 	}
 
 	/**
@@ -204,7 +202,7 @@ public enum Direction {
 	 * @return True if it is purely vertical
 	 */
 	public boolean isVertical() {
-		return (this.xDirection == 0) && (this.yDirection != 0);
+		return (xDirection == 0) && (yDirection != 0);
 	}
 
 	/**
@@ -214,7 +212,7 @@ public enum Direction {
 	 *            the abscissa direction to set
 	 */
 	public final void setXDirection(final int direction) {
-		this.xDirection = direction;
+		xDirection = direction;
 	}
 
 	/**
@@ -224,7 +222,7 @@ public enum Direction {
 	 *            the ordinate direction to set
 	 */
 	public final void setYDirection(final int direction) {
-		this.yDirection = direction;
+		yDirection = direction;
 	}
 
 	/*
@@ -234,7 +232,7 @@ public enum Direction {
 	 */
 	@Override
 	public String toString() {
-		return "Direction : " + super.toString() + " x : " + this.getXDirection() + " y : " + this.getYDirection() + " with speed = " + this.speed;
+		return "Direction : " + super.toString() + " x : " + this.getXDirection() + " y : " + this.getYDirection() + " with speed = " + speed;
 	}
 
 	/**
@@ -246,12 +244,13 @@ public enum Direction {
 	 * @return This instance
 	 */
 	public Direction withSpeed(final int theSpeed) {
-		this.speed = theSpeed;
+		speed = theSpeed;
 		return this;
 	}
-	
+
 	/**
 	 * Only the directions representing a side value.
+	 * 
 	 * @return a list containing the 8 side values
 	 */
 	public static List<Direction> sideValues() {

@@ -27,7 +27,6 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * This class represents an object uml component
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 @SuppressWarnings("serial")
 public class UMLObject extends UMLNode {
@@ -99,14 +98,15 @@ public class UMLObject extends UMLNode {
 		return "";
 	}
 
-	private String							objectName;
-	private String							instanceName;
-	private String							stereotype;
-	private ArrayList<UMLObjectAttribute>	attributes;
+	private String objectName;
+	private String instanceName;
+	private String stereotype;
+	private ArrayList<UMLObjectAttribute> attributes;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLObject(){}
-	
+	UMLObject() {
+	}
+
 	/**
 	 * Constructor of an {@link UMLObject}
 	 * 
@@ -117,7 +117,7 @@ public class UMLObject extends UMLNode {
 	 */
 	public UMLObject(final String objectInstance, final String objectName) {
 		super();
-		this.instanceName = objectInstance;
+		instanceName = objectInstance;
 		this.objectName = objectName;
 	}
 
@@ -127,7 +127,7 @@ public class UMLObject extends UMLNode {
 	 * @return the object instance name
 	 */
 	public final String getInstanceName() {
-		return this.instanceName;
+		return instanceName;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class UMLObject extends UMLNode {
 	 * @return the attributes
 	 */
 	public final ArrayList<UMLObjectAttribute> getObjectAttributes() {
-		return this.attributes;
+		return attributes;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class UMLObject extends UMLNode {
 	 * @return the object name
 	 */
 	public final String getObjectName() {
-		return this.objectName;
+		return objectName;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class UMLObject extends UMLNode {
 	 * @return the stereotype
 	 */
 	public final String getStereotype() {
-		return this.stereotype;
+		return stereotype;
 	}
 
 	/**
@@ -204,6 +204,6 @@ public class UMLObject extends UMLNode {
 	 */
 	@Override
 	public String toString() {
-		return this.instanceName + ":" + this.objectName;
+		return instanceName + ":" + objectName;
 	}
 }

@@ -33,8 +33,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class HelpManager {
 
-	private static LinkedHashMap<String, String>	hotkeysHelp	= new LinkedHashMap<String, String>();
+	private static LinkedHashMap<String, String> hotkeysHelp = new LinkedHashMap<String, String>();
 	private static PopupPanel popup;
+
 	/**
 	 * Add a line to inform the user about a hot key
 	 * 
@@ -46,7 +47,7 @@ public class HelpManager {
 	private static void addHotkeyHelp(final String key, final String description) {
 		HelpManager.hotkeysHelp.put(key, description);
 	}
-	
+
 	/**
 	 * Fill the hotkeys and descriptions map
 	 */
@@ -82,9 +83,9 @@ public class HelpManager {
 	 * A call to this method will bring a popup with the help added previously.
 	 */
 	public static void bringHelpPopup() {
-		if(popup == null) {
+		if (popup == null) {
 			forceStaticInit();
-			
+
 			final StringBuilder htmlContent = new StringBuilder();
 			htmlContent.append("<table style='width: 100%'>");
 			for (final Entry<String, String> entry : HelpManager.hotkeysHelp.entrySet()) {
@@ -94,14 +95,14 @@ public class HelpManager {
 			popup = new PopupPanel(true);
 			popup.setModal(true);
 			popup.setGlassEnabled(true);
-			
+
 			final VerticalPanel vPanel = new VerticalPanel();
 			vPanel.setSpacing(10);
 			vPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			final HTML htmlHTMLTitle = new HTML("<h2>Hotkeys</h2>");
 			final HTML htmlHTMLContent = new HTML(htmlContent.toString());
 			final Button close = new Button("Close");
-			
+
 			close.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
@@ -111,7 +112,7 @@ public class HelpManager {
 			vPanel.add(htmlHTMLTitle);
 			vPanel.add(htmlHTMLContent);
 			vPanel.add(close);
-			
+
 			popup.add(vPanel);
 		}
 

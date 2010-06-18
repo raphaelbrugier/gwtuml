@@ -21,21 +21,34 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
 /**
  * Interface for the UMLCanvas.
- * Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * 
+ * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public interface UmlCanvas {
 
 	public Widget getDrawingCanvas();
+
 	public void addNewClass();
+
 	public void addNewObject();
+
 	public void addNewLifeLine();
+
 	public void addNewNote();
+
 	public void selectAll();
+
 	public void removeSelected();
+
 	public void rebuildAllGFXObjects();
+
 	public void cut();
+
 	public void copy();
+
 	public void paste();
+
 	public void toLinkMode(final LinkKind linkType);
+
 	public void dropContextualMenu(GfxObject gfxObject, Point location);
 }

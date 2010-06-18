@@ -14,15 +14,12 @@
  */
 package com.objetdirect.gwt.umlapi.client.gfx;
 
-import java.io.Serializable;
-
 import com.google.gwt.user.client.Event;
 
 /**
  * This interface normalize the events for a graphic canvas for any gfx implementation
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public interface GfxObjectListener {
 

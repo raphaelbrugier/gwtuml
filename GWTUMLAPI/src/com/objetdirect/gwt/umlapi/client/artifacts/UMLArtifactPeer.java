@@ -18,58 +18,69 @@ import java.io.Serializable;
 
 /**
  * Represent a pair of UMLArtifact linked together.
+ * 
  * @author Raphael Brugier < raphael dot brugier at gmail dot com >
  */
 @SuppressWarnings("serial")
 public class UMLArtifactPeer implements Serializable {
-	public UMLArtifact uMLArtifact1;
-	public UMLArtifact uMLArtifact2;
+	private UMLArtifact uMLArtifact1;
+	private UMLArtifact uMLArtifact2;
 
-	/** Default constructor ONLY for gwt-rpc serialization.  */
+	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
-	UMLArtifactPeer() { }
-	
+	UMLArtifactPeer() {
+	}
+
 	public UMLArtifactPeer(final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
 		this.uMLArtifact1 = uMLArtifact1;
 		this.uMLArtifact2 = uMLArtifact2;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((uMLArtifact1 == null) ? 0 : uMLArtifact1.hashCode());
-		result = prime * result
-				+ ((uMLArtifact2 == null) ? 0 : uMLArtifact2.hashCode());
+		result = prime * result + ((uMLArtifact1 == null) ? 0 : uMLArtifact1.hashCode());
+		result = prime * result + ((uMLArtifact2 == null) ? 0 : uMLArtifact2.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		UMLArtifactPeer other = (UMLArtifactPeer) obj;
 		if (uMLArtifact1 == null) {
-			if (other.uMLArtifact1 != null)
+			if (other.uMLArtifact1 != null) {
 				return false;
-		} else if (!uMLArtifact1.equals(other.uMLArtifact1))
+			}
+		} else if (!uMLArtifact1.equals(other.uMLArtifact1)) {
 			return false;
+		}
 		if (uMLArtifact2 == null) {
-			if (other.uMLArtifact2 != null)
+			if (other.uMLArtifact2 != null) {
 				return false;
-		} else if (!uMLArtifact2.equals(other.uMLArtifact2))
+			}
+		} else if (!uMLArtifact2.equals(other.uMLArtifact2)) {
 			return false;
+		}
 		return true;
 	}
 }

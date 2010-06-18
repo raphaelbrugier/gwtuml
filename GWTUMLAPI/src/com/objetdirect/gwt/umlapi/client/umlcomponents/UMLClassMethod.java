@@ -54,22 +54,21 @@ public class UMLClassMethod implements Serializable {
 		return null;
 	}
 
-	private String				name;
+	private String name;
 
-	private List<UMLParameter>	parameters;
+	private List<UMLParameter> parameters;
 
-	private String				returnType;
+	private String returnType;
 
-	private UMLVisibility		visibility;
+	private UMLVisibility visibility;
 
-	
 	/**
-	 * Default constructor only for gwt-rpc serialization 
+	 * Default constructor only for gwt-rpc serialization
 	 */
 	public UMLClassMethod() {
-		this(UMLVisibility.PUBLIC,"","",null);
+		this(UMLVisibility.PUBLIC, "", "", null);
 	}
-	
+
 	/**
 	 * Constructor of the method
 	 * 
@@ -95,7 +94,7 @@ public class UMLClassMethod implements Serializable {
 	 * 
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -105,7 +104,7 @@ public class UMLClassMethod implements Serializable {
 	 * 
 	 */
 	public List<UMLParameter> getParameters() {
-		return this.parameters;
+		return parameters;
 	}
 
 	/**
@@ -115,7 +114,7 @@ public class UMLClassMethod implements Serializable {
 	 * 
 	 */
 	public String getReturnType() {
-		return this.returnType;
+		return returnType;
 	}
 
 	/**
@@ -124,7 +123,7 @@ public class UMLClassMethod implements Serializable {
 	 * @return The visibility of this method
 	 */
 	public UMLVisibility getVisibility() {
-		return this.visibility;
+		return visibility;
 	}
 
 	/**
@@ -179,12 +178,12 @@ public class UMLClassMethod implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder f = new StringBuilder();
-		f.append(this.visibility);
-		f.append(this.name);
+		f.append(visibility);
+		f.append(name);
 		f.append("(");
-		if ((this.parameters != null) && (this.parameters.size() > 0)) {
+		if ((parameters != null) && (parameters.size() > 0)) {
 			boolean first = true;
-			for (final UMLParameter parameter : this.parameters) {
+			for (final UMLParameter parameter : parameters) {
 				if (!first) {
 					f.append(", ");
 				} else {
@@ -194,9 +193,9 @@ public class UMLClassMethod implements Serializable {
 			}
 		}
 		f.append(")");
-		if (this.returnType != null) {
+		if (returnType != null) {
 			f.append(" : ");
-			f.append(this.returnType);
+			f.append(returnType);
 		}
 		return f.toString();
 	}

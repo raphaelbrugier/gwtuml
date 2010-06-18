@@ -46,26 +46,29 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 @SuppressWarnings("serial")
 public class ClassPartMethodsArtifact extends NodePartArtifact {
 
-	private transient GfxObject							lastGfxObject;
-	private transient Map<GfxObject, UMLClassMethod>	methodGfxObjects;
-	private transient GfxObject							methodRect;
-	private List<UMLClassMethod>				methods;
+	private transient GfxObject lastGfxObject;
+	private transient Map<GfxObject, UMLClassMethod> methodGfxObjects;
+	private transient GfxObject methodRect;
+	private List<UMLClassMethod> methods;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ClassPartMethodsArtifact() {}
-	
+	private ClassPartMethodsArtifact() {
+	}
+
 	/**
-	 * Constructor of ClassPartMethodsArtifact 
-	 * @param methods methods displayed by this part.
+	 * Constructor of ClassPartMethodsArtifact
+	 * 
+	 * @param methods
+	 *            methods displayed by this part.
 	 */
 	public ClassPartMethodsArtifact(final UMLCanvas canvas, final List<UMLClassMethod> methods) {
 		super(canvas);
 		this.methods = methods;
-		this.methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
-		this.height = 0;
-		this.width = 0;
+		methodGfxObjects = new LinkedHashMap<GfxObject, UMLClassMethod>();
+		height = 0;
+		width = 0;
 	}
 
 	/**
@@ -75,35 +78,35 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	 *            The new method to add
 	 */
 	public void add(final UMLClassMethod method) {
-		this.methods.add(method);
+		methods.add(method);
 	}
 
 	@Override
 	public void buildGfxObject() {
-		if (this.textVirtualGroup == null) {
+		if (textVirtualGroup == null) {
 			this.computeBounds();
 		}
-		this.methodRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
-		
-		this.methodRect.addToVirtualGroup(this.gfxObject);
-		this.methodRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
-		this.methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
-		this.textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
-		this.textVirtualGroup.moveToFront();
+		methodRect = GfxManager.getPlatform().buildRect(nodeWidth, height);
+
+		methodRect.addToVirtualGroup(gfxObject);
+		methodRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
+		methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		textVirtualGroup.moveToFront();
 	}
 
 	@Override
 	public void computeBounds() {
-		this.methodGfxObjects.clear();
-		this.height = 0;
-		this.width = 0;
-		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
+		methodGfxObjects.clear();
+		height = 0;
+		width = 0;
+		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		textVirtualGroup.addToVirtualGroup(gfxObject);
 
-		for (final UMLClassMethod method : this.methods) {
+		for (final UMLClassMethod method : methods) {
 			final GfxObject methodText = GfxManager.getPlatform().buildText(method.toString(),
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + this.height));
-			methodText.addToVirtualGroup(this.textVirtualGroup);
+					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+			methodText.addToVirtualGroup(textVirtualGroup);
 			methodText.setFont(OptionsManager.getSmallFont());
 
 			methodText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
@@ -112,48 +115,45 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 			int thisMethodHeight = GfxManager.getPlatform().getTextHeightFor(methodText);
 			thisMethodWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 			thisMethodHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-			this.width = thisMethodWidth > this.width ? thisMethodWidth : this.width;
-			this.height += thisMethodHeight;
+			width = thisMethodWidth > width ? thisMethodWidth : width;
+			height += thisMethodHeight;
 
-			this.methodGfxObjects.put(methodText, method);
-			this.lastGfxObject = methodText;
+			methodGfxObjects.put(methodText, method);
+			lastGfxObject = methodText;
 		}
-		this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
+		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 
-		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + this.width + "x" + this.height);
+		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
 
 	@Override
 	public void edit() {
 		final List<UMLParameter> methodToCreateParameters = new ArrayList<UMLParameter>();
 		methodToCreateParameters.add(new UMLParameter("String", "parameter1"));
-		this.methods.add(new UMLClassMethod(UMLVisibility.PUBLIC, "void", "method", methodToCreateParameters));
-		this.nodeArtifact.rebuildGfxObject();
-		this.edit(this.lastGfxObject);
+		methods.add(new UMLClassMethod(UMLVisibility.PUBLIC, "void", "method", methodToCreateParameters));
+		nodeArtifact.rebuildGfxObject();
+		this.edit(lastGfxObject);
 	}
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final UMLClassMethod methodToChange = this.methodGfxObjects.get(editedGfxObject);
+		final UMLClassMethod methodToChange = methodGfxObjects.get(editedGfxObject);
 		if (methodToChange == null) {
 			this.edit();
 		} else {
-			final ClassPartMethodsFieldEditor editor = new ClassPartMethodsFieldEditor(this.canvas, this, methodToChange);
-			editor
-					.startEdition(methodToChange.toString(), (this.nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-							.get("RectangleLeftPadding")),
-							(this.nodeArtifact.getLocation().getY() + ((ClassArtifact) this.nodeArtifact).className.getHeight()
-									+ ((ClassArtifact) this.nodeArtifact).classAttributes.getHeight()
-									+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")),
-							this.nodeWidth - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
-									- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false, true);
+			final ClassPartMethodsFieldEditor editor = new ClassPartMethodsFieldEditor(canvas, this, methodToChange);
+			editor.startEdition(methodToChange.toString(), (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
+					.get("RectangleLeftPadding")), (nodeArtifact.getLocation().getY() + ((ClassArtifact) nodeArtifact).className.getHeight()
+					+ ((ClassArtifact) nodeArtifact).classAttributes.getHeight() + editedGfxObject.getLocation().getY() + OptionsManager
+					.get("RectangleTopPadding")), nodeWidth - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
+					- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false, true);
 		}
 	}
 
 	@Override
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	 * @return The current method list
 	 */
 	public List<UMLClassMethod> getList() {
-		return this.methods;
+		return methods;
 	}
 
 	@Override
@@ -178,8 +178,8 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	@Override
 	public GfxObject getOutline() {
 		final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.getHeight());
-		
+		final GfxObject rect = GfxManager.getPlatform().buildRect(nodeWidth, this.getHeight());
+
 		rect.setStrokeStyle(GfxStyle.DASH);
 		rect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
 		rect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
@@ -192,7 +192,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 		rightMenu.setName("Methods");
 
-		for (final Entry<GfxObject, UMLClassMethod> method : this.methodGfxObjects.entrySet()) {
+		for (final Entry<GfxObject, UMLClassMethod> method : methodGfxObjects.entrySet()) {
 			final MenuBar subsubMenu = new MenuBar(true);
 			subsubMenu.addItem("Edit ", this.editCommand(method.getKey()));
 			subsubMenu.addItem("Delete ", this.deleteCommand(method.getValue()));
@@ -204,7 +204,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	 *            The method to be removed
 	 */
 	public void remove(final UMLClassMethod method) {
-		this.methods.remove(method);
+		methods.remove(method);
 	}
 
 	/*
@@ -230,7 +230,7 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	@Override
 	public String toURL() {
 		final StringBuilder methodsURL = new StringBuilder();
-		for (final UMLClassMethod method : this.methods) {
+		for (final UMLClassMethod method : methods) {
 			methodsURL.append(method);
 			methodsURL.append("%");
 		}
@@ -240,18 +240,18 @@ public class ClassPartMethodsArtifact extends NodePartArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		methodRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 	}
 
 	@Override
 	void setNodeWidth(final int width) {
-		this.nodeWidth = width;
+		nodeWidth = width;
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		this.methodRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
+		methodRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
 	}
 
 	private Command deleteCommand(final UMLClassMethod method) {

@@ -38,135 +38,136 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 public class ClassPartNameArtifact extends NodePartArtifact {
 
 	private UMLClass uMLclass;
-	private transient GfxObject	nameRect;
-	private transient GfxObject	nameText;
-	private transient GfxObject	stereotypeText;
-	
+
+	private transient GfxObject nameRect;
+	private transient GfxObject nameText;
+	private transient GfxObject stereotypeText;
+
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ClassPartNameArtifact() {}
-	
-	
+	private ClassPartNameArtifact() {
+	}
+
 	/**
 	 * Constructor of ClassPartNameArtifact with class name and stereotype
-	 * @param canvas Where the gfxObject are displayed
-	 * @param ownedClass the UMLclass displayed by the artifact.
-	 * @param className The name of the class
-	 * @param stereotype The stereotype associated with the class
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param ownedClass
+	 *            the UMLclass displayed by the artifact.
+	 * @param className
+	 *            The name of the class
+	 * @param stereotype
+	 *            The stereotype associated with the class
 	 */
 	public ClassPartNameArtifact(final UMLCanvas canvas, final UMLClass ownedClass, final String className, final String stereotype) {
 		super(canvas);
-		this.uMLclass = ownedClass;
-		this.uMLclass.setName(className);
-		this.uMLclass.setStereotype(stereotype.equals("") ? "" : "«" + stereotype + "»");
-		this.height = 0;
-		this.width = 0;
+		uMLclass = ownedClass;
+		uMLclass.setName(className);
+		uMLclass.setStereotype(stereotype.equals("") ? "" : "«" + stereotype + "»");
+		height = 0;
+		width = 0;
 	}
 
 	@Override
 	public void buildGfxObject() {
-		if (this.textVirtualGroup == null) {
+		if (textVirtualGroup == null) {
 			this.computeBounds();
 		}
-		this.nameRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
-		this.nameRect.addToVirtualGroup(this.gfxObject);
-		this.nameRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
-		this.nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		nameRect = GfxManager.getPlatform().buildRect(nodeWidth, height);
+		nameRect.addToVirtualGroup(gfxObject);
+		nameRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
+		nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 
 		// Centering name class :
-		this.nameText.translate(
-				new Point((this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
-						.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
-		
-		if (this.stereotypeText != null) {
-			this.stereotypeText.translate(
-							new Point(
-									(this.nodeWidth - GfxManager.getPlatform().getTextWidthFor(this.stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager
-											.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
+				.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+
+		if (stereotypeText != null) {
+			stereotypeText.translate(new Point(
+					(nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager
+							.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
 		}
-		
-		this.textVirtualGroup.moveToFront();
+
+		textVirtualGroup.moveToFront();
 	}
 
 	@Override
 	public void computeBounds() {
-		this.height = 0;
-		this.width = 0;
-		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
-		
-		final String stereotype = this.uMLclass.getStereotype();
-		if ((stereotype != null) && GWTUMLDrawerHelper.isNotBlank(stereotype)) {
-			this.stereotypeText = GfxManager.getPlatform().buildText(stereotype,
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
-			
-			this.stereotypeText.addToVirtualGroup(this.textVirtualGroup);
-			this.stereotypeText.setFont(OptionsManager.getFont());
-			this.stereotypeText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
-			this.stereotypeText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
-			
-			this.width = GfxManager.getPlatform().getTextWidthFor(this.stereotypeText);
-			this.height = GfxManager.getPlatform().getTextHeightFor(this.stereotypeText);
-			this.width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-			this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-		}
-		
-		this.nameText = GfxManager.getPlatform().buildText(this.uMLclass.getName(),
-				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + this.height));
-		
-		this.nameText.addToVirtualGroup(this.textVirtualGroup);
-		this.nameText.setFont(OptionsManager.getFont());
-		this.nameText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
-		this.nameText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
-		
-		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(this.nameText) + OptionsManager.get("TextRightPadding")
-				+ OptionsManager.get("TextLeftPadding");
-		this.width = thisNameWidth > this.width ? thisNameWidth : this.width;
-		this.height += GfxManager.getPlatform().getTextHeightFor(this.nameText);
-		this.height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-		this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		height = 0;
+		width = 0;
+		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		textVirtualGroup.addToVirtualGroup(gfxObject);
 
-		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + this.width + "x" + this.height);
+		final String stereotype = uMLclass.getStereotype();
+		if ((stereotype != null) && GWTUMLDrawerHelper.isNotBlank(stereotype)) {
+			stereotypeText = GfxManager.getPlatform().buildText(stereotype,
+					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
+
+			stereotypeText.addToVirtualGroup(textVirtualGroup);
+			stereotypeText.setFont(OptionsManager.getFont());
+			stereotypeText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
+			stereotypeText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
+
+			width = GfxManager.getPlatform().getTextWidthFor(stereotypeText);
+			height = GfxManager.getPlatform().getTextHeightFor(stereotypeText);
+			width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
+			height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+		}
+
+		nameText = GfxManager.getPlatform().buildText(uMLclass.getName(),
+				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+
+		nameText.addToVirtualGroup(textVirtualGroup);
+		nameText.setFont(OptionsManager.getFont());
+		nameText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
+		nameText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
+
+		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + OptionsManager.get("TextRightPadding")
+				+ OptionsManager.get("TextLeftPadding");
+		width = thisNameWidth > width ? thisNameWidth : width;
+		height += GfxManager.getPlatform().getTextHeightFor(nameText);
+		height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
+		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+
+		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
 
 	@Override
 	public void edit() {
-		final String stereotype = this.uMLclass.getStereotype();
+		final String stereotype = uMLclass.getStereotype();
 		if ((stereotype == null) || stereotype.equals("")) {
-			this.uMLclass.setStereotype("«Abstract»");
-			this.nodeArtifact.rebuildGfxObject();
-			this.edit(this.stereotypeText);
+			uMLclass.setStereotype("«Abstract»");
+			nodeArtifact.rebuildGfxObject();
+			this.edit(stereotypeText);
 		} else {
-			this.edit(this.nameText);
+			this.edit(nameText);
 		}
 	}
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final boolean isTheStereotype = editedGfxObject.equals(this.stereotypeText);
-		if (!isTheStereotype && !editedGfxObject.equals(this.nameText)) {
+		final boolean isTheStereotype = editedGfxObject.equals(stereotypeText);
+		if (!isTheStereotype && !editedGfxObject.equals(nameText)) {
 			this.edit();
 			return;
 		}
-		final ClassPartNameFieldEditor editor = new ClassPartNameFieldEditor(this.canvas, this, isTheStereotype);
+		final ClassPartNameFieldEditor editor = new ClassPartNameFieldEditor(canvas, this, isTheStereotype);
 		String edited;
 		if (isTheStereotype) {
-			edited = this.uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
+			edited = uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
 		} else {
-			edited = this.uMLclass.getName();
+			edited = uMLclass.getName();
 		}
-		editor.startEdition(edited, (this.nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-				.get("RectangleLeftPadding")), this.nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY() /*
-																																						 * +
-																																						 * OptionsManager
-																																						 * .get(
-																																						 * "RectangleTopPadding"
-																																						 * )
-																																						 */,
-				this.nodeWidth - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding")
-						- OptionsManager.get("RectangleLeftPadding"), false, false);
+		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
+				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY() /*
+																						 * + OptionsManager .get(
+																						 * "RectangleTopPadding" )
+																						 */, nodeWidth - OptionsManager.get("TextRightPadding")
+						- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"),
+				false, false);
 	}
 
 	/**
@@ -175,12 +176,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 * @return The class name
 	 */
 	public String getClassName() {
-		return this.uMLclass.getName();
+		return uMLclass.getName();
 	}
 
 	@Override
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	@Override
@@ -196,8 +197,8 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	@Override
 	public GfxObject getOutline() {
 		final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.getHeight());
-		
+		final GfxObject rect = GfxManager.getPlatform().buildRect(nodeWidth, this.getHeight());
+
 		rect.setStrokeStyle(GfxStyle.DASH);
 		rect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
 		rect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
@@ -209,11 +210,11 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 		rightMenu.setName("Name");
-		rightMenu.addItem("Edit Name", this.editCommand(this.nameText));
-		if (this.stereotypeText == null) {
+		rightMenu.addItem("Edit Name", this.editCommand(nameText));
+		if (stereotypeText == null) {
 			rightMenu.addItem("Add stereotype", this.createStereotype());
 		} else {
-			rightMenu.addItem("Edit Stereotype", this.editCommand(this.stereotypeText));
+			rightMenu.addItem("Edit Stereotype", this.editCommand(stereotypeText));
 			rightMenu.addItem("Delete Stereotype", this.deleteStereotype());
 		}
 
@@ -226,12 +227,12 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 * @return the stereotype
 	 */
 	public String getStereotype() {
-		return this.uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
+		return uMLclass.getStereotype().replaceAll("»", "").replaceAll("«", "");
 	}
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	/**
@@ -241,7 +242,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 *            The new name of the class
 	 */
 	public void setClassName(final String className) {
-		this.uMLclass.setName(className);
+		uMLclass.setName(className);
 	}
 
 	/**
@@ -249,7 +250,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 *            the stereotype to set
 	 */
 	public void setStereotype(final String stereotype) {
-		this.uMLclass.setStereotype(stereotype);
+		uMLclass.setStereotype(stereotype);
 	}
 
 	/*
@@ -265,18 +266,18 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 	}
 
 	@Override
 	void setNodeWidth(final int width) {
-		this.nodeWidth = width;
+		nodeWidth = width;
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		this.nameRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
+		nameRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
 	}
 
 	private Command createStereotype() {
@@ -290,7 +291,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	private Command deleteStereotype() {
 		return new Command() {
 			public void execute() {
-				ClassPartNameArtifact.this.uMLclass.setStereotype(null);
+				uMLclass.setStereotype(null);
 				ClassPartNameArtifact.this.nodeArtifact.rebuildGfxObject();
 			}
 		};

@@ -15,7 +15,7 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 class Text extends IncubatorGfxObject {
-	private final String	text;
+	private final String text;
 
 	public Text(final String text) {
 		super();
@@ -27,9 +27,10 @@ class Text extends IncubatorGfxObject {
 		// if (!isVisible)
 		return;
 		/*
-		 * Log.trace("{Incubator} Drawing " + this); canvas.saveContext(); if (fillColor != null) canvas.setFillStyle(fillColor); if (strokeColor != null)
-		 * canvas.setStrokeStyle(strokeColor); if (strokeWidth != 0) canvas.setLineWidth(strokeWidth); for (int i = 0; i < text.length(); i++) {
-		 * canvas.strokeRect(getX() + 10 * i, getY() - 8, 8, 10); } canvas.restoreContext();
+		 * Log.trace("{Incubator} Drawing " + this); canvas.saveContext(); if (fillColor != null)
+		 * canvas.setFillStyle(fillColor); if (strokeColor != null) canvas.setStrokeStyle(strokeColor); if (strokeWidth
+		 * != 0) canvas.setLineWidth(strokeWidth); for (int i = 0; i < text.length(); i++) { canvas.strokeRect(getX() +
+		 * 10 * i, getY() - 8, 8, 10); } canvas.restoreContext();
 		 */
 	}
 
@@ -40,7 +41,7 @@ class Text extends IncubatorGfxObject {
 
 	@Override
 	public int getWidth() {
-		return this.text.length() * 10;
+		return text.length() * 10;
 	}
 
 	@Override

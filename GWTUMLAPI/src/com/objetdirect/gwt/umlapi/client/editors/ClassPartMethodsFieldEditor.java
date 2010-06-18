@@ -26,7 +26,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
  */
 public class ClassPartMethodsFieldEditor extends FieldEditor {
 
-	UMLClassMethod	methodToChange;
+	UMLClassMethod methodToChange;
 
 	/**
 	 * Constructor of the {@link ClassPartMethodsFieldEditor}
@@ -50,7 +50,7 @@ public class ClassPartMethodsFieldEditor extends FieldEditor {
 	 */
 	@Override
 	protected void next() {
-		((NodePartArtifact) this.artifact).edit();
+		((NodePartArtifact) artifact).edit();
 	}
 
 	/*
@@ -61,21 +61,21 @@ public class ClassPartMethodsFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		if (newContent.trim().equals("")) {
-			((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
-			((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ClassPartMethodsArtifact) artifact).remove(methodToChange);
+			((ClassPartMethodsArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
 		final UMLClassMethod newMethod = UMLClassMethod.parseMethod(newContent);
 		if ((newMethod == null) || (newMethod.getName() + newMethod.getReturnType() + newMethod.getParameters()).equals("")) {
-			((ClassPartMethodsArtifact) this.artifact).remove(this.methodToChange);
-			((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ClassPartMethodsArtifact) artifact).remove(methodToChange);
+			((ClassPartMethodsArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
-		this.methodToChange.setVisibility(newMethod.getVisibility());
-		this.methodToChange.setName(newMethod.getName());
-		this.methodToChange.setReturnType(newMethod.getReturnType());
-		this.methodToChange.setParameters(newMethod.getParameters());
-		((ClassPartMethodsArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+		methodToChange.setVisibility(newMethod.getVisibility());
+		methodToChange.setName(newMethod.getName());
+		methodToChange.setReturnType(newMethod.getReturnType());
+		methodToChange.setParameters(newMethod.getParameters());
+		((ClassPartMethodsArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 		return true;
 
 	}

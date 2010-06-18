@@ -125,11 +125,12 @@ public class Point implements Serializable {
 		return new Point(p1.x - p2.x, p1.y - p2.y);
 	}
 
-	private int	x;
-	private int	y;
-	
+	private int x;
+	private int y;
+
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	Point(){}
+	Point() {
+	}
 
 	/**
 	 * Constructor of Point that round {@link Double}s to {@link Integer}s
@@ -193,7 +194,7 @@ public class Point implements Serializable {
 	 * @return The clone of this point
 	 */
 	public Point clonePoint() {
-		return new Point(this.x, this.y);
+		return new Point(x, y);
 	}
 
 	/**
@@ -203,8 +204,8 @@ public class Point implements Serializable {
 	 *            The divisor to divide by
 	 */
 	public void divideBy(final int divisor) {
-		this.x /= divisor;
-		this.y /= divisor;
+		x /= divisor;
+		y /= divisor;
 	}
 
 	/**
@@ -218,7 +219,7 @@ public class Point implements Serializable {
 	 *         </ul>
 	 */
 	public boolean equals(final Point point) {
-		return (this.x == point.x) && (this.y == point.y);
+		return (x == point.x) && (y == point.y);
 	}
 
 	/**
@@ -227,7 +228,7 @@ public class Point implements Serializable {
 	 * @return the point abscissa
 	 */
 	public int getX() {
-		return this.x;
+		return x;
 	}
 
 	/**
@@ -236,7 +237,7 @@ public class Point implements Serializable {
 	 * @return the point ordinate
 	 */
 	public int getY() {
-		return this.y;
+		return y;
 	}
 
 	/**
@@ -245,7 +246,7 @@ public class Point implements Serializable {
 	 * @return True if x and y are equals to 0;
 	 */
 	public boolean isOrigin() {
-		return ((this.x == 0) && (this.y == 0));
+		return ((x == 0) && (y == 0));
 	}
 
 	/**
@@ -259,7 +260,7 @@ public class Point implements Serializable {
 	 *         </ul>
 	 */
 	public boolean isSuperiorTo(final Point point) {
-		return (this.x >= point.x) && (this.y >= point.y);
+		return (x >= point.x) && (y >= point.y);
 	}
 
 	/**
@@ -269,8 +270,8 @@ public class Point implements Serializable {
 	 *            The factor to multiply by
 	 */
 	public void multiplyBy(final int factor) {
-		this.x *= factor;
-		this.y *= factor;
+		x *= factor;
+		y *= factor;
 	}
 
 	/**
@@ -303,7 +304,7 @@ public class Point implements Serializable {
 	@Override
 	public String toString() {
 		// DO NOT CHANGE THE RETURN ! THIS IS USED FOR SERIALIZATION to/from url
-		return "(" + this.x + "," + this.y + ")";
+		return "(" + x + "," + y + ")";
 	}
 
 	/**
@@ -315,8 +316,8 @@ public class Point implements Serializable {
 	 *            the ordinate offset
 	 */
 	public void translate(final double dx, final double dy) {
-		this.x += Math.round(dx);
-		this.y += Math.round(dy);
+		x += Math.round(dx);
+		y += Math.round(dy);
 	}
 
 	/**
@@ -330,8 +331,8 @@ public class Point implements Serializable {
 	 * @return This point
 	 */
 	public Point translate(final int dx, final int dy) {
-		this.x += dx;
-		this.y += dy;
+		x += dx;
+		y += dy;
 		return this;
 	}
 
@@ -342,7 +343,7 @@ public class Point implements Serializable {
 	 *            the coordinate offset
 	 */
 	public void translate(final Point offset) {
-		this.x += offset.getX();
-		this.y += offset.getY();
+		x += offset.getX();
+		y += offset.getY();
 	}
 }

@@ -27,7 +27,6 @@ interface CanvasBridge {
 
 	/**
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 * 
 	 */
 	public enum AbstractCanvasType {
 		/**

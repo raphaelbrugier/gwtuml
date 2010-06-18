@@ -26,11 +26,11 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 public class Keyboard {
 
 	private final UMLCanvas umlCanvas;
-	
+
 	public Keyboard(UMLCanvas umlCanvas) {
 		this.umlCanvas = umlCanvas;
 	}
-	
+
 	/**
 	 * @param keyCode
 	 */
@@ -73,7 +73,7 @@ public class Keyboard {
 				}
 				break;
 			case 'f':
-				if (umlCanvas.getUMLDiagram()  == DiagramType.SEQUENCE) {
+				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
 					umlCanvas.addNewLifeLine();
 				}
 				break;

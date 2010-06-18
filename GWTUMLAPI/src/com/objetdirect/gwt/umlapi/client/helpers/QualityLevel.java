@@ -96,11 +96,11 @@ public enum QualityLevel {
 		return OptionsManager.get("QualityLevel") <= level.index;
 	}
 
-	private final String	description;
+	private final String description;
 
-	private final int		index;
+	private final int index;
 
-	private final String	name;
+	private final String name;
 
 	private QualityLevel(final String name, final String description, final int index) {
 		this.name = name;
@@ -115,7 +115,7 @@ public enum QualityLevel {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public enum QualityLevel {
 	 * @return the name
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/*
@@ -134,6 +134,6 @@ public enum QualityLevel {
 	 */
 	@Override
 	public String toString() {
-		return this.name + " (" + this.description + ")";
+		return name + " (" + description + ")";
 	}
 }

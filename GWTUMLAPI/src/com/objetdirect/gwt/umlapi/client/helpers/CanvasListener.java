@@ -21,30 +21,27 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
 
-
 /**
- * Concrete listener to add on the canvas widget.
- * It allows to interact directly with the canvas by simulating mouse events, for example to use in the animated demo. 
+ * Concrete listener to add on the canvas widget. It allows to interact directly with the canvas by simulating mouse
+ * events, for example to use in the animated demo.
+ * 
  * @author Rapahel Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class CanvasListener implements GfxObjectListener {
 
-	private UMLCanvas canvas;
-	
+	private final UMLCanvas canvas;
+
 	public CanvasListener(UMLCanvas canvas) {
 		this.canvas = canvas;
 	}
-	
+
 	@Override
 	public void mouseDoubleClicked(final GfxObject graphicObject, final Event event) {
 		if (canvas.isMouseEnabled()) {
-			doubleClick(
-				graphicObject,
-				new Point(event.getClientX(), event.getClientY())
-			);
+			doubleClick(graphicObject, new Point(event.getClientX(), event.getClientY()));
 		}
 	}
-	
+
 	/**
 	 * This method represent a double click with the mouse. <br />
 	 * It's automatically called on double click but can also be called manually for testing purpose
@@ -62,15 +59,10 @@ public class CanvasListener implements GfxObjectListener {
 	@Override
 	public void mouseMoved(final Event event) {
 		if (canvas.isMouseEnabled()) {
-			move(
-				new Point(event.getClientX(), event.getClientY()),
-				event.getButton(),
-				event.getCtrlKey(),
-				event.getShiftKey()
-			);
+			move(new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getShiftKey());
 		}
 	}
-	
+
 	/**
 	 * This method represent a movement with the mouse. <br />
 	 * It's automatically called on mouse move but can also be called manually for testing purpose
@@ -92,15 +84,10 @@ public class CanvasListener implements GfxObjectListener {
 	@Override
 	public void mousePressed(final GfxObject graphicObject, final Event event) {
 		if (canvas.isMouseEnabled()) {
-			press(graphicObject, 
-				new Point(event.getClientX(), event.getClientY()), 
-				event.getButton(), 
-				event.getCtrlKey(),
-				event.getShiftKey()
-			);
+			press(graphicObject, new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getShiftKey());
 		}
 	}
-	
+
 	/**
 	 * This method represent a mouse press with the mouse. <br />
 	 * It's automatically called on mouse press but can also be called manually for testing purpose
@@ -126,17 +113,12 @@ public class CanvasListener implements GfxObjectListener {
 	}
 
 	@Override
-	public void mouseReleased(final GfxObject graphicObject,final Event event) {
+	public void mouseReleased(final GfxObject graphicObject, final Event event) {
 		if (canvas.isMouseEnabled()) {
-			release(graphicObject, 
-				new Point(event.getClientX(), event.getClientY()), 
-				event.getButton(), 
-				event.getCtrlKey(),
-				event.getShiftKey()
-			);
+			release(graphicObject, new Point(event.getClientX(), event.getClientY()), event.getButton(), event.getCtrlKey(), event.getShiftKey());
 		}
 	}
-	
+
 	/**
 	 * This method represent a mouse release with the mouse. <br />
 	 * It's automatically called on release but can also be called manually for testing purpose

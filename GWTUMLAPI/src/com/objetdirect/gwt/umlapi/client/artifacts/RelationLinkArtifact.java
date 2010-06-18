@@ -49,8 +49,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -61,8 +61,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -77,8 +77,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -89,8 +89,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -105,8 +105,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -117,8 +117,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -133,8 +133,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -145,8 +145,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -161,8 +161,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -173,8 +173,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -190,8 +190,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -202,8 +202,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -218,8 +218,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -230,8 +230,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -246,8 +246,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -258,8 +258,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -274,8 +274,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#getText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation)
 			 */
 			@Override
 			public String getText(final UMLRelation relation) {
@@ -286,8 +286,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			 * (non-Javadoc)
 			 * 
 			 * @see
-			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com.objetdirect.gwt.umlapi.client.umlcomponents
-			 * .Relation, java.lang.String)
+			 * com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact.RelationLinkArtifactPart#setText(com
+			 * .objetdirect.gwt.umlapi.client.umlcomponents .Relation, java.lang.String)
 			 */
 			@Override
 			public void setText(final UMLRelation relation, final String text) {
@@ -295,13 +295,14 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 			}
 		};
 
-		private boolean	isLeft;
+		private boolean isLeft;
 
-		private String	name;
+		private String name;
 
 		/** Default constructor ONLY for gwt-rpc serialization. */
-		private RelationLinkArtifactPart() {}
-		
+		private RelationLinkArtifactPart() {
+		}
+
 		private RelationLinkArtifactPart(final String name, final boolean isLeft) {
 			this.name = name;
 			this.isLeft = isLeft;
@@ -325,7 +326,7 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		 *         </ul>
 		 */
 		public boolean isLeft() {
-			return this.isLeft;
+			return isLeft;
 		}
 
 		/**
@@ -345,46 +346,48 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		 */
 		@Override
 		public String toString() {
-			return this.name;
+			return name;
 		}
 	}
 
-	
-	protected UMLRelation		relation;
-	protected Point	leftDirectionPoint;
-	protected Point	rightDirectionPoint;
-	protected Point	nameAnchorPoint;
-	private NodeArtifact		rightNodeArtifact;
-	private NodeArtifact		leftNodeArtifact;
+	protected UMLRelation relation;
+	protected Point leftDirectionPoint;
+	protected Point rightDirectionPoint;
+	protected Point nameAnchorPoint;
+	private NodeArtifact rightNodeArtifact;
+	private NodeArtifact leftNodeArtifact;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated
-	protected RelationLinkArtifact() {}
-	
+	protected RelationLinkArtifact() {
+	}
+
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
 	 * @param nodeArtifact1
 	 * @param nodeArtifact2
 	 * @param relationKind
 	 */
 	public RelationLinkArtifact(final UMLCanvas canvas, int id, final NodeArtifact nodeArtifact1, final NodeArtifact nodeArtifact2, final LinkKind relationKind) {
 		super(canvas, id, nodeArtifact1, nodeArtifact2);
-		
+
 		leftDirectionPoint = Point.getOrigin();
-		rightDirectionPoint	= Point.getOrigin();
-		nameAnchorPoint	= Point.getOrigin();
-		
-		this.leftNodeArtifact = nodeArtifact1;
-		this.rightNodeArtifact = nodeArtifact2;
+		rightDirectionPoint = Point.getOrigin();
+		nameAnchorPoint = Point.getOrigin();
+
+		leftNodeArtifact = nodeArtifact1;
+		rightNodeArtifact = nodeArtifact2;
 		if ((relationKind == LinkKind.NOTE) || (relationKind == LinkKind.CLASSRELATION)) {
 			Log.error("Making a relation artifact for : " + relationKind.getName());
 		}
-		this.relation = new UMLRelation(relationKind);
+		relation = new UMLRelation(relationKind);
 	}
-	
+
 	public UMLRelation toUMLComponent() {
 		return relation;
 	}
@@ -398,112 +401,103 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	 *            The new text to set for this part
 	 */
 	public void setPartContent(final RelationLinkArtifactPart part, final String newContent) {
-		part.setText(this.relation, newContent);
+		part.setText(relation, newContent);
 	}
 
 	/**
 	 * Build a GfxObject to represent the line between the two nodes artifacts.
+	 * 
 	 * @return a new GfxObject fore the line.
 	 */
 	protected GfxObject buildLine() {
-
-		if (this.isSelfLink) {
+		if (isSelfLink) {
 			return this.getSelfLine();
 		}
 		return this.getPeerLine();
-
 	}
 
 	private GfxObject getPeerAngularLine() {
 
-		this.leftPoint = Point.add(this.leftNodeArtifact.getCenter(), new Point(
-				Math.abs(this.leftDirection.getYDirection())
-						* (-this.leftNodeArtifact.getWidth() / 2 + ((this.leftNodeArtifact.getWidth() / (this.leftNodeArtifact
-								.getDependenciesCount(this.leftDirection) + 1)))
-								* (this.leftNodeArtifact.getDependencyIndexOf(this, this.leftDirection) + 1)), Math.abs(this.leftDirection.getXDirection())
-						* (-this.leftNodeArtifact.getHeight() / 2 + ((this.leftNodeArtifact.getHeight() / (this.leftNodeArtifact
-								.getDependenciesCount(this.leftDirection) + 1)))
-								* (this.leftNodeArtifact.getDependencyIndexOf(this, this.leftDirection) + 1))));
-		this.rightPoint = Point.add(this.rightNodeArtifact.getCenter(), new Point(Math.abs(this.rightDirection.getYDirection())
-				* (-this.rightNodeArtifact.getWidth() / 2 + ((this.rightNodeArtifact.getWidth() / (this.rightNodeArtifact
-						.getDependenciesCount(this.rightDirection) + 1)))
-						* (this.rightNodeArtifact.getDependencyIndexOf(this, this.rightDirection) + 1)), Math.abs(this.rightDirection.getXDirection())
-				* (-this.rightNodeArtifact.getHeight() / 2 + ((this.rightNodeArtifact.getHeight() / (this.rightNodeArtifact
-						.getDependenciesCount(this.rightDirection) + 1)))
-						* (this.rightNodeArtifact.getDependencyIndexOf(this, this.rightDirection) + 1))));
+		leftPoint = Point.add(leftNodeArtifact.getCenter(), new Point(Math.abs(leftDirection.getYDirection())
+				* (-leftNodeArtifact.getWidth() / 2 + ((leftNodeArtifact.getWidth() / (leftNodeArtifact.getDependenciesCount(leftDirection) + 1)))
+						* (leftNodeArtifact.getDependencyIndexOf(this, leftDirection) + 1)), Math.abs(leftDirection.getXDirection())
+				* (-leftNodeArtifact.getHeight() / 2 + ((leftNodeArtifact.getHeight() / (leftNodeArtifact.getDependenciesCount(leftDirection) + 1)))
+						* (leftNodeArtifact.getDependencyIndexOf(this, leftDirection) + 1))));
+		rightPoint = Point.add(rightNodeArtifact.getCenter(), new Point(Math.abs(rightDirection.getYDirection())
+				* (-rightNodeArtifact.getWidth() / 2 + ((rightNodeArtifact.getWidth() / (rightNodeArtifact.getDependenciesCount(rightDirection) + 1)))
+						* (rightNodeArtifact.getDependencyIndexOf(this, rightDirection) + 1)), Math.abs(rightDirection.getXDirection())
+				* (-rightNodeArtifact.getHeight() / 2 + ((rightNodeArtifact.getHeight() / (rightNodeArtifact.getDependenciesCount(rightDirection) + 1)))
+						* (rightNodeArtifact.getDependencyIndexOf(this, rightDirection) + 1))));
 
-		this.leftPoint.translate(this.leftDirection.getXDirection() * this.leftNodeArtifact.getWidth() / 2, this.leftDirection.getYDirection()
-				* this.leftNodeArtifact.getHeight() / 2);
-		this.rightPoint.translate(this.rightDirection.getXDirection() * this.rightNodeArtifact.getWidth() / 2, this.rightDirection.getYDirection()
-				* this.rightNodeArtifact.getHeight() / 2);
+		leftPoint.translate(leftDirection.getXDirection() * leftNodeArtifact.getWidth() / 2, leftDirection.getYDirection() * leftNodeArtifact.getHeight() / 2);
+		rightPoint.translate(rightDirection.getXDirection() * rightNodeArtifact.getWidth() / 2, rightDirection.getYDirection() * rightNodeArtifact.getHeight()
+				/ 2);
 
-		final Point intermediate = Point.abs(Point.substract(this.rightPoint, this.leftDirection.isOppositeOf(this.rightDirection) ? Point.getMiddleOf(
-				this.leftPoint, this.rightPoint) : this.leftPoint));
+		final Point intermediate = Point.abs(Point.substract(rightPoint, leftDirection.isOppositeOf(rightDirection) ? Point.getMiddleOf(leftPoint, rightPoint)
+				: leftPoint));
 		final GfxObject line = GfxManager.getPlatform().buildPath();
 
-		this.leftDirectionPoint = Point.add(this.leftPoint, new Point(this.leftDirection.getXDirection() * intermediate.getX(), this.leftDirection
-				.getYDirection()
+		leftDirectionPoint = Point.add(leftPoint, new Point(leftDirection.getXDirection() * intermediate.getX(), leftDirection.getYDirection()
 				* intermediate.getY()));
-		this.rightDirectionPoint = Point.add(this.rightPoint, new Point(this.rightDirection.getXDirection() * intermediate.getX(), this.rightDirection
-				.getYDirection()
+		rightDirectionPoint = Point.add(rightPoint, new Point(rightDirection.getXDirection() * intermediate.getX(), rightDirection.getYDirection()
 				* intermediate.getY()));
 
-		GfxManager.getPlatform().moveTo(line, this.leftPoint);
-		GfxManager.getPlatform().lineTo(line, this.leftDirectionPoint);
-		GfxManager.getPlatform().lineTo(line, this.rightDirectionPoint);
-		GfxManager.getPlatform().lineTo(line, this.rightPoint);
+		GfxManager.getPlatform().moveTo(line, leftPoint);
+		GfxManager.getPlatform().lineTo(line, leftDirectionPoint);
+		GfxManager.getPlatform().lineTo(line, rightDirectionPoint);
+		GfxManager.getPlatform().lineTo(line, rightPoint);
 		line.setOpacity(0, true);
 
 		return line;
 	}
 
 	private GfxObject getPeerLine() {
-		final ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(this.leftNodeArtifact, this.rightNodeArtifact);
-		this.leftPoint = points.get(0);
-		this.rightPoint = points.get(1);
+		final ArrayList<Point> points = GeometryManager.getPlatform().getLineBetween(leftNodeArtifact, rightNodeArtifact);
+		leftPoint = points.get(0);
+		rightPoint = points.get(1);
 		this.computeDirectionsType();
 		return OptionsManager.get("AngularLinks") == 1 ? this.getPeerAngularLine() : this.getPeerRightLine();
 	}
 
 	private GfxObject getPeerRightLine() {
 		GfxObject line;
-		this.nameAnchorPoint = Point.getMiddleOf(this.leftPoint, this.rightPoint);
-		if (this.order == 0) {
-			line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-			this.leftDirectionPoint = this.rightPoint;
-			this.rightDirectionPoint = this.leftPoint;
+		nameAnchorPoint = Point.getMiddleOf(leftPoint, rightPoint);
+		if (order == 0) {
+			line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
+			leftDirectionPoint = rightPoint;
+			rightDirectionPoint = leftPoint;
 		} else {
-			final Point curveControl = GeometryManager.getPlatform().getShiftedCenter(this.leftPoint, this.rightPoint,
-					50 * ((this.order + 1) / 2) * ((this.order % 2) == 0 ? -1 : 1));
-			this.leftDirectionPoint = curveControl;
-			this.rightDirectionPoint = curveControl;
+			final Point curveControl = GeometryManager.getPlatform().getShiftedCenter(leftPoint, rightPoint,
+					50 * ((order + 1) / 2) * ((order % 2) == 0 ? -1 : 1));
+			leftDirectionPoint = curveControl;
+			rightDirectionPoint = curveControl;
 			line = GfxManager.getPlatform().buildPath();
-			GfxManager.getPlatform().moveTo(line, this.leftPoint);
-			GfxManager.getPlatform().curveTo(line, this.rightPoint, curveControl);
+			GfxManager.getPlatform().moveTo(line, leftPoint);
+			GfxManager.getPlatform().curveTo(line, rightPoint, curveControl);
 			line.setOpacity(0, true);
-			this.nameAnchorPoint = Point.getMiddleOf(curveControl, this.nameAnchorPoint);
+			nameAnchorPoint = Point.getMiddleOf(curveControl, nameAnchorPoint);
 		}
 
 		return line;
 	}
 
 	private GfxObject getSelfAngularLine() {
-		this.leftPoint = this.leftNodeArtifact.getCenter().translate(0, -this.leftNodeArtifact.getHeight() / 2);
-		this.rightPoint = this.leftNodeArtifact.getCenter().translate(this.leftNodeArtifact.getWidth() / 2, 0);
+		leftPoint = leftNodeArtifact.getCenter().translate(0, -leftNodeArtifact.getHeight() / 2);
+		rightPoint = leftNodeArtifact.getCenter().translate(leftNodeArtifact.getWidth() / 2, 0);
 		this.computeDirectionsType();
 		final GfxObject line = GfxManager.getPlatform().buildPath();
-		final Point rightShiftedPoint = Point.add(this.rightPoint, new Point((this.order + 1) * OptionsManager.get("ReflexivePathXGap"), 0));
-		final Point leftShiftedPoint = Point.add(this.leftPoint, new Point(0, -(this.order + 1) * OptionsManager.get("ReflexivePathYGap")));
-		this.leftDirectionPoint = leftShiftedPoint;
-		this.rightDirectionPoint = rightShiftedPoint;
-		GfxManager.getPlatform().moveTo(line, this.leftPoint);
+		final Point rightShiftedPoint = Point.add(rightPoint, new Point((order + 1) * OptionsManager.get("ReflexivePathXGap"), 0));
+		final Point leftShiftedPoint = Point.add(leftPoint, new Point(0, -(order + 1) * OptionsManager.get("ReflexivePathYGap")));
+		leftDirectionPoint = leftShiftedPoint;
+		rightDirectionPoint = rightShiftedPoint;
+		GfxManager.getPlatform().moveTo(line, leftPoint);
 		GfxManager.getPlatform().lineTo(line, leftShiftedPoint);
 		GfxManager.getPlatform().lineTo(line, new Point(rightShiftedPoint.getX(), leftShiftedPoint.getY()));
 		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
-		GfxManager.getPlatform().lineTo(line, this.rightPoint);
+		GfxManager.getPlatform().lineTo(line, rightPoint);
 		line.setOpacity(0, true);
-		this.nameAnchorPoint = new Point((this.leftPoint.getX() + this.rightPoint.getX() + (this.order + 1) * OptionsManager.get("ReflexivePathXGap")) / 2,
-				this.leftPoint.getY() - (this.order + 1) * OptionsManager.get("ReflexivePathYGap"));
+		nameAnchorPoint = new Point((leftPoint.getX() + rightPoint.getX() + (order + 1) * OptionsManager.get("ReflexivePathXGap")) / 2, leftPoint.getY()
+				- (order + 1) * OptionsManager.get("ReflexivePathYGap"));
 		return line;
 	}
 
@@ -512,15 +506,15 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	}
 
 	private GfxObject getSelfRightLine() {
-		final int radius = (this.order + 1) * OptionsManager.get("ReflexivePathXGap");
-		this.leftPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth() - radius, 0);
-		this.rightPoint = this.leftNodeArtifact.getLocation().clonePoint().translate(this.leftNodeArtifact.getWidth(), radius);
+		final int radius = (order + 1) * OptionsManager.get("ReflexivePathXGap");
+		leftPoint = leftNodeArtifact.getLocation().clonePoint().translate(leftNodeArtifact.getWidth() - radius, 0);
+		rightPoint = leftNodeArtifact.getLocation().clonePoint().translate(leftNodeArtifact.getWidth(), radius);
 		this.computeDirectionsType();
-		final Point edge = new Point(this.rightPoint.getX(), this.leftPoint.getY());
-		final GfxObject line = GfxManager.getPlatform().buildCircle((this.order + 1) * OptionsManager.get("ReflexivePathXGap"));
-		this.leftDirectionPoint = Point.add(this.leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
-		this.rightDirectionPoint = Point.add(this.rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
-		this.nameAnchorPoint = Point.add(edge, new Point(0, -(this.order + 1) * OptionsManager.get("ReflexivePathXGap")));
+		final Point edge = new Point(rightPoint.getX(), leftPoint.getY());
+		final GfxObject line = GfxManager.getPlatform().buildCircle((order + 1) * OptionsManager.get("ReflexivePathXGap"));
+		leftDirectionPoint = Point.add(leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
+		rightDirectionPoint = Point.add(rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
+		nameAnchorPoint = Point.add(edge, new Point(0, -(order + 1) * OptionsManager.get("ReflexivePathXGap")));
 		line.translate(edge);
 		line.setOpacity(0, true);
 		return line;

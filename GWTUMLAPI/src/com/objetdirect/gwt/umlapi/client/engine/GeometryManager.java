@@ -21,7 +21,7 @@ package com.objetdirect.gwt.umlapi.client.engine;
  * 
  */
 public class GeometryManager {
-	private static GeometryPlatform	instance;
+	private static GeometryPlatform instance;
 
 	/**
 	 * Getter of the current {@link GeometryPlatform} instance
@@ -29,7 +29,7 @@ public class GeometryManager {
 	 * @return The {@link GeometryPlatform} instance set by {@link GeometryManager#setPlatform(GeometryPlatform)}
 	 */
 	public static GeometryPlatform getPlatform() {
-		if (instance==null) {
+		if (instance == null) {
 			setPlatform(0);
 		}
 		return GeometryManager.instance;

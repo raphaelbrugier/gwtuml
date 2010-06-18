@@ -30,20 +30,26 @@ public abstract class BoxArtifact extends UMLArtifact {
 
 	/** Default constructor ONLY for gwt-rpc Serialization. */
 	@Deprecated
-	protected BoxArtifact() {}
-	
+	protected BoxArtifact() {
+	}
+
 	/**
 	 * Constructor of BoxArtifact
-	 * @param canvas Where the gfxObject are displayed
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
 	 */
 	public BoxArtifact(UMLCanvas canvas) {
 		super(canvas);
 	}
-	
+
 	/**
 	 * Constructor of BoxArtifact
-	 * @param canvas Where the gfxObject are displayed
-	 * @param id The artifacts's id
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param id
+	 *            The artifacts's id
 	 */
 	public BoxArtifact(UMLCanvas canvas, final int id) {
 		super(canvas, id);

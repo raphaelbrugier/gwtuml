@@ -41,34 +41,40 @@ public class MessageLinkArtifact extends LinkArtifact {
 	/**
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
 	 */
-	protected transient GfxObject		arrowVirtualGroup;
-	protected LifeLineArtifact			leftLifeLineArtifact;
-	protected transient GfxObject		line;
-	protected LifeLineArtifact			rightLifeLineArtifact;
-	protected transient GfxObject		text;
-	private UMLMessage					message;
+	protected transient GfxObject arrowVirtualGroup;
+	protected transient GfxObject line;
+	protected transient GfxObject text;
 
-	
+	protected LifeLineArtifact leftLifeLineArtifact;
+	protected LifeLineArtifact rightLifeLineArtifact;
+	private UMLMessage message;
+
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private MessageLinkArtifact() {}
-	
+	private MessageLinkArtifact() {
+	}
+
 	/**
 	 * Constructor of {@link MessageLinkArtifact}
-	 *
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param left The left {@link LifeLineArtifact} of the message
-	 * @param right The right {@link LifeLineArtifact} of the message
-	 * @param messageKind The kind of message this link is.
+	 * 
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param left
+	 *            The left {@link LifeLineArtifact} of the message
+	 * @param right
+	 *            The right {@link LifeLineArtifact} of the message
+	 * @param messageKind
+	 *            The kind of message this link is.
 	 */
 	public MessageLinkArtifact(final UMLCanvas canvas, int id, final LifeLineArtifact left, final LifeLineArtifact right, final LinkKind messageKind) {
 		super(canvas, id, left, right);
-		this.message = new UMLMessage(messageKind);
-		this.leftLifeLineArtifact = left;
+		message = new UMLMessage(messageKind);
+		leftLifeLineArtifact = left;
 		left.addDependency(this, right);
-		this.rightLifeLineArtifact = right;
+		rightLifeLineArtifact = right;
 		if (right != left) {
 			right.addDependency(this, left);
 		}
@@ -77,9 +83,9 @@ public class MessageLinkArtifact extends LinkArtifact {
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final MessageFieldEditor editor = new MessageFieldEditor(this.canvas, this);
-		editor.startEdition(this.message.getName(), this.text.getLocation().getX(), this.text.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(this.text) + OptionsManager.get("RectangleRightPadding")
-				+ OptionsManager.get("RectangleLeftPadding"), false, true);
+		final MessageFieldEditor editor = new MessageFieldEditor(canvas, this);
+		editor.startEdition(message.getName(), text.getLocation().getX(), text.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(text)
+				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
 	}
 
 	/**
@@ -88,7 +94,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 * @return the left {@link LifeLineArtifact} of this message
 	 */
 	public LifeLineArtifact getLeftLifeLineArtifact() {
-		return this.leftLifeLineArtifact;
+		return leftLifeLineArtifact;
 	}
 
 	/**
@@ -97,7 +103,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 * @return the right {@link LifeLineArtifact} of this message
 	 */
 	public LifeLineArtifact getRightLifeLineArtifact() {
-		return this.rightLifeLineArtifact;
+		return rightLifeLineArtifact;
 	}
 
 	/*
@@ -108,15 +114,14 @@ public class MessageLinkArtifact extends LinkArtifact {
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		rightMenu.setName(this.message.getLinkKind().getName() + " " + this.leftLifeLineArtifact.getContent() + " "
-				+ this.message.getLeftAdornment().getShape().getIdiom() + "-" + this.message.getRightAdornment().getShape().getIdiom(true) + " "
-				+ this.rightLifeLineArtifact.getContent());
+		rightMenu.setName(message.getLinkKind().getName() + " " + leftLifeLineArtifact.getContent() + " " + message.getLeftAdornment().getShape().getIdiom()
+				+ "-" + message.getRightAdornment().getShape().getIdiom(true) + " " + rightLifeLineArtifact.getContent());
 		rightMenu.addItem("Edit", this.editCommand());
-		rightMenu.addItem("Reverse", this.reverseCommand(this.message));
+		rightMenu.addItem("Reverse", this.reverseCommand(message));
 		final MenuBar linkSubMenu = new MenuBar(true);
 		for (final LinkKind messageKind : LinkKind.values()) {
 			if (messageKind.isForDiagram(DiagramType.SEQUENCE)) {
-				linkSubMenu.addItem(messageKind.getName(), this.changeToCommand(this.message, messageKind));
+				linkSubMenu.addItem(messageKind.getName(), this.changeToCommand(message, messageKind));
 			}
 		}
 		rightMenu.addItem("Change to", linkSubMenu);
@@ -130,8 +135,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 */
 	@Override
 	public void removeCreatedDependency() {
-		this.leftLifeLineArtifact.removeDependency(this);
-		this.rightLifeLineArtifact.removeDependency(this);
+		leftLifeLineArtifact.removeDependency(this);
+		rightLifeLineArtifact.removeDependency(this);
 	}
 
 	/**
@@ -141,7 +146,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 *            The left {@link LinkArtifact.LinkAdornment} to be set
 	 */
 	public void setLeftAdornment(final LinkAdornment leftAdornment) {
-		this.message.setLeftAdornment(leftAdornment);
+		message.setLeftAdornment(leftAdornment);
 	}
 
 	/**
@@ -151,7 +156,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 *            The {@link LinkArtifact.LinkStyle} to be set
 	 */
 	public void setLinkStyle(final LinkStyle linkStyle) {
-		this.message.setLinkStyle(linkStyle);
+		message.setLinkStyle(linkStyle);
 	}
 
 	/**
@@ -161,7 +166,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 *            The {@link LinkKind} to be set
 	 */
 	public void setMessageKind(final LinkKind messageKind) {
-		this.message.setLinkKind(messageKind);
+		message.setLinkKind(messageKind);
 	}
 
 	/**
@@ -171,7 +176,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 *            The name text to be set
 	 */
 	public void setName(final String name) {
-		this.message.setName(name);
+		message.setName(name);
 	}
 
 	/**
@@ -181,7 +186,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 *            The right{@link LinkArtifact.LinkAdornment} to be set
 	 */
 	public void setRightAdornment(final LinkAdornment rightAdornment) {
-		this.message.setRightAdornment(rightAdornment);
+		message.setRightAdornment(rightAdornment);
 	}
 
 	/*
@@ -191,9 +196,9 @@ public class MessageLinkArtifact extends LinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "MessageLink$<" + this.leftLifeLineArtifact.getId() + ">!<" + this.rightLifeLineArtifact.getId() + ">!" + this.message.getLinkKind().getName() + "!"
-				+ this.message.getName() + "!" + this.message.getLinkStyle().getName() + "!" + this.message.getLeftAdornment().getName() + "!"
-				+ this.message.getRightAdornment().getName();
+		return "MessageLink$<" + leftLifeLineArtifact.getId() + ">!<" + rightLifeLineArtifact.getId() + ">!" + message.getLinkKind().getName() + "!"
+				+ message.getName() + "!" + message.getLinkStyle().getName() + "!" + message.getLeftAdornment().getName() + "!"
+				+ message.getRightAdornment().getName();
 	}
 
 	/*
@@ -204,56 +209,55 @@ public class MessageLinkArtifact extends LinkArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.line.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
-		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		line.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
+		arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineForegroundColor(), 1);
 	}
 
 	@Override
 	protected void buildGfxObject() {
 
-		if (!this.leftLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
-			this.leftLifeLineArtifact.addAllDirectionsDependecy(this);
-			this.leftLifeLineArtifact.rebuildGfxObject();
+		if (!leftLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
+			leftLifeLineArtifact.addAllDirectionsDependecy(this);
+			leftLifeLineArtifact.rebuildGfxObject();
 		}
-		if (!this.rightLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
-			this.rightLifeLineArtifact.addAllDirectionsDependecy(this);
-			this.rightLifeLineArtifact.rebuildGfxObject();
+		if (!rightLifeLineArtifact.hasThisAllDirectionsDependecy(this)) {
+			rightLifeLineArtifact.addAllDirectionsDependecy(this);
+			rightLifeLineArtifact.rebuildGfxObject();
 		}
 
-		this.leftPoint = Point.add(this.leftLifeLineArtifact.getCenter(), new Point(0, this.leftLifeLineArtifact.getHeight() / 2));
-		this.rightPoint = Point.add(this.rightLifeLineArtifact.getCenter(), new Point(0, this.rightLifeLineArtifact.getHeight() / 2));
-		this.leftPoint.translate(0, (this.leftLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
-		this.rightPoint.translate(0, (this.rightLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
-		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-		this.line.addToVirtualGroup(this.gfxObject);
-		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
-		this.line.setStrokeStyle(this.message.getLinkStyle().getGfxStyle());
+		leftPoint = Point.add(leftLifeLineArtifact.getCenter(), new Point(0, leftLifeLineArtifact.getHeight() / 2));
+		rightPoint = Point.add(rightLifeLineArtifact.getCenter(), new Point(0, rightLifeLineArtifact.getHeight() / 2));
+		leftPoint.translate(0, (leftLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
+		rightPoint.translate(0, (rightLifeLineArtifact.getAllDirectionsDependencyIndexOf(this) + 1) * OptionsManager.get("LifeLineSpacing"));
+		line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
+		line.addToVirtualGroup(gfxObject);
+		line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		line.setStrokeStyle(message.getLinkStyle().getGfxStyle());
 
 		// Making arrows group :
-		this.arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		this.arrowVirtualGroup.addToVirtualGroup(this.gfxObject);
-		final GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(this.leftPoint, this.rightPoint, this.message.getLeftAdornment());
-		final GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(this.rightPoint, this.leftPoint, this.message.getRightAdornment());
+		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		arrowVirtualGroup.addToVirtualGroup(gfxObject);
+		final GfxObject leftArrow = GeometryManager.getPlatform().buildAdornment(leftPoint, rightPoint, message.getLeftAdornment());
+		final GfxObject rightArrow = GeometryManager.getPlatform().buildAdornment(rightPoint, leftPoint, message.getRightAdornment());
 
 		if (leftArrow != null) {
-			leftArrow.addToVirtualGroup(this.arrowVirtualGroup);
+			leftArrow.addToVirtualGroup(arrowVirtualGroup);
 		}
 		if (rightArrow != null) {
-			 rightArrow.addToVirtualGroup(this.arrowVirtualGroup);
+			rightArrow.addToVirtualGroup(arrowVirtualGroup);
 		}
 
-		this.text = GfxManager.getPlatform().buildText(this.message.getName(), Point.getMiddleOf(this.leftPoint, this.rightPoint));
+		text = GfxManager.getPlatform().buildText(message.getName(), Point.getMiddleOf(leftPoint, rightPoint));
 		Log.trace("Creating name");
 
-		this.text.setFont(OptionsManager.getSmallFont());
-		this.text.addToVirtualGroup(this.gfxObject);
-		this.text.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
-		this.text.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
-		this.text.translate(
-				new Point(-GfxManager.getPlatform().getTextWidthFor(this.text) / 2, -GfxManager.getPlatform().getTextHeightFor(this.text)
-						- OptionsManager.get("TextBottomPadding")));
+		text.setFont(OptionsManager.getSmallFont());
+		text.addToVirtualGroup(gfxObject);
+		text.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
+		text.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
+		text.translate(new Point(-GfxManager.getPlatform().getTextWidthFor(text) / 2, -GfxManager.getPlatform().getTextHeightFor(text)
+				- OptionsManager.get("TextBottomPadding")));
 
-		this.gfxObject.moveToBack();
+		gfxObject.moveToBack();
 
 	}
 
@@ -266,8 +270,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	protected void select() {
 		super.select();
 
-		this.line.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
-		this.arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		line.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
+		arrowVirtualGroup.setStroke(ThemeManager.getTheme().getLifeLineHighlightedForegroundColor(), 2);
 	}
 
 	private Command changeToCommand(final UMLMessage linkMessage, final LinkKind messageKind) {

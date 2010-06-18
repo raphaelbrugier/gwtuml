@@ -29,14 +29,14 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 @SuppressWarnings("serial")
 public abstract class LinkArtifact extends UMLArtifact {
 
-	private UMLArtifact	leftUMLArtifact;
-	
-	private UMLArtifact	rightUMLArtifact;
-	
+	private UMLArtifact leftUMLArtifact;
+
+	private UMLArtifact rightUMLArtifact;
+
 	protected Point leftPoint;
 
 	protected Point rightPoint;
-	protected int				order;
+	protected int order;
 
 	protected boolean isSelfLink;
 	protected Direction leftDirection;
@@ -44,20 +44,24 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	protected boolean isTheOneRebuilding;
 
-	private boolean	doesntHaveToBeComputed;
+	private boolean doesntHaveToBeComputed;
 
-	
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
-	protected LinkArtifact() {}
-	
+	protected LinkArtifact() {
+	}
+
 	/**
 	 * Constructor of RelationLinkArtifact
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * @param id The artifacts's id
-	 * @param uMLArtifact1 First {@link UMLArtifact}
-	 * @param uMLArtifact2 Second {@link UMLArtifact}
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param uMLArtifact1
+	 *            First {@link UMLArtifact}
+	 * @param uMLArtifact2
+	 *            Second {@link UMLArtifact}
 	 * 
 	 */
 	public LinkArtifact(UMLCanvas canvas, int id, final UMLArtifact uMLArtifact1, final UMLArtifact uMLArtifact2) {
@@ -67,12 +71,12 @@ public abstract class LinkArtifact extends UMLArtifact {
 		isSelfLink = false;
 		leftDirection = Direction.UNKNOWN;
 		rightDirection = Direction.UNKNOWN;
-		isTheOneRebuilding	= false;
-		
-		this.leftUMLArtifact = uMLArtifact1;
-		this.rightUMLArtifact = uMLArtifact2;
+		isTheOneRebuilding = false;
+
+		leftUMLArtifact = uMLArtifact1;
+		rightUMLArtifact = uMLArtifact2;
 		final UMLArtifactPeer newPeer = new UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
-		this.order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer); 
+		order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer);
 		this.canvas.getuMLArtifactRelations().add(newPeer);
 	}
 
@@ -83,12 +87,12 @@ public abstract class LinkArtifact extends UMLArtifact {
 	 */
 	@Override
 	public Point getCenter() {
-		return Point.getMiddleOf(this.leftPoint, this.rightPoint);
+		return Point.getMiddleOf(leftPoint, rightPoint);
 	}
 
 	@Override
 	public int getHeight() {
-		return this.leftPoint.getY() < this.rightPoint.getY() ? this.rightPoint.getY() - this.leftPoint.getY() : this.leftPoint.getY() - this.rightPoint.getY();
+		return leftPoint.getY() < rightPoint.getY() ? rightPoint.getY() - leftPoint.getY() : leftPoint.getY() - rightPoint.getY();
 	}
 
 	@Override
@@ -103,7 +107,7 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 	@Override
 	public int getWidth() {
-		return this.leftPoint.getX() < this.rightPoint.getX() ? this.rightPoint.getX() - this.leftPoint.getX() : this.leftPoint.getX() - this.rightPoint.getX();
+		return leftPoint.getX() < rightPoint.getX() ? rightPoint.getX() - leftPoint.getX() : leftPoint.getX() - rightPoint.getX();
 	}
 
 	@Override
@@ -115,21 +119,23 @@ public abstract class LinkArtifact extends UMLArtifact {
 	public boolean isDraggable() {
 		return false;
 	}
-	
+
 	/**
 	 * Getter for the leftUMLArtifact
+	 * 
 	 * @return the leftUMLArtifact
 	 */
 	public UMLArtifact getLeftUMLArtifact() {
-		return this.leftUMLArtifact;
+		return leftUMLArtifact;
 	}
 
 	/**
 	 * Getter for the rightUMLArtifact
+	 * 
 	 * @return the rightUMLArtifact
 	 */
 	public UMLArtifact getRightUMLArtifact() {
-		return this.rightUMLArtifact;
+		return rightUMLArtifact;
 	}
 
 	/**
@@ -139,51 +145,50 @@ public abstract class LinkArtifact extends UMLArtifact {
 	public abstract void removeCreatedDependency();
 
 	void doesntHaveToBeComputed(final boolean state) {
-		this.doesntHaveToBeComputed = state;
+		doesntHaveToBeComputed = state;
 	}
 
 	protected void computeDirectionsType() {
-		if (this.doesntHaveToBeComputed) {
+		if (doesntHaveToBeComputed) {
 			return;
 		}
-		this.isTheOneRebuilding = true;
+		isTheOneRebuilding = true;
 
-		final Direction oldLeftDirection = this.leftDirection;
-		final Direction oldRightDirection = this.rightDirection;
+		final Direction oldLeftDirection = leftDirection;
+		final Direction oldRightDirection = rightDirection;
 
-		this.leftDirection = this.computeDirectionType(this.leftPoint, this.leftUMLArtifact);
-		this.rightDirection = this.computeDirectionType(this.rightPoint, this.rightUMLArtifact);
+		leftDirection = this.computeDirectionType(leftPoint, leftUMLArtifact);
+		rightDirection = this.computeDirectionType(rightPoint, rightUMLArtifact);
 
-		
-		if (this.leftDirection != oldLeftDirection) {
-			this.leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
-			this.leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
-			this.leftUMLArtifact.addDirectionDependecy(this.leftDirection, this);
-			this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
-			this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
+		if (leftDirection != oldLeftDirection) {
+			leftUMLArtifact.removeDirectionDependecy(oldLeftDirection, this);
+			leftUMLArtifact.rebuildDirectionDependencies(oldLeftDirection);
+			leftUMLArtifact.addDirectionDependecy(leftDirection, this);
+			leftUMLArtifact.sortDirectionDependecy(leftDirection);
+			leftUMLArtifact.rebuildDirectionDependencies(leftDirection);
 		} else {
-			if (this.canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
-				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
-				this.leftUMLArtifact.sortDirectionDependecy(this.leftDirection, this);
-				this.leftUMLArtifact.rebuildDirectionDependencies(this.leftDirection);
-				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
+			if (canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
+				canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
+				leftUMLArtifact.sortDirectionDependecy(leftDirection);
+				leftUMLArtifact.rebuildDirectionDependencies(leftDirection);
+				canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
 			}
 		}
-		if (this.rightDirection != oldRightDirection) {
-			this.rightUMLArtifact.removeDirectionDependecy(this.rightDirection, this);
-			this.rightUMLArtifact.rebuildDirectionDependencies(oldRightDirection);
-			this.rightUMLArtifact.addDirectionDependecy(this.rightDirection, this);
-			this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
-			this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
+		if (rightDirection != oldRightDirection) {
+			rightUMLArtifact.removeDirectionDependecy(rightDirection, this);
+			rightUMLArtifact.rebuildDirectionDependencies(oldRightDirection);
+			rightUMLArtifact.addDirectionDependecy(rightDirection, this);
+			leftUMLArtifact.sortDirectionDependecy(rightDirection);
+			rightUMLArtifact.rebuildDirectionDependencies(rightDirection);
 		} else {
-			if (this.canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
-				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
-				this.leftUMLArtifact.sortDirectionDependecy(this.rightDirection, this);
-				this.rightUMLArtifact.rebuildDirectionDependencies(this.rightDirection);
-				this.canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
+			if (canvas.isLinkArtifactsHaveAlreadyBeenSorted()) {
+				canvas.setLinkArtifactsHaveAlreadyBeenSorted(true);
+				leftUMLArtifact.sortDirectionDependecy(rightDirection);
+				rightUMLArtifact.rebuildDirectionDependencies(rightDirection);
+				canvas.setLinkArtifactsHaveAlreadyBeenSorted(false);
 			}
 		}
-		this.isTheOneRebuilding = false;
+		isTheOneRebuilding = false;
 	}
 
 	private Direction computeDirectionType(final Point point, final UMLArtifact uMLArtifact) {

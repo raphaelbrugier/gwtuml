@@ -28,8 +28,9 @@ public class LinearGeometry extends GeometryPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getLineBetweenImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact,
-	 * com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getLineBetweenImpl(com.objetdirect.gwt.umlapi.client
+	 * .artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact)
 	 */
 	@Override
 	public ArrayList<Point> getLineBetweenImpl(final UMLArtifact firstUMLArtifact, final UMLArtifact secondUMLArtifact) {
@@ -42,8 +43,9 @@ public class LinearGeometry extends GeometryPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getPointForLineImpl(com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact,
-	 * com.objetdirect.gwt.umlapi.client.engine.Point)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.engine.GeometryPlatform#getPointForLineImpl(com.objetdirect.gwt.umlapi.client
+	 * .artifacts.UMLArtifact, com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
 	@Override
 	public Point getPointForLineImpl(final UMLArtifact uMLArtifact, final Point targetCenter) {

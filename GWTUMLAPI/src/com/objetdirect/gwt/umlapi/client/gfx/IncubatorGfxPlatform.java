@@ -28,39 +28,43 @@ import com.google.gwt.widgetideas.graphics.client.Color;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 
 /**
- * This class implements the graphic platform using the <a href="http://code.google.com/p/google-web-toolkit-incubator/">GWT Incubator</a> canvas library
+ * This class implements the graphic platform using the <a
+ * href="http://code.google.com/p/google-web-toolkit-incubator/">GWT Incubator</a> canvas library
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class IncubatorGfxPlatform implements GfxPlatform {
-	static long												lastRedrawTime		= 0;
-	static long												timeBetween2Redraw	= 10;
+	static long lastRedrawTime = 0;
+	static long timeBetween2Redraw = 10;
 
-	private final Map<GWTCanvasWithListeners, CanvasBridge>	canvasBridges		= new HashMap<GWTCanvasWithListeners, CanvasBridge>();
+	private final Map<GWTCanvasWithListeners, CanvasBridge> canvasBridges = new HashMap<GWTCanvasWithListeners, CanvasBridge>();
 	// private CanvasBridge incubatorCanvasBridge;
-	private final Set<GfxObject>							canvasObjects		= new HashSet<GfxObject>();
-	private boolean											toBeRedrawn			= false;
+	private final Set<GfxObject> canvasObjects = new HashSet<GfxObject>();
+	private boolean toBeRedrawn = false;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget,
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener)
 	 */
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget,
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addObjectListenerToCanvas(com.google.gwt.user.client.ui.Widget,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener)
 	 */
 	public void addObjectListenerToCanvas(final Widget canvas, final GfxObjectListener gfxObjectListener) {
 		Log.trace("adding " + gfxObjectListener + " on " + canvas);
-		final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+		final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 		final MouseListener mouseListener = new MouseListener() {
 			/*
 			 * (non-Javadoc)
 			 * 
-			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseDown(com.google.gwt.user.client.ui.Widget, int, int)
+			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseDown(com.google.gwt.user.client.ui.Widget, int,
+			 * int)
 			 */
 			public void onMouseDown(final Widget sender, final int x, final int y) {
 				if (x < 0) {
@@ -91,7 +95,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 			/*
 			 * (non-Javadoc)
 			 * 
-			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseMove(com.google.gwt.user.client.ui.Widget, int, int)
+			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseMove(com.google.gwt.user.client.ui.Widget, int,
+			 * int)
 			 */
 			public void onMouseMove(final Widget sender, final int x, final int y) {
 				gfxObjectListener.mouseMoved(null);
@@ -100,7 +105,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 			/*
 			 * (non-Javadoc)
 			 * 
-			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseUp(com.google.gwt.user.client.ui.Widget, int, int)
+			 * @see com.google.gwt.user.client.ui.MouseListener#onMouseUp(com.google.gwt.user.client.ui.Widget, int,
+			 * int)
 			 */
 			public void onMouseUp(final Widget sender, final int x, final int y) {
 				// TODO fix this hack :
@@ -130,24 +136,25 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToCanvas(com.google.gwt.user.client.ui.Widget, com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
-	 * com.objetdirect.gwt.umlapi.client.engine.Point)
+	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToCanvas(com.google.gwt.user.client.ui.Widget,
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject, com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
 	public void addToCanvas(final Widget canvas, final GfxObject gfxO, final Point location) {
-		final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+		final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 		if (canvasBridge == null) {
 			Log.fatal("No bridge for " + canvas + " found");
 		}
 		this.getIncubatorGraphicalObjectFrom(gfxO).addOnCanvasAt(canvasBridge, location.getX(), location.getY());
-		this.canvasObjects.add(gfxO);
+		canvasObjects.add(gfxO);
 		this.getIncubatorGraphicalObjectFrom(gfxO).draw();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
-	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#addToVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject
+	 * , com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public void addToVirtualGroup(final GfxObject gfxOGroup, final GfxObject gfxO) {
 		((VirtualGroup) this.getIncubatorGraphicalObjectFrom(gfxOGroup)).add(this.getIncubatorGraphicalObjectFrom(gfxO));
@@ -225,7 +232,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#clearVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#clearVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject
+	 * )
 	 */
 	public void clearVirtualGroup(final GfxObject gfxOGroup) {
 		((VirtualGroup) this.getIncubatorGraphicalObjectFrom(gfxOGroup)).clear();
@@ -246,7 +255,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#curveTo(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
-	 * com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point)
+	 * com.objetdirect.gwt.umlapi.client.engine.Point, com.objetdirect.gwt.umlapi.client.engine.Point,
+	 * com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
 	@Override
 	public void curveTo(final GfxObject gfxObject, final Point location, final Point control1, final Point control2) {
@@ -266,7 +276,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getLocationFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public Point getLocationFor(final GfxObject gfxO) {
 		if (gfxO != null) {
@@ -278,7 +289,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getHeightFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getHeightFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public int getTextHeightFor(final GfxObject gfxO) {
 		if (gfxO != null) {
@@ -290,7 +302,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getWidthFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#getWidthFor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public int getTextWidthFor(final GfxObject gfxO) {
 		if (gfxO != null) {
@@ -321,7 +334,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#makeCanvas(int, int, com.objetdirect.gwt.umlapi.client.gfx.GfxColor)
+	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#makeCanvas(int, int,
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxColor)
 	 */
 	public Widget makeCanvas(final int width, final int height, final GfxColor backgroundColor) {
 		final IncubatorCanvasBridge incubatorCanvasBridge = new IncubatorCanvasBridge(width, height);
@@ -334,7 +348,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		 */
 		));
 		incubatorCanvasBridge.clear();
-		this.canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge.getWidget(), incubatorCanvasBridge);
+		canvasBridges.put((GWTCanvasWithListeners) incubatorCanvasBridge.getWidget(), incubatorCanvasBridge);
 		return incubatorCanvasBridge.getWidget();
 	}
 
@@ -351,7 +365,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToBack(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public void moveToBack(final GfxObject gfxO) {
 		// TODO Auto-generated method stub
@@ -361,7 +376,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToFront(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#moveToFront(com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public void moveToFront(final GfxObject gfxO) {
 		// TODO Auto-generated method stub
@@ -375,7 +391,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject)
 	 */
 	public void removeFromCanvas(final Widget canvas, final GfxObject gfxO) {
-		final CanvasBridge canvasBridge = this.canvasBridges.get(canvas);
+		final CanvasBridge canvasBridge = canvasBridges.get(canvas);
 		this.getIncubatorGraphicalObjectFrom(gfxO).removeFromCanvas();
 		this.redraw(canvasBridge);
 	}
@@ -383,8 +399,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#removeFromVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
-	 * com.objetdirect.gwt.umlapi.client.gfx.GfxObject, boolean)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#removeFromVirtualGroup(com.objetdirect.gwt.umlapi.client.gfx
+	 * .GfxObject, com.objetdirect.gwt.umlapi.client.gfx.GfxObject, boolean)
 	 */
 	public void removeFromVirtualGroup(final GfxObject gfxOGroup, final GfxObject gfxO, final boolean isSilent) {
 		((VirtualGroup) this.getIncubatorGraphicalObjectFrom(gfxOGroup)).remove(this.getIncubatorGraphicalObjectFrom(gfxO));
@@ -394,8 +411,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#rotate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, float,
-	 * com.objetdirect.gwt.umlapi.client.engine.Point)
+	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#rotate(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
+	 * float, com.objetdirect.gwt.umlapi.client.engine.Point)
 	 */
 	@Override
 	public void rotate(final GfxObject gfxObject, final float angle, final Point center) {
@@ -406,7 +423,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setFillColor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setFillColor(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxColor)
 	 */
 	public void setFillColor(final GfxObject gfxO, final GfxColor color) {
@@ -427,7 +445,9 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject, int, boolean)
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setOpacity(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
+	 * int, boolean)
 	 */
 	public void setOpacity(final GfxObject gfxO, final int opacity, final boolean isForBack) {
 		this.getIncubatorGraphicalObjectFrom(gfxO).setAlpha((float) opacity / 100);
@@ -459,7 +479,8 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setStrokeStyle(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
+	 * @see
+	 * com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform#setStrokeStyle(com.objetdirect.gwt.umlapi.client.gfx.GfxObject,
 	 * com.objetdirect.gwt.umlapi.client.gfx.GfxStyle)
 	 */
 	public void setStrokeStyle(final GfxObject gfxO, final GfxStyle style) {
@@ -484,13 +505,13 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 		if (System.currentTimeMillis() - IncubatorGfxPlatform.lastRedrawTime > IncubatorGfxPlatform.timeBetween2Redraw) {
 			Log.debug("Redraw");
 			canvas.clear();
-			for (final GfxObject gfxO : this.canvasObjects) {
+			for (final GfxObject gfxO : canvasObjects) {
 				this.getIncubatorGraphicalObjectFrom(gfxO).draw();
 			}
 			IncubatorGfxPlatform.lastRedrawTime = System.currentTimeMillis();
-			this.toBeRedrawn = true;
+			toBeRedrawn = true;
 		} else {
-			if (this.toBeRedrawn) {
+			if (toBeRedrawn) {
 				final Timer t = new Timer() {
 					@Override
 					public void run() {
@@ -498,7 +519,7 @@ public class IncubatorGfxPlatform implements GfxPlatform {
 					}
 				};
 				t.schedule((int) IncubatorGfxPlatform.timeBetween2Redraw);
-				this.toBeRedrawn = false;
+				toBeRedrawn = false;
 			}
 		}
 	}

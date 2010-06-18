@@ -43,28 +43,33 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  */
 @SuppressWarnings("serial")
 public class ClassPartAttributesArtifact extends NodePartArtifact {
-	
-	private transient Map<GfxObject, UMLClassAttribute>	attributeGfxObjects;
+
+	private transient Map<GfxObject, UMLClassAttribute> attributeGfxObjects;
 	private transient GfxObject attributeRect;
-	private List<UMLClassAttribute> attributes;
 	private transient GfxObject lastGfxObject;
-	
+
+	private List<UMLClassAttribute> attributes;
+
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ClassPartAttributesArtifact() {}
-	
+	private ClassPartAttributesArtifact() {
+	}
+
 	/**
 	 * Constructor of ClassPartAttributesArtifact
-	 * @param canvas Where the gfxObject are displayed
-	 * @param attributes UMLAttributes displayed by this part.
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param attributes
+	 *            UMLAttributes displayed by this part.
 	 */
 	public ClassPartAttributesArtifact(final UMLCanvas canvas, final List<UMLClassAttribute> attributes) {
 		super(canvas);
 		this.attributes = attributes;
-		this.attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
-		this.height = 0;
-		this.width = 0;
+		attributeGfxObjects = new LinkedHashMap<GfxObject, UMLClassAttribute>();
+		height = 0;
+		width = 0;
 	}
 
 	/**
@@ -74,81 +79,81 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 *            The new attribute to add
 	 */
 	public void addAttribute(final UMLClassAttribute attribute) {
-		this.attributes.add(attribute);
+		attributes.add(attribute);
 	}
 
 	@Override
 	public void buildGfxObject() {
-		if (this.textVirtualGroup == null) {
+		if (textVirtualGroup == null) {
 			this.computeBounds();
 		}
-		this.attributeRect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.height);
-		this.attributeRect.addToVirtualGroup(this.gfxObject);
-		this.attributeRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
-		this.attributeRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
-		this.textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
-		this.textVirtualGroup.moveToFront();
+		attributeRect = GfxManager.getPlatform().buildRect(nodeWidth, height);
+		attributeRect.addToVirtualGroup(gfxObject);
+		attributeRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
+		attributeRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		textVirtualGroup.moveToFront();
 	}
 
 	@Override
 	public void computeBounds() {
-		this.attributeGfxObjects.clear();
-		this.height = 0;
-		this.width = 0;
-		this.textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		this.textVirtualGroup.addToVirtualGroup(this.gfxObject);
+		attributeGfxObjects.clear();
+		height = 0;
+		width = 0;
+		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		textVirtualGroup.addToVirtualGroup(gfxObject);
 
-		for (final UMLClassAttribute attribute : this.attributes) {
+		for (final UMLClassAttribute attribute : attributes) {
 			final GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString(),
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + this.height));
-			
-			attributeText.addToVirtualGroup(this.textVirtualGroup);
+					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+
+			attributeText.addToVirtualGroup(textVirtualGroup);
 			attributeText.setFont(OptionsManager.getSmallFont());
 			attributeText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
 			attributeText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
-			
+
 			int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(attributeText);
 			int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(attributeText);
 			thisAttributeWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 			thisAttributeHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-			this.width = thisAttributeWidth > this.width ? thisAttributeWidth : this.width;
-			this.height += thisAttributeHeight;
-			this.attributeGfxObjects.put(attributeText, attribute);
-			this.lastGfxObject = attributeText;
+			width = thisAttributeWidth > width ? thisAttributeWidth : width;
+			height += thisAttributeHeight;
+			attributeGfxObjects.put(attributeText, attribute);
+			lastGfxObject = attributeText;
 		}
-		this.width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		this.height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
+		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
 
-		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + this.width + "x" + this.height);
+		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
 
 	@Override
 	public void edit() {
 		final UMLClassAttribute attributeToCreate = new UMLClassAttribute(UMLVisibility.PRIVATE, "String", "attribute");
 		this.addAttribute(attributeToCreate);
-		this.nodeArtifact.rebuildGfxObject();
-		this.attributeGfxObjects.put(this.lastGfxObject, attributeToCreate);
-		this.edit(this.lastGfxObject);
+		nodeArtifact.rebuildGfxObject();
+		attributeGfxObjects.put(lastGfxObject, attributeToCreate);
+		this.edit(lastGfxObject);
 	}
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final UMLClassAttribute attributeToChange = this.attributeGfxObjects.get(editedGfxObject);
+		final UMLClassAttribute attributeToChange = attributeGfxObjects.get(editedGfxObject);
 		if (attributeToChange == null) {
 			this.edit();
 		} else {
-			final ClassPartAttributesFieldEditor editor = new ClassPartAttributesFieldEditor(this.canvas, this, attributeToChange);
-			editor.startEdition(attributeToChange.toString(), (this.nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-					.get("RectangleLeftPadding")), (this.nodeArtifact.getLocation().getY() + ((ClassArtifact) this.nodeArtifact).className.getHeight()
-					+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")), this.nodeWidth
-					- OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding")
-					- OptionsManager.get("RectangleLeftPadding"), false, true);
+			final ClassPartAttributesFieldEditor editor = new ClassPartAttributesFieldEditor(canvas, this, attributeToChange);
+			editor.startEdition(attributeToChange.toString(), (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
+					.get("RectangleLeftPadding")), (nodeArtifact.getLocation().getY() + ((ClassArtifact) nodeArtifact).className.getHeight()
+					+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")), nodeWidth - OptionsManager.get("TextRightPadding")
+					- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false,
+					true);
 		}
 	}
 
 	@Override
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	@Override
@@ -164,7 +169,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	@Override
 	public GfxObject getOutline() {
 		final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
-		final GfxObject rect = GfxManager.getPlatform().buildRect(this.nodeWidth, this.getHeight());
+		final GfxObject rect = GfxManager.getPlatform().buildRect(nodeWidth, this.getHeight());
 		rect.setStrokeStyle(GfxStyle.DASH);
 		rect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 1);
 		rect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
@@ -177,7 +182,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 		rightMenu.setName("Attributes");
 
-		for (final Entry<GfxObject, UMLClassAttribute> attribute : this.attributeGfxObjects.entrySet()) {
+		for (final Entry<GfxObject, UMLClassAttribute> attribute : attributeGfxObjects.entrySet()) {
 			final MenuBar subsubMenu = new MenuBar(true);
 			subsubMenu.addItem("Edit ", this.editCommand(attribute.getKey()));
 			subsubMenu.addItem("Delete ", this.deleteCommand(attribute.getValue()));
@@ -189,7 +194,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	/**
@@ -199,7 +204,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	 *            The attribute to be removed
 	 */
 	public void remove(final UMLClassAttribute attribute) {
-		this.attributes.remove(attribute);
+		attributes.remove(attribute);
 	}
 
 	/*
@@ -210,7 +215,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	@Override
 	public String toURL() {
 		final StringBuilder attributesURL = new StringBuilder();
-		for (final UMLClassAttribute attribute : this.attributes) {
+		for (final UMLClassAttribute attribute : attributes) {
 			attributesURL.append(attribute);
 			attributesURL.append("%");
 		}
@@ -220,18 +225,18 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.attributeRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
+		attributeRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 	}
 
 	@Override
 	void setNodeWidth(final int width) {
-		this.nodeWidth = width;
+		nodeWidth = width;
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		this.attributeRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
+		attributeRect.setStroke(ThemeManager.getTheme().getClassHighlightedForegroundColor(), 2);
 	}
 
 	private Command deleteCommand(final UMLClassAttribute attribute) {

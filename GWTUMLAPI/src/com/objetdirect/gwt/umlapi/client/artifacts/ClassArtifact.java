@@ -36,23 +36,28 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
  */
 @SuppressWarnings("serial")
 public class ClassArtifact extends NodeArtifact {
-	ClassPartAttributesArtifact	classAttributes;
-	private ClassPartMethodsArtifact	classMethods;
-	ClassPartNameArtifact		className;
-	
+
+	ClassPartAttributesArtifact classAttributes;
+	private ClassPartMethodsArtifact classMethods;
+	ClassPartNameArtifact className;
+
 	private UMLClass ownedClass;
 
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ClassArtifact() { 
+	private ClassArtifact() {
 	}
 
 	/**
 	 * ClassArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * 
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param className
+	 *            The name of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
 	public ClassArtifact(final UMLCanvas canvas, int id, final String className) {
 		this(canvas, id, className, "");
@@ -61,23 +66,27 @@ public class ClassArtifact extends NodeArtifact {
 	/**
 	 * ClassArtifact constructor, initializes all {@link NodePartArtifact}
 	 * 
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param className The name of the class, sent to {@link ClassPartNameArtifact} constructor
-	 * @param stereotype The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param className
+	 *            The name of the class, sent to {@link ClassPartNameArtifact} constructor
+	 * @param stereotype
+	 *            The stereotype of the class, sent to {@link ClassPartNameArtifact} constructor
 	 */
 	public ClassArtifact(final UMLCanvas canvas, int id, final String className, final String stereotype) {
 		super(canvas, id);
 		ownedClass = new UMLClass(className);
 		this.className = new ClassPartNameArtifact(canvas, ownedClass, className, stereotype);
-		this.classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());
-		this.classMethods = new ClassPartMethodsArtifact(canvas, ownedClass.getMethods());
-		this.nodeParts.add(this.className);
-		this.nodeParts.add(this.classAttributes);
-		this.nodeParts.add(this.classMethods);
+		classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());
+		classMethods = new ClassPartMethodsArtifact(canvas, ownedClass.getMethods());
+		nodeParts.add(this.className);
+		nodeParts.add(classAttributes);
+		nodeParts.add(classMethods);
 		this.className.setNodeArtifact(this);
-		this.classAttributes.setNodeArtifact(this);
-		this.classMethods.setNodeArtifact(this);
+		classAttributes.setNodeArtifact(this);
+		classMethods.setNodeArtifact(this);
 	}
 
 	/**
@@ -87,7 +96,7 @@ public class ClassArtifact extends NodeArtifact {
 	 *            The attribute, sent to {@link ClassPartAttributesArtifact}
 	 */
 	public void addAttribute(final UMLClassAttribute attribute) {
-		this.classAttributes.addAttribute(attribute);
+		classAttributes.addAttribute(attribute);
 	}
 
 	/**
@@ -98,7 +107,7 @@ public class ClassArtifact extends NodeArtifact {
 	 */
 
 	public void addMethod(final UMLClassMethod method) {
-		this.classMethods.add(method);
+		classMethods.add(method);
 	}
 
 	/**
@@ -107,7 +116,7 @@ public class ClassArtifact extends NodeArtifact {
 	 * @return the list of attributes of this class
 	 */
 	public List<UMLClassAttribute> getAttributes() {
-		return this.ownedClass.getAttributes();
+		return ownedClass.getAttributes();
 	}
 
 	/**
@@ -116,7 +125,7 @@ public class ClassArtifact extends NodeArtifact {
 	 * @return the list of methods of this class
 	 */
 	public List<UMLClassMethod> getMethods() {
-		return this.classMethods.getList();
+		return classMethods.getList();
 	}
 
 	/**
@@ -126,17 +135,17 @@ public class ClassArtifact extends NodeArtifact {
 	 */
 	@Override
 	public String getName() {
-		return this.className.getClassName();
+		return className.getClassName();
 	}
 
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		final MenuBarAndTitle classNameRightMenu = this.className.getRightMenu();
-		final MenuBarAndTitle classAttributesRightMenu = this.classAttributes.getRightMenu();
-		final MenuBarAndTitle classMethodsRightMenu = this.classMethods.getRightMenu();
+		final MenuBarAndTitle classNameRightMenu = className.getRightMenu();
+		final MenuBarAndTitle classAttributesRightMenu = classAttributes.getRightMenu();
+		final MenuBarAndTitle classMethodsRightMenu = classMethods.getRightMenu();
 
-		rightMenu.setName("Class" + this.className.getClassName());
+		rightMenu.setName("Class" + className.getClassName());
 
 		rightMenu.addItem(classNameRightMenu.getName(), classNameRightMenu.getSubMenu());
 		rightMenu.addItem(classAttributesRightMenu.getName(), classAttributesRightMenu.getSubMenu());
@@ -148,7 +157,7 @@ public class ClassArtifact extends NodeArtifact {
 	public UMLClass toUMLComponent() {
 		return ownedClass;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -156,11 +165,13 @@ public class ClassArtifact extends NodeArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "Class$" + this.getLocation() + "!" + this.className.toURL() + "!" + this.classAttributes.toURL() + "!" + this.classMethods.toURL();
+		return "Class$" + this.getLocation() + "!" + className.toURL() + "!" + classAttributes.toURL() + "!" + classMethods.toURL();
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#setUpAfterDeserialization()
 	 */
 	@Override

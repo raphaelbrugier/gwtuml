@@ -18,7 +18,6 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
  * This enum lists all types of uml diagram that the application can draw
  * 
  * @author Raphaël Brugier <raphael dot brugier at gmail dot com>
- * 
  */
 public enum DiagramType {
 	/**
@@ -38,25 +37,23 @@ public enum DiagramType {
 	 */
 	SEQUENCE(3, "sequence");
 
-	private String	name;
+	private String name;
 	private int index;
 
 	private DiagramType(final int index, final String name) {
 		this.name = name;
 		this.index = index;
 	}
-	
-	
+
 	public static DiagramType fromIndex(int index) {
 		for (DiagramType d : DiagramType.values()) {
 			if (d.index == index) {
 				return d;
 			}
 		}
-		
+
 		return CLASS;
 	}
-	
 
 	/**
 	 * Getter for the name
@@ -64,7 +61,7 @@ public enum DiagramType {
 	 * @return the name
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -76,7 +73,6 @@ public enum DiagramType {
 		return this.equals(CLASS) || this.equals(OBJECT);
 	}
 
-
 	/**
 	 * This method allows to know if a diagram can draw class diagram and object diagram type objects
 	 * 
@@ -85,7 +81,6 @@ public enum DiagramType {
 	public boolean isHybridType() {
 		return this.equals(CLASS) || this.equals(OBJECT) || this.equals(HYBRID);
 	}
-
 
 	/**
 	 * @return the index

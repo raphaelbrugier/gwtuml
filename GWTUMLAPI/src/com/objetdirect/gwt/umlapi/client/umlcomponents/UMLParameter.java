@@ -25,15 +25,16 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class UMLParameter implements Serializable {
 
-	private String	name;
+	private String name;
 
-	private String	type;
+	private String type;
 
 	/**
-	 * Default constructor only for gwt-rpc serialization 
+	 * Default constructor only for gwt-rpc serialization
 	 */
-	public UMLParameter() { }
-	
+	public UMLParameter() {
+	}
+
 	/**
 	 * Constructor of the parameter
 	 * 
@@ -55,7 +56,7 @@ public class UMLParameter implements Serializable {
 	 * 
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class UMLParameter implements Serializable {
 	 * 
 	 */
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	/**
@@ -99,10 +100,10 @@ public class UMLParameter implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder f = new StringBuilder();
-		f.append(this.name);
-		if (this.type != null) {
+		f.append(name);
+		if (type != null) {
 			f.append(" : ");
-			f.append(this.type);
+			f.append(type);
 		}
 		return f.toString();
 	}

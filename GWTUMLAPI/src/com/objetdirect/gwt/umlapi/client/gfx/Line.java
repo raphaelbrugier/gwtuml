@@ -18,44 +18,44 @@ import com.allen_sauer.gwt.log.client.Log;
 
 class Line extends IncubatorGfxObject {
 
-	private final int	h;
-	private final int	w;
+	private final int h;
+	private final int w;
 
 	public Line(final int x1, final int y1, final int x2, final int y2) {
 		super();
-		this.x = x1;
-		this.y = y1;
-		this.w = x2 - x1;
-		this.h = y2 - y1;
+		x = x1;
+		y = y1;
+		w = x2 - x1;
+		h = y2 - y1;
 	}
 
 	@Override
 	public void draw() {
-		if (!this.isVisible) {
+		if (!isVisible) {
 			Log.trace(this + " is not visible");
 			return;
 		}
-		if (this.canvas == null) {
+		if (canvas == null) {
 			Log.fatal("canvas is null for " + this);
 		}
 
 		Log.trace("Drawing " + this);
-		this.canvas.saveContext();
-		if (this.fillColor != null) {
-			this.canvas.setFillStyle(this.fillColor);
+		canvas.saveContext();
+		if (fillColor != null) {
+			canvas.setFillStyle(fillColor);
 		}
-		if (this.strokeColor != null) {
-			this.canvas.setStrokeStyle(this.strokeColor);
+		if (strokeColor != null) {
+			canvas.setStrokeStyle(strokeColor);
 		}
-		if (this.strokeWidth != 0) {
-			this.canvas.setLineWidth(this.strokeWidth);
+		if (strokeWidth != 0) {
+			canvas.setLineWidth(strokeWidth);
 		}
-		this.canvas.beginPath();
-		this.canvas.moveTo(this.getX(), this.getY());
-		this.canvas.lineTo(this.getX() + this.w, this.getY() + this.h);
-		this.canvas.closePath();
-		this.canvas.stroke();
-		this.canvas.restoreContext();
+		canvas.beginPath();
+		canvas.moveTo(this.getX(), this.getY());
+		canvas.lineTo(this.getX() + w, this.getY() + h);
+		canvas.closePath();
+		canvas.stroke();
+		canvas.restoreContext();
 	}
 
 	@Override

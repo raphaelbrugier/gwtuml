@@ -36,18 +36,20 @@ import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
- * This abstract class represent any uml artifact that can be displayed An artifact is something between the graphical object and the uml component. <br>
+ * This abstract class represent any uml artifact that can be displayed An artifact is something between the graphical
+ * object and the uml component. <br>
  * It has an uml component and it build the graphical object
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
 public abstract class UMLArtifact implements Serializable {
+	protected transient GfxObject gfxObject;
+
 	protected boolean isSelected = false;
 	private int id;
 
 	protected UMLCanvas canvas;
-	protected transient GfxObject gfxObject;
 
 	private LinkedList<LinkArtifact> upDependencies;
 	private LinkedList<LinkArtifact> downDependencies;
@@ -58,47 +60,48 @@ public abstract class UMLArtifact implements Serializable {
 	private HashMap<LinkArtifact, UMLArtifact> dependentUMLArtifacts;
 	private boolean isBuilt;
 	private Point location;
-	
+
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
-	protected UMLArtifact() { }
-	
-	
-	
+	protected UMLArtifact() {
+	}
+
 	/**
 	 * Constructor of UMLArtifact <br>
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * @param id The artifacts's id
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param id
+	 *            The artifacts's id
 	 */
 	public UMLArtifact(UMLCanvas canvas, int id) {
 		this(canvas);
 		this.id = id;
 	}
-	
+
 	public UMLArtifact(UMLCanvas canvas) {
 		this.canvas = canvas;
 		isSelected = false;
-		
+
 		upDependencies = new LinkedList<LinkArtifact>();
 		downDependencies = new LinkedList<LinkArtifact>();
 		leftDependencies = new LinkedList<LinkArtifact>();
 		rightDependencies = new LinkedList<LinkArtifact>();
 		allDependencies = new LinkedList<LinkArtifact>();
-		
+
 		dependentUMLArtifacts = new HashMap<LinkArtifact, UMLArtifact>();
-		
+
 		isBuilt = false;
 		location = Point.getOrigin();
 	}
-	
+
 	/**
 	 * This method destroys this artifact's graphical object and all dependencies graphical objects. <br>
 	 * Useful to remove a class and all its links
 	 */
 	public void destroyGfxObjectWhithDependencies() {
 		Log.trace("UMLArtifact::destroyGfxObjectWhithDependencies()");
-		GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.getDependentUMLArtifacts().entrySet()) {
 			GfxManager.getPlatform().clearVirtualGroup(dependentUMLArtifact.getKey().getGfxObject());
 		}
@@ -124,10 +127,11 @@ public abstract class UMLArtifact implements Serializable {
 	/**
 	 * Getter for the dependent UMLArtifacts
 	 * 
-	 * @return An {@link HashMap} of {@link LinkArtifact} and UMLArtifact which represents the links of this artifact with the linked artifacts
+	 * @return An {@link HashMap} of {@link LinkArtifact} and UMLArtifact which represents the links of this artifact
+	 *         with the linked artifacts
 	 */
 	public HashMap<LinkArtifact, UMLArtifact> getDependentUMLArtifacts() {
-		return this.dependentUMLArtifacts;
+		return dependentUMLArtifacts;
 	}
 
 	/**
@@ -138,16 +142,16 @@ public abstract class UMLArtifact implements Serializable {
 	 * 
 	 */
 	public GfxObject getGfxObject() {
-		if (this.gfxObject == null) {
+		if (gfxObject == null) {
 			throw new GWTUMLAPIException("Must Initialize before getting gfxObjects");
 		}
-		if (!this.isBuilt) {
+		if (!isBuilt) {
 			final long t = System.currentTimeMillis();
 			this.buildGfxObjectWithAnimation();
 			Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
-			this.isBuilt = true;
+			isBuilt = true;
 		}
-		return this.gfxObject;
+		return gfxObject;
 	}
 
 	/**
@@ -163,7 +167,7 @@ public abstract class UMLArtifact implements Serializable {
 	 * @return the unique id of this artifact
 	 */
 	public int getId() {
-		return this.id;
+		return id;
 	}
 
 	/**
@@ -172,7 +176,7 @@ public abstract class UMLArtifact implements Serializable {
 	 * @return A copy of the Point that represents where this artifact currently is
 	 */
 	public Point getLocation() {
-		return this.location.clonePoint();
+		return location.clonePoint();
 	}
 
 	/**
@@ -230,14 +234,15 @@ public abstract class UMLArtifact implements Serializable {
 	public abstract int getWidth();
 
 	/**
-	 * This is the method that initializes the graphical object. It <b>MUST</b> be called before doing anything else with the graphical object.
+	 * This is the method that initializes the graphical object. It <b>MUST</b> be called before doing anything else
+	 * with the graphical object.
 	 * 
 	 * @return The initialized graphical object.
 	 */
 	public GfxObject initializeGfxObject() {
-		this.gfxObject = GfxManager.getPlatform().buildVirtualGroup();
-		this.isBuilt = false;
-		return this.gfxObject;
+		gfxObject = GfxManager.getPlatform().buildVirtualGroup();
+		isBuilt = false;
+		return gfxObject;
 	}
 
 	/**
@@ -261,7 +266,8 @@ public abstract class UMLArtifact implements Serializable {
 	public abstract boolean isDraggable();
 
 	/**
-	 * This method moves an artifact to a new location It changes the current location <b>AND</b> translate the graphical object
+	 * This method moves an artifact to a new location It changes the current location <b>AND</b> translate the
+	 * graphical object
 	 * 
 	 * @param newLocation
 	 *            The new location of the artifact
@@ -286,9 +292,9 @@ public abstract class UMLArtifact implements Serializable {
 	 */
 	public void rebuildGfxObject() {
 		final long t = System.currentTimeMillis();
-		GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		this.buildGfxObjectWithAnimation();
-		if (this.isSelected) {
+		if (isSelected) {
 			this.select();
 		}
 
@@ -317,19 +323,20 @@ public abstract class UMLArtifact implements Serializable {
 	 */
 	public void removeDependency(final LinkArtifact dependentUMLArtifact) {
 		Log.trace(this + "removing depency with" + dependentUMLArtifact);
-		this.dependentUMLArtifacts.remove(dependentUMLArtifact);
-		this.upDependencies.remove(dependentUMLArtifact);
-		this.downDependencies.remove(dependentUMLArtifact);
-		this.leftDependencies.remove(dependentUMLArtifact);
-		this.rightDependencies.remove(dependentUMLArtifact);
-		this.allDependencies.remove(dependentUMLArtifact);
+		dependentUMLArtifacts.remove(dependentUMLArtifact);
+		upDependencies.remove(dependentUMLArtifact);
+		downDependencies.remove(dependentUMLArtifact);
+		leftDependencies.remove(dependentUMLArtifact);
+		rightDependencies.remove(dependentUMLArtifact);
+		allDependencies.remove(dependentUMLArtifact);
 	}
 
 	/**
 	 * This method does the graphic changes to reflect that an artifact has been selected.
 	 * 
 	 * @param moveToFront
-	 *            Specifies if the graphical object must be brought to foreground (this parameter is ignored if this graphical object is a link)
+	 *            Specifies if the graphical object must be brought to foreground (this parameter is ignored if this
+	 *            graphical object is a link)
 	 * 
 	 */
 	public void select(final boolean moveToFront) {
@@ -338,15 +345,15 @@ public abstract class UMLArtifact implements Serializable {
 			this.toFront();
 		}
 	}
-	
+
 	/**
 	 * This method does the graphic changes to reflect that an artifact has been selected
 	 */
 	protected void select() {
-		this.isSelected = true;
-		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.dependentUMLArtifacts.entrySet()) {
+		isSelected = true;
+		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : dependentUMLArtifacts.entrySet()) {
 			if (!dependentUMLArtifact.getValue().equals(this) && dependentUMLArtifact.getValue().isSelected) {
-				this.canvas.selectArtifact(dependentUMLArtifact.getKey());
+				canvas.selectArtifact(dependentUMLArtifact.getKey());
 			}
 		}
 	}
@@ -377,7 +384,8 @@ public abstract class UMLArtifact implements Serializable {
 	}
 
 	/**
-	 * This method sets the current artifact location, it should not be called after the artifact is added on canvas except for very specifically uses: <br />
+	 * This method sets the current artifact location, it should not be called after the artifact is added on canvas
+	 * except for very specifically uses: <br />
 	 * It doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
 	 * 
 	 * @param location
@@ -409,11 +417,11 @@ public abstract class UMLArtifact implements Serializable {
 	 * This method do the graphic changes to reflect that an artifact has been unselected
 	 */
 	public void unselect() {
-		this.isSelected = false;
+		isSelected = false;
 	}
 
 	void addDependency(final LinkArtifact dependentUMLArtifact, final UMLArtifact linkedUMLArtifact) {
-		this.dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
+		dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
 	}
 
 	void buildGfxObjectWithAnimation() {
@@ -428,7 +436,7 @@ public abstract class UMLArtifact implements Serializable {
 				new Scheduler.Task("OpacityArtifactAnimation") {
 					@Override
 					public void process() {
-						UMLArtifact.this.gfxObject.setOpacity(j, false);
+						gfxObject.setOpacity(j, false);
 					}
 				};
 			}
@@ -437,19 +445,19 @@ public abstract class UMLArtifact implements Serializable {
 	}
 
 	boolean hasThisAllDirectionsDependecy(final LinkArtifact linkArtifact) {
-		return this.allDependencies.contains(linkArtifact);
+		return allDependencies.contains(linkArtifact);
 	}
 
 	void toBack() {
-		this.gfxObject.moveToBack();
+		gfxObject.moveToBack();
 	}
 
 	void toFront() {
-		this.gfxObject.moveToFront();
+		gfxObject.moveToFront();
 	}
 
 	protected void addAllDirectionsDependecy(final LinkArtifact linkArtifact) {
-		this.allDependencies.add(linkArtifact);
+		allDependencies.add(linkArtifact);
 	}
 
 	protected void addDirectionDependecy(final Direction direction, final LinkArtifact linkArtifact) {
@@ -459,11 +467,11 @@ public abstract class UMLArtifact implements Serializable {
 	protected abstract void buildGfxObject();
 
 	protected int getAllDirectionsDependenciesCount() {
-		return this.allDependencies.size();
+		return allDependencies.size();
 	}
 
 	protected int getAllDirectionsDependencyIndexOf(final LinkArtifact linkArtifact) {
-		return this.allDependencies.indexOf(linkArtifact);
+		return allDependencies.indexOf(linkArtifact);
 	}
 
 	protected int getDependenciesCount(final Direction direction) {
@@ -487,7 +495,7 @@ public abstract class UMLArtifact implements Serializable {
 	}
 
 	protected void removeAllDirectionsDependecy(final LinkArtifact linkArtifact) {
-		this.allDependencies.remove(linkArtifact);
+		allDependencies.remove(linkArtifact);
 	}
 
 	protected void removeDirectionDependecy(final Direction direction, final LinkArtifact linkArtifact) {
@@ -495,18 +503,16 @@ public abstract class UMLArtifact implements Serializable {
 	}
 
 	protected void removeDirectionDependecy(final LinkArtifact linkArtifact) {
-		this.allDependencies.remove(linkArtifact);
+		allDependencies.remove(linkArtifact);
 	}
 
-	
-
-	protected void sortDirectionDependecy(final Direction direction, final LinkArtifact linkArtifact) {
+	protected void sortDirectionDependecy(final Direction direction) {
 		Collections.sort(this.getDirectionList(direction), new Comparator<LinkArtifact>() {
 
 			@Override
 			public int compare(final LinkArtifact link1, final LinkArtifact link2) {
-				final Point artifact1Location = UMLArtifact.this.dependentUMLArtifacts.get(link1).getLocation();
-				final Point artifact2Location = UMLArtifact.this.dependentUMLArtifacts.get(link2).getLocation();
+				final Point artifact1Location = dependentUMLArtifacts.get(link1).getLocation();
+				final Point artifact2Location = dependentUMLArtifacts.get(link2).getLocation();
 
 				final Integer int1 = direction.getXDirection() != 0 ? artifact1Location.getY() : artifact1Location.getX();
 				final Integer int2 = direction.getXDirection() != 0 ? artifact2Location.getY() : artifact2Location.getX();
@@ -519,15 +525,15 @@ public abstract class UMLArtifact implements Serializable {
 	private LinkedList<LinkArtifact> getDirectionList(final Direction direction) {
 		switch (direction) {
 			case UP:
-				return this.upDependencies;
+				return upDependencies;
 			case DOWN:
-				return this.downDependencies;
+				return downDependencies;
 			case LEFT:
-				return this.leftDependencies;
+				return leftDependencies;
 			case RIGHT:
-				return this.rightDependencies;
+				return rightDependencies;
 		}
-		return this.allDependencies;
+		return allDependencies;
 	}
 
 	public abstract void setUpAfterDeserialization();

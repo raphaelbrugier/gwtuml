@@ -55,11 +55,11 @@ public class MessageFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		if (newContent.trim().equals("")) {
-			this.canvas.remove(this.artifact);
+			canvas.remove(artifact);
 			return false;
 		}
-		((MessageLinkArtifact) this.artifact).setName(newContent);
-		this.artifact.rebuildGfxObject();
+		((MessageLinkArtifact) artifact).setName(newContent);
+		artifact.rebuildGfxObject();
 		return false;
 	}
 }

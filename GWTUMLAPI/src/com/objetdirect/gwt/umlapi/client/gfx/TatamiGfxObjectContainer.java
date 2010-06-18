@@ -25,13 +25,13 @@ import com.objetdirect.tatami.client.gfx.GraphicObject;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 class TatamiGfxObjectContainer extends GfxObject {
-	private static Map<GraphicObject, TatamiGfxObjectContainer>	tatamiGfxObjectContainerMap	= new HashMap<GraphicObject, TatamiGfxObjectContainer>();
+	private static Map<GraphicObject, TatamiGfxObjectContainer> tatamiGfxObjectContainerMap = new HashMap<GraphicObject, TatamiGfxObjectContainer>();
 
 	public static TatamiGfxObjectContainer getContainerOf(final GraphicObject graphicObject) {
 		return TatamiGfxObjectContainer.tatamiGfxObjectContainerMap.get(graphicObject);
 	}
 
-	private final GraphicObject	graphicObject;
+	private final GraphicObject graphicObject;
 
 	public TatamiGfxObjectContainer(final GraphicObject graphicObject) {
 		super();
@@ -44,11 +44,11 @@ class TatamiGfxObjectContainer extends GfxObject {
 	}
 
 	public GraphicObject getGraphicObject() {
-		return this.graphicObject;
+		return graphicObject;
 	}
 
 	@Override
 	public String toString() {
-		return GWTUMLDrawerHelper.getShortName(this) + " containing " + GWTUMLDrawerHelper.getShortName(this.graphicObject);
+		return GWTUMLDrawerHelper.getShortName(this) + " containing " + GWTUMLDrawerHelper.getShortName(graphicObject);
 	}
 }

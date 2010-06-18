@@ -32,7 +32,8 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	 * Parse an attribute from a {@link String}
 	 * 
 	 * @param attributeToParse
-	 *            The string containing an {@link UMLObjectAttribute} obtained with {@link UMLObjectAttribute#toString()}
+	 *            The string containing an {@link UMLObjectAttribute} obtained with
+	 *            {@link UMLObjectAttribute#toString()}
 	 * 
 	 * @return The new parsed {@link UMLObjectAttribute} or an empty one if there was a problem
 	 */
@@ -85,12 +86,13 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 		return new UMLObjectAttribute(visibility, type, name, instance);
 	}
 
-	private String	stringInstance;
+	private String stringInstance;
 
-	private Number	numberInstance;
-	
+	private Number numberInstance;
+
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLObjectAttribute(){}
+	UMLObjectAttribute() {
+	}
 
 	/**
 	 * Constructor of the attribute
@@ -130,11 +132,11 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	 * @return The instance {@link String} or "" if no instance is defined
 	 */
 	public String getInstance() {
-		if (this.stringInstance != null) {
-			return this.stringInstance;
+		if (stringInstance != null) {
+			return stringInstance;
 		}
-		if (this.numberInstance != null) {
-			return this.numberInstance.toString();
+		if (numberInstance != null) {
+			return numberInstance.toString();
 		}
 		return "";
 	}
@@ -168,18 +170,18 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	@Override
 	public String toString() {
 		final StringBuilder f = new StringBuilder();
-		f.append(this.visibility);
-		f.append(this.name);
-		if ((this.type != null) && !this.type.equals("")) {
+		f.append(visibility);
+		f.append(name);
+		if ((type != null) && !type.equals("")) {
 			f.append(" : ");
-			f.append(this.type);
+			f.append(type);
 		}
-		if (this.stringInstance != null) {
+		if (stringInstance != null) {
 			f.append(" = ");
-			f.append(this.stringInstance);
-		} else if (this.numberInstance != null) {
+			f.append(stringInstance);
+		} else if (numberInstance != null) {
 			f.append(" = ");
-			f.append(this.numberInstance);
+			f.append(numberInstance);
 		}
 		return f.toString();
 	}

@@ -54,19 +54,18 @@ public class UMLClass extends UMLNode {
 		return "";
 	}
 
-	private String							name;
-	private String							stereotype;
-	private ArrayList<UMLClassAttribute>	attributes;
-	private ArrayList<UMLClassMethod>		methods;
+	private String name;
+	private String stereotype;
+	private ArrayList<UMLClassAttribute> attributes;
+	private ArrayList<UMLClassMethod> methods;
 
-	
 	/**
 	 * Default constructor for GWT RPC serialization.
 	 */
 	public UMLClass() {
 		this("Class");
 	}
-	
+
 	/**
 	 * Constructor of {@link UMLClass}
 	 * 
@@ -86,7 +85,7 @@ public class UMLClass extends UMLNode {
 	 * @return the attributes
 	 */
 	public final ArrayList<UMLClassAttribute> getAttributes() {
-		return this.attributes;
+		return attributes;
 	}
 
 	/**
@@ -95,7 +94,7 @@ public class UMLClass extends UMLNode {
 	 * @return the methods
 	 */
 	public final ArrayList<UMLClassMethod> getMethods() {
-		return this.methods;
+		return methods;
 	}
 
 	/**
@@ -104,7 +103,7 @@ public class UMLClass extends UMLNode {
 	 * @return the name
 	 */
 	public final String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -113,7 +112,7 @@ public class UMLClass extends UMLNode {
 	 * @return the stereotype
 	 */
 	public final String getStereotype() {
-		return this.stereotype;
+		return stereotype;
 	}
 
 	/**
@@ -163,6 +162,6 @@ public class UMLClass extends UMLNode {
 	 */
 	@Override
 	public String toString() {
-		return this.name;
+		return name;
 	}
 }
