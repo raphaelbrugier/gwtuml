@@ -34,63 +34,63 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Aggregation relation
 		 */
-		AGGREGATION_RELATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID, DiagramType.HYBRID),
+		AGGREGATION_RELATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
 		/**
 		 * Association relation
 		 */
-		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID, DiagramType.HYBRID),
+		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID),
 		/**
 		 * Composition relation
 		 */
-		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID, DiagramType.HYBRID),
+		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID),
 		/**
 		 * Dependency relation
 		 */
-		DEPENDENCY_RELATION("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED, DiagramType.HYBRID),
+		DEPENDENCY_RELATION("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED),
 		/**
 		 * Generalization relation
 		 */
-		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.CLASS),
+		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Realization relation
 		 */
-		REALIZATION_RELATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED, DiagramType.CLASS),
+		REALIZATION_RELATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED),
 		/**
 		 * Asynchronous message
 		 */
-		ASYNCHRONOUS_MESSAGE("Asynchronous", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
+		ASYNCHRONOUS_MESSAGE("Asynchronous", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Synchronous message
 		 */
-		SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
+		SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Reply message
 		 */
-		REPLY_MESSAGE("Reply", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.DASHED, DiagramType.SEQUENCE),
+		REPLY_MESSAGE("Reply", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.DASHED),
 		/**
 		 * Object Creation message
 		 */
-		OBJECT_CREATION_MESSAGE("Object Creation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED, DiagramType.SEQUENCE),
+		OBJECT_CREATION_MESSAGE("Object Creation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED),
 		/**
 		 * Lost message
 		 */
-		LOST_MESSAGE("Lost", LinkAdornment.INVERTED_SOLID_CIRCLE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
+		LOST_MESSAGE("Lost", LinkAdornment.INVERTED_SOLID_CIRCLE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Found message
 		 */
-		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID, DiagramType.SEQUENCE),
+		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID),
 		/**
 		 * Note relation
 		 */
-		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.HYBRID),
+		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Class relation
 		 */
-		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID, DiagramType.CLASS),
+		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 		/**
 		 * Class Object instantiation
 		 */
-		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED, DiagramType.HYBRID);
+		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED);
 
 		/**
 		 * Static getter of a {@link LinkKind} by its name
@@ -115,8 +115,6 @@ public abstract class UMLLink implements Serializable {
 		private String defaultRightCardinality;
 		private LinkStyle defaultLinkStyle;
 
-		private DiagramType requiredType;
-
 		/**
 		 * Default constructor ONLY for gwt-rpc serialization
 		 */
@@ -124,7 +122,7 @@ public abstract class UMLLink implements Serializable {
 		}
 
 		private LinkKind(final String name, final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
-				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle, final DiagramType requiredType) {
+				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle) {
 
 			this.name = name;
 			this.defaultLeftAdornment = defaultLeftAdornment;
@@ -132,7 +130,6 @@ public abstract class UMLLink implements Serializable {
 			this.defaultLeftCardinality = defaultLeftCardinality;
 			this.defaultRightCardinality = defaultRightCardinality;
 			this.defaultLinkStyle = defaultLinkStyle;
-			this.requiredType = requiredType;
 		}
 
 		/**
@@ -187,24 +184,6 @@ public abstract class UMLLink implements Serializable {
 		 */
 		public String getName() {
 			return name;
-		}
-
-		/**
-		 * Tells if a {@link LinkKind} can be on a diagram depending on its type
-		 * 
-		 * @param diagramType
-		 *            The current diagram type
-		 * 
-		 * @return True if this {@link LinkKind} can be put on this diagramType
-		 */
-		public boolean isForDiagram(final DiagramType diagramType) {
-			if (this == INSTANTIATION) {
-				return diagramType.isHybridType();
-			}
-			if (requiredType.isHybridType()) {
-				return diagramType.isClassOrObjectType();
-			}
-			return diagramType.equals(requiredType);
 		}
 	}
 
