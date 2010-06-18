@@ -32,11 +32,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
  */
 public class SequenceContextMenu extends ContextMenu {
 
-	private final Command addNewLifeLineCommand = new Command() {
-		public void execute() {
-			canvas.addNewLifeLine();
-		}
-	};
 
 	protected SequenceContextMenu(final Point location, final UmlCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
@@ -47,7 +42,11 @@ public class SequenceContextMenu extends ContextMenu {
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
-		contextMenu.addItem("Add new life line", addNewLifeLineCommand);
+		contextMenu.addItem("Add new life line", new Command() {
+			public void execute() {
+				canvas.addNewLifeLine();
+			}
+		});
 	}
 
 	/* (non-Javadoc)

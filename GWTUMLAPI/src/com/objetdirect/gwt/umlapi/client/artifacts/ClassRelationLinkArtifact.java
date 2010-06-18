@@ -202,26 +202,19 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 				}
 			}
 		}
-		switch (relation.getLeftAdornment()) {
-			case NONE:
-			case WIRE_ARROW:
-			case WIRE_CROSS:
-				final MenuBar leftNavigability = new MenuBar(true);
-				leftNavigability.addItem("Navigable", this.setNavigabilityCommand(relation, true, true));
-				leftNavigability.addItem("Not Navigable", this.setNavigabilityCommand(relation, true, false));
-				leftNavigability.addItem("Unknown", this.setNavigabilityCommand(relation, true));
-				leftSide.addItem("Navigability", leftNavigability);
-		}
-		switch (relation.getRightAdornment()) {
-			case NONE:
-			case WIRE_ARROW:
-			case WIRE_CROSS:
-				final MenuBar rightNavigability = new MenuBar(true);
-				rightNavigability.addItem("Navigable", this.setNavigabilityCommand(relation, false, true));
-				rightNavigability.addItem("Not Navigable", this.setNavigabilityCommand(relation, false, false));
-				rightNavigability.addItem("Unknown", this.setNavigabilityCommand(relation, false));
-				rightSide.addItem("Navigability", rightNavigability);
-		}
+
+		final MenuBar leftNavigability = new MenuBar(true);
+		leftNavigability.addItem("Navigable", this.setNavigabilityCommand(relation, true, true));
+		leftNavigability.addItem("Not Navigable", this.setNavigabilityCommand(relation, true, false));
+		leftNavigability.addItem("Unknown", this.setNavigabilityCommand(relation, true));
+		leftSide.addItem("Navigability", leftNavigability);
+
+		final MenuBar rightNavigability = new MenuBar(true);
+		rightNavigability.addItem("Navigable", this.setNavigabilityCommand(relation, false, true));
+		rightNavigability.addItem("Not Navigable", this.setNavigabilityCommand(relation, false, false));
+		rightNavigability.addItem("Unknown", this.setNavigabilityCommand(relation, false));
+
+		rightSide.addItem("Navigability", rightNavigability);
 		rightMenu.addItem(leftClassArtifact.getName() + " side", leftSide);
 		rightMenu.addItem(rightClassArtifact.getName() + " side", rightSide);
 		rightMenu.addItem("Reverse", this.reverseCommand(relation));
