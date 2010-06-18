@@ -29,10 +29,6 @@ public enum DiagramType {
 	 */
 	OBJECT(1, "object"),
 	/**
-	 * For a class and object diagram
-	 */
-	HYBRID(2, "class and object"),
-	/**
 	 * For a sequence diagram
 	 */
 	SEQUENCE(3, "sequence");
@@ -51,7 +47,6 @@ public enum DiagramType {
 				return d;
 			}
 		}
-
 		return CLASS;
 	}
 
@@ -64,23 +59,6 @@ public enum DiagramType {
 		return name;
 	}
 
-	/**
-	 * This method allows to know if a diagram can draw class diagram and object diagram type objects
-	 * 
-	 * @return True if the diagram can draw class diagram and object diagram objects
-	 */
-	public boolean isClassOrObjectType() {
-		return this.equals(CLASS) || this.equals(OBJECT);
-	}
-
-	/**
-	 * This method allows to know if a diagram can draw class diagram and object diagram type objects
-	 * 
-	 * @return True if the diagram can draw class diagram and object diagram objects
-	 */
-	public boolean isHybridType() {
-		return this.equals(CLASS) || this.equals(OBJECT) || this.equals(HYBRID);
-	}
 
 	/**
 	 * @return the index
