@@ -40,18 +40,22 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 @SuppressWarnings("serial")
 public abstract class NodeArtifact extends BoxArtifact {
 
-	LinkedList<NodePartArtifact> nodeParts;
-	
-	private int						width;
+	protected LinkedList<NodePartArtifact> nodeParts;
+
+	private int width;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
-	protected NodeArtifact() {}
-	
+	protected NodeArtifact() {
+	}
+
 	/**
 	 * Constructor of NodeArtifact
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
+	 * 
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
 	 */
 	public NodeArtifact(final UMLCanvas canvas, int id) {
 		super(canvas, id);
@@ -60,7 +64,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			if (editedGfxObject.equals(nodePart.getGfxObject())) {
 				nodePart.edit(editedGfxObject);
 				return;
@@ -69,11 +73,11 @@ public abstract class NodeArtifact extends BoxArtifact {
 
 		if (editedGfxObject.equals(this.getGfxObject())) {
 			Log.warn("Selecting a virtual group : this should not happen !");
-			this.nodeParts.peek().edit(editedGfxObject);
+			nodeParts.peek().edit(editedGfxObject);
 		} else {
 			GfxObject gfxObjectGroup = editedGfxObject.getGroup();
 			if (gfxObjectGroup != null) {
-				for (final NodePartArtifact nodePart : this.nodeParts) {
+				for (final NodePartArtifact nodePart : nodeParts) {
 					if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
 						nodePart.edit(editedGfxObject);
 						return;
@@ -81,7 +85,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 				}
 				gfxObjectGroup = gfxObjectGroup.getGroup();
 				if (gfxObjectGroup != null) {
-					for (final NodePartArtifact nodePart : this.nodeParts) {
+					for (final NodePartArtifact nodePart : nodeParts) {
 						if (gfxObjectGroup.equals(nodePart.getGfxObject())) {
 							nodePart.edit(editedGfxObject);
 							return;
@@ -89,7 +93,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 					}
 					if (gfxObjectGroup.equals(this.getGfxObject())) {
 						Log.warn("Selecting the master virtual group : this should NOT happen !");
-						this.nodeParts.peek().edit(editedGfxObject);
+						nodeParts.peek().edit(editedGfxObject);
 					} else {
 						Log.warn("No editable part found");
 					}
@@ -103,7 +107,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	@Override
 	public int getHeight() {
 		int height = 0;
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			height += nodePart.getHeight();
 		}
 		return height;
@@ -122,7 +126,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 			final GfxObject vg = GfxManager.getPlatform().buildVirtualGroup();
 			final List<Integer> widthList = new ArrayList<Integer>();
 			// Computing text bounds :
-			for (final NodePartArtifact nodePart : this.nodeParts) {
+			for (final NodePartArtifact nodePart : nodeParts) {
 
 				nodePart.computeBounds();
 				widthList.add(nodePart.getWidth());
@@ -130,9 +134,9 @@ public abstract class NodeArtifact extends BoxArtifact {
 
 			// Searching largest width :
 			final int maxWidth = GWTUMLDrawerHelper.getMaxOf(widthList);
-			this.width = maxWidth;
+			width = maxWidth;
 			int heightDelta = 0;
-			for (final NodePartArtifact nodePart : this.nodeParts) {
+			for (final NodePartArtifact nodePart : nodeParts) {
 				nodePart.setNodeWidth(maxWidth);
 				final GfxObject outline = nodePart.getOutline();
 				outline.addToVirtualGroup(vg);
@@ -147,22 +151,22 @@ public abstract class NodeArtifact extends BoxArtifact {
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	@Override
 	public void rebuildGfxObject() {
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			GfxManager.getPlatform().clearVirtualGroup(nodePart.getGfxObject());
 		}
-		GfxManager.getPlatform().clearVirtualGroup(this.gfxObject);
+		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		super.rebuildGfxObject();
 	}
 
 	@Override
 	public void setCanvas(final UMLCanvas canvas) {
 		this.canvas = canvas;
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			nodePart.setCanvas(canvas);
 		}
 	}
@@ -170,28 +174,28 @@ public abstract class NodeArtifact extends BoxArtifact {
 	@Override
 	public void unselect() {
 		super.unselect();
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			nodePart.unselect();
 		}
 	}
 
 	@Override
 	protected void buildGfxObject() {
-		for (final NodePartArtifact nodePart : this.nodeParts) {
-			nodePart.initializeGfxObject().addToVirtualGroup(this.gfxObject);
+		for (final NodePartArtifact nodePart : nodeParts) {
+			nodePart.initializeGfxObject().addToVirtualGroup(gfxObject);
 		}
 		final List<Integer> widthList = new ArrayList<Integer>();
 		// Computing text bounds :
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			nodePart.computeBounds();
 			widthList.add(nodePart.getWidth());
 		}
 
 		// Searching largest width :
 		final int maxWidth = GWTUMLDrawerHelper.getMaxOf(widthList);
-		this.width = maxWidth;
+		width = maxWidth;
 		int heightDelta = 0;
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			nodePart.setNodeWidth(maxWidth);
 			nodePart.getGfxObject().translate(new Point(0, heightDelta));
 			heightDelta += nodePart.getHeight();
@@ -201,7 +205,7 @@ public abstract class NodeArtifact extends BoxArtifact {
 	@Override
 	protected void select() {
 		super.select();
-		for (final NodePartArtifact nodePart : this.nodeParts) {
+		for (final NodePartArtifact nodePart : nodeParts) {
 			nodePart.select();
 		}
 	}

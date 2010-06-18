@@ -28,40 +28,47 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 @SuppressWarnings("serial")
 public class LinkClassRelationArtifact extends LinkArtifact {
-	private ClassArtifact				classArtifact;
 	private transient GfxObject line;
-	private ClassRelationLinkArtifact	relationLinkArtifact;
+
+	private ClassArtifact classArtifact;
+	private ClassRelationLinkArtifact relationLinkArtifact;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private LinkClassRelationArtifact() { }
-	
+	private LinkClassRelationArtifact() {
+	}
+
 	/**
 	 * Constructor of LinkClassRelationArtifact
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param classArtifact The class for the relation class
-	 * @param relation The relation between the two other classes
+	 * 
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param classArtifact
+	 *            The class for the relation class
+	 * @param relation
+	 *            The relation between the two other classes
 	 */
 	public LinkClassRelationArtifact(final UMLCanvas canvas, int id, final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
 		super(canvas, id, classArtifact, relation);
 		line = null;
 		this.classArtifact = classArtifact;
 		this.classArtifact.addDependency(this, relation);
-		this.relationLinkArtifact = relation;
-		this.relationLinkArtifact.addDependency(this, classArtifact);
+		relationLinkArtifact = relation;
+		relationLinkArtifact.addDependency(this, classArtifact);
 	}
 
 	@Override
 	public void buildGfxObject() {
-		this.leftPoint = this.classArtifact.getCenter();
-		this.rightPoint = this.relationLinkArtifact.getCenter();
-		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-		this.line.addToVirtualGroup(this.gfxObject);
-		this.line.setStroke(ThemeManager.getTheme().getLinkClassForegroundColor(), 1);
-		this.line.setStrokeStyle(GfxStyle.DASH);
-		this.gfxObject.moveToBack();
+		leftPoint = classArtifact.getCenter();
+		rightPoint = relationLinkArtifact.getCenter();
+		line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
+		line.addToVirtualGroup(gfxObject);
+		line.setStroke(ThemeManager.getTheme().getLinkClassForegroundColor(), 1);
+		line.setStrokeStyle(GfxStyle.DASH);
+		gfxObject.moveToBack();
 
 	}
 
@@ -73,7 +80,7 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		rightMenu.setName("Class relation link " + this.classArtifact.getName());
+		rightMenu.setName("Class relation link " + classArtifact.getName());
 		return rightMenu;
 	}
 
@@ -84,8 +91,8 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 
 	@Override
 	public void removeCreatedDependency() {
-		this.classArtifact.removeDependency(this);
-		this.relationLinkArtifact.removeDependency(this);
+		classArtifact.removeDependency(this);
+		relationLinkArtifact.removeDependency(this);
 	}
 
 	@Override
@@ -100,19 +107,19 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "LinkClassRelation$<" + this.classArtifact.getId() + ">!<" + this.relationLinkArtifact.getId() +">";
+		return "LinkClassRelation$<" + classArtifact.getId() + ">!<" + relationLinkArtifact.getId() + ">";
 	}
 
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.line.setStroke(ThemeManager.getTheme().getLinkClassForegroundColor(), 1);
+		line.setStroke(ThemeManager.getTheme().getLinkClassForegroundColor(), 1);
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		this.line.setStroke(ThemeManager.getTheme().getLinkClassHighlightedForegroundColor(), 2);
+		line.setStroke(ThemeManager.getTheme().getLinkClassHighlightedForegroundColor(), 2);
 	}
 
 	@Override

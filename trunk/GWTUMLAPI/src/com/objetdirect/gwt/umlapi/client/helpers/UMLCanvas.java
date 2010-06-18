@@ -58,7 +58,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind;
 
-/**
+/** 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */

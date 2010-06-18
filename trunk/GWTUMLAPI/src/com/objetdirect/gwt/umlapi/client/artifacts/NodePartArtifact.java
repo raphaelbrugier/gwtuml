@@ -25,19 +25,23 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 @SuppressWarnings("serial")
 public abstract class NodePartArtifact extends BoxArtifact {
 
-	protected NodeArtifact			nodeArtifact;
-	protected int					nodeWidth;
-	protected int					height;
-	protected transient GfxObject	textVirtualGroup;
-	protected int					width;
+	protected transient GfxObject textVirtualGroup;
+
+	protected NodeArtifact nodeArtifact;
+	protected int nodeWidth;
+	protected int height;
+	protected int width;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
-	protected NodePartArtifact() {}
-	
+	protected NodePartArtifact() {
+	}
+
 	/**
 	 * Constructor of NodePartArtifact
-	 * @param canvas Where the gfxObject are displayed
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
 	 */
 	public NodePartArtifact(final UMLCanvas canvas) {
 		super(canvas);
@@ -59,7 +63,7 @@ public abstract class NodePartArtifact extends BoxArtifact {
 	 * @return the nodeArtifact
 	 */
 	public NodeArtifact getNodeArtifact() {
-		return this.nodeArtifact;
+		return nodeArtifact;
 	}
 
 	@Override

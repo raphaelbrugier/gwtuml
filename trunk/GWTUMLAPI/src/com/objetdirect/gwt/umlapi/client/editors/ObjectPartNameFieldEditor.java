@@ -28,7 +28,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  */
 public class ObjectPartNameFieldEditor extends FieldEditor {
 
-	private final boolean	isTheStereotype;
+	private final boolean isTheStereotype;
 
 	/**
 	 * Constructor of the {@link ObjectPartNameFieldEditor}
@@ -58,24 +58,24 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		final String newContentWithoutSpaces = newContent.replaceAll(" ", "_");
-		if (this.isTheStereotype) {
+		if (isTheStereotype) {
 			final String newStereotype = UMLObject.parseStereotype(newContentWithoutSpaces.replaceAll("[«»]", ""));
 			if (newStereotype.equals("")) {
-				((ObjectPartNameArtifact) this.artifact).setStereotype("");
+				((ObjectPartNameArtifact) artifact).setStereotype("");
 			} else {
-				((ObjectPartNameArtifact) this.artifact).setStereotype("«" + newStereotype + "»");
+				((ObjectPartNameArtifact) artifact).setStereotype("«" + newStereotype + "»");
 			}
 		} else {
 			final List<String> newNameInstance = UMLObject.parseName(newContentWithoutSpaces);
 			if (newNameInstance.get(1).equals("")) {
-				((ObjectPartNameArtifact) this.artifact).setObjectName("Object");
+				((ObjectPartNameArtifact) artifact).setObjectName("Object");
 			} else {
-				((ObjectPartNameArtifact) this.artifact).setObjectName(newNameInstance.get(1));
+				((ObjectPartNameArtifact) artifact).setObjectName(newNameInstance.get(1));
 			}
-			((ObjectPartNameArtifact) this.artifact).setInstanceName(newNameInstance.get(0));
+			((ObjectPartNameArtifact) artifact).setInstanceName(newNameInstance.get(0));
 		}
 
-		((ObjectPartNameArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+		((ObjectPartNameArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 		return false;
 	}
 }

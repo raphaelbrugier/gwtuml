@@ -18,7 +18,6 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
  * This enumeration lists all the visibility defined in uml
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public enum UMLVisibility {
 	/**
@@ -58,14 +57,14 @@ public enum UMLVisibility {
 		}
 	}
 
-	private char	token;
+	private char token;
 
 	/**
-	 * Default constructor only for gwt-rpc serialization 
+	 * Default constructor only for gwt-rpc serialization
 	 */
-	private UMLVisibility(){
+	private UMLVisibility() {
 	}
-	
+
 	/**
 	 * @param token
 	 */
@@ -80,7 +79,7 @@ public enum UMLVisibility {
 	 */
 	@Override
 	public String toString() {
-		return "" + this.token;
+		return "" + token;
 	}
 
 }

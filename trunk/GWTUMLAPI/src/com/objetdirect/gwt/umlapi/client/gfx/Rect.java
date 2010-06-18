@@ -17,8 +17,8 @@ package com.objetdirect.gwt.umlapi.client.gfx;
 import com.allen_sauer.gwt.log.client.Log;
 
 class Rect extends IncubatorGfxObject {
-	private int	h	= 0;
-	private int	w	= 0;
+	private int h = 0;
+	private int w = 0;
 
 	public Rect(final int w, final int h) {
 		super();
@@ -28,28 +28,28 @@ class Rect extends IncubatorGfxObject {
 
 	@Override
 	public void draw() {
-		if (!this.isVisible) {
+		if (!isVisible) {
 			Log.trace(this + " is not visible");
 			return;
 		}
-		if (this.canvas == null) {
+		if (canvas == null) {
 			Log.fatal("canvas is null for " + this);
 		}
 
 		Log.trace("Drawing " + this);
-		this.canvas.saveContext();
-		if (this.fillColor != null) {
-			this.canvas.setFillStyle(this.fillColor);
+		canvas.saveContext();
+		if (fillColor != null) {
+			canvas.setFillStyle(fillColor);
 		}
-		if (this.strokeColor != null) {
-			this.canvas.setStrokeStyle(this.strokeColor);
+		if (strokeColor != null) {
+			canvas.setStrokeStyle(strokeColor);
 		}
-		if (this.strokeWidth != 0) {
-			this.canvas.setLineWidth(this.strokeWidth);
+		if (strokeWidth != 0) {
+			canvas.setLineWidth(strokeWidth);
 		}
-		this.canvas.fillRect(this.getX(), this.getY(), this.w, this.h);
-		this.canvas.strokeRect(this.getX(), this.getY(), this.w, this.h);
-		this.canvas.restoreContext();
+		canvas.fillRect(this.getX(), this.getY(), w, h);
+		canvas.strokeRect(this.getX(), this.getY(), w, h);
+		canvas.restoreContext();
 	}
 
 	@Override
@@ -66,6 +66,6 @@ class Rect extends IncubatorGfxObject {
 
 	@Override
 	public boolean isPointed(final int xp, final int yp) {
-		return (xp > this.getX()) && (xp < this.getX() + this.w) && (yp > this.getY()) && (yp < this.getY() + this.h);
+		return (xp > this.getX()) && (xp < this.getX() + w) && (yp > this.getY()) && (yp < this.getY() + h);
 	}
 }

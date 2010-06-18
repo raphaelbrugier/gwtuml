@@ -27,7 +27,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
  */
 public class RelationFieldEditor extends FieldEditor {
 
-	RelationLinkArtifactPart	relationshipPart;
+	private final RelationLinkArtifactPart relationshipPart;
 
 	/**
 	 * Constructor of the {@link RelationFieldEditor}
@@ -37,7 +37,8 @@ public class RelationFieldEditor extends FieldEditor {
 	 * @param artifact
 	 *            The artifact being edited
 	 * @param relationshipPart
-	 *            The {@link RelationLinkArtifactPart} of {@link RelationLinkArtifact} on which edition has been requested
+	 *            The {@link RelationLinkArtifactPart} of {@link RelationLinkArtifact} on which edition has been
+	 *            requested
 	 */
 	public RelationFieldEditor(final UMLCanvas canvas, final RelationLinkArtifact artifact, final RelationLinkArtifactPart relationshipPart) {
 		super(canvas, artifact);
@@ -61,8 +62,8 @@ public class RelationFieldEditor extends FieldEditor {
 	 */
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
-		((RelationLinkArtifact) this.artifact).setPartContent(this.relationshipPart, newContent);
-		this.artifact.rebuildGfxObject();
+		((RelationLinkArtifact) artifact).setPartContent(relationshipPart, newContent);
+		artifact.rebuildGfxObject();
 		return false;
 	}
 

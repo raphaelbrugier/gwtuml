@@ -24,7 +24,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
  */
 public class ObjectPartAttributesFieldEditor extends FieldEditor {
 
-	UMLObjectAttribute	attributeToChange;
+	private final UMLObjectAttribute attributeToChange;
 
 	/**
 	 * @param canvas
@@ -39,29 +39,29 @@ public class ObjectPartAttributesFieldEditor extends FieldEditor {
 
 	@Override
 	protected void next() {
-		((NodePartArtifact) this.artifact).edit();
+		((NodePartArtifact) artifact).edit();
 	}
 
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		if (newContent.trim().equals("")) {
-			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
-			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ObjectPartAttributesArtifact) artifact).remove(attributeToChange);
+			((ObjectPartAttributesArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
 
 		final UMLObjectAttribute newAttribute = UMLObjectAttribute.parseAttribute(newContent);
 		if ((newAttribute.getName() + newAttribute.getType()).equals("")) {
-			((ObjectPartAttributesArtifact) this.artifact).remove(this.attributeToChange);
-			((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+			((ObjectPartAttributesArtifact) artifact).remove(attributeToChange);
+			((ObjectPartAttributesArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
-		this.attributeToChange.setVisibility(newAttribute.getVisibility());
-		this.attributeToChange.setName(newAttribute.getName());
-		this.attributeToChange.setType(newAttribute.getType());
-		this.attributeToChange.setInstance(newAttribute.getInstance());
+		attributeToChange.setVisibility(newAttribute.getVisibility());
+		attributeToChange.setName(newAttribute.getName());
+		attributeToChange.setType(newAttribute.getType());
+		attributeToChange.setInstance(newAttribute.getInstance());
 
-		((ObjectPartAttributesArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+		((ObjectPartAttributesArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 
 		return true;
 	}

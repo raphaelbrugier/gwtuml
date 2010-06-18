@@ -24,7 +24,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.GWTUMLDrawerHelper;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 class IncubatorGfxObjectContainer extends GfxObject {
-	private static Map<IncubatorGfxObject, IncubatorGfxObjectContainer>	incubatorGfxObjectContainerMap	= new HashMap<IncubatorGfxObject, IncubatorGfxObjectContainer>();
+	private static Map<IncubatorGfxObject, IncubatorGfxObjectContainer> incubatorGfxObjectContainerMap = new HashMap<IncubatorGfxObject, IncubatorGfxObjectContainer>();
 
 	public static IncubatorGfxObjectContainer getContainerOf(final IncubatorGfxObject incubatorGfxObject) {
 		return IncubatorGfxObjectContainer.incubatorGfxObjectContainerMap.get(incubatorGfxObject);
@@ -43,10 +43,11 @@ class IncubatorGfxObjectContainer extends GfxObject {
 	}
 
 	/*
-	 * public static void redrawAll(GWTCanvas canvas) { canvas.clear(); for (IncubatorGfxObjectContainer incubatorGfxObjectContainer :
-	 * incubatorGfxObjectContainerSet) incubatorGfxObjectContainer.getGraphicObject().draw(canvas); }
+	 * public static void redrawAll(GWTCanvas canvas) { canvas.clear(); for (IncubatorGfxObjectContainer
+	 * incubatorGfxObjectContainer : incubatorGfxObjectContainerSet)
+	 * incubatorGfxObjectContainer.getGraphicObject().draw(canvas); }
 	 */
-	private final IncubatorGfxObject	incubatorGfxObject;
+	private final IncubatorGfxObject incubatorGfxObject;
 
 	public IncubatorGfxObjectContainer(final IncubatorGfxObject incubatorGfxObject) {
 		super();
@@ -59,11 +60,11 @@ class IncubatorGfxObjectContainer extends GfxObject {
 	}
 
 	public IncubatorGfxObject getGraphicObject() {
-		return this.incubatorGfxObject;
+		return incubatorGfxObject;
 	}
 
 	@Override
 	public String toString() {
-		return GWTUMLDrawerHelper.getShortName(this) + " containing " + GWTUMLDrawerHelper.getShortName(this.incubatorGfxObject);
+		return GWTUMLDrawerHelper.getShortName(this) + " containing " + GWTUMLDrawerHelper.getShortName(incubatorGfxObject);
 	}
 }

@@ -21,7 +21,7 @@ package com.objetdirect.gwt.umlapi.client.exceptions;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class GWTUMLAPIException extends RuntimeException {
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor of the exception

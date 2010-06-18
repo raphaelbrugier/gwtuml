@@ -22,11 +22,12 @@ package com.objetdirect.gwt.umlapi.client.umlcomponents;
 @SuppressWarnings("serial")
 public class UMLNote extends UMLComponent {
 
-	private String	text;
+	private String text;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLNote() {}
-	
+	UMLNote() {
+	}
+
 	/**
 	 * Constructor of the Note
 	 * 
@@ -44,7 +45,7 @@ public class UMLNote extends UMLComponent {
 	 * @return The text contained by the Note
 	 */
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	/**

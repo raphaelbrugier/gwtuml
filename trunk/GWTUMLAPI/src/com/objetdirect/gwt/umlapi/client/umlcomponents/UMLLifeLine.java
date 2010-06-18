@@ -73,14 +73,14 @@ public class UMLLifeLine extends UMLComponent {
 		return Arrays.asList(instance, name);
 	}
 
-	private String	name;
+	private String name;
 
-	private String	instance;
+	private String instance;
 
-	
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLLifeLine(){}
-	
+	UMLLifeLine() {
+	}
+
 	/**
 	 * Constructor of the LifeLine
 	 * 
@@ -101,7 +101,7 @@ public class UMLLifeLine extends UMLComponent {
 	 * @return The instance of the LifeLine
 	 */
 	public String getInstance() {
-		return this.instance;
+		return instance;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class UMLLifeLine extends UMLComponent {
 	 * @return The name of the LifeLine
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -140,6 +140,6 @@ public class UMLLifeLine extends UMLComponent {
 	 */
 	@Override
 	public String toString() {
-		return this.instance + ":" + this.name;
+		return instance + ":" + name;
 	}
 }

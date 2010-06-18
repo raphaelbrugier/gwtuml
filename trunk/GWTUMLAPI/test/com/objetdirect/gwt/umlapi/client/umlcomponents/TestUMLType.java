@@ -12,58 +12,60 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import junit.framework.TestCase;
 
 /**
  * Test for the UMLType class
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class TestUMLType extends TestCase {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
-	
+
 	/**
-	 * Test the supportedTypes	
+	 * Test the supportedTypes
 	 */
 	public void testSupportedTypes() {
 		assertEquals(UMLType.STRING, UMLType.getUMLTypeFromString("String"));
-		
+
 		assertEquals(UMLType.INT, UMLType.getUMLTypeFromString("int"));
-		
+
 		assertEquals(UMLType.INTEGER, UMLType.getUMLTypeFromString("Integer"));
-		
+
 		assertEquals(UMLType.LONG, UMLType.getUMLTypeFromString("long"));
-		
+
 		assertEquals(UMLType.WRAPPED_LONG, UMLType.getUMLTypeFromString("Long"));
-		
+
 		assertEquals(UMLType.BYTE, UMLType.getUMLTypeFromString("byte"));
-		
+
 		assertEquals(UMLType.WRAPPED_BYTE, UMLType.getUMLTypeFromString("Byte"));
 
 		assertEquals(UMLType.SHORT, UMLType.getUMLTypeFromString("short"));
-		
+
 		assertEquals(UMLType.WRAPPED_SHORT, UMLType.getUMLTypeFromString("Short"));
-		
+
 		assertEquals(UMLType.BOOLEAN, UMLType.getUMLTypeFromString("boolean"));
-		
+
 		assertEquals(UMLType.CHAR, UMLType.getUMLTypeFromString("char"));
-		
+
 		assertEquals(UMLType.CHARACTER, UMLType.getUMLTypeFromString("Character"));
-		
+
 		assertEquals(UMLType.FLOAT, UMLType.getUMLTypeFromString("float"));
-		
+
 		assertEquals(UMLType.WRAPPED_FLOAT, UMLType.getUMLTypeFromString("Float"));
-		
+
 		assertEquals(UMLType.DOUBLE, UMLType.getUMLTypeFromString("double"));
-		
+
 		assertEquals(UMLType.WRAPPED_DOUBLE, UMLType.getUMLTypeFromString("Double"));
 	}
-	
+
 	/**
 	 * The unsupported types should return a CUSTOM type.
 	 */

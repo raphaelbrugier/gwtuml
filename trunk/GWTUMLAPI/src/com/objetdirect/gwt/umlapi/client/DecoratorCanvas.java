@@ -46,15 +46,15 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 
 /**
- * Wrap the Canvas with the sides panel.
- * This wrapper also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
+ * Wrap the Canvas with the sides panel. This wrapper also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
  * This class manage the mouse position on the canvas.
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class DecoratorCanvas extends AbsolutePanel {
 	private final int directionPanelSizes = OptionsManager.get("DirectionPanelSizes");
 	private final double opacityValue = (double) OptionsManager.get("DirectionPanelOpacity") / 100;
-	private final double opacityMax =  (double) OptionsManager.get("DirectionPanelMaxOpacity") / 100;
+	private final double opacityMax = (double) OptionsManager.get("DirectionPanelMaxOpacity") / 100;
 	private final String backgroundColor = ThemeManager.getTheme().getDirectionPanelColor().toString();
 
 	private final UMLCanvas umlCanvas;
@@ -62,23 +62,22 @@ public class DecoratorCanvas extends AbsolutePanel {
 
 	private int height;
 	private int width;
-	
+
 	private HashMap<Direction, FocusPanel> sidePanels;
 	private GfxObject arrowsVirtualGroup;
-	
-	private Label helpTextLabel;
-	
+
+	private final Label helpTextLabel;
+
 	private HandlerRegistration mouseHandlerRegistration;
-	
+
 	/**
-	 * The current mouse position on the Canvas.
-	 * A (0,0) position means the mouse is in the left top corner of the canvas.
+	 * The current mouse position on the Canvas. A (0,0) position means the mouse is in the left top corner of the canvas.
 	 */
 	private final Point currentMousePosition;
-	
+
 	/**
-	 * Construct a panel that wraps the canvas.
-	 * This panel is displayed in the given drawer
+	 * Construct a panel that wraps the canvas. This panel is displayed in the given drawer
+	 * 
 	 * @param drawer
 	 * @param umlCanvas
 	 */
@@ -86,40 +85,41 @@ public class DecoratorCanvas extends AbsolutePanel {
 		this.umlCanvas = umlCanvas;
 		this.drawer = drawer;
 		umlCanvas.setDecoratorPanel(this);
-		
+
 		this.add(umlCanvas.getDrawingCanvas(), 0, 0);
 		makeSidePanels();
-		
+
 		helpTextLabel = new Label("");
 		helpTextLabel.setStylePrimaryName("contextual-help");
-		this.add(helpTextLabel,0,0);
-		
+		this.add(helpTextLabel, 0, 0);
+
 		currentMousePosition = new Point(0, 0);
 	}
-	
-	/** Attach a mouse move handler to the windows that will refresh the current mouse position Point on the canvas.
-	 * This position is the real position on the canvas calculated from its container's size and position .  
+
+	/**
+	 * Attach a mouse move handler to the windows that will refresh the current mouse position Point on the canvas. This position is the real position on the
+	 * canvas calculated from its container's size and position .
 	 * */
 	private void attachCurrentMousePositionHandler() {
-		
-		mouseHandlerRegistration = Event.addNativePreviewHandler(new NativePreviewHandler(){
-		    public void onPreviewNativeEvent(NativePreviewEvent event) {
-		        if (event.getTypeInt() == Event.ONMOUSEMOVE) {
-		            int xCoord = event.getNativeEvent().getClientX();
-		            int yCoord = event.getNativeEvent().getClientY();
-		            Point mousePositionOnCanvas = calculateMousePosition(xCoord, yCoord);
-		            currentMousePosition.setX(mousePositionOnCanvas.getX());
-		            currentMousePosition.setY(mousePositionOnCanvas.getY());
-		            Log.trace("MouseControler::MouseMoveEvent update mousePosition on : " + currentMousePosition);
-		        }
-		    }
+
+		mouseHandlerRegistration = Event.addNativePreviewHandler(new NativePreviewHandler() {
+			public void onPreviewNativeEvent(NativePreviewEvent event) {
+				if (event.getTypeInt() == Event.ONMOUSEMOVE) {
+					int xCoord = event.getNativeEvent().getClientX();
+					int yCoord = event.getNativeEvent().getClientY();
+					Point mousePositionOnCanvas = calculateMousePosition(xCoord, yCoord);
+					currentMousePosition.setX(mousePositionOnCanvas.getX());
+					currentMousePosition.setY(mousePositionOnCanvas.getY());
+					Log.trace("MouseControler::MouseMoveEvent update mousePosition on : " + currentMousePosition);
+				}
+			}
 		});
 	}
-	
+
 	/**
-	 * Calculate the mouse position on the canvas from the absolute mouse position.
-	 * The absolute mouse position is the position of the mouse from the top left corner of the window.
-	 * The calculated position means that the position (0,0) is the position for the mouse on the top left corner of the canvas.
+	 * Calculate the mouse position on the canvas from the absolute mouse position. The absolute mouse position is the position of the mouse from the top left
+	 * corner of the window. The calculated position means that the position (0,0) is the position for the mouse on the top left corner of the canvas.
+	 * 
 	 * @param left
 	 * @param top
 	 * @return the calculated Point.
@@ -127,47 +127,46 @@ public class DecoratorCanvas extends AbsolutePanel {
 	private Point calculateMousePosition(int left, int top) {
 		int canvasLeftPosition = umlCanvas.getDrawingCanvas().getAbsoluteLeft();
 		int canvasTopPosition = umlCanvas.getDrawingCanvas().getAbsoluteTop();
-		
+
 		int calculatedLeft = left + RootPanel.getBodyElement().getScrollLeft() - canvasLeftPosition;
 		int calculatedTop = top + RootPanel.getBodyElement().getScrollTop() - canvasTopPosition;
-		
+
 		return new Point(calculatedLeft, calculatedTop);
 	}
-	
+
 	private void detachCurrentMousePositionHandler() {
-		if(mouseHandlerRegistration != null) {
+		if (mouseHandlerRegistration != null) {
 			mouseHandlerRegistration.removeHandler();
 		}
 	}
 
 	/**
-	 * Make the set of sidePanels 
+	 * Make the set of sidePanels
 	 */
 	private void makeSidePanels() {
 		sidePanels = new HashMap<Direction, FocusPanel>();
-		for(Direction direction: Direction.sideValues()) {
+		for (Direction direction : Direction.sideValues()) {
 			FocusPanel sidePanel = new FocusPanel();
 			sidePanels.put(direction, sidePanel);
-			
+
 			Point pixelSize = getSidePanelSize(direction);
 			sidePanel.setPixelSize(pixelSize.getX(), pixelSize.getY());
-			
+
 			sidePanel.getElement().getStyle().setBackgroundColor(ThemeManager.getTheme().getDirectionPanelColor().toString());
 			sidePanel.getElement().getStyle().setOpacity(opacityValue);
 			sidePanel.getElement().setAttribute("oncontextmenu", "return false");
-			
+
 			addSidePanelHandlers(direction, sidePanel);
-			
+
 			this.add(sidePanel);
 		}
 		setSidePanelsPositionAndSize();
 	}
-	
-	
+
 	private void addSidePanelHandlers(final Direction direction, final FocusPanel sidePanel) {
 		sidePanel.getElement().getStyle().setBackgroundColor(backgroundColor);
 		sidePanel.getElement().getStyle().setOpacity(opacityValue);
-		
+
 		sidePanel.addMouseOverHandler(new MouseOverHandler() {
 			@Override
 			public void onMouseOver(final MouseOverEvent event) {
@@ -190,7 +189,6 @@ public class DecoratorCanvas extends AbsolutePanel {
 				};
 			}
 		});
-		
 
 		sidePanel.addMouseOutHandler(new MouseOutHandler() {
 			@Override
@@ -198,12 +196,12 @@ public class DecoratorCanvas extends AbsolutePanel {
 				Scheduler.cancel("Opacifying");
 				Scheduler.cancel("MovingAllArtifacts");
 				Scheduler.cancel("MovingAllArtifactsRecursive");
-				
+
 				sidePanel.getElement().getStyle().setOpacity(opacityValue);
-				
+
 			}
 		});
-		
+
 		sidePanel.addMouseDownHandler(new MouseDownHandler() {
 			@Override
 			public void onMouseDown(final MouseDownEvent event) {
@@ -211,7 +209,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 				Scheduler.cancel("MovingAllArtifactsRecursive");
 			}
 		});
-		
+
 		sidePanel.addMouseUpHandler(new MouseUpHandler() {
 			@Override
 			public void onMouseUp(final MouseUpEvent event) {
@@ -225,70 +223,88 @@ public class DecoratorCanvas extends AbsolutePanel {
 	 * For each side panel calculate its size and position and set it on the absolute Panel (this).
 	 */
 	private void setSidePanelsPositionAndSize() {
-		for(Entry<Direction, FocusPanel> entry : sidePanels.entrySet()) {
+		for (Entry<Direction, FocusPanel> entry : sidePanels.entrySet()) {
 			Direction direction = entry.getKey();
 			FocusPanel sidePanel = entry.getValue();
 
 			Point pixelSize = getSidePanelSize(direction);
 			sidePanel.setPixelSize(pixelSize.getX(), pixelSize.getY());
-			
+
 			Point sidePanelPosition = getSidePanelPosition(direction);
 			this.setWidgetPosition(sidePanel, sidePanelPosition.getX(), sidePanelPosition.getY());
 		}
 	}
-	
+
 	/**
-	 * Get a side panel position from a direction.
-	 * Ie : left up panel is positioned on the point 0,0 ; etc
+	 * Get a side panel position from a direction. Ie : left up panel is positioned on the point 0,0 ; etc
+	 * 
 	 * @param direction
 	 * @return
 	 */
 	private Point getSidePanelPosition(Direction direction) {
 		switch (direction) {
-		case UP_LEFT: return Point.getOrigin();
-			case UP : return new Point(directionPanelSizes, 0);
-			case UP_RIGHT: return new Point(this.width - directionPanelSizes, 0);
-			case RIGHT : return new Point(this.width - directionPanelSizes, directionPanelSizes);
-			case DOWN_RIGHT : return new Point(this.width - directionPanelSizes, this.height - directionPanelSizes);
-			case DOWN: return new Point(directionPanelSizes, this.height - directionPanelSizes);
-			case DOWN_LEFT : return new Point(0, this.height - directionPanelSizes);
-			case LEFT : return new Point(0, directionPanelSizes);
-			default: throw new UnsupportedOperationException("Unknow direction for a side panel");
+			case UP_LEFT:
+				return Point.getOrigin();
+			case UP:
+				return new Point(directionPanelSizes, 0);
+			case UP_RIGHT:
+				return new Point(width - directionPanelSizes, 0);
+			case RIGHT:
+				return new Point(width - directionPanelSizes, directionPanelSizes);
+			case DOWN_RIGHT:
+				return new Point(width - directionPanelSizes, height - directionPanelSizes);
+			case DOWN:
+				return new Point(directionPanelSizes, height - directionPanelSizes);
+			case DOWN_LEFT:
+				return new Point(0, height - directionPanelSizes);
+			case LEFT:
+				return new Point(0, directionPanelSizes);
+			default:
+				throw new UnsupportedOperationException("Unknow direction for a side panel");
 		}
 	}
-	
+
 	/**
-	 * Get a size for a Panel from its direction
-	 * Ie : left up panel is of default size, 
-	 * Up panel require a width of the with of the panel - the left up and right panel's width
+	 * Get a size for a Panel from its direction Ie : left up panel is of default size, Up panel require a width of the with of the panel - the left up and
+	 * right panel's width
+	 * 
 	 * @param direction
 	 * @return
 	 */
 	private Point getSidePanelSize(Direction direction) {
 		switch (direction) {
-			case UP_LEFT: return new Point(directionPanelSizes, directionPanelSizes);
-			case UP : return new Point(this.width - 2 * directionPanelSizes, directionPanelSizes);
-			case UP_RIGHT: return new Point(directionPanelSizes, directionPanelSizes);
-			case RIGHT : return new Point(directionPanelSizes, this.height - 2 * directionPanelSizes);
-			case DOWN_RIGHT : return new Point(directionPanelSizes, directionPanelSizes);
-			case DOWN : return new Point(this.width - 2 * directionPanelSizes, directionPanelSizes);
-			case DOWN_LEFT : return new Point(directionPanelSizes, directionPanelSizes);
-			case LEFT : return new Point(directionPanelSizes, this.height - 2 * directionPanelSizes);
-			default : throw new UnsupportedOperationException("Unknow direction for a side panel direction = " + direction);
+			case UP_LEFT:
+				return new Point(directionPanelSizes, directionPanelSizes);
+			case UP:
+				return new Point(width - 2 * directionPanelSizes, directionPanelSizes);
+			case UP_RIGHT:
+				return new Point(directionPanelSizes, directionPanelSizes);
+			case RIGHT:
+				return new Point(directionPanelSizes, height - 2 * directionPanelSizes);
+			case DOWN_RIGHT:
+				return new Point(directionPanelSizes, directionPanelSizes);
+			case DOWN:
+				return new Point(width - 2 * directionPanelSizes, directionPanelSizes);
+			case DOWN_LEFT:
+				return new Point(directionPanelSizes, directionPanelSizes);
+			case LEFT:
+				return new Point(directionPanelSizes, height - 2 * directionPanelSizes);
+			default:
+				throw new UnsupportedOperationException("Unknow direction for a side panel direction = " + direction);
 		}
 	}
-
 
 	/**
 	 * Draw the directions arrow on the canvas
 	 */
 	private void drawArrows() {
-		if (arrowsVirtualGroup!=null)
-			GfxManager.getPlatform().clearVirtualGroup(this.arrowsVirtualGroup);
-		
+		if (arrowsVirtualGroup != null) {
+			GfxManager.getPlatform().clearVirtualGroup(arrowsVirtualGroup);
+		}
+
 		final int arrowSize = 6;
-		this.arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
-		this.arrowsVirtualGroup.addToCanvas(umlCanvas.getDrawingCanvas(), Point.getOrigin());
+		arrowsVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
+		arrowsVirtualGroup.addToCanvas(umlCanvas.getDrawingCanvas(), Point.getOrigin());
 		final ArrayList<GfxObject> arrowList = new ArrayList<GfxObject>();
 		for (float f = 0; f < 360; f += 45) {
 			final GfxObject arrow = GfxManager.getPlatform().buildPath();
@@ -303,7 +319,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 			arrow.setFillColor(ThemeManager.getTheme().getDefaultForegroundColor());
 			arrow.setStroke(ThemeManager.getTheme().getDefaultForegroundColor(), 1);
 			arrow.rotate(f, new Point(arrowSize, arrowSize));
-			arrow.addToVirtualGroup(this.arrowsVirtualGroup);
+			arrow.addToVirtualGroup(arrowsVirtualGroup);
 		}
 
 		arrowList.get(0).translate(new Point(width - 2 * arrowSize - 2, height / 2 - arrowSize - 2)); // right
@@ -322,30 +338,33 @@ public class DecoratorCanvas extends AbsolutePanel {
 		attachCurrentMousePositionHandler();
 		umlCanvas.onLoad();
 	}
-	
+
 	@Override
 	protected void onUnload() {
 		super.onUnload();
 		detachCurrentMousePositionHandler();
 	}
-	
+
 	/**
-	 * Change the size of the decorator panel.
-	 * This will cause to resize the arrows and the encapsulated drawingCanvas.
-	 * @param width the new width
-	 * @param height the new height
+	 * Change the size of the decorator panel. This will cause to resize the arrows and the encapsulated drawingCanvas.
+	 * 
+	 * @param width
+	 *            the new width
+	 * @param height
+	 *            the new height
 	 */
 	void reSize(int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.setPixelSize(width,height);
+		this.setPixelSize(width, height);
 		setSidePanelsPositionAndSize();
 		GfxManager.getPlatform().setSize(umlCanvas.getDrawingCanvas(), width, height);
 		drawArrows();
 	}
-	
+
 	/**
 	 * Set a help Text on the canvas at a given position
+	 * 
 	 * @param text
 	 * @param location
 	 */
@@ -357,28 +376,30 @@ public class DecoratorCanvas extends AbsolutePanel {
 	public void moveHelpText(Point location) {
 		int left = location.getX() + 5;
 		int top = location.getY() - helpTextLabel.getOffsetHeight() - 5;
-		
+
 		this.setWidgetPosition(helpTextLabel, left, top);
 	}
-	
+
 	/**
 	 * @return a copy of the currentMousePosition
 	 */
 	public Point getCurrentMousePosition() {
 		return currentMousePosition.clonePoint();
 	}
-	
+
 	/**
-	 * @param hotKeysEnabled the hotKeysEnabled to set
+	 * @param hotKeysEnabled
+	 *            the hotKeysEnabled to set
 	 */
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		drawer.setHotKeysEnabled(hotKeysEnabled);
 	}
-	
-	
+
 	/**
 	 * Set the cursor icon on the canvas
-	 * @param style the icon to set
+	 * 
+	 * @param style
+	 *            the icon to set
 	 */
 	public void setCursorIcon(PointerStyle style) {
 		drawer.setCursorIcon(style);

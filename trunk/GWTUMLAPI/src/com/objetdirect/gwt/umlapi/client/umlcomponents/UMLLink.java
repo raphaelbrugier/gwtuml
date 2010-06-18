@@ -21,7 +21,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 @SuppressWarnings("serial")
 public abstract class UMLLink implements Serializable {
@@ -109,21 +108,21 @@ public abstract class UMLLink implements Serializable {
 			return null;
 		}
 
-		private String			name;
-		private LinkAdornment	defaultLeftAdornment;
-		private LinkAdornment	defaultRightAdornment;
-		private String			defaultLeftCardinality;
-		private String			defaultRightCardinality;
-		private LinkStyle		defaultLinkStyle;
+		private String name;
+		private LinkAdornment defaultLeftAdornment;
+		private LinkAdornment defaultRightAdornment;
+		private String defaultLeftCardinality;
+		private String defaultRightCardinality;
+		private LinkStyle defaultLinkStyle;
 
-		private DiagramType			requiredType;
+		private DiagramType requiredType;
 
 		/**
-		 * Default constructor ONLY for gwt-rpc serialization 
+		 * Default constructor ONLY for gwt-rpc serialization
 		 */
 		private LinkKind() {
 		}
-		
+
 		private LinkKind(final String name, final LinkAdornment defaultLeftAdornment, final LinkAdornment defaultRightAdornment,
 				final String defaultLeftCardinality, final String defaultRightCardinality, final LinkStyle defaultLinkStyle, final DiagramType requiredType) {
 
@@ -142,7 +141,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the defaultLeftAdornment
 		 */
 		public LinkAdornment getDefaultLeftAdornment() {
-			return this.defaultLeftAdornment;
+			return defaultLeftAdornment;
 		}
 
 		/**
@@ -151,7 +150,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the defaultLeftCardinality
 		 */
 		public String getDefaultLeftCardinality() {
-			return this.defaultLeftCardinality;
+			return defaultLeftCardinality;
 		}
 
 		/**
@@ -160,7 +159,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the defaultLinkStyle
 		 */
 		public LinkStyle getDefaultLinkStyle() {
-			return this.defaultLinkStyle;
+			return defaultLinkStyle;
 		}
 
 		/**
@@ -169,7 +168,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the defaultRightAdornment
 		 */
 		public LinkAdornment getDefaultRightAdornment() {
-			return this.defaultRightAdornment;
+			return defaultRightAdornment;
 		}
 
 		/**
@@ -178,7 +177,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the defaultRightCardinality
 		 */
 		public String getDefaultRightCardinality() {
-			return this.defaultRightCardinality;
+			return defaultRightCardinality;
 		}
 
 		/**
@@ -187,7 +186,7 @@ public abstract class UMLLink implements Serializable {
 		 * @return the name
 		 */
 		public String getName() {
-			return this.name;
+			return name;
 		}
 
 		/**
@@ -202,21 +201,21 @@ public abstract class UMLLink implements Serializable {
 			if (this == INSTANTIATION) {
 				return diagramType.isHybridType();
 			}
-			if (this.requiredType.isHybridType()) {
+			if (requiredType.isHybridType()) {
 				return diagramType.isClassOrObjectType();
 			}
-			return diagramType.equals(this.requiredType);
+			return diagramType.equals(requiredType);
 		}
 	}
 
-	protected LinkKind	linkKind;
+	protected LinkKind linkKind;
 
-	
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */
-	public UMLLink() {}
-	
+	public UMLLink() {
+	}
+
 	/**
 	 * Constructor of UMLLink
 	 * 
@@ -233,7 +232,7 @@ public abstract class UMLLink implements Serializable {
 	 * @return the linkKind
 	 */
 	public LinkKind getLinkKind() {
-		return this.linkKind;
+		return linkKind;
 	}
 
 	/**

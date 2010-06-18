@@ -14,7 +14,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
-
 /**
  * This enumeration list all the adornments that a relation could have
  * 
@@ -90,11 +89,11 @@ public enum LinkAdornment {
 		 */
 		UNSHAPED("");
 
-		private String	idiom;
+		private String idiom;
 
 		private Shape() {
 		}
-		
+
 		private Shape(final String idiom) {
 			this.idiom = idiom;
 		}
@@ -116,10 +115,10 @@ public enum LinkAdornment {
 		 * @return a string that represent the shape textually in the right orientation : for right arrow &gt;
 		 */
 		public String getIdiom(final boolean isRight) {
-			if (this.idiom.equals("<") && isRight) {
+			if (idiom.equals("<") && isRight) {
 				return ">";
 			}
-			return this.idiom;
+			return idiom;
 		}
 	}
 
@@ -139,20 +138,20 @@ public enum LinkAdornment {
 		return null;
 	}
 
-	private boolean	isInverted;
-	private boolean	isSolid;
-	private Shape		shape;
-	private boolean	isNavigabilityAdornment;
-	private String	name;
+	private boolean isInverted;
+	private boolean isSolid;
+	private Shape shape;
+	private boolean isNavigabilityAdornment;
+	private String name;
 
-	protected boolean	dontCompute	= false;
+	protected boolean dontCompute = false;
 
 	/**
-	 * Default constructor ONLY for gwt-rpc serialization 
+	 * Default constructor ONLY for gwt-rpc serialization
 	 */
-	private LinkAdornment(){
+	private LinkAdornment() {
 	}
-	
+
 	private LinkAdornment(final String name, final Shape shape, final boolean isSolid, final boolean isNavigabilityAdronment) {
 		this(name, shape, isSolid, isNavigabilityAdronment, false);
 	}
@@ -171,7 +170,7 @@ public enum LinkAdornment {
 	 * @return the name
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -180,7 +179,7 @@ public enum LinkAdornment {
 	 * @return the shape
 	 */
 	public Shape getShape() {
-		return this.shape;
+		return shape;
 	}
 
 	/**
@@ -192,7 +191,7 @@ public enum LinkAdornment {
 	 *         </ul>
 	 */
 	public boolean isInverted() {
-		return this.isInverted;
+		return isInverted;
 	}
 
 	/**
@@ -204,7 +203,7 @@ public enum LinkAdornment {
 	 *         </ul>
 	 */
 	public boolean isNavigabilityAdornment() {
-		return this.isNavigabilityAdornment;
+		return isNavigabilityAdornment;
 	}
 
 	/**
@@ -216,7 +215,7 @@ public enum LinkAdornment {
 	 *         </ul>
 	 */
 	public boolean isSolid() {
-		return this.isSolid;
+		return isSolid;
 	}
 
 }

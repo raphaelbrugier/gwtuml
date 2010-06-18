@@ -20,11 +20,12 @@ import com.objetdirect.gwt.umlapi.client.resources.styles.IconStyles;
 
 /**
  * Interface for all the resources in the gwt uml api.
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public interface Resources extends ClientBundle {
 	public Resources INSTANCE = GWT.create(Resources.class);
-	
+
 	@Source("styles/IconStyles.css")
 	IconStyles iconStyles();
 }

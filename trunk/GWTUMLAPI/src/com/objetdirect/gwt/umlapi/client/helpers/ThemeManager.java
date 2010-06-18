@@ -28,6 +28,7 @@ public class ThemeManager {
 	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
 	 */
 	public enum Theme {
+
 		/**
 		 * The normal theme color
 		 */
@@ -194,43 +195,43 @@ public class ThemeManager {
 			return Theme.NORMAL;
 		}
 
-		private final String	themeName;
-		private final GfxColor	canvasColor;
-		private final GfxColor	defaultBackgroundColor;
-		private final GfxColor	defaultForegroundColor;
-		private final GfxColor	defaultHighlightedForegroundColor;
-		private final GfxColor	classBackgroundColor;
-		private final GfxColor	classForegroundColor;
-		private final GfxColor	classHighlightedForegroundColor;
-		private final GfxColor	noteBackgroundColor;
-		private final GfxColor	noteForegroundColor;
-		private final GfxColor	noteHighlightedForegroundColor;
-		private final GfxColor	objectBackgroundColor;
-		private final GfxColor	objectForegroundColor;
-		private final GfxColor	objectHighlightedForegroundColor;
-		private final GfxColor	lifeLineBackgroundColor;
-		private final GfxColor	lifeLineForegroundColor;
-		private final GfxColor	lifeLineHighlightedForegroundColor;
-		private final GfxColor	instantiationBackgroundColor;
-		private final GfxColor	instantiationForegroundColor;
-		private final GfxColor	instantiationHighlightedForegroundColor;
-		private final GfxColor	linkClassBackgroundColor;
-		private final GfxColor	linkClassForegroundColor;
-		private final GfxColor	linkClassHighlightedForegroundColor;
-		private final GfxColor	linkNoteBackgroundColor;
-		private final GfxColor	linkNoteForegroundColor;
-		private final GfxColor	linkNoteHighlightedForegroundColor;
-		private final GfxColor	classRelationBackgroundColor;
-		private final GfxColor	classRelationForegroundColor;
-		private final GfxColor	classRelationHighlightedForegroundColor;
-		private final GfxColor	objectRelationBackgroundColor;
-		private final GfxColor	objectRelationForegroundColor;
-		private final GfxColor	objectRelationHighlightedForegroundColor;
-		private final GfxColor	selectBoxForegroundColor;
-		private final GfxColor	selectBoxBackgroundColor;
-		private final GfxColor	directionPanelColor;
-		private final GfxColor	directionPanelPressedColor;
-		private final int		index;
+		private final String themeName;
+		private final GfxColor canvasColor;
+		private final GfxColor defaultBackgroundColor;
+		private final GfxColor defaultForegroundColor;
+		private final GfxColor defaultHighlightedForegroundColor;
+		private final GfxColor classBackgroundColor;
+		private final GfxColor classForegroundColor;
+		private final GfxColor classHighlightedForegroundColor;
+		private final GfxColor noteBackgroundColor;
+		private final GfxColor noteForegroundColor;
+		private final GfxColor noteHighlightedForegroundColor;
+		private final GfxColor objectBackgroundColor;
+		private final GfxColor objectForegroundColor;
+		private final GfxColor objectHighlightedForegroundColor;
+		private final GfxColor lifeLineBackgroundColor;
+		private final GfxColor lifeLineForegroundColor;
+		private final GfxColor lifeLineHighlightedForegroundColor;
+		private final GfxColor instantiationBackgroundColor;
+		private final GfxColor instantiationForegroundColor;
+		private final GfxColor instantiationHighlightedForegroundColor;
+		private final GfxColor linkClassBackgroundColor;
+		private final GfxColor linkClassForegroundColor;
+		private final GfxColor linkClassHighlightedForegroundColor;
+		private final GfxColor linkNoteBackgroundColor;
+		private final GfxColor linkNoteForegroundColor;
+		private final GfxColor linkNoteHighlightedForegroundColor;
+		private final GfxColor classRelationBackgroundColor;
+		private final GfxColor classRelationForegroundColor;
+		private final GfxColor classRelationHighlightedForegroundColor;
+		private final GfxColor objectRelationBackgroundColor;
+		private final GfxColor objectRelationForegroundColor;
+		private final GfxColor objectRelationHighlightedForegroundColor;
+		private final GfxColor selectBoxForegroundColor;
+		private final GfxColor selectBoxBackgroundColor;
+		private final GfxColor directionPanelColor;
+		private final GfxColor directionPanelPressedColor;
+		private final int index;
 
 		private Theme(final String themeName, final int index, final GfxColor canvasColor, final GfxColor defaultBackgroundColor,
 				final GfxColor defaultForegroundColor, final GfxColor defaultHighlightedForegroundColor, final GfxColor classBackgroundColor,
@@ -290,7 +291,7 @@ public class ThemeManager {
 		 * @return the canvas background {@link GfxColor}
 		 */
 		public GfxColor getCanvasColor() {
-			return this.canvasColor;
+			return canvasColor;
 		}
 
 		/**
@@ -299,7 +300,7 @@ public class ThemeManager {
 		 * @return the classBackgroundColor
 		 */
 		public GfxColor getClassBackgroundColor() {
-			return this.classBackgroundColor;
+			return classBackgroundColor;
 		}
 
 		/**
@@ -308,7 +309,7 @@ public class ThemeManager {
 		 * @return the classForegroundColor
 		 */
 		public GfxColor getClassForegroundColor() {
-			return this.classForegroundColor;
+			return classForegroundColor;
 		}
 
 		/**
@@ -317,7 +318,7 @@ public class ThemeManager {
 		 * @return the classHighlightedForegroundColor
 		 */
 		public GfxColor getClassHighlightedForegroundColor() {
-			return this.classHighlightedForegroundColor;
+			return classHighlightedForegroundColor;
 		}
 
 		/**
@@ -326,7 +327,7 @@ public class ThemeManager {
 		 * @return the classClassRelationBackgroundColor
 		 */
 		public GfxColor getClassRelationBackgroundColor() {
-			return this.classRelationBackgroundColor;
+			return classRelationBackgroundColor;
 		}
 
 		/**
@@ -335,7 +336,7 @@ public class ThemeManager {
 		 * @return the classClassRelationForegroundColor
 		 */
 		public GfxColor getClassRelationForegroundColor() {
-			return this.classRelationForegroundColor;
+			return classRelationForegroundColor;
 		}
 
 		/**
@@ -344,7 +345,7 @@ public class ThemeManager {
 		 * @return the classClassRelationHighlightedForegroundColor
 		 */
 		public GfxColor getClassRelationHighlightedForegroundColor() {
-			return this.classRelationHighlightedForegroundColor;
+			return classRelationHighlightedForegroundColor;
 		}
 
 		/**
@@ -353,7 +354,7 @@ public class ThemeManager {
 		 * @return the defaultBackgroundColor
 		 */
 		public GfxColor getDefaultBackgroundColor() {
-			return this.defaultBackgroundColor;
+			return defaultBackgroundColor;
 		}
 
 		/**
@@ -362,7 +363,7 @@ public class ThemeManager {
 		 * @return the defaultForegroundColor
 		 */
 		public GfxColor getDefaultForegroundColor() {
-			return this.defaultForegroundColor;
+			return defaultForegroundColor;
 		}
 
 		/**
@@ -371,7 +372,7 @@ public class ThemeManager {
 		 * @return the defaultHighlightedForegroundColor
 		 */
 		public GfxColor getDefaultHighlightedForegroundColor() {
-			return this.defaultHighlightedForegroundColor;
+			return defaultHighlightedForegroundColor;
 		}
 
 		/**
@@ -380,7 +381,7 @@ public class ThemeManager {
 		 * @return the directionPanelColor
 		 */
 		public GfxColor getDirectionPanelColor() {
-			return this.directionPanelColor;
+			return directionPanelColor;
 		}
 
 		/**
@@ -389,7 +390,7 @@ public class ThemeManager {
 		 * @return the directionPanelPressedColor
 		 */
 		public GfxColor getDirectionPanelPressedColor() {
-			return this.directionPanelPressedColor;
+			return directionPanelPressedColor;
 		}
 
 		/**
@@ -398,7 +399,7 @@ public class ThemeManager {
 		 * @return the index
 		 */
 		public int getIndex() {
-			return this.index;
+			return index;
 		}
 
 		/**
@@ -407,7 +408,7 @@ public class ThemeManager {
 		 * @return the instantiationBackgroundColor
 		 */
 		public GfxColor getInstantiationBackgroundColor() {
-			return this.instantiationBackgroundColor;
+			return instantiationBackgroundColor;
 		}
 
 		/**
@@ -416,7 +417,7 @@ public class ThemeManager {
 		 * @return the instantiationForegroundColor
 		 */
 		public GfxColor getInstantiationForegroundColor() {
-			return this.instantiationForegroundColor;
+			return instantiationForegroundColor;
 		}
 
 		/**
@@ -425,7 +426,7 @@ public class ThemeManager {
 		 * @return the instantiationHighlightedForegroundColor
 		 */
 		public GfxColor getInstantiationHighlightedForegroundColor() {
-			return this.instantiationHighlightedForegroundColor;
+			return instantiationHighlightedForegroundColor;
 		}
 
 		/**
@@ -434,7 +435,7 @@ public class ThemeManager {
 		 * @return the lifeLineBackgroundColor
 		 */
 		public GfxColor getLifeLineBackgroundColor() {
-			return this.lifeLineBackgroundColor;
+			return lifeLineBackgroundColor;
 		}
 
 		/**
@@ -443,7 +444,7 @@ public class ThemeManager {
 		 * @return the lifeLineForegroundColor
 		 */
 		public GfxColor getLifeLineForegroundColor() {
-			return this.lifeLineForegroundColor;
+			return lifeLineForegroundColor;
 		}
 
 		/**
@@ -452,7 +453,7 @@ public class ThemeManager {
 		 * @return the lifeLineHighlightedForegroundColor
 		 */
 		public GfxColor getLifeLineHighlightedForegroundColor() {
-			return this.lifeLineHighlightedForegroundColor;
+			return lifeLineHighlightedForegroundColor;
 		}
 
 		/**
@@ -461,7 +462,7 @@ public class ThemeManager {
 		 * @return the linkClassBackgroundColor
 		 */
 		public GfxColor getLinkClassBackgroundColor() {
-			return this.linkClassBackgroundColor;
+			return linkClassBackgroundColor;
 		}
 
 		/**
@@ -470,7 +471,7 @@ public class ThemeManager {
 		 * @return the linkClassForegroundColor
 		 */
 		public GfxColor getLinkClassForegroundColor() {
-			return this.linkClassForegroundColor;
+			return linkClassForegroundColor;
 		}
 
 		/**
@@ -479,7 +480,7 @@ public class ThemeManager {
 		 * @return the linkClassHighlightedForegroundColor
 		 */
 		public GfxColor getLinkClassHighlightedForegroundColor() {
-			return this.linkClassHighlightedForegroundColor;
+			return linkClassHighlightedForegroundColor;
 		}
 
 		/**
@@ -488,7 +489,7 @@ public class ThemeManager {
 		 * @return the linkNoteBackgroundColor
 		 */
 		public GfxColor getLinkNoteBackgroundColor() {
-			return this.linkNoteBackgroundColor;
+			return linkNoteBackgroundColor;
 		}
 
 		/**
@@ -497,7 +498,7 @@ public class ThemeManager {
 		 * @return the linkNoteForegroundColor
 		 */
 		public GfxColor getLinkNoteForegroundColor() {
-			return this.linkNoteForegroundColor;
+			return linkNoteForegroundColor;
 		}
 
 		/**
@@ -506,7 +507,7 @@ public class ThemeManager {
 		 * @return the linkNoteHighlightedForegroundColor
 		 */
 		public GfxColor getLinkNoteHighlightedForegroundColor() {
-			return this.linkNoteHighlightedForegroundColor;
+			return linkNoteHighlightedForegroundColor;
 		}
 
 		/**
@@ -515,7 +516,7 @@ public class ThemeManager {
 		 * @return the noteBackgroundColor
 		 */
 		public GfxColor getNoteBackgroundColor() {
-			return this.noteBackgroundColor;
+			return noteBackgroundColor;
 		}
 
 		/**
@@ -524,7 +525,7 @@ public class ThemeManager {
 		 * @return the noteForegroundColor
 		 */
 		public GfxColor getNoteForegroundColor() {
-			return this.noteForegroundColor;
+			return noteForegroundColor;
 		}
 
 		/**
@@ -533,7 +534,7 @@ public class ThemeManager {
 		 * @return the noteHighlightedForegroundColor
 		 */
 		public GfxColor getNoteHighlightedForegroundColor() {
-			return this.noteHighlightedForegroundColor;
+			return noteHighlightedForegroundColor;
 		}
 
 		/**
@@ -542,7 +543,7 @@ public class ThemeManager {
 		 * @return the objectBackgroundColor
 		 */
 		public GfxColor getObjectBackgroundColor() {
-			return this.objectBackgroundColor;
+			return objectBackgroundColor;
 		}
 
 		/**
@@ -551,7 +552,7 @@ public class ThemeManager {
 		 * @return the objectForegroundColor
 		 */
 		public GfxColor getObjectForegroundColor() {
-			return this.objectForegroundColor;
+			return objectForegroundColor;
 		}
 
 		/**
@@ -560,7 +561,7 @@ public class ThemeManager {
 		 * @return the objectHighlightedForegroundColor
 		 */
 		public GfxColor getObjectHighlightedForegroundColor() {
-			return this.objectHighlightedForegroundColor;
+			return objectHighlightedForegroundColor;
 		}
 
 		/**
@@ -569,7 +570,7 @@ public class ThemeManager {
 		 * @return the objectRelationBackgroundColor
 		 */
 		public GfxColor getObjectRelationBackgroundColor() {
-			return this.objectRelationBackgroundColor;
+			return objectRelationBackgroundColor;
 		}
 
 		/**
@@ -578,7 +579,7 @@ public class ThemeManager {
 		 * @return the objectRelationForegroundColor
 		 */
 		public GfxColor getObjectRelationForegroundColor() {
-			return this.objectRelationForegroundColor;
+			return objectRelationForegroundColor;
 		}
 
 		/**
@@ -587,7 +588,7 @@ public class ThemeManager {
 		 * @return the objectRelationHighlightedForegroundColor
 		 */
 		public GfxColor getObjectRelationHighlightedForegroundColor() {
-			return this.objectRelationHighlightedForegroundColor;
+			return objectRelationHighlightedForegroundColor;
 		}
 
 		/**
@@ -596,7 +597,7 @@ public class ThemeManager {
 		 * @return the select box background {@link GfxColor}
 		 */
 		public GfxColor getSelectBoxBackgroundColor() {
-			return this.selectBoxBackgroundColor;
+			return selectBoxBackgroundColor;
 		}
 
 		/**
@@ -605,7 +606,7 @@ public class ThemeManager {
 		 * @return the select box foreground {@link GfxColor}
 		 */
 		public GfxColor getSelectBoxForegroundColor() {
-			return this.selectBoxForegroundColor;
+			return selectBoxForegroundColor;
 		}
 
 		/**
@@ -614,7 +615,7 @@ public class ThemeManager {
 		 * @return the themeName
 		 */
 		public String getThemeName() {
-			return this.themeName;
+			return themeName;
 		}
 
 		/*
@@ -624,11 +625,11 @@ public class ThemeManager {
 		 */
 		@Override
 		public String toString() {
-			return this.themeName;
+			return themeName;
 		}
 	}
 
-	private static Theme	current_theme	= Theme.NORMAL;
+	private static Theme current_theme = Theme.NORMAL;
 
 	/**
 	 * Getter for the current {@link Theme}

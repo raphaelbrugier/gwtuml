@@ -23,7 +23,6 @@ import com.google.gwt.user.client.Timer;
  * This class is usefull to queue tasks
  * 
  * @author Henri Darmet, Florian Mounier
- * 
  */
 public class Scheduler {
 	/**
@@ -32,8 +31,8 @@ public class Scheduler {
 	 * @author Henri Darmet, Florian Mounier
 	 */
 	public static abstract class Task extends Timer {
-		private final String	groupId;
-		private final int		delay;
+		private final String groupId;
+		private final int delay;
 
 		/**
 		 * Constructor of Task with a specific object
@@ -73,12 +72,12 @@ public class Scheduler {
 		@Override
 		public void run() {
 			this.process();
-			Scheduler.done(this);
+			Scheduler.done();
 		}
 	}
 
-	private static Task				currentTask;
-	private static LinkedList<Task>	queuedTasks	= new LinkedList<Task>();
+	private static Task currentTask;
+	private static LinkedList<Task> queuedTasks = new LinkedList<Task>();
 
 	/**
 	 * This method cancel all the queued task (the current might still be performed)
@@ -102,7 +101,7 @@ public class Scheduler {
 		Scheduler.queuedTasks.removeAll(taskToRemove);
 	}
 
-	private static void done(final Task t) {
+	private static void done() {
 		final Task next = Scheduler.queuedTasks.poll();
 		if (next != null) {
 			Scheduler.execute(next);

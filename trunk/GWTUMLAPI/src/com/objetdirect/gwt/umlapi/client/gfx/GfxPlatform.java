@@ -21,17 +21,16 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
  * This interface normalize all the methods used on and by a graphical object for any gfx implementation
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public interface GfxPlatform {
 	/**
 	 * Default canvas height
 	 */
-	final static int	DEFAULT_CANVAS_HEIGHT	= 600;
+	final static int DEFAULT_CANVAS_HEIGHT = 600;
 	/**
 	 * Default canvas width
 	 */
-	final static int	DEFAULT_CANVAS_WIDTH	= 800;
+	final static int DEFAULT_CANVAS_WIDTH = 800;
 
 	/**
 	 * Adds a {@link GfxObjectListener} to the canvas.

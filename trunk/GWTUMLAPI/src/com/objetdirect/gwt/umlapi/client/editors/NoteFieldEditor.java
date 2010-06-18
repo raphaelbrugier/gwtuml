@@ -22,7 +22,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
  * This field editor is a specialized editor for {@link UMLNote} editing
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public class NoteFieldEditor extends FieldEditor {
 	/**
@@ -55,11 +54,11 @@ public class NoteFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		if (newContent.trim().equals("")) {
-			this.canvas.remove(this.artifact);
+			canvas.remove(artifact);
 			return false;
 		}
-		((NoteArtifact) this.artifact).setContent(newContent);
-		this.artifact.rebuildGfxObject();
+		((NoteArtifact) artifact).setContent(newContent);
+		artifact.rebuildGfxObject();
 		return false;
 	}
 }

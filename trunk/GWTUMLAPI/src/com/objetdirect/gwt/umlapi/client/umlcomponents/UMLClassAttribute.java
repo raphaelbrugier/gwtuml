@@ -76,19 +76,18 @@ public class UMLClassAttribute implements Serializable {
 		return new UMLClassAttribute(visibility, type, name);
 	}
 
-	protected String		name;
-	protected String		type;
+	protected String name;
+	protected String type;
 	protected boolean validated;
 
-	protected UMLVisibility	visibility;
+	protected UMLVisibility visibility;
 
-	
 	/**
 	 * Default constructor for GWT RPC serialization
 	 */
 	public UMLClassAttribute() {
 	}
-	
+
 	/**
 	 * Constructor of the attribute
 	 * 
@@ -100,7 +99,7 @@ public class UMLClassAttribute implements Serializable {
 	 */
 	public UMLClassAttribute(final UMLVisibility visibility, final String type, final String name) {
 		super();
-		this.validated	= true;
+		validated = true;
 		this.visibility = visibility;
 		this.type = type;
 		this.name = name;
@@ -113,7 +112,7 @@ public class UMLClassAttribute implements Serializable {
 	 * 
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -123,7 +122,7 @@ public class UMLClassAttribute implements Serializable {
 	 * 
 	 */
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	/**
@@ -132,7 +131,7 @@ public class UMLClassAttribute implements Serializable {
 	 * @return the visibility
 	 */
 	public UMLVisibility getVisibility() {
-		return this.visibility;
+		return visibility;
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class UMLClassAttribute implements Serializable {
 	 * 
 	 */
 	public boolean isValidated() {
-		return this.validated;
+		return validated;
 	}
 
 	/**
@@ -200,11 +199,11 @@ public class UMLClassAttribute implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder f = new StringBuilder();
-		f.append(this.visibility);
-		f.append(this.name);
-		if ((this.type != null) && !this.type.equals("")) {
+		f.append(visibility);
+		f.append(name);
+		if ((type != null) && !type.equals("")) {
 			f.append(" : ");
-			f.append(this.type);
+			f.append(type);
 		}
 		return f.toString();
 	}

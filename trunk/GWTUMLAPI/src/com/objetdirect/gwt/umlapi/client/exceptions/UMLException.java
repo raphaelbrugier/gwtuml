@@ -16,11 +16,12 @@ package com.objetdirect.gwt.umlapi.client.exceptions;
 
 /**
  * This class defines exception specific to the uml relations and classes.
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
 public class UMLException extends RuntimeException {
-	
+
 	public UMLException() {
 		super();
 	}

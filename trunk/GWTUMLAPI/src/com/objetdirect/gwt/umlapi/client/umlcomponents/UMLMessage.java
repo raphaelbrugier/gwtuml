@@ -25,15 +25,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 @SuppressWarnings("serial")
 public class UMLMessage extends UMLLink {
 
-	private String			name;
+	private String name;
 
-	private LinkAdornment	leftAdornment;
-	private LinkAdornment	rightAdornment;
-	private LinkStyle		linkStyle;
+	private LinkAdornment leftAdornment;
+	private LinkAdornment rightAdornment;
+	private LinkStyle linkStyle;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLMessage(){};
-	
+	UMLMessage() {
+	};
+
 	/**
 	 * Constructor of Message
 	 * 
@@ -42,10 +43,10 @@ public class UMLMessage extends UMLLink {
 	 */
 	public UMLMessage(final LinkKind messageKind) {
 		super(messageKind);
-		this.linkStyle = messageKind.getDefaultLinkStyle();
-		this.leftAdornment = messageKind.getDefaultLeftAdornment();
-		this.rightAdornment = messageKind.getDefaultRightAdornment();
-		this.name = "";
+		linkStyle = messageKind.getDefaultLinkStyle();
+		leftAdornment = messageKind.getDefaultLeftAdornment();
+		rightAdornment = messageKind.getDefaultRightAdornment();
+		name = "";
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class UMLMessage extends UMLLink {
 	 * @return the left adornment
 	 */
 	public LinkAdornment getLeftAdornment() {
-		return this.leftAdornment;
+		return leftAdornment;
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class UMLMessage extends UMLLink {
 	 * @return the link style
 	 */
 	public LinkStyle getLinkStyle() {
-		return this.linkStyle;
+		return linkStyle;
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class UMLMessage extends UMLLink {
 	 * @return the name
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -81,16 +82,16 @@ public class UMLMessage extends UMLLink {
 	 * @return the right adornment
 	 */
 	public LinkAdornment getRightAdornment() {
-		return this.rightAdornment;
+		return rightAdornment;
 	}
 
 	/**
 	 * Reverse the current message
 	 */
 	public void reverse() {
-		final LinkAdornment tempAdornment = this.leftAdornment;
-		this.leftAdornment = this.rightAdornment;
-		this.rightAdornment = tempAdornment;
+		final LinkAdornment tempAdornment = leftAdornment;
+		leftAdornment = rightAdornment;
+		rightAdornment = tempAdornment;
 	}
 
 	/**

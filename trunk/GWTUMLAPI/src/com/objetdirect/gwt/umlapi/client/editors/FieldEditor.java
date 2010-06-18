@@ -46,13 +46,14 @@ public abstract class FieldEditor {
 		return FieldEditor.editField;
 	}
 
-	protected UMLArtifact			artifact;
-	protected UMLCanvas				canvas;
-	protected String				content;
-	protected static TextBoxBase	editField;
-	protected int					height		= 0;
-	protected boolean				isMultiLine;
-	protected int					minBoxWidth	= 40;
+	protected static TextBoxBase editField;
+
+	protected UMLArtifact artifact;
+	protected UMLCanvas canvas;
+	protected String content;
+	protected int height = 0;
+	protected boolean isMultiLine;
+	protected int minBoxWidth = 40;
 
 	/**
 	 * Constructor of the FieldEditor
@@ -96,30 +97,29 @@ public abstract class FieldEditor {
 	 *            Set to true if the edited part has a small font
 	 */
 	public void startEdition(final String text, final int x, final int y, final int w, final boolean isItMultiLine, final boolean isSmallFont) {
-		this.isMultiLine = isItMultiLine;
-		if (this.isMultiLine && (this.height == 0)) {
+		isMultiLine = isItMultiLine;
+		if (isMultiLine && (height == 0)) {
 			Log.error("Must set height for multiline editors");
 		}
-		
-		this.content = text;
-		if(y + 20  > this.canvas.getContainer().getOffsetHeight()) { //FIXME put a real height
+
+		content = text;
+		if (y + 20 > canvas.getContainer().getOffsetHeight()) { // FIXME put a real height
 			return;
 		}
-		
-		FieldEditor.editField = this.isMultiLine ? new TextArea() : new TextBox();
-		
-		
-		
-		
+
+		FieldEditor.editField = isMultiLine ? new TextArea() : new TextBox();
+
 		FieldEditor.editField.setText(text);
-		FieldEditor.editField.setStylePrimaryName("editor" + (isSmallFont ? "-small" : "") + "-field" + (this.isMultiLine ? "-multiline" : ""));
-		FieldEditor.editField.setWidth(Math.max(w, this.minBoxWidth) + "px");
-		if (this.isMultiLine) {
-			FieldEditor.editField.setHeight(this.height + "px");
+		FieldEditor.editField.setStylePrimaryName("editor" + (isSmallFont ? "-small" : "") + "-field" + (isMultiLine ? "-multiline" : ""));
+		FieldEditor.editField.setWidth(Math.max(w, minBoxWidth) + "px");
+		if (isMultiLine) {
+			FieldEditor.editField.setHeight(height + "px");
 		}
 		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "backgroundColor", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
 		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "color", ThemeManager.getTheme().getDefaultForegroundColor().toString());
-		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString()); // CSS 3 :'(
+		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString()); // CSS
+																																				// 3
+																																				// :'(
 
 		FieldEditor.editField.addBlurHandler(new BlurHandler() {
 			public void onBlur(final BlurEvent event) {
@@ -131,7 +131,7 @@ public abstract class FieldEditor {
 		FieldEditor.editField.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(final KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					if (!FieldEditor.this.isMultiLine || event.isAnyModifierKeyDown()) {
+					if (!isMultiLine || event.isAnyModifierKeyDown()) {
 						FieldEditor.this.validate(true);
 					}
 
@@ -141,13 +141,13 @@ public abstract class FieldEditor {
 			}
 		});
 
-		this.canvas.getContainer().add(FieldEditor.editField, x + canvas.getCanvasOffset().getX(), y + canvas.getCanvasOffset().getY());
+		canvas.getContainer().add(FieldEditor.editField, x + canvas.getCanvasOffset().getX(), y + canvas.getCanvasOffset().getY());
 		FieldEditor.editField.selectAll();
 		FieldEditor.editField.setFocus(true);
 	}
 
 	protected void cancel() {
-		this.canvas.getContainer().remove(FieldEditor.editField);
+		canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		canvas.setHotKeysEnabled(true);
 	}
@@ -159,15 +159,14 @@ public abstract class FieldEditor {
 	protected void validate(final boolean isNextable) {
 		boolean isStillNextable = isNextable;
 		final String newContent = FieldEditor.editField.getText();
-		if (!newContent.equals(this.content)) {
+		if (!newContent.equals(content)) {
 			isStillNextable = this.updateUMLArtifact(newContent) && isStillNextable;
 		}
-		this.canvas.getContainer().remove(FieldEditor.editField);
+		canvas.getContainer().remove(FieldEditor.editField);
 		FieldEditor.editField = null;
 		canvas.setHotKeysEnabled(true);
 		if (isStillNextable) {
 			this.next();
 		}
-
 	}
 }

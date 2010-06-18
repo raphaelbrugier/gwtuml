@@ -17,12 +17,15 @@ package com.objetdirect.gwt.umlapi.client.resources.styles;
 import com.google.gwt.resources.client.CssResource;
 
 /**
- * Style that can be applied to style the cursor over a widget.
- * Use the Cursor icon manager to apply an cursor over a widget.
+ * Style that can be applied to style the cursor over a widget. Use the Cursor icon manager to apply an cursor over a
+ * widget.
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public interface IconStyles extends CssResource {
 	String autoCursor();
+
 	String crossHairCursor();
+
 	String moveCursor();
 }

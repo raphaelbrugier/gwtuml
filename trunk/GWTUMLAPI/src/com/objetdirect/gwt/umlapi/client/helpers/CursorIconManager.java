@@ -45,33 +45,34 @@ public class CursorIconManager {
 		 * Move cursor
 		 */
 		MOVE(iconStyles().moveCursor());
-		
+
 		private final String cssName;
 
 		private PointerStyle(final String cssName) {
 			this.cssName = cssName;
 		}
 	}
-	
+
 	/**
 	 * Convenience method to get the styles class string.
+	 * 
 	 * @return
 	 */
 	private static IconStyles iconStyles() {
 		return Resources.INSTANCE.iconStyles();
 	}
-	
+
 	private String currentStyleApplied;
-	
+
 	public CursorIconManager() {
 		currentStyleApplied = null;
 	}
-	
+
 	public void changeCursorIcon(PointerStyle cursor, Widget widget) {
-		if (currentStyleApplied !=null ) {
+		if (currentStyleApplied != null) {
 			widget.removeStyleName(currentStyleApplied);
 		}
-		
+
 		widget.addStyleName(cursor.cssName);
 		currentStyleApplied = cursor.cssName;
 	}

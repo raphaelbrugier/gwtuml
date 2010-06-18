@@ -64,8 +64,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxFont;
  */
 public class OptionsManager {
 
-	private static HashMap<String, Integer>	optionsList;
-	private static HashMap<String, Integer>	defaultOptionsList;
+	private static HashMap<String, Integer> optionsList;
+	private static HashMap<String, Integer> defaultOptionsList;
 
 	/**
 	 * Getter for the option optionName
@@ -110,7 +110,7 @@ public class OptionsManager {
 	 * 
 	 */
 	public static void initialize() {
-		optionsList	= new HashMap<String, Integer>();
+		optionsList = new HashMap<String, Integer>();
 		OptionsManager.optionsList.put("ArrowLength", 25);
 		OptionsManager.optionsList.put("ArrowWidth", 15);
 		OptionsManager.optionsList.put("CrossLength", 5);
@@ -144,7 +144,7 @@ public class OptionsManager {
 		OptionsManager.optionsList.put("FontSize", 10);
 		OptionsManager.optionsList.put("SmallFontSize", 9);
 
-		OptionsManager.optionsList.put("DiagramType", -1); //Force the diagram type to be added
+		OptionsManager.optionsList.put("DiagramType", -1); // Force the diagram type to be added
 		OptionsManager.optionsList.put("GraphicEngine", 0);
 		OptionsManager.optionsList.put("GeometryStyle", 0);
 		OptionsManager.optionsList.put("Theme", 0);
@@ -229,7 +229,7 @@ public class OptionsManager {
 			}
 		}
 	}
-	
+
 	private static void maybeForceInit() {
 		if (optionsList == null) {
 			initialize();

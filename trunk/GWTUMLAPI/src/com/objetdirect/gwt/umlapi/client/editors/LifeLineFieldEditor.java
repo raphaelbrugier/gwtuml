@@ -58,13 +58,13 @@ public class LifeLineFieldEditor extends FieldEditor {
 	protected boolean updateUMLArtifact(final String newContent) {
 		final List<String> newNameInstance = UMLLifeLine.parseName(newContent);
 		if (newNameInstance.get(1).equals("")) {
-			((LifeLineArtifact) this.artifact).setName("LifeLine");
+			((LifeLineArtifact) artifact).setName("LifeLine");
 		} else {
-			((LifeLineArtifact) this.artifact).setName(newNameInstance.get(1));
+			((LifeLineArtifact) artifact).setName(newNameInstance.get(1));
 		}
-		((LifeLineArtifact) this.artifact).setInstance(newNameInstance.get(0));
+		((LifeLineArtifact) artifact).setInstance(newNameInstance.get(0));
 
-		this.artifact.rebuildGfxObject();
+		artifact.rebuildGfxObject();
 		return false;
 	}
 }

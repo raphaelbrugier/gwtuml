@@ -58,8 +58,8 @@ public enum LinkStyle {
 
 	private GfxStyle style;
 
-	private String	name;
-	
+	private String name;
+
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */
@@ -77,7 +77,7 @@ public enum LinkStyle {
 	 * @return the {@link GfxStyle} to set to a line
 	 */
 	public GfxStyle getGfxStyle() {
-		return this.style;
+		return style;
 	}
 
 	/**
@@ -86,6 +86,6 @@ public enum LinkStyle {
 	 * @return the {@link LinkStyle} name
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 }

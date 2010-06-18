@@ -28,22 +28,27 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 @SuppressWarnings("serial")
 public class LinkNoteArtifact extends LinkArtifact {
-	transient GfxObject	line;
-	NoteArtifact	note;
-	UMLArtifact		target;
+	private transient GfxObject line;
+	private NoteArtifact note;
+	private UMLArtifact target;
 
 	/** Default Constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private LinkNoteArtifact() { }
-	
+	private LinkNoteArtifact() {
+	}
+
 	/**
 	 * Constructor of LinkNoteArtifact
 	 * 
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param note The note the link is related to
-	 * @param target The uml artifact the note is pointing to
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param note
+	 *            The note the link is related to
+	 * @param target
+	 *            The uml artifact the note is pointing to
 	 */
 	public LinkNoteArtifact(final UMLCanvas canvas, int id, final NoteArtifact note, final UMLArtifact target) {
 		super(canvas, id, note, target);
@@ -57,13 +62,13 @@ public class LinkNoteArtifact extends LinkArtifact {
 	@Override
 	public void buildGfxObject() {
 
-		this.leftPoint = this.note.getCenter();
-		this.rightPoint = this.target.getCenter();
-		this.line = GfxManager.getPlatform().buildLine(this.leftPoint, this.rightPoint);
-		this.line.addToVirtualGroup(this.gfxObject);
-		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
-		this.line.setStrokeStyle(GfxStyle.DASH);
-		this.gfxObject.moveToBack();
+		leftPoint = note.getCenter();
+		rightPoint = target.getCenter();
+		line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
+		line.addToVirtualGroup(gfxObject);
+		line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		line.setStrokeStyle(GfxStyle.DASH);
+		gfxObject.moveToBack();
 
 	}
 
@@ -86,8 +91,8 @@ public class LinkNoteArtifact extends LinkArtifact {
 
 	@Override
 	public void removeCreatedDependency() {
-		this.note.removeDependency(this);
-		this.target.removeDependency(this);
+		note.removeDependency(this);
+		target.removeDependency(this);
 	}
 
 	@Override
@@ -102,19 +107,19 @@ public class LinkNoteArtifact extends LinkArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "LinkNote$<" + this.note.getId() + ">!<" + this.target.getId() + ">";
+		return "LinkNote$<" + note.getId() + ">!<" + target.getId() + ">";
 	}
 
 	@Override
 	public void unselect() {
 		super.unselect();
-		this.line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
+		line.setStroke(ThemeManager.getTheme().getLinkNoteForegroundColor(), 1);
 	}
 
 	@Override
 	protected void select() {
 		super.select();
-		this.line.setStroke(ThemeManager.getTheme().getLinkNoteHighlightedForegroundColor(), 2);
+		line.setStroke(ThemeManager.getTheme().getLinkNoteHighlightedForegroundColor(), 2);
 	}
 
 	@Override

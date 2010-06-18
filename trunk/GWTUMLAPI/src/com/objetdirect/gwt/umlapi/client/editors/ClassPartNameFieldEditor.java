@@ -22,11 +22,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * This field editor is a specialized editor for class name and stereotype edition
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
 public class ClassPartNameFieldEditor extends FieldEditor {
 
-	private final boolean	isTheStereotype;
+	private final boolean isTheStereotype;
 
 	/**
 	 * Constructor of
@@ -53,22 +52,22 @@ public class ClassPartNameFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		final String newContentWithoutSpaces = newContent.replaceAll(" ", "_");
-		if (this.isTheStereotype) {
+		if (isTheStereotype) {
 			final String newStereotype = UMLClass.parseNameOrStereotype(newContentWithoutSpaces.replaceAll("[«»]", ""));
 			if (newStereotype.equals("")) {
-				((ClassPartNameArtifact) this.artifact).setStereotype("");
+				((ClassPartNameArtifact) artifact).setStereotype("");
 			} else {
-				((ClassPartNameArtifact) this.artifact).setStereotype("«" + newStereotype + "»");
+				((ClassPartNameArtifact) artifact).setStereotype("«" + newStereotype + "»");
 			}
 		} else {
 			final String newName = UMLClass.parseNameOrStereotype(newContentWithoutSpaces);
 			if (newName.equals("")) {
-				((ClassPartNameArtifact) this.artifact).setClassName("Class");
+				((ClassPartNameArtifact) artifact).setClassName("Class");
 			} else {
-				((ClassPartNameArtifact) this.artifact).setClassName(newName);
+				((ClassPartNameArtifact) artifact).setClassName(newName);
 			}
 		}
-		((ClassPartNameArtifact) this.artifact).getNodeArtifact().rebuildGfxObject();
+		((ClassPartNameArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 		return false;
 	}
 }

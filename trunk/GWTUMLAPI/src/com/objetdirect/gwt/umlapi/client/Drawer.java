@@ -42,38 +42,39 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 
 /**
  * This is the main entry class to add a drawer.
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize {
 
 	private int width;
 	private int height;
-	
-	private UMLCanvas umlCanvas;
-	private DecoratorCanvas decoratorPanel;
-	
+
+	private final UMLCanvas umlCanvas;
+	private final DecoratorCanvas decoratorPanel;
+
 	private boolean hotKeysEnabled;
-	private Keyboard keyboard;
-	
-	private CursorIconManager cursorManager;
-	
+	private final Keyboard keyboard;
+
+	private final CursorIconManager cursorManager;
+
 	public Drawer() {
 		this(new UMLCanvas(DiagramType.CLASS));
 	}
-	
+
 	public Drawer(UMLCanvas umlCanvas) {
 		setupGfxPlatform();
 		addHandlers();
 		injectAllStyles();
 		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
-		this.hotKeysEnabled = true;
-		this.keyboard = new Keyboard(umlCanvas);
-		this.cursorManager = new CursorIconManager();
-		
+		hotKeysEnabled = true;
+		keyboard = new Keyboard(umlCanvas);
+		cursorManager = new CursorIconManager();
+
 		setWidget(decoratorPanel);
 	}
-	
+
 	private void injectAllStyles() {
 		Resources.INSTANCE.iconStyles().ensureInjected();
 	}
@@ -83,7 +84,7 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		GfxManager.setPlatform(OptionsManager.get("GraphicEngine"));
 		GeometryManager.setPlatform(OptionsManager.get("GeometryStyle"));
 	}
-	
+
 	private void addHandlers() {
 		this.addKeyPressHandler(new KeyPressHandler() {
 			@Override
@@ -95,7 +96,7 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 			}
 		});
 	}
-	
+
 	void setCursorIcon(PointerStyle style) {
 		cursorManager.changeCursorIcon(style, this);
 	}
@@ -104,10 +105,10 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 	public void onResize() {
 		int parentHeight = getParent().getOffsetHeight();
 		int parentWidth = getParent().getOffsetWidth();
-		
+
 		int width = parentWidth - 16;
 		int height = parentHeight - 16;
-		
+
 		this.width = width;
 		this.height = height;
 		this.setPixelSize(this.width, this.height);
@@ -128,22 +129,21 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
 		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
 			if (umlArtifact instanceof ClassArtifact) {
-				ClassArtifact classArtifact  = (ClassArtifact)umlArtifact;
+				ClassArtifact classArtifact = (ClassArtifact) umlArtifact;
 				umlClasses.add(classArtifact.toUMLComponent());
-			} 
+			}
 		}
 		return umlClasses;
 	}
-	
-	
+
 	/**
-	 * @return A list of the relations between the umlComponents currently displayed. 
+	 * @return A list of the relations between the umlComponents currently displayed.
 	 */
 	public List<UMLRelation> getUmlRelations() {
-		ArrayList<UMLRelation> umlRelations = new  ArrayList<UMLRelation>();
+		ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
 		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
 			if (umlArtifact instanceof ClassRelationLinkArtifact) {
-				ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact)umlArtifact;
+				ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact) umlArtifact;
 				umlRelations.add(relationLinkArtifact.toUMLComponent());
 			}
 		}
@@ -151,7 +151,8 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 	}
 
 	/**
-	 * @param hotKeysEnabled the hotKeysEnabled to set
+	 * @param hotKeysEnabled
+	 *            the hotKeysEnabled to set
 	 */
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		this.hotKeysEnabled = hotKeysEnabled;

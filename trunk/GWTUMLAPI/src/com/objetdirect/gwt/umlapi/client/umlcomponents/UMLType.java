@@ -15,69 +15,70 @@
 
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
-
 /**
  * This enumeration list all return types
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public enum UMLType {
 	STRING("String"),
-	
+
 	INT("int"),
-	
+
 	INTEGER("Integer"),
-	
+
 	LONG("long"),
-	
+
 	WRAPPED_LONG("Long"),
-	
+
 	BYTE("byte"),
-	
+
 	WRAPPED_BYTE("Byte"),
-	
+
 	SHORT("short"),
-	
+
 	WRAPPED_SHORT("Short"),
-	
+
 	BOOLEAN("boolean"),
-	
+
 	WRAPPED_BOOLEAN("Boolean"),
-	
+
 	CHAR("char"),
-	
+
 	CHARACTER("Character"),
-	
+
 	FLOAT("float"),
-	
+
 	WRAPPED_FLOAT("Float"),
-	
+
 	DOUBLE("double"),
-	
+
 	WRAPPED_DOUBLE("Double"),
-	
+
 	CUSTOM("custom");
-	;
-	
+
 	private String type;
-	
-	
+
 	/**
-	 * Return the type corresponding to the given string 
+	 * Return the type corresponding to the given string
+	 * 
 	 * @param type
 	 * @return
 	 */
 	public static UMLType getUMLTypeFromString(String type) {
-		
-		for(UMLType umlType : UMLType.values()) {
-			if(umlType.type.equals(type))
+
+		for (UMLType umlType : UMLType.values()) {
+			if (umlType.type.equals(type)) {
 				return umlType;
+			}
 		}
-		
+
 		return CUSTOM;
 	}
-	
+
 	/** Default constructor ONLY for gwt-rpc serialization. */
-	private UMLType() {}
+	private UMLType() {
+	}
 
 	private UMLType(String type) {
 		this.type = type;

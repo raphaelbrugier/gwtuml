@@ -32,19 +32,22 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
  */
 @SuppressWarnings("serial")
 public class ObjectArtifact extends NodeArtifact {
-	ObjectPartAttributesArtifact	objectAttributes;
-	ObjectPartNameArtifact			objectName;
+	private ObjectPartAttributesArtifact objectAttributes;
+	ObjectPartNameArtifact objectName;
 
-	
 	/** Default constructor ONLY for GWT-Rpc serialization */
 	@Deprecated
 	@SuppressWarnings("unused")
-	private ObjectArtifact() {}
-	
+	private ObjectArtifact() {
+	}
+
 	/**
 	 * Initializes the ObjectArtifact with the name "Object"
-	 * @param canvas Where the gfxObject are displayed
-	 * @param id The artifacts's id
+	 * 
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param id
+	 *            The artifacts's id
 	 */
 	public ObjectArtifact(final UMLCanvas canvas, int id) {
 		this(canvas, id, "obj", "Object");
@@ -53,10 +56,14 @@ public class ObjectArtifact extends NodeArtifact {
 	/**
 	 * ObjectArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
 	 * 
-	 * @param canvas Where the gfxObjects are displayed
-	 * @param id The artifacts's id
-	 * @param objectInstance The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param objectInstance
+	 *            The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param objectName
+	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
 	public ObjectArtifact(final UMLCanvas canvas, int id, final String objectInstance, final String objectName) {
 		this(canvas, id, objectInstance, objectName, "");
@@ -65,20 +72,25 @@ public class ObjectArtifact extends NodeArtifact {
 	/**
 	 * ObjectArtifact constructor, initializes all {@link NodePartArtifact}
 	 * 
-	 * @param canvas Where the gfxObject are displayed
-	 * @param id The artifacts's id
-	 * @param objectInstance The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param objectName The name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param stereotype The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param canvas
+	 *            Where the gfxObject are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param objectInstance
+	 *            The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param objectName
+	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
+	 * @param stereotype
+	 *            The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
 	public ObjectArtifact(final UMLCanvas canvas, int id, final String objectInstance, final String objectName, final String stereotype) {
 		super(canvas, id);
 		this.objectName = new ObjectPartNameArtifact(canvas, objectInstance, objectName, stereotype);
-		this.objectAttributes = new ObjectPartAttributesArtifact(canvas);
-		this.nodeParts.add(this.objectName);
-		this.nodeParts.add(this.objectAttributes);
+		objectAttributes = new ObjectPartAttributesArtifact(canvas);
+		nodeParts.add(this.objectName);
+		nodeParts.add(objectAttributes);
 		this.objectName.setNodeArtifact(this);
-		this.objectAttributes.setNodeArtifact(this);
+		objectAttributes.setNodeArtifact(this);
 	}
 
 	/**
@@ -88,7 +100,7 @@ public class ObjectArtifact extends NodeArtifact {
 	 *            The attribute, sent to {@link ObjectPartAttributesArtifact}
 	 */
 	public void addAttribute(final UMLObjectAttribute attribute) {
-		this.objectAttributes.add(attribute);
+		objectAttributes.add(attribute);
 	}
 
 	/**
@@ -97,7 +109,7 @@ public class ObjectArtifact extends NodeArtifact {
 	 * @return the list of attributes of this object
 	 */
 	public List<UMLObjectAttribute> getAttributes() {
-		return this.objectAttributes.getList();
+		return objectAttributes.getList();
 	}
 
 	/**
@@ -107,16 +119,16 @@ public class ObjectArtifact extends NodeArtifact {
 	 */
 	@Override
 	public String getName() {
-		return this.objectName.getObjectName();
+		return objectName.getObjectName();
 	}
 
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		final MenuBarAndTitle objectNameRightMenu = this.objectName.getRightMenu();
-		final MenuBarAndTitle objectAttributesRightMenu = this.objectAttributes.getRightMenu();
+		final MenuBarAndTitle objectNameRightMenu = objectName.getRightMenu();
+		final MenuBarAndTitle objectAttributesRightMenu = objectAttributes.getRightMenu();
 
-		rightMenu.setName("Object " + this.objectName.getObjectName());
+		rightMenu.setName("Object " + objectName.getObjectName());
 
 		rightMenu.addItem(objectNameRightMenu.getName(), objectNameRightMenu.getSubMenu());
 		rightMenu.addItem(objectAttributesRightMenu.getName(), objectAttributesRightMenu.getSubMenu());
@@ -131,7 +143,7 @@ public class ObjectArtifact extends NodeArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return "Object$" + this.getLocation() + "!" + this.objectName.toURL() + "!" + this.objectAttributes.toURL();
+		return "Object$" + this.getLocation() + "!" + objectName.toURL() + "!" + objectAttributes.toURL();
 	}
 
 	@Override
