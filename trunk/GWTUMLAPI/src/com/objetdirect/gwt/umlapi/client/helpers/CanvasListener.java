@@ -53,7 +53,7 @@ public class CanvasListener implements GfxObjectListener {
 	 */
 	public void doubleClick(final GfxObject gfxObject, final Point location) {
 		Log.trace("Mouse double clicked on " + gfxObject + " at " + location);
-		canvas.mouseDoubleClicked(gfxObject, location);
+		canvas.mouseDoubleClicked(gfxObject);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class CanvasListener implements GfxObjectListener {
 	 */
 	public void move(final Point location, int triggerButton, boolean isCtrlDown, boolean isShiftDown) {
 		Log.trace("Mouse moved to " + location + " with button " + triggerButton + " ctrl " + isCtrlDown + " shift " + isShiftDown);
-		canvas.mouseMoved(location, isCtrlDown, isShiftDown);
+		canvas.mouseMoved(isCtrlDown, isShiftDown);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class CanvasListener implements GfxObjectListener {
 	public void press(final GfxObject gfxObject, final Point location, int triggerButton, boolean isCtrlDown, boolean isShiftDown) {
 		Log.trace("Mouse pressed on " + gfxObject + " at " + location + " with button " + triggerButton + " ctrl " + isCtrlDown + " alt " + isShiftDown);
 		if (triggerButton == NativeEvent.BUTTON_LEFT) {
-			canvas.mouseLeftPressed(gfxObject, location, isCtrlDown, isShiftDown);
+			canvas.mouseLeftPressed(gfxObject, isCtrlDown, isShiftDown);
 		} else if (triggerButton == NativeEvent.BUTTON_RIGHT) {
 			canvas.mouseRightPressed(gfxObject, location);
 		}
@@ -137,7 +137,7 @@ public class CanvasListener implements GfxObjectListener {
 	public void release(final GfxObject gfxObject, final Point location, int triggerButton, boolean isCtrlDown, boolean isShiftDown) {
 		Log.trace("Mouse released on " + gfxObject + " at " + location + " with button " + triggerButton + " ctrl " + isCtrlDown + " shift " + isShiftDown);
 		if (triggerButton == NativeEvent.BUTTON_LEFT) {
-			canvas.mouseReleased(gfxObject, location, isCtrlDown, isShiftDown);
+			canvas.mouseReleased(gfxObject, isCtrlDown, isShiftDown);
 		}
 	}
 }
