@@ -47,6 +47,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
+import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -551,7 +552,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, activeLinking, getIdCount());
+			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, getIdCount());
 
 			if (newLink != null) {
 				linkOkCount++;
@@ -626,13 +627,12 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The first one of the two {@link UMLArtifact} to be linked
 	 * @param uMLArtifactNew
 	 *            The second one of the two {@link UMLArtifact} to be linked
-	 * @param linkKind
-	 *            The {@link LinkKind} of this link
 	 * @param id
 	 *            The created {@link LinkArtifact}'s id
 	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
 	 */
-	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, final LinkKind linkKind, int id) {
+	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, int id) {
+		LinkKind linkKind = activeLinking;
 		if (linkKind == LinkKind.NOTE) {
 			if (uMLArtifactNew instanceof NoteArtifact) {
 				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifactNew, uMLArtifact);
@@ -662,7 +662,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 		} else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
 			return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
-
 		}
 		return null;
 	}
@@ -761,11 +760,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	void mouseDoubleClicked(final GfxObject gfxObject) {
+	public void mouseDoubleClicked(final GfxObject gfxObject) {
 		this.editItem(gfxObject);
 	}
 
-	void mouseLeftPressed(final GfxObject gfxObject, final boolean isCtrlDown, final boolean isShiftDown) {
+	public void mouseLeftPressed(final GfxObject gfxObject, final boolean isCtrlDown, final boolean isShiftDown) {
 		if (mouseIsPressed) {
 			return;
 		}
@@ -789,6 +788,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 
 	@SuppressWarnings("fallthrough")
+	public
 	void mouseMoved(final boolean isCtrlDown, final boolean isShiftDown) {
 		Log.trace("UMLCanvas::mouseMoved()");
 		final Point realPoint = wrapper.getCurrentMousePosition();
@@ -812,7 +812,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	void mouseReleased(final GfxObject gfxObject, final boolean isCtrlDown, final boolean isShiftDown) {
+	public void mouseReleased(final GfxObject gfxObject, final boolean isCtrlDown, final boolean isShiftDown) {
 		if (!mouseIsPressed) {
 			return;
 		}
@@ -840,11 +840,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	void mouseRightPressed(final GfxObject gfxObject, final Point location) {
+	public void mouseRightPressed(final GfxObject gfxObject, final Point location) {
 		this.dropContextualMenu(gfxObject, location);
 	}
 
-	void moveSelected(final Direction direction) {
+	public void moveSelected(final Direction direction) {
 		if (!selectedArtifacts.isEmpty()) {
 			Point lower = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
 			Point higher = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);

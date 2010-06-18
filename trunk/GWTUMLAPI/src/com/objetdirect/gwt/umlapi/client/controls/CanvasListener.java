@@ -12,7 +12,7 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.helpers;
+package com.objetdirect.gwt.umlapi.client.controls;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
@@ -20,6 +20,7 @@ import com.google.gwt.user.client.Event;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObjectListener;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * Concrete listener to add on the canvas widget. It allows to interact directly with the canvas by simulating mouse
