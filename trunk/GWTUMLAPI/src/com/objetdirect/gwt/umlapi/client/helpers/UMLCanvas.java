@@ -46,6 +46,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
+import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -1063,11 +1064,19 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	public void dropContextualMenu(final GfxObject gfxObject, final Point location) {
 		this.doSelection(gfxObject, false, false);
 		final UMLArtifact elem = this.getUMLArtifact(gfxObject);
-		ContextMenu contextMenu;
-		if (elem != null) {
-			contextMenu = new ContextMenu(location, this, elem.getRightMenu(), diagramType);
-		} else {
-			contextMenu = new ContextMenu(location, this, diagramType);
+		MenuBarAndTitle rightMenu = elem == null ?  null : elem.getRightMenu();
+
+		ContextMenu contextMenu = null;
+		switch (diagramType) {
+		case CLASS :
+			contextMenu = ContextMenu.createClassDiagramContextMenu(location, this, rightMenu);
+			break;
+		case OBJECT :
+			contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
+			break;
+		case SEQUENCE :
+			contextMenu = ContextMenu.createSequenceDiagramContextMenu(location, this, rightMenu);
+			break;
 		}
 		contextMenu.show();
 	}
