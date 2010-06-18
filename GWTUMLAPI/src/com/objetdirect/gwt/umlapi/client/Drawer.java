@@ -26,17 +26,16 @@ import com.google.gwt.user.client.ui.RequiresResize;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.controls.Keyboard;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager;
-import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.resources.Resources;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLRelation;
 
@@ -57,10 +56,6 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 	private final Keyboard keyboard;
 
 	private final CursorIconManager cursorManager;
-
-	public Drawer() {
-		this(new UMLCanvas(DiagramType.CLASS));
-	}
 
 	public Drawer(UMLCanvas umlCanvas) {
 		setupGfxPlatform();
