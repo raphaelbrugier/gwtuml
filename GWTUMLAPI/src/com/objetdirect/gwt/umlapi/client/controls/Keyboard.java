@@ -29,8 +29,11 @@ public class Keyboard {
 
 	private final UMLCanvas umlCanvas;
 
+	private final DiagramType diagramType;
+
 	public Keyboard(UMLCanvas umlCanvas) {
 		this.umlCanvas = umlCanvas;
+		diagramType = umlCanvas.getDiagramType();
 	}
 
 	/**
@@ -49,120 +52,137 @@ public class Keyboard {
 	 */
 	public void push(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
 		Log.trace("Keyboard::push() down Key :" + keyCode + "(" + (int) keyCode + ") with ctrl " + isCtrlDown + " alt " + isAltDown + " shift " + isShiftDown);
+
+		commonPush(keyCode);
+		moveDiagramPush(keyCode, isCtrlDown, isAltDown, isShiftDown, isMetaDown);
+
+		if (isCtrlDown) {
+			ctrlDownPush(keyCode);
+		}
+
+		switch (diagramType) {
+			case CLASS:
+				classDiagramPush(keyCode, isCtrlDown);
+				break;
+			case OBJECT:
+				objectDiagramPush(keyCode, isCtrlDown);
+				break;
+			case SEQUENCE:
+				sequenceDiagramPush(keyCode);
+				break;
+		}
+	}
+
+	private void commonPush(final char keyCode) {
 		switch (keyCode) {
-			case 'x':
-				if (isCtrlDown) {
-					umlCanvas.cut();
-				}
-				break;
-			case 'v':
-				if (isCtrlDown) {
-					umlCanvas.paste();
-				}
-				break;
-			case 'c':
-				if (isCtrlDown) {
-					umlCanvas.copy();
-				} else {
-					if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
-						umlCanvas.addNewClass();
-					}
-				}
-				break;
-			case 'o':
-				if (umlCanvas.getUMLDiagram() == DiagramType.OBJECT) {
-					umlCanvas.addNewObject();
-				}
-				break;
-			case 'f':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.addNewLifeLine();
-				}
-				break;
 			case 'n':
 				umlCanvas.addNewNote();
-				break;
-			case 'a':
-				if (isCtrlDown) {
-					umlCanvas.selectAll();
-				} else {
-					if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
-						umlCanvas.toLinkMode(LinkKind.AGGREGATION_RELATION);
-					}
-				}
-				break;
-			case 'l':
-				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
-					umlCanvas.toLinkMode(LinkKind.ASSOCIATION_RELATION);
-				}
-				break;
-			case 'k':
-				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
-					umlCanvas.toLinkMode(LinkKind.COMPOSITION_RELATION);
-				}
-				break;
-			case 'd':
-				if (umlCanvas.getUMLDiagram().isClassOrObjectType()) {
-					umlCanvas.toLinkMode(LinkKind.DEPENDENCY_RELATION);
-				}
-				break;
-			case 'g':
-				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
-					umlCanvas.toLinkMode(LinkKind.GENERALIZATION_RELATION);
-				}
-				break;
-			case 'r':
-				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
-					umlCanvas.toLinkMode(LinkKind.REALIZATION_RELATION);
-				}
 				break;
 			case 't':
 				umlCanvas.toLinkMode(LinkKind.NOTE);
 				break;
-			case 's':
-				if (umlCanvas.getUMLDiagram() == DiagramType.CLASS) {
-					umlCanvas.toLinkMode(LinkKind.CLASSRELATION);
-				}
-				break;
-			case 'i':
-				if (umlCanvas.getUMLDiagram().isHybridType()) {
-					umlCanvas.toLinkMode(LinkKind.INSTANTIATION);
-				}
-				break;
-			case 'm':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
-				}
-				break;
-			case 'p':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
-				}
-				break;
-			case 'b':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
-				}
-				break;
-			case 'j':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.toLinkMode(LinkKind.LOST_MESSAGE);
-				}
-				break;
-
-			case 'y':
-				if (umlCanvas.getUMLDiagram() == DiagramType.SEQUENCE) {
-					umlCanvas.toLinkMode(LinkKind.FOUND_MESSAGE);
-				}
-				break;
-
 			case KeyCodes.KEY_DELETE:
 				umlCanvas.removeSelected();
 				break;
 			case 'h':
 				HelpManager.bringHelpPopup();
 		}
+	}
 
+	private void ctrlDownPush(final char keyCode) {
+		switch (keyCode) {
+			case 'x':
+				umlCanvas.cut();
+				break;
+			case 'v':
+				umlCanvas.paste();
+				break;
+			case 'c':
+				umlCanvas.copy();
+				break;
+			case 'a':
+				umlCanvas.selectAll();
+				break;
+		}
+	}
+
+	private void classDiagramPush(final char keyCode, final boolean isCtrlDown) {
+		switch (keyCode) {
+			case 'a':
+				if (!isCtrlDown) {
+					umlCanvas.toLinkMode(LinkKind.AGGREGATION_RELATION);
+				}
+				break;
+
+			case 'l':
+				umlCanvas.toLinkMode(LinkKind.ASSOCIATION_RELATION);
+				break;
+
+			case 'k':
+				umlCanvas.toLinkMode(LinkKind.COMPOSITION_RELATION);
+				break;
+
+			case 'g':
+				umlCanvas.toLinkMode(LinkKind.GENERALIZATION_RELATION);
+				break;
+
+			case 'r':
+				umlCanvas.toLinkMode(LinkKind.REALIZATION_RELATION);
+				break;
+
+			case 's':
+				umlCanvas.toLinkMode(LinkKind.CLASSRELATION);
+				break;
+		}
+	}
+
+	private void objectDiagramPush(final char keyCode, final boolean isCtrlDown) {
+		switch (keyCode) {
+			case 'c':
+				if (! isCtrlDown) {
+					umlCanvas.addNewClass();
+				}
+				break;
+
+			case 'o':
+				umlCanvas.addNewObject();
+				break;
+
+			case 'd':
+				umlCanvas.toLinkMode(LinkKind.DEPENDENCY_RELATION);
+				break;
+
+			case 'i':
+				umlCanvas.toLinkMode(LinkKind.INSTANTIATION);
+				break;
+		}
+	}
+
+	private void sequenceDiagramPush(final char keyCode) {
+		switch (keyCode) {
+			case 'm':
+				umlCanvas.toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
+				break;
+			case 'p':
+				umlCanvas.toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
+				break;
+			case 'b':
+				umlCanvas.toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
+				break;
+			case 'j':
+				umlCanvas.toLinkMode(LinkKind.LOST_MESSAGE);
+				break;
+
+			case 'y':
+				umlCanvas.toLinkMode(LinkKind.FOUND_MESSAGE);
+				break;
+			case 'f':
+				umlCanvas.addNewLifeLine();
+				break;
+		}
+	}
+
+	private void moveDiagramPush(final char keyCode, final boolean isCtrlDown, final boolean isAltDown, final boolean isShiftDown, final boolean isMetaDown) {
 		final int speed = Direction.getDependingOnModifierSpeed(isCtrlDown, isAltDown, isMetaDown, isShiftDown);
 		switch (keyCode) {
 			case KeyCodes.KEY_UP:
