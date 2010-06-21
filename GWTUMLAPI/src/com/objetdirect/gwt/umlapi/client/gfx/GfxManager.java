@@ -60,9 +60,6 @@ public class GfxManager {
 			case 1:
 				GfxManager.setPlatform(new IncubatorGfxPlatform());
 				break;
-			case 2:
-				GfxManager.setPlatform(new GWTCanvasGfxPlatform());
-				break;
 			default:
 				GfxManager.setPlatform(new TatamiGfxPlatform());
 		}
