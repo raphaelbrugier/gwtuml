@@ -19,14 +19,12 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.objetdirect.gwt.umlapi.client.Drawer;
+import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
+import com.objetdirect.gwt.umlapi.client.controls.Keyboard;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.helpers.CanvasListener;
-import com.objetdirect.gwt.umlapi.client.helpers.Keyboard;
-import com.objetdirect.gwt.umlapi.client.helpers.Mouse;
-import com.objetdirect.gwt.umlapi.client.helpers.Session;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
@@ -35,29 +33,14 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
  */
 public class AnimatedDemo {
 
-	private static class Cursor {
-
-		private static GfxObject	cursor		= GfxManager.getPlatform().buildImage("cursor.png");
-		private static Point		location	= Point.getOrigin();
-
-		public static void add() {
-			GfxManager.getPlatform().addToCanvas(Session.getActiveCanvas().getDrawingCanvas(), Cursor.cursor, new Point(0, 0));
-		}
-
-		public static void move(final Point newLocation) {
-			GfxManager.getPlatform().translate(Cursor.cursor, Point.substract(newLocation, Cursor.location));
-			Cursor.location = newLocation.clonePoint();
-		}
-
-		public static void rem() {
-			GfxManager.getPlatform().removeFromCanvas(Session.getActiveCanvas().getDrawingCanvas(), Cursor.cursor);
-		}
-	}
-
-	private static final int	DELAY	= 100;
+	private static final int DELAY	= 100;
 	
 	private final UMLCanvas umlCanvas;
 	private final CanvasListener mouseCanvasListener;
+	
+	private GfxObject cursor = GfxManager.getPlatform().buildImage("cursor.png");
+	private Point location = Point.getOrigin();
+
 
 	/**
 	 * Constructor of the animated demo, used to test the
@@ -77,8 +60,8 @@ public class AnimatedDemo {
 			@Override
 			public void execute() {
 				drawer.setHotKeysEnabled(false);
-				Session.getActiveCanvas().setMouseEnabled(false);
-				Cursor.add();
+				umlCanvas.setMouseEnabled(false);
+				add();
 
 				final Point classOrigin = new Point(50, 50);
 				final Point classTarget = new Point(350, 150);
@@ -87,7 +70,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.move(classOrigin, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(classOrigin);
+						move(classOrigin);
 					}
 				};
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
@@ -104,7 +87,7 @@ public class AnimatedDemo {
 					public void process() {
 						mouseCanvasListener.press(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false);
 						mouseCanvasListener.release(null, Point.getOrigin(), NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(Point.getOrigin());
+						move(Point.getOrigin());
 					}
 				};
 
@@ -116,7 +99,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.move(objectOrigin, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(objectOrigin);
+						move(objectOrigin);
 					}
 				};
 
@@ -134,10 +117,10 @@ public class AnimatedDemo {
 					public void process() {
 						mouseCanvasListener.press(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
 						mouseCanvasListener.release(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(object);
+						move(object);
 						mouseCanvasListener.press(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
 						mouseCanvasListener.release(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(classTarget);
+						move(classTarget);
 					}
 				};
 
@@ -155,7 +138,7 @@ public class AnimatedDemo {
 					public void process() {
 						mouseCanvasListener.press(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
 						mouseCanvasListener.release(umlCanvas.getArtifactAt(object), object, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(object);
+						move(object);
 					}
 				};
 
@@ -165,7 +148,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.press(null, selectBoxOrigin, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(selectBoxOrigin);
+						move(selectBoxOrigin);
 					}
 				};
 
@@ -175,7 +158,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.release(null, selectBoxTarget, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(selectBoxTarget);
+						move(selectBoxTarget);
 					}
 				};
 
@@ -185,7 +168,7 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.press(umlCanvas.getArtifactAt(classTarget), classTarget, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(classTarget);
+						move(classTarget);
 					}
 				};
 				AnimatedDemo.this.move(classTarget, allTarget);
@@ -194,20 +177,33 @@ public class AnimatedDemo {
 					@Override
 					public void process() {
 						mouseCanvasListener.release(umlCanvas.getArtifactAt(allTarget), allTarget, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(allTarget);
+						move(allTarget);
 					}
 				};
 				new Scheduler.Task("AnimatedDemo", AnimatedDemo.DELAY) {
 					@Override
 					public void process() {
-						Cursor.rem();
-						Session.getActiveCanvas().setMouseEnabled(true);
+						remove();
+						umlCanvas.setMouseEnabled(true);
 						drawer.setHotKeysEnabled(true);
 					}
 				};
 			}
 		});
 
+	}
+	
+	public void add() {
+		GfxManager.getPlatform().addToCanvas(umlCanvas.getDrawingCanvas(), cursor, new Point(0, 0));
+	}
+
+	public void move(final Point newLocation) {
+		GfxManager.getPlatform().translate(cursor, Point.substract(newLocation, location));
+		location = newLocation.clonePoint();
+	}
+
+	public void remove() {
+		GfxManager.getPlatform().removeFromCanvas(umlCanvas.getDrawingCanvas(), cursor);
 	}
 
 	private void move(final Point origin, final Point target) {
@@ -222,8 +218,7 @@ public class AnimatedDemo {
 					public void process() {
 						final Point to = new Point(xx, origin.getY());
 						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(to);
-
+						move(to);
 					}
 				};
 			}
@@ -235,7 +230,7 @@ public class AnimatedDemo {
 					public void process() {
 						final Point to = new Point(xx, origin.getY());
 						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(to);
+						move(to);
 					}
 				};
 			}
@@ -248,7 +243,7 @@ public class AnimatedDemo {
 					public void process() {
 						final Point to = new Point(target.getX(), yy);
 						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(to);
+						move(to);
 					}
 				};
 			}
@@ -260,7 +255,7 @@ public class AnimatedDemo {
 					public void process() {
 						final Point to = new Point(target.getX(), yy);
 						mouseCanvasListener.move(to, NativeEvent.BUTTON_LEFT, false, false);
-						Cursor.move(to);
+						move(to);
 					}
 				};
 			}
