@@ -14,7 +14,7 @@
  */
 package com.objetdirect.gwt.umldrawer.client;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.HYBRID;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.OBJECT;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -130,7 +130,7 @@ public class StartPanel extends VerticalPanel {
 		this.startDemoBtn.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				StartPanel.this.setOptions("Demo", HYBRID);
+				StartPanel.this.setOptions("Demo", OBJECT);
 			}
 		});
 //		this.add(this.startAnimateDemoBtn);
