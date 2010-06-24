@@ -162,13 +162,9 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	}
 
 	/**
-	 * Format a string from attribute name and type
-	 * 
-	 * @return the UML formatted string for attribute name and type
-	 * @see java.lang.Object#toString()
+	 * @return a formatted String to be serialized in a url.
 	 */
-	@Override
-	public String toString() {
+	public String toUrl() {
 		final StringBuilder f = new StringBuilder();
 		f.append(visibility);
 		f.append(name);
@@ -184,6 +180,19 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 			f.append(numberInstance);
 		}
 		return f.toString();
+	}
+
+	/**
+	 * Format a string from attribute name and type
+	 * 
+	 * @return the UML formatted string for attribute name and type
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO remove this warning when we are sure that this method is called safely
+		Log.debug("Called UMLObjectAttribute.toString method which has been replaced by toUrl");
+		return "UMLObjectAttribute => name = " + name + " type = " + type + " value = " + stringInstance + numberInstance;
 	}
 
 }

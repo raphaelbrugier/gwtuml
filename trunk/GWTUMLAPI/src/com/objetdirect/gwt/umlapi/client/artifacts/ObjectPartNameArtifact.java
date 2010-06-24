@@ -41,27 +41,12 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	private transient GfxObject stereotypeText;
 	private transient GfxObject underline;
 
-	private UMLObject uMLObject;
-	private String stereotype;
+	private UMLObject umlObject;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated
 	@SuppressWarnings("unused")
 	private ObjectPartNameArtifact() {
-	}
-
-	/**
-	 * Constructor of ObjectPartNameArtifact with only object name
-	 * 
-	 * @param canvas
-	 *            Where the gfxObject are displayed
-	 * @param objectInstance
-	 *            The name of the instance of the object
-	 * @param objectName
-	 *            The name of the object
-	 */
-	public ObjectPartNameArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName) {
-		this(canvas, objectInstance, objectName, "");
 	}
 
 	/**
@@ -76,10 +61,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 * @param stereotype
 	 *            The stereotype associated with the object
 	 */
-	public ObjectPartNameArtifact(final UMLCanvas canvas, final String objectInstance, final String objectName, final String stereotype) {
+	public ObjectPartNameArtifact(final UMLCanvas canvas, UMLObject umlObject) {
 		super(canvas);
-		uMLObject = new UMLObject(objectInstance, objectName);
-		this.stereotype = stereotype.equals("") ? "" : "«" + stereotype + "»";
+		this.umlObject = umlObject;
 		height = 0;
 		width = 0;
 	}
@@ -114,6 +98,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		textVirtualGroup.addToVirtualGroup(gfxObject);
+		String stereotype = umlObject.getStereotype();
 		if ((stereotype != null) && (stereotype != "")) {
 			stereotypeText = GfxManager.getPlatform().buildText(stereotype,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
@@ -126,18 +111,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
 			height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
 		}
-		nameText = GfxManager.getPlatform().buildText(uMLObject.toString(),
-				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height)/*
-																												 * ,
-																												 * "underline"
-																												 * doesn
-																												 * 't
-																												 * work
-																												 * yet
-																												 * in
-																												 * common
-																												 * browsers
-																												 */);
+
+		nameText = GfxManager.getPlatform().buildText(umlObject.getFormattedName(),
+				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
 		nameText.addToVirtualGroup(textVirtualGroup);
 		final int yUnderline = height + GfxManager.getPlatform().getTextHeightFor(nameText) + OptionsManager.get("TextTopPadding");
 		underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.get("TextLeftPadding"), yUnderline),
@@ -162,8 +138,8 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	@Override
 	public void edit() {
-		if ((stereotype == null) || stereotype.equals("")) {
-			stereotype = "«Abstract»";
+		if ((umlObject.getStereotype() == null) || umlObject.getStereotype().equals("")) {
+			umlObject.setStereotype("«Abstract»");
 			nodeArtifact.rebuildGfxObject();
 			this.edit(stereotypeText);
 		} else {
@@ -181,9 +157,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		final ObjectPartNameFieldEditor editor = new ObjectPartNameFieldEditor(canvas, this, isTheStereotype);
 		String edited;
 		if (isTheStereotype) {
-			edited = stereotype.replaceAll("»", "").replaceAll("«", "");
+			edited = umlObject.getStereotype().replaceAll("»", "").replaceAll("«", "");
 		} else {
-			edited = uMLObject.toString();
+			edited = umlObject.getFormattedName();
 		}
 		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
 				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY()/*
@@ -197,15 +173,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	@Override
 	public int getHeight() {
 		return height;
-	}
-
-	/**
-	 * Getter for the object name
-	 * 
-	 * @return The object name
-	 */
-	public String getObjectName() {
-		return uMLObject.toString();
 	}
 
 	@Override
@@ -244,15 +211,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		return rightMenu;
 	}
 
-	/**
-	 * Getter for the stereotype
-	 * 
-	 * @return the stereotype
-	 */
-	public String getStereotype() {
-		return stereotype.replaceAll("»", "").replaceAll("«", "");
-	}
-
 	@Override
 	public int getWidth() {
 		return width;
@@ -265,7 +223,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 *            The new instance name of the object
 	 */
 	public void setInstanceName(final String instanceName) {
-		uMLObject.setInstanceName(instanceName);
+		umlObject.setInstanceName(instanceName);
 	}
 
 	/**
@@ -275,7 +233,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 *            The new name of the object
 	 */
 	public void setObjectName(final String objectName) {
-		uMLObject.setObjectName(objectName);
+		umlObject.setObjectName(objectName);
 	}
 
 	/**
@@ -283,7 +241,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 *            the stereotype to set
 	 */
 	public void setStereotype(final String stereotype) {
-		this.stereotype = stereotype;
+		umlObject.setStereotype(stereotype);
 	}
 
 	/*
@@ -293,7 +251,9 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 */
 	@Override
 	public String toURL() {
-		return this.getObjectName() + "!" + this.getStereotype();
+		String stereotype = umlObject.getStereotype().replaceAll("»", "").replaceAll("«", "");
+		String formattedName = umlObject.getFormattedName();
+		return formattedName + "!" + stereotype;
 	}
 
 	@Override
@@ -324,7 +284,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	private Command deleteStereotype() {
 		return new Command() {
 			public void execute() {
-				stereotype = null;
+				umlObject.setStereotype("");
 				ObjectPartNameArtifact.this.nodeArtifact.rebuildGfxObject();
 			}
 		};
