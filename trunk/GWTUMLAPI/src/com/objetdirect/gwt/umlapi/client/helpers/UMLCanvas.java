@@ -160,9 +160,10 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The uml canvas height
 	 */
 	public UMLCanvas(DiagramType diagramType, final int width, final int height) {
-		super();
 		initFieldsWithDefaultValue();
 
+		Log.debug("UMLcanvas() of type " + diagramType);
+		
 		Log.trace("Making " + width + " x " + height + " Canvas");
 		drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
@@ -323,7 +324,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * 
 	 * @return the uMLDiagram
 	 */
-	public DiagramType getUMLDiagram() {
+	public DiagramType getDiagramType() {
 		return diagramType;
 	}
 
@@ -472,7 +473,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 * Add a new class with default values to this canvas to an the current mouse position
 	 */
 	public void addNewClass() {
-		Log.debug("Add new class");
 		this.addNewClass(wrapper.getCurrentMousePosition());
 	}
 

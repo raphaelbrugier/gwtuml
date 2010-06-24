@@ -23,7 +23,6 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.G
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.NOTE;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.REALIZATION_RELATION;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.UmlCanvas;
@@ -45,7 +44,6 @@ public class ClassContextMenu extends ContextMenu {
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
-		Log.debug("ClassContextMenu::makeSpecificDiagramMenu()");
 		contextMenu.addItem("Add new class", new Command() {
 			public void execute() {
 				canvas.addNewClass();
@@ -66,7 +64,6 @@ public class ClassContextMenu extends ContextMenu {
 		addRelationCommand(relationsSubMenu, "Composition", COMPOSITION_RELATION);
 		addRelationCommand(relationsSubMenu, "Dependency", DEPENDENCY_RELATION);
 		addRelationCommand(relationsSubMenu, "Generalization", GENERALIZATION_RELATION);
-		addRelationCommand(relationsSubMenu, "Realization", REALIZATION_RELATION);
 		addRelationCommand(relationsSubMenu, "Note link", NOTE);
 
 		contextMenu.addItem("Add relation", relationsSubMenu);
