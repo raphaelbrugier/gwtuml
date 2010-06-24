@@ -190,9 +190,7 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	 */
 	@Override
 	public String toString() {
-		// TODO remove this warning when we are sure that this method is called safely
-		Log.debug("Called UMLObjectAttribute.toString method which has been replaced by toUrl");
-		return "UMLObjectAttribute => name = " + name + " type = " + type + " value = " + stringInstance + numberInstance;
+		return toUrl();
 	}
 
 }

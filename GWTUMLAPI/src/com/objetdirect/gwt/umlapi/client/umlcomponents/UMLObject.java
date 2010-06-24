@@ -101,7 +101,7 @@ public class UMLObject extends UMLNode {
 	private String objectName;
 	private String instanceName;
 	private String stereotype;
-	private ArrayList<UMLObjectAttribute> attributes;
+	private List<UMLObjectAttribute> attributes;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLObject() {
@@ -120,6 +120,7 @@ public class UMLObject extends UMLNode {
 		this.instanceName = instanceName;
 		this.objectName = objectName;
 		this.stereotype = stereotype;
+		attributes = new ArrayList<UMLObjectAttribute>();
 	}
 
 	/**
@@ -136,7 +137,7 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the attributes
 	 */
-	public final ArrayList<UMLObjectAttribute> getObjectAttributes() {
+	public final List<UMLObjectAttribute> getObjectAttributes() {
 		return attributes;
 	}
 
@@ -166,16 +167,6 @@ public class UMLObject extends UMLNode {
 	 */
 	public final void setInstanceName(final String instanceName) {
 		this.instanceName = instanceName;
-	}
-
-	/**
-	 * Setter for the attributes
-	 * 
-	 * @param attributes
-	 *            the attributes to set
-	 */
-	public final void setObjectAttributes(final ArrayList<UMLObjectAttribute> attributes) {
-		this.attributes = attributes;
 	}
 
 	/**

@@ -134,7 +134,7 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 	/**
 	 * @return A list of the relations between the umlComponents currently displayed.
 	 */
-	public List<UMLRelation> getUmlRelations() {
+	public List<UMLRelation> getClassRelations() {
 		ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
 		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
 			if (umlArtifact instanceof ClassRelationLinkArtifact) {
