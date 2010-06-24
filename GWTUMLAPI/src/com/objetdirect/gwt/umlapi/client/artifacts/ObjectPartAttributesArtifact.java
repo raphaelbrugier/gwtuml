@@ -14,7 +14,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,9 +57,9 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	/**
 	 * Constructor of ObjectPartAttributesArtifact It initializes the attribute list
 	 */
-	public ObjectPartAttributesArtifact(final UMLCanvas canvas) {
+	public ObjectPartAttributesArtifact(final UMLCanvas canvas, List<UMLObjectAttribute> attributes) {
 		super(canvas);
-		attributes = new ArrayList<UMLObjectAttribute>();
+		this.attributes = attributes;
 		attributeGfxObjects = new LinkedHashMap<GfxObject, UMLObjectAttribute>();
 		height = 0;
 		width = 0;
@@ -137,7 +136,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 		} else {
 			final ObjectPartAttributesFieldEditor editor = new ObjectPartAttributesFieldEditor(canvas, this, attributeToChange);
 			editor.startEdition(attributeToChange.toString(), (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-					.get("RectangleLeftPadding")), (nodeArtifact.getLocation().getY() + ((ObjectArtifact) nodeArtifact).objectName.getHeight()
+					.get("RectangleLeftPadding")), (nodeArtifact.getLocation().getY() + ((ObjectArtifact) nodeArtifact).getObjectNameArtifact().getHeight()
 					+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")), nodeWidth - OptionsManager.get("TextRightPadding")
 					- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false,
 					true);
@@ -218,7 +217,7 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	public String toURL() {
 		final StringBuilder attributesURL = new StringBuilder();
 		for (final UMLObjectAttribute attribute : attributes) {
-			attributesURL.append(attribute);
+			attributesURL.append(attribute.toUrl());
 			attributesURL.append("%");
 		}
 		return attributesURL.toString();

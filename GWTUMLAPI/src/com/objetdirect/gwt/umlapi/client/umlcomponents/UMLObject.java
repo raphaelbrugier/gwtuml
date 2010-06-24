@@ -115,10 +115,11 @@ public class UMLObject extends UMLNode {
 	 * @param objectName
 	 *            The name of this object
 	 */
-	public UMLObject(final String objectInstance, final String objectName) {
+	public UMLObject(final String instanceName, final String objectName, String stereotype) {
 		super();
-		instanceName = objectInstance;
+		this.instanceName = instanceName;
 		this.objectName = objectName;
+		this.stereotype = stereotype;
 	}
 
 	/**
@@ -195,6 +196,14 @@ public class UMLObject extends UMLNode {
 	 */
 	public final void setStereotype(final String stereotype) {
 		this.stereotype = stereotype;
+	}
+
+	/**
+	 * @return A formatted string with the object name (if any) and the instance name.
+	 */
+	public String getFormattedName() {
+
+		return instanceName + ":" + objectName;
 	}
 
 	/*
