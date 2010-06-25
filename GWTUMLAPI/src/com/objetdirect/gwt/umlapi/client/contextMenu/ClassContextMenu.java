@@ -21,7 +21,6 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.C
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.DEPENDENCY_RELATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.GENERALIZATION_RELATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.NOTE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.REALIZATION_RELATION;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -31,6 +30,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 
 /**
  * Context menu implementation for a class diagram
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ClassContextMenu extends ContextMenu {
@@ -39,7 +39,9 @@ public class ClassContextMenu extends ContextMenu {
 		super(location, umlcanvas, specificRightMenu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificDiagramMenu()
 	 */
 	@Override
@@ -51,7 +53,9 @@ public class ClassContextMenu extends ContextMenu {
 		});
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificRelationDiagramMenu()
 	 */
 	@Override

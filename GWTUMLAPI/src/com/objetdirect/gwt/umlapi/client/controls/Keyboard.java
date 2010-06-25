@@ -126,10 +126,6 @@ public class Keyboard {
 				umlCanvas.toLinkMode(LinkKind.GENERALIZATION_RELATION);
 				break;
 
-			case 'r':
-				umlCanvas.toLinkMode(LinkKind.REALIZATION_RELATION);
-				break;
-
 			case 's':
 				umlCanvas.toLinkMode(LinkKind.CLASSRELATION);
 				break;
@@ -139,7 +135,7 @@ public class Keyboard {
 	private void objectDiagramPush(final char keyCode, final boolean isCtrlDown) {
 		switch (keyCode) {
 			case 'c':
-				if (! isCtrlDown) {
+				if (!isCtrlDown) {
 					umlCanvas.addNewClass();
 				}
 				break;

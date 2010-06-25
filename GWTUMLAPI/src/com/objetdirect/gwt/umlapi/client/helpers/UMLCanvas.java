@@ -162,8 +162,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	public UMLCanvas(DiagramType diagramType, final int width, final int height) {
 		initFieldsWithDefaultValue();
 
-		Log.debug("UMLcanvas() of type " + diagramType);
-		
 		Log.trace("Making " + width + " x " + height + " Canvas");
 		drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
 		drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
@@ -653,8 +651,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		} else if ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
 			return new ClassRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
 
-		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (linkKind != LinkKind.REALIZATION_RELATION) && (uMLArtifact instanceof ObjectArtifact)
-				&& (uMLArtifactNew instanceof ObjectArtifact)) {
+		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ObjectArtifact)) {
 			return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
 		} else if ((linkKind == LinkKind.INSTANTIATION) && ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ObjectArtifact))) {
 			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
@@ -788,8 +785,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 
 	@SuppressWarnings("fallthrough")
-	public
-	void mouseMoved(final boolean isCtrlDown, final boolean isShiftDown) {
+	public void mouseMoved(final boolean isCtrlDown, final boolean isShiftDown) {
 		Log.trace("UMLCanvas::mouseMoved()");
 		final Point realPoint = wrapper.getCurrentMousePosition();
 		wrapper.moveHelpText(realPoint);

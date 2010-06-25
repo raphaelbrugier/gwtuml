@@ -187,7 +187,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLeftAdornment(final LinkAdornment leftAdornment) {
 		this.leftAdornment = leftAdornment;
-		// Log.debug("UMLRelation::setLeftAdornment \n" + this);
 	}
 
 	/**
@@ -198,7 +197,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLeftCardinality(final String leftCardinality) {
 		this.leftCardinality = leftCardinality;
-		// Log.debug("UMLRelation::setLeftCardinality() \n" + this);
 	}
 
 	/**
@@ -209,7 +207,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLeftConstraint(final String leftConstraint) {
 		this.leftConstraint = leftConstraint;
-		// Log.debug("UMLRelation::setLeftConstraint \n" + this);
 	}
 
 	/**
@@ -220,7 +217,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLeftRole(final String leftRole) {
 		this.leftRole = leftRole;
-		// Log.debug("UMLRelation::setLeftRole \n" + this);
 	}
 
 	/**
@@ -239,7 +235,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLinkStyle(final LinkStyle linkStyle) {
 		this.linkStyle = linkStyle;
-		// Log.debug("UMLRelation::setLinkStyle \n" + this);
 	}
 
 	/**
@@ -260,7 +255,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setRightAdornment(final LinkAdornment rightAdornment) {
 		this.rightAdornment = rightAdornment;
-		// Log.debug("UMLRelation::setRightAdornment \n" + this);
 	}
 
 	/**
@@ -271,7 +265,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setRightCardinality(final String rightCardinality) {
 		this.rightCardinality = rightCardinality;
-		// Log.debug("UMLRelation::setRightCardinality() \n" + this);
 	}
 
 	/**
@@ -282,7 +275,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setRightConstraint(final String rightConstraint) {
 		this.rightConstraint = rightConstraint;
-		// Log.debug("UMLRelation::setRightConstraint \n" + this);
 	}
 
 	/**
@@ -293,7 +285,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setRightRole(final String rightRole) {
 		this.rightRole = rightRole;
-		// Log.debug("UMLRelation::setRightRole \n" + this);
 	}
 
 	/**
@@ -317,7 +308,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setLeftTarget(UMLClass leftTarget) {
 		this.leftTarget = leftTarget;
-		// Log.debug("UMLRelation::setLeftTarget \n" + this);
 	}
 
 	/**
