@@ -31,6 +31,9 @@ public abstract class UMLLink implements Serializable {
 	 * 
 	 */
 	public enum LinkKind {
+		//
+		// CLASS TO CLASS RELATIONS
+		//
 		/**
 		 * Aggregation relation
 		 */
@@ -51,10 +54,18 @@ public abstract class UMLLink implements Serializable {
 		 * Generalization relation
 		 */
 		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+
+		//
+		// OBJECT TO CLASS
+		//
 		/**
-		 * Realization relation
+		 * Class Object instantiation
 		 */
-		REALIZATION_RELATION("Realization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.LONG_DASHED),
+		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED),
+
+		//
+		// LIFE LINE TO LIFE LINE
+		//
 		/**
 		 * Asynchronous message
 		 */
@@ -79,18 +90,22 @@ public abstract class UMLLink implements Serializable {
 		 * Found message
 		 */
 		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID),
+
+		//
+		// NOTE TO ANY UMLCOMPONENT
+		//
 		/**
 		 * Note relation
 		 */
 		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+
+		//
+		// CLASS TO ANY CLASS-TO-CLASS RELATION
+		// 
 		/**
 		 * Class relation
 		 */
-		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
-		/**
-		 * Class Object instantiation
-		 */
-		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED);
+		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
 
 		/**
 		 * Static getter of a {@link LinkKind} by its name

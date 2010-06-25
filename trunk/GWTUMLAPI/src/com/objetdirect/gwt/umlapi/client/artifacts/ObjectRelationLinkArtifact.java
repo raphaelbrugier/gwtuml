@@ -88,7 +88,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		if ((relationKind == LinkKind.NOTE) || (relationKind == LinkKind.CLASSRELATION)) {
 			Log.error("Making a relation artifact for : " + relationKind.getName());
 		}
-		if ((relationKind == LinkKind.GENERALIZATION_RELATION) || (relationKind == LinkKind.REALIZATION_RELATION)) {
+		if ((relationKind == LinkKind.GENERALIZATION_RELATION)) {
 			Log.error("Making an object relation artifact for : " + relationKind.getName());
 		}
 
