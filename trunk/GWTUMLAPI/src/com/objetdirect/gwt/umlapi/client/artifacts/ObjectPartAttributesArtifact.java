@@ -33,7 +33,6 @@ import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
 
 /**
  * This object represent the middle Part of a {@link NodeArtifact} It can hold an attribute list
@@ -121,7 +120,9 @@ public class ObjectPartAttributesArtifact extends NodePartArtifact {
 
 	@Override
 	public void edit() {
-		final UMLObjectAttribute attributeToCreate = new UMLObjectAttribute(UMLVisibility.PROTECTED, "String", "attribute", "\"null\"");
+		// final UMLObjectAttribute attributeToCreate = new UMLObjectAttribute("attribute", "\"aStringValue\"");
+		String chainToParse = "attribute = \"value\"";
+		final UMLObjectAttribute attributeToCreate = UMLObjectAttribute.parseAttribute(chainToParse);
 		attributes.add(attributeToCreate);
 		nodeArtifact.rebuildGfxObject();
 		attributeGfxObjects.put(lastGfxObject, attributeToCreate);

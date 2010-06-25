@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
+import java.io.Serializable;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer;
 import com.objetdirect.gwt.umlapi.client.analyser.LexicalAnalyzer.LexicalFlag;
@@ -22,11 +24,14 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 /**
  * This class represent an attribute in a class
  * 
+ * use the method parseAttribute(String chain) to parse a valid chain and construct a new UMLObjectAttribute A valid
+ * chain is attributeName = "value"
+ * 
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLObjectAttribute extends UMLClassAttribute {
+public class UMLObjectAttribute implements Serializable {
 
 	/**
 	 * Parse an attribute from a {@link String}
@@ -40,90 +45,58 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	public static UMLObjectAttribute parseAttribute(final String attributeToParse) {
 
 		final LexicalAnalyzer lex = new LexicalAnalyzer(attributeToParse);
-		String type = "";
-		String name = "";
-		String instance = "";
-		UMLVisibility visibility = UMLVisibility.PACKAGE;
+		String name = "attributeName";
+		String value = "value";
 		try {
 
 			LexicalAnalyzer.Token tk = lex.getToken();
-			if ((tk != null) && (tk.getType() != LexicalFlag.VISIBILITY)) {
-				visibility = UMLVisibility.PACKAGE;
-			} else if (tk != null) {
-				visibility = UMLVisibility.getVisibilityFromToken(tk.getContent().charAt(0));
-				tk = lex.getToken();
-			}
+
 			if ((tk == null) || (tk.getType() != LexicalFlag.IDENTIFIER)) {
-				throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
+				throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : attributeName = \"value\"");
 			}
 			name = tk.getContent();
 			tk = lex.getToken();
-			if (tk != null) {
-				if ((tk.getType() == LexicalFlag.SIGN) && tk.getContent().equals(":")) {
-
-					tk = lex.getToken();
-					if ((tk == null) || (tk.getType() != LexicalFlag.IDENTIFIER)) {
-						throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
-					}
-					type = tk.getContent();
-					tk = lex.getToken();
-				}
-			}
 
 			if (tk != null) {
 				if ((tk.getType() != LexicalFlag.SIGN) || !tk.getContent().equals("=")) {
-					throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
+					throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : attributeName = \"value\"");
 				}
 				tk = lex.getToken();
 				if ((tk == null) || ((tk.getType() != LexicalFlag.STRING) && (tk.getType() != LexicalFlag.INTEGER))) {
-					throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : type = instance'");
+					throw new GWTUMLAPIException("Invalid attribute format : " + attributeToParse + " doesn't match 'identifier : attributeName = \"value\"");
 				}
-				instance = tk.getContent();
+				value = tk.getContent().replaceAll("\"", ""); // get the content and remove the quotes
+
 			}
 		} catch (final GWTUMLAPIException e) {
 			Log.error(e.getMessage());
 		}
-		return new UMLObjectAttribute(visibility, type, name, instance);
+		return new UMLObjectAttribute(name, value);
 	}
 
-	private String stringInstance;
+	private String attributeName;
 
-	private Number numberInstance;
+	private String stringValue;
+
+	// We do not managed the number values anymore, all the values are handled as String for now.
+	// private Number numberValue;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLObjectAttribute() {
 	}
 
 	/**
-	 * Constructor of the attribute
+	 * Constructor of the attribute. The constructor is private, use the method parseAttribute(String chain) to parse a
+	 * valid chain and construct a new UMLObjectAttribute A valid chain is attributeName = "value"
 	 * 
-	 * @param visibility
-	 * @param type
-	 *            Type of the attribute
-	 * @param name
+	 * @param attributeName
 	 *            Name of the attribute
-	 * @param instance
-	 *            Instance {@link Number}r of the attribute
-	 */
-	public UMLObjectAttribute(final UMLVisibility visibility, final String type, final String name, final Number instance) {
-		super(visibility, type, name);
-		this.setInstance(instance);
-	}
-
-	/**
-	 * Constructor of the attribute
-	 * 
-	 * @param visibility
-	 * @param type
-	 *            Type of the attribute
-	 * @param name
-	 *            Name of the attribute
-	 * @param instance
+	 * @param stringValue
 	 *            Instance string of the attribute
 	 */
-	public UMLObjectAttribute(final UMLVisibility visibility, final String type, final String name, final String instance) {
-		super(visibility, type, name);
-		this.setInstance(instance);
+	private UMLObjectAttribute(final String attributeName, final String stringValue) {
+		this.attributeName = attributeName;
+		this.stringValue = stringValue;
 	}
 
 	/**
@@ -131,55 +104,38 @@ public class UMLObjectAttribute extends UMLClassAttribute {
 	 * 
 	 * @return The instance {@link String} or "" if no instance is defined
 	 */
-	public String getInstance() {
-		if (stringInstance != null) {
-			return stringInstance;
-		}
-		if (numberInstance != null) {
-			return numberInstance.toString();
-		}
-		return "";
+	public String getValue() {
+		return stringValue == null ? "" : stringValue;
 	}
 
 	/**
-	 * Set the instance with a {@link Number}
-	 * 
-	 * @param numberInstance
-	 *            The {@link Number} value of this attribute instance
+	 * @return the attributeName
 	 */
-	public void setInstance(final Number numberInstance) {
-		this.numberInstance = numberInstance;
+	public String getAttributeName() {
+		return attributeName;
 	}
 
 	/**
-	 * Set the instance with a {@link String}
-	 * 
-	 * @param stringInstance
-	 *            The {@link String} value of this attribute instance
+	 * @param attributeName
+	 *            the attributeName to set
 	 */
-	public void setInstance(final String stringInstance) {
-		this.stringInstance = stringInstance;
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
+	}
+
+	/**
+	 * @param stringValue
+	 *            the stringValue to set
+	 */
+	public void setValue(String stringValue) {
+		this.stringValue = stringValue;
 	}
 
 	/**
 	 * @return a formatted String to be serialized in a url.
 	 */
 	public String toUrl() {
-		final StringBuilder f = new StringBuilder();
-		f.append(visibility);
-		f.append(name);
-		if ((type != null) && !type.equals("")) {
-			f.append(" : ");
-			f.append(type);
-		}
-		if (stringInstance != null) {
-			f.append(" = ");
-			f.append(stringInstance);
-		} else if (numberInstance != null) {
-			f.append(" = ");
-			f.append(numberInstance);
-		}
-		return f.toString();
+		return attributeName + " = \"" + getValue() + "\"";
 	}
 
 	/**

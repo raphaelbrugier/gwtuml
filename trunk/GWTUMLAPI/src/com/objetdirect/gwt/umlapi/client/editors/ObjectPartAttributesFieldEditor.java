@@ -51,15 +51,13 @@ public class ObjectPartAttributesFieldEditor extends FieldEditor {
 		}
 
 		final UMLObjectAttribute newAttribute = UMLObjectAttribute.parseAttribute(newContent);
-		if ((newAttribute.getName() + newAttribute.getType()).equals("")) {
+		if (newAttribute.equals("")) {
 			((ObjectPartAttributesArtifact) artifact).remove(attributeToChange);
 			((ObjectPartAttributesArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 			return false;
 		}
-		attributeToChange.setVisibility(newAttribute.getVisibility());
-		attributeToChange.setName(newAttribute.getName());
-		attributeToChange.setType(newAttribute.getType());
-		attributeToChange.setInstance(newAttribute.getInstance());
+		attributeToChange.setAttributeName(newAttribute.getAttributeName());
+		attributeToChange.setValue(newAttribute.getValue());
 
 		((ObjectPartAttributesArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 
