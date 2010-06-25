@@ -14,13 +14,13 @@
  */
 package com.objetdirect.gwt.umlapi.client.contextMenu;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.AGGREGATION_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.ASSOCIATION_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.CLASSRELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.COMPOSITION_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.DEPENDENCY_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.GENERALIZATION_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.NOTE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.AGGREGATION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASSOCIATION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.COMPOSITION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.DEPENDENCY_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.GENERALIZATION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.NOTE;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;

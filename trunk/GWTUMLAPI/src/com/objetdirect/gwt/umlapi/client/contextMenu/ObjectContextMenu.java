@@ -14,9 +14,9 @@
  */
 package com.objetdirect.gwt.umlapi.client.contextMenu;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.ASSOCIATION_RELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.INSTANTIATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLink.LinkKind.NOTE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASSOCIATION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.NOTE;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;

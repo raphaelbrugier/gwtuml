@@ -12,11 +12,10 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.umlcomponents;
+package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
 import com.objetdirect.gwt.umlapi.client.exceptions.UMLException;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
 /**
  * This class represent an uml relation between two {@link UMLClass}es
