@@ -12,12 +12,11 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.umlcomponents;
+package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
 import java.io.Serializable;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
