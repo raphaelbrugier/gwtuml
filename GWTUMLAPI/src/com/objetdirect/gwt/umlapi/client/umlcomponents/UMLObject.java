@@ -193,8 +193,22 @@ public class UMLObject extends UMLNode {
 	 * @return A formatted string with the object name (if any) and the instance name.
 	 */
 	public String getFormattedName() {
-
 		return instanceName + ":" + objectName;
+	}
+	
+	public String getValueOfAttribute(String attributeName) {
+		for(UMLObjectAttribute attribute : attributes) {
+			System.out.println("attribute = " + attribute + "    attributeName = " + attributeName);
+			if (attribute.getAttributeName().equals(attributeName)) {
+				return attribute.getValue();
+			}
+		}
+		throw new RuntimeException("No attribute correspond to " + attributeName + " in the instantiated object.");
+	}
+	
+	public UMLObject addAttributeValuePair(String attributeName, String attributeValue) {
+		getObjectAttributes().add(UMLObjectAttribute.parseAttribute(attributeName + " = \"" + attributeValue + "\""));
+		return this;
 	}
 
 	/*
