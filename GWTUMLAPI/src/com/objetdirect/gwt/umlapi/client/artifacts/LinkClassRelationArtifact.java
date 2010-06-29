@@ -39,24 +39,22 @@ public class LinkClassRelationArtifact extends LinkArtifact {
 	private LinkClassRelationArtifact() {
 	}
 
-	/**
-	 * Constructor of LinkClassRelationArtifact
-	 * 
-	 * @param canvas
-	 *            Where the gfxObjects are displayed
-	 * @param id
-	 *            The artifacts's id
-	 * @param classArtifact
-	 *            The class for the relation class
-	 * @param relation
-	 *            The relation between the two other classes
-	 */
-	public LinkClassRelationArtifact(final UMLCanvas canvas, int id, final ClassArtifact classArtifact, final ClassRelationLinkArtifact relation) {
-		super(canvas, id, classArtifact, relation);
+	// Dirty constructor to clean up the umlcanvas.makelinkbetween function.
+	public LinkClassRelationArtifact(final UMLCanvas canvas, int id, final UMLArtifact artifact1, final UMLArtifact artifact2) {
+		super(canvas, id, artifact1, artifact2);
 		line = null;
-		this.classArtifact = classArtifact;
-		this.classArtifact.addDependency(this, relation);
-		relationLinkArtifact = relation;
+
+		if ((artifact1 instanceof ClassRelationLinkArtifact) && (artifact2 instanceof ClassArtifact)) {
+			relationLinkArtifact = (ClassRelationLinkArtifact) artifact1;
+			classArtifact = (ClassArtifact) artifact2;
+		} else if ((artifact2 instanceof ClassRelationLinkArtifact) && (artifact1 instanceof ClassArtifact)) {
+			relationLinkArtifact = (ClassRelationLinkArtifact) artifact2;
+			classArtifact = (ClassArtifact) artifact1;
+		} else {
+			throw new IllegalArgumentException();
+		}
+
+		classArtifact.addDependency(this, relationLinkArtifact);
 		relationLinkArtifact.addDependency(this, classArtifact);
 	}
 

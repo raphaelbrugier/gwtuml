@@ -132,7 +132,7 @@ public class UrlConverter {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new LinkNoteArtifact(umlCanvas, id, (NoteArtifact) getArtifactById(noteId), getArtifactById(targetId));
+							newArtifact = new LinkNoteArtifact(umlCanvas, id, getArtifactById(noteId), getArtifactById(targetId));
 
 						} else if (artifact.equals("LinkClassRelation")) {
 							Integer classId = 0;
@@ -143,8 +143,7 @@ public class UrlConverter {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new LinkClassRelationArtifact(umlCanvas, id, (ClassArtifact) getArtifactById(classId),
-									(ClassRelationLinkArtifact) getArtifactById(relationId));
+							newArtifact = new LinkClassRelationArtifact(umlCanvas, id, getArtifactById(classId), getArtifactById(relationId));
 
 						} else if (artifact.equals("ClassRelationLink")) {
 							Integer classLeftId = 0;
@@ -210,7 +209,7 @@ public class UrlConverter {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
 							newArtifact = new InstantiationRelationLinkArtifact(umlCanvas, id, (ClassArtifact) getArtifactById(classId),
-									(ObjectArtifact) getArtifactById(objectId), LinkKind.INSTANTIATION);
+									(ObjectArtifact) getArtifactById(objectId));
 						}
 						if (newArtifact != null) {
 							newArtifact.setId(id);

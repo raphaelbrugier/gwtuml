@@ -14,7 +14,9 @@
  */
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
-import java.util.ArrayList;
+import static com.objetdirect.gwt.umlapi.client.gfx.GfxStyle.LONGDASH;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
@@ -25,9 +27,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
@@ -42,12 +42,13 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
 
-	protected transient GfxObject arrowVirtualGroup;
-	protected transient GfxObject line;
-	protected transient GfxObject textVirtualGroup;
+	private transient GfxObject arrowVirtualGroup;
+	private transient GfxObject line;
+	private transient GfxObject textVirtualGroup;
 
-	protected ClassArtifact classArtifact;
-	protected ObjectArtifact objectArtifact;
+	private ClassArtifact classArtifact;
+	private ObjectArtifact objectArtifact;
+	private InstantiationRelation instantiationRelation;
 
 	/** Default constructor ONLY for GWT RPC serialization. */
 	@Deprecated
@@ -69,16 +70,14 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 * @param relationKind
 	 *            The kind of relation this link is.
 	 */
-	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassArtifact left, final ObjectArtifact right, final LinkKind relationKind) {
-		super(canvas, id, left, right, relationKind);
-		if (relationKind != LinkKind.INSTANTIATION) {
-			Log.error("Making a instantiation relation artifact for : " + relationKind.getName());
-		}
-		relation = new UMLRelation(relationKind);
+	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassArtifact left, final ObjectArtifact right) {
+		super(canvas, id, left, right, INSTANTIATION);
 		classArtifact = left;
 		left.addDependency(this, right);
 		objectArtifact = right;
 		right.addDependency(this, left);
+
+		instantiationRelation = new InstantiationRelation(objectArtifact.toUmlComponent(), classArtifact.toUMLComponent());
 	}
 
 	@Override
@@ -104,6 +103,15 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		return objectArtifact;
 	}
 
+	/**
+	 * Return the metamodel UmlComponent wrapped by the artifact.
+	 * 
+	 * @return the instantiationRelation
+	 */
+	public InstantiationRelation toUmlComponent() {
+		return instantiationRelation;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -112,8 +120,8 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		rightMenu.setName(relation.getLinkKind().getName() + " " + classArtifact.getName() + " " + relation.getLeftAdornment().getShape().getIdiom() + "-"
-				+ relation.getRightAdornment().getShape().getIdiom(true) + " " + objectArtifact.getName());
+		String name = objectArtifact.getName() + " instance of  " + classArtifact.getName();
+		rightMenu.setName(name);
 		return rightMenu;
 	}
 
@@ -154,26 +162,13 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	protected void buildGfxObject() {
 		Point curveControl = Point.getOrigin();
 
-		ArrayList<Point> linePoints = new ArrayList<Point>();
-		final boolean isComputationNeededOnLeft = relation.getLeftAdornment() != LinkAdornment.NONE;
-		final boolean isComputationNeededOnRight = relation.getRightAdornment() != LinkAdornment.NONE;
+		rightPoint = objectArtifact.getCenter();
+		leftPoint = GeometryManager.getPlatform().getPointForLine(classArtifact, rightPoint);
 
-		if (isComputationNeededOnLeft && isComputationNeededOnRight) {
-			linePoints = GeometryManager.getPlatform().getLineBetween(classArtifact, objectArtifact);
-			leftPoint = linePoints.get(0);
-			rightPoint = linePoints.get(1);
-		} else if (isComputationNeededOnLeft) {
-			rightPoint = objectArtifact.getCenter();
-			leftPoint = GeometryManager.getPlatform().getPointForLine(classArtifact, rightPoint);
-		} else if (isComputationNeededOnRight) {
-			leftPoint = classArtifact.getCenter();
-			rightPoint = GeometryManager.getPlatform().getPointForLine(classArtifact, leftPoint);
-		} else {
-			leftPoint = classArtifact.getCenter();
-			rightPoint = objectArtifact.getCenter();
-		}
+		Point tempRightPoint = null;
 		if (order == 0) {
 			line = GfxManager.getPlatform().buildLine(leftPoint, rightPoint);
+			tempRightPoint = rightPoint;
 		} else {
 			int factor = 50 * ((order + 1) / 2);
 			factor *= (order % 2) == 0 ? -1 : 1;
@@ -182,25 +177,18 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 			GfxManager.getPlatform().moveTo(line, leftPoint);
 			GfxManager.getPlatform().curveTo(line, rightPoint, curveControl);
 			line.setOpacity(0, true);
+			tempRightPoint = curveControl;
 		}
 
 		line.setStroke(ThemeManager.getTheme().getInstantiationForegroundColor(), 1);
-		line.setStrokeStyle(relation.getLinkStyle().getGfxStyle());
+		line.setStrokeStyle(LONGDASH);
 		line.addToVirtualGroup(gfxObject);
 
 		// Making arrows group :
 		arrowVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		arrowVirtualGroup.addToVirtualGroup(gfxObject);
-		if (isComputationNeededOnLeft) {
-			GfxObject leftAdornment = order == 0 ? GeometryManager.getPlatform().buildAdornment(leftPoint, rightPoint, relation.getLeftAdornment())
-					: GeometryManager.getPlatform().buildAdornment(leftPoint, curveControl, relation.getLeftAdornment());
-			leftAdornment.addToVirtualGroup(arrowVirtualGroup);
-		}
-		if (isComputationNeededOnRight) {
-			GfxObject rightAdornment = order == 0 ? GeometryManager.getPlatform().buildAdornment(rightPoint, leftPoint, relation.getRightAdornment())
-					: GeometryManager.getPlatform().buildAdornment(rightPoint, curveControl, relation.getRightAdornment());
-			rightAdornment.addToVirtualGroup(arrowVirtualGroup);
-		}
+		GfxObject leftAdornment = GeometryManager.getPlatform().buildAdornment(leftPoint, tempRightPoint, WIRE_ARROW);
+		leftAdornment.addToVirtualGroup(arrowVirtualGroup);
 
 		// Making the text group :
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();

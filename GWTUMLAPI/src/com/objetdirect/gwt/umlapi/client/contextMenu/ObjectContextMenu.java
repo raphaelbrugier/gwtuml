@@ -14,9 +14,9 @@
  */
 package com.objetdirect.gwt.umlapi.client.contextMenu;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASSOCIATION_RELATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.NOTE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -26,16 +26,18 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 
 /**
  * Context menu implementation for an object diagram
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class ObjectContextMenu extends ContextMenu {
-
 
 	protected ObjectContextMenu(final Point location, final UmlCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificDiagramMenu()
 	 */
 	@Override
@@ -45,16 +47,24 @@ public class ObjectContextMenu extends ContextMenu {
 				canvas.addNewObject();
 			}
 		});
+		
+		contextMenu.addItem("Add new Class", new Command() {
+			public void execute() {
+				canvas.addNewClass();
+			}
+		});
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificRelationDiagramMenu()
 	 */
 	@Override
 	protected void makeSpecificRelationDiagramMenu() {
 		final MenuBar relationsSubMenu = new MenuBar(true);
 
-		addRelationCommand(relationsSubMenu, "Assocation", ASSOCIATION_RELATION);
+		addRelationCommand(relationsSubMenu, "Association", OBJECT_RELATION);
 		addRelationCommand(relationsSubMenu, "Instantiation", INSTANTIATION);
 		addRelationCommand(relationsSubMenu, "Note link", NOTE);
 

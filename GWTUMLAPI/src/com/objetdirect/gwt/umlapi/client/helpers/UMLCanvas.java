@@ -17,6 +17,10 @@ package com.objetdirect.gwt.umlapi.client.helpers;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.NOTE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -631,35 +635,47 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, int id) {
 		LinkKind linkKind = activeLinking;
-		if (linkKind == LinkKind.NOTE) {
-			if (uMLArtifactNew instanceof NoteArtifact) {
-				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifactNew, uMLArtifact);
+		try {
+			// All diagrams
+			if (linkKind == NOTE) {
+				return new LinkNoteArtifact(this, id, uMLArtifact, uMLArtifactNew);
 			}
-			if (uMLArtifact instanceof NoteArtifact) {
-				return new LinkNoteArtifact(this, id, (NoteArtifact) uMLArtifact, uMLArtifactNew);
-			}
-			return null;
-		} else if (linkKind == LinkKind.CLASSRELATION) {
-			if ((uMLArtifactNew instanceof ClassRelationLinkArtifact) && (uMLArtifact instanceof ClassArtifact)) {
-				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifact, (ClassRelationLinkArtifact) uMLArtifactNew);
-			}
-			if ((uMLArtifact instanceof ClassRelationLinkArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
-				return new LinkClassRelationArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassRelationLinkArtifact) uMLArtifact);
-			}
-			return null;
 
-		} else if ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ClassArtifact)) {
-			return new ClassRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
+			// Class diagram
+			else if (linkKind == CLASSRELATION) { // CLASS TO ANY CLASS-TO-CLASS RELATION
+				return new LinkClassRelationArtifact(this, id, uMLArtifactNew, uMLArtifact);
+			} else if (linkKind.isClassToClassRelation()) { // Class to class relation
+				return new ClassRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
+			}
 
-		} else if ((linkKind != LinkKind.GENERALIZATION_RELATION) && (uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ObjectArtifact)) {
-			return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION) && ((uMLArtifact instanceof ClassArtifact) && (uMLArtifactNew instanceof ObjectArtifact))) {
-			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew, linkKind);
-		} else if ((linkKind == LinkKind.INSTANTIATION) && ((uMLArtifact instanceof ObjectArtifact) && (uMLArtifactNew instanceof ClassArtifact))) {
-			return new InstantiationRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
-		} else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
-			return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+			// Object diagram
+			else if (linkKind == OBJECT_RELATION) {
+				return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+			} else if ((linkKind == INSTANTIATION)) {
+				ClassArtifact classArtifact = null;
+				ObjectArtifact objectArtifact = null;
+
+				// Dirty dirty dirty :(
+				if (uMLArtifactNew instanceof ClassArtifact && uMLArtifact instanceof ObjectArtifact) {
+					classArtifact = (ClassArtifact) uMLArtifactNew;
+					objectArtifact = (ObjectArtifact) uMLArtifact;
+				} else if (uMLArtifact instanceof ClassArtifact && uMLArtifactNew instanceof ObjectArtifact) {
+					classArtifact = (ClassArtifact) uMLArtifact;
+					objectArtifact = (ObjectArtifact) uMLArtifactNew;
+				} else {
+					return null;
+				}
+				return new InstantiationRelationLinkArtifact(this, id, classArtifact, objectArtifact);
+			}
+
+			// Sequence diagram
+			else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
+				return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
+			}
+		} catch (IllegalArgumentException e) {
+			return null;
 		}
+
 		return null;
 	}
 

@@ -50,13 +50,22 @@ public class LinkNoteArtifact extends LinkArtifact {
 	 * @param target
 	 *            The uml artifact the note is pointing to
 	 */
-	public LinkNoteArtifact(final UMLCanvas canvas, int id, final NoteArtifact note, final UMLArtifact target) {
-		super(canvas, id, note, target);
+	// Dirty constructor to clean up the umlcanvas.makelinkbetween function.
+	public LinkNoteArtifact(final UMLCanvas canvas, int id, final UMLArtifact artifact1, final UMLArtifact artifact2) {
+		super(canvas, id, artifact1, artifact2);
+
+		if (artifact1 instanceof NoteArtifact) {
+			note = (NoteArtifact) artifact1;
+			target = artifact2;
+		} else if (artifact2 instanceof NoteArtifact) {
+			note = (NoteArtifact) artifact2;
+			target = artifact1;
+		} else {
+			throw new IllegalArgumentException();
+		}
 		line = null;
-		this.note = note;
-		this.note.addDependency(this, target);
-		this.target = target;
-		this.target.addDependency(this, note);
+		note.addDependency(this, target);
+		target.addDependency(this, note);
 	}
 
 	@Override
