@@ -50,6 +50,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	protected ClassArtifact leftClassArtifact;
 	protected ClassArtifact rightClassArtifact;
+
 	private int current_delta;
 
 	/** Default constructor ONLY for gwt rpc serializaton. */
