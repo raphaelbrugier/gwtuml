@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.SOLID;
+
 import java.io.Serializable;
 
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
@@ -55,12 +57,25 @@ public abstract class UMLLink implements Serializable {
 		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
 
 		//
+		// CLASS TO ANY CLASS-TO-CLASS RELATION
+		// 
+		/**
+		 * Class relation
+		 */
+		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+
+		//
 		// OBJECT TO CLASS
 		//
 		/**
 		 * Class Object instantiation
 		 */
 		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED),
+
+		/**
+		 * Relation between to object
+		 */
+		OBJECT_RELATION("Relation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", SOLID),
 
 		//
 		// LIFE LINE TO LIFE LINE
@@ -96,15 +111,7 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Note relation
 		 */
-		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
-
-		//
-		// CLASS TO ANY CLASS-TO-CLASS RELATION
-		// 
-		/**
-		 * Class relation
-		 */
-		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
+		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
 
 		/**
 		 * Static getter of a {@link LinkKind} by its name
@@ -198,6 +205,19 @@ public abstract class UMLLink implements Serializable {
 		 */
 		public String getName() {
 			return name;
+		}
+
+		public boolean isClassToClassRelation() {
+			if (
+				this.equals(ASSOCIATION_RELATION) ||
+				this.equals(AGGREGATION_RELATION) ||
+				this.equals(COMPOSITION_RELATION) ||
+				this.equals(DEPENDENCY_RELATION) ||
+				this.equals(GENERALIZATION_RELATION)) {
+				
+				return true;
+			}
+			return false;
 		}
 	}
 

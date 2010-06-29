@@ -138,6 +138,15 @@ public class ObjectArtifact extends NodeArtifact {
 		return umlObject.getObjectName();
 	}
 
+	/**
+	 * Get the metamodel uml component wrapped by the artifact.
+	 * 
+	 * @return the umlObject
+	 */
+	public UMLObject toUmlComponent() {
+		return umlObject;
+	}
+
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
