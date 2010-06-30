@@ -228,7 +228,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			return;
 		}
 
-		this.incrementIdCounter();
+		idCount++;
 		umlArtifacts.add(artifact);
 		getArtifactById().put(artifact.getId(), artifact);
 
@@ -322,15 +322,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	}
 
 	/**
-	 * Getter for the uMLDiagram
-	 * 
-	 * @return the uMLDiagram
-	 */
-	public DiagramType getDiagramType() {
-		return diagramType;
-	}
-
-	/**
 	 * @return the canvasMouseListener
 	 */
 	public CanvasListener getCanvasMouseListener() {
@@ -351,17 +342,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 */
 	public void setDecoratorPanel(DecoratorCanvas container) {
 		wrapper = container;
-	}
-
-	/**
-	 * @return the idCount
-	 */
-	public int getIdCount() {
-		return idCount;
-	}
-
-	public void incrementIdCounter() {
-		idCount++;
 	}
 
 	/**
@@ -503,7 +483,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ClassArtifact newClass = new ClassArtifact(this, getIdCount(), "Class" + ++classCount);
+		final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class" + ++classCount);
 
 		this.add(newClass);
 		newClass.moveTo(Point.substract(location, canvasOffset));
@@ -532,7 +512,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, getIdCount(), "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
+		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, idCount, "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
 
 		wrapper.setHelpText("Adding a new life line", new Point(0, 0));
 		this.add(newLifeLine);
@@ -554,7 +534,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, getIdCount());
+			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, idCount);
 
 			if (newLink != null) {
 				linkOkCount++;
@@ -577,7 +557,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			return;
 		}
 
-		final NoteArtifact newNote = new NoteArtifact(this, getIdCount(), "Note " + ++noteCount);
+		final NoteArtifact newNote = new NoteArtifact(this, idCount, "Note " + ++noteCount);
 		this.add(newNote);
 		newNote.moveTo(Point.substract(location, canvasOffset));
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
@@ -604,7 +584,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
-		final ObjectArtifact newObject = new ObjectArtifact(this, getIdCount(), "obj" + ++objectCount, "Object" + objectCount);
+		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "obj" + ++objectCount, "Object" + objectCount);
 
 		this.add(newObject);
 		newObject.moveTo(Point.substract(location, canvasOffset));

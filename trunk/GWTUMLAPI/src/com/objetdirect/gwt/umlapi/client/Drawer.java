@@ -36,6 +36,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.resources.Resources;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 
@@ -57,14 +58,14 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 
 	private final CursorIconManager cursorManager;
 
-	public Drawer(UMLCanvas umlCanvas) {
+	public Drawer(UMLCanvas umlCanvas, DiagramType diagramType) {
 		setupGfxPlatform();
 		addHandlers();
 		injectAllStyles();
 		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
 		hotKeysEnabled = true;
-		keyboard = new Keyboard(umlCanvas);
+		keyboard = new Keyboard(umlCanvas, diagramType);
 		cursorManager = new CursorIconManager();
 
 		setWidget(decoratorPanel);

@@ -370,20 +370,6 @@ public abstract class UMLArtifact implements Serializable {
 	}
 
 	/**
-	 * Setter of UMLArtifact id <br>
-	 * This method must only be use for recovering an old diagram
-	 * 
-	 * @param id
-	 *            The old id of the artifact we are recovering
-	 */
-	public void setId(final int id) {
-		canvas.getArtifactById().remove(this.id);
-		this.id = id;
-		canvas.setIdCount(Math.max(this.id + 1, canvas.getIdCount()));
-		canvas.getArtifactById().put(this.id, this);
-	}
-
-	/**
 	 * This method sets the current artifact location, it should not be called after the artifact is added on canvas
 	 * except for very specifically uses: <br />
 	 * It doesn't translate the graphical object unlike {@link UMLArtifact#moveTo}.
