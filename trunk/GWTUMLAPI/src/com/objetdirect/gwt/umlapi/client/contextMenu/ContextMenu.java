@@ -21,6 +21,8 @@ import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.helpers.HelpManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
@@ -31,8 +33,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
  */
 public abstract class ContextMenu {
 
-	private final Command addNewNoteCommand	=
-		new Command() {
+	private final Command addNewNoteCommand = new Command() {
 		public void execute() {
 			canvas.addNewNote();
 		}
@@ -70,19 +71,19 @@ public abstract class ContextMenu {
 		}
 	};
 
-	private final Command copyCommmand= new Command() {
+	private final Command copyCommmand = new Command() {
 		public void execute() {
 			canvas.copy();
 		}
 	};
 
-	private final Command pasteCommand	= new Command() {
+	private final Command pasteCommand = new Command() {
 		public void execute() {
 			canvas.paste();
 		}
 	};
 
-	protected final UMLCanvas canvas;
+	protected UMLCanvas canvas;
 	protected PopupMenu contextMenu;
 	private final MenuBarAndTitle specificRightMenu;
 	private final Point location;
@@ -90,31 +91,40 @@ public abstract class ContextMenu {
 	/**
 	 * Factory to create a contextual menu for a class diagram.
 	 * 
-	 * @param location The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param canvas The canvas where the actions must be called
-	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
+	 * @param location
+	 *            The {@link Point} location where to display it (generally the mouse coordinates)
+	 * @param classDiagram
+	 *            The canvas where the actions must be called
+	 * @param specificRightMenu
+	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createClassDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
-		return new ClassContextMenu(location, canvas, specificRightMenu);
+	public static ContextMenu createClassDiagramContextMenu(final Point location, final ClassDiagram classDiagram, final MenuBarAndTitle specificRightMenu) {
+		return new ClassContextMenu(location, classDiagram, specificRightMenu);
 	}
 
 	/**
 	 * Factory to create a contextual menu for an object diagram.
 	 * 
-	 * @param location The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param canvas The canvas where the actions must be called
-	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
+	 * @param location
+	 *            The {@link Point} location where to display it (generally the mouse coordinates)
+	 * @param canvas
+	 *            The canvas where the actions must be called
+	 * @param specificRightMenu
+	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createObjectDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
-		return new ObjectContextMenu(location, canvas, specificRightMenu);
+	public static ContextMenu createObjectDiagramContextMenu(final Point location, final ObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
+		return new ObjectContextMenu(location, objectDiagram, specificRightMenu);
 	}
 
 	/**
 	 * Factory to create a contextual menu for a sequence diagram.
 	 * 
-	 * @param location The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param canvas The canvas where the actions must be called
-	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
+	 * @param location
+	 *            The {@link Point} location where to display it (generally the mouse coordinates)
+	 * @param canvas
+	 *            The canvas where the actions must be called
+	 * @param specificRightMenu
+	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
 	public static ContextMenu createSequenceDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		return new SequenceContextMenu(location, canvas, specificRightMenu);
@@ -123,13 +133,30 @@ public abstract class ContextMenu {
 	/**
 	 * Constructor of ContextMenu with a specific context menu part
 	 * 
-	 * @param location The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param canvas The canvas where the actions must be called
-	 * @param specificRightMenu The right menu specific to an artifact to add in this menu
+	 * @param location
+	 *            The {@link Point} location where to display it (generally the mouse coordinates)
+	 * @param canvas
+	 *            The canvas where the actions must be called
+	 * @param specificRightMenu
+	 *            The right menu specific to an artifact to add in this menu
 	 */
 	protected ContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		this.location = location;
 		this.canvas = canvas;
+		this.specificRightMenu = specificRightMenu;
+		this.makeMenu();
+	}
+
+	/**
+	 * Constructor of ContextMenu with a specific context menu part
+	 * 
+	 * @param location
+	 *            The {@link Point} location where to display it (generally the mouse coordinates)
+	 * @param specificRightMenu
+	 *            The right menu specific to an artifact to add in this menu
+	 */
+	protected ContextMenu(final Point location, final MenuBarAndTitle specificRightMenu) {
+		this.location = location;
 		this.specificRightMenu = specificRightMenu;
 		this.makeMenu();
 	}
@@ -165,8 +192,8 @@ public abstract class ContextMenu {
 
 		makeSpecificRelationDiagramMenu();
 
-		contextMenu.addItem("Cut",  cutCommand);
-		contextMenu.addItem("Copy",  copyCommmand);
+		contextMenu.addItem("Cut", cutCommand);
+		contextMenu.addItem("Copy", copyCommmand);
 		contextMenu.addItem("Paste", pasteCommand);
 
 		contextMenu.addSeparator();
@@ -178,11 +205,15 @@ public abstract class ContextMenu {
 
 	/**
 	 * Add a relation menu item on the given menu.
-	 * @param subMenu The menu where the new menu item is added
-	 * @param relationName The name of the menu item
-	 * @param relationKind the kind of relation
+	 * 
+	 * @param subMenu
+	 *            The menu where the new menu item is added
+	 * @param relationName
+	 *            The name of the menu item
+	 * @param relationKind
+	 *            the kind of relation
 	 */
-	protected final void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {
+	protected void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {
 		final Command relationCommand = new Command() {
 			@Override
 			public void execute() {
@@ -194,14 +225,14 @@ public abstract class ContextMenu {
 	}
 
 	/**
-	 * Build a menu entry specific for the diagram.
-	 * e.g A class diagram has a special entry "create class"
+	 * Build a menu entry specific for the diagram. e.g A class diagram has a special entry "create class"
 	 */
 	protected abstract void makeSpecificDiagramMenu();
 
 	/**
-	 * Build a relation subMenu specific for the diagram.
-	 * e.g A class diagram has a relation submenu with only the entries : association, aggregation, composition, inheritance, note link.
+	 * Build a relation subMenu specific for the diagram. e.g A class diagram has a relation submenu with only the
+	 * entries : association, aggregation, composition, inheritance, note link.
 	 */
 	protected abstract void makeSpecificRelationDiagramMenu();
+
 }

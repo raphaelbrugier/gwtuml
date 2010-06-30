@@ -25,7 +25,8 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
  * Context menu implementation for a class diagram
@@ -34,8 +35,11 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
  */
 public class ClassContextMenu extends ContextMenu {
 
-	protected ClassContextMenu(final Point location, final UMLCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
-		super(location, umlcanvas, specificRightMenu);
+	private final ClassDiagram classDiagram;
+	
+	protected ClassContextMenu(final Point location, final ClassDiagram classDiagram, final MenuBarAndTitle specificRightMenu) {
+		super(location, specificRightMenu);
+		this.classDiagram = classDiagram;
 	}
 
 	/*
@@ -47,7 +51,7 @@ public class ClassContextMenu extends ContextMenu {
 	protected void makeSpecificDiagramMenu() {
 		contextMenu.addItem("Add new class", new Command() {
 			public void execute() {
-				canvas.addNewClass();
+				classDiagram.addNewClass();
 			}
 		});
 	}
@@ -71,5 +75,24 @@ public class ClassContextMenu extends ContextMenu {
 
 		contextMenu.addItem("Add relation", relationsSubMenu);
 		contextMenu.addSeparator();
+	}
+	
+	
+	/**
+	 * Add a relation menu item on the given menu.
+	 * @param subMenu The menu where the new menu item is added
+	 * @param relationName The name of the menu item
+	 * @param relationKind the kind of relation
+	 */
+	@Override
+	protected void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {
+		final Command relationCommand = new Command() {
+			@Override
+			public void execute() {
+				classDiagram.toLinkMode(relationKind);
+			}
+		};
+
+		subMenu.addItem(relationName, relationCommand);
 	}
 }

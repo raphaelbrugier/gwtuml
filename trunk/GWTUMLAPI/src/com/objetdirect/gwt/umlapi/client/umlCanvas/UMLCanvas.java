@@ -48,8 +48,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
-import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
-import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
@@ -69,7 +67,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLCanvas implements Serializable {
+public abstract class UMLCanvas implements Serializable {
 
 	public enum DragAndDropState {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
@@ -80,7 +78,7 @@ public class UMLCanvas implements Serializable {
 	private transient Widget drawingCanvas;
 
 	/** The panel containing the canvas and the arrows. */
-	private transient DecoratorCanvas wrapper;
+	protected transient DecoratorCanvas wrapper;
 
 	private transient GfxObject allObjects;
 
@@ -140,6 +138,17 @@ public class UMLCanvas implements Serializable {
 
 	// ========== Extra ===========//
 	private transient UrlConverter urlConverter;
+	
+	
+	public static UMLCanvas createUmlCanvas(DiagramType diagramType) {
+		switch (diagramType) {
+			case CLASS: return new UMLCanvasClassDiagram(true);
+			case OBJECT: return new UMLCanvasObjectDiagram(true);
+			case SEQUENCE : return new UMLCanvasSequenceDiagram(true);
+		}
+		
+		throw new IllegalArgumentException("Unknown diagram type : " + diagramType);
+	}
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLCanvas() {
@@ -280,25 +289,6 @@ public class UMLCanvas implements Serializable {
 	 */
 	public void fromURL(final String url, final boolean isForPasting) {
 		urlConverter.fromURL(url, isForPasting);
-	}
-
-	/**
-	 * Return the first artifact found at the specified location
-	 * 
-	 * @param location
-	 *            The location to look for an artifact
-	 * 
-	 * @return The first artifact found at the specified location or null if there is no artifact there
-	 */
-	public GfxObject getArtifactAt(final Point location) {
-		for (final UMLArtifact artifact : objects.values()) {
-			if (this.isIn(artifact.getLocation(), Point.add(artifact.getLocation(), new Point(artifact.getWidth(), artifact.getHeight())), location, location)) {
-				Log.info("Artifact : " + artifact + " found");
-				return artifact.getGfxObject();
-			}
-		}
-		Log.info("No Artifact Found !");
-		return null;
 	}
 
 	/**
@@ -453,12 +443,12 @@ public class UMLCanvas implements Serializable {
 		return urlConverter.toUrl();
 	}
 
-	/**
-	 * Add a new class with default values to this canvas to an the current mouse position
-	 */
-	public void addNewClass() {
-		this.addNewClass(wrapper.getCurrentMousePosition());
-	}
+//	/**
+//	 * Add a new class with default values to this canvas to an the current mouse position
+//	 */
+//	public void addNewClass() {
+//		this.addNewClass(wrapper.getCurrentMousePosition());
+//	}
 
 	/**
 	 * Add a new lifeLine with default values to this canvas to the current mouse position
@@ -481,7 +471,7 @@ public class UMLCanvas implements Serializable {
 	 *            The initial class location
 	 * 
 	 */
-	private void addNewClass(final Point location) {
+	protected void addNewClass(final Point location) {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
@@ -977,7 +967,7 @@ public class UMLCanvas implements Serializable {
 		selectedArtifacts.clear();
 	}
 
-	private void doSelection(final GfxObject gfxObject, final boolean isCtrlKeyDown, final boolean isShiftKeyDown) {
+	protected void doSelection(final GfxObject gfxObject, final boolean isCtrlKeyDown, final boolean isShiftKeyDown) {
 		final UMLArtifact newSelected = this.getUMLArtifact(gfxObject);
 		Log.trace("Selecting : " + newSelected + " (" + gfxObject + ")");
 		// New selection is null -> deselecting all selected artifacts and disabling linking mode
@@ -1052,7 +1042,7 @@ public class UMLCanvas implements Serializable {
 		GfxManager.getPlatform().clearVirtualGroup(movingOutlineDependencies);
 	}
 
-	public void dropContextualMenu(final GfxObject gfxObject, final Point location) {
+	public abstract void dropContextualMenu(final GfxObject gfxObject, final Point location); /*{
 		this.doSelection(gfxObject, false, false);
 		final UMLArtifact elem = this.getUMLArtifact(gfxObject);
 		MenuBarAndTitle rightMenu = elem == null ? null : elem.getRightMenu();
@@ -1070,7 +1060,7 @@ public class UMLCanvas implements Serializable {
 				break;
 		}
 		contextMenu.show();
-	}
+	}*/
 
 	private void editItem(final GfxObject gfxObject) {
 		final UMLArtifact uMLArtifact = this.getUMLArtifact(gfxObject);
@@ -1080,7 +1070,7 @@ public class UMLCanvas implements Serializable {
 		}
 	}
 
-	private UMLArtifact getUMLArtifact(final GfxObject gfxObject) {
+	protected UMLArtifact getUMLArtifact(final GfxObject gfxObject) {
 		if (gfxObject == null) {
 			Log.trace("No Object");
 			return null;

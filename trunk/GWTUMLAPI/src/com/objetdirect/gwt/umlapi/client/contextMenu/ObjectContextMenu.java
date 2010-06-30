@@ -21,7 +21,8 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
  * Context menu implementation for an object diagram
@@ -30,8 +31,11 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
  */
 public class ObjectContextMenu extends ContextMenu {
 
-	protected ObjectContextMenu(final Point location, final UMLCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
-		super(location, umlcanvas, specificRightMenu);
+	private final ObjectDiagram objectDiagram;
+
+	protected ObjectContextMenu(final Point location, final ObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
+		super(location, specificRightMenu);
+		this.objectDiagram = objectDiagram;
 	}
 
 	/*
@@ -43,13 +47,13 @@ public class ObjectContextMenu extends ContextMenu {
 	protected void makeSpecificDiagramMenu() {
 		contextMenu.addItem("Add a new Object", new Command() {
 			public void execute() {
-				canvas.addNewObject();
+				objectDiagram.addNewObject();
 			}
 		});
 
 		contextMenu.addItem("Add a new Class", new Command() {
 			public void execute() {
-				canvas.addNewClass();
+				objectDiagram.addNewClass();
 			}
 		});
 	}
@@ -69,5 +73,27 @@ public class ObjectContextMenu extends ContextMenu {
 
 		contextMenu.addItem("Add relation", relationsSubMenu);
 		contextMenu.addSeparator();
+	}
+
+	/**
+	 * Add a relation menu item on the given menu.
+	 * 
+	 * @param subMenu
+	 *            The menu where the new menu item is added
+	 * @param relationName
+	 *            The name of the menu item
+	 * @param relationKind
+	 *            the kind of relation
+	 */
+	@Override
+	protected void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {
+		final Command relationCommand = new Command() {
+			@Override
+			public void execute() {
+				objectDiagram.toLinkMode(relationKind);
+			}
+		};
+
+		subMenu.addItem(relationName, relationCommand);
 	}
 }
