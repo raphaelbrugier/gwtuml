@@ -2,4 +2,14 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.2//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.2/distro-source/core/src/gwt-module.dtd">
 <module rename-to='gwtumlapi'>
 	<inherits name='com.google.gwt.user.User' />
+	
+	<inherits name='com.google.gwt.widgetideas.WidgetIdeas' />   
+   	<inherits name='com.google.gwt.libideas.LibIdeas' />
+  	<inherits name='com.google.gwt.widgetideas.GWTCanvas' />
+	<inherits name="com.google.gwt.widgetideas.GlassPanel" />
+	<inherits name='com.objetdirect.tatami.Tatami' />
+
+	<!-- Add gwt-log support -->
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+ 	<set-property name="log_DivLogger" value="DISABLED" />
 </module>

@@ -14,13 +14,14 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.SOLID;
-
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
 /**
  * Represents an association between two classes in the metamodel. An association could be a composition, an aggregation
  * or a simple association. It could be unidirectional or bidirectional.
+ * 
+ * THIS CLASS IS NOT USED FOR NOW This class was supposed to be part of a big refactoring around how the relations
+ * metamodel are managed by the corresponding artifacts. It's left here for now until we'll continue the refactoring.
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
@@ -236,11 +237,6 @@ public class AssociationRelation extends ClassToClassRelation {
 	 */
 	public LinkAdornment getRightAdornment() {
 		return rightAdornment;
-	}
-
-	@Override
-	public LinkStyle getLinkStyle() {
-		return SOLID;
 	}
 
 }
