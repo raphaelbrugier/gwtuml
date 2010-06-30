@@ -22,9 +22,9 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
-import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
  * Context menu implementation for a sequence diagram
@@ -33,7 +33,7 @@ import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 public class SequenceContextMenu extends ContextMenu {
 
 
-	protected SequenceContextMenu(final Point location, final UmlCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
+	protected SequenceContextMenu(final Point location, final UMLCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
 	}
 
