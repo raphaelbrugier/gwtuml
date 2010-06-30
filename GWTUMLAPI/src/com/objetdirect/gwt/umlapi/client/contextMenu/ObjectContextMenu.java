@@ -22,6 +22,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
@@ -33,8 +34,8 @@ public class ObjectContextMenu extends ContextMenu {
 
 	private final ObjectDiagram objectDiagram;
 
-	protected ObjectContextMenu(final Point location, final ObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
-		super(location, specificRightMenu);
+	protected ObjectContextMenu(final Point location, final UMLCanvasObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
+		super(location, objectDiagram, specificRightMenu);
 		this.objectDiagram = objectDiagram;
 	}
 

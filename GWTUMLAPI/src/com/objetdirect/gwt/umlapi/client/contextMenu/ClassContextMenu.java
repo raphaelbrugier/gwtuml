@@ -26,6 +26,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasClassDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
@@ -36,9 +37,9 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
 public class ClassContextMenu extends ContextMenu {
 
 	private final ClassDiagram classDiagram;
-	
-	protected ClassContextMenu(final Point location, final ClassDiagram classDiagram, final MenuBarAndTitle specificRightMenu) {
-		super(location, specificRightMenu);
+
+	protected ClassContextMenu(final Point location, final UMLCanvasClassDiagram classDiagram, final MenuBarAndTitle specificRightMenu) {
+		super(location, classDiagram, specificRightMenu);
 		this.classDiagram = classDiagram;
 	}
 
@@ -76,13 +77,16 @@ public class ClassContextMenu extends ContextMenu {
 		contextMenu.addItem("Add relation", relationsSubMenu);
 		contextMenu.addSeparator();
 	}
-	
-	
+
 	/**
 	 * Add a relation menu item on the given menu.
-	 * @param subMenu The menu where the new menu item is added
-	 * @param relationName The name of the menu item
-	 * @param relationKind the kind of relation
+	 * 
+	 * @param subMenu
+	 *            The menu where the new menu item is added
+	 * @param relationName
+	 *            The name of the menu item
+	 * @param relationKind
+	 *            the kind of relation
 	 */
 	@Override
 	protected void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {

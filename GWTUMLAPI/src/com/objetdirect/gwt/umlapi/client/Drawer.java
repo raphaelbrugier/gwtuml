@@ -35,7 +35,10 @@ import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.resources.Resources;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.DecoratorCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.SequenceDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
@@ -66,10 +69,23 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		decoratorPanel = new DecoratorCanvas(this, umlCanvas);
 		this.umlCanvas = umlCanvas;
 		hotKeysEnabled = true;
-		keyboard = new Keyboard(umlCanvas, diagramType);
+		keyboard = createKeyboardFor(diagramType);
 		cursorManager = new CursorIconManager();
 
 		setWidget(decoratorPanel);
+	}
+
+	private Keyboard createKeyboardFor(DiagramType diagramType) {
+		switch (diagramType) {
+			case CLASS:
+				return new Keyboard((ClassDiagram) umlCanvas);
+			case OBJECT:
+				return new Keyboard((ObjectDiagram) umlCanvas);
+			case SEQUENCE:
+				return new Keyboard((SequenceDiagram) umlCanvas);
+		}
+
+		throw new IllegalArgumentException("Invalid diagram type : " + diagramType);
 	}
 
 	private void injectAllStyles() {

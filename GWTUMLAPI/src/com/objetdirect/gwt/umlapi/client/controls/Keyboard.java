@@ -16,6 +16,7 @@ package com.objetdirect.gwt.umlapi.client.controls;
 
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.CLASS;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.OBJECT;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.SEQUENCE;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -23,6 +24,7 @@ import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.helpers.HelpManager;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.SequenceDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
@@ -35,13 +37,11 @@ public class Keyboard {
 
 	private UMLCanvas umlCanvas;
 	private final DiagramType diagramType;
+
+	// TODO oups we really need to split this in 3 children class with inheritance.
 	private ClassDiagram classDiagram;
 	private ObjectDiagram objectDiagram;
-
-	public Keyboard(UMLCanvas umlCanvas, DiagramType diagramType) {
-		this.umlCanvas = umlCanvas;
-		this.diagramType = diagramType;
-	}
+	private SequenceDiagram sequenceDiagram;
 
 	public Keyboard(ClassDiagram classDiagram) {
 		this.classDiagram = classDiagram;
@@ -51,6 +51,11 @@ public class Keyboard {
 	public Keyboard(ObjectDiagram objectDiagram) {
 		this.objectDiagram = objectDiagram;
 		diagramType = OBJECT;
+	}
+
+	public Keyboard(SequenceDiagram sequenceDiagram) {
+		this.sequenceDiagram = sequenceDiagram;
+		diagramType = SEQUENCE;
 	}
 
 	/**
@@ -180,23 +185,23 @@ public class Keyboard {
 	private void sequenceDiagramPush(final char keyCode) {
 		switch (keyCode) {
 			case 'm':
-				umlCanvas.toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
+				sequenceDiagram.toLinkMode(LinkKind.ASYNCHRONOUS_MESSAGE);
 				break;
 			case 'p':
-				umlCanvas.toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
+				sequenceDiagram.toLinkMode(LinkKind.SYNCHRONOUS_MESSAGE);
 				break;
 			case 'b':
-				umlCanvas.toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
+				sequenceDiagram.toLinkMode(LinkKind.OBJECT_CREATION_MESSAGE);
 				break;
 			case 'j':
-				umlCanvas.toLinkMode(LinkKind.LOST_MESSAGE);
+				sequenceDiagram.toLinkMode(LinkKind.LOST_MESSAGE);
 				break;
 
 			case 'y':
-				umlCanvas.toLinkMode(LinkKind.FOUND_MESSAGE);
+				sequenceDiagram.toLinkMode(LinkKind.FOUND_MESSAGE);
 				break;
 			case 'f':
-				umlCanvas.addNewLifeLine();
+				sequenceDiagram.addNewLifeLine();
 				break;
 		}
 	}
