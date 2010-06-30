@@ -19,7 +19,6 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAd
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.editors.EditorPart;
@@ -36,7 +35,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
 
 /**
- * This object represents any relation artifact between two objectes
+ * This object represents any relation artifact between two objects
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
@@ -192,7 +191,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	private MenuBar buildRoleMenuBar(final GfxObject gfxObjectToEdit, final EditorPart editorPart) {
 		MenuBar menu = new MenuBar(true);
 
-		Log.debug("editorPart.getText() == " + editorPart.getText());
 		if (editorPart.getText().isEmpty()) {
 			Command createCommand = new Command() {
 				@Override
@@ -399,7 +397,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		}
 		current_delta = 0;
 		if (!objectRelation.getRightRole().equals("")) {
-			Log.debug("Drawing the rightRole objectRelation.getRightRole()" + objectRelation.getRightRole());
 			rightRoleGfxObject = this.createText(objectRelation.getRightRole(), false);
 			rightRoleGfxObject.addToVirtualGroup(textVirtualGroup);
 		}
@@ -438,7 +435,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		textGfxObject.setFont(OptionsManager.getSmallFont());
 		textGfxObject.setStroke(ThemeManager.getTheme().getObjectRelationBackgroundColor(), 0);
 		textGfxObject.setFillColor(ThemeManager.getTheme().getObjectRelationForegroundColor());
-		Log.trace("Creating text : " + text + " at " + this.getTextX(textGfxObject, isLeft) + " : " + this.getTextY(textGfxObject, isLeft));
 		textGfxObject.translate(new Point(this.getTextX(textGfxObject, isLeft), this.getTextY(textGfxObject, isLeft)));
 
 		return textGfxObject;

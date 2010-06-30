@@ -19,9 +19,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 /**
  * Represents a relation between two classes in the metamodel.
  * 
+ * THIS CLASS IS NOT USED FOR NOW This class was supposed to be part of a big refactoring around how the relations
+ * metamodel are managed by the corresponding artifacts. It's left here for now until we'll continue the refactoring.
+ * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public abstract class ClassToClassRelation implements Relation {
+public abstract class ClassToClassRelation {
 
 	private final UMLClass leftTarget;
 
@@ -34,5 +37,19 @@ public abstract class ClassToClassRelation implements Relation {
 	public ClassToClassRelation(UMLClass leftTarget, UMLClass rightTarget) {
 		this.leftTarget = leftTarget;
 		this.rightTarget = rightTarget;
+	}
+
+	/**
+	 * @return the leftTarget
+	 */
+	public UMLClass getLeftTarget() {
+		return leftTarget;
+	}
+
+	/**
+	 * @return the rightTarget
+	 */
+	public UMLClass getRightTarget() {
+		return rightTarget;
 	}
 }
