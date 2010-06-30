@@ -17,12 +17,12 @@ package com.objetdirect.gwt.umlapi.client.contextMenu;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
-import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.helpers.HelpManager;
 import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
@@ -83,7 +83,7 @@ public abstract class ContextMenu {
 		}
 	};
 
-	protected final UmlCanvas canvas;
+	protected final UMLCanvas canvas;
 	protected PopupMenu contextMenu;
 	private final MenuBarAndTitle specificRightMenu;
 	private final Point location;
@@ -95,7 +95,7 @@ public abstract class ContextMenu {
 	 * @param canvas The canvas where the actions must be called
 	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createClassDiagramContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createClassDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		return new ClassContextMenu(location, canvas, specificRightMenu);
 	}
 
@@ -106,7 +106,7 @@ public abstract class ContextMenu {
 	 * @param canvas The canvas where the actions must be called
 	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createObjectDiagramContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createObjectDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		return new ObjectContextMenu(location, canvas, specificRightMenu);
 	}
 
@@ -117,7 +117,7 @@ public abstract class ContextMenu {
 	 * @param canvas The canvas where the actions must be called
 	 * @param specificRightMenu The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createSequenceDiagramContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createSequenceDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		return new SequenceContextMenu(location, canvas, specificRightMenu);
 	}
 
@@ -128,7 +128,7 @@ public abstract class ContextMenu {
 	 * @param canvas The canvas where the actions must be called
 	 * @param specificRightMenu The right menu specific to an artifact to add in this menu
 	 */
-	protected ContextMenu(final Point location, final UmlCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	protected ContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		this.location = location;
 		this.canvas = canvas;
 		this.specificRightMenu = specificRightMenu;

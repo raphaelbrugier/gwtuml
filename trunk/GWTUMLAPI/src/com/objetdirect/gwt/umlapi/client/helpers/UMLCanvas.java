@@ -36,7 +36,6 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
 import com.objetdirect.gwt.umlapi.client.DecoratorCanvas;
-import com.objetdirect.gwt.umlapi.client.UmlCanvas;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
@@ -68,7 +67,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public class UMLCanvas implements Serializable, UmlCanvas {
+public class UMLCanvas implements Serializable {
 
 	public enum DragAndDropState {
 		TAKING, DRAGGING, NONE, PREPARING_SELECT_BOX, SELECT_BOX;
@@ -91,6 +90,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	private long objectCount;
 	private long lifeLineCount;
 	private long noteCount;
+
 	private DiagramType diagramType;
 	/** List of all the uml artifacts in the diagram */
 	private List<UMLArtifact> umlArtifacts;
@@ -479,7 +479,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The initial class location
 	 * 
 	 */
-	void addNewClass(final Point location) {
+	private void addNewClass(final Point location) {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
@@ -508,7 +508,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The initial life line location
 	 * 
 	 */
-	void addNewLifeLine(final Point location) {
+	private void addNewLifeLine(final Point location) {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
@@ -531,7 +531,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		wrapper.setHelpText("Adding a new life line", location.clonePoint());
 	}
 
-	void addNewLink(final UMLArtifact newSelected) {
+	private void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
 			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, idCount);
@@ -546,13 +546,11 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	@Override
 	public void addNewNote() {
 		this.addNewNote(wrapper.getCurrentMousePosition());
-
 	}
 
-	void addNewNote(final Point location) {
+	private void addNewNote(final Point location) {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
@@ -580,7 +578,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The initial object location
 	 * 
 	 */
-	void addNewObject(final Point location) {
+	private void addNewObject(final Point location) {
 		if (dragAndDropState != DragAndDropState.NONE) {
 			return;
 		}
@@ -613,7 +611,7 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 	 *            The created {@link LinkArtifact}'s id
 	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
 	 */
-	public LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, int id) {
+	private LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, int id) {
 		LinkKind linkKind = activeLinking;
 		try {
 			// All diagrams
@@ -685,14 +683,12 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		LinkArtifactsHaveAlreadyBeenSorted = linkArtifactsHaveAlreadyBeenSorted;
 	}
 
-	@Override
 	public void cut() {
 		this.copy();
 		wasACopy = false;
 		this.removeSelected();
 	}
 
-	@Override
 	public void copy() {
 		if (selectedArtifacts.isEmpty()) {
 			return;
@@ -726,7 +722,6 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		copyMousePosition = Point.getMiddleOf(lower, higher);
 	}
 
-	@Override
 	public void paste() {
 		if (!copyBuffer.equals("") && dragAndDropState == DragAndDropState.NONE) {
 			// Getting ids :
@@ -879,14 +874,12 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	@Override
 	public void rebuildAllGFXObjects() {
 		for (final UMLArtifact artifact : objects.values()) {
 			artifact.rebuildGfxObject();
 		}
 	}
 
-	@Override
 	public void removeSelected() {
 		if (!selectedArtifacts.isEmpty()) {
 			final HashMap<UMLArtifact, ArrayList<Point>> selectedBeforeRemovalArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>(selectedArtifacts);
@@ -896,14 +889,12 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 		}
 	}
 
-	@Override
 	public void selectAll() {
 		for (final UMLArtifact artifact : objects.values()) {
 			this.selectArtifact(artifact);
 		}
 	}
 
-	@Override
 	public void toLinkMode(final LinkKind linkType) {
 		activeLinking = linkType;
 		final int selectedToLink = selectedArtifacts.keySet().size();
