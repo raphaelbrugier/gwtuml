@@ -21,9 +21,10 @@ import com.objetdirect.gwt.umlapi.client.contrib.PopupMenu;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.helpers.HelpManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
-import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
-import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasClassDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasObjectDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasSequenceDiagram;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
@@ -83,7 +84,7 @@ public abstract class ContextMenu {
 		}
 	};
 
-	protected UMLCanvas canvas;
+	protected final UMLCanvas canvas;
 	protected PopupMenu contextMenu;
 	private final MenuBarAndTitle specificRightMenu;
 	private final Point location;
@@ -98,7 +99,8 @@ public abstract class ContextMenu {
 	 * @param specificRightMenu
 	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createClassDiagramContextMenu(final Point location, final ClassDiagram classDiagram, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createClassDiagramContextMenu(final Point location, final UMLCanvasClassDiagram classDiagram,
+			final MenuBarAndTitle specificRightMenu) {
 		return new ClassContextMenu(location, classDiagram, specificRightMenu);
 	}
 
@@ -112,7 +114,8 @@ public abstract class ContextMenu {
 	 * @param specificRightMenu
 	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createObjectDiagramContextMenu(final Point location, final ObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createObjectDiagramContextMenu(final Point location, final UMLCanvasObjectDiagram objectDiagram,
+			final MenuBarAndTitle specificRightMenu) {
 		return new ObjectContextMenu(location, objectDiagram, specificRightMenu);
 	}
 
@@ -126,7 +129,8 @@ public abstract class ContextMenu {
 	 * @param specificRightMenu
 	 *            The specific contextual menu if the menu is requested on a gfx object else null.
 	 */
-	public static ContextMenu createSequenceDiagramContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
+	public static ContextMenu createSequenceDiagramContextMenu(final Point location, final UMLCanvasSequenceDiagram canvas,
+			final MenuBarAndTitle specificRightMenu) {
 		return new SequenceContextMenu(location, canvas, specificRightMenu);
 	}
 
@@ -143,20 +147,6 @@ public abstract class ContextMenu {
 	protected ContextMenu(final Point location, final UMLCanvas canvas, final MenuBarAndTitle specificRightMenu) {
 		this.location = location;
 		this.canvas = canvas;
-		this.specificRightMenu = specificRightMenu;
-		this.makeMenu();
-	}
-
-	/**
-	 * Constructor of ContextMenu with a specific context menu part
-	 * 
-	 * @param location
-	 *            The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param specificRightMenu
-	 *            The right menu specific to an artifact to add in this menu
-	 */
-	protected ContextMenu(final Point location, final MenuBarAndTitle specificRightMenu) {
-		this.location = location;
 		this.specificRightMenu = specificRightMenu;
 		this.makeMenu();
 	}

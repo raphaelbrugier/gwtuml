@@ -14,12 +14,17 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
+import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
+
+import java.util.ArrayList;
+
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 
 /**
  * UMLCanvas concrete class for a class diagram.
@@ -29,6 +34,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 @SuppressWarnings("serial")
 public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 
+	private long classCount;
+
 	/**
 	 * Default constructor only for gwt-rpc serialization
 	 */
@@ -37,7 +44,8 @@ public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 	}
 
 	protected UMLCanvasClassDiagram(@SuppressWarnings("unused") boolean dummy) {
-		super(DiagramType.CLASS);
+		super(true);
+		classCount = 0;
 	}
 
 	@Override
@@ -56,4 +64,25 @@ public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 		contextMenu.show();
 	}
 
+	private void addNewClass(final Point location) {
+		if (dragAndDropState != NONE) {
+			return;
+		}
+		final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class" + ++classCount);
+
+		this.add(newClass);
+		newClass.moveTo(Point.substract(location, getCanvasOffset()));
+		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
+		}
+		selectedArtifacts.clear();
+		this.doSelection(newClass.getGfxObject(), false, false);
+		selectedArtifacts.put(newClass, new ArrayList<Point>());
+		dragOffset = location;
+		wrapper.setCursorIcon(MOVE);
+		dragAndDropState = DragAndDropState.TAKING;
+		mouseIsPressed = true;
+
+		wrapper.setHelpText("Adding a new class", location.clonePoint());
+	}
 }

@@ -55,7 +55,6 @@ import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
@@ -86,16 +85,12 @@ public abstract class UMLCanvas implements Serializable {
 	private transient HashMap<GfxObject, UMLArtifact> objects;
 
 	// ====== Model fields =======//
-	private long classCount;
-	private long objectCount;
-	private long lifeLineCount;
 	private long noteCount;
 
-	private DiagramType diagramType;
 	/** List of all the uml artifacts in the diagram */
 	private List<UMLArtifact> umlArtifacts;
 	/** Id counter */
-	private int idCount;
+	protected int idCount;
 	/** List of all umlArtifacts by id. */
 	private HashMap<Integer, UMLArtifact> artifactById;
 	private Set<UMLArtifact> artifactsToBeAddedWhenAttached;
@@ -117,36 +112,38 @@ public abstract class UMLCanvas implements Serializable {
 	private LinkKind activeLinking;
 	private Point selectBoxStartPoint;
 	private transient GfxObject selectBox;
-	private DragAndDropState dragAndDropState;
+	protected DragAndDropState dragAndDropState;
 	private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
 	private transient GfxObject movingLines;
 	private transient GfxObject movingOutlineDependencies;
 	private transient GfxObject outlines;
 	private Point duringDragOffset;
-	private Point dragOffset;
+	protected Point dragOffset;
 	private Point totalDragShift;
 	// Represent the selected UMLArtifacts and his moving dependencies points
-	private HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
+	protected HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
 
 	// ===== Mouse engine fields ====//
 	private boolean isMouseEnabled; // Only needed to desactive the mouse during the demo
 	private transient CanvasListener canvasMouseListener;
 
 	// Manage mouse state when releasing outside the listener
-	private boolean mouseIsPressed;
+	protected boolean mouseIsPressed;
 	private Point canvasOffset;
 
 	// ========== Extra ===========//
 	private transient UrlConverter urlConverter;
-	
-	
+
 	public static UMLCanvas createUmlCanvas(DiagramType diagramType) {
 		switch (diagramType) {
-			case CLASS: return new UMLCanvasClassDiagram(true);
-			case OBJECT: return new UMLCanvasObjectDiagram(true);
-			case SEQUENCE : return new UMLCanvasSequenceDiagram(true);
+			case CLASS:
+				return new UMLCanvasClassDiagram(true);
+			case OBJECT:
+				return new UMLCanvasObjectDiagram(true);
+			case SEQUENCE:
+				return new UMLCanvasSequenceDiagram(true);
 		}
-		
+
 		throw new IllegalArgumentException("Unknown diagram type : " + diagramType);
 	}
 
@@ -155,41 +152,22 @@ public abstract class UMLCanvas implements Serializable {
 	}
 
 	/**
-	 * Constructor of an {@link UMLCanvas} with default size
+	 * Constructor of an {@link UMLCanvas}.
 	 * 
-	 * @param diagramType
-	 *            Type of the diagram displayed in the canvas
+	 * @param dummy
+	 *            any value is fine.
 	 */
-	public UMLCanvas(DiagramType diagramType) {
-		this(diagramType, GfxPlatform.DEFAULT_CANVAS_WIDTH, GfxPlatform.DEFAULT_CANVAS_HEIGHT);
-	}
-
-	/**
-	 * Constructor of an {@link UMLCanvas} with the specified size
-	 * 
-	 * @param uMLDiagram
-	 *            The {@link UMLDiagram} this {@link UMLCanvas} is drawing
-	 * @param width
-	 *            The uml canvas width
-	 * @param height
-	 *            The uml canvas height
-	 */
-	public UMLCanvas(DiagramType diagramType, final int width, final int height) {
+	public UMLCanvas(@SuppressWarnings("unused") boolean dummy) {
 		initFieldsWithDefaultValue();
 
-		Log.trace("Making " + width + " x " + height + " Canvas");
-		drawingCanvas = GfxManager.getPlatform().makeCanvas(width, height, ThemeManager.getTheme().getCanvasColor());
+		drawingCanvas = GfxManager.getPlatform().makeCanvas(100, 100, ThemeManager.getTheme().getCanvasColor());
 		drawingCanvas.getElement().setAttribute("oncontextmenu", "return false");
 
 		this.initCanvas();
-		this.diagramType = diagramType;
 	}
 
 	private void initFieldsWithDefaultValue() {
-		setIdCount(0);
-		classCount = 0;
-		objectCount = 0;
-		lifeLineCount = 0;
+		idCount = 0;
 		copyBuffer = "";
 		dragAndDropState = DragAndDropState.NONE;
 		canvasOffset = Point.getOrigin();
@@ -233,7 +211,7 @@ public abstract class UMLCanvas implements Serializable {
 	 * @param artifact
 	 *            The {@link UMLArtifact} to add
 	 */
-	public void add(final UMLArtifact artifact) {
+	void add(final UMLArtifact artifact) {
 		if (artifact == null) {
 			Log.info("Adding null element to canvas");
 			return;
@@ -321,14 +299,6 @@ public abstract class UMLCanvas implements Serializable {
 	}
 
 	/**
-	 * @param idCount
-	 *            the idCount to set
-	 */
-	public void setIdCount(int idCount) {
-		this.idCount = idCount;
-	}
-
-	/**
 	 * @param container
 	 *            the decoratorCanvas to set
 	 */
@@ -394,7 +364,7 @@ public abstract class UMLCanvas implements Serializable {
 	 * @param umlArtifact
 	 */
 	public void remove(final UMLArtifact umlArtifact) {
-		this.removeRecursive(umlArtifact);
+		removeRecursive(umlArtifact);
 		if (umlArtifact.isALink()) {
 			((LinkArtifact) umlArtifact).removeCreatedDependency();
 		}
@@ -443,86 +413,6 @@ public abstract class UMLCanvas implements Serializable {
 		return urlConverter.toUrl();
 	}
 
-//	/**
-//	 * Add a new class with default values to this canvas to an the current mouse position
-//	 */
-//	public void addNewClass() {
-//		this.addNewClass(wrapper.getCurrentMousePosition());
-//	}
-
-	/**
-	 * Add a new lifeLine with default values to this canvas to the current mouse position
-	 */
-	public void addNewLifeLine() {
-		this.addNewLifeLine(wrapper.getCurrentMousePosition());
-	}
-
-	/**
-	 * Add a new object with default values to this canvas to the current mouse position
-	 */
-	public void addNewObject() {
-		this.addNewObject(wrapper.getCurrentMousePosition());
-	}
-
-	/**
-	 * Add a new class with default values to this canvas at the specified location
-	 * 
-	 * @param location
-	 *            The initial class location
-	 * 
-	 */
-	protected void addNewClass(final Point location) {
-		if (dragAndDropState != DragAndDropState.NONE) {
-			return;
-		}
-		final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class" + ++classCount);
-
-		this.add(newClass);
-		newClass.moveTo(Point.substract(location, canvasOffset));
-		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			selectedArtifact.unselect();
-		}
-		selectedArtifacts.clear();
-		this.doSelection(newClass.getGfxObject(), false, false);
-		selectedArtifacts.put(newClass, new ArrayList<Point>());
-		dragOffset = location;
-		wrapper.setCursorIcon(MOVE);
-		dragAndDropState = DragAndDropState.TAKING;
-		mouseIsPressed = true;
-
-		wrapper.setHelpText("Adding a new class", location.clonePoint());
-	}
-
-	/**
-	 * Add a new life life with default values to this canvas at the specified location
-	 * 
-	 * @param location
-	 *            The initial life line location
-	 * 
-	 */
-	private void addNewLifeLine(final Point location) {
-		if (dragAndDropState != DragAndDropState.NONE) {
-			return;
-		}
-		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, idCount, "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
-
-		wrapper.setHelpText("Adding a new life line", new Point(0, 0));
-		this.add(newLifeLine);
-		newLifeLine.moveTo(Point.substract(location, canvasOffset));
-		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			selectedArtifact.unselect();
-		}
-		selectedArtifacts.clear();
-		this.doSelection(newLifeLine.getGfxObject(), false, false);
-		selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
-		dragOffset = location;
-		wrapper.setCursorIcon(MOVE);
-		dragAndDropState = DragAndDropState.TAKING;
-		mouseIsPressed = true;
-
-		wrapper.setHelpText("Adding a new life line", location.clonePoint());
-	}
-
 	private void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
@@ -561,35 +451,6 @@ public abstract class UMLCanvas implements Serializable {
 		mouseIsPressed = true;
 		wrapper.setCursorIcon(MOVE);
 		wrapper.setHelpText("Adding a new note", location.clonePoint());
-	}
-
-	/**
-	 * Add a new object with default values to this canvas at the specified location
-	 * 
-	 * @param location
-	 *            The initial object location
-	 * 
-	 */
-	private void addNewObject(final Point location) {
-		if (dragAndDropState != DragAndDropState.NONE) {
-			return;
-		}
-		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "obj" + ++objectCount, "Object" + objectCount);
-
-		this.add(newObject);
-		newObject.moveTo(Point.substract(location, canvasOffset));
-		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			selectedArtifact.unselect();
-		}
-		selectedArtifacts.clear();
-		this.doSelection(newObject.getGfxObject(), false, false);
-		selectedArtifacts.put(newObject, new ArrayList<Point>());
-		dragOffset = location;
-		wrapper.setCursorIcon(MOVE);
-		dragAndDropState = DragAndDropState.TAKING;
-		mouseIsPressed = true;
-
-		wrapper.setHelpText("Adding a new object", location.clonePoint());
 	}
 
 	/**
@@ -1042,25 +903,7 @@ public abstract class UMLCanvas implements Serializable {
 		GfxManager.getPlatform().clearVirtualGroup(movingOutlineDependencies);
 	}
 
-	public abstract void dropContextualMenu(final GfxObject gfxObject, final Point location); /*{
-		this.doSelection(gfxObject, false, false);
-		final UMLArtifact elem = this.getUMLArtifact(gfxObject);
-		MenuBarAndTitle rightMenu = elem == null ? null : elem.getRightMenu();
-
-		ContextMenu contextMenu = null;
-		switch (diagramType) {
-			case CLASS:
-				contextMenu = ContextMenu.createClassDiagramContextMenu(location, this, rightMenu);
-				break;
-			case OBJECT:
-				contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
-				break;
-			case SEQUENCE:
-				contextMenu = ContextMenu.createSequenceDiagramContextMenu(location, this, rightMenu);
-				break;
-		}
-		contextMenu.show();
-	}*/
+	public abstract void dropContextualMenu(final GfxObject gfxObject, final Point location);
 
 	private void editItem(final GfxObject gfxObject) {
 		final UMLArtifact uMLArtifact = this.getUMLArtifact(gfxObject);

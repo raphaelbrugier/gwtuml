@@ -14,8 +14,11 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.SEQUENCE;
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 
+import java.util.ArrayList;
+
+import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
@@ -30,6 +33,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 @SuppressWarnings("serial")
 public class UMLCanvasSequenceDiagram extends UMLCanvas {
 
+	private int lifeLineCount;
+
 	/**
 	 * Default constructor only for gwt-rpc serialization
 	 */
@@ -38,7 +43,8 @@ public class UMLCanvasSequenceDiagram extends UMLCanvas {
 	}
 
 	protected UMLCanvasSequenceDiagram(@SuppressWarnings("unused") boolean dummy) {
-		super(SEQUENCE);
+		super(true);
+		lifeLineCount = 0;
 	}
 
 	@Override
@@ -49,6 +55,43 @@ public class UMLCanvasSequenceDiagram extends UMLCanvas {
 
 		ContextMenu contextMenu = ContextMenu.createSequenceDiagramContextMenu(location, this, rightMenu);
 		contextMenu.show();
+	}
+
+	/**
+	 * Add a new lifeLine with default values to this canvas to the current mouse position
+	 */
+	public void addNewLifeLine() {
+		this.addNewLifeLine(wrapper.getCurrentMousePosition());
+	}
+
+	/**
+	 * Add a new life life with default values to this canvas at the specified location
+	 * 
+	 * @param location
+	 *            The initial life line location
+	 * 
+	 */
+	private void addNewLifeLine(final Point location) {
+		if (dragAndDropState != DragAndDropState.NONE) {
+			return;
+		}
+		final LifeLineArtifact newLifeLine = new LifeLineArtifact(this, idCount, "LifeLine" + ++lifeLineCount, "ll" + lifeLineCount);
+
+		wrapper.setHelpText("Adding a new life line", new Point(0, 0));
+		this.add(newLifeLine);
+		newLifeLine.moveTo(Point.substract(location, getCanvasOffset()));
+		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
+		}
+		selectedArtifacts.clear();
+		this.doSelection(newLifeLine.getGfxObject(), false, false);
+		selectedArtifacts.put(newLifeLine, new ArrayList<Point>());
+		dragOffset = location;
+		wrapper.setCursorIcon(MOVE);
+		dragAndDropState = DragAndDropState.TAKING;
+		mouseIsPressed = true;
+
+		wrapper.setHelpText("Adding a new life line", location.clonePoint());
 	}
 
 }

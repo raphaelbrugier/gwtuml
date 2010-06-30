@@ -23,32 +23,39 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.SequenceDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasSequenceDiagram;
 
 /**
  * Context menu implementation for a sequence diagram
+ * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class SequenceContextMenu extends ContextMenu {
 
+	private SequenceDiagram sequenceDiagram;
 
-	protected SequenceContextMenu(final Point location, final UMLCanvas umlcanvas, final MenuBarAndTitle specificRightMenu) {
+	protected SequenceContextMenu(final Point location, final UMLCanvasSequenceDiagram umlcanvas, final MenuBarAndTitle specificRightMenu) {
 		super(location, umlcanvas, specificRightMenu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificDiagramMenu()
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
 		contextMenu.addItem("Add new life line", new Command() {
 			public void execute() {
-				canvas.addNewLifeLine();
+				sequenceDiagram.addNewLifeLine();
 			}
 		});
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificRelationDiagramMenu()
 	 */
 	@Override

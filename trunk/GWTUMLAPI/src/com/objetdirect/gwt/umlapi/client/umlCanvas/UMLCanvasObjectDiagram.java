@@ -14,8 +14,14 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.OBJECT;
+import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
+import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
+import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.TAKING;
 
+import java.util.ArrayList;
+
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
@@ -30,6 +36,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 @SuppressWarnings("serial")
 public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
+	private int objectCount;
+
 	/**
 	 * Default constructor only for gwt-rpc serialization
 	 */
@@ -38,12 +46,17 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
-		super(OBJECT);
+		super(true);
+		objectCount = 0;
 	}
 
 	@Override
 	public void addNewClass() {
 		this.addNewClass(wrapper.getCurrentMousePosition());
+	}
+
+	public void addNewObject() {
+		this.addNewObject(wrapper.getCurrentMousePosition());
 	}
 
 	@Override
@@ -55,5 +68,56 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		ContextMenu contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
 
 		contextMenu.show();
+	}
+
+	// TODO Create a special artifact to display a class in an object Diagram.
+	private void addNewClass(final Point location) {
+		if (dragAndDropState != NONE) {
+			return;
+		}
+		final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class --");
+
+		this.add(newClass);
+		newClass.moveTo(Point.substract(location, getCanvasOffset()));
+		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
+		}
+		selectedArtifacts.clear();
+		this.doSelection(newClass.getGfxObject(), false, false);
+		selectedArtifacts.put(newClass, new ArrayList<Point>());
+		dragOffset = location;
+		wrapper.setCursorIcon(MOVE);
+		dragAndDropState = DragAndDropState.TAKING;
+		mouseIsPressed = true;
+
+		wrapper.setHelpText("Adding a new class", location.clonePoint());
+	}
+
+	/**
+	 * Add a new object with default values to this canvas at the specified location
+	 * 
+	 * @param location
+	 *            The initial object location
+	 */
+	private void addNewObject(final Point location) {
+		if (dragAndDropState != NONE) {
+			return;
+		}
+		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "obj" + ++objectCount, "Object" + objectCount);
+
+		this.add(newObject);
+		newObject.moveTo(Point.substract(location, getCanvasOffset()));
+		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
+		}
+		selectedArtifacts.clear();
+		this.doSelection(newObject.getGfxObject(), false, false);
+		selectedArtifacts.put(newObject, new ArrayList<Point>());
+		dragOffset = location;
+		wrapper.setCursorIcon(MOVE);
+		dragAndDropState = TAKING;
+		mouseIsPressed = true;
+
+		wrapper.setHelpText("Adding a new object", location.clonePoint());
 	}
 }

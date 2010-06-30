@@ -15,7 +15,7 @@
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 /**
- * Interface with the current displayed diagram.
+ * Interface with the current displayed object diagram.
  * 
  * @author Raphaël Brugier <raphael dot brugier at gmail dot com>
  */
