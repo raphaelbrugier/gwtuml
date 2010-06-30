@@ -14,10 +14,15 @@
  */
 package com.objetdirect.gwt.umlapi.client.controls;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.CLASS;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType.OBJECT;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.helpers.HelpManager;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ClassDiagram;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
@@ -25,15 +30,27 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
+// TODO split this class in the 3 childs classes depending on the diagram type.
 public class Keyboard {
 
-	private final UMLCanvas umlCanvas;
-
+	private UMLCanvas umlCanvas;
 	private final DiagramType diagramType;
+	private ClassDiagram classDiagram;
+	private ObjectDiagram objectDiagram;
 
 	public Keyboard(UMLCanvas umlCanvas, DiagramType diagramType) {
 		this.umlCanvas = umlCanvas;
 		this.diagramType = diagramType;
+	}
+
+	public Keyboard(ClassDiagram classDiagram) {
+		this.classDiagram = classDiagram;
+		diagramType = CLASS;
+	}
+
+	public Keyboard(ObjectDiagram objectDiagram) {
+		this.objectDiagram = objectDiagram;
+		diagramType = OBJECT;
 	}
 
 	/**
@@ -108,48 +125,54 @@ public class Keyboard {
 
 	private void classDiagramPush(final char keyCode, final boolean isCtrlDown) {
 		switch (keyCode) {
+			case 'c':
+				if (!isCtrlDown) {
+					classDiagram.addNewClass();
+				}
+				break;
+
 			case 'a':
 				if (!isCtrlDown) {
-					umlCanvas.toLinkMode(LinkKind.AGGREGATION_RELATION);
+					classDiagram.toLinkMode(LinkKind.AGGREGATION_RELATION);
 				}
 				break;
 
 			case 'l':
-				umlCanvas.toLinkMode(LinkKind.ASSOCIATION_RELATION);
+				classDiagram.toLinkMode(LinkKind.ASSOCIATION_RELATION);
 				break;
 
 			case 'k':
-				umlCanvas.toLinkMode(LinkKind.COMPOSITION_RELATION);
+				classDiagram.toLinkMode(LinkKind.COMPOSITION_RELATION);
 				break;
 
 			case 'g':
-				umlCanvas.toLinkMode(LinkKind.GENERALIZATION_RELATION);
+				classDiagram.toLinkMode(LinkKind.GENERALIZATION_RELATION);
 				break;
 
 			case 's':
-				umlCanvas.toLinkMode(LinkKind.CLASSRELATION);
+				classDiagram.toLinkMode(LinkKind.CLASSRELATION);
 				break;
 		}
 	}
 
 	private void objectDiagramPush(final char keyCode, final boolean isCtrlDown) {
 		switch (keyCode) {
-			case 'c':
+			case 'c': // TODO uncomment when ObjectDiagram has addNewClass method
 				if (!isCtrlDown) {
-					umlCanvas.addNewClass();
+					objectDiagram.addNewClass();
 				}
 				break;
 
 			case 'o':
-				umlCanvas.addNewObject();
+				objectDiagram.addNewObject();
 				break;
 
 			case 'd':
-				umlCanvas.toLinkMode(LinkKind.DEPENDENCY_RELATION);
+				objectDiagram.toLinkMode(LinkKind.DEPENDENCY_RELATION);
 				break;
 
 			case 'i':
-				umlCanvas.toLinkMode(LinkKind.INSTANTIATION);
+				objectDiagram.toLinkMode(LinkKind.INSTANTIATION);
 				break;
 		}
 	}
