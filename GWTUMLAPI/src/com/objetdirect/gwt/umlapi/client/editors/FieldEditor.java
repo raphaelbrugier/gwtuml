@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
 /**
  * This abstract class is a generic field editor for uml artifacts.<br>

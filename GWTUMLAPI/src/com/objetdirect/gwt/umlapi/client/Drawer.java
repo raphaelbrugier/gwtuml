@@ -32,10 +32,11 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager.Theme;
 import com.objetdirect.gwt.umlapi.client.resources.Resources;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.DecoratorCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
@@ -93,7 +94,7 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		});
 	}
 
-	void setCursorIcon(PointerStyle style) {
+	public void setCursorIcon(PointerStyle style) {
 		cursorManager.changeCursorIcon(style, this);
 	}
 

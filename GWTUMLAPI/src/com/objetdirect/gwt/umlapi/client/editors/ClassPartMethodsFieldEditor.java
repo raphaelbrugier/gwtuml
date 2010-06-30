@@ -16,7 +16,7 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassPartMethodsArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 
 /**

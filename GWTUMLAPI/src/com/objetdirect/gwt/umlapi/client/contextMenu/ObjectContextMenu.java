@@ -21,8 +21,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
-import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
 /**
  * Context menu implementation for an object diagram

@@ -15,7 +15,7 @@
 package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
 /**
  * This abstract class represent a part of a {@link NodeArtifact}

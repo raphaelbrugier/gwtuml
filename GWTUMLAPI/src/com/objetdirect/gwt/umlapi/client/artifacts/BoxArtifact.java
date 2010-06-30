@@ -18,7 +18,7 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
 /**
  * This abstract class specialize an {@link UMLArtifact} in a box shape based artifact

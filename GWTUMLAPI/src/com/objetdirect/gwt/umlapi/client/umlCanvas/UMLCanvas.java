@@ -12,7 +12,7 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.helpers;
+package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
@@ -35,7 +35,6 @@ import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.DecoratorCanvas;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
@@ -50,6 +49,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
+import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
 import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
@@ -59,6 +59,8 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxPlatform;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxStyle;
+import com.objetdirect.gwt.umlapi.client.helpers.QualityLevel;
+import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
