@@ -42,13 +42,13 @@ public class ObjectContextMenu extends ContextMenu {
 	 */
 	@Override
 	protected void makeSpecificDiagramMenu() {
-		contextMenu.addItem("Add new object", new Command() {
+		contextMenu.addItem("Add a new Object", new Command() {
 			public void execute() {
 				canvas.addNewObject();
 			}
 		});
-		
-		contextMenu.addItem("Add new Class", new Command() {
+
+		contextMenu.addItem("Add a new Class", new Command() {
 			public void execute() {
 				canvas.addNewClass();
 			}

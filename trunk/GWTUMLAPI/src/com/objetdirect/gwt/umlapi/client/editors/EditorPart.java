@@ -12,27 +12,17 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
-
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
+package com.objetdirect.gwt.umlapi.client.editors;
 
 /**
- * Represents a relation between two classes in the metamodel.
+ * Interface to edit a part of an umlComponent. The recommended utilisation is to create an anonymous class and passed
+ * it to the SimpleFieldEditor.
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public abstract class ClassToClassRelation implements Relation {
+public interface EditorPart {
 
-	private final UMLClass leftTarget;
+	public String getText();
 
-	private final UMLClass rightTarget;
-
-	/**
-	 * @param leftTarget
-	 * @param rightTarget
-	 */
-	public ClassToClassRelation(UMLClass leftTarget, UMLClass rightTarget) {
-		this.leftTarget = leftTarget;
-		this.rightTarget = rightTarget;
-	}
+	public void setText(String newText);
 }

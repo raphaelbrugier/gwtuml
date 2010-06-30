@@ -177,12 +177,7 @@ public class UrlConverter {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
 							newArtifact = new ObjectRelationLinkArtifact(umlCanvas, id, (ObjectArtifact) getArtifactById(objectLeftId),
-									(ObjectArtifact) getArtifactById(objectRigthId), LinkKind.getRelationKindFromName(parameters[2]));
-							((ObjectRelationLinkArtifact) newArtifact).setName((isForPasting && wasACopy() ? "CopyOf" : "") + parameters[3]);
-							((ObjectRelationLinkArtifact) newArtifact).setLinkStyle(LinkStyle.getLinkStyleFromName(parameters[4]));
-							((ObjectRelationLinkArtifact) newArtifact).setLeftAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[5]));
-							((ObjectRelationLinkArtifact) newArtifact).setRightAdornment(LinkAdornment.getLinkAdornmentFromName(parameters[6]));
-
+									(ObjectArtifact) getArtifactById(objectRigthId));
 						} else if (artifact.equals("MessageLink")) {
 							Integer lifeLineLeftId = 0;
 							Integer lifeLineRigthId = 0;

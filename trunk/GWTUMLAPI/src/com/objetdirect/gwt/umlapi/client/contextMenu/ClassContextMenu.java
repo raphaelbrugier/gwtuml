@@ -64,8 +64,8 @@ public class ClassContextMenu extends ContextMenu {
 
 		addRelationCommand(relationsSubMenu, "Aggregation", AGGREGATION_RELATION);
 		addRelationCommand(relationsSubMenu, "Assocation", ASSOCIATION_RELATION);
-		addRelationCommand(relationsSubMenu, "Class relation", CLASSRELATION);
 		addRelationCommand(relationsSubMenu, "Composition", COMPOSITION_RELATION);
+		addRelationCommand(relationsSubMenu, "Class relation", CLASSRELATION);
 		addRelationCommand(relationsSubMenu, "Dependency", DEPENDENCY_RELATION);
 		addRelationCommand(relationsSubMenu, "Generalization", GENERALIZATION_RELATION);
 		addRelationCommand(relationsSubMenu, "Note link", NOTE);

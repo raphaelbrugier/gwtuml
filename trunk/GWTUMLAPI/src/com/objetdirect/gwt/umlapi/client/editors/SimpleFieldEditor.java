@@ -12,27 +12,33 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
+package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 
 /**
- * Represents a relation between two classes in the metamodel.
- * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public abstract class ClassToClassRelation implements Relation {
+public class SimpleFieldEditor extends FieldEditor {
 
-	private final UMLClass leftTarget;
+	private final EditorPart editable;
 
-	private final UMLClass rightTarget;
-
-	/**
-	 * @param leftTarget
-	 * @param rightTarget
-	 */
-	public ClassToClassRelation(UMLClass leftTarget, UMLClass rightTarget) {
-		this.leftTarget = leftTarget;
-		this.rightTarget = rightTarget;
+	public SimpleFieldEditor(final UMLCanvas canvas, final RelationLinkArtifact artifact, EditorPart editable) {
+		super(canvas, artifact);
+		this.editable = editable;
 	}
+
+	@Override
+	protected void next() {
+		// No next part to edit
+	}
+
+	@Override
+	protected boolean updateUMLArtifact(String newContent) {
+		editable.setText(newContent);
+		artifact.rebuildGfxObject();
+		return false;
+	}
+
 }
