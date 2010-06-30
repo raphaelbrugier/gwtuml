@@ -31,9 +31,9 @@ public class Keyboard {
 
 	private final DiagramType diagramType;
 
-	public Keyboard(UMLCanvas umlCanvas) {
+	public Keyboard(UMLCanvas umlCanvas, DiagramType diagramType) {
 		this.umlCanvas = umlCanvas;
-		diagramType = umlCanvas.getDiagramType();
+		this.diagramType = diagramType;
 	}
 
 	/**

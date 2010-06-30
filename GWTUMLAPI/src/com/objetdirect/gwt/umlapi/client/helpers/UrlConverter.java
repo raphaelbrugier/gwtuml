@@ -207,7 +207,6 @@ public class UrlConverter {
 									(ObjectArtifact) getArtifactById(objectId));
 						}
 						if (newArtifact != null) {
-							newArtifact.setId(id);
 							umlCanvas.add(newArtifact);
 						}
 						if (isForPasting) {
