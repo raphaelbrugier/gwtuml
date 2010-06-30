@@ -12,7 +12,7 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with Gwt-Generator. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client;
+package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +35,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.objetdirect.gwt.umlapi.client.Drawer;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
@@ -42,12 +43,11 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
 import com.objetdirect.gwt.umlapi.client.helpers.OptionsManager;
 import com.objetdirect.gwt.umlapi.client.helpers.ThemeManager;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle;
 
 /**
- * Wrap the Canvas with the sides panel. This wrapper also permits to the canvas to display a Field Editor and a HelpText on the panel at the given position.
- * This class manage the mouse position on the canvas.
+ * Wrap the Canvas with the sides panel. This wrapper also permits to the canvas to display a Field Editor and a
+ * HelpText on the panel at the given position. This class manage the mouse position on the canvas.
  * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
@@ -71,7 +71,8 @@ public class DecoratorCanvas extends AbsolutePanel {
 	private HandlerRegistration mouseHandlerRegistration;
 
 	/**
-	 * The current mouse position on the Canvas. A (0,0) position means the mouse is in the left top corner of the canvas.
+	 * The current mouse position on the Canvas. A (0,0) position means the mouse is in the left top corner of the
+	 * canvas.
 	 */
 	private final Point currentMousePosition;
 
@@ -97,8 +98,8 @@ public class DecoratorCanvas extends AbsolutePanel {
 	}
 
 	/**
-	 * Attach a mouse move handler to the windows that will refresh the current mouse position Point on the canvas. This position is the real position on the
-	 * canvas calculated from its container's size and position .
+	 * Attach a mouse move handler to the windows that will refresh the current mouse position Point on the canvas. This
+	 * position is the real position on the canvas calculated from its container's size and position .
 	 * */
 	private void attachCurrentMousePositionHandler() {
 
@@ -117,8 +118,9 @@ public class DecoratorCanvas extends AbsolutePanel {
 	}
 
 	/**
-	 * Calculate the mouse position on the canvas from the absolute mouse position. The absolute mouse position is the position of the mouse from the top left
-	 * corner of the window. The calculated position means that the position (0,0) is the position for the mouse on the top left corner of the canvas.
+	 * Calculate the mouse position on the canvas from the absolute mouse position. The absolute mouse position is the
+	 * position of the mouse from the top left corner of the window. The calculated position means that the position
+	 * (0,0) is the position for the mouse on the top left corner of the canvas.
 	 * 
 	 * @param left
 	 * @param top
@@ -265,8 +267,8 @@ public class DecoratorCanvas extends AbsolutePanel {
 	}
 
 	/**
-	 * Get a size for a Panel from its direction Ie : left up panel is of default size, Up panel require a width of the with of the panel - the left up and
-	 * right panel's width
+	 * Get a size for a Panel from its direction Ie : left up panel is of default size, Up panel require a width of the
+	 * with of the panel - the left up and right panel's width
 	 * 
 	 * @param direction
 	 * @return
@@ -353,7 +355,7 @@ public class DecoratorCanvas extends AbsolutePanel {
 	 * @param height
 	 *            the new height
 	 */
-	void reSize(int width, int height) {
+	public void reSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.setPixelSize(width, height);

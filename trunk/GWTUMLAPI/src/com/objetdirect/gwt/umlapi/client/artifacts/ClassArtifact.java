@@ -16,8 +16,8 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.helpers.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.helpers.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
+import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
