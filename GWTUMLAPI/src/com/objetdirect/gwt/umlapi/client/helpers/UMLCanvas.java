@@ -649,8 +649,8 @@ public class UMLCanvas implements Serializable, UmlCanvas {
 			}
 
 			// Object diagram
-			else if (linkKind == OBJECT_RELATION) {
-				return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifactNew, (ObjectArtifact) uMLArtifact, linkKind);
+			else if (linkKind == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
+				return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
 			} else if ((linkKind == INSTANTIATION)) {
 				ClassArtifact classArtifact = null;
 				ObjectArtifact objectArtifact = null;

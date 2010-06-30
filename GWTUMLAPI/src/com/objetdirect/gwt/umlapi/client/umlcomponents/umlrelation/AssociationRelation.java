@@ -1,9 +1,29 @@
+/*
+ * This file is part of the GWTUML project and was written by Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com) for Objet Direct
+ * <http://wwww.objetdirect.com>
+ * 
+ * Copyright Â© 2010 Objet Direct Contact: gwtuml@googlegroups.com
+ * 
+ * GWTUML is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later version.
+ * 
+ * GWTUML is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.SOLID;
 
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
+/**
+ * Represents an association between two classes in the metamodel. An association could be a composition, an aggregation
+ * or a simple association. It could be unidirectional or bidirectional.
+ * 
+ * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ */
 public class AssociationRelation extends ClassToClassRelation {
 
 	public enum AssociationType {
