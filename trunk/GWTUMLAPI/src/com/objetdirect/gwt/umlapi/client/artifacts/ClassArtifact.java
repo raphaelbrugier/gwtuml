@@ -78,7 +78,7 @@ public class ClassArtifact extends NodeArtifact {
 	public ClassArtifact(final UMLCanvas canvas, int id, final String className, final String stereotype) {
 		super(canvas, id);
 		ownedClass = new UMLClass(className);
-		this.className = new ClassPartNameArtifact(canvas, ownedClass, className, stereotype);
+		this.className = new ClassPartNameArtifact(canvas, ownedClass, stereotype);
 		classAttributes = new ClassPartAttributesArtifact(canvas, ownedClass.getAttributes());
 		classMethods = new ClassPartMethodsArtifact(canvas, ownedClass.getMethods());
 		nodeParts.add(this.className);

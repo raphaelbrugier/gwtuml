@@ -117,7 +117,7 @@ public abstract class FieldEditor {
 		}
 		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "backgroundColor", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
 		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "color", ThemeManager.getTheme().getDefaultForegroundColor().toString());
-		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString()); 
+		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
 
 		FieldEditor.editField.addBlurHandler(new BlurHandler() {
 			public void onBlur(final BlurEvent event) {

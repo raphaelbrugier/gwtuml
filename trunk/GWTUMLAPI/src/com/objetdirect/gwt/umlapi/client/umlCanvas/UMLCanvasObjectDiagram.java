@@ -23,6 +23,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassSimplifiedArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
@@ -80,7 +81,8 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		if (dragAndDropState != NONE) {
 			return;
 		}
-		final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class --");
+		// final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class --");
+		final ClassSimplifiedArtifact newClass = new ClassSimplifiedArtifact(this, idCount, "Class --");
 
 		this.add(newClass);
 		newClass.moveTo(Point.substract(location, getCanvasOffset()));
