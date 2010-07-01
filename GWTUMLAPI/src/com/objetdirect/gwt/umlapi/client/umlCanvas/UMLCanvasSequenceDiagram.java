@@ -19,6 +19,8 @@ import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.Pointe
 import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
@@ -94,4 +96,12 @@ public class UMLCanvasSequenceDiagram extends UMLCanvas {
 		wrapper.setHelpText("Adding a new life line", location.clonePoint());
 	}
 
+	@Override
+	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
+		try {
+			return new MessageLinkArtifact(this, idCount, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, activeLinking);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
 }
