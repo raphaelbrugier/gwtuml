@@ -291,6 +291,7 @@ public abstract class UMLArtifact implements Serializable {
 	 * 
 	 */
 	public void rebuildGfxObject() {
+		Log.debug("UMLArtifact::RebuildGfxObject cleared gfxObject");
 		final long t = System.currentTimeMillis();
 		GfxManager.getPlatform().clearVirtualGroup(gfxObject);
 		this.buildGfxObjectWithAnimation();
@@ -298,7 +299,7 @@ public abstract class UMLArtifact implements Serializable {
 			this.select();
 		}
 
-		Log.trace("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
+		Log.debug("([" + (System.currentTimeMillis() - t) + "ms]) to build " + this);
 		for (final Entry<LinkArtifact, UMLArtifact> dependentUMLArtifact : this.getDependentUMLArtifacts().entrySet()) {
 			Log.trace("Rebuilding : " + dependentUMLArtifact);
 			new Scheduler.Task("RebuildingDependencyFor" + this) {

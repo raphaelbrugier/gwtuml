@@ -61,10 +61,9 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 	 * @param stereotype
 	 *            The stereotype associated with the class
 	 */
-	public ClassPartNameArtifact(final UMLCanvas canvas, final UMLClass ownedClass, final String className, final String stereotype) {
+	public ClassPartNameArtifact(final UMLCanvas canvas, final UMLClass ownedClass, final String stereotype) {
 		super(canvas);
 		uMLclass = ownedClass;
-		uMLclass.setName(className);
 		uMLclass.setStereotype(stereotype.equals("") ? "" : "«" + stereotype + "»");
 		height = 0;
 		width = 0;
@@ -162,10 +161,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 			edited = uMLclass.getName();
 		}
 		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
-				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY() /*
-																						 * + OptionsManager .get(
-																						 * "RectangleTopPadding" )
-																						 */, nodeWidth - OptionsManager.get("TextRightPadding")
+				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY(), nodeWidth - OptionsManager.get("TextRightPadding")
 						- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"),
 				false, false);
 	}

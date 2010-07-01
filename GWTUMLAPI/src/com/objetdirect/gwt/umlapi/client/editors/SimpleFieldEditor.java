@@ -14,17 +14,28 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
 /**
+ * Simple field editor.
+ * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public class SimpleFieldEditor extends FieldEditor {
 
 	private final EditorPart editable;
 
-	public SimpleFieldEditor(final UMLCanvas canvas, final RelationLinkArtifact artifact, EditorPart editable) {
+	/**
+	 * @param canvas
+	 *            The canvas where to draw the editor
+	 * @param artifact
+	 *            The artifact owning the field to edit.
+	 * @param editable
+	 *            An instance of the EditorPart used to edit the field internally.
+	 */
+	public SimpleFieldEditor(final UMLCanvas canvas, final UMLArtifact artifact, EditorPart editable) {
 		super(canvas, artifact);
 		this.editable = editable;
 	}
@@ -37,6 +48,7 @@ public class SimpleFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(String newContent) {
 		editable.setText(newContent);
+		Log.debug("SimpleFieldEditor::updateUMLArtifact will rebuild gfxObject  => ");
 		artifact.rebuildGfxObject();
 		return false;
 	}

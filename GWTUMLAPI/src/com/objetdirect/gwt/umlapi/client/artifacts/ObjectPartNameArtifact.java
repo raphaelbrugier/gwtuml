@@ -99,7 +99,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		textVirtualGroup.addToVirtualGroup(gfxObject);
 		String stereotype = umlObject.getStereotype();
-		if ((stereotype != null) && (stereotype != "")) {
+		if ((stereotype != null) && (!stereotype.isEmpty())) {
 			stereotypeText = GfxManager.getPlatform().buildText(stereotype,
 					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
 			stereotypeText.addToVirtualGroup(textVirtualGroup);
@@ -162,10 +162,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			edited = umlObject.getFormattedName();
 		}
 		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
-				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY()/*
-																						 * + OptionsManager .get(
-																						 * "RectangleTopPadding" ))
-																						 */, nodeWidth - OptionsManager.get("TextRightPadding")
+				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY(), nodeWidth - OptionsManager.get("TextRightPadding")
 						- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"),
 				false, false);
 	}
