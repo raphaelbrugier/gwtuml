@@ -158,7 +158,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public MenuBarAndTitle getRightMenu() {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
-		String menuName = objectRelation.getLeftObject().getObjectName() + " - " + objectRelation.getRightObject().getObjectName();
+		String menuName = objectRelation.getLeftObject().getClassName() + " - " + objectRelation.getRightObject().getClassName();
 		rightMenu.setName(menuName);
 
 		final MenuBar leftSide = buildRoleMenuBar(leftRoleGfxObject, buildLeftRoleEditorPart());
@@ -170,8 +170,8 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		final MenuBar rightNavigability = setNavigabilityCommands(false);
 		rightSide.addItem("Navigability", rightNavigability);
 
-		rightMenu.addItem(objectRelation.getLeftObject().getObjectName() + " side", leftSide);
-		rightMenu.addItem(objectRelation.getRightObject().getObjectName() + " side", rightSide);
+		rightMenu.addItem(objectRelation.getLeftObject().getClassName() + " side", leftSide);
+		rightMenu.addItem(objectRelation.getRightObject().getClassName() + " side", rightSide);
 		return rightMenu;
 	}
 

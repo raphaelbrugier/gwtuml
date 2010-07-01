@@ -98,7 +98,7 @@ public class UMLObject extends UMLNode {
 		return "";
 	}
 
-	private String objectName;
+	private String className;
 	private String instanceName;
 	private String stereotype;
 	private List<UMLObjectAttribute> attributes;
@@ -112,13 +112,13 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @param objectInstance
 	 *            The name of this instance
-	 * @param objectName
+	 * @param className
 	 *            The name of this object
 	 */
-	public UMLObject(final String instanceName, final String objectName, String stereotype) {
+	public UMLObject(final String instanceName, final String className, String stereotype) {
 		super();
 		this.instanceName = instanceName;
-		this.objectName = objectName;
+		this.className = className;
 		this.stereotype = stereotype;
 		attributes = new ArrayList<UMLObjectAttribute>();
 	}
@@ -146,8 +146,8 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the object name
 	 */
-	public final String getObjectName() {
-		return objectName;
+	public final String getClassName() {
+		return className;
 	}
 
 	/**
@@ -175,8 +175,8 @@ public class UMLObject extends UMLNode {
 	 * @param objectName
 	 *            the object name to set
 	 */
-	public final void setObjectName(final String objectName) {
-		this.objectName = objectName;
+	public final void setClassName(final String objectName) {
+		className = objectName;
 	}
 
 	/**
@@ -193,11 +193,11 @@ public class UMLObject extends UMLNode {
 	 * @return A formatted string with the object name (if any) and the instance name.
 	 */
 	public String getFormattedName() {
-		return instanceName + ":" + objectName;
+		return instanceName + ":" + className;
 	}
-	
+
 	public String getValueOfAttribute(String attributeName) {
-		for(UMLObjectAttribute attribute : attributes) {
+		for (UMLObjectAttribute attribute : attributes) {
 			System.out.println("attribute = " + attribute + "    attributeName = " + attributeName);
 			if (attribute.getAttributeName().equals(attributeName)) {
 				return attribute.getValue();
@@ -205,7 +205,7 @@ public class UMLObject extends UMLNode {
 		}
 		throw new RuntimeException("No attribute correspond to " + attributeName + " in the instantiated object.");
 	}
-	
+
 	public UMLObject addAttributeValuePair(String attributeName, String attributeValue) {
 		getObjectAttributes().add(UMLObjectAttribute.parseAttribute(attributeName + " = \"" + attributeValue + "\""));
 		return this;
@@ -218,6 +218,6 @@ public class UMLObject extends UMLNode {
 	 */
 	@Override
 	public String toString() {
-		return instanceName + ":" + objectName;
+		return instanceName + ":" + className;
 	}
 }

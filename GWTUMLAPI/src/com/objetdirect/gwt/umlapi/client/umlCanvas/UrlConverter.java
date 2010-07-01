@@ -23,6 +23,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.clazz.LinkClassRelationArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.InstantiationRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ObjectArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ObjectRelationLinkArtifact;
@@ -204,7 +205,7 @@ public class UrlConverter {
 							} catch (final Exception ex) {
 								Log.error("Parsing url, id is NaN : " + artifactWithParameters + " : " + ex);
 							}
-							newArtifact = new InstantiationRelationLinkArtifact(umlCanvas, id, (ClassArtifact) getArtifactById(classId),
+							newArtifact = new InstantiationRelationLinkArtifact(umlCanvas, id, (ClassSimplifiedArtifact) getArtifactById(classId),
 									(ObjectArtifact) getArtifactById(objectId));
 						}
 						if (newArtifact != null) {

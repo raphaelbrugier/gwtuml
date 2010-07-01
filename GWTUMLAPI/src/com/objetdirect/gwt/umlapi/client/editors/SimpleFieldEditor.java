@@ -14,7 +14,6 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 
@@ -48,7 +47,6 @@ public class SimpleFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(String newContent) {
 		editable.setText(newContent);
-		Log.debug("SimpleFieldEditor::updateUMLArtifact will rebuild gfxObject  => ");
 		artifact.rebuildGfxObject();
 		return false;
 	}
