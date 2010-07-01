@@ -137,7 +137,7 @@ public class ObjectArtifact extends NodeArtifact {
 	 */
 	@Override
 	public String getName() {
-		return umlObject.getObjectName();
+		return umlObject.getClassName();
 	}
 
 	/**

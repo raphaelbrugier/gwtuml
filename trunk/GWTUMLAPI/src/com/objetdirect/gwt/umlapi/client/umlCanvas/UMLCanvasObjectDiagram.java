@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.InstantiationRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ObjectArtifact;
@@ -81,8 +80,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		if (dragAndDropState != NONE) {
 			return;
 		}
-		// final ClassArtifact newClass = new ClassArtifact(this, idCount, "Class --");
-		final ClassSimplifiedArtifact newClass = new ClassSimplifiedArtifact(this, idCount, "Class --");
+		final ClassSimplifiedArtifact newClass = new ClassSimplifiedArtifact(this, idCount, "ClassName");
 
 		this.add(newClass);
 		newClass.moveTo(Point.substract(location, getCanvasOffset()));
@@ -134,15 +132,15 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 			if (activeLinking == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
 				return new ObjectRelationLinkArtifact(this, idCount, (ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
 			} else if ((activeLinking == INSTANTIATION)) {
-				ClassArtifact classArtifact = null;
+				ClassSimplifiedArtifact classArtifact = null;
 				ObjectArtifact objectArtifact = null;
 
 				// Dirty dirty dirty :(
-				if (uMLArtifactNew instanceof ClassArtifact && uMLArtifact instanceof ObjectArtifact) {
-					classArtifact = (ClassArtifact) uMLArtifactNew;
+				if (uMLArtifactNew instanceof ClassSimplifiedArtifact && uMLArtifact instanceof ObjectArtifact) {
+					classArtifact = (ClassSimplifiedArtifact) uMLArtifactNew;
 					objectArtifact = (ObjectArtifact) uMLArtifact;
-				} else if (uMLArtifact instanceof ClassArtifact && uMLArtifactNew instanceof ObjectArtifact) {
-					classArtifact = (ClassArtifact) uMLArtifact;
+				} else if (uMLArtifact instanceof ClassSimplifiedArtifact && uMLArtifactNew instanceof ObjectArtifact) {
+					classArtifact = (ClassSimplifiedArtifact) uMLArtifact;
 					objectArtifact = (ObjectArtifact) uMLArtifactNew;
 				} else {
 					return null;

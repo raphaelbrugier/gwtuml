@@ -228,7 +228,7 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 *            The new name of the object
 	 */
 	public void setObjectName(final String objectName) {
-		umlObject.setObjectName(objectName);
+		umlObject.setClassName(objectName);
 	}
 
 	/**

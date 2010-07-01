@@ -20,7 +20,6 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
@@ -48,7 +47,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	private transient GfxObject line;
 	private transient GfxObject textVirtualGroup;
 
-	private ClassArtifact classArtifact;
+	private ClassSimplifiedArtifact classArtifact;
 	private ObjectArtifact objectArtifact;
 	private InstantiationRelation instantiationRelation;
 
@@ -72,7 +71,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 * @param relationKind
 	 *            The kind of relation this link is.
 	 */
-	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassArtifact left, final ObjectArtifact right) {
+	public InstantiationRelationLinkArtifact(final UMLCanvas canvas, int id, final ClassSimplifiedArtifact left, final ObjectArtifact right) {
 		super(canvas, id, left, right, INSTANTIATION);
 		classArtifact = left;
 		left.addDependency(this, right);
@@ -80,29 +79,14 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		right.addDependency(this, left);
 
 		instantiationRelation = new InstantiationRelation(objectArtifact.toUmlComponent(), classArtifact.toUMLComponent());
+
+		objectArtifact.toUmlComponent().setClassName(classArtifact.getName());
+		objectArtifact.rebuildGfxObject();
 	}
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
 		// Instantiation are not editable
-	}
-
-	/**
-	 * Getter for the left {@link ClassArtifact} of this relation
-	 * 
-	 * @return the left {@link ClassArtifact} of this relation
-	 */
-	public ClassArtifact getClassArtifact() {
-		return classArtifact;
-	}
-
-	/**
-	 * Getter for the right {@link ObjectArtifact} of this relation
-	 * 
-	 * @return the right {@link ObjectArtifact} of this relation
-	 */
-	public ObjectArtifact getObjectArtifact() {
-		return objectArtifact;
 	}
 
 	/**
