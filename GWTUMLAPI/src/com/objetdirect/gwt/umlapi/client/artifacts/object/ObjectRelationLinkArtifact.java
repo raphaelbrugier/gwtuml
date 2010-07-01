@@ -115,7 +115,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		final SimpleFieldEditor editor = new SimpleFieldEditor(canvas, this, editorPart);
 		editor.startEdition(editorPart.getText(), editedGfxObject.getLocation().getX(), editedGfxObject.getLocation().getY(), GfxManager.getPlatform()
 				.getTextWidthFor(editedGfxObject)
-				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
+				+ RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING, false, true);
 	}
 
 	public EditorPart buildLeftRoleEditorPart() {
@@ -327,16 +327,16 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		}
 		switch (this.getAnchorType(isLeft ? leftObjectArtifact : rightObjectArtifact, relative_point1)) {
 			case LEFT:
-				return relative_point1.getX() - textWidth - OptionsManager.get("RectangleLeftPadding");
+				return relative_point1.getX() - textWidth - RECTANGLE_LEFT_PADDING;
 			case RIGHT:
-				return relative_point1.getX() + OptionsManager.get("RectangleRightPadding");
+				return relative_point1.getX() + RECTANGLE_RIGHT_PADDING;
 			case TOP:
 			case BOTTOM:
 			case UNKNOWN:
 				if (relative_point1.getX() < relative_point2.getX()) {
-					return relative_point1.getX() - textWidth - OptionsManager.get("RectangleLeftPadding");
+					return relative_point1.getX() - textWidth - RECTANGLE_LEFT_PADDING;
 				}
-				return relative_point1.getX() + OptionsManager.get("RectangleRightPadding");
+				return relative_point1.getX() + RECTANGLE_RIGHT_PADDING;
 		}
 		return 0;
 	}
@@ -355,14 +355,14 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 			case LEFT:
 			case RIGHT:
 				if (relative_point1.getY() > relative_point2.getY()) {
-					return relative_point1.getY() + OptionsManager.get("RectangleBottomPadding") + delta;
+					return relative_point1.getY() + RECTANGLE_BOTTOM_PADDING + delta;
 				}
-				return relative_point1.getY() - textHeight - OptionsManager.get("RectangleTopPadding") - delta;
+				return relative_point1.getY() - textHeight - RECTANGLE_TOP_PADDING - delta;
 			case TOP:
-				return relative_point1.getY() - textHeight - OptionsManager.get("RectangleTopPadding") - delta;
+				return relative_point1.getY() - textHeight - RECTANGLE_TOP_PADDING - delta;
 			case BOTTOM:
 			case UNKNOWN:
-				return relative_point1.getY() + OptionsManager.get("RectangleBottomPadding") + delta;
+				return relative_point1.getY() + RECTANGLE_BOTTOM_PADDING + delta;
 		}
 		return 0;
 	}

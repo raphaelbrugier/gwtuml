@@ -90,12 +90,12 @@ public class LifeLineArtifact extends BoxArtifact {
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
 		final LifeLineFieldEditor editor = new LifeLineFieldEditor(canvas, this);
-		editor.setHeightForMultiLine(rectHeight - OptionsManager.get("TextTopPadding") - OptionsManager.get("TextBottomPadding")
-				- OptionsManager.get("RectangleTopPadding") - OptionsManager.get("RectangleBottomPadding"));
-		editor.startEdition(uMLLifeLine.toString(), this.getLocation().getX() + OptionsManager.get("TextLeftPadding")
-				+ OptionsManager.get("RectangleLeftPadding"), this.getLocation().getY() + OptionsManager.get("TextTopPadding")
-				+ OptionsManager.get("TextBottomPadding") + OptionsManager.get("RectangleTopPadding"), width - OptionsManager.get("TextRightPadding")
-				- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false,
+		editor.setHeightForMultiLine(rectHeight - TEXT_TOP_PADDING - TEXT_BOTTOM_PADDING
+				- RECTANGLE_TOP_PADDING - RECTANGLE_BOTTOM_PADDING);
+		editor.startEdition(uMLLifeLine.toString(), this.getLocation().getX() + TEXT_LEFT_PADDING
+				+ RECTANGLE_LEFT_PADDING, this.getLocation().getY() + TEXT_TOP_PADDING
+				+ TEXT_BOTTOM_PADDING + RECTANGLE_TOP_PADDING, width - TEXT_RIGHT_PADDING
+				- TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING, false,
 				false);
 
 	}
@@ -204,8 +204,8 @@ public class LifeLineArtifact extends BoxArtifact {
 		lineLength = OptionsManager.get("LifeLineSpacing") * (this.getAllDirectionsDependenciesCount() + 3);
 		lifeLineText = GfxManager.getPlatform().buildText(
 				uMLLifeLine.toString(),
-				new Point(OptionsManager.get("RectangleLeftPadding") + OptionsManager.get("TextLeftPadding"), OptionsManager.get("RectangleTopPadding")
-						+ OptionsManager.get("TextTopPadding")));
+				new Point(RECTANGLE_LEFT_PADDING + TEXT_LEFT_PADDING, RECTANGLE_TOP_PADDING
+						+ TEXT_TOP_PADDING));
 
 		lifeLineText.addToVirtualGroup(gfxObject);
 		lifeLineText.setFont(OptionsManager.getFont());
@@ -213,10 +213,10 @@ public class LifeLineArtifact extends BoxArtifact {
 		lifeLineText.setFillColor(ThemeManager.getTheme().getLifeLineForegroundColor());
 		width = GfxManager.getPlatform().getTextWidthFor(lifeLineText);
 		rectHeight = GfxManager.getPlatform().getTextHeightFor(lifeLineText);
-		width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-		rectHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		rectHeight += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		width += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
+		rectHeight += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING;
+		rectHeight += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
 
 		lifeLineRect = GfxManager.getPlatform().buildRect(width, rectHeight);
 		lifeLineRect.addToVirtualGroup(gfxObject);

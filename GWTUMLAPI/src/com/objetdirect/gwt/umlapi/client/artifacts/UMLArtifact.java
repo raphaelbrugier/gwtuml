@@ -43,7 +43,7 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
-public abstract class UMLArtifact implements Serializable {
+public abstract class UMLArtifact implements Serializable, CommonConstants {
 	protected transient GfxObject gfxObject;
 
 	protected boolean isSelected = false;
