@@ -12,10 +12,12 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.object;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Command;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.editors.EditorPart;
 import com.objetdirect.gwt.umlapi.client.editors.SimpleFieldEditor;
@@ -206,7 +208,7 @@ public class ClassPartNameSimplifiedArtifact extends NodePartArtifact {
 	}
 
 	@Override
-	void setNodeWidth(final int width) {
+	public void setNodeWidth(final int width) {
 		nodeWidth = width;
 	}
 

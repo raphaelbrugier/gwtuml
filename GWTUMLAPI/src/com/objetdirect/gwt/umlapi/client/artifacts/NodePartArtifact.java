@@ -74,7 +74,7 @@ public abstract class NodePartArtifact extends BoxArtifact {
 	/**
 	 * This method creates the graphical object for the text to determine the size of this part
 	 */
-	abstract void computeBounds();
+	public abstract void computeBounds();
 
 	/**
 	 * Setter for the nodeArtifact
@@ -82,9 +82,9 @@ public abstract class NodePartArtifact extends BoxArtifact {
 	 * @param nodeArtifact
 	 *            the nodeArtifact to set
 	 */
-	void setNodeArtifact(final NodeArtifact nodeArtifact) {
+	public void setNodeArtifact(final NodeArtifact nodeArtifact) {
 		this.nodeArtifact = nodeArtifact;
 	}
 
-	abstract void setNodeWidth(int width);
+	public abstract void setNodeWidth(int width);
 }

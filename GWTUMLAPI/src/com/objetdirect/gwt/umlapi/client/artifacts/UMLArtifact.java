@@ -407,15 +407,11 @@ public abstract class UMLArtifact implements Serializable {
 		isSelected = false;
 	}
 
-	void addDependency(final LinkArtifact dependentUMLArtifact, final UMLArtifact linkedUMLArtifact) {
+	public void addDependency(final LinkArtifact dependentUMLArtifact, final UMLArtifact linkedUMLArtifact) {
 		dependentUMLArtifacts.put(dependentUMLArtifact, linkedUMLArtifact);
 	}
 
 	void buildGfxObjectWithAnimation() {
-		if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
-			// ThemeManager.setForegroundOpacityTo(0);
-		}
-
 		this.buildGfxObject();
 		if (QualityLevel.IsAlmost(QualityLevel.VERY_HIGH)) {
 			for (int i = 25; i < 256; i += 25) {
@@ -427,11 +423,10 @@ public abstract class UMLArtifact implements Serializable {
 					}
 				};
 			}
-			// ThemeManager.setForegroundOpacityTo(255);
 		}
 	}
 
-	boolean hasThisAllDirectionsDependecy(final LinkArtifact linkArtifact) {
+	public boolean hasThisAllDirectionsDependecy(final LinkArtifact linkArtifact) {
 		return allDependencies.contains(linkArtifact);
 	}
 
@@ -443,7 +438,7 @@ public abstract class UMLArtifact implements Serializable {
 		gfxObject.moveToFront();
 	}
 
-	protected void addAllDirectionsDependecy(final LinkArtifact linkArtifact) {
+	public void addAllDirectionsDependecy(final LinkArtifact linkArtifact) {
 		allDependencies.add(linkArtifact);
 	}
 
@@ -457,7 +452,7 @@ public abstract class UMLArtifact implements Serializable {
 		return allDependencies.size();
 	}
 
-	protected int getAllDirectionsDependencyIndexOf(final LinkArtifact linkArtifact) {
+	public int getAllDirectionsDependencyIndexOf(final LinkArtifact linkArtifact) {
 		return allDependencies.indexOf(linkArtifact);
 	}
 

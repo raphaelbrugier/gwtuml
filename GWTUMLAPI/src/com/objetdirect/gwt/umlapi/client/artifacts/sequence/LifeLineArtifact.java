@@ -12,9 +12,10 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.sequence;
 
 import com.google.gwt.user.client.Command;
+import com.objetdirect.gwt.umlapi.client.artifacts.BoxArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.editors.LifeLineFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;

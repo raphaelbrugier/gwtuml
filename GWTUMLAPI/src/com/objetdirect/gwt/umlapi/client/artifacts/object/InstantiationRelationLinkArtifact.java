@@ -12,13 +12,15 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.object;
 
 import static com.objetdirect.gwt.umlapi.client.gfx.GfxStyle.LONGDASH;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
