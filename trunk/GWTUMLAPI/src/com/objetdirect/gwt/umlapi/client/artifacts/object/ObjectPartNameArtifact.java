@@ -81,14 +81,14 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		nameRect.setStroke(ThemeManager.getTheme().getObjectForegroundColor(), 1);
 
 		// Centering name object :
-		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
-				.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
-		underline.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
-				.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+				RECTANGLE_TOP_PADDING));
+		underline.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+				RECTANGLE_TOP_PADDING));
 		if (stereotypeText != null) {
-			stereotypeText.translate(new Point(
-					(nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager
-							.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+			stereotypeText
+					.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+							RECTANGLE_TOP_PADDING));
 
 		}
 		textVirtualGroup.moveToFront();
@@ -102,24 +102,22 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		textVirtualGroup.addToVirtualGroup(gfxObject);
 		String stereotype = umlObject.getStereotype();
 		if ((stereotype != null) && (!stereotype.isEmpty())) {
-			stereotypeText = GfxManager.getPlatform().buildText(stereotype,
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
+			stereotypeText = GfxManager.getPlatform().buildText(stereotype, new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING));
 			stereotypeText.addToVirtualGroup(textVirtualGroup);
 			stereotypeText.setFont(OptionsManager.getFont());
 			stereotypeText.setStroke(ThemeManager.getTheme().getObjectBackgroundColor(), 0);
 			stereotypeText.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
 			width = GfxManager.getPlatform().getTextWidthFor(stereotypeText);
 			height += GfxManager.getPlatform().getTextHeightFor(stereotypeText);
-			width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-			height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+			width += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
+			height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
 		}
 
-		nameText = GfxManager.getPlatform().buildText(umlObject.getFormattedName(),
-				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+		nameText = GfxManager.getPlatform().buildText(umlObject.getFormattedName(), new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 		nameText.addToVirtualGroup(textVirtualGroup);
-		final int yUnderline = height + GfxManager.getPlatform().getTextHeightFor(nameText) + OptionsManager.get("TextTopPadding");
-		underline = GfxManager.getPlatform().buildLine(new Point(OptionsManager.get("TextLeftPadding"), yUnderline),
-				new Point(OptionsManager.get("TextLeftPadding") + GfxManager.getPlatform().getTextWidthFor(nameText), yUnderline));
+		final int yUnderline = height + GfxManager.getPlatform().getTextHeightFor(nameText) + TEXT_TOP_PADDING;
+		underline = GfxManager.getPlatform().buildLine(new Point(TEXT_LEFT_PADDING, yUnderline),
+				new Point(TEXT_LEFT_PADDING + GfxManager.getPlatform().getTextWidthFor(nameText), yUnderline));
 		underline.addToVirtualGroup(textVirtualGroup);
 
 		nameText.setFont(OptionsManager.getFont());
@@ -127,13 +125,12 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		nameText.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
 		underline.setStroke(ThemeManager.getTheme().getObjectForegroundColor(), 1);
 		underline.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
-		final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + OptionsManager.get("TextRightPadding")
-				+ OptionsManager.get("TextLeftPadding");
+		final int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
 		width = thisAttributeWidth > width ? thisAttributeWidth : width;
 		height += GfxManager.getPlatform().getTextHeightFor(nameText);
-		height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding") + OptionsManager.get("UnderlineShift");
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING + OptionsManager.get("UnderlineShift");
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING;
+		height += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
 
 		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
@@ -163,9 +160,8 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		} else {
 			edited = umlObject.getFormattedName();
 		}
-		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
-				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY(), nodeWidth - OptionsManager.get("TextRightPadding")
-						- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"),
+		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING), nodeArtifact.getLocation().getY()
+				+ editedGfxObject.getLocation().getY(), nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING,
 				false, false);
 	}
 

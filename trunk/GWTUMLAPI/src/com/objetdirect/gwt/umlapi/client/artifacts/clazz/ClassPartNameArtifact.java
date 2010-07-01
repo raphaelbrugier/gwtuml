@@ -82,13 +82,13 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 
 		// Centering name class :
-		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
-				.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+				RECTANGLE_TOP_PADDING));
 
 		if (stereotypeText != null) {
-			stereotypeText.translate(new Point(
-					(nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - OptionsManager.get("TextRightPadding") - OptionsManager
-							.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+			stereotypeText
+					.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+							RECTANGLE_TOP_PADDING));
 		}
 
 		textVirtualGroup.moveToFront();
@@ -103,8 +103,7 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 		final String stereotype = uMLclass.getStereotype();
 		if ((stereotype != null) && GWTUMLDrawerHelper.isNotBlank(stereotype)) {
-			stereotypeText = GfxManager.getPlatform().buildText(stereotype,
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding")));
+			stereotypeText = GfxManager.getPlatform().buildText(stereotype, new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING));
 
 			stereotypeText.addToVirtualGroup(textVirtualGroup);
 			stereotypeText.setFont(OptionsManager.getFont());
@@ -113,25 +112,23 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 			width = GfxManager.getPlatform().getTextWidthFor(stereotypeText);
 			height = GfxManager.getPlatform().getTextHeightFor(stereotypeText);
-			width += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-			height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+			width += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
+			height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
 		}
 
-		nameText = GfxManager.getPlatform().buildText(uMLclass.getName(),
-				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+		nameText = GfxManager.getPlatform().buildText(uMLclass.getName(), new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 
 		nameText.addToVirtualGroup(textVirtualGroup);
 		nameText.setFont(OptionsManager.getFont());
 		nameText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
 		nameText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
 
-		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + OptionsManager.get("TextRightPadding")
-				+ OptionsManager.get("TextLeftPadding");
+		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
 		width = thisNameWidth > width ? thisNameWidth : width;
 		height += GfxManager.getPlatform().getTextHeightFor(nameText);
-		height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING;
+		height += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
 
 		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
@@ -162,9 +159,8 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 		} else {
 			edited = uMLclass.getName();
 		}
-		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding")),
-				nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY(), nodeWidth - OptionsManager.get("TextRightPadding")
-						- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"),
+		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING), nodeArtifact.getLocation().getY()
+				+ editedGfxObject.getLocation().getY(), nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING,
 				false, false);
 	}
 

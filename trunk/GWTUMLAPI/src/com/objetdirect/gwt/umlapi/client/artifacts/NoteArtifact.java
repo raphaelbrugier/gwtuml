@@ -68,12 +68,10 @@ public class NoteArtifact extends BoxArtifact {
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
 		final NoteFieldEditor editor = new NoteFieldEditor(canvas, this);
-		editor.setHeightForMultiLine(height - OptionsManager.get("TextTopPadding") - OptionsManager.get("TextBottomPadding")
-				- OptionsManager.get("RectangleTopPadding") - OptionsManager.get("RectangleBottomPadding"));
-		editor.startEdition(note.getText(), this.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager.get("RectangleLeftPadding"),
-				this.getLocation().getY() + OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding")
-						+ OptionsManager.get("RectangleTopPadding"), width - OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding")
-						- OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), true, false);
+		editor.setHeightForMultiLine(height - TEXT_TOP_PADDING - TEXT_BOTTOM_PADDING - RECTANGLE_TOP_PADDING - RECTANGLE_BOTTOM_PADDING);
+		editor.startEdition(note.getText(), this.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING, this.getLocation().getY()
+				+ TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING + RECTANGLE_TOP_PADDING, width - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING
+				- RECTANGLE_LEFT_PADDING, true, false);
 
 	}
 
@@ -95,8 +93,8 @@ public class NoteArtifact extends BoxArtifact {
 	public int[] getOpaque() {
 		final int[] opaque = new int[] { this.getLocation().getX(), this.getLocation().getY(), this.getLocation().getX(),
 				this.getLocation().getY() + this.getHeight(), this.getLocation().getX() + this.getWidth(), this.getLocation().getY() + this.getHeight(),
-				this.getLocation().getX() + this.getWidth(), this.getLocation().getY() + this.getCornerHeight(),
-				this.getLocation().getX() + this.getWidth() - this.getCornerWidth(), this.getLocation().getY() };
+				this.getLocation().getX() + this.getWidth(), this.getLocation().getY() + NOTE_CORNER_HEIGHT,
+				this.getLocation().getX() + this.getWidth() - NOTE_CORNER_WIDTH, this.getLocation().getY() };
 		return opaque;
 	}
 
@@ -166,21 +164,20 @@ public class NoteArtifact extends BoxArtifact {
 		contentText.addToVirtualGroup(gfxObject);
 
 		for (final String noteLine : noteMultiLine) {
-			final GfxObject textLine = GfxManager.getPlatform().buildText(noteLine,
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+			final GfxObject textLine = GfxManager.getPlatform().buildText(noteLine, new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 			textLine.addToVirtualGroup(contentText);
 			textLine.setFont(OptionsManager.getSmallFont());
 			textLine.setStroke(ThemeManager.getTheme().getNoteBackgroundColor(), 0);
 			textLine.setFillColor(ThemeManager.getTheme().getNoteForegroundColor());
 			int thisLineWidth = GfxManager.getPlatform().getTextWidthFor(textLine);
 			int thisLineHeight = GfxManager.getPlatform().getTextHeightFor(textLine);
-			thisLineWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-			thisLineHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+			thisLineWidth += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
+			thisLineHeight += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
 			width = thisLineWidth > width ? thisLineWidth : width;
 			height += thisLineHeight;
 		}
-		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding") + this.getCornerWidth();
+		height += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING + NOTE_CORNER_WIDTH;
 
 	}
 
@@ -191,15 +188,15 @@ public class NoteArtifact extends BoxArtifact {
 		borderPath.addToVirtualGroup(gfxObject);
 		cornerPath = this.getCornerPath();
 		cornerPath.addToVirtualGroup(gfxObject);
-		contentText.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		contentText.translate(new Point(RECTANGLE_LEFT_PADDING, RECTANGLE_TOP_PADDING));
 		contentText.moveToFront();
 	}
 
 	protected GfxObject getBorderPath() {
 		final GfxObject thisBorderPath = GfxManager.getPlatform().buildPath();
 		GfxManager.getPlatform().moveTo(thisBorderPath, Point.getOrigin());
-		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width - this.getCornerWidth(), 0));
-		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width, this.getCornerHeight()));
+		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width - NOTE_CORNER_WIDTH, 0));
+		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width, NOTE_CORNER_HEIGHT));
 		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(width, height));
 		GfxManager.getPlatform().lineTo(thisBorderPath, new Point(0, height));
 		GfxManager.getPlatform().lineTo(thisBorderPath, Point.getOrigin());
@@ -210,9 +207,9 @@ public class NoteArtifact extends BoxArtifact {
 
 	protected GfxObject getCornerPath() {
 		final GfxObject thisCornerPath = GfxManager.getPlatform().buildPath();
-		GfxManager.getPlatform().moveTo(thisCornerPath, new Point(width - this.getCornerWidth(), 0));
-		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(width - this.getCornerWidth(), this.getCornerHeight()));
-		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(width, this.getCornerHeight()));
+		GfxManager.getPlatform().moveTo(thisCornerPath, new Point(width - NOTE_CORNER_WIDTH, 0));
+		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(width - NOTE_CORNER_WIDTH, NOTE_CORNER_HEIGHT));
+		GfxManager.getPlatform().lineTo(thisCornerPath, new Point(width, NOTE_CORNER_HEIGHT));
 		thisCornerPath.setFillColor(ThemeManager.getTheme().getNoteBackgroundColor());
 		thisCornerPath.setStroke(ThemeManager.getTheme().getNoteForegroundColor(), 1);
 		return thisCornerPath;
@@ -231,14 +228,6 @@ public class NoteArtifact extends BoxArtifact {
 				NoteArtifact.this.edit(null);
 			}
 		};
-	}
-
-	private int getCornerHeight() {
-		return OptionsManager.get("NoteCornerHeight");
-	}
-
-	private int getCornerWidth() {
-		return OptionsManager.get("NoteCornerWidth");
 	}
 
 	@Override

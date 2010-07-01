@@ -118,7 +118,7 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		final RelationFieldEditor editor = new RelationFieldEditor(canvas, this, editPart);
 		editor.startEdition(editPart.getText(relation), editedGfxObject.getLocation().getX(), editedGfxObject.getLocation().getY(), GfxManager.getPlatform()
 				.getTextWidthFor(editedGfxObject)
-				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
+				+ RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING, false, true);
 	}
 
 	/**
@@ -450,16 +450,16 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		}
 		switch (isLeft ? leftDirection : rightDirection) {
 			case LEFT:
-				return relative_point1.getX() - textWidth - OptionsManager.get("RectangleLeftPadding");
+				return relative_point1.getX() - textWidth - RECTANGLE_LEFT_PADDING;
 			case RIGHT:
-				return relative_point1.getX() + OptionsManager.get("RectangleRightPadding");
+				return relative_point1.getX() + RECTANGLE_RIGHT_PADDING;
 			case UP:
 			case DOWN:
 			case UNKNOWN:
 				if (relative_point1.getX() < relative_point2.getX()) {
-					return relative_point1.getX() - textWidth - OptionsManager.get("RectangleLeftPadding");
+					return relative_point1.getX() - textWidth - RECTANGLE_LEFT_PADDING;
 				}
-				return relative_point1.getX() + OptionsManager.get("RectangleRightPadding");
+				return relative_point1.getX() + RECTANGLE_RIGHT_PADDING;
 		}
 		return 0;
 	}
@@ -478,14 +478,14 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 			case LEFT:
 			case RIGHT:
 				if (relative_point1.getY() > relative_point2.getY()) {
-					return relative_point1.getY() + OptionsManager.get("RectangleBottomPadding") + delta;
+					return relative_point1.getY() + RECTANGLE_BOTTOM_PADDING + delta;
 				}
-				return relative_point1.getY() - textHeight - OptionsManager.get("RectangleTopPadding") - delta;
+				return relative_point1.getY() - textHeight - RECTANGLE_TOP_PADDING - delta;
 			case UP:
-				return relative_point1.getY() - textHeight - OptionsManager.get("RectangleTopPadding") - delta;
+				return relative_point1.getY() - textHeight - RECTANGLE_TOP_PADDING - delta;
 			case DOWN:
 			case UNKNOWN:
-				return relative_point1.getY() + OptionsManager.get("RectangleBottomPadding") + delta;
+				return relative_point1.getY() + RECTANGLE_BOTTOM_PADDING + delta;
 		}
 		return 0;
 	}
@@ -600,11 +600,11 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		} else {
 			if (part.isLeft()) {
 				textGfxObject.translate(Point.add(leftClassArtifact.getCenter(),
-						new Point(OptionsManager.get("ArrowWidth") / 2 + OptionsManager.get("TextLeftPadding"),
-								-(leftClassArtifact.getHeight() + OptionsManager.get("ReflexivePathYGap")) / 2 + current_delta)));
+						new Point(OptionsManager.get("ArrowWidth") / 2 + TEXT_LEFT_PADDING,
+								-(leftClassArtifact.getHeight() + REFLEXIVE_PATH_Y_GAP) / 2 + current_delta)));
 			} else {
 				textGfxObject.translate(Point.add(leftClassArtifact.getLocation(), new Point(leftClassArtifact.getWidth()
-						+ OptionsManager.get("ReflexivePathXGap") + OptionsManager.get("TextLeftPadding"), current_delta)));
+						+ REFLEXIVE_PATH_X_GAP + TEXT_LEFT_PADDING, current_delta)));
 			}
 			current_delta += 8;
 		}

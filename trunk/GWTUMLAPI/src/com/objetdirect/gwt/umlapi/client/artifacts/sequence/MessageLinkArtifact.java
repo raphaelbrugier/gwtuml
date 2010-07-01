@@ -84,7 +84,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 	public void edit(final GfxObject editedGfxObject) {
 		final MessageFieldEditor editor = new MessageFieldEditor(canvas, this);
 		editor.startEdition(message.getName(), text.getLocation().getX(), text.getLocation().getY(), GfxManager.getPlatform().getTextWidthFor(text)
-				+ OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding"), false, true);
+				+ RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING, false, true);
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class MessageLinkArtifact extends LinkArtifact {
 		text.setStroke(ThemeManager.getTheme().getClassRelationBackgroundColor(), 0); // TODO fix it
 		text.setFillColor(ThemeManager.getTheme().getClassRelationForegroundColor()); // FIXME
 		text.translate(new Point(-GfxManager.getPlatform().getTextWidthFor(text) / 2, -GfxManager.getPlatform().getTextHeightFor(text)
-				- OptionsManager.get("TextBottomPadding")));
+				- TEXT_BOTTOM_PADDING));
 
 		gfxObject.moveToBack();
 

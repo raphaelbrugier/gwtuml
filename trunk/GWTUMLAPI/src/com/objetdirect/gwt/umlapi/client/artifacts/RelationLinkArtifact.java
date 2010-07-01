@@ -486,8 +486,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		rightPoint = leftNodeArtifact.getCenter().translate(leftNodeArtifact.getWidth() / 2, 0);
 		this.computeDirectionsType();
 		final GfxObject line = GfxManager.getPlatform().buildPath();
-		final Point rightShiftedPoint = Point.add(rightPoint, new Point((order + 1) * OptionsManager.get("ReflexivePathXGap"), 0));
-		final Point leftShiftedPoint = Point.add(leftPoint, new Point(0, -(order + 1) * OptionsManager.get("ReflexivePathYGap")));
+		final Point rightShiftedPoint = Point.add(rightPoint, new Point((order + 1) * REFLEXIVE_PATH_X_GAP, 0));
+		final Point leftShiftedPoint = Point.add(leftPoint, new Point(0, -(order + 1) * REFLEXIVE_PATH_Y_GAP));
 		leftDirectionPoint = leftShiftedPoint;
 		rightDirectionPoint = rightShiftedPoint;
 		GfxManager.getPlatform().moveTo(line, leftPoint);
@@ -496,8 +496,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
 		GfxManager.getPlatform().lineTo(line, rightPoint);
 		line.setOpacity(0, true);
-		nameAnchorPoint = new Point((leftPoint.getX() + rightPoint.getX() + (order + 1) * OptionsManager.get("ReflexivePathXGap")) / 2, leftPoint.getY()
-				- (order + 1) * OptionsManager.get("ReflexivePathYGap"));
+		nameAnchorPoint = new Point((leftPoint.getX() + rightPoint.getX() + (order + 1) * REFLEXIVE_PATH_X_GAP) / 2, leftPoint.getY()
+				- (order + 1) * REFLEXIVE_PATH_Y_GAP);
 		return line;
 	}
 
@@ -506,15 +506,15 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 	}
 
 	private GfxObject getSelfRightLine() {
-		final int radius = (order + 1) * OptionsManager.get("ReflexivePathXGap");
+		final int radius = (order + 1) * REFLEXIVE_PATH_X_GAP;
 		leftPoint = leftNodeArtifact.getLocation().clonePoint().translate(leftNodeArtifact.getWidth() - radius, 0);
 		rightPoint = leftNodeArtifact.getLocation().clonePoint().translate(leftNodeArtifact.getWidth(), radius);
 		this.computeDirectionsType();
 		final Point edge = new Point(rightPoint.getX(), leftPoint.getY());
-		final GfxObject line = GfxManager.getPlatform().buildCircle((order + 1) * OptionsManager.get("ReflexivePathXGap"));
-		leftDirectionPoint = Point.add(leftPoint, new Point(0, -OptionsManager.get("ReflexivePathXGap")));
-		rightDirectionPoint = Point.add(rightPoint, new Point(OptionsManager.get("ReflexivePathXGap"), 0));
-		nameAnchorPoint = Point.add(edge, new Point(0, -(order + 1) * OptionsManager.get("ReflexivePathXGap")));
+		final GfxObject line = GfxManager.getPlatform().buildCircle((order + 1) * REFLEXIVE_PATH_X_GAP);
+		leftDirectionPoint = Point.add(leftPoint, new Point(0, -REFLEXIVE_PATH_X_GAP));
+		rightDirectionPoint = Point.add(rightPoint, new Point(REFLEXIVE_PATH_X_GAP, 0));
+		nameAnchorPoint = Point.add(edge, new Point(0, -(order + 1) * REFLEXIVE_PATH_X_GAP));
 		line.translate(edge);
 		line.setOpacity(0, true);
 		return line;

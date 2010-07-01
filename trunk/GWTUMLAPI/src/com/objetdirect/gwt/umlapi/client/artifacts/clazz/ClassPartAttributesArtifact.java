@@ -93,7 +93,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		attributeRect.addToVirtualGroup(gfxObject);
 		attributeRect.setFillColor(ThemeManager.getTheme().getClassBackgroundColor());
 		attributeRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
-		textVirtualGroup.translate(new Point(OptionsManager.get("RectangleLeftPadding"), OptionsManager.get("RectangleTopPadding")));
+		textVirtualGroup.translate(new Point(RECTANGLE_LEFT_PADDING, RECTANGLE_TOP_PADDING));
 		textVirtualGroup.moveToFront();
 	}
 
@@ -106,8 +106,7 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 		textVirtualGroup.addToVirtualGroup(gfxObject);
 
 		for (final UMLClassAttribute attribute : attributes) {
-			final GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString(),
-					new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+			final GfxObject attributeText = GfxManager.getPlatform().buildText(attribute.toString(), new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 
 			attributeText.addToVirtualGroup(textVirtualGroup);
 			attributeText.setFont(OptionsManager.getSmallFont());
@@ -116,15 +115,15 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 
 			int thisAttributeWidth = GfxManager.getPlatform().getTextWidthFor(attributeText);
 			int thisAttributeHeight = GfxManager.getPlatform().getTextHeightFor(attributeText);
-			thisAttributeWidth += OptionsManager.get("TextRightPadding") + OptionsManager.get("TextLeftPadding");
-			thisAttributeHeight += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
+			thisAttributeWidth += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
+			thisAttributeHeight += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
 			width = thisAttributeWidth > width ? thisAttributeWidth : width;
 			height += thisAttributeHeight;
 			attributeGfxObjects.put(attributeText, attribute);
 			lastGfxObject = attributeText;
 		}
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING;
+		height += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
 
 		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
@@ -145,11 +144,10 @@ public class ClassPartAttributesArtifact extends NodePartArtifact {
 			this.edit();
 		} else {
 			final ClassPartAttributesFieldEditor editor = new ClassPartAttributesFieldEditor(canvas, this, attributeToChange);
-			editor.startEdition(attributeToChange.toString(), (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-					.get("RectangleLeftPadding")), (nodeArtifact.getLocation().getY() + ((ClassArtifact) nodeArtifact).className.getHeight()
-					+ editedGfxObject.getLocation().getY() + OptionsManager.get("RectangleTopPadding")), nodeWidth - OptionsManager.get("TextRightPadding")
-					- OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding") - OptionsManager.get("RectangleLeftPadding"), false,
-					true);
+			editor.startEdition(attributeToChange.toString(), (nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING), (nodeArtifact
+					.getLocation().getY()
+					+ ((ClassArtifact) nodeArtifact).className.getHeight() + editedGfxObject.getLocation().getY() + RECTANGLE_TOP_PADDING), nodeWidth
+					- TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING, false, true);
 		}
 	}
 

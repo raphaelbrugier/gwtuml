@@ -81,8 +81,8 @@ public class ClassPartNameSimplifiedArtifact extends NodePartArtifact {
 		nameRect.setStroke(ThemeManager.getTheme().getClassForegroundColor(), 1);
 
 		// Centering name class :
-		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - OptionsManager.get("TextRightPadding") - OptionsManager
-				.get("TextLeftPadding")) / 2, OptionsManager.get("RectangleTopPadding")));
+		nameText.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+				RECTANGLE_TOP_PADDING));
 
 		textVirtualGroup.moveToFront();
 	}
@@ -94,21 +94,19 @@ public class ClassPartNameSimplifiedArtifact extends NodePartArtifact {
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		textVirtualGroup.addToVirtualGroup(gfxObject);
 
-		nameText = GfxManager.getPlatform().buildText(uMLclass.getName(),
-				new Point(OptionsManager.get("TextLeftPadding"), OptionsManager.get("TextTopPadding") + height));
+		nameText = GfxManager.getPlatform().buildText(uMLclass.getName(), new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 
 		nameText.addToVirtualGroup(textVirtualGroup);
 		nameText.setFont(OptionsManager.getFont());
 		nameText.setStroke(ThemeManager.getTheme().getClassBackgroundColor(), 0);
 		nameText.setFillColor(ThemeManager.getTheme().getClassForegroundColor());
 
-		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + OptionsManager.get("TextRightPadding")
-				+ OptionsManager.get("TextLeftPadding");
+		final int thisNameWidth = GfxManager.getPlatform().getTextWidthFor(nameText) + TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
 		width = thisNameWidth > width ? thisNameWidth : width;
 		height += GfxManager.getPlatform().getTextHeightFor(nameText);
-		height += OptionsManager.get("TextTopPadding") + OptionsManager.get("TextBottomPadding");
-		width += OptionsManager.get("RectangleRightPadding") + OptionsManager.get("RectangleLeftPadding");
-		height += OptionsManager.get("RectangleTopPadding") + OptionsManager.get("RectangleBottomPadding");
+		height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
+		width += RECTANGLE_RIGHT_PADDING + RECTANGLE_LEFT_PADDING;
+		height += RECTANGLE_TOP_PADDING + RECTANGLE_BOTTOM_PADDING;
 
 		Log.trace("WxH for " + GWTUMLDrawerHelper.getShortName(this) + "is now " + width + "x" + height);
 	}
@@ -140,10 +138,10 @@ public class ClassPartNameSimplifiedArtifact extends NodePartArtifact {
 
 	private void edit(final GfxObject editedGfxObject, final EditorPart editorPart) {
 		final SimpleFieldEditor editor = new SimpleFieldEditor(canvas, getNodeArtifact(), editorPart);
-		editor.startEdition(editorPart.getText(), (nodeArtifact.getLocation().getX() + OptionsManager.get("TextLeftPadding") + OptionsManager
-				.get("RectangleLeftPadding")), nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY(), nodeWidth
-				- OptionsManager.get("TextRightPadding") - OptionsManager.get("TextLeftPadding") - OptionsManager.get("RectangleRightPadding")
-				- OptionsManager.get("RectangleLeftPadding"), false, true);
+		editor.startEdition(editorPart.getText(), (nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING), nodeArtifact.getLocation()
+				.getY()
+				+ editedGfxObject.getLocation().getY(), nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING,
+				false, true);
 	}
 
 	/**
