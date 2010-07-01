@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
+import static com.objetdirect.gwt.umlapi.client.gfx.GfxStyle.LONGDASHDOTDOT;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
@@ -38,7 +39,6 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
-import com.objetdirect.gwt.umlapi.client.editors.FieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Direction;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.engine.Scheduler;
@@ -64,6 +64,16 @@ public abstract class UMLCanvas implements Serializable {
 	// ======= Display fields =================//
 	/** The canvas */
 	private transient Widget drawingCanvas;
+
+	private transient Widget fieldEditor;
+
+	/**
+	 * @param fieldEditor
+	 *            the fieldEditor to set
+	 */
+	public void setFieldEditor(Widget fieldEditor) {
+		this.fieldEditor = fieldEditor;
+	}
 
 	/** The panel containing the canvas and the arrows. */
 	protected transient DecoratorCanvas wrapper;
@@ -98,23 +108,25 @@ public abstract class UMLCanvas implements Serializable {
 	private Point copyMousePosition;
 
 	// ==== Selection fields =====//
+	private transient GfxObject selectBox;
+	private transient GfxObject movingLines;
+	private transient GfxObject outlines;
+	private transient GfxObject movingOutlineDependencies;
+
 	protected LinkKind activeLinking;
 	private Point selectBoxStartPoint;
-	private transient GfxObject selectBox;
 	protected DragAndDropState dragAndDropState;
 	private HashMap<UMLArtifact, ArrayList<Point>> previouslySelectedArtifacts;
-	private transient GfxObject movingLines;
-	private transient GfxObject movingOutlineDependencies;
-	private transient GfxObject outlines;
 	private Point duringDragOffset;
 	protected Point dragOffset;
 	private Point totalDragShift;
+
 	// Represent the selected UMLArtifacts and his moving dependencies points
 	protected HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
 
 	// ===== Mouse engine fields ====//
-	private boolean isMouseEnabled; // Only needed to desactive the mouse during the demo
 	private transient CanvasListener canvasMouseListener;
+	private boolean isMouseEnabled; // Only needed to desactive the mouse during the demo
 
 	// Manage mouse state when releasing outside the listener
 	protected boolean mouseIsPressed;
@@ -123,6 +135,12 @@ public abstract class UMLCanvas implements Serializable {
 	// ========== Extra ===========//
 	private transient UrlConverter urlConverter;
 
+	/**
+	 * Factory : return a new UmlCanvas depending on the diagram type given.
+	 * 
+	 * @param diagramType
+	 * @return
+	 */
 	public static UMLCanvas createUmlCanvas(DiagramType diagramType) {
 		switch (diagramType) {
 			case CLASS:
@@ -330,9 +348,9 @@ public abstract class UMLCanvas implements Serializable {
 				UMLCanvas.this.mouseMoved(false, false);
 				movingLines.translate(translation);
 				movingOutlineDependencies.translate(translation);
-				if (FieldEditor.getEditField() != null) {
-					wrapper.setWidgetPosition(FieldEditor.getEditField(), (int) (FieldEditor.getEditField().getAbsoluteLeft() - direction.getXShift()),
-							(int) (FieldEditor.getEditField().getAbsoluteTop() - direction.getYShift()));
+				if (fieldEditor != null) {
+					wrapper.setWidgetPosition(fieldEditor, (int) (fieldEditor.getAbsoluteLeft() - direction.getXShift()),
+							(int) (fieldEditor.getAbsoluteTop() - direction.getYShift()));
 				}
 			}
 		};
@@ -732,7 +750,7 @@ public abstract class UMLCanvas implements Serializable {
 			for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
 				final GfxObject movingLine = GfxManager.getPlatform().buildLine(selectedArtifact.getCenter(), Point.substract(location, canvasOffset));
 				movingLine.addToVirtualGroup(movingLines);
-				movingLine.setStrokeStyle(GfxStyle.LONGDASHDOTDOT);
+				movingLine.setStrokeStyle(LONGDASHDOTDOT);
 			}
 			movingLines.setStroke(ThemeManager.getTheme().getDefaultHighlightedForegroundColor(), 1);
 			movingLines.moveToBack();
