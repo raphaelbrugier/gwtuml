@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import java.io.Serializable;
+
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 
@@ -22,12 +24,21 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public class InstantiationRelation {
+@SuppressWarnings("serial")
+public class InstantiationRelation implements Serializable {
 
-	private final UMLObject instance;
+	private UMLObject instance;
 
-	private final UMLClass instanceOf;
+	private UMLClass instanceOf;
 
+	/**
+	 * Default constructor only for gwt-rpc serialiation.
+	 * DO NOT USE
+	 */
+	@SuppressWarnings("unused")
+	private InstantiationRelation() {
+	}
+	
 	/**
 	 * @param instance
 	 * @param instanceOf

@@ -45,7 +45,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	private UMLCanvasObjectDiagram() {
 	}
 
-	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
+	protected UMLCanvasObjectDiagram(boolean dummy) {
 		super(true);
 		objectCount = 0;
 	}

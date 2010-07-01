@@ -45,16 +45,19 @@ public class Keyboard {
 
 	public Keyboard(ClassDiagram classDiagram) {
 		this.classDiagram = classDiagram;
+		umlCanvas = (UMLCanvas) classDiagram; //TODO Ugly, should add methods used in umlCanvas to the Diagram interface.
 		diagramType = CLASS;
 	}
 
 	public Keyboard(ObjectDiagram objectDiagram) {
 		this.objectDiagram = objectDiagram;
+		umlCanvas = (UMLCanvas) objectDiagram; //TODO
 		diagramType = OBJECT;
 	}
 
 	public Keyboard(SequenceDiagram sequenceDiagram) {
 		this.sequenceDiagram = sequenceDiagram;
+		umlCanvas = (UMLCanvas) sequenceDiagram; //TODO
 		diagramType = SEQUENCE;
 	}
 
@@ -162,7 +165,7 @@ public class Keyboard {
 
 	private void objectDiagramPush(final char keyCode, final boolean isCtrlDown) {
 		switch (keyCode) {
-			case 'c': // TODO uncomment when ObjectDiagram has addNewClass method
+			case 'c':
 				if (!isCtrlDown) {
 					objectDiagram.addNewClass();
 				}
