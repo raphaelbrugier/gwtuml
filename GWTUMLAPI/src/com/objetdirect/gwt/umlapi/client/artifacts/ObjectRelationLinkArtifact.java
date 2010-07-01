@@ -84,7 +84,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	public ObjectRelationLinkArtifact(final UMLCanvas canvas, int id, final ObjectArtifact left, final ObjectArtifact right) {
 		super(canvas, id, left, right, OBJECT_RELATION);
 
-		if (right == left) { // An object can't reference itself
+		if (right == left) { // An object instance can't reference itself
 			throw new IllegalArgumentException();
 		}
 

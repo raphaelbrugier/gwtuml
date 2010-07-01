@@ -157,7 +157,7 @@ public abstract class UMLCanvas implements Serializable {
 	 * @param dummy
 	 *            any value is fine.
 	 */
-	public UMLCanvas(@SuppressWarnings("unused") boolean dummy) {
+	public UMLCanvas(boolean dummy) {
 		initFieldsWithDefaultValue();
 
 		drawingCanvas = GfxManager.getPlatform().makeCanvas(100, 100, ThemeManager.getTheme().getCanvasColor());

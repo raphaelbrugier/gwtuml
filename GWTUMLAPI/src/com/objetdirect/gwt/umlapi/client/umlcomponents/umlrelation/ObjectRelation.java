@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import java.io.Serializable;
+
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 
 /**
@@ -21,16 +23,22 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-public class ObjectRelation {
+@SuppressWarnings("serial")
+public class ObjectRelation implements Serializable {
 
-	private final UMLObject leftObject;
+	private UMLObject leftObject;
 	private String leftRole;
 	private boolean leftNavigable;
 
-	private final UMLObject rightObject;
+	private UMLObject rightObject;
 	private String rightRole;
 	private boolean rightNavigable;
 
+	/**
+	 * Default constructor only for gwt-rpc serialization.
+	 */
+	ObjectRelation() {}
+	
 	/**
 	 * @param leftObject
 	 * @param rightObject
