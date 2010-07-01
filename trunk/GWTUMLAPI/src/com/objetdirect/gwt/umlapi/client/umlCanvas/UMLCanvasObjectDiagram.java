@@ -17,11 +17,16 @@ package com.objetdirect.gwt.umlapi.client.umlCanvas;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.TAKING;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
 import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
@@ -45,7 +50,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	private UMLCanvasObjectDiagram() {
 	}
 
-	protected UMLCanvasObjectDiagram(boolean dummy) {
+	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
 		super(true);
 		objectCount = 0;
 	}
@@ -119,5 +124,32 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		mouseIsPressed = true;
 
 		wrapper.setHelpText("Adding a new object", location.clonePoint());
+	}
+
+	@Override
+	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
+		try {
+			if (activeLinking == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
+				return new ObjectRelationLinkArtifact(this, idCount, (ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
+			} else if ((activeLinking == INSTANTIATION)) {
+				ClassArtifact classArtifact = null;
+				ObjectArtifact objectArtifact = null;
+
+				// Dirty dirty dirty :(
+				if (uMLArtifactNew instanceof ClassArtifact && uMLArtifact instanceof ObjectArtifact) {
+					classArtifact = (ClassArtifact) uMLArtifactNew;
+					objectArtifact = (ObjectArtifact) uMLArtifact;
+				} else if (uMLArtifact instanceof ClassArtifact && uMLArtifactNew instanceof ObjectArtifact) {
+					classArtifact = (ClassArtifact) uMLArtifact;
+					objectArtifact = (ObjectArtifact) uMLArtifactNew;
+				} else {
+					return null;
+				}
+				return new InstantiationRelationLinkArtifact(this, idCount, classArtifact, objectArtifact);
+			}
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+		return null;
 	}
 }

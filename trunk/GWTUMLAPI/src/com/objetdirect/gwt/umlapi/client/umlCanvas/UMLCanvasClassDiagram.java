@@ -16,10 +16,14 @@ package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
 
 import java.util.ArrayList;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
@@ -84,5 +88,19 @@ public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 		mouseIsPressed = true;
 
 		wrapper.setHelpText("Adding a new class", location.clonePoint());
+	}
+
+	@Override
+	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
+		try {
+			if (activeLinking == CLASSRELATION) { // CLASS TO ANY CLASS-TO-CLASS RELATION
+				return new LinkClassRelationArtifact(this, idCount, uMLArtifactNew, uMLArtifact);
+			} else if (activeLinking.isClassToClassRelation()) { // Class to class relation
+				return new ClassRelationLinkArtifact(this, idCount, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, activeLinking);
+			}
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+		return null;
 	}
 }

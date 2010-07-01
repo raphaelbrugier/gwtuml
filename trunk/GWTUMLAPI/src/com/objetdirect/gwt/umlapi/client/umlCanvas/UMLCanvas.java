@@ -17,10 +17,7 @@ package com.objetdirect.gwt.umlapi.client.umlCanvas;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.NOTE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,17 +32,9 @@ import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassRelationLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.LinkClassRelationArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkNoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NoteArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifactPeer;
 import com.objetdirect.gwt.umlapi.client.controls.CanvasListener;
@@ -109,7 +98,7 @@ public abstract class UMLCanvas implements Serializable {
 	private Point copyMousePosition;
 
 	// ==== Selection fields =====//
-	private LinkKind activeLinking;
+	protected LinkKind activeLinking;
 	private Point selectBoxStartPoint;
 	private transient GfxObject selectBox;
 	protected DragAndDropState dragAndDropState;
@@ -157,7 +146,7 @@ public abstract class UMLCanvas implements Serializable {
 	 * @param dummy
 	 *            any value is fine.
 	 */
-	public UMLCanvas(boolean dummy) {
+	public UMLCanvas(@SuppressWarnings("unused") boolean dummy) {
 		initFieldsWithDefaultValue();
 
 		drawingCanvas = GfxManager.getPlatform().makeCanvas(100, 100, ThemeManager.getTheme().getCanvasColor());
@@ -416,12 +405,18 @@ public abstract class UMLCanvas implements Serializable {
 	private void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			final LinkArtifact newLink = makeLinkBetween(selectedArtifact, newSelected, idCount);
+
+			LinkArtifact newLink = null;
+			if (activeLinking == NOTE) {
+				newLink = makeLinkNote(selectedArtifact, newSelected);
+			} else {
+				newLink = makeLinkBetween(selectedArtifact, newSelected);
+			}
 
 			if (newLink != null) {
 				linkOkCount++;
+				this.add(newLink);
 			}
-			this.add(newLink);
 		}
 		if (linkOkCount != 0) {
 			this.linkingModeOff();
@@ -453,6 +448,14 @@ public abstract class UMLCanvas implements Serializable {
 		wrapper.setHelpText("Adding a new note", location.clonePoint());
 	}
 
+	private LinkArtifact makeLinkNote(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew) {
+		try {
+			return new LinkNoteArtifact(this, idCount, uMLArtifact, uMLArtifactNew);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
 	/**
 	 * Make a link between two {@link UMLArtifact}
 	 * 
@@ -460,55 +463,9 @@ public abstract class UMLCanvas implements Serializable {
 	 *            The first one of the two {@link UMLArtifact} to be linked
 	 * @param uMLArtifactNew
 	 *            The second one of the two {@link UMLArtifact} to be linked
-	 * @param id
-	 *            The created {@link LinkArtifact}'s id
 	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
 	 */
-	private LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew, int id) {
-		LinkKind linkKind = activeLinking;
-		try {
-			// All diagrams
-			if (linkKind == NOTE) {
-				return new LinkNoteArtifact(this, id, uMLArtifact, uMLArtifactNew);
-			}
-
-			// Class diagram
-			else if (linkKind == CLASSRELATION) { // CLASS TO ANY CLASS-TO-CLASS RELATION
-				return new LinkClassRelationArtifact(this, id, uMLArtifactNew, uMLArtifact);
-			} else if (linkKind.isClassToClassRelation()) { // Class to class relation
-				return new ClassRelationLinkArtifact(this, id, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, linkKind);
-			}
-
-			// Object diagram
-			else if (linkKind == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
-				return new ObjectRelationLinkArtifact(this, id, (ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
-			} else if ((linkKind == INSTANTIATION)) {
-				ClassArtifact classArtifact = null;
-				ObjectArtifact objectArtifact = null;
-
-				// Dirty dirty dirty :(
-				if (uMLArtifactNew instanceof ClassArtifact && uMLArtifact instanceof ObjectArtifact) {
-					classArtifact = (ClassArtifact) uMLArtifactNew;
-					objectArtifact = (ObjectArtifact) uMLArtifact;
-				} else if (uMLArtifact instanceof ClassArtifact && uMLArtifactNew instanceof ObjectArtifact) {
-					classArtifact = (ClassArtifact) uMLArtifact;
-					objectArtifact = (ObjectArtifact) uMLArtifactNew;
-				} else {
-					return null;
-				}
-				return new InstantiationRelationLinkArtifact(this, id, classArtifact, objectArtifact);
-			}
-
-			// Sequence diagram
-			else if ((uMLArtifact instanceof LifeLineArtifact) && (uMLArtifactNew instanceof LifeLineArtifact)) {
-				return new MessageLinkArtifact(this, id, (LifeLineArtifact) uMLArtifactNew, (LifeLineArtifact) uMLArtifact, linkKind);
-			}
-		} catch (IllegalArgumentException e) {
-			return null;
-		}
-
-		return null;
-	}
+	protected abstract LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew);
 
 	/**
 	 * @return the uMLArtifactRelations
