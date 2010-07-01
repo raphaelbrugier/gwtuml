@@ -37,16 +37,8 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public abstract class FieldEditor {
-	/**
-	 * Getter for the editField
-	 * 
-	 * @return the editField
-	 */
-	public static TextBoxBase getEditField() {
-		return FieldEditor.editField;
-	}
 
-	protected static TextBoxBase editField;
+	protected TextBoxBase editField;
 
 	protected UMLArtifact artifact;
 	protected UMLCanvas canvas;
@@ -107,26 +99,26 @@ public abstract class FieldEditor {
 			return;
 		}
 
-		FieldEditor.editField = isMultiLine ? new TextArea() : new TextBox();
+		editField = isMultiLine ? new TextArea() : new TextBox();
 
-		FieldEditor.editField.setText(text);
-		FieldEditor.editField.setStylePrimaryName("editor" + (isSmallFont ? "-small" : "") + "-field" + (isMultiLine ? "-multiline" : ""));
-		FieldEditor.editField.setWidth(Math.max(w, minBoxWidth) + "px");
+		editField.setText(text);
+		editField.setStylePrimaryName("editor" + (isSmallFont ? "-small" : "") + "-field" + (isMultiLine ? "-multiline" : ""));
+		editField.setWidth(Math.max(w, minBoxWidth) + "px");
 		if (isMultiLine) {
-			FieldEditor.editField.setHeight(height + "px");
+			editField.setHeight(height + "px");
 		}
-		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "backgroundColor", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
-		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "color", ThemeManager.getTheme().getDefaultForegroundColor().toString());
-		DOM.setStyleAttribute(FieldEditor.editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
+		DOM.setStyleAttribute(editField.getElement(), "backgroundColor", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
+		DOM.setStyleAttribute(editField.getElement(), "color", ThemeManager.getTheme().getDefaultForegroundColor().toString());
+		DOM.setStyleAttribute(editField.getElement(), "selection", ThemeManager.getTheme().getDefaultBackgroundColor().toString());
 
-		FieldEditor.editField.addBlurHandler(new BlurHandler() {
+		editField.addBlurHandler(new BlurHandler() {
 			public void onBlur(final BlurEvent event) {
 				Log.trace("Focus lost on " + this);
 				FieldEditor.this.validate(false);
 			}
 
 		});
-		FieldEditor.editField.addKeyUpHandler(new KeyUpHandler() {
+		editField.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(final KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					if (!isMultiLine || event.isAnyModifierKeyDown()) {
@@ -139,14 +131,15 @@ public abstract class FieldEditor {
 			}
 		});
 
-		canvas.getContainer().add(FieldEditor.editField, x + canvas.getCanvasOffset().getX(), y + canvas.getCanvasOffset().getY());
-		FieldEditor.editField.selectAll();
-		FieldEditor.editField.setFocus(true);
+		canvas.getContainer().add(editField, x + canvas.getCanvasOffset().getX(), y + canvas.getCanvasOffset().getY());
+		editField.selectAll();
+		editField.setFocus(true);
+		canvas.setFieldEditor(editField);
 	}
 
 	protected void cancel() {
-		canvas.getContainer().remove(FieldEditor.editField);
-		FieldEditor.editField = null;
+		canvas.getContainer().remove(editField);
+		editField = null;
 		canvas.setHotKeysEnabled(true);
 	}
 
@@ -156,12 +149,13 @@ public abstract class FieldEditor {
 
 	protected void validate(final boolean isNextable) {
 		boolean isStillNextable = isNextable;
-		final String newContent = FieldEditor.editField.getText();
+		final String newContent = editField.getText();
 		if (!newContent.equals(content)) {
 			isStillNextable = this.updateUMLArtifact(newContent) && isStillNextable;
 		}
-		canvas.getContainer().remove(FieldEditor.editField);
-		FieldEditor.editField = null;
+		canvas.getContainer().remove(editField);
+		editField = null;
+		canvas.setFieldEditor(null);
 		canvas.setHotKeysEnabled(true);
 		if (isStillNextable) {
 			this.next();
