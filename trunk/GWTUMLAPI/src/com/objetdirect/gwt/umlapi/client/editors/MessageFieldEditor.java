@@ -14,7 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.editors;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.sequence.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLMessage;
 

@@ -18,10 +18,10 @@ import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.Pointe
 
 import java.util.ArrayList;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.sequence.LifeLineArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.sequence.MessageLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;

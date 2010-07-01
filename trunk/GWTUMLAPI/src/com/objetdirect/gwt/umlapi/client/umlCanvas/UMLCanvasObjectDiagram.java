@@ -22,13 +22,13 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 
 import java.util.ArrayList;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ClassSimplifiedArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.InstantiationRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.object.InstantiationRelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.object.ObjectArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.object.ObjectRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;

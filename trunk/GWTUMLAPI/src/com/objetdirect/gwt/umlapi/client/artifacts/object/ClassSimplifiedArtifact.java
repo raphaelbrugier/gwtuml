@@ -12,8 +12,13 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License along with GWTUML. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.objetdirect.gwt.umlapi.client.artifacts;
+package com.objetdirect.gwt.umlapi.client.artifacts.object;
 
+import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartAttributesArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartMethodsArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartNameArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;

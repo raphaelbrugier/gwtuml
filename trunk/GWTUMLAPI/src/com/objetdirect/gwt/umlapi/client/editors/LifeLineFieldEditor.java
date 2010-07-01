@@ -16,7 +16,7 @@ package com.objetdirect.gwt.umlapi.client.editors;
 
 import java.util.List;
 
-import com.objetdirect.gwt.umlapi.client.artifacts.LifeLineArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.sequence.LifeLineArtifact;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 

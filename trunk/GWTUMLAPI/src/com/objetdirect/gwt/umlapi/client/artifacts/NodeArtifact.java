@@ -19,6 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartAttributesArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartMethodsArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassPartNameArtifact;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
