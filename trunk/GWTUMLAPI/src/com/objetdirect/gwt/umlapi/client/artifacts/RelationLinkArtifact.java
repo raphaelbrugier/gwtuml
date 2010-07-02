@@ -388,10 +388,6 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		relation = new UMLRelation(relationKind);
 	}
 
-	public UMLRelation toUMLComponent() {
-		return relation;
-	}
-
 	/**
 	 * Setter of a part text
 	 * 
@@ -496,8 +492,8 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		GfxManager.getPlatform().lineTo(line, rightShiftedPoint);
 		GfxManager.getPlatform().lineTo(line, rightPoint);
 		line.setOpacity(0, true);
-		nameAnchorPoint = new Point((leftPoint.getX() + rightPoint.getX() + (order + 1) * REFLEXIVE_PATH_X_GAP) / 2, leftPoint.getY()
-				- (order + 1) * REFLEXIVE_PATH_Y_GAP);
+		nameAnchorPoint = new Point((leftPoint.getX() + rightPoint.getX() + (order + 1) * REFLEXIVE_PATH_X_GAP) / 2, leftPoint.getY() - (order + 1)
+				* REFLEXIVE_PATH_Y_GAP);
 		return line;
 	}
 

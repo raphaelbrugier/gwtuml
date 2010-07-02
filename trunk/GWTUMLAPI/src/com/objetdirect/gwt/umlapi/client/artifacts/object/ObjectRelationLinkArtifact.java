@@ -94,7 +94,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		rightObjectArtifact = right;
 		right.addDependency(this, left);
 
-		objectRelation = new ObjectRelation(leftObjectArtifact.toUmlComponent(), rightObjectArtifact.toUmlComponent());
+		objectRelation = new ObjectRelation(leftObjectArtifact.toUMLComponent(), rightObjectArtifact.toUMLComponent());
 	}
 
 	@Override
@@ -276,6 +276,13 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	public void removeCreatedDependency() {
 		leftObjectArtifact.removeDependency(this);
 		rightObjectArtifact.removeDependency(this);
+	}
+
+	/**
+	 * @return the relation in the metamodel level.
+	 */
+	public ObjectRelation toUMLComponent() {
+		return objectRelation;
 	}
 
 	/*

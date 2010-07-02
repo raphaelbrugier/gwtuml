@@ -14,6 +14,12 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
+import java.util.List;
+
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
+
 /**
  * Interface with the current displayed object diagram.
  * 
@@ -29,4 +35,10 @@ public interface ObjectDiagram extends Diagram {
 	 * Add a new object at the current mouse position.
 	 */
 	public void addNewObject();
+
+	public List<UMLObject> getObjects();
+
+	public List<InstantiationRelation> getInstantiationRelations();
+
+	public List<ObjectRelation> getObjectRelations();
 }

@@ -78,9 +78,9 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 		objectArtifact = right;
 		right.addDependency(this, left);
 
-		instantiationRelation = new InstantiationRelation(objectArtifact.toUmlComponent(), classArtifact.toUMLComponent());
+		instantiationRelation = new InstantiationRelation(objectArtifact.toUMLComponent(), classArtifact.toUMLComponent());
 
-		objectArtifact.toUmlComponent().setClassName(classArtifact.getName());
+		objectArtifact.toUMLComponent().setClassName(classArtifact.getName());
 		objectArtifact.rebuildGfxObject();
 	}
 
@@ -94,7 +94,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	 * 
 	 * @return the instantiationRelation
 	 */
-	public InstantiationRelation toUmlComponent() {
+	public InstantiationRelation toUMLComponent() {
 		return instantiationRelation;
 	}
 

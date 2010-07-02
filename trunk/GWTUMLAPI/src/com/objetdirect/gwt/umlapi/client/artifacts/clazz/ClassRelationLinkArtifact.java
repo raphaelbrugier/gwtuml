@@ -414,6 +414,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		relation.setRightRole(rightRole);
 	}
 
+	public UMLRelation toUMLComponent() {
+		return relation;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -599,12 +603,11 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 			textGfxObject.translate(new Point(this.getTextX(textGfxObject, part.isLeft()), this.getTextY(textGfxObject, part.isLeft())));
 		} else {
 			if (part.isLeft()) {
-				textGfxObject.translate(Point.add(leftClassArtifact.getCenter(),
-						new Point(OptionsManager.get("ArrowWidth") / 2 + TEXT_LEFT_PADDING,
-								-(leftClassArtifact.getHeight() + REFLEXIVE_PATH_Y_GAP) / 2 + current_delta)));
+				textGfxObject.translate(Point.add(leftClassArtifact.getCenter(), new Point(OptionsManager.get("ArrowWidth") / 2 + TEXT_LEFT_PADDING,
+						-(leftClassArtifact.getHeight() + REFLEXIVE_PATH_Y_GAP) / 2 + current_delta)));
 			} else {
-				textGfxObject.translate(Point.add(leftClassArtifact.getLocation(), new Point(leftClassArtifact.getWidth()
-						+ REFLEXIVE_PATH_X_GAP + TEXT_LEFT_PADDING, current_delta)));
+				textGfxObject.translate(Point.add(leftClassArtifact.getLocation(), new Point(leftClassArtifact.getWidth() + REFLEXIVE_PATH_X_GAP
+						+ TEXT_LEFT_PADDING, current_delta)));
 			}
 			current_delta += 8;
 		}
@@ -667,11 +670,6 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 		};
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#setUpAfterDeserialization()
-	 */
 	@Override
 	public void setUpAfterDeserialization() {
 		gfxObjectPart = new HashMap<RelationLinkArtifactPart, GfxObject>();

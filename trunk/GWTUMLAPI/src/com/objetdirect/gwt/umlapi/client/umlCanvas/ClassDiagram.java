@@ -14,6 +14,11 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
+import java.util.List;
+
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
+
 /**
  * Class diagram interface.
  * 
@@ -25,4 +30,8 @@ public interface ClassDiagram extends Diagram {
 	 * Add a new class to the diagram at the current mouse position.
 	 */
 	public void addNewClass();
+
+	public List<UMLClass> getUmlClasses();
+
+	public List<UMLRelation> getClassRelations();
 }
