@@ -21,6 +21,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_RELATION;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
@@ -32,6 +33,9 @@ import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
 
 /**
  * UMLCanvas concrete class for an object diagram.
@@ -75,7 +79,6 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		contextMenu.show();
 	}
 
-	// TODO Create a special artifact to display a class in an object Diagram.
 	private void addNewClass(final Point location) {
 		if (dragAndDropState != NONE) {
 			return;
@@ -152,4 +155,46 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		}
 		return null;
 	}
+
+	@Override
+	public List<UMLObject> getObjects() {
+		ArrayList<UMLObject> umlObjects = new ArrayList<UMLObject>();
+
+		for (final UMLArtifact umlArtifact : getArtifactById().values()) {
+			if (umlArtifact instanceof ObjectArtifact) {
+				ObjectArtifact objectArtifact = (ObjectArtifact) umlArtifact;
+				umlObjects.add(objectArtifact.toUMLComponent());
+			}
+		}
+		return umlObjects;
+	}
+
+	@Override
+	public List<InstantiationRelation> getInstantiationRelations() {
+		List<InstantiationRelation> instantiations = new ArrayList<InstantiationRelation>();
+
+		for (final UMLArtifact umlArtifact : getArtifactById().values()) {
+			if (umlArtifact instanceof InstantiationRelationLinkArtifact) {
+				InstantiationRelationLinkArtifact instantiationArtifact = (InstantiationRelationLinkArtifact) umlArtifact;
+				instantiations.add(instantiationArtifact.toUMLComponent());
+			}
+		}
+
+		return instantiations;
+	}
+
+	@Override
+	public List<ObjectRelation> getObjectRelations() {
+		List<ObjectRelation> relations = new ArrayList<ObjectRelation>();
+
+		for (final UMLArtifact umlArtifact : getArtifactById().values()) {
+			if (umlArtifact instanceof ObjectRelationLinkArtifact) {
+				ObjectRelationLinkArtifact relationArtifact = (ObjectRelationLinkArtifact) umlArtifact;
+				relations.add(relationArtifact.toUMLComponent());
+			}
+		}
+
+		return relations;
+	}
+
 }

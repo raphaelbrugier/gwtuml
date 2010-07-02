@@ -145,7 +145,7 @@ public class ObjectArtifact extends NodeArtifact {
 	 * 
 	 * @return the umlObject
 	 */
-	public UMLObject toUmlComponent() {
+	public UMLObject toUMLComponent() {
 		return umlObject;
 	}
 

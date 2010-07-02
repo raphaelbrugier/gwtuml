@@ -19,6 +19,7 @@ import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropS
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
@@ -29,6 +30,8 @@ import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 
 /**
  * UMLCanvas concrete class for a class diagram.
@@ -103,4 +106,33 @@ public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 		}
 		return null;
 	}
+
+	@Override
+	public List<UMLClass> getUmlClasses() {
+		// TODO that's a bad way to find the classes, we should stored them in a List separately and add class in the
+		// addClass() method.
+		// This TODO apply to the others get[UMLComponents] methods here and in ObjectDiagram.
+
+		ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
+		for (final UMLArtifact umlArtifact : getArtifactById().values()) {
+			if (umlArtifact instanceof ClassArtifact) {
+				ClassArtifact classArtifact = (ClassArtifact) umlArtifact;
+				umlClasses.add(classArtifact.toUMLComponent());
+			}
+		}
+		return umlClasses;
+	}
+
+	@Override
+	public List<UMLRelation> getClassRelations() {
+		ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
+		for (final UMLArtifact umlArtifact : getArtifactById().values()) {
+			if (umlArtifact instanceof ClassRelationLinkArtifact) {
+				ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact) umlArtifact;
+				umlRelations.add(relationLinkArtifact.toUMLComponent());
+			}
+		}
+		return umlRelations;
+	}
+
 }

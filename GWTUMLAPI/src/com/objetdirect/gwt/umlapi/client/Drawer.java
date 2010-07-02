@@ -14,18 +14,12 @@
  */
 package com.objetdirect.gwt.umlapi.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.ProvidesResize;
 import com.google.gwt.user.client.ui.RequiresResize;
-import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassArtifact;
-import com.objetdirect.gwt.umlapi.client.artifacts.clazz.ClassRelationLinkArtifact;
 import com.objetdirect.gwt.umlapi.client.controls.Keyboard;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
@@ -41,8 +35,6 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.SequenceDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 
 /**
  * This is the main entry class to add a drawer.
@@ -135,33 +127,33 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		return umlCanvas;
 	}
 
-	/**
-	 * @return A list of UmlClass currently displayed in the modeler
-	 */
-	public List<UMLClass> getUmlClasses() {
-		ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
-		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
-			if (umlArtifact instanceof ClassArtifact) {
-				ClassArtifact classArtifact = (ClassArtifact) umlArtifact;
-				umlClasses.add(classArtifact.toUMLComponent());
-			}
-		}
-		return umlClasses;
-	}
-
-	/**
-	 * @return A list of the relations between the umlComponents currently displayed.
-	 */
-	public List<UMLRelation> getClassRelations() {
-		ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
-		for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
-			if (umlArtifact instanceof ClassRelationLinkArtifact) {
-				ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact) umlArtifact;
-				umlRelations.add(relationLinkArtifact.toUMLComponent());
-			}
-		}
-		return umlRelations;
-	}
+	// /**
+	// * @return A list of UmlClass currently displayed in the modeler
+	// */
+	// public List<UMLClass> getUmlClasses() {
+	// ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
+	// for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
+	// if (umlArtifact instanceof ClassArtifact) {
+	// ClassArtifact classArtifact = (ClassArtifact) umlArtifact;
+	// umlClasses.add(classArtifact.toUMLComponent());
+	// }
+	// }
+	// return umlClasses;
+	// }
+	//
+	// /**
+	// * @return A list of the relations between the umlComponents currently displayed.
+	// */
+	// public List<UMLRelation> getClassRelations() {
+	// ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
+	// for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
+	// if (umlArtifact instanceof ClassRelationLinkArtifact) {
+	// ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact) umlArtifact;
+	// umlRelations.add(relationLinkArtifact.toUMLComponent());
+	// }
+	// }
+	// return umlRelations;
+	// }
 
 	/**
 	 * @param hotKeysEnabled
