@@ -16,6 +16,7 @@ package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 import java.util.List;
 
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
@@ -41,4 +42,8 @@ public interface ObjectDiagram extends Diagram {
 	public List<InstantiationRelation> getInstantiationRelations();
 
 	public List<ObjectRelation> getObjectRelations();
+
+	public List<UMLClass> getClasses();
+
+	public void setClasses(List<UMLClass> classes);
 }

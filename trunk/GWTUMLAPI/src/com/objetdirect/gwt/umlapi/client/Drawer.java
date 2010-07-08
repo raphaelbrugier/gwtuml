@@ -127,34 +127,6 @@ public class Drawer extends FocusPanel implements RequiresResize, ProvidesResize
 		return umlCanvas;
 	}
 
-	// /**
-	// * @return A list of UmlClass currently displayed in the modeler
-	// */
-	// public List<UMLClass> getUmlClasses() {
-	// ArrayList<UMLClass> umlClasses = new ArrayList<UMLClass>();
-	// for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
-	// if (umlArtifact instanceof ClassArtifact) {
-	// ClassArtifact classArtifact = (ClassArtifact) umlArtifact;
-	// umlClasses.add(classArtifact.toUMLComponent());
-	// }
-	// }
-	// return umlClasses;
-	// }
-	//
-	// /**
-	// * @return A list of the relations between the umlComponents currently displayed.
-	// */
-	// public List<UMLRelation> getClassRelations() {
-	// ArrayList<UMLRelation> umlRelations = new ArrayList<UMLRelation>();
-	// for (final UMLArtifact umlArtifact : umlCanvas.getArtifactById().values()) {
-	// if (umlArtifact instanceof ClassRelationLinkArtifact) {
-	// ClassRelationLinkArtifact relationLinkArtifact = (ClassRelationLinkArtifact) umlArtifact;
-	// umlRelations.add(relationLinkArtifact.toUMLComponent());
-	// }
-	// }
-	// return umlRelations;
-	// }
-
 	/**
 	 * @param hotKeysEnabled
 	 *            the hotKeysEnabled to set

@@ -33,6 +33,7 @@ import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
@@ -46,6 +47,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelatio
 public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 	private int objectCount;
+
+	private List<UMLClass> classes;
 
 	/**
 	 * Default constructor only for gwt-rpc serialization
@@ -197,4 +200,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		return relations;
 	}
 
+	@Override
+	public List<UMLClass> getClasses() {
+		return classes;
+	}
+
+	@Override
+	public void setClasses(List<UMLClass> classes) {
+		this.classes = classes;
+	}
 }
