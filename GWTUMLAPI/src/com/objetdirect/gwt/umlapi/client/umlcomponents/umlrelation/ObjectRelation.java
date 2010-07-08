@@ -40,12 +40,12 @@ public class ObjectRelation implements Serializable {
 	ObjectRelation() {}
 	
 	/**
-	 * @param leftObject
-	 * @param rightObject
+	 * @param owner by default the owner is the left object
+	 * @param target by default the target is the right object
 	 */
-	public ObjectRelation(UMLObject leftObject, UMLObject rightObject) {
-		this.leftObject = leftObject;
-		this.rightObject = rightObject;
+	public ObjectRelation(UMLObject owner, UMLObject target) {
+		this.leftObject = owner;
+		this.rightObject = target;
 
 		leftRole = "";
 		leftNavigable = false;
@@ -55,7 +55,7 @@ public class ObjectRelation implements Serializable {
 	}
 
 	/**
-	 * @return the leftRole
+	 * @return the leftRole, default is empty string
 	 */
 	public String getLeftRole() {
 		return leftRole;
@@ -65,12 +65,13 @@ public class ObjectRelation implements Serializable {
 	 * @param leftRole
 	 *            the leftRole to set
 	 */
-	public void setLeftRole(String leftRole) {
+	public ObjectRelation setLeftRole(String leftRole) {
 		this.leftRole = leftRole;
+		return this;
 	}
 
 	/**
-	 * @return the rightRole
+	 * @return the right role, default = "role"
 	 */
 	public String getRightRole() {
 		return rightRole;
@@ -80,8 +81,9 @@ public class ObjectRelation implements Serializable {
 	 * @param rightRole
 	 *            the rightRole to set
 	 */
-	public void setRightRole(String rightRole) {
+	public ObjectRelation setRightRole(String rightRole) {
 		this.rightRole = rightRole;
+		return this;
 	}
 
 	/**
@@ -92,7 +94,7 @@ public class ObjectRelation implements Serializable {
 	}
 
 	/**
-	 * @return the leftNavigable
+	 * @return the leftNavigable, default is false.
 	 */
 	public boolean isLeftNavigable() {
 		return leftNavigable;
@@ -106,7 +108,7 @@ public class ObjectRelation implements Serializable {
 	}
 
 	/**
-	 * @return the rightNavigable
+	 * @return the rightNavigable, default is true;
 	 */
 	public boolean isRightNavigable() {
 		return rightNavigable;
@@ -114,17 +116,28 @@ public class ObjectRelation implements Serializable {
 
 	/**
 	 * @param leftNavigable
-	 *            the leftNavigable to set
+	 *            the leftNavigable to set, default is false.
 	 */
-	public void setLeftNavigable(boolean leftNavigable) {
+	public ObjectRelation setLeftNavigable(boolean leftNavigable) {
 		this.leftNavigable = leftNavigable;
+		return this;
 	}
 
 	/**
 	 * @param rightNavigable
-	 *            the rightNavigable to set
+	 *            the rightNavigable to set, default is true.
 	 */
-	public void setRightNavigable(boolean rightNavigable) {
+	public ObjectRelation setRightNavigable(boolean rightNavigable) {
 		this.rightNavigable = rightNavigable;
+		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Object relation between  : \n" +
+				"\t left object named : " + leftObject.getInstanceName() + ", instance of class : " + leftObject.getClassName() + " " +
+				"\t\t left role = " + leftRole + "   ,  leftNavigable = " + leftNavigable +				
+				"\t right object named : " + rightObject.getInstanceName() + ", instance of class : " + rightObject.getClassName() +
+				"\t\t right role = " + rightRole + "   ,  rightNavigable = " + rightNavigable;				
 	}
 }

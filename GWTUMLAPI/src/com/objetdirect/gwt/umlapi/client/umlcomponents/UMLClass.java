@@ -124,6 +124,11 @@ public class UMLClass extends UMLNode {
 	public final void setAttributes(final ArrayList<UMLClassAttribute> attributes) {
 		this.attributes = attributes;
 	}
+	
+	public UMLClass addAttribute(final UMLVisibility visibility, final String type, final String name) {
+		attributes.add(new UMLClassAttribute(visibility, type, name));
+		return this;
+	}
 
 	/**
 	 * Setter for the methods
@@ -155,11 +160,6 @@ public class UMLClass extends UMLNode {
 		this.stereotype = stereotype;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return name;

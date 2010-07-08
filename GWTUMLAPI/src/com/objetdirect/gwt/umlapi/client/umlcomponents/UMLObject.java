@@ -107,6 +107,11 @@ public class UMLObject extends UMLNode {
 	UMLObject() {
 	}
 
+	
+	public UMLObject(final String instanceName, final String className) {
+		this(instanceName,className,"");
+	}
+	
 	/**
 	 * Constructor of an {@link UMLObject}
 	 * 
@@ -116,7 +121,6 @@ public class UMLObject extends UMLNode {
 	 *            The name of this object
 	 */
 	public UMLObject(final String instanceName, final String className, String stereotype) {
-		super();
 		this.instanceName = instanceName;
 		this.className = className;
 		this.stereotype = stereotype;
@@ -128,7 +132,7 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the object instance name
 	 */
-	public final String getInstanceName() {
+	public String getInstanceName() {
 		return instanceName;
 	}
 
@@ -137,7 +141,7 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the attributes
 	 */
-	public final List<UMLObjectAttribute> getObjectAttributes() {
+	public List<UMLObjectAttribute> getObjectAttributes() {
 		return attributes;
 	}
 
@@ -146,7 +150,7 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the object name
 	 */
-	public final String getClassName() {
+	public String getClassName() {
 		return className;
 	}
 
@@ -155,7 +159,7 @@ public class UMLObject extends UMLNode {
 	 * 
 	 * @return the stereotype
 	 */
-	public final String getStereotype() {
+	public String getStereotype() {
 		return stereotype;
 	}
 
@@ -165,7 +169,7 @@ public class UMLObject extends UMLNode {
 	 * @param instanceName
 	 *            the object instance name to set
 	 */
-	public final void setInstanceName(final String instanceName) {
+	public void setInstanceName(final String instanceName) {
 		this.instanceName = instanceName;
 	}
 
@@ -175,7 +179,7 @@ public class UMLObject extends UMLNode {
 	 * @param objectName
 	 *            the object name to set
 	 */
-	public final void setClassName(final String objectName) {
+	public void setClassName(final String objectName) {
 		className = objectName;
 	}
 
@@ -185,7 +189,7 @@ public class UMLObject extends UMLNode {
 	 * @param stereotype
 	 *            the stereotype to set
 	 */
-	public final void setStereotype(final String stereotype) {
+	public void setStereotype(final String stereotype) {
 		this.stereotype = stereotype;
 	}
 
@@ -198,12 +202,11 @@ public class UMLObject extends UMLNode {
 
 	public String getValueOfAttribute(String attributeName) {
 		for (UMLObjectAttribute attribute : attributes) {
-			System.out.println("attribute = " + attribute + "    attributeName = " + attributeName);
 			if (attribute.getAttributeName().equals(attributeName)) {
 				return attribute.getValue();
 			}
 		}
-		throw new RuntimeException("No attribute correspond to " + attributeName + " in the instantiated object.");
+		return null;
 	}
 
 	public UMLObject addAttributeValuePair(String attributeName, String attributeValue) {

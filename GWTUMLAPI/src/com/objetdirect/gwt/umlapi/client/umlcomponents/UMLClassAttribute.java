@@ -78,7 +78,6 @@ public class UMLClassAttribute implements Serializable {
 
 	protected String name;
 	protected String type;
-	protected boolean validated;
 
 	protected UMLVisibility visibility;
 
@@ -98,8 +97,6 @@ public class UMLClassAttribute implements Serializable {
 	 *            Name of the attribute
 	 */
 	public UMLClassAttribute(final UMLVisibility visibility, final String type, final String name) {
-		super();
-		validated = true;
 		this.visibility = visibility;
 		this.type = type;
 		this.name = name;
@@ -135,19 +132,6 @@ public class UMLClassAttribute implements Serializable {
 	}
 
 	/**
-	 * Get the validated state of the attribute
-	 * 
-	 * @return <ul>
-	 *         <li><b>True</b> if validated</li>
-	 *         <li><b>False</b> otherwise</li>
-	 *         </ul>
-	 * 
-	 */
-	public boolean isValidated() {
-		return validated;
-	}
-
-	/**
 	 * Setter for the name
 	 * 
 	 * @param name
@@ -167,17 +151,6 @@ public class UMLClassAttribute implements Serializable {
 	 */
 	public void setType(final String type) {
 		this.type = type;
-	}
-
-	/**
-	 * Set the validation state
-	 * 
-	 * @param validated
-	 *            boolean for validated validation state
-	 * 
-	 */
-	public void setValidated(final boolean validated) {
-		this.validated = validated;
 	}
 
 	/**
