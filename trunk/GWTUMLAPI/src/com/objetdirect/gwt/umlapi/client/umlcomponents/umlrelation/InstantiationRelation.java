@@ -62,5 +62,10 @@ public class InstantiationRelation implements Serializable {
 	public UMLClass getInstanceOf() {
 		return instanceOf;
 	}
+	
+	@Override
+	public String toString() {
+		return "Instantation link between object named : " + instance.getInstanceName() + "  , instance of class : " + instanceOf.getName();
+	}
 
 }
