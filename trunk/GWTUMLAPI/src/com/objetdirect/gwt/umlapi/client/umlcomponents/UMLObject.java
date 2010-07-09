@@ -73,34 +73,9 @@ public class UMLObject extends UMLNode {
 		return Arrays.asList(instance, name);
 	}
 
-	/**
-	 * Parse a stereotype from a {@link String}
-	 * 
-	 * @param stereotypeToParse
-	 *            The string containing a stereotype
-	 * 
-	 * @return The new parsed stereotype or an empty one if there was a problem
-	 */
-	public static String parseStereotype(final String stereotypeToParse) {
-		if (stereotypeToParse.equals("")) {
-			return "";
-		}
-		final LexicalAnalyzer lex = new LexicalAnalyzer(stereotypeToParse);
-		try {
-			final LexicalAnalyzer.Token tk = lex.getToken();
-			if ((tk == null) || (tk.getType() != LexicalFlag.IDENTIFIER)) {
-				throw new GWTUMLAPIException("Invalid object stereotype : " + stereotypeToParse + " doesn't repect uml conventions");
-			}
-			return tk.getContent();
-		} catch (final GWTUMLAPIException e) {
-			Log.error(e.getMessage());
-		}
-		return "";
-	}
 
 	private String className;
 	private String instanceName;
-	private String stereotype;
 	private List<UMLObjectAttribute> attributes;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
@@ -109,21 +84,8 @@ public class UMLObject extends UMLNode {
 
 	
 	public UMLObject(final String instanceName, final String className) {
-		this(instanceName,className,"");
-	}
-	
-	/**
-	 * Constructor of an {@link UMLObject}
-	 * 
-	 * @param objectInstance
-	 *            The name of this instance
-	 * @param className
-	 *            The name of this object
-	 */
-	public UMLObject(final String instanceName, final String className, String stereotype) {
 		this.instanceName = instanceName;
 		this.className = className;
-		this.stereotype = stereotype;
 		attributes = new ArrayList<UMLObjectAttribute>();
 	}
 
@@ -154,14 +116,6 @@ public class UMLObject extends UMLNode {
 		return className;
 	}
 
-	/**
-	 * Getter for the stereotype
-	 * 
-	 * @return the stereotype
-	 */
-	public String getStereotype() {
-		return stereotype;
-	}
 
 	/**
 	 * Setter for the object instance name
@@ -183,15 +137,6 @@ public class UMLObject extends UMLNode {
 		className = objectName;
 	}
 
-	/**
-	 * /** Setter for the stereotype
-	 * 
-	 * @param stereotype
-	 *            the stereotype to set
-	 */
-	public void setStereotype(final String stereotype) {
-		this.stereotype = stereotype;
-	}
 
 	/**
 	 * @return A formatted string with the object name (if any) and the instance name.

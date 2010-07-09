@@ -40,7 +40,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	private transient GfxObject nameRect;
 	private transient GfxObject nameText;
-	private transient GfxObject stereotypeText;
 	private transient GfxObject underline;
 
 	private UMLObject umlObject;
@@ -85,11 +84,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 				RECTANGLE_TOP_PADDING));
 		underline.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(nameText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
 				RECTANGLE_TOP_PADDING));
-		if (stereotypeText != null) {
-			stereotypeText
-					.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
-							RECTANGLE_TOP_PADDING));
-		}
 		textVirtualGroup.moveToFront();
 	}
 
@@ -99,18 +93,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		width = 0;
 		textVirtualGroup = GfxManager.getPlatform().buildVirtualGroup();
 		textVirtualGroup.addToVirtualGroup(gfxObject);
-		String stereotype = umlObject.getStereotype();
-		if ((stereotype != null) && (!stereotype.isEmpty())) {
-			stereotypeText = GfxManager.getPlatform().buildText(stereotype, new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING));
-			stereotypeText.addToVirtualGroup(textVirtualGroup);
-			stereotypeText.setFont(OptionsManager.getFont());
-			stereotypeText.setStroke(ThemeManager.getTheme().getObjectBackgroundColor(), 0);
-			stereotypeText.setFillColor(ThemeManager.getTheme().getObjectForegroundColor());
-			width = GfxManager.getPlatform().getTextWidthFor(stereotypeText);
-			height += GfxManager.getPlatform().getTextHeightFor(stereotypeText);
-			width += TEXT_RIGHT_PADDING + TEXT_LEFT_PADDING;
-			height += TEXT_TOP_PADDING + TEXT_BOTTOM_PADDING;
-		}
 
 		nameText = GfxManager.getPlatform().buildText(umlObject.getFormattedName(), new Point(TEXT_LEFT_PADDING, TEXT_TOP_PADDING + height));
 		nameText.addToVirtualGroup(textVirtualGroup);
@@ -136,19 +118,12 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	@Override
 	public void edit() {
-		if ((umlObject.getStereotype() == null) || umlObject.getStereotype().equals("")) {
-			umlObject.setStereotype("«Abstract»");
-			nodeArtifact.rebuildGfxObject();
-			this.edit(stereotypeText);
-		} else {
-			this.edit(nameText);
-		}
+		this.edit(nameText);
 	}
 
 	@Override
 	public void edit(final GfxObject editedGfxObject) {
-		final boolean isTheStereotype = editedGfxObject.equals(stereotypeText);
-		if (!isTheStereotype && !editedGfxObject.equals(nameText)) {
+		if (!editedGfxObject.equals(nameText)) {
 			this.edit();
 			return;
 		}
@@ -191,12 +166,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 		rightMenu.setName("Name");
 		rightMenu.addItem("Edit Name", this.editCommand(nameText));
-		if (stereotypeText == null) {
-			rightMenu.addItem("Add stereotype", this.createStereotype());
-		} else {
-			rightMenu.addItem("Edit Stereotype", this.editCommand(stereotypeText));
-			rightMenu.addItem("Delete Stereotype", this.deleteStereotype());
-		}
 
 		return rightMenu;
 	}
@@ -234,13 +203,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 		umlObject.setClassName(objectName);
 	}
 
-	/**
-	 * @param stereotype
-	 *            the stereotype to set
-	 */
-	public void setStereotype(final String stereotype) {
-		umlObject.setStereotype(stereotype);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -249,9 +211,8 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	 */
 	@Override
 	public String toURL() {
-		String stereotype = umlObject.getStereotype().replaceAll("»", "").replaceAll("«", "");
 		String formattedName = umlObject.getFormattedName();
-		return formattedName + "!" + stereotype;
+		return formattedName + "!" + "";
 	}
 
 	@Override
@@ -269,23 +230,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	protected void select() {
 		super.select();
 		nameRect.setStroke(ThemeManager.getTheme().getObjectHighlightedForegroundColor(), 2);
-	}
-
-	private Command createStereotype() {
-		return new Command() {
-			public void execute() {
-				ObjectPartNameArtifact.this.edit();
-			}
-		};
-	}
-
-	private Command deleteStereotype() {
-		return new Command() {
-			public void execute() {
-				umlObject.setStereotype("");
-				ObjectPartNameArtifact.this.nodeArtifact.rebuildGfxObject();
-			}
-		};
 	}
 
 	private Command editCommand(final GfxObject gfxo) {

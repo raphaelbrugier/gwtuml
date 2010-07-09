@@ -28,8 +28,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  */
 public class ObjectPartNameFieldEditor extends FieldEditor {
 
-	private final boolean isTheStereotype;
-
 	/**
 	 * Constructor of the {@link ObjectPartNameFieldEditor}
 	 * 
@@ -40,9 +38,8 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
 	 * @param isTheStereotype
 	 *            This boolean determine if the edition is on the stereotype (True) or the object name (False)
 	 */
-	public ObjectPartNameFieldEditor(final UMLCanvas canvas, final ObjectPartNameArtifact objectPartNameArtifact, final boolean isTheStereotype) {
+	public ObjectPartNameFieldEditor(final UMLCanvas canvas, final ObjectPartNameArtifact objectPartNameArtifact) {
 		super(canvas, objectPartNameArtifact);
-		this.isTheStereotype = isTheStereotype;
 	}
 
 	/*
@@ -58,22 +55,14 @@ public class ObjectPartNameFieldEditor extends FieldEditor {
 	@Override
 	protected boolean updateUMLArtifact(final String newContent) {
 		final String newContentWithoutSpaces = newContent.replaceAll(" ", "_");
-		if (isTheStereotype) {
-			final String newStereotype = UMLObject.parseStereotype(newContentWithoutSpaces.replaceAll("[«»]", ""));
-			if (newStereotype.equals("")) {
-				((ObjectPartNameArtifact) artifact).setStereotype("");
-			} else {
-				((ObjectPartNameArtifact) artifact).setStereotype("«" + newStereotype + "»");
-			}
+		final List<String> newNameInstance = UMLObject.parseName(newContentWithoutSpaces);
+		if (newNameInstance.get(1).equals("")) {
+			((ObjectPartNameArtifact) artifact).setObjectName("Object");
 		} else {
-			final List<String> newNameInstance = UMLObject.parseName(newContentWithoutSpaces);
-			if (newNameInstance.get(1).equals("")) {
-				((ObjectPartNameArtifact) artifact).setObjectName("Object");
-			} else {
-				((ObjectPartNameArtifact) artifact).setObjectName(newNameInstance.get(1));
-			}
-			((ObjectPartNameArtifact) artifact).setInstanceName(newNameInstance.get(0));
+			((ObjectPartNameArtifact) artifact).setObjectName(newNameInstance.get(1));
 		}
+		((ObjectPartNameArtifact) artifact).setInstanceName(newNameInstance.get(0));
+		
 
 		((ObjectPartNameArtifact) artifact).getNodeArtifact().rebuildGfxObject();
 		return false;

@@ -74,27 +74,8 @@ public class ObjectArtifact extends NodeArtifact {
 	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
 	public ObjectArtifact(final UMLCanvas canvas, int id, final String instanceName, final String objectName) {
-		this(canvas, id, instanceName, objectName, "");
-	}
-
-	/**
-	 * ObjectArtifact constructor, initializes all {@link NodePartArtifact}
-	 * 
-	 * @param canvas
-	 *            Where the gfxObject are displayed
-	 * @param id
-	 *            The artifacts's id
-	 * @param instanceName
-	 *            The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param objectName
-	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param stereotype
-	 *            The stereotype of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 */
-	public ObjectArtifact(final UMLCanvas canvas, int id, final String instanceName, final String objectName, final String stereotype) {
 		super(canvas, id);
-		String stereotypeFormatted = stereotype.equals("") ? "" : "«" + stereotype + "»";
-		umlObject = new UMLObject(instanceName, objectName, stereotypeFormatted);
+		umlObject = new UMLObject(instanceName, objectName);
 
 		objectNameArtifact = new ObjectPartNameArtifact(canvas, umlObject);
 		objectAttributesArtifact = new ObjectPartAttributesArtifact(canvas, umlObject.getObjectAttributes());
