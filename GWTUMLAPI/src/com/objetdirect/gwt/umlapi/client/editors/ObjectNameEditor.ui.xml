@@ -1,0 +1,33 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.panel {
+			background-color : white;
+			border-style : solid;
+			border-width : 1px;
+		}
+	</ui:style>
+	
+	<g:VerticalPanel addStyleNames='{style.panel}' spacing="15">
+		<g:HorizontalPanel>
+			<g:cell width='150px' horizontalAlignment='ALIGN_LEFT'>
+				<g:Label>Instance name : </g:Label>
+			</g:cell>
+			<g:cell width='120px' horizontalAlignment='ALIGN_RIGHT'>
+				<g:TextBox ui:field="nameField" width="100px"/>
+			</g:cell>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel>
+			<g:cell width='150px' horizontalAlignment='ALIGN_LEFT'>
+				<g:Label>Class instantiated : </g:Label>
+			</g:cell>
+			<g:cell width='120px' horizontalAlignment='ALIGN_RIGHT'>
+				<g:ListBox ui:field="classesList"/>
+			</g:cell>
+		</g:HorizontalPanel>
+		<g:cell horizontalAlignment='ALIGN_RIGHT'>
+			<g:Anchor ui:field="ok" href="#">Ok</g:Anchor>
+		</g:cell>
+	</g:VerticalPanel>
+</ui:UiBinder> 

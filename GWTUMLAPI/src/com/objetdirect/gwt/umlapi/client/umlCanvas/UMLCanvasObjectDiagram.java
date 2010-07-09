@@ -46,8 +46,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelatio
 @SuppressWarnings("serial")
 public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
-	private int objectCount;
-
 	private List<UMLClass> classes;
 
 	/**
@@ -59,7 +57,6 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
 		super(true);
-		objectCount = 0;
 	}
 
 	@Override
@@ -114,7 +111,12 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		if (dragAndDropState != NONE) {
 			return;
 		}
-		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "obj" + ++objectCount, "Object" + objectCount);
+		String className = "Object";
+		if (classes.size() != 0) {
+			className = classes.get(0).getName();
+		}
+
+		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "", className);
 
 		this.add(newObject);
 		newObject.moveTo(Point.substract(location, getCanvasOffset()));
