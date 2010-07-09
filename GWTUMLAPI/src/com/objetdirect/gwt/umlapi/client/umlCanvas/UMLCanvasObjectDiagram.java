@@ -84,6 +84,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 			return;
 		}
 		final ClassSimplifiedArtifact newClass = new ClassSimplifiedArtifact(this, idCount, "ClassName");
+		classes.add(newClass.toUMLComponent());
 
 		this.add(newClass);
 		newClass.moveTo(Point.substract(location, getCanvasOffset()));

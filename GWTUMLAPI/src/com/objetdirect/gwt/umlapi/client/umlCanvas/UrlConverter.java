@@ -107,7 +107,7 @@ public class UrlConverter {
 						} else if (artifact.equals("Object")) {
 							newArtifact = new ObjectArtifact(umlCanvas, id, UMLObject.parseName(parameters[1]).get(0), (isForPasting && wasACopy() ? "CopyOf"
 									: "")
-									+ UMLObject.parseName(parameters[1]).get(1), UMLObject.parseStereotype(parameters[2]));
+									+ UMLObject.parseName(parameters[1]).get(1));
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
 								final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");
