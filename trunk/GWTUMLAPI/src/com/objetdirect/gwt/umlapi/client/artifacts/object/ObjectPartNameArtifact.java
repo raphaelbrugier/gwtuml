@@ -19,7 +19,7 @@ import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
-import com.objetdirect.gwt.umlapi.client.editors.ObjectPartNameFieldEditor;
+import com.objetdirect.gwt.umlapi.client.editors.ObjectNameEditor;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxManager;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
@@ -89,7 +89,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			stereotypeText
 					.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
 							RECTANGLE_TOP_PADDING));
-
 		}
 		textVirtualGroup.moveToFront();
 	}
@@ -153,16 +152,12 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			this.edit();
 			return;
 		}
-		final ObjectPartNameFieldEditor editor = new ObjectPartNameFieldEditor(canvas, this, isTheStereotype);
-		String edited;
-		if (isTheStereotype) {
-			edited = umlObject.getStereotype().replaceAll("»", "").replaceAll("«", "");
-		} else {
-			edited = umlObject.getFormattedName();
-		}
-		editor.startEdition(edited, (nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING), nodeArtifact.getLocation().getY()
-				+ editedGfxObject.getLocation().getY(), nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING,
-				false, false);
+		int x  = nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING;
+		int y = nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY();
+		int w = nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING;
+		
+		final ObjectNameEditor editor = new ObjectNameEditor(canvas, this);
+		editor.startEdition(x, y, w);
 	}
 
 	@Override
@@ -209,6 +204,14 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	@Override
 	public int getWidth() {
 		return width;
+	}
+	
+
+	/**
+	 * @return the umlObject
+	 */
+	public UMLObject getUmlObject() {
+		return umlObject;
 	}
 
 	/**
