@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -67,14 +66,6 @@ public abstract class UMLCanvas implements Serializable {
 
 	private transient Widget fieldEditor;
 
-	/**
-	 * @param fieldEditor
-	 *            the fieldEditor to set
-	 */
-	public void setFieldEditor(Widget fieldEditor) {
-		this.fieldEditor = fieldEditor;
-	}
-
 	/** The panel containing the canvas and the arrows. */
 	protected transient DecoratorCanvas wrapper;
 
@@ -86,8 +77,6 @@ public abstract class UMLCanvas implements Serializable {
 	// ====== Model fields =======//
 	private long noteCount;
 
-	/** List of all the uml artifacts in the diagram */
-	private List<UMLArtifact> umlArtifacts;
 	/** Id counter */
 	protected int idCount;
 	/** List of all umlArtifacts by id. */
@@ -181,7 +170,6 @@ public abstract class UMLCanvas implements Serializable {
 		duringDragOffset = Point.getOrigin();
 		isMouseEnabled = true;
 		mouseIsPressed = false;
-		umlArtifacts = new LinkedList<UMLArtifact>();
 		artifactsToBeAddedWhenAttached = new LinkedHashSet<UMLArtifact>();
 		selectedArtifacts = new HashMap<UMLArtifact, ArrayList<Point>>();
 		uMLArtifactRelations = new ArrayList<UMLArtifactPeer>();
@@ -225,8 +213,7 @@ public abstract class UMLCanvas implements Serializable {
 		}
 
 		idCount++;
-		umlArtifacts.add(artifact);
-		getArtifactById().put(artifact.getId(), artifact);
+		artifactById.put(artifact.getId(), artifact);
 
 		if (wrapper.isAttached()) {
 			displaydArtifactInCanvas(artifact);
@@ -408,6 +395,14 @@ public abstract class UMLCanvas implements Serializable {
 	 */
 	public void setHotKeysEnabled(boolean hotKeysEnabled) {
 		wrapper.setHotKeysEnabled(hotKeysEnabled);
+	}
+
+	/**
+	 * @param fieldEditor
+	 *            the fieldEditor to set
+	 */
+	public void setFieldEditor(Widget fieldEditor) {
+		this.fieldEditor = fieldEditor;
 	}
 
 	/**
@@ -727,7 +722,7 @@ public abstract class UMLCanvas implements Serializable {
 		activeLinking = linkType;
 		final int selectedToLink = selectedArtifacts.keySet().size();
 
-		wrapper.setHelpText(("Adding " + (selectedToLink == 0 ? "a" : selectedToLink) + " new " + activeLinking.getName()), new Point(0, 0));
+		wrapper.setHelpText(("Adding " + (selectedToLink == 1 ? "a" : selectedToLink) + " new " + activeLinking.getName()), new Point(0, 0));
 
 		wrapper.setCursorIcon(CROSSHAIR);
 	}
@@ -992,7 +987,8 @@ public abstract class UMLCanvas implements Serializable {
 		this.initCanvas();
 
 		objects = new HashMap<GfxObject, UMLArtifact>();
-		for (UMLArtifact artifact : umlArtifacts) {
+		for (Entry<Integer, UMLArtifact> entry : artifactById.entrySet()) {
+			UMLArtifact artifact = entry.getValue();
 			artifact.initializeGfxObject().addToVirtualGroup(allObjects);
 			artifact.setUpAfterDeserialization();
 			artifact.getGfxObject().translate(artifact.getLocation());
