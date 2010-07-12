@@ -35,7 +35,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
@@ -105,9 +104,7 @@ public class UrlConverter {
 							}
 
 						} else if (artifact.equals("Object")) {
-							newArtifact = new ObjectArtifact(umlCanvas, id, UMLObject.parseName(parameters[1]).get(0), (isForPasting && wasACopy() ? "CopyOf"
-									: "")
-									+ UMLObject.parseName(parameters[1]).get(1));
+							newArtifact = new ObjectArtifact(umlCanvas, id);
 							newArtifact.setLocation(Point.add(Point.parse(parameters[0]), pasteShift));
 							if (parameters[3].length() > 1) {
 								final String[] objectAttributes = parameters[3].substring(0, parameters[3].lastIndexOf("%")).split("%");

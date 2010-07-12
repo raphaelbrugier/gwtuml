@@ -73,19 +73,22 @@ public class UMLObject extends UMLNode {
 		return Arrays.asList(instance, name);
 	}
 
+	private UMLClass instantiatedClass;
 
-	private String className;
 	private String instanceName;
 	private List<UMLObjectAttribute> attributes;
 
-	/** Default constructor ONLY for gwt-rpc serialization. */
-	UMLObject() {
+	/**
+	 * Default constructor.
+	 */
+	public UMLObject() {
+		instanceName = "";
+		attributes = new ArrayList<UMLObjectAttribute>();
 	}
 
-	
-	public UMLObject(final String instanceName, final String className) {
+	public UMLObject(final String instanceName, final UMLClass instantiatedClass) {
 		this.instanceName = instanceName;
-		this.className = className;
+		this.instantiatedClass = instantiatedClass;
 		attributes = new ArrayList<UMLObjectAttribute>();
 	}
 
@@ -108,16 +111,6 @@ public class UMLObject extends UMLNode {
 	}
 
 	/**
-	 * Getter for the object name
-	 * 
-	 * @return the object name
-	 */
-	public String getClassName() {
-		return className;
-	}
-
-
-	/**
 	 * Setter for the object instance name
 	 * 
 	 * @param instanceName
@@ -128,20 +121,30 @@ public class UMLObject extends UMLNode {
 	}
 
 	/**
-	 * Setter for the object name
-	 * 
-	 * @param objectName
-	 *            the object name to set
+	 * @return the instantiatedClass
 	 */
-	public void setClassName(final String objectName) {
-		className = objectName;
+	public UMLClass getInstantiatedClass() {
+		return instantiatedClass;
 	}
 
+	/**
+	 * @param instantiatedClass
+	 *            the instantiatedClass to set
+	 */
+	public void setInstantiatedClass(UMLClass instantiatedClass) {
+		this.instantiatedClass = instantiatedClass;
+	}
 
 	/**
 	 * @return A formatted string with the object name (if any) and the instance name.
 	 */
 	public String getFormattedName() {
+		String className;
+		if (instantiatedClass == null) {
+			className = "Choose the instantiated class";
+		} else {
+			className = instantiatedClass.getName();
+		}
 		return instanceName + ":" + className;
 	}
 
@@ -159,13 +162,12 @@ public class UMLObject extends UMLNode {
 		return this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return instanceName + ":" + className;
+		return getFormattedName();
+	}
+
+	public String getClassName() {
+		return instantiatedClass.getName();
 	}
 }
