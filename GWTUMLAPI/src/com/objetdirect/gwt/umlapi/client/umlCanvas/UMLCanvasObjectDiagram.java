@@ -23,6 +23,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import java.util.ArrayList;
 import java.util.List;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
@@ -37,6 +38,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 
 /**
  * UMLCanvas concrete class for an object diagram.
@@ -55,6 +57,8 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	 * Classes that are defined directly in the object diagram. This classes are a simplifed version of the UMLClass.
 	 */
 	private List<UMLClass> objectDiagramClasses;
+
+	private List<UMLRelation> classRelations;
 
 	/**
 	 * Default constructor only for gwt-rpc serialization
@@ -81,8 +85,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	@Override
 	public void dropContextualMenu(GfxObject gfxObject, Point location) {
 		doSelection(gfxObject, false, false);
-		final UMLArtifact elem = getUMLArtifact(gfxObject);
-		MenuBarAndTitle rightMenu = elem == null ? null : elem.getRightMenu();
+
+		MenuBarAndTitle rightMenu;
+		if (getUMLArtifact(gfxObject) == null) {
+			rightMenu = null;
+		} else {
+			rightMenu = getUMLArtifact(gfxObject).getRightMenu();
+		}
 
 		ContextMenu contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
 
@@ -106,7 +115,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		selectedArtifacts.put(newClass, new ArrayList<Point>());
 		dragOffset = location;
 		wrapper.setCursorIcon(MOVE);
-		dragAndDropState = DragAndDropState.TAKING;
+		dragAndDropState = TAKING;
 		mouseIsPressed = true;
 
 		wrapper.setHelpText("Adding a new class", location.clonePoint());
@@ -152,7 +161,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
 		try {
 			if (activeLinking == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
-				return new ObjectRelationLinkArtifact(this, idCount, (ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
+				return makeObjectRelationLink((ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
 			} else if ((activeLinking == INSTANTIATION)) {
 				ClassSimplifiedArtifact classArtifact = null;
 				ObjectArtifact objectArtifact = null;
@@ -174,6 +183,33 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		}
 		return null;
 	}
+
+	/**
+	 * @param uMLArtifact
+	 * @param uMLArtifactNew
+	 * @return
+	 */
+	private LinkArtifact makeObjectRelationLink(ObjectArtifact left, ObjectArtifact right) throws IllegalArgumentException {
+		Log.debug("UMLCanvasObject::makeObjectRelationLink");
+		// If no classes relations have been setup, we allow all the objects relations.
+		if (classRelations == null) {
+			Log.debug("UMLCanvasObject::makeObjectRelationLink  --  classRelations == null");
+			return new ObjectRelationLinkArtifact(this, idCount, left, right);
+		}
+
+		Log.debug("UMLCanvasObject::makeObjectRelationLink  --  for (UMLRelation relation : classRelations)\n");
+		for (UMLRelation relation : classRelations) {
+			if (relation.getLeftTarget().getName().equals(left.toUMLComponent().getClassName())
+					&& relation.getRightTarget().getName().equals(right.toUMLComponent().getClassName())) {
+				ObjectRelationLinkArtifact objectRelation = new ObjectRelationLinkArtifact(this, idCount, left, right);
+				objectRelation.setRightRole(relation.getRightRole());
+				return objectRelation;
+			}
+		}
+
+		return null;
+	}
+
 
 	@Override
 	public List<UMLObject> getObjects() {
@@ -235,5 +271,10 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	@Override
 	public void setClasses(List<UMLClass> classes) {
 		domainClasses = classes;
+	}
+
+	@Override
+	public void setClassRelations(List<UMLRelation> classRelations) {
+		this.classRelations = classRelations;
 	}
 }
