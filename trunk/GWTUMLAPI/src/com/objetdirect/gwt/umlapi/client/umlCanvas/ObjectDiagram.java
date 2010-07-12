@@ -20,6 +20,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelation;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 
 /**
  * Interface with the current displayed object diagram.
@@ -46,4 +47,6 @@ public interface ObjectDiagram extends Diagram {
 	public List<UMLClass> getClasses();
 
 	public void setClasses(List<UMLClass> classes);
+
+	public void setClassRelations(List<UMLRelation> classRelations);
 }
