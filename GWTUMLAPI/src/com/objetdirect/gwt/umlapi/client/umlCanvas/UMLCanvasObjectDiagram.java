@@ -46,7 +46,15 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelatio
 @SuppressWarnings("serial")
 public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
-	private List<UMLClass> classes;
+	/**
+	 * Classes defined in the instantiated class diagram.
+	 */
+	private List<UMLClass> domainClasses;
+
+	/**
+	 * Classes that are defined directly in the object diagram. This classes are a simplifed version of the UMLClass.
+	 */
+	private List<UMLClass> objectDiagramClasses;
 
 	/**
 	 * Default constructor only for gwt-rpc serialization
@@ -58,7 +66,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
 		super(true);
 
-		classes = new ArrayList<UMLClass>();
+		objectDiagramClasses = new ArrayList<UMLClass>();
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 			return;
 		}
 		final ClassSimplifiedArtifact newClass = new ClassSimplifiedArtifact(this, idCount, "ClassName");
-		classes.add(newClass.toUMLComponent());
+		objectDiagramClasses.add(newClass.toUMLComponent());
 
 		this.add(newClass);
 		newClass.moveTo(Point.substract(location, getCanvasOffset()));
@@ -115,10 +123,12 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 			return;
 		}
 
-		if (classes.size() == 0) {
-			classes.add(new UMLClass("Object"));
+		UMLClass clazz = new UMLClass("Object");
+		if (domainClasses.size() != 0) {
+			clazz = domainClasses.get(0);
+		} else if (objectDiagramClasses.size() != 0) {
+			clazz = objectDiagramClasses.get(0);
 		}
-		UMLClass clazz = classes.get(0);
 
 		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, clazz);
 
@@ -208,11 +218,22 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 	@Override
 	public List<UMLClass> getClasses() {
+		// If there is at least one class defined in the domain classes or in the object diagram
+		// return the concatenation of the two lists.
+		if (domainClasses.size() != 0 || objectDiagramClasses.size() != 0) {
+			List<UMLClass> classes = new ArrayList<UMLClass>(domainClasses);
+			classes.addAll(objectDiagramClasses);
+			return classes;
+		}
+
+		// Else return a list with a default UmlClass.
+		List<UMLClass> classes = new ArrayList<UMLClass>();
+		classes.add(new UMLClass("Object"));
 		return classes;
 	}
 
 	@Override
-	public void addClasses(List<UMLClass> classes) {
-		this.classes.addAll(classes);
+	public void setClasses(List<UMLClass> classes) {
+		domainClasses = classes;
 	}
 }

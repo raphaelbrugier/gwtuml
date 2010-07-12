@@ -45,5 +45,5 @@ public interface ObjectDiagram extends Diagram {
 
 	public List<UMLClass> getClasses();
 
-	public void addClasses(List<UMLClass> classes);
+	public void setClasses(List<UMLClass> classes);
 }

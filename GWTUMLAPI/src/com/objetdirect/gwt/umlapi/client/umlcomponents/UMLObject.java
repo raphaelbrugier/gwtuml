@@ -88,8 +88,8 @@ public class UMLObject extends UMLNode {
 
 	public UMLObject(final String instanceName, final UMLClass instantiatedClass) {
 		this.instanceName = instanceName;
-		this.instantiatedClass = instantiatedClass;
 		attributes = new ArrayList<UMLObjectAttribute>();
+		setInstantiatedClass(instantiatedClass);
 	}
 
 	/**
@@ -133,6 +133,14 @@ public class UMLObject extends UMLNode {
 	 */
 	public void setInstantiatedClass(UMLClass instantiatedClass) {
 		this.instantiatedClass = instantiatedClass;
+
+		// We add all the string attributes defined in the instantiated class with a default value "value"
+		attributes.clear();
+		for (UMLClassAttribute attribute : instantiatedClass.getAttributes()) {
+			if (attribute.getType().equalsIgnoreCase("String")) {
+				addAttributeValuePair(attribute.getName(), "value");
+			}
+		}
 	}
 
 	/**
@@ -158,7 +166,7 @@ public class UMLObject extends UMLNode {
 	}
 
 	public UMLObject addAttributeValuePair(String attributeName, String attributeValue) {
-		getObjectAttributes().add(UMLObjectAttribute.parseAttribute(attributeName + " = \"" + attributeValue + "\""));
+		attributes.add(UMLObjectAttribute.parseAttribute(attributeName + " = \"" + attributeValue + "\""));
 		return this;
 	}
 
