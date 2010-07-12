@@ -57,6 +57,8 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 	protected UMLCanvasObjectDiagram(@SuppressWarnings("unused") boolean dummy) {
 		super(true);
+
+		classes = new ArrayList<UMLClass>();
 	}
 
 	@Override
@@ -112,12 +114,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		if (dragAndDropState != NONE) {
 			return;
 		}
-		String className = "Object";
-		if (classes.size() != 0) {
-			className = classes.get(0).getName();
-		}
 
-		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, "", className);
+		if (classes.size() == 0) {
+			classes.add(new UMLClass("Object"));
+		}
+		UMLClass clazz = classes.get(0);
+
+		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, clazz);
 
 		this.add(newObject);
 		newObject.moveTo(Point.substract(location, getCanvasOffset()));
@@ -209,7 +212,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	@Override
-	public void setClasses(List<UMLClass> classes) {
-		this.classes = classes;
+	public void addClasses(List<UMLClass> classes) {
+		this.classes.addAll(classes);
 	}
 }

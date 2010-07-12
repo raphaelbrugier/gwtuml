@@ -80,7 +80,7 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 
 		instantiationRelation = new InstantiationRelation(objectArtifact.toUMLComponent(), classArtifact.toUMLComponent());
 
-		objectArtifact.toUMLComponent().setClassName(classArtifact.getName());
+		objectArtifact.toUMLComponent().setInstantiatedClass(classArtifact.toUMLComponent());
 		objectArtifact.rebuildGfxObject();
 	}
 

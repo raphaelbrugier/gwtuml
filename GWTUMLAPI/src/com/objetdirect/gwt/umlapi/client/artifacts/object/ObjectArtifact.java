@@ -20,6 +20,7 @@ import com.objetdirect.gwt.umlapi.client.artifacts.NodeArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.NodePartArtifact;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 
@@ -50,33 +51,36 @@ public class ObjectArtifact extends NodeArtifact {
 	}
 
 	/**
-	 * Initializes the ObjectArtifact with the name "Object"
-	 * 
-	 * @param canvas
-	 *            Where the gfxObject are displayed
-	 * @param id
-	 *            The artifacts's id
-	 */
-	public ObjectArtifact(final UMLCanvas canvas, int id) {
-		this(canvas, id, "Object", "obj");
-	}
-
-	/**
-	 * ObjectArtifact constructor, initializes the {@link NodeArtifact} with a name and without stereotype
+	 * ObjectArtifact constructor, initializes the {@link NodeArtifact} and its parts.
 	 * 
 	 * @param canvas
 	 *            Where the gfxObjects are displayed
 	 * @param id
 	 *            The artifacts's id
-	 * @param instanceName
-	 *            The instance name of the object, sent to {@link ObjectPartNameArtifact} constructor
-	 * @param objectName
-	 *            The name of the object, sent to {@link ObjectPartNameArtifact} constructor
 	 */
-	public ObjectArtifact(final UMLCanvas canvas, int id, final String instanceName, final String objectName) {
+	public ObjectArtifact(final UMLCanvas canvas, int id) {
 		super(canvas, id);
-		umlObject = new UMLObject(instanceName, objectName);
+		umlObject = new UMLObject();
 
+		buildParts();
+	}
+
+	/**
+	 * ObjectArtifact constructor, initializes the {@link NodeArtifact} and its parts.
+	 * 
+	 * @param canvas
+	 *            Where the gfxObjects are displayed
+	 * @param id
+	 *            The artifacts's id
+	 * @param instantiatedClass
+	 */
+	public ObjectArtifact(final UMLCanvas canvas, int id, UMLClass instantiatedClass) {
+		super(canvas, id);
+		umlObject = new UMLObject("", instantiatedClass);
+		buildParts();
+	}
+
+	private void buildParts() {
 		objectNameArtifact = new ObjectPartNameArtifact(canvas, umlObject);
 		objectAttributesArtifact = new ObjectPartAttributesArtifact(canvas, umlObject.getObjectAttributes());
 		nodeParts.add(objectNameArtifact);

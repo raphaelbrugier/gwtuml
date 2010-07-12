@@ -127,12 +127,11 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 			this.edit();
 			return;
 		}
-		int x  = nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING;
+		int x = nodeArtifact.getLocation().getX() + TEXT_LEFT_PADDING + RECTANGLE_LEFT_PADDING;
 		int y = nodeArtifact.getLocation().getY() + editedGfxObject.getLocation().getY();
-		int w = nodeWidth - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING - RECTANGLE_RIGHT_PADDING - RECTANGLE_LEFT_PADDING;
-		
+
 		final ObjectNameEditor editor = new ObjectNameEditor(canvas, this);
-		editor.startEdition(x, y, w);
+		editor.startEdition(x, y);
 	}
 
 	@Override
@@ -174,7 +173,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	public int getWidth() {
 		return width;
 	}
-	
 
 	/**
 	 * @return the umlObject
@@ -192,17 +190,6 @@ public class ObjectPartNameArtifact extends NodePartArtifact {
 	public void setInstanceName(final String instanceName) {
 		umlObject.setInstanceName(instanceName);
 	}
-
-	/**
-	 * Setter for the object name
-	 * 
-	 * @param objectName
-	 *            The new name of the object
-	 */
-	public void setObjectName(final String objectName) {
-		umlObject.setClassName(objectName);
-	}
-
 
 	/*
 	 * (non-Javadoc)
