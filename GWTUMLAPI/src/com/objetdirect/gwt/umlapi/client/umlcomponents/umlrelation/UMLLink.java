@@ -14,6 +14,16 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.INVERTED_SOLID_ARROW;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.INVERTED_SOLID_CIRCLE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.INVERTED_SOLID_DIAMOND;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.NONE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.SOLID_ARROW;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.SOLID_DIAMOND;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_CROSS;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.DASHED;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.DASHED_DOTTED;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle.SOLID;
 
 import java.io.Serializable;
@@ -38,31 +48,31 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Aggregation relation
 		 */
-		AGGREGATION_RELATION("Aggregation", LinkAdornment.SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "1", "0..*", LinkStyle.SOLID),
+		AGGREGATION_RELATION("Aggregation", SOLID_DIAMOND, WIRE_ARROW, "1", "0..*", SOLID),
 		/**
 		 * Association relation
 		 */
-		ASSOCIATION_RELATION("Association", LinkAdornment.NONE, LinkAdornment.NONE, "1", "1", LinkStyle.SOLID),
+		ASSOCIATION_RELATION("Association", NONE, WIRE_ARROW, "1", "", SOLID),
 		/**
 		 * Composition relation
 		 */
-		COMPOSITION_RELATION("Composition", LinkAdornment.INVERTED_SOLID_DIAMOND, LinkAdornment.WIRE_ARROW, "", "1", LinkStyle.SOLID),
+		COMPOSITION_RELATION("Composition", INVERTED_SOLID_DIAMOND, WIRE_ARROW, "", "1", SOLID),
 		/**
 		 * Dependency relation
 		 */
-		DEPENDENCY_RELATION("Dependency", LinkAdornment.WIRE_ARROW, LinkAdornment.WIRE_CROSS, "", "", LinkStyle.DASHED),
+		DEPENDENCY_RELATION("Dependency", WIRE_ARROW, WIRE_CROSS, "", "", DASHED),
 		/**
 		 * Generalization relation
 		 */
-		GENERALIZATION_RELATION("Generalization", LinkAdornment.SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+		GENERALIZATION_RELATION("Generalization", SOLID_ARROW, NONE, "", "", SOLID),
 
 		//
 		// CLASS TO ANY CLASS-TO-CLASS RELATION
-		// 
+		//
 		/**
 		 * Class relation
 		 */
-		CLASSRELATION("Class Relation", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+		CLASSRELATION("Class Relation", NONE, NONE, "", "", SOLID),
 
 		//
 		// OBJECT TO CLASS
@@ -70,12 +80,12 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Class Object instantiation
 		 */
-		INSTANTIATION("Instantiation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED_DOTTED),
+		INSTANTIATION("Instantiation", WIRE_ARROW, NONE, "", "", DASHED_DOTTED),
 
 		/**
 		 * Relation between to object
 		 */
-		OBJECT_RELATION("Relation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", SOLID),
+		OBJECT_RELATION("Relation", WIRE_ARROW, NONE, "", "", SOLID),
 
 		//
 		// LIFE LINE TO LIFE LINE
@@ -83,27 +93,27 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Asynchronous message
 		 */
-		ASYNCHRONOUS_MESSAGE("Asynchronous", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+		ASYNCHRONOUS_MESSAGE("Asynchronous", WIRE_ARROW, NONE, "", "", SOLID),
 		/**
 		 * Synchronous message
 		 */
-		SYNCHRONOUS_MESSAGE("Synchronous", LinkAdornment.INVERTED_SOLID_ARROW, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+		SYNCHRONOUS_MESSAGE("Synchronous", INVERTED_SOLID_ARROW, NONE, "", "", SOLID),
 		/**
 		 * Reply message
 		 */
-		REPLY_MESSAGE("Reply", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.DASHED),
+		REPLY_MESSAGE("Reply", NONE, NONE, "", "", DASHED),
 		/**
 		 * Object Creation message
 		 */
-		OBJECT_CREATION_MESSAGE("Object Creation", LinkAdornment.WIRE_ARROW, LinkAdornment.NONE, "", "", LinkStyle.DASHED),
+		OBJECT_CREATION_MESSAGE("Object Creation", WIRE_ARROW, NONE, "", "", DASHED),
 		/**
 		 * Lost message
 		 */
-		LOST_MESSAGE("Lost", LinkAdornment.INVERTED_SOLID_CIRCLE, LinkAdornment.NONE, "", "", LinkStyle.SOLID),
+		LOST_MESSAGE("Lost", INVERTED_SOLID_CIRCLE, NONE, "", "", SOLID),
 		/**
 		 * Found message
 		 */
-		FOUND_MESSAGE("Found", LinkAdornment.WIRE_ARROW, LinkAdornment.INVERTED_SOLID_CIRCLE, "", "", LinkStyle.SOLID),
+		FOUND_MESSAGE("Found", WIRE_ARROW, INVERTED_SOLID_CIRCLE, "", "", SOLID),
 
 		//
 		// NOTE TO ANY UMLCOMPONENT
@@ -111,7 +121,7 @@ public abstract class UMLLink implements Serializable {
 		/**
 		 * Note relation
 		 */
-		NOTE("Note link", LinkAdornment.NONE, LinkAdornment.NONE, "", "", LinkStyle.SOLID);
+		NOTE("Note link", NONE, NONE, "", "", SOLID);
 
 		/**
 		 * Static getter of a {@link LinkKind} by its name
@@ -209,12 +219,12 @@ public abstract class UMLLink implements Serializable {
 
 		public boolean isClassToClassRelation() {
 			if (
-				this.equals(ASSOCIATION_RELATION) ||
-				this.equals(AGGREGATION_RELATION) ||
-				this.equals(COMPOSITION_RELATION) ||
-				this.equals(DEPENDENCY_RELATION) ||
-				this.equals(GENERALIZATION_RELATION)) {
-				
+					this.equals(ASSOCIATION_RELATION) ||
+					this.equals(AGGREGATION_RELATION) ||
+					this.equals(COMPOSITION_RELATION) ||
+					this.equals(DEPENDENCY_RELATION) ||
+					this.equals(GENERALIZATION_RELATION)) {
+
 				return true;
 			}
 			return false;

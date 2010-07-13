@@ -79,8 +79,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	 *            The left {@link ObjectArtifact} of the relation
 	 * @param right
 	 *            The right {@link ObjectArtifact} of the relation
-	 * @param relationKind
-	 *            The kind of relation this link is.
 	 */
 	public ObjectRelationLinkArtifact(final UMLCanvas canvas, int id, final ObjectArtifact left, final ObjectArtifact right) {
 		super(canvas, id, left, right, OBJECT_RELATION);
@@ -160,7 +158,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		final MenuBarAndTitle rightMenu = new MenuBarAndTitle();
 		String leftClassName = objectRelation.getLeftObject().getClassName();
 		String rightClassName = objectRelation.getRightObject().getClassName();
-		
+
 		String menuName = leftClassName + " - " + rightClassName;
 		rightMenu.setName(menuName);
 
@@ -294,7 +292,7 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	 * @see com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact#toURL()
 	 */
 	@Override
-	// TODO Should use the metamodel object objectRelation, but need changes on the UrlParser.
+	// TODO Should use the metamodel objectRelation, but need changes on the UrlParser.
 	public String toURL() {
 		return "ObjectRelationLink$<" + leftObjectArtifact.getId() + ">!<" + rightObjectArtifact.getId() + ">!" + relation.getLinkKind().getName() + "!"
 				+ relation.getName() + "!" + relation.getLinkStyle().getName() + "!" + relation.getLeftAdornment().getName() + "!"
@@ -454,5 +452,12 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public void setUpAfterDeserialization() {
 		buildGfxObject();
+	}
+
+	/**
+	 * @param rightRole
+	 */
+	public void setRightRole(String rightRole) {
+		objectRelation.setRightRole(rightRole);
 	}
 }
