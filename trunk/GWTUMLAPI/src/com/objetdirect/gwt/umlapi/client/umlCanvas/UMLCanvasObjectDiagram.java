@@ -190,14 +190,12 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	 * @return
 	 */
 	private LinkArtifact makeObjectRelationLink(ObjectArtifact left, ObjectArtifact right) throws IllegalArgumentException {
-		Log.debug("UMLCanvasObject::makeObjectRelationLink");
 		// If no classes relations have been setup, we allow all the objects relations.
 		if (classRelations == null) {
 			Log.debug("UMLCanvasObject::makeObjectRelationLink  --  classRelations == null");
 			return new ObjectRelationLinkArtifact(this, idCount, left, right);
 		}
 
-		Log.debug("UMLCanvasObject::makeObjectRelationLink  --  for (UMLRelation relation : classRelations)\n");
 		for (UMLRelation relation : classRelations) {
 			if (relation.getLeftTarget().getName().equals(left.toUMLComponent().getClassName())
 					&& relation.getRightTarget().getName().equals(right.toUMLComponent().getClassName())) {
