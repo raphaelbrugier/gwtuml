@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASSOCIATION_RELATION;
+
 import com.objetdirect.gwt.umlapi.client.exceptions.UMLException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 
@@ -44,6 +46,22 @@ public class UMLRelation extends UMLLink {
 
 	private LinkStyle linkStyle;
 
+	/**
+	 * Factory for the simplest kind of association between two classes.
+	 * 
+	 * @param owner
+	 * @param target
+	 * @param rightRole
+	 * @return the relation created.
+	 */
+	public static UMLRelation createAssociation(UMLClass owner, UMLClass target, String rightRole) {
+		UMLRelation association = new UMLRelation(ASSOCIATION_RELATION);
+		association.setLeftTarget(owner);
+		association.setRightTarget(target);
+		association.setRightRole(rightRole);
+		return association;
+	}
+	
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */
@@ -322,7 +340,6 @@ public class UMLRelation extends UMLLink {
 	 */
 	public void setRightTarget(UMLClass rightTarget) {
 		this.rightTarget = rightTarget;
-		// Log.debug("UMLRelation::setRightTarget \n" + this);
 	}
 
 	/**
@@ -512,9 +529,11 @@ public class UMLRelation extends UMLLink {
 		String leftTargetName = leftTarget == null ? "null" : leftTarget.getName();
 		String rightTargetName = rightTarget == null ? "null" : rightTarget.getName();
 
-		return "Name = " + name + "\n" + "LinkStyle = " + linkStyle + "Left :\n" + "\tCardinality = " + leftCardinality + "\n" + "\tConstraint = "
+		return "Name = " + name + "\n" + "LinkStyle = " + linkStyle + "\n" + 
+				"Left :\n" + "\tCardinality = " + leftCardinality + "\n" + "\tConstraint = "
 				+ leftConstraint + "\n" + "\tRole = " + leftRole + "\n" + "\tAdornment = " + leftAdornment + "\n" + "\tUMLClass = " + leftTargetName + "\n"
-				+ "\n" + "Right :\n" + "\tCardinality = " + rightCardinality + "\n" + "\tConstraint = " + rightConstraint + "\n" + "\tRole = " + rightRole
+				+ "\n" + 
+				"Right :\n" + "\tCardinality = " + rightCardinality + "\n" + "\tConstraint = " + rightConstraint + "\n" + "\tRole = " + rightRole
 				+ "\n" + "\tAdornment = " + rightAdornment + "\n" + "\tUMLClass = " + rightTargetName + "\n";
 	}
 }

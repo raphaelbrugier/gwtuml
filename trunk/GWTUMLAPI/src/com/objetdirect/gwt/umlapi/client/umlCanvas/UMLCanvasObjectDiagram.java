@@ -23,7 +23,6 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLin
 import java.util.ArrayList;
 import java.util.List;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
@@ -74,37 +73,12 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	@Override
-	public void remove(final UMLArtifact umlArtifact) {
-		if (umlArtifact instanceof ClassSimplifiedArtifact) {
-			ClassSimplifiedArtifact classArtifact = (ClassSimplifiedArtifact) umlArtifact;
-			objectDiagramClasses.remove(classArtifact.toUMLComponent());
-		}
-		super.remove(umlArtifact);
-	}
-
-	@Override
 	public void addNewClass() {
 		this.addNewClass(wrapper.getCurrentMousePosition());
 	}
 	@Override
 	public void addNewObject() {
 		this.addNewObject(wrapper.getCurrentMousePosition());
-	}
-
-	@Override
-	public void dropContextualMenu(GfxObject gfxObject, Point location) {
-		doSelection(gfxObject, false, false);
-
-		MenuBarAndTitle rightMenu;
-		if (getUMLArtifact(gfxObject) == null) {
-			rightMenu = null;
-		} else {
-			rightMenu = getUMLArtifact(gfxObject).getRightMenu();
-		}
-
-		ContextMenu contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
-
-		contextMenu.show();
 	}
 
 	private void addNewClass(final Point location) {
@@ -166,6 +140,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		wrapper.setHelpText("Adding a new object", location.clonePoint());
 	}
 
+
 	@Override
 	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
 		try {
@@ -196,7 +171,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	/**
 	 * Helper method to create an object relation between two objects.
 	 * If classes relations have been specified, this method will constraint the creation of the association between two object
-	 * like the association between the two classes instantiated, like described in the classRelations.
+	 * to be the association between the two classes instantiated.
 	 * 
 	 * @param uMLArtifact the object owning the relation.
 	 * @param uMLArtifactNew the object targeted by the relation.
@@ -206,7 +181,6 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	private LinkArtifact makeObjectRelationLink(ObjectArtifact left, ObjectArtifact right) throws IllegalArgumentException {
 		// If no classes relations have been setup, we allow all the objects relations.
 		if (classRelations == null) {
-			Log.debug("UMLCanvasObject::makeObjectRelationLink  --  classRelations == null");
 			return new ObjectRelationLinkArtifact(this, idCount, left, right);
 		}
 
@@ -222,6 +196,30 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		return null;
 	}
 
+	@Override
+	public void remove(final UMLArtifact umlArtifact) {
+		if (umlArtifact instanceof ClassSimplifiedArtifact) {
+			ClassSimplifiedArtifact classArtifact = (ClassSimplifiedArtifact) umlArtifact;
+			objectDiagramClasses.remove(classArtifact.toUMLComponent());
+		}
+		super.remove(umlArtifact);
+	}
+
+	@Override
+	public void dropContextualMenu(GfxObject gfxObject, Point location) {
+		doSelection(gfxObject, false, false);
+
+		MenuBarAndTitle rightMenu;
+		if (getUMLArtifact(gfxObject) == null) {
+			rightMenu = null;
+		} else {
+			rightMenu = getUMLArtifact(gfxObject).getRightMenu();
+		}
+
+		ContextMenu contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
+
+		contextMenu.show();
+	}
 
 	@Override
 	public List<UMLObject> getObjects() {
@@ -285,8 +283,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		domainClasses = classes;
 	}
 
+
 	@Override
 	public void setClassRelations(List<UMLRelation> classRelations) {
-		this.classRelations = classRelations;
+		if (this.classRelations != null) {
+			this.classRelations.addAll(classRelations);
+		} else {
+			this.classRelations = classRelations;
+		}
 	}
 }

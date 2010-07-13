@@ -163,4 +163,9 @@ public class ObjectArtifact extends NodeArtifact {
 		objectAttributesArtifact.setUpAfterDeserialization();
 		objectNameArtifact.setUpAfterDeserialization();
 	}
+	
+	@Override
+	public String toString() {
+		return "ObjectArtifact instantiate class : " + getName();
+	}
 }
