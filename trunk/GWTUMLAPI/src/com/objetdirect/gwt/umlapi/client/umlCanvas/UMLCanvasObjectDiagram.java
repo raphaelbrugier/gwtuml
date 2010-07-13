@@ -74,10 +74,19 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	@Override
+	public void remove(final UMLArtifact umlArtifact) {
+		if (umlArtifact instanceof ClassSimplifiedArtifact) {
+			ClassSimplifiedArtifact classArtifact = (ClassSimplifiedArtifact) umlArtifact;
+			objectDiagramClasses.remove(classArtifact.toUMLComponent());
+		}
+		super.remove(umlArtifact);
+	}
+
+	@Override
 	public void addNewClass() {
 		this.addNewClass(wrapper.getCurrentMousePosition());
 	}
-
+	@Override
 	public void addNewObject() {
 		this.addNewObject(wrapper.getCurrentMousePosition());
 	}
@@ -185,9 +194,14 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	/**
-	 * @param uMLArtifact
-	 * @param uMLArtifactNew
-	 * @return
+	 * Helper method to create an object relation between two objects.
+	 * If classes relations have been specified, this method will constraint the creation of the association between two object
+	 * like the association between the two classes instantiated, like described in the classRelations.
+	 * 
+	 * @param uMLArtifact the object owning the relation.
+	 * @param uMLArtifactNew the object targeted by the relation.
+	 * @return The relation created or null if the relation is illegal.
+	 * @throws IllegalArgumentException If the relation is illegal.
 	 */
 	private LinkArtifact makeObjectRelationLink(ObjectArtifact left, ObjectArtifact right) throws IllegalArgumentException {
 		// If no classes relations have been setup, we allow all the objects relations.

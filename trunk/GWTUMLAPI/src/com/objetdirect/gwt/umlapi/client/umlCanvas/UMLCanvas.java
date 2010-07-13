@@ -127,8 +127,8 @@ public abstract class UMLCanvas implements Serializable {
 	/**
 	 * Factory : return a new UmlCanvas depending on the diagram type given.
 	 * 
-	 * @param diagramType
-	 * @return
+	 * @param diagramType The type of diagram to create.
+	 * @return The created diagram
 	 */
 	public static UMLCanvas createUmlCanvas(DiagramType diagramType) {
 		switch (diagramType) {
@@ -715,7 +715,6 @@ public abstract class UMLCanvas implements Serializable {
 			entry.getValue().removeDependency(entry.getKey());
 			this.removeRecursive(entry.getKey());
 		}
-
 	}
 
 	public void toLinkMode(final LinkKind linkType) {
