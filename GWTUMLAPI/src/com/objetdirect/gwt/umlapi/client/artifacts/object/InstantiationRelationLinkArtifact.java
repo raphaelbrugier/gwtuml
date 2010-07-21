@@ -34,9 +34,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.Instantiation
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
 public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
-	public enum Anchor {
-		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
-	}
 
 	private transient GfxObject arrowVirtualGroup;
 	private transient GfxObject line;

@@ -42,10 +42,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelatio
  */
 public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 
-	public enum Anchor {
-		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
-	}
-
 	private transient GfxObject arrowVirtualGroup;
 	private transient GfxObject line;
 	private transient GfxObject textVirtualGroup;

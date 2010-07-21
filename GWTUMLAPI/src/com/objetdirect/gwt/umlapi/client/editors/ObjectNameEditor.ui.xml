@@ -27,7 +27,7 @@
 			</g:cell>
 		</g:HorizontalPanel>
 		<g:cell horizontalAlignment='ALIGN_RIGHT'>
-			<g:Anchor ui:field="ok" href="#">Ok</g:Anchor>
+			<g:Anchor ui:field="okButton" href="#">Ok</g:Anchor>
 		</g:cell>
 	</g:VerticalPanel>
 </ui:UiBinder> 

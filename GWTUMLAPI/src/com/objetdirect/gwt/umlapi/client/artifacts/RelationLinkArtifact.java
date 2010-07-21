@@ -31,6 +31,10 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
  */
 public abstract class RelationLinkArtifact extends LinkArtifact {
 
+	public enum Anchor {
+		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
+	}
+
 	/**
 	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
 	 */
