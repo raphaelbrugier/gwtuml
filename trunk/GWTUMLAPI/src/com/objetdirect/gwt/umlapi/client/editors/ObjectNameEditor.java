@@ -59,7 +59,7 @@ public class ObjectNameEditor extends Composite {
 	ListBox classesList;
 
 	@UiField
-	Anchor ok;
+	Anchor okButton;
 
 	public ObjectNameEditor(UMLCanvas canvas, ObjectPartNameArtifact artifact) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -87,7 +87,7 @@ public class ObjectNameEditor extends Composite {
 		canvas.setFieldEditor(this);
 	}
 
-	@UiHandler("ok")
+	@UiHandler("okButton")
 	void onClickOnOk(@SuppressWarnings("unused") ClickEvent clickEvent) {
 		String instanceName = nameField.getText();
 		int id = Integer.parseInt(classesList.getValue(classesList.getSelectedIndex()));
