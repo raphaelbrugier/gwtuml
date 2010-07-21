@@ -15,63 +15,75 @@
 package com.objetdirect.gwt.umlapi.client.gfx;
 
 /**
- * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com) //TODO turn this class into an enumeration ?
+ * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-public final class GfxStyle {
+public enum GfxStyle {
 	/**
 	 * Style for the stroke a suite of dash
 	 */
-	public static final GfxStyle DASH = new GfxStyle("Dash");
+	DASH("Dash"),
+
 	/**
 	 * Style for the stroke a suite of dash follow by a dot
 	 */
-	public static final GfxStyle DASHDOT = new GfxStyle("DashDot");
+	DASHDOT("DashDot"),
+
 	/**
 	 * Style for the stroke, a suite of dots
 	 */
-	public static final GfxStyle DOT = new GfxStyle("Dot");
+	DOT("Dot"),
+
 	/**
 	 * Style for the stroke, a suite of long dash
 	 */
-	public static final GfxStyle LONGDASH = new GfxStyle("LongDash");
+	LONGDASH("LongDash"),
+
 	/**
 	 * Style for the stroke a suite of a long dash follow by a dot
 	 */
-	public static final GfxStyle LONGDASHDOT = new GfxStyle("LongDashDot");
+	LONGDASHDOT("LongDashDot"),
+
 	/**
 	 * Style for the stroke a suite of a long dash follow by 2 dots
 	 */
-	public static final GfxStyle LONGDASHDOTDOT = new GfxStyle("LongDashDotDot");
+	LONGDASHDOTDOT("LongDashDotDot"),
+
 	/**
 	 * Style for the stroke
 	 */
-	public static final GfxStyle NONE = new GfxStyle("none");
+	NONE("none"),
+
 	/**
 	 * Style for the stroke, a suite a shot dashes
 	 */
-	public static final GfxStyle SHORTDASH = new GfxStyle("ShortDash");
+	SHORTDASH("ShortDash"),
+
 	/**
 	 * Style for the stroke a suite of a short dash follow by a dot
 	 */
-	public static final GfxStyle SHORTDASHDOT = new GfxStyle("ShortDashDot");
+	SHORTDASHDOT("ShortDashDot"),
+
 	/**
 	 * Style for the stroke a suite of a short dash follow by 2 dots
 	 */
-	public static final GfxStyle SHORTDASHDOTDOT = new GfxStyle("ShortDashDotDot");
+	SHORTDASHDOTDOT("ShortDashDotDot"),
+
 	/**
 	 * Style for the stroke a suite of a short dots
 	 */
-	public static final GfxStyle SHORTDOT = new GfxStyle("ShortDot");
+	SHORTDOT("ShortDot"),
+
 	/**
 	 * Style for the stroke, a solid stroke
 	 */
-	public static final GfxStyle SOLID = new GfxStyle("Solid");
+	SOLID("Solid");
+
 	private String style;
 
 	/**
 	 * Default constructor, ONLY for gwt-rpc serialization.
 	 */
-	public GfxStyle() {
+	private GfxStyle() {
 	}
 
 	/**
@@ -80,8 +92,7 @@ public final class GfxStyle {
 	 * @param style
 	 *            The text style
 	 */
-	public GfxStyle(final String style) {
-		super();
+	private GfxStyle(final String style) {
 		this.style = style;
 	}
 
