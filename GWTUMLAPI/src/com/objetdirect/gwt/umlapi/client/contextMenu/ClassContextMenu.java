@@ -67,7 +67,7 @@ public class ClassContextMenu extends ContextMenu {
 		final MenuBar relationsSubMenu = new MenuBar(true);
 
 		addRelationCommand(relationsSubMenu, "Aggregation", AGGREGATION_RELATION);
-		addRelationCommand(relationsSubMenu, "Assocation", ASSOCIATION_RELATION);
+		addRelationCommand(relationsSubMenu, "Association", ASSOCIATION_RELATION);
 		addRelationCommand(relationsSubMenu, "Composition", COMPOSITION_RELATION);
 		addRelationCommand(relationsSubMenu, "Class relation", CLASSRELATION);
 		addRelationCommand(relationsSubMenu, "Dependency", DEPENDENCY_RELATION);

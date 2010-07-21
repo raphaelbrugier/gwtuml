@@ -25,7 +25,7 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * This class represents a class uml component
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 @SuppressWarnings("serial")
 public class UMLClass extends UMLNode {
@@ -113,6 +113,13 @@ public class UMLClass extends UMLNode {
 	 */
 	public final String getStereotype() {
 		return stereotype;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean isAbstract() {
+		return stereotype.equalsIgnoreCase("«Abstract»");
 	}
 
 	/**
