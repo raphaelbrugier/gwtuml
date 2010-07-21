@@ -37,8 +37,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClassMethod;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
  * Manage the conversion from and to an url.

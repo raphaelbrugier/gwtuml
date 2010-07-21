@@ -16,7 +16,7 @@ package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.CLASSRELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.CLASSRELATION;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,6 +15,7 @@
 package com.objetdirect.gwt.umlapi.client.umlcomponents;
 
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkStyle;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink;
 

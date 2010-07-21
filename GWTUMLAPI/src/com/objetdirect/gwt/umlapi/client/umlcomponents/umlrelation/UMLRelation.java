@@ -14,7 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASSOCIATION_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.ASSOCIATION_RELATION;
 
 import com.objetdirect.gwt.umlapi.client.exceptions.UMLException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;

@@ -27,7 +27,7 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.SequenceDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.DiagramType;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)

@@ -25,7 +25,7 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasClassDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasSequenceDiagram;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 
 /**
  * This class manages the right click context drop menu
