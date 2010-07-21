@@ -22,6 +22,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;
+import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifactPart;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.editors.RelationFieldEditor;
 import com.objetdirect.gwt.umlapi.client.engine.GeometryManager;
@@ -126,10 +127,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	}
 
 	/**
-	 * Request a creation of a {@link RelationLinkArtifact.RelationLinkArtifactPart} and set its text.
+	 * Request a creation of a {@link RelationLinkArtifactPart} and set its text.
 	 * 
 	 * @param part
-	 *            The {@link RelationLinkArtifact.RelationLinkArtifactPart} to edit
+	 *            The {@link RelationLinkArtifactPart} to edit
 	 */
 	public void createPart(final RelationLinkArtifactPart part) {
 		String defaultText;
