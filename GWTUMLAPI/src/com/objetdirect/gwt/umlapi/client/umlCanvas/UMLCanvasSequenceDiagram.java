@@ -32,8 +32,12 @@ import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
  * 
  * @author Raphaël Brugier <raphael dot brugier at gmail dot com>
  */
-@SuppressWarnings("serial")
 public class UMLCanvasSequenceDiagram extends UMLCanvas {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int lifeLineCount;
 

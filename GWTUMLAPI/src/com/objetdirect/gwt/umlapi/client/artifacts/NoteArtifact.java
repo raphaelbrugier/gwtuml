@@ -32,11 +32,15 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLNote;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class NoteArtifact extends BoxArtifact {
 	private transient GfxObject borderPath;
 	private transient GfxObject contentText;
 	private transient GfxObject cornerPath;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int height;
 	private int width;

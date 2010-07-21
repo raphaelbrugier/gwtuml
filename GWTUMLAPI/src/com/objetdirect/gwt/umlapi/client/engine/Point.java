@@ -23,7 +23,6 @@ import java.io.Serializable;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class Point implements Serializable {
 	/**
 	 * Get the absolute value of the two coordinates
@@ -124,6 +123,11 @@ public class Point implements Serializable {
 	public static Point substract(final Point p1, final Point p2) {
 		return new Point(p1.x - p2.x, p1.y - p2.y);
 	}
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int x;
 	private int y;

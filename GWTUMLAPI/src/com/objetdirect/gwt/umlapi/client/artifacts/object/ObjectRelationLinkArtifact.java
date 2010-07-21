@@ -40,12 +40,8 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.ObjectRelatio
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 
-	/**
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
 	public enum Anchor {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
@@ -55,6 +51,11 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	private transient GfxObject textVirtualGroup;
 	private transient GfxObject leftRoleGfxObject;
 	private transient GfxObject rightRoleGfxObject;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private ObjectArtifact leftObjectArtifact;
 	private ObjectArtifact rightObjectArtifact;
@@ -295,8 +296,8 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 	// TODO Should use the metamodel objectRelation, but need changes on the UrlParser.
 	public String toURL() {
 		return "ObjectRelationLink$<" + leftObjectArtifact.getId() + ">!<" + rightObjectArtifact.getId() + ">!" + relation.getLinkKind().getName() + "!"
-				+ relation.getName() + "!" + relation.getLinkStyle().getName() + "!" + relation.getLeftAdornment().getName() + "!"
-				+ relation.getRightAdornment().getName();
+		+ relation.getName() + "!" + relation.getLinkStyle().getName() + "!" + relation.getLeftAdornment().getName() + "!"
+		+ relation.getRightAdornment().getName();
 	}
 
 	/*

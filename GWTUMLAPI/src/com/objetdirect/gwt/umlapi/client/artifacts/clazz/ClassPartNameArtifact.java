@@ -36,14 +36,18 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ClassPartNameArtifact extends NodePartArtifact {
-
-	private UMLClass uMLclass;
 
 	private transient GfxObject nameRect;
 	private transient GfxObject nameText;
 	private transient GfxObject stereotypeText;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private UMLClass uMLclass;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated
@@ -87,8 +91,8 @@ public class ClassPartNameArtifact extends NodePartArtifact {
 
 		if (stereotypeText != null) {
 			stereotypeText
-					.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
-							RECTANGLE_TOP_PADDING));
+			.translate(new Point((nodeWidth - GfxManager.getPlatform().getTextWidthFor(stereotypeText) - TEXT_RIGHT_PADDING - TEXT_LEFT_PADDING) / 2,
+					RECTANGLE_TOP_PADDING));
 		}
 
 		textVirtualGroup.moveToFront();

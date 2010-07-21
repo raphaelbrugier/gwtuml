@@ -22,10 +22,14 @@ import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public abstract class NodePartArtifact extends BoxArtifact {
 
 	protected transient GfxObject textVirtualGroup;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected NodeArtifact nodeArtifact;
 	protected int nodeWidth;

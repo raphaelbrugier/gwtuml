@@ -41,11 +41,15 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ObjectPartAttributesArtifact extends NodePartArtifact {
 	private transient Map<GfxObject, UMLObjectAttribute> attributeGfxObjects;
 	private transient GfxObject attributeRect;
 	private transient GfxObject lastGfxObject;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private List<UMLObjectAttribute> attributes;
 

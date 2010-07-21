@@ -34,8 +34,13 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObjectAttribute;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ObjectArtifact extends NodeArtifact {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private ObjectPartAttributesArtifact objectAttributesArtifact;
 	private ObjectPartNameArtifact objectNameArtifact;
 
@@ -163,7 +168,7 @@ public class ObjectArtifact extends NodeArtifact {
 		objectAttributesArtifact.setUpAfterDeserialization();
 		objectNameArtifact.setUpAfterDeserialization();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ObjectArtifact instantiate class : " + getName();

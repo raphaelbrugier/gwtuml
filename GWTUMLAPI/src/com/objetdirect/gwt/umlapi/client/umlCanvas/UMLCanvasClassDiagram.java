@@ -38,8 +38,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
  * 
  * @author Raphaël Brugier <raphael dot brugier at gmail dot com>
  */
-@SuppressWarnings("serial")
 public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private long classCount;
 

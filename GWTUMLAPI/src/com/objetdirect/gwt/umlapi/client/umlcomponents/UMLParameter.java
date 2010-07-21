@@ -22,8 +22,12 @@ import java.io.Serializable;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @author Henri Darmet
  */
-@SuppressWarnings("serial")
 public class UMLParameter implements Serializable {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 
@@ -44,7 +48,6 @@ public class UMLParameter implements Serializable {
 	 *            Name of the parameter
 	 */
 	public UMLParameter(final String type, final String name) {
-		super();
 		this.type = type;
 		this.name = name;
 	}

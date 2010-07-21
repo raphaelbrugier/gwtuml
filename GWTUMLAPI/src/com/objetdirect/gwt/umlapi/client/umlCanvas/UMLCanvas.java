@@ -53,7 +53,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public abstract class UMLCanvas implements Serializable {
 
 	public enum DragAndDropState {
@@ -71,8 +70,25 @@ public abstract class UMLCanvas implements Serializable {
 
 	private transient GfxObject allObjects;
 
-	// Map of UMLArtifact with corresponding Graphical objects (group)
+	/** Map of UMLArtifact with corresponding Graphical objects (group) */
 	private transient HashMap<GfxObject, UMLArtifact> objects;
+
+	// ==== Selection fields =====//
+	private transient GfxObject selectBox;
+	private transient GfxObject movingLines;
+	private transient GfxObject outlines;
+	private transient GfxObject movingOutlineDependencies;
+
+	// ===== Mouse engine field ====//
+	private transient CanvasListener canvasMouseListener;
+
+	// ========== Extra ===========//
+	private transient UrlConverter urlConverter;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// ====== Model fields =======//
 	private long noteCount;
@@ -97,11 +113,6 @@ public abstract class UMLCanvas implements Serializable {
 	private Point copyMousePosition;
 
 	// ==== Selection fields =====//
-	private transient GfxObject selectBox;
-	private transient GfxObject movingLines;
-	private transient GfxObject outlines;
-	private transient GfxObject movingOutlineDependencies;
-
 	protected LinkKind activeLinking;
 	private Point selectBoxStartPoint;
 	protected DragAndDropState dragAndDropState;
@@ -110,19 +121,15 @@ public abstract class UMLCanvas implements Serializable {
 	protected Point dragOffset;
 	private Point totalDragShift;
 
-	// Represent the selected UMLArtifacts and his moving dependencies points
+	/** Represent the selected UMLArtifacts and his moving dependencies points */
 	protected HashMap<UMLArtifact, ArrayList<Point>> selectedArtifacts;
 
 	// ===== Mouse engine fields ====//
-	private transient CanvasListener canvasMouseListener;
-	private boolean isMouseEnabled; // Only needed to desactive the mouse during the demo
+	private boolean isMouseEnabled;
 
-	// Manage mouse state when releasing outside the listener
+	/** Manage mouse state when releasing outside the listener */
 	protected boolean mouseIsPressed;
 	private Point canvasOffset;
-
-	// ========== Extra ===========//
-	private transient UrlConverter urlConverter;
 
 	/**
 	 * Factory : return a new UmlCanvas depending on the diagram type given.

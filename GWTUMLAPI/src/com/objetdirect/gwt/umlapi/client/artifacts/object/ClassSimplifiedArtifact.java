@@ -35,8 +35,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * 
  * @author Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ClassSimplifiedArtifact extends NodeArtifact {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	ClassPartNameSimplifiedArtifact className;
 
