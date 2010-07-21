@@ -14,11 +14,11 @@
  */
 package com.objetdirect.gwt.umlapi.client.contextMenu;
 
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.ASYNCHRONOUS_MESSAGE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.FOUND_MESSAGE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.LOST_MESSAGE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.OBJECT_CREATION_MESSAGE;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.SYNCHRONOUS_MESSAGE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.ASYNCHRONOUS_MESSAGE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.FOUND_MESSAGE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.LOST_MESSAGE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.OBJECT_CREATION_MESSAGE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.SYNCHRONOUS_MESSAGE;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;

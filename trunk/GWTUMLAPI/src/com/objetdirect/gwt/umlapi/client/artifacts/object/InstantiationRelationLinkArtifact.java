@@ -16,7 +16,7 @@ package com.objetdirect.gwt.umlapi.client.artifacts.object;
 
 import static com.objetdirect.gwt.umlapi.client.gfx.GfxStyle.LONGDASH;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
-import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind.INSTANTIATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.INSTANTIATION;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.objetdirect.gwt.umlapi.client.artifacts.RelationLinkArtifact;

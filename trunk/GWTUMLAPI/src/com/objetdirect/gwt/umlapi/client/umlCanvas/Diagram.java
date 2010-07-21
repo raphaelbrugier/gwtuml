@@ -14,7 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 
 /**
  * Interface for a diagram displayed in the canvas.

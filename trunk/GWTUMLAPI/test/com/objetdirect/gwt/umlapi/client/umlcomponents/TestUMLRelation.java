@@ -18,8 +18,8 @@ import junit.framework.TestCase;
 
 import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment;
+import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkKind;
 
 /**
  * Tests for the UMLRelation class.
