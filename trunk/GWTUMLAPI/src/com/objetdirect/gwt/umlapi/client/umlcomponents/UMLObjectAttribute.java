@@ -30,7 +30,6 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class UMLObjectAttribute implements Serializable {
 
 	/**
@@ -74,12 +73,16 @@ public class UMLObjectAttribute implements Serializable {
 		return new UMLObjectAttribute(name, value);
 	}
 
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String attributeName;
 
 	private String stringValue;
 
-	// We do not managed the number values anymore, all the values are handled as String for now.
-	// private Number numberValue;
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	UMLObjectAttribute() {
@@ -148,5 +151,4 @@ public class UMLObjectAttribute implements Serializable {
 	public String toString() {
 		return toUrl();
 	}
-
 }

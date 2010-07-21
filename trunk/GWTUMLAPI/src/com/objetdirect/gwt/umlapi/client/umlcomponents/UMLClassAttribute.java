@@ -28,7 +28,6 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class UMLClassAttribute implements Serializable {
 
 	/**
@@ -76,10 +75,15 @@ public class UMLClassAttribute implements Serializable {
 		return new UMLClassAttribute(visibility, type, name);
 	}
 
-	protected String name;
-	protected String type;
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
-	protected UMLVisibility visibility;
+	private String name;
+	private String type;
+
+	private UMLVisibility visibility;
 
 	/**
 	 * Default constructor for GWT RPC serialization

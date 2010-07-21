@@ -34,15 +34,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class MessageLinkArtifact extends LinkArtifact {
 
-	/**
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
 	protected transient GfxObject arrowVirtualGroup;
 	protected transient GfxObject line;
 	protected transient GfxObject text;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected LifeLineArtifact leftLifeLineArtifact;
 	protected LifeLineArtifact rightLifeLineArtifact;
@@ -189,8 +190,8 @@ public class MessageLinkArtifact extends LinkArtifact {
 	@Override
 	public String toURL() {
 		return "MessageLink$<" + leftLifeLineArtifact.getId() + ">!<" + rightLifeLineArtifact.getId() + ">!" + message.getLinkKind().getName() + "!"
-				+ message.getName() + "!" + message.getLinkStyle().getName() + "!" + message.getLeftAdornment().getName() + "!"
-				+ message.getRightAdornment().getName();
+		+ message.getName() + "!" + message.getLinkStyle().getName() + "!" + message.getLeftAdornment().getName() + "!"
+		+ message.getRightAdornment().getName();
 	}
 
 	/*

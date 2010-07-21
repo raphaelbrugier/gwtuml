@@ -29,9 +29,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * 
  */
-@SuppressWarnings("serial")
 public abstract class RelationLinkArtifact extends LinkArtifact {
 
 	/**
@@ -350,6 +348,12 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		}
 	}
 
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected UMLRelation relation;
 	protected Point leftDirectionPoint;
 	protected Point rightDirectionPoint;
@@ -417,13 +421,13 @@ public abstract class RelationLinkArtifact extends LinkArtifact {
 		leftPoint = Point.add(leftNodeArtifact.getCenter(), new Point(Math.abs(leftDirection.getYDirection())
 				* (-leftNodeArtifact.getWidth() / 2 + ((leftNodeArtifact.getWidth() / (leftNodeArtifact.getDependenciesCount(leftDirection) + 1)))
 						* (leftNodeArtifact.getDependencyIndexOf(this, leftDirection) + 1)), Math.abs(leftDirection.getXDirection())
-				* (-leftNodeArtifact.getHeight() / 2 + ((leftNodeArtifact.getHeight() / (leftNodeArtifact.getDependenciesCount(leftDirection) + 1)))
-						* (leftNodeArtifact.getDependencyIndexOf(this, leftDirection) + 1))));
+						* (-leftNodeArtifact.getHeight() / 2 + ((leftNodeArtifact.getHeight() / (leftNodeArtifact.getDependenciesCount(leftDirection) + 1)))
+								* (leftNodeArtifact.getDependencyIndexOf(this, leftDirection) + 1))));
 		rightPoint = Point.add(rightNodeArtifact.getCenter(), new Point(Math.abs(rightDirection.getYDirection())
 				* (-rightNodeArtifact.getWidth() / 2 + ((rightNodeArtifact.getWidth() / (rightNodeArtifact.getDependenciesCount(rightDirection) + 1)))
 						* (rightNodeArtifact.getDependencyIndexOf(this, rightDirection) + 1)), Math.abs(rightDirection.getXDirection())
-				* (-rightNodeArtifact.getHeight() / 2 + ((rightNodeArtifact.getHeight() / (rightNodeArtifact.getDependenciesCount(rightDirection) + 1)))
-						* (rightNodeArtifact.getDependencyIndexOf(this, rightDirection) + 1))));
+						* (-rightNodeArtifact.getHeight() / 2 + ((rightNodeArtifact.getHeight() / (rightNodeArtifact.getDependenciesCount(rightDirection) + 1)))
+								* (rightNodeArtifact.getDependencyIndexOf(this, rightDirection) + 1))));
 
 		leftPoint.translate(leftDirection.getXDirection() * leftNodeArtifact.getWidth() / 2, leftDirection.getYDirection() * leftNodeArtifact.getHeight() / 2);
 		rightPoint.translate(rightDirection.getXDirection() * rightNodeArtifact.getWidth() / 2, rightDirection.getYDirection() * rightNodeArtifact.getHeight()

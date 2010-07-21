@@ -28,7 +28,6 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * @author Henri Darmet
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class UMLClassMethod implements Serializable {
 
 	/**
@@ -53,6 +52,11 @@ public class UMLClassMethod implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 

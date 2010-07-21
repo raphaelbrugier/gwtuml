@@ -45,12 +45,17 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLVisibility;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ClassPartMethodsArtifact extends NodePartArtifact {
 
 	private transient GfxObject lastGfxObject;
 	private transient Map<GfxObject, UMLClassMethod> methodGfxObjects;
 	private transient GfxObject methodRect;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private List<UMLClassMethod> methods;
 
 	/** Default constructor ONLY for gwt rpc serialization. */

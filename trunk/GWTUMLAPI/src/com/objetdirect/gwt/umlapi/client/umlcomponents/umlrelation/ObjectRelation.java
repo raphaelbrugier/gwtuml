@@ -23,8 +23,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ObjectRelation implements Serializable {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UMLObject leftObject;
 	private String leftRole;
@@ -38,14 +42,14 @@ public class ObjectRelation implements Serializable {
 	 * Default constructor only for gwt-rpc serialization.
 	 */
 	ObjectRelation() {}
-	
+
 	/**
 	 * @param owner by default the owner is the left object
 	 * @param target by default the target is the right object
 	 */
 	public ObjectRelation(UMLObject owner, UMLObject target) {
-		this.leftObject = owner;
-		this.rightObject = target;
+		leftObject = owner;
+		rightObject = target;
 
 		leftRole = "";
 		leftNavigable = false;
@@ -131,13 +135,13 @@ public class ObjectRelation implements Serializable {
 		this.rightNavigable = rightNavigable;
 		return this;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Object relation between  : \n" +
-				"\t left object named : " + leftObject.getInstanceName() + ", instance of class : " + leftObject.getClassName() + " " +
-				"\t\t left role = " + leftRole + "   ,  leftNavigable = " + leftNavigable +				
-				"\t right object named : " + rightObject.getInstanceName() + ", instance of class : " + rightObject.getClassName() +
-				"\t\t right role = " + rightRole + "   ,  rightNavigable = " + rightNavigable;				
+		"\t left object named : " + leftObject.getInstanceName() + ", instance of class : " + leftObject.getClassName() + " " +
+		"\t\t left role = " + leftRole + "   ,  leftNavigable = " + leftNavigable +
+		"\t right object named : " + rightObject.getInstanceName() + ", instance of class : " + rightObject.getClassName() +
+		"\t\t right role = " + rightRole + "   ,  rightNavigable = " + rightNavigable;
 	}
 }

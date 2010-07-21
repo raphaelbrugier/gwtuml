@@ -37,13 +37,17 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  * @Contributor Raphael Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ClassPartNameSimplifiedArtifact extends NodePartArtifact {
-
-	private UMLClass uMLclass;
 
 	private transient GfxObject nameRect;
 	private transient GfxObject nameText;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private UMLClass uMLclass;
 
 	/** Default constructor ONLY for gwt rpc serialization. */
 	@Deprecated

@@ -33,7 +33,6 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public abstract class UMLLink implements Serializable {
 	/**
 	 * This enumeration lists all the relations type between two {@link UMLClass}es
@@ -230,6 +229,12 @@ public abstract class UMLLink implements Serializable {
 			return false;
 		}
 	}
+
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected LinkKind linkKind;
 

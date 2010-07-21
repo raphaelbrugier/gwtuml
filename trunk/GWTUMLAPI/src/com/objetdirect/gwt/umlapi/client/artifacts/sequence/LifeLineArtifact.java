@@ -33,12 +33,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLLifeLine;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class LifeLineArtifact extends BoxArtifact {
 
 	private transient GfxObject lifeLineText;
 	private transient GfxObject lifeLineRect;
 	private transient GfxObject lifeLineLine;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UMLLifeLine uMLLifeLine;
 

@@ -27,7 +27,6 @@ import com.objetdirect.gwt.umlapi.client.exceptions.GWTUMLAPIException;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class UMLLifeLine extends UMLComponent {
 
 	/**
@@ -72,6 +71,11 @@ public class UMLLifeLine extends UMLComponent {
 		}
 		return Arrays.asList(instance, name);
 	}
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 

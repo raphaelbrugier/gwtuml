@@ -56,6 +56,11 @@ public enum LinkStyle {
 		return null;
 	}
 
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private GfxStyle style;
 
 	private String name;

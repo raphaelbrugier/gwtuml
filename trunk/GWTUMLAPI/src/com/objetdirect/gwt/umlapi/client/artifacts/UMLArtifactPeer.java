@@ -17,14 +17,19 @@ package com.objetdirect.gwt.umlapi.client.artifacts;
 import java.io.Serializable;
 
 /**
- * Represent a pair of UMLArtifact linked together.
+ * Represents a pair of UMLArtifact linked together.
  * 
  * @author Raphael Brugier < raphael dot brugier at gmail dot com >
  */
-@SuppressWarnings("serial")
 public class UMLArtifactPeer implements Serializable {
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private UMLArtifact uMLArtifact1;
 	private UMLArtifact uMLArtifact2;
+
 
 	/** Default constructor ONLY for gwt-rpc serialization. */
 	@Deprecated

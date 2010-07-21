@@ -35,12 +35,16 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ObjectPartNameArtifact extends NodePartArtifact {
 
 	private transient GfxObject nameRect;
 	private transient GfxObject nameText;
 	private transient GfxObject underline;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UMLObject umlObject;
 

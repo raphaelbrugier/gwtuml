@@ -144,8 +144,6 @@ public enum LinkAdornment {
 	private boolean isNavigabilityAdornment;
 	private String name;
 
-	protected boolean dontCompute = false;
-
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */

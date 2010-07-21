@@ -42,13 +42,17 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLLink.LinkK
  * 
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 
 	protected transient GfxObject arrowVirtualGroup;
 	protected transient GfxObject line;
 	protected transient GfxObject textVirtualGroup;
 	private transient HashMap<RelationLinkArtifactPart, GfxObject> gfxObjectPart;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected ClassArtifact leftClassArtifact;
 	protected ClassArtifact rightClassArtifact;
@@ -426,10 +430,10 @@ public class ClassRelationLinkArtifact extends RelationLinkArtifact {
 	@Override
 	public String toURL() {
 		return "ClassRelationLink$<" + leftClassArtifact.getId() + ">!<" + rightClassArtifact.getId() + ">!" + relation.getLinkKind().getName() + "!"
-				+ relation.getName() + "!" + relation.getLinkStyle().getName() + "!" + relation.getLeftAdornment().getName() + "!"
-				+ relation.getLeftCardinality() + "!" + relation.getLeftConstraint() + "!" + relation.getLeftRole() + "!"
-				+ relation.getRightAdornment().getName() + "!" + relation.getRightCardinality() + "!" + relation.getRightConstraint() + "!"
-				+ relation.getRightRole();
+		+ relation.getName() + "!" + relation.getLinkStyle().getName() + "!" + relation.getLeftAdornment().getName() + "!"
+		+ relation.getLeftCardinality() + "!" + relation.getLeftConstraint() + "!" + relation.getLeftRole() + "!"
+		+ relation.getRightAdornment().getName() + "!" + relation.getRightCardinality() + "!" + relation.getRightConstraint() + "!"
+		+ relation.getRightRole();
 	}
 
 	/*

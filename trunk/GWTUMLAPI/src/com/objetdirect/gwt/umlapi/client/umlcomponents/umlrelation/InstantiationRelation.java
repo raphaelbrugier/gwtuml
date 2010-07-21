@@ -24,8 +24,12 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
  * 
  * @author Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class InstantiationRelation implements Serializable {
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UMLObject instance;
 
@@ -38,13 +42,12 @@ public class InstantiationRelation implements Serializable {
 	@SuppressWarnings("unused")
 	private InstantiationRelation() {
 	}
-	
+
 	/**
 	 * @param instance
 	 * @param instanceOf
 	 */
 	public InstantiationRelation(UMLObject instance, UMLClass instanceOf) {
-		super();
 		this.instance = instance;
 		this.instanceOf = instanceOf;
 	}
@@ -62,7 +65,7 @@ public class InstantiationRelation implements Serializable {
 	public UMLClass getInstanceOf() {
 		return instanceOf;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Instantation link between object named : " + instance.getInstanceName() + "  , instance of class : " + instanceOf.getName();

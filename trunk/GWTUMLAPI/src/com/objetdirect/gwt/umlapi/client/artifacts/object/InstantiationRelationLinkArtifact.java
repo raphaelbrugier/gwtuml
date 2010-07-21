@@ -33,12 +33,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.Instantiation
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
  */
-@SuppressWarnings("serial")
 public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
-	/**
-	 * 
-	 * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
-	 */
 	public enum Anchor {
 		BOTTOM, LEFT, RIGHT, TOP, UNKNOWN;
 	}
@@ -46,6 +41,11 @@ public class InstantiationRelationLinkArtifact extends RelationLinkArtifact {
 	private transient GfxObject arrowVirtualGroup;
 	private transient GfxObject line;
 	private transient GfxObject textVirtualGroup;
+
+	/**
+	 * /!\ Don't forget to increment the serialVersionUID if you change any of the fields above /!\
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private ClassSimplifiedArtifact classArtifact;
 	private ObjectArtifact objectArtifact;
