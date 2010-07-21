@@ -61,7 +61,7 @@ public class UMLRelation extends UMLLink {
 		association.setRightRole(rightRole);
 		return association;
 	}
-	
+
 	/**
 	 * Default constructor ONLY for gwt-rpc serialization
 	 */
@@ -87,7 +87,7 @@ public class UMLRelation extends UMLLink {
 
 		rightCardinality = relationKind.getDefaultRightCardinality();
 		rightConstraint = "";
-		rightRole = "";
+		rightRole = "role";
 		rightStereotype = "";
 		rightAdornment = relationKind.getDefaultRightAdornment();
 	}
@@ -529,11 +529,11 @@ public class UMLRelation extends UMLLink {
 		String leftTargetName = leftTarget == null ? "null" : leftTarget.getName();
 		String rightTargetName = rightTarget == null ? "null" : rightTarget.getName();
 
-		return "Name = " + name + "\n" + "LinkStyle = " + linkStyle + "\n" + 
-				"Left :\n" + "\tCardinality = " + leftCardinality + "\n" + "\tConstraint = "
-				+ leftConstraint + "\n" + "\tRole = " + leftRole + "\n" + "\tAdornment = " + leftAdornment + "\n" + "\tUMLClass = " + leftTargetName + "\n"
-				+ "\n" + 
-				"Right :\n" + "\tCardinality = " + rightCardinality + "\n" + "\tConstraint = " + rightConstraint + "\n" + "\tRole = " + rightRole
-				+ "\n" + "\tAdornment = " + rightAdornment + "\n" + "\tUMLClass = " + rightTargetName + "\n";
+		return "Name = " + name + "\n" + "LinkStyle = " + linkStyle + "\n" +
+		"Left :\n" + "\tCardinality = " + leftCardinality + "\n" + "\tConstraint = "
+		+ leftConstraint + "\n" + "\tRole = " + leftRole + "\n" + "\tAdornment = " + leftAdornment + "\n" + "\tUMLClass = " + leftTargetName + "\n"
+		+ "\n" +
+		"Right :\n" + "\tCardinality = " + rightCardinality + "\n" + "\tConstraint = " + rightConstraint + "\n" + "\tRole = " + rightRole
+		+ "\n" + "\tAdornment = " + rightAdornment + "\n" + "\tUMLClass = " + rightTargetName + "\n";
 	}
 }

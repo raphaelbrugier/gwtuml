@@ -99,7 +99,7 @@ public class UMLCanvasClassDiagram extends UMLCanvas implements ClassDiagram {
 			if (activeLinking == CLASSRELATION) { // CLASS TO ANY CLASS-TO-CLASS RELATION
 				return new LinkClassRelationArtifact(this, idCount, uMLArtifactNew, uMLArtifact);
 			} else if (activeLinking.isClassToClassRelation()) { // Class to class relation
-				return new ClassRelationLinkArtifact(this, idCount, (ClassArtifact) uMLArtifactNew, (ClassArtifact) uMLArtifact, activeLinking);
+				return new ClassRelationLinkArtifact(this, idCount, (ClassArtifact) uMLArtifact, (ClassArtifact) uMLArtifactNew, activeLinking);
 			}
 		} catch (IllegalArgumentException e) {
 			return null;
