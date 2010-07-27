@@ -49,6 +49,8 @@ public abstract class LinkArtifact extends UMLArtifact {
 	protected boolean isTheOneRebuilding;
 
 	private boolean doesntHaveToBeComputed;
+	
+	private UMLArtifactPeer artifactsTargeted;
 
 	/** Default constructor ONLY for GWT-RPC serialization. */
 	@Deprecated
@@ -79,9 +81,9 @@ public abstract class LinkArtifact extends UMLArtifact {
 
 		leftUMLArtifact = uMLArtifact1;
 		rightUMLArtifact = uMLArtifact2;
-		final UMLArtifactPeer newPeer = new UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
-		order = Collections.frequency(this.canvas.getuMLArtifactRelations(), newPeer);
-		this.canvas.getuMLArtifactRelations().add(newPeer);
+		artifactsTargeted = new UMLArtifactPeer(uMLArtifact1, uMLArtifact2);
+		order = Collections.frequency(this.canvas.getuMLArtifactRelations(), artifactsTargeted);
+		this.canvas.getuMLArtifactRelations().add(artifactsTargeted);
 	}
 
 	/*
@@ -122,6 +124,14 @@ public abstract class LinkArtifact extends UMLArtifact {
 	@Override
 	public boolean isDraggable() {
 		return false;
+	}
+	
+
+	/**
+	 * @return the artifactsTargeted
+	 */
+	public UMLArtifactPeer getArtifactsTargeted() {
+		return artifactsTargeted;
 	}
 
 	/**

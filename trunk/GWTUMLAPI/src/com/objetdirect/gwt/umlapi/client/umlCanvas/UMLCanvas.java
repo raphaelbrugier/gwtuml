@@ -18,6 +18,7 @@ import static com.objetdirect.gwt.umlapi.client.gfx.GfxStyle.LONGDASHDOTDOT;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.AUTO;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.CROSSHAIR;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
+import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.NOTE;
 
 import java.io.Serializable;
@@ -402,7 +403,7 @@ public abstract class UMLCanvas implements Serializable {
 	}
 
 	private void addNewNote(final Point location) {
-		if (dragAndDropState != DragAndDropState.NONE) {
+		if (dragAndDropState != NONE) {
 			return;
 		}
 
@@ -724,7 +725,9 @@ public abstract class UMLCanvas implements Serializable {
 	public void remove(final UMLArtifact umlArtifact) {
 		removeRecursive(umlArtifact);
 		if (umlArtifact.isALink()) {
-			((LinkArtifact) umlArtifact).removeCreatedDependency();
+			LinkArtifact linkArtifact = (LinkArtifact) umlArtifact; 
+			linkArtifact.removeCreatedDependency();
+			uMLArtifactRelations.remove(linkArtifact.getArtifactsTargeted());
 		}
 	}
 

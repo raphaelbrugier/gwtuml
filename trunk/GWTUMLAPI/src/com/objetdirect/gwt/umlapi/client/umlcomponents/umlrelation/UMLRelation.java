@@ -14,6 +14,8 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation;
 
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.NONE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkAdornment.WIRE_ARROW;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.ASSOCIATION_RELATION;
 
 import com.objetdirect.gwt.umlapi.client.exceptions.UMLException;
@@ -64,6 +66,34 @@ public class UMLRelation extends UMLLink {
 		association.setRightTarget(target);
 		association.setRightRole(rightRole);
 		return association;
+	}
+	
+	/**
+	 * Factory to create the simplest kind of one to many relation
+	 * 
+	 * @param leftClass
+	 * @param rightClass
+	 * @param rightRole
+	 * @return the relation created.
+	 */
+	public static UMLRelation createUniDirectionalOneToMany(UMLClass leftClass, UMLClass rightClass, String rightRole) {
+		UMLRelation relation = new UMLRelation(ASSOCIATION_RELATION);
+		relation.setName("");
+		
+		relation.setLeftAdornment(NONE);
+		relation.setLeftCardinality("1");
+		relation.setLeftConstraint("");
+		relation.setLeftRole("");
+		relation.setLeftStereotype("");
+		relation.setLeftTarget(leftClass);
+		
+		relation.setRightAdornment(WIRE_ARROW);
+		relation.setRightCardinality("*");
+		relation.setRightConstraint("");
+		relation.setRightRole(rightRole);
+		relation.setRightStereotype("");
+		relation.setRightTarget(rightClass);
+		return relation;
 	}
 
 	/**
@@ -540,4 +570,5 @@ public class UMLRelation extends UMLLink {
 		"Right :\n" + "\tCardinality = " + rightCardinality + "\n" + "\tConstraint = " + rightConstraint + "\n" + "\tRole = " + rightRole
 		+ "\n" + "\tAdornment = " + rightAdornment + "\n" + "\tUMLClass = " + rightTargetName + "\n";
 	}
+	
 }
