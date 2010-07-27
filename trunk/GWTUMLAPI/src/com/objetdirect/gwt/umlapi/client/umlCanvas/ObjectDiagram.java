@@ -46,7 +46,10 @@ public interface ObjectDiagram extends Diagram {
 
 	public List<UMLClass> getClasses();
 
+	public List<UMLRelation> getClassRelations();
+
 	public void setClasses(List<UMLClass> classes);
 
 	public void setClassRelations(List<UMLRelation> classRelations);
+
 }
