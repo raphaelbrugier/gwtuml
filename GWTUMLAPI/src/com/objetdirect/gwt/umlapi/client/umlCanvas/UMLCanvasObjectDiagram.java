@@ -61,6 +61,9 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	 */
 	private List<UMLClass> objectDiagramClasses;
 
+	/**
+	 * Relations between the classes from the class diagram instantiated.
+	 */
 	private List<UMLRelation> classRelations;
 
 	/**
@@ -189,8 +192,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		}
 
 		for (UMLRelation relation : classRelations) {
-			if (relation.getLeftTarget().getName().equals(left.toUMLComponent().getClassName())
-					&& relation.getRightTarget().getName().equals(right.toUMLComponent().getClassName())) {
+			
+			String leftTargetName = relation.getLeftTarget().getName();
+			String leftUmlComponentName = left.toUMLComponent().getClassName();
+			String rightTargetName = relation.getRightTarget().getName();
+			String rightUmlComponentName = right.toUMLComponent().getClassName();
+			
+			if (leftTargetName.equals(leftUmlComponentName) && rightTargetName.equals(rightUmlComponentName)) {
 				ObjectRelationLinkArtifact objectRelation = new ObjectRelationLinkArtifact(this, idCount, left, right);
 				objectRelation.setRightRole(relation.getRightRole());
 				return objectRelation;
@@ -280,6 +288,11 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		List<UMLClass> classes = new ArrayList<UMLClass>();
 		classes.add(new UMLClass("Object"));
 		return classes;
+	}
+	
+	@Override
+	public List<UMLRelation> getClassRelations() {
+		return classRelations;
 	}
 
 	@Override
