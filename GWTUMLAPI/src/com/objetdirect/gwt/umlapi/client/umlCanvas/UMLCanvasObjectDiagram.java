@@ -65,7 +65,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	 * Relations between the classes from the class diagram instantiated.
 	 */
 	private List<UMLRelation> classRelations;
-
+	
 	/**
 	 * Default constructor only for gwt-rpc serialization
 	 */
@@ -303,10 +303,6 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 	@Override
 	public void setClassRelations(List<UMLRelation> classRelations) {
-		if (this.classRelations != null) {
-			this.classRelations.addAll(classRelations);
-		} else {
-			this.classRelations = classRelations;
-		}
+		this.classRelations = classRelations;
 	}
 }

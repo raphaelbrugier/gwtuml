@@ -72,18 +72,19 @@ public class UMLArtifactPeer implements Serializable {
 			return false;
 		}
 		UMLArtifactPeer other = (UMLArtifactPeer) obj;
+
 		if (uMLArtifact1 == null) {
 			if (other.uMLArtifact1 != null) {
 				return false;
 			}
-		} else if (!uMLArtifact1.equals(other.uMLArtifact1)) {
+		} else if (!uMLArtifact1.equals(other.uMLArtifact1) && !uMLArtifact1.equals(other.uMLArtifact2)) {
 			return false;
 		}
 		if (uMLArtifact2 == null) {
 			if (other.uMLArtifact2 != null) {
 				return false;
 			}
-		} else if (!uMLArtifact2.equals(other.uMLArtifact2)) {
+		} else if (!uMLArtifact2.equals(other.uMLArtifact2) && !uMLArtifact2.equals(other.uMLArtifact1)) {
 			return false;
 		}
 		return true;
