@@ -54,6 +54,8 @@ public enum UMLType {
 	DOUBLE("double"),
 
 	WRAPPED_DOUBLE("Double"),
+	
+	DATE("Date"),
 
 	CUSTOM("custom");
 
