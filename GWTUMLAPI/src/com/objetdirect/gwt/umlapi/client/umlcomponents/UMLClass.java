@@ -120,10 +120,17 @@ public class UMLClass extends UMLComponent {
 	}
 
 	/**
-	 * @return
+	 * @return true if the class is abstract.
 	 */
 	public boolean isAbstract() {
 		return stereotype.equalsIgnoreCase("«Abstract»");
+	}
+	
+	/**
+	 * @return True if the class represents an enumeration.
+	 */
+	public boolean isEnumeration() {
+		return stereotype.equalsIgnoreCase("«Enumeration»");
 	}
 
 	/**
