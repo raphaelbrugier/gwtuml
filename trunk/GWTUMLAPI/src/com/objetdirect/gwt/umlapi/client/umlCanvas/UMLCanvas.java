@@ -607,7 +607,26 @@ public abstract class UMLCanvas implements Serializable {
 	}
 
 	public void mouseRightPressed(final GfxObject gfxObject, final Point location) {
-		this.dropContextualMenu(gfxObject, location);
+		int wrapperHeight = wrapper.getOffsetHeight();
+		int wrapperWidth = wrapper.getOffsetWidth();
+		int locationX = location.getX();
+		int locationY = location.getY();
+		
+		int contextMenuMaxWidth = 80;
+		int contextMenuMaxHeight = 200;
+		
+		
+		if ((locationX + contextMenuMaxWidth ) > wrapperWidth) {
+			locationX  = wrapperWidth - contextMenuMaxWidth;
+		}
+		
+		if ((locationY + contextMenuMaxHeight ) > wrapperHeight) {
+			locationY  = wrapperHeight - contextMenuMaxHeight;
+		}
+		
+		Point calculatedLocation = new Point(locationX, locationY);
+		
+		this.dropContextualMenu(gfxObject, calculatedLocation);
 	}
 
 	public void moveSelected(final Direction direction) {
