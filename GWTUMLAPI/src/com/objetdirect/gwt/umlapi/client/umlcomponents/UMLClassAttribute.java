@@ -43,13 +43,11 @@ public class UMLClassAttribute implements Serializable {
 		final LexicalAnalyzer lex = new LexicalAnalyzer(attributeToParse);
 		String type = "";
 		String name = "";
-		UMLVisibility visibility = UMLVisibility.PACKAGE;
+		UMLVisibility visibility = null;
 		try {
 
 			LexicalAnalyzer.Token tk = lex.getToken();
-			if ((tk != null) && (tk.getType() != LexicalFlag.VISIBILITY)) {
-				visibility = UMLVisibility.PACKAGE;
-			} else if (tk != null) {
+			if (tk != null && (tk.getType() == LexicalFlag.VISIBILITY)) {
 				visibility = UMLVisibility.getVisibilityFromToken(tk.getContent().charAt(0));
 				tk = lex.getToken();
 			}
@@ -176,7 +174,9 @@ public class UMLClassAttribute implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder f = new StringBuilder();
-		f.append(visibility);
+		if (visibility != null) {
+			f.append(visibility);
+		}
 		f.append(name);
 		if ((type != null) && !type.equals("")) {
 			f.append(" : ");
