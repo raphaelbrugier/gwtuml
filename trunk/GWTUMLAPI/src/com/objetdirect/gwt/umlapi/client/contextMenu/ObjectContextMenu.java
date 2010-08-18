@@ -65,7 +65,7 @@ public class ObjectContextMenu extends ContextMenu {
 	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificRelationDiagramMenu()
 	 */
 	@Override
-	protected void makeSpecificRelationDiagramMenu() {
+	protected void addSpecificRelationDiagramMenu() {
 		final MenuBar relationsSubMenu = new MenuBar(true);
 
 		addRelationCommand(relationsSubMenu, "Association", OBJECT_RELATION);

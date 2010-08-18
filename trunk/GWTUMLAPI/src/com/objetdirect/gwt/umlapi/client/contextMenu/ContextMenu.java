@@ -180,7 +180,7 @@ public abstract class ContextMenu {
 
 		contextMenu.addItem("Add new note", addNewNoteCommand);
 
-		makeSpecificRelationDiagramMenu();
+		addSpecificRelationDiagramMenu();
 
 		contextMenu.addItem("Cut", cutCommand);
 		contextMenu.addItem("Copy", copyCommmand);
@@ -223,6 +223,6 @@ public abstract class ContextMenu {
 	 * Build a relation subMenu specific for the diagram. e.g A class diagram has a relation submenu with only the
 	 * entries : association, aggregation, composition, inheritance, note link.
 	 */
-	protected abstract void makeSpecificRelationDiagramMenu();
+	protected abstract void addSpecificRelationDiagramMenu();
 
 }

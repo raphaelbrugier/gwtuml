@@ -506,7 +506,7 @@ public class UMLRelation extends UMLLink {
 
 		if (rightCardinality.equalsIgnoreCase("1")) {
 			// Simple one To One
-			if (leftCardinality.isEmpty()) {
+			if (leftCardinality.isEmpty() || leftCardinality.equalsIgnoreCase("1")) {
 				return true;
 			}
 			return false;
