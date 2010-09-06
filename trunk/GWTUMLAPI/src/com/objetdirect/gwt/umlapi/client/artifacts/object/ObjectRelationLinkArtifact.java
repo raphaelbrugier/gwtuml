@@ -162,12 +162,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		final MenuBar leftSide = buildRoleMenuBar(leftRoleGfxObject, buildLeftRoleEditorPart());
 		final MenuBar rightSide = buildRoleMenuBar(rightRoleGfxObject, buildRightRoleEditorPart());
 
-		final MenuBar leftNavigability = setNavigabilityCommands(true);
-		leftSide.addItem("Navigability", leftNavigability);
-
-		final MenuBar rightNavigability = setNavigabilityCommands(false);
-		rightSide.addItem("Navigability", rightNavigability);
-
 		rightMenu.addItem(leftClassName + " side", leftSide);
 		rightMenu.addItem(rightClassName + " side", rightSide);
 		return rightMenu;
@@ -223,38 +217,6 @@ public class ObjectRelationLinkArtifact extends RelationLinkArtifact {
 		return menu;
 	}
 
-	private MenuBar setNavigabilityCommands(final boolean isLeft) {
-		final MenuBar navigabilityMenu = new MenuBar(true);
-
-		Command navigableCommand = new Command() {
-			@Override
-			public void execute() {
-				if (isLeft) {
-					objectRelation.setLeftNavigable(true);
-				} else {
-					objectRelation.setRightNavigable(true);
-				}
-				rebuildGfxObject();
-			}
-		};
-
-		Command notNavigable = new Command() {
-			@Override
-			public void execute() {
-				if (isLeft) {
-					objectRelation.setLeftNavigable(false);
-				} else {
-					objectRelation.setRightNavigable(false);
-				}
-				rebuildGfxObject();
-			}
-		};
-
-		navigabilityMenu.addItem("Navigable", navigableCommand);
-		navigabilityMenu.addItem("Not navigable", notNavigable);
-
-		return navigabilityMenu;
-	}
 
 	/**
 	 * Getter for the right {@link ObjectArtifact} of this relation
