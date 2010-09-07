@@ -20,6 +20,7 @@ import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.Pointe
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.NOTE;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.OBJECT_RELATION_WITH_CLASSNAME;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 
 /**
  * @author Florian Mounier (mounier-dot-florian.at.gmail'dot'com)
- * @contributor Raphaël Brugier (raphael-dot-brugier.at.gmail'dot'com)
+ * @contributor Raphaï¿½l Brugier (raphael-dot-brugier.at.gmail'dot'com)
  */
 public abstract class UMLCanvas implements Serializable {
 
@@ -380,7 +381,6 @@ public abstract class UMLCanvas implements Serializable {
 	private void addNewLink(final UMLArtifact newSelected) {
 		int linkOkCount = 0;
 		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-
 			LinkArtifact newLink = null;
 			if (activeLinking == NOTE) {
 				newLink = makeLinkNote(selectedArtifact, newSelected);
@@ -611,21 +611,21 @@ public abstract class UMLCanvas implements Serializable {
 		int wrapperWidth = wrapper.getOffsetWidth();
 		int locationX = location.getX();
 		int locationY = location.getY();
-		
+
 		int contextMenuMaxWidth = 80;
 		int contextMenuMaxHeight = 200;
-		
-		
+
+
 		if ((locationX + contextMenuMaxWidth ) > wrapperWidth) {
 			locationX  = wrapperWidth - contextMenuMaxWidth;
 		}
-		
+
 		if ((locationY + contextMenuMaxHeight ) > wrapperHeight) {
 			locationY  = wrapperHeight - contextMenuMaxHeight;
 		}
-		
+
 		Point calculatedLocation = new Point(locationX, locationY);
-		
+
 		this.dropContextualMenu(gfxObject, calculatedLocation);
 	}
 
@@ -744,7 +744,7 @@ public abstract class UMLCanvas implements Serializable {
 	public void remove(final UMLArtifact umlArtifact) {
 		removeRecursive(umlArtifact);
 		if (umlArtifact.isALink()) {
-			LinkArtifact linkArtifact = (LinkArtifact) umlArtifact; 
+			LinkArtifact linkArtifact = (LinkArtifact) umlArtifact;
 			linkArtifact.removeCreatedDependency();
 			uMLArtifactRelations.remove(linkArtifact.getArtifactsTargeted());
 		}
@@ -833,20 +833,14 @@ public abstract class UMLCanvas implements Serializable {
 		}
 	}
 
-	private void deselectAllArtifacts() {
-		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
-			selectedArtifact.unselect();
-		}
-		selectedArtifacts.clear();
-	}
-
 	protected void doSelection(final GfxObject gfxObject, final boolean isCtrlKeyDown, final boolean isShiftKeyDown) {
 		final UMLArtifact newSelected = this.getUMLArtifact(gfxObject);
 		Log.trace("Selecting : " + newSelected + " (" + gfxObject + ")");
 		// New selection is null -> deselecting all selected artifacts and disabling linking mode
-		if (newSelected == null) {
-			this.linkingModeOff();
-			this.deselectAllArtifacts();
+		if (newSelected == null && activeLinking != OBJECT_RELATION_WITH_CLASSNAME) {
+			deselectAll();
+		} else if (activeLinking == OBJECT_RELATION_WITH_CLASSNAME) {
+			makeObjectAndRelation();
 		} else { // New selection is not null
 			if (selectedArtifacts.containsKey(newSelected)) { // New selection is already selected -> deselecting it if
 				// ctrl is down
@@ -872,6 +866,21 @@ public abstract class UMLCanvas implements Serializable {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Stop linking mode and deselect all the objects.
+	 */
+	private void deselectAll() {
+		this.linkingModeOff();
+		this.deselectAllArtifacts();
+	}
+
+	protected void deselectAllArtifacts() {
+		for (final UMLArtifact selectedArtifact : selectedArtifacts.keySet()) {
+			selectedArtifact.unselect();
+		}
+		selectedArtifacts.clear();
 	}
 
 	/**
@@ -956,7 +965,7 @@ public abstract class UMLCanvas implements Serializable {
 		return (selectMax.isSuperiorTo(artifactMin) && artifactMax.isSuperiorTo(selectMin));
 	}
 
-	private void linkingModeOff() {
+	protected void linkingModeOff() {
 		activeLinking = null;
 		GfxManager.getPlatform().clearVirtualGroup(movingLines);
 		wrapper.setCursorIcon(AUTO);
@@ -1045,4 +1054,12 @@ public abstract class UMLCanvas implements Serializable {
 	 * @return The created {@link LinkArtifact} linking uMLArtifact and uMLArtifactNew
 	 */
 	protected abstract LinkArtifact makeLinkBetween(final UMLArtifact uMLArtifact, final UMLArtifact uMLArtifactNew);
+
+	/**
+	 * This is a default implementation.
+	 * It must be overriden by the ObjectDiagram.
+	 */
+	protected void makeObjectAndRelation() {
+		deselectAll();
+	}
 }

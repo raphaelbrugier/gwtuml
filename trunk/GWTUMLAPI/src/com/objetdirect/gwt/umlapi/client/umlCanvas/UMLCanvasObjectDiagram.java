@@ -20,6 +20,7 @@ import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropS
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.TAKING;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.INSTANTIATION;
 import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.OBJECT_RELATION;
+import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind.OBJECT_RELATION_WITH_CLASSNAME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,10 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	 * Relations between the classes from the class diagram instantiated.
 	 */
 	private List<UMLRelation> classRelations;
-	
+
+	private UMLClass classToAttach;
+	private ObjectArtifact objectToAttach;
+
 	/**
 	 * Default constructor only for gwt-rpc serialization
 	 */
@@ -154,7 +158,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	@Override
 	protected LinkArtifact makeLinkBetween(UMLArtifact uMLArtifact, UMLArtifact uMLArtifactNew) {
 		try {
-			if (activeLinking == OBJECT_RELATION && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
+			if (activeLinkingIsBetweenTwoObjects() && uMLArtifactNew instanceof ObjectArtifact && uMLArtifact instanceof ObjectArtifact) {
 				return makeObjectRelationLink((ObjectArtifact) uMLArtifact, (ObjectArtifact) uMLArtifactNew);
 			} else if ((activeLinking == INSTANTIATION)) {
 				ClassSimplifiedArtifact classArtifact = null;
@@ -179,6 +183,13 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	}
 
 	/**
+	 * @return
+	 */
+	private boolean activeLinkingIsBetweenTwoObjects() {
+		return (activeLinking == OBJECT_RELATION || activeLinking == OBJECT_RELATION_WITH_CLASSNAME);
+	}
+
+	/**
 	 * Helper method to create an object relation between two objects.
 	 * If classes relations have been specified, this method will constraint the creation of the association between two object
 	 * to be the association between the two classes instantiated.
@@ -195,12 +206,12 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		}
 
 		for (UMLRelation relation : classRelations) {
-			
+
 			String leftTargetName = relation.getLeftTarget().getName();
 			String leftUmlComponentName = left.toUMLComponent().getClassName();
 			String rightTargetName = relation.getRightTarget().getName();
 			String rightUmlComponentName = right.toUMLComponent().getClassName();
-			
+
 			if (leftTargetName.equals(leftUmlComponentName) && rightTargetName.equals(rightUmlComponentName)) {
 				ObjectRelationLinkArtifact objectRelation = new ObjectRelationLinkArtifact(this, idCount, left, right);
 				objectRelation.setRightRole(relation.getRightRole());
@@ -210,7 +221,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 		return null;
 	}
-	
+
 	/**
 	 * Create a special relation menu when the select gfxobject is an uml object.
 	 * This menu allows to create a relation between the selected object and an other based on
@@ -222,25 +233,43 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	private MenuBarAndTitle createRelationMenu(GfxObject gfxObject) {
 		MenuBarAndTitle menu = new MenuBarAndTitle();
 		menu.setName("Create relation with : ");
-		
+
 		UMLArtifact umlArtifact = getUMLArtifact(gfxObject);
 		if (umlArtifact instanceof ObjectArtifact) {
-			ObjectArtifact objectArtifact = (ObjectArtifact) umlArtifact;
-			
+			final ObjectArtifact objectArtifact = (ObjectArtifact) umlArtifact;
+
 			ObjectRelationsCalculator objectRelationsCalculator = new ObjectRelationsCalculator(this, objectArtifact.toUMLComponent());
 			List<UMLClass> possibleClasses = objectRelationsCalculator.getPossibleClasses();
-			for (UMLClass umlClass : possibleClasses) {
+			for (final UMLClass umlClass : possibleClasses) {
 				menu.addItem(umlClass.getName(), new Command() {
-					
+
 					@Override
 					public void execute() {
-						// TODO Auto-generated method stub
+						objectToAttach = objectArtifact;
+						classToAttach = umlClass;
+						toLinkMode(OBJECT_RELATION_WITH_CLASSNAME);
 					}
 				});
 			}
 		}
-		
+
 		return menu;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas#makeObjectAndRelation()
+	 */
+	@Override
+	protected void makeObjectAndRelation() {
+		Point location = wrapper.getCurrentMousePosition();
+		final ObjectArtifact newObject = new ObjectArtifact(this, idCount, classToAttach);
+		this.add(newObject);
+		newObject.moveTo(Point.substract(location, getCanvasOffset()));
+
+		LinkArtifact newLink = makeLinkBetween(objectToAttach, newObject);
+		this.add(newLink);
+		linkingModeOff();
+		deselectAllArtifacts();
 	}
 
 	@Override
@@ -327,7 +356,7 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		classes.add(new UMLClass("Object"));
 		return classes;
 	}
-	
+
 	@Override
 	public List<UMLRelation> getClassRelations() {
 		return classRelations;
@@ -337,7 +366,6 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 	public void setClasses(List<UMLClass> classes) {
 		domainClasses = classes;
 	}
-
 
 	@Override
 	public void setClassRelations(List<UMLRelation> classRelations) {

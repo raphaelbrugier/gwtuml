@@ -65,13 +65,13 @@ public class ObjectContextMenu extends ContextMenu {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#makeSpecificRelationDiagramMenu()
+	 * @see com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu#addSpecificRelationDiagramMenu()
 	 */
 	@Override
 	protected void addSpecificRelationDiagramMenu() {
 		final MenuBar relationsSubMenu = new MenuBar(true);
 
-		if (relationMenu != null) {
+		if (relationMenu != null && relationMenu.getNumberOfItem()>0) {
 			relationsSubMenu.addItem(relationMenu.getName(), relationMenu.getSubMenu());
 		}
 		
