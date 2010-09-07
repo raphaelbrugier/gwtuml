@@ -68,6 +68,10 @@ public enum LinkKind {
 	 * Relation between to object
 	 */
 	OBJECT_RELATION("Relation", NONE, WIRE_ARROW, "", "", SOLID),
+	/**
+	 * Relation between to object
+	 */
+	OBJECT_RELATION_WITH_CLASSNAME("Relation", NONE, WIRE_ARROW, "", "", SOLID),
 
 	//
 	// LIFE LINE TO LIFE LINE

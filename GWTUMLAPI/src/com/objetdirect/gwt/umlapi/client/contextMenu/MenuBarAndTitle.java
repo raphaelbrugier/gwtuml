@@ -27,6 +27,7 @@ public class MenuBarAndTitle {
 
 	private String name;
 	private final MenuBar subMenu;
+	private int numberOfItem;
 
 	/**
 	 * Constructor of {@link MenuBarAndTitle}
@@ -35,6 +36,7 @@ public class MenuBarAndTitle {
 	public MenuBarAndTitle() {
 		super();
 		subMenu = new MenuBar(true);
+		numberOfItem = 0;
 	}
 
 	/**
@@ -47,6 +49,7 @@ public class MenuBarAndTitle {
 	 */
 	public void addItem(final String text, final Command cmd) {
 		subMenu.addItem(text, cmd);
+		numberOfItem++;
 	}
 
 	/**
@@ -81,6 +84,13 @@ public class MenuBarAndTitle {
 	 */
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the numberOfSubmenu
+	 */
+	public int getNumberOfItem() {
+		return numberOfItem;
 	}
 
 }

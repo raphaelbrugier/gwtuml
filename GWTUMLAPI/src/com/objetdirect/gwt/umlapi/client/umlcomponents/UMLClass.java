@@ -123,14 +123,14 @@ public class UMLClass extends UMLComponent {
 	 * @return true if the class is abstract.
 	 */
 	public boolean isAbstract() {
-		return stereotype.equalsIgnoreCase("«Abstract»");
+		return stereotype.equalsIgnoreCase("ï¿½Abstractï¿½");
 	}
 	
 	/**
 	 * @return True if the class represents an enumeration.
 	 */
 	public boolean isEnumeration() {
-		return stereotype.equalsIgnoreCase("«Enumeration»");
+		return stereotype.equalsIgnoreCase("ï¿½Enumerationï¿½");
 	}
 
 	/**
@@ -181,5 +181,42 @@ public class UMLClass extends UMLComponent {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((stereotype == null) ? 0 : stereotype.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UMLClass other = (UMLClass) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (stereotype == null) {
+			if (other.stereotype != null)
+				return false;
+		} else if (!stereotype.equals(other.stereotype))
+			return false;
+		return true;
 	}
 }
