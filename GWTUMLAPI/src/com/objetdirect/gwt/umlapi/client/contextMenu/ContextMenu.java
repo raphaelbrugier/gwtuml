@@ -109,14 +109,15 @@ public abstract class ContextMenu {
 	 * 
 	 * @param location
 	 *            The {@link Point} location where to display it (generally the mouse coordinates)
-	 * @param canvas
-	 *            The canvas where the actions must be called
 	 * @param specificRightMenu
 	 *            The specific contextual menu if the menu is requested on a gfx object else null.
+	 * @param relationMenu TODO
+	 * @param canvas
+	 *            The canvas where the actions must be called
 	 */
 	public static ContextMenu createObjectDiagramContextMenu(final Point location, final UMLCanvasObjectDiagram objectDiagram,
-			final MenuBarAndTitle specificRightMenu) {
-		return new ObjectContextMenu(location, objectDiagram, specificRightMenu);
+			final MenuBarAndTitle specificRightMenu, MenuBarAndTitle relationMenu) {
+		return new ObjectContextMenu(location, objectDiagram, specificRightMenu, relationMenu);
 	}
 
 	/**
@@ -148,7 +149,6 @@ public abstract class ContextMenu {
 		this.location = location;
 		this.canvas = canvas;
 		this.specificRightMenu = specificRightMenu;
-		this.makeMenu();
 	}
 
 	/**
@@ -165,7 +165,7 @@ public abstract class ContextMenu {
 	/**
 	 * Build the internal contextual menu.
 	 */
-	private void makeMenu() {
+	protected void makeMenu() {
 		contextMenu = new PopupMenu();
 		contextMenu.setAutoOpen(true);
 		contextMenu.setAutoHideEnabled(true);

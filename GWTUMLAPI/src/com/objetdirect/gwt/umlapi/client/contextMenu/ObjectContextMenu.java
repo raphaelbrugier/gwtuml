@@ -1,8 +1,8 @@
 /*
- * This file is part of the Gwt-Uml project and was written by Raphaël Brugier <raphael dot brugier at gmail dot com > for Objet Direct
+ * This file is part of the Gwt-Uml project and was written by Raphaï¿½l Brugier <raphael dot brugier at gmail dot com > for Objet Direct
  * <http://wwww.objetdirect.com>
  * 
- * Copyright © 2010 Objet Direct
+ * Copyright ï¿½ 2010 Objet Direct
  * 
  * Gwt-Uml is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later version.
@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.ObjectDiagram;
 import com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvasObjectDiagram;
-import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 
 /**
  * Context menu implementation for an object diagram
@@ -33,10 +32,14 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKind;
 public class ObjectContextMenu extends ContextMenu {
 
 	private final ObjectDiagram objectDiagram;
+	
+	private final MenuBarAndTitle relationMenu;
 
-	protected ObjectContextMenu(final Point location, final UMLCanvasObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu) {
+	protected ObjectContextMenu(final Point location, final UMLCanvasObjectDiagram objectDiagram, final MenuBarAndTitle specificRightMenu, MenuBarAndTitle relationMenu) {
 		super(location, objectDiagram, specificRightMenu);
 		this.objectDiagram = objectDiagram;
+		this.relationMenu = relationMenu;
+		makeMenu();
 	}
 
 	/*
@@ -68,33 +71,15 @@ public class ObjectContextMenu extends ContextMenu {
 	protected void addSpecificRelationDiagramMenu() {
 		final MenuBar relationsSubMenu = new MenuBar(true);
 
+		if (relationMenu != null) {
+			relationsSubMenu.addItem(relationMenu.getName(), relationMenu.getSubMenu());
+		}
+		
 		addRelationCommand(relationsSubMenu, "Association", OBJECT_RELATION);
 		addRelationCommand(relationsSubMenu, "Instantiation", INSTANTIATION);
 		addRelationCommand(relationsSubMenu, "Note link", NOTE);
 
 		contextMenu.addItem("Add relation", relationsSubMenu);
 		contextMenu.addSeparator();
-	}
-
-	/**
-	 * Add a relation menu item on the given menu.
-	 * 
-	 * @param subMenu
-	 *            The menu where the new menu item is added
-	 * @param relationName
-	 *            The name of the menu item
-	 * @param relationKind
-	 *            the kind of relation
-	 */
-	@Override
-	protected void addRelationCommand(final MenuBar subMenu, String relationName, final LinkKind relationKind) {
-		final Command relationCommand = new Command() {
-			@Override
-			public void execute() {
-				objectDiagram.toLinkMode(relationKind);
-			}
-		};
-
-		subMenu.addItem(relationName, relationCommand);
 	}
 }
