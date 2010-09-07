@@ -1,8 +1,8 @@
 /*
- * This file is part of the Gwt-Generator project and was written by Raphaël Brugier <raphael dot brugier at gmail dot com > for Objet Direct
+ * This file is part of the Gwt-Generator project and was written by Raphaï¿½l Brugier <raphael dot brugier at gmail dot com > for Objet Direct
  * <http://wwww.objetdirect.com>
  * 
- * Copyright © 2010 Objet Direct
+ * Copyright ï¿½ 2010 Objet Direct
  * 
  * Gwt-Generator is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later version.
@@ -14,6 +14,7 @@
  */
 package com.objetdirect.gwt.umlapi.client.umlCanvas;
 
+import static com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu.createObjectDiagramContextMenu;
 import static com.objetdirect.gwt.umlapi.client.helpers.CursorIconManager.PointerStyle.MOVE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.NONE;
 import static com.objetdirect.gwt.umlapi.client.umlCanvas.UMLCanvas.DragAndDropState.TAKING;
@@ -23,6 +24,7 @@ import static com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.LinkKi
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.Command;
 import com.objetdirect.gwt.umlapi.client.artifacts.LinkArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.UMLArtifact;
 import com.objetdirect.gwt.umlapi.client.artifacts.object.ClassSimplifiedArtifact;
@@ -33,6 +35,7 @@ import com.objetdirect.gwt.umlapi.client.contextMenu.ContextMenu;
 import com.objetdirect.gwt.umlapi.client.contextMenu.MenuBarAndTitle;
 import com.objetdirect.gwt.umlapi.client.engine.Point;
 import com.objetdirect.gwt.umlapi.client.gfx.GfxObject;
+import com.objetdirect.gwt.umlapi.client.helpers.ObjectRelationsCalculator;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLClass;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.UMLObject;
 import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.InstantiationRelation;
@@ -42,7 +45,7 @@ import com.objetdirect.gwt.umlapi.client.umlcomponents.umlrelation.UMLRelation;
 /**
  * UMLCanvas concrete class for an object diagram.
  * 
- * @author Raphaël Brugier <raphael dot brugier at gmail dot com>
+ * @author Raphaï¿½l Brugier <raphael dot brugier at gmail dot com>
  */
 public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
@@ -207,6 +210,38 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 
 		return null;
 	}
+	
+	/**
+	 * Create a special relation menu when the select gfxobject is an uml object.
+	 * This menu allows to create a relation between the selected object and an other based on
+	 * the existing object relations.
+	 * 
+	 * @param gfxObject
+	 * @return
+	 */
+	private MenuBarAndTitle createRelationMenu(GfxObject gfxObject) {
+		MenuBarAndTitle menu = new MenuBarAndTitle();
+		menu.setName("Create relation with : ");
+		
+		UMLArtifact umlArtifact = getUMLArtifact(gfxObject);
+		if (umlArtifact instanceof ObjectArtifact) {
+			ObjectArtifact objectArtifact = (ObjectArtifact) umlArtifact;
+			
+			ObjectRelationsCalculator objectRelationsCalculator = new ObjectRelationsCalculator(this, objectArtifact.toUMLComponent());
+			List<UMLClass> possibleClasses = objectRelationsCalculator.getPossibleClasses();
+			for (UMLClass umlClass : possibleClasses) {
+				menu.addItem(umlClass.getName(), new Command() {
+					
+					@Override
+					public void execute() {
+						// TODO Auto-generated method stub
+					}
+				});
+			}
+		}
+		
+		return menu;
+	}
 
 	@Override
 	public void remove(final UMLArtifact umlArtifact) {
@@ -222,16 +257,19 @@ public class UMLCanvasObjectDiagram extends UMLCanvas implements ObjectDiagram {
 		doSelection(gfxObject, false, false);
 
 		MenuBarAndTitle rightMenu;
+		MenuBarAndTitle relationMenu = null;
 		if (getUMLArtifact(gfxObject) == null) {
 			rightMenu = null;
 		} else {
 			rightMenu = getUMLArtifact(gfxObject).getRightMenu();
+			relationMenu = createRelationMenu(gfxObject);
 		}
 
-		ContextMenu contextMenu = ContextMenu.createObjectDiagramContextMenu(location, this, rightMenu);
+		ContextMenu contextMenu = createObjectDiagramContextMenu(location, this, rightMenu, relationMenu);
 
 		contextMenu.show();
 	}
+
 
 	@Override
 	public List<UMLObject> getObjects() {
