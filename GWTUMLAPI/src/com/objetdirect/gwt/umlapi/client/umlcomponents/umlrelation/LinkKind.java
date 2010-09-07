@@ -27,7 +27,7 @@ public enum LinkKind {
 	/**
 	 * Aggregation relation
 	 */
-	AGGREGATION_RELATION("Aggregation", SOLID_DIAMOND, WIRE_ARROW, "1", "0..*", SOLID),
+	AGGREGATION_RELATION("Aggregation", SOLID_DIAMOND, WIRE_ARROW, "1", "*", SOLID),
 	/**
 	 * Association relation
 	 */
@@ -39,11 +39,11 @@ public enum LinkKind {
 	/**
 	 * Dependency relation
 	 */
-	DEPENDENCY_RELATION("Dependency", WIRE_ARROW, WIRE_CROSS, "", "", DASHED),
+	DEPENDENCY_RELATION("Dependency", WIRE_CROSS, WIRE_ARROW, "", "", DASHED),
 	/**
 	 * Generalization relation
 	 */
-	GENERALIZATION_RELATION("Generalization", SOLID_ARROW, NONE, "", "", SOLID),
+	GENERALIZATION_RELATION("Generalization", NONE, SOLID_ARROW , "", "", SOLID),
 
 	//
 	// CLASS TO ANY CLASS-TO-CLASS RELATION
@@ -59,12 +59,15 @@ public enum LinkKind {
 	/**
 	 * Class Object instantiation
 	 */
-	INSTANTIATION("Instantiation", WIRE_ARROW, NONE, "", "", DASHED_DOTTED),
+	INSTANTIATION("Instantiation", NONE, WIRE_ARROW, "", "", DASHED_DOTTED),
 
+	//
+	// OBJECT TO OBJECT
+	//
 	/**
 	 * Relation between to object
 	 */
-	OBJECT_RELATION("Relation", WIRE_ARROW, NONE, "", "", SOLID),
+	OBJECT_RELATION("Relation", NONE, WIRE_ARROW, "", "", SOLID),
 
 	//
 	// LIFE LINE TO LIFE LINE
